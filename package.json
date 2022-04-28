@@ -28,10 +28,11 @@
     "dependencies": {
         "bootstrap": "4.6.0",
         "font-awesome": "4.7.0",
+        "jekyll": "^3.0.0-beta1",
         "jquery": "3.6.0",
         "startbootstrap-clean-blog": "5.1.0"
     },
     "devDependencies": {
-        "browser-sync": "2.26.14"
+        "browser-sync": "^1.9.2"
     }
 }
