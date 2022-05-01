@@ -1,7 +1,7 @@
 ---
 title: Use Case Tuzakları
 layout: post
-date: '2022-05-01 14:51:46'
+date: '2022-05-01 10:51:46'
 subtitle: Use Case Kullanan Gerçek Projelerde Karşılaşılan En Önemli 10 Sorun
 background: "/img/posts/use-case-tuzak.jpg"
 ---
