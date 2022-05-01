@@ -3,7 +3,7 @@ email:              serdar@karaman.dev
 description:        A personal blog about software engineering, programing, C, C++, Qt, Python, Linux, Avionics and life
 author:             M. Serdar Karaman
 baseurl:            "/"
-url:                "https://www.karaman.dev"
+url:                "https://karaman.dev"
 
 # Social Profiles
 twitter_username:    Mavrikant
