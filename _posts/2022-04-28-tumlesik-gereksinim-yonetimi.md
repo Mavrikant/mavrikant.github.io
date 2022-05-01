@@ -29,7 +29,7 @@ Bu aktivitelerin her zaman sırayla yapılacağına inanılsada aslında bu bir 
 
 Yazılım mühendisliği araştırma topluluğu, bir gereksinim belgesi ne kadar eksiksiz ve tutarlı olursa, yazılımın güvenilir olma ve zamanında teslim edilme olasılığının o kadar yüksek olduğunu savundu. Bu yüzden gereksinimlerin tam, eksiksiz ve tutarlı olmasını sağlayan birçok özel yöntem geliştirildi.
 
-## Gereksinim mühendisliğini evrimi
+## Gereksinim mühendisliğinin evrimi
 1970 yılında Winston Royce tarafından şelale modeli (waterfall) geliştirildi. Bu modelde, sistem gereksinimlerini anlama ve belgeleme süreci, yazılım mühendisliğindeki ilk aşamadır. Bu da gereksinim çıkarmanın yazılım geliştirmeye başlamadan önce yaptığınız bir şey olduğu ve bir kez çıkarıldıktan sonra yazılım gereksinimlerinin geliştirme sürecinde önemli ölçüde değişmeyeceği varsayımına yol açtı. Ayrıca, gereksinim çıkarmanın sistem tasarımından ayrılması gerektiği varsayımına da yol açtı. Sistem gereksinimleri, sistemin ne yapması gerektiğini tanımlamalıdır; tasarım, sistemin gereksinimlerinin nasıl uygulanacağını tanımlamalıdır.
 
 1970’lerdeki çalışmalar bir formal gereksinim dili oluşturmaya odaklandı. 1980’lerde nesne yönelimli modelle geliştirildi. 1990’larda süreç geliştirme, hedef odaklı yaklaşımlar, formal matematiksel metodlar üzerinde çalışıldı.
