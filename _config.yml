@@ -1,19 +1,19 @@
 title:              M. Serdar Karaman Blog
 email:              serdar@karaman.dev
-description:        A personal blog about software engineering
+description:        A personal blog about software engineering, programing, C, C++, Qt, Python, Linux, Avionics and life
 author:             M. Serdar Karaman
 baseurl:            "/"
 url:                "https://www.karaman.dev"
 
 # Social Profiles
-twitter_username:   Mavrikant
-github_username:    Mavrikant
-facebook_username:  Mavrikant
+twitter_username:    Mavrikant
+github_username:     Mavrikant
+facebook_username:   Mavrikant
 instagram_username:  Mavrikant
 linkedin_username: mserdarkaraman
 
 # Add your google-analytics ID here to activate google analytics
-google_analytics:   G-YDEV31NZ5J # out your google-analytics code
+google_analytics:   G-YDEV31NZ5J
 
 # Build settings
 markdown:           kramdown
@@ -25,3 +25,5 @@ plugins:
   - jekyll-sitemap
   - jekyll-admin
   - jekyll-seo-tag
+  - jekyll-email-protect
+  - jekyll-spaceship
