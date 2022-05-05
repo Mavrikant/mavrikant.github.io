@@ -2,7 +2,7 @@
 title: 'Yazılım Proje Yönetimini Pratikleri:  Başarı ve Başarısızlık'
 layout: post
 date: '2022-05-03 20:08:36'
-background: "/img/posts/01.jpg"
+background: "/img/posts/1.jpg"
 ---
 
 1995-2004 yılları arasındaki yaklaşık 250 büyük yazılım projesinin incelenmesi ilginç benzerlikleri gösterdi. Maliyet ve çizelge tahminlerini başarıyla gerçekleştiren büyük projeleri geç kalan, bütçeyi aşan veya tamamlanmadan iptal edilen projelerle karşılaştırırken, altı ortak sorun gözlemlendi: zayıf proje planlaması, yetersiz maliyet tahmini, zayıf ölçümler, zayıf kilometre taşı takibi, zayıf değişim kontrolü ve düşük kalite kontrol. Buna karşılık, başarılı yazılım projeleri bu alanların altısında ortalamanın üzerinde olma eğilimindedir. Bu altı sorun alanının belki de en ilginç yanı, hepsinin teknik personelden çok proje yönetimiyle ilişkili olmasıdır. **İki çalışma hipotezi ortaya çıktı:** 

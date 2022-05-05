@@ -5,7 +5,7 @@ date: '2022-04-29 22:00:00'
 background: "/img/posts/soft-sys-eng-page-header.png"
 ---
 
-Yazılım projeleri dün geçtikçe daha büyük ve daha komplex hale geliyorlar. Bilgisayar donanımlarındaki performans artışı yazılımlar üzerindeki büyüklük ve komplekslik limitini baskılama ihtiyacını ortadan kaldırdı.   Donanımlar geliştikçe üzerinde çalışan yazımlarla yeni özellikler eklendi. Microsoft Word gibi bir yazılım eskiden diskete sığarken şimdi CD ile dağıtılıyor. 
+Yazılım projeleri gün geçtikçe daha büyük ve daha komplex hale geliyorlar. Bilgisayar donanımlarındaki performans artışı yazılımlar üzerindeki büyüklük ve komplekslik limitini baskılama ihtiyacını ortadan kaldırdı.   Donanımlar geliştikçe üzerinde çalışan yazımlarla yeni özellikler eklendi. Microsoft Word gibi bir yazılım eskiden diskete sığarken şimdi CD ile dağıtılıyor. 
 
 Büyük yazılım projeleri tahmin edilen zamanda ve bütçe ile bitirilemiyor ya da müşterinin ihtiyaçlarını tamamen karşılayamıyor.  Bu fenomen *yazılım krizi* olarak biliniyor. Bu krize karşılık yazılım geliştiricileri yeni yöntemler geliştirdi. Sadece proje içerisinde kullanılan kaynakları, sağlanan isterleri, tamamlanan testleri takip etmek proje hakkında sağlıklı bir bilgi vermiyor. Bunlar dışında teknik sürecin ve onun ürününün de takip edilmesi şart.  Sistem mühendisliği bunu için gerekli araçları sağlıyor.
 
