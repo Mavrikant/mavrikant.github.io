@@ -6,11 +6,12 @@ baseurl:            "/"
 url:                "https://karaman.dev"
 
 # Social Profiles
-twitter_username:    Mavrikant
+twitter_username:
 github_username:     Mavrikant
-facebook_username:   Mavrikant
-instagram_username:  Mavrikant
+facebook_username:
+instagram_username:
 linkedin_username: mserdarkaraman
+youtube_username: UCIlBH9QynIkHxX8uiY0UEMQ
 
 # Add your google-analytics ID here to activate google analytics
 google_analytics:   G-YDEV31NZ5J
