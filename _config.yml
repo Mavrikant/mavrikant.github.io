@@ -4,6 +4,9 @@ description:        A personal blog about software engineering, programing, C, C
 author:             M. Serdar Karaman
 baseurl:            "/"
 url:                "https://karaman.dev"
+favicon:
+  source: favicon.jpg
+
 
 # Social Profiles
 twitter_username:
@@ -28,3 +31,4 @@ plugins:
   - jekyll-seo-tag
   - jekyll-email-protect
   - jekyll-spaceship
+  - jekyll-favicon
