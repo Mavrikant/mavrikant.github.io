@@ -1,9 +1,9 @@
 ---
 title: Fonksiyonel olmayan yazılım gereksinimleri
-layout: post
-date: '2022-07-11 20:59:34'
-background: "/img/posts/8.jpg"
 subtitle: Non-functional Requirements in Software Engineering
+background: "/img/posts/8.jpg"
+date: '2022-07-11 15:59:34'
+layout: post
 ---
 
 Fonksiyonel olmayan gereksinimler, adından da anlaşılabileceği gibi uygulamanın işlevselliği ile ilgili olmayan, genel yazılım özelliklerini belirleyen ya da kısıtlayan gereksinimlerdir. Zaman kısıtlarının, geliştirme süreci üstündeki kısıtlamaları ve standartlarla dayatılan kısıtlamaları içerir. Fonksiyonel olmayan gereksinimler genellikle tek tek sistem özelliklerine değil sistemin tamamına uygulanır.
