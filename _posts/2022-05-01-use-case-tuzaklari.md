@@ -1,9 +1,9 @@
 ---
 title: Use Case Tuzakları
-layout: post
-date: '2022-05-01 10:51:46'
 subtitle: Use Case Kullanan Gerçek Projelerde Karşılaşılan En Önemli 10 Sorun
 background: "/img/posts/use-case-tuzak.jpg"
+date: '2022-05-01 10:51:46'
+layout: post
 ---
 
 Use case analizi yazılım projelerinde oldukça yaygın olarak kullanılan, pratik, erişilebilir ve basit bir formattır. Fakat basit olmasının da zorlukları vardır. Bu makale de use case kullanırken karşılaşılan 10 problemden bahsedilmiştir.
@@ -12,7 +12,8 @@ Son birkaç yılda, bir dizi projenin "use case kullanarak" ilk denemelerini yap
 
 ## En çok Karşılaşılan 10 Sorun
 
-![Belirsiz sistem tanımı](/img/posts/use-case-tuzak.jpg){:style="display:block; margin-left:auto; margin-right:auto"}
+![Belirsiz sistem tanımı](/img/posts/use-case-tuzak.jpg){:style="display:block; margin-left:auto; margin-right:auto;width:700px;"}
+
 ### Problem 1 - Sistem sınırı tanımsız veya tutarsız olabilir.
 #### Belirti:
 Kullanım durumları tutarsız sistem kapsamında açıklanmıştır. Aktörleri belirlemeden önce sistem kapsamını belirlememiz gerekir. Öncelikle anlamamız gereken; bu bir bilgisayar sitemi mi?, bir başvuru sistemi mi? ya da tam bir ticari işletme mi? bunları belirlememiz gerekir. Bir sistem için uyumlu olmayan diğeri için uyumlu olabilir. Örneğin; "kiosk müşteri" bilet satın almak için bilgisayar sistemini kullanabilir. Aynı zamanda "kiosk müşteri" telefonla müşteri temsilcisini arayıp "telefon müşterisi" de olabilir.
@@ -37,15 +38,16 @@ Bir rolü tanımlamak için birden fazla isim kullanılıyor. Bu en başta çok 
 #### Çözüm:
 Aktör adları ve diğer programlama terimleri konusunda erken anlaşmaya varılmalıdır. Bunu için bir sözlük oluşturmak iyi bir yöntemdir. Böylece projenin ileri aşamalarında ki yaşanacak karışıklıkların önüne geçilir.
 
-<img src="/img/posts/use-case-partitioning.jpg" alt="Use case Bölümleme" width="600px" style="display:block; margin-left:auto; margin-right:auto"/>
+![Use case Bölümleme](/img/posts/use-case-partitioning.jpg){:style="display:block; margin-left:auto; margin-right:auto;width:700px;"}
+
 ### Problem 4 - Çok fazla use case kullanılması durumu
 #### Belirti:
 Kullanım senaryosu modelinde çok sayıda kullanım senaryosu vardır. Bunu önlemek için bir konuyu çok iyi anlamak gerekiyor. Use case senaryolarının ayrıntı düzeyinin uygun olduğuna ve değer sonuçlarına dikkat etmemiz gerekir. Örneğin; iyi senaryoları içermeyen " Kiosk Müşteri"nin 3 farklı use case'i var ise bunların göz önünde bulundurularak atomik bir şekilde yazılması gerekir.
 #### Çözüm:
 Şayet sistem çok büyük bir sistem ise; Kullanım senaryosu modeli, her biri bir paket içeren kullanım senaryosu paketlerine ayırmak gerekir. Böylece, çok fazla use case kullanılması durumunda karışıklıktan kaçınılmış olunur.
 
+![Use case Aktör Kalıtımı](/img/posts/use-case-generalization.jpg){:style="display:block; margin-left:auto; margin-right:auto;width:700px;"}
 
-<img src="/img/posts/use-case-generalization.jpg" alt="Use case Aktör Kalıtımı" width="600px" style="display:block; margin-left:auto; margin-right:auto"/>
 ### Problem 5 - Aktör use case kullanım durumu bir örümcek ağına benzer
 #### Belirti:
 1. Aktörler ve kullanım durumları arasında çok fazla ilişki vardır.
