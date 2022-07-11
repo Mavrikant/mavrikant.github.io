@@ -34,7 +34,7 @@ Fonksiyonel olmayan gereksinimlerin genellikle yuvarlak bir dille yazılır. Bu 
 - Büyüklük 
   - Depolama alanı ihtiyacı
 - Kullanım kolaylığı
-  - Yeni kullanıcının ortalam alışma süresi
+  - Yeni kullanıcının sistemi öğrenme süresi
 - Güvenilirlik (Stabilite)
   - Yazılımın son 24 saat içerisinde çalışabilir olduğun süre
 - Dayanıklılık
