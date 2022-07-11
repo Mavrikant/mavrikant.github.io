@@ -1,9 +1,10 @@
 ---
 title: Tümleşik Gereksinim Yönetimi
-layout: post
 subtitle: Integrated Requirements Engineering
-date: '2022-04-28 15:00:13 -0400'
 background: "/img/posts/babilonia.jpg"
+date: '2022-04-28 15:00:13 -0400'
+layout: post
+lang: tr
 ---
 
 <span class="caption text-muted">Users don't know what they want until you show it to them..</span>

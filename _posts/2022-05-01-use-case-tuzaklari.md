@@ -4,6 +4,7 @@ subtitle: Use Case Kullanan Gerçek Projelerde Karşılaşılan En Önemli 10 So
 background: "/img/posts/use-case-tuzak.jpg"
 date: '2022-05-01 10:51:46'
 layout: post
+lang: tr
 ---
 
 Use case analizi yazılım projelerinde oldukça yaygın olarak kullanılan, pratik, erişilebilir ve basit bir formattır. Fakat basit olmasının da zorlukları vardır. Bu makale de use case kullanırken karşılaşılan 10 problemden bahsedilmiştir.
