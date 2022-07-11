@@ -8,9 +8,9 @@ layout: post
 
 Fonksiyonel olmayan gereksinimler, adından da anlaşılabileceği gibi uygulamanın işlevselliği ile ilgili olmayan, genel yazılım özelliklerini belirleyen ya da kısıtlayan gereksinimlerdir. Zaman kısıtlarının, geliştirme süreci üstündeki kısıtlamaları ve standartlarla dayatılan kısıtlamaları içerir. Fonksiyonel olmayan gereksinimler genellikle tek tek sistem özelliklerine değil sistemin tamamına uygulanır.
  
-Fonksiyonel olmayan gereksinimler genellikle fonksiyonel gereksinimlere göre proje başarısında daha kritik etkiye sahiptir. Fonksiyonel olmayan bir gereksinim karşılanması bütün sistemin kullanılamaz hale gelmesini, projenin iptal edilmesine neden olabilir. Örneğin bir DAL A seviyesi bir aviyonik projenin DO178 ile alakalı güvenilirlik gereksinimleri karşılamaması üretilen ürünün sertifikalandirilamamasına ve hava aracında kullanılamamasına neden olur.
+Fonksiyonel olmayan gereksinimler genellikle fonksiyonel gereksinimlere göre proje başarısında daha kritik etkiye sahiptir. Fonksiyonel olmayan bir gereksinimin karşılanmaması bütün sistemin kullanılamaz hale gelmesine, projenin iptal edilmesine neden olabilir. Örneğin bir DAL A seviyesi bir aviyonik projenin DO178 ile alakalı güvenilirlik gereksinimlerini karşılamaması üretilen ürünün sertifikalandırılamamasına ve hava aracında kullanılamamasına neden olur.
 
-Fonksiyonel gereksinimleri ürün bileşenlerine bölmek mümkünken bunu fonksiyonel olmayan gereksinimlerde yapmak çok daha zordur. Fonksiyonel olmayan gereksinimlerin sağlanması iki nedenden dolayı tüm sistemi etkiliyor olabilir.
+Fonksiyonel gereksinimleri ürün bileşenlerine kolayca bölmek mümkünken bunu fonksiyonel olmayan gereksinimlerde yapmak çok daha zordur. Fonksiyonel olmayan gereksinimlerin sağlanması iki nedenden dolayı tüm sistemi etkiliyor olabilir.
  
  1. Sağlanması gereken fonksiyonel olmayan gereksinim tüm sistem mimarisini etkiliyor olabilir. Örneğin performans ile alakalı bir gereksinimi sağlamak için tüm sistem mimarisinde köklü değişiklikler yapılması gerekebilir.
  2. Fonksiyonel olmayan gereksinimlerin sağlanması yeni fonksiyonel gereksinimler yaratılmasına neden olabilir. Örneğin sistemin güvenlik gereksinimi modüllerde kısıtlara neden olacak yeni fonksiyonel gereksinimler yaratabilir.
@@ -23,10 +23,11 @@ Bu diyagramdan da görülebileceği gibi fonksiyonel olmayan gereksinimler birç
 2. **Organizasyonel gereksinimler:** Müşteri ve gelistiricinin organizasyonunda yer alan politika ve prosedürlerden kaynaklanan geniş gereksinimlerdir. Programlama dili, geliştirme ortamı, süreç standartları, yazılımın işletim ortamını vs gibi çevresel gereksinimler bunlara örnektir.
 3. **Dış gereksinimler:** Yukarıda sayılan ilk iki gereksinim tipi dışında kalan dış kaynaklı gereksinimlerdir. Sistemin yasalara uygunluğu ve kullanıcılar tarafından kabulü için uyulması gereken etik gereksinimler dış gereksinimin olarak örneklendirilebilir.
  
-Fonksiyonel olmayan gereksinimlerin genellikle yuvarlak bir dille yazılır. Bu durum onların test ve ürün kabul süreçlerini zorlandirir. Fonksiyonel olmayan gereksinimler, fonksiyonel olan gereksinimler gibi net ifade ile yazılmalı, test edilebilir olmalıdır. Kabul kriterleri olabildiğince objektif metriklerle tanımlanmalıdır.
+Fonksiyonel olmayan gereksinimlerin genellikle yuvarlak bir dille yazılır. Bu durum onların test ve ürün kabul süreçlerini zorlaştırır. Fonksiyonel olmayan gereksinimler, fonksiyonel olan gereksinimler gibi net bir ifade ile yazılmalı, test edilebilir olmalıdır. Kabul kriterleri olabildiğince nicel metriklerle tanımlanmalıdır.
+
 ## Fonksiyonel olmayan gereksinim örnekleri
  
- Aşağıda bazı fonksiyonel olmayan yazılım gereksinim türleri ve onlara örnekler görebilirsiniz.
+ Aşağıda bazı fonksiyonel olmayan gereksinim türleri ve onlara örnekler bulabilirsiniz.
  
 - Hız
   -  Hızlı cevap verme (Responsiveness) ,
