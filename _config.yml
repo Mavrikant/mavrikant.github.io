@@ -6,7 +6,8 @@ baseurl:            "/"
 url:                "https://karaman.dev"
 favicon:
   source: favicon.jpg
-
+sass:
+    style: compressed
 
 # Social Profiles
 twitter_username:
@@ -32,3 +33,4 @@ plugins:
   - jekyll-email-protect
   - jekyll-spaceship
   - jekyll-favicon
+  - jekyll-coffeescript

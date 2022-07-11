@@ -12,6 +12,7 @@ group :jekyll_plugins do
   gem "jekyll-email-protect"
   gem "jekyll-spaceship"
   gem "jekyll-favicon"
+  gem "jekyll-coffeescript"
 end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
