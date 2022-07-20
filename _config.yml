@@ -1,4 +1,4 @@
-title:              M. Serdar Karaman Blog
+title:              M. Serdar Karaman's Blog
 email:              serdar@karaman.dev
 description:        A personal blog about software engineering, programing, C, C++, Qt, Python, Linux, Avionics and life
 author:             M. Serdar Karaman
@@ -7,7 +7,7 @@ url:                "https://karaman.dev"
 favicon:
   source: favicon.jpg
 sass:
-    style: compressed
+  style: compressed
 
 # Social Profiles
 twitter_username:
