@@ -1,7 +1,7 @@
 ---
 title: Recursively Delete a Specific Folder
-background: "/img/posts/6.jpg"
-date: '2022-07-20 18:35:00'
+background: "/img/posts/8.jpg"
+date: '2022-09-11 12:00:00'
 layout: post
 lang: en
 ---
