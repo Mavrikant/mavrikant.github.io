@@ -46,7 +46,7 @@ Fonksiyonel olmayan gereksinimlerin genellikle yuvarlak bir dille yazılır. Bu 
   - Teknik borç
   - Clean architecture
 - Taşınabilirlik
-  - Hangi platformlara ve teknolojilere bağımlı.
+  - Hangi platformlara(İşletim sistem, İşlemci) ve teknolojilere(Dil, Framework) bağımlı.
 - Performans
   - Kaç kişiye eş zamanlı hizmet verebiliyor.
 - Verimlilik
@@ -54,6 +54,8 @@ Fonksiyonel olmayan gereksinimlerin genellikle yuvarlak bir dille yazılır. Bu 
 - Güvenlik
   - Sistemin hack saldırılara karşı dayanıklılığı
   - Kullanıcı verilerinin şifrelenmesi
+  - Kişisel verilerin korunması
+  - Kullanici mahremiyetinin sağlanmasi
 - Karşılıklı uyum içinde çalışma (interoperability)
   - Sistemin uyumlu olduğu donanımla
   - Etkileşimde olduğu yazılım sistemleri
