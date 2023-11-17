@@ -11,7 +11,7 @@ lang: tr
 Test ve gereksinim mühendisliği arasındaki güçlü bağlantı her iki tarafa da fayda sağlayabilir, ancak çoğu zaman bu bağlantı eksiktir. Bu yazı eksik halkanın ardındaki en yaygın yedi efsaneyi veya yanlış kanıyı inceliyor.
 
 ## EFSANE 1: Başlangıçta Gereksinimler, Sonda Test 
-“Henüz test hakkında düşünmemize gerek yok. Sadece gereksinimlere odaklanalım." Bu tutum, projenin sonunda zor zamanlar geçireleceğini garanti eder. Tabii ki, iyi gereksinimlerin elde edilmesi önemlidir, ancak test sırasında test uzmanlarını dahil etmek gereksinim analizi, iyi gereksinimleri sağlamanın en iyi yollarından biridir.
+“Henüz test hakkında düşünmemize gerek yok. Sadece gereksinimlere odaklanalım." Bu tutum, projenin sonunda zor zamanlar geçirileceğini garanti eder. Tabii ki, iyi gereksinimlerin elde edilmesi önemlidir, ancak test sırasında test uzmanlarını dahil etmek gereksinim analizi, iyi gereksinimleri sağlamanın en iyi yollarından biridir.
 
 V-Modele göre genellikle sistem ve kullanıcı kabul testleri için gereksinim analizi sırasında, test tasarlamak için işlemlere başlandığı anda test tasarım faaliyetlerini gerçekleştiremezsiniz.
 
@@ -19,7 +19,7 @@ V-Modele göre genellikle sistem ve kullanıcı kabul testleri için gereksinim 
 
 ## EFSANE 2: Sistem var olmadan test yapmak mümkün değildir
 “Henüz hiçbir şey inşa edilmediği için herhangi bir test yapamıyoruz. Testçiler sadece sistemle oynar ve ne olduğunu görür. Her neyse, bir kağıt parçasını test edemezsiniz.” Bu teoride yanlış olan üç şey vardır.
-1. Test etmek sadece ne olduğunu görmekten daha fazlasıdır. Bundan çok daha titiz ve sistematik. 
+1. Test etmek sadece olanları görmekten fazlasıdır. Bu, bundan çok daha titiz ve sistematiktir.
 2. Sadece testler koşumundan daha fazlasıdır. Politika ve stratejilerde gösterildiği gibi  testleri yürütmek ve sonuçları kontrol etmek temel test sürecinin bir parçasıdır, ancak başka önemli faaliyetler de mevcuttur. 
 3. Eksiksizlik ve doğruluk için yazılı gereksinim belgelerini iş veya proje hedeflerine göre test edebilir ve etmelisiniz. Gereksinimleri kağıt üzerinde test etmezseniz, sistemde çok daha önce kolayca düzeltebileceğiniz hatalar oluşturacaksınız ve bunlar erken çözülmediği için “problem çözme” maliyeti giderek artacaktır.
 
