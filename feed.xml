@@ -1,0 +1,628 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://karaman.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://karaman.dev/" rel="alternate" type="text/html" /><updated>2024-06-10T11:46:33+00:00</updated><id>https://karaman.dev/feed.xml</id><title type="html">M. Serdar Karaman’s Blog</title><subtitle>A personal blog about software engineering, programming, C, C++, Qt, Python, Linux, avionics, and life.</subtitle><author><name>M. Serdar Karaman</name></author><entry xml:lang="tr"><title type="html">Türkiye’de Debugging aşamaları</title><link href="https://karaman.dev/2023/12/01/turkiyede-debugging-asamalari.html" rel="alternate" type="text/html" title="Türkiye’de Debugging aşamaları" /><published>2023-12-01T08:00:00+00:00</published><updated>2023-12-01T08:00:00+00:00</updated><id>https://karaman.dev/2023/12/01/turkiyede-debugging-asamalari</id><content type="html" xml:base="https://karaman.dev/2023/12/01/turkiyede-debugging-asamalari.html"><![CDATA[<p>Türkiye’deki yazılım geliştirme süreçlerinde debugging (hata ayıklama) aşamaları, genellikle evrensel yazılım geliştirme uygulamalarına benzer şekilde işler. İşte bu sürecin tipik adımları:</p>
+
+<ol>
+  <li><strong>Önce Kahve, Sonra Kod:</strong> Bir hata keşfettiğinizde, önce bir Türk kahvesi molası verin. Kahvenin falında hata çözümünü arayın. Kim bilir, belki kahvenin falında çözümü bulabilirsiniz!</li>
+  <li><strong>“Bu Ne Biçim Kod Ya!” Söylemi:</strong> Herhangi bir hata bulunduğunda, geleneksel “Bu ne biçim kod ya!” yakınmasını yapın. Bu, hatanın ciddiyetini vurgulamak için önemlidir.</li>
+  <li><strong>Hata İsmi Koyarken Yaratıcı Ol:</strong> Hataya “Gizemli Gariban” veya “Aniden Açılan Pencere” gibi ilginç isimler verin. Hatayla kişisel bir bağ kurun.</li>
+  <li><strong>Futbol Formasıyla Debugging:</strong> Türk futbol takımlarından birinin formasını giyerek hata ayıklama yapın. Takımınızın şansı, hatayı bulmanıza yardımcı olabilir.</li>
+  <li><strong>Lastik Ördekle Danışma:</strong> Hata hakkında bir lastik ördek (veya herhangi bir cansız nesne) ile ayrıntılı bir konuşma yapın. Bu, gerçek bir yöntem olan “lastik ördek hata ayıklama” olarak bilinir, burada sorunu yüksek sesle açıklamak aniden içgörülere yol açabilir.</li>
+  <li><strong>Kodları Tarihçi Gibi İncele:</strong> Hata kökenini bulmak için kodlara Osmanlı tarihçisi titizliğiyle göz atın.</li>
+  <li><strong>Çay Molası Şart:</strong> Hata ayıklama sırasında bol bol çay molası verin. Çay, her Türk yazılım mühendisinin vazgeçilmez enerji kaynağıdır.</li>
+  <li><strong>“Bunu Kim Yazmış?” Diye Sor:</strong> Hatanın kaynağını bulmaya çalışırken, “Bunu kim yazmış?” diye sorarak, efsanevi bir Türk yazılım mühendisi mitini yaratın.</li>
+  <li><strong>Donanımı Suçla:</strong> Tüm çareler tükendiğinde, donanımı suçlayın. Muhtemelen yorgundur, ya da belki de sizi sevmiyordur.</li>
+  <li><strong>Macera Günlüğü Tut:</strong> Hata avı maceranızı bir günlükte tutun. Bu günlük, gelecek nesillere ilham kaynağı olabilir.</li>
+  <li><strong>Zaferi Dönerle Kutla:</strong> Hatayı çözdüğünüzde, dönerle kutlama yapın. Eğer hata çözülmezse, moral olsun diye yine döner yiyin.</li>
+</ol>
+
+<p>Unutmayın, yazılım geliştirme stresleriyle başa çıkmada mizah önemli olmakla birlikte, yazılım kalitesi ve güvenilirliğini korumak için hataları sistematik ve profesyonel bir şekilde ele almak da çok önemlidir.</p>
+
+<p>Yazılım geliştirme sürecinde etkili hata ayıklama ve kalite kontrol teknikleri hakkında daha fazla bilgi edinmek istiyorsanız, aşağıdaki kitapları okuma listenize ekleyebilirsiniz:</p>
+
+<ol>
+  <li><strong>“Clean Code: A Handbook of Agile Software Craftsmanship” by Robert C. Martin:</strong> 
+Yazılım kalitesini artırmak ve bakımını kolaylaştırmak için temiz kod yazma prensiplerine odaklanan bir eser.</li>
+  <li><strong>“The Pragmatic Programmer: Your Journey to Mastery” by Andrew Hunt and David Thomas:</strong> 
+Yazılım geliştirme süreçlerini ve tekniklerini iyileştirmek için pratik tavsiyeler sunan bir rehber.</li>
+  <li><strong>“Debugging: The 9 Indispensable Rules for Finding Even the Most Elusive Software and Hardware Problems” by David J. Agans:</strong> 
+Hata ayıklama sürecini basitleştiren ve etkili teknikler sunan bir kitap.</li>
+  <li><strong>“Refactoring: Improving the Design of Existing Code” by Martin Fowler:</strong>
+Mevcut kodun yapısal iyileştirmelerini ve refaktoring tekniklerini ele alan bir çalışma.</li>
+  <li><strong>“Test Driven Development: By Example” by Kent Beck:</strong> Test odaklı geliştirme yaklaşımını ve yazılım kalitesini artırmak için testlerin nasıl kullanılacağını anlatan bir kitap.</li>
+  <li><strong>“Code Complete: A Practical Handbook of Software Construction” by Steve McConnell:</strong> Yazılım inşası sürecini ve yazılım geliştirme prensiplerini geniş bir yelpazede ele alan bu eser, yazılım mühendisleri için kapsamlı bir rehber niteliğindedir.</li>
+  <li><strong>“Effective Debugging: 66 Specific Ways to Debug Software and Systems” by Diomidis Spinellis:</strong> Bu kitap, yazılım ve sistem hatalarını bulma ve düzeltme konusunda 66 etkili yöntem sunar. Gerçek dünya örnekleriyle dolu bu kitap, hata ayıklama sürecini daha verimli hale getirmek için pratik ipuçları sağlar.</li>
+</ol>]]></content><author><name>M. Serdar Karaman</name></author><summary type="html"><![CDATA[Türkiye’deki yazılım geliştirme süreçlerinde debugging (hata ayıklama) aşamaları, genellikle evrensel yazılım geliştirme uygulamalarına benzer şekilde işler. İşte bu sürecin tipik adımları:]]></summary></entry><entry xml:lang="en"><title type="html">Merge Files with FFmpeg</title><link href="https://karaman.dev/2023/03/12/merge-files-with-ffmeg.html" rel="alternate" type="text/html" title="Merge Files with FFmpeg" /><published>2023-03-12T08:00:00+00:00</published><updated>2023-03-12T08:00:00+00:00</updated><id>https://karaman.dev/2023/03/12/merge-files-with-ffmeg</id><content type="html" xml:base="https://karaman.dev/2023/03/12/merge-files-with-ffmeg.html"><![CDATA[<p>Write your files list into <code class="language-plaintext highlighter-rouge">file_list.txt</code></p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>file /mnt/d/Videos/video_part1.mp4
+file /mnt/d/Videos/video_part2.mp4
+file /mnt/d/Videos/video_part3.mp4
+</code></pre></div></div>
+
+<p>Call following command in bash.</p>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ffmpeg <span class="nt">-safe</span> 0 <span class="nt">-f</span> concat <span class="nt">-i</span> file_list.txt <span class="nt">-c</span> copy video_merged.mp4
+</code></pre></div></div>]]></content><author><name>M. Serdar Karaman</name></author><summary type="html"><![CDATA[Write your files list into file_list.txt file /mnt/d/Videos/video_part1.mp4 file /mnt/d/Videos/video_part2.mp4 file /mnt/d/Videos/video_part3.mp4]]></summary></entry><entry xml:lang="en"><title type="html">Recursively Delete a Specific Folder</title><link href="https://karaman.dev/2022/09/11/recursively-delete-a-specific-folder.html" rel="alternate" type="text/html" title="Recursively Delete a Specific Folder" /><published>2022-09-11T12:00:00+00:00</published><updated>2022-09-11T12:00:00+00:00</updated><id>https://karaman.dev/2022/09/11/recursively-delete-a-specific-folder</id><content type="html" xml:base="https://karaman.dev/2022/09/11/recursively-delete-a-specific-folder.html"><![CDATA[<p>Following powershell script can be used for deleting all Debug folders inside of your project space.</p>
+
+<div class="language-powershell highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">Write-Output</span><span class="w"> </span><span class="s2">"Removing Debug folders"</span><span class="w"> </span><span class="p">;</span><span class="w"> 
+</span><span class="n">Get-ChildItem</span><span class="w"> </span><span class="o">.</span><span class="w"> </span><span class="nt">-include</span><span class="w"> </span><span class="nx">Debug</span><span class="w"> </span><span class="nt">-Recurse</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">ForEach-Object</span><span class="w"> </span><span class="p">(</span><span class="bp">$_</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> 
+    </span><span class="n">Write-Host</span><span class="w"> </span><span class="s2">"Removed: "</span><span class="w"> </span><span class="nt">-nonewline</span><span class="p">;</span><span class="w"> 
+    </span><span class="n">Write-Output</span><span class="w"> </span><span class="bp">$_</span><span class="o">.</span><span class="nf">FullName</span><span class="w"> </span><span class="p">;</span><span class="w"> 
+    </span><span class="n">Remove-Item</span><span class="w"> </span><span class="bp">$_</span><span class="o">.</span><span class="nf">FullName</span><span class="w"> </span><span class="nt">-Force</span><span class="w"> </span><span class="nt">-Recurse</span><span class="w"> 
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>]]></content><author><name>M. Serdar Karaman</name></author><summary type="html"><![CDATA[Following powershell script can be used for deleting all Debug folders inside of your project space.]]></summary></entry><entry xml:lang="tr"><title type="html">Elektrik kesintisinde bilgisayarın otomatik tekrar açılmasını sağlama</title><link href="https://karaman.dev/2022/08/15/elektrik-kesintisinde-bilgisayarin-otomatik-tekrar-acilmasini-saglama.html" rel="alternate" type="text/html" title="Elektrik kesintisinde bilgisayarın otomatik tekrar açılmasını sağlama" /><published>2022-08-15T12:00:00+00:00</published><updated>2022-08-15T12:00:00+00:00</updated><id>https://karaman.dev/2022/08/15/elektrik-kesintisinde-bilgisayarin-otomatik-tekrar-acilmasini-saglama</id><content type="html" xml:base="https://karaman.dev/2022/08/15/elektrik-kesintisinde-bilgisayarin-otomatik-tekrar-acilmasini-saglama.html"><![CDATA[<p>Bu yöntem DELL OptiPlex kasalar için anlatilmistir. BIOS ayarları diğer markalarda da benzer olmakla beraber bir miktar farklılık gösterebilir.</p>
+
+<ul>
+  <li>Bilgisayar kapatılır</li>
+  <li>Bilgisayar tekrar açılırken F2 tusu ile BIOS ayarlarına girilir.</li>
+</ul>
+
+<p><img src="/img/posts/reboot-after-power-outage-1.png" alt="" style="display:block; margin-left:auto; margin-right:auto;width: 700px;" /></p>
+
+<ul>
+  <li>Sol menuden Power Management altındaki AC Recovery başlıgına tıklanır.</li>
+  <li>Sağ taraftan Power On  ya da istegimize gore Last Power State seçilir.</li>
+</ul>
+
+<p><img src="/img/posts/reboot-after-power-outage-2.png" alt="" style="display:block; margin-left:auto; margin-right:auto;width: 700px;" /></p>
+
+<ul>
+  <li><strong>Power Off:</strong> Elektrik kesilip gelirse veya güç kablosunu çıkarıp taksanız bile sistem kapalı kalmaya devam edecektir.</li>
+  <li><strong>Power On:</strong> Sistem kapalıyken bile elektrik kesilip gelirse veya güç kablosunu çıkarıp taksanız, sisteme otomatik olarak elektrik verilecek ve çalışmaya başlayacaktır.</li>
+  <li><strong>Last Power State:</strong> Eğer sisteminiz açıkken elektrik gidip gelirse ve güç kablosunu çıkarıp takarsanız, sistem tekrar açılacaktır. Ama sistem kapalıyken elektrik gidip gelirse veya güç kablosunu çıkarıp takarsanız sisteme elektrik verilmeyecektir; yani sistem otomatik açılmayacaktır.</li>
+</ul>
+
+<p><img src="/img/posts/reboot-after-power-outage-3.png" alt="" style="display:block; margin-left:auto; margin-right:auto;width: 700px;" /></p>
+
+<ul>
+  <li>Sağ alttaki Apply butonuna tıklanır.</li>
+</ul>
+
+<p><img src="/img/posts/reboot-after-power-outage-4.png" alt="" style="display:block; margin-left:auto; margin-right:auto;width: 700px;" /></p>
+
+<ul>
+  <li>Save as Custom User Settings checkbox’u işaretlenir.</li>
+  <li>OK butonuna tıklanır.</li>
+</ul>
+
+<p><img src="/img/posts/reboot-after-power-outage-5.png" alt="" style="display:block; margin-left:auto; margin-right:auto;width: 700px;" /></p>
+
+<ul>
+  <li>Sağ alttaki Exit butonuna tıklayarak BIOS’tan çıkılır.</li>
+</ul>]]></content><author><name>M. Serdar Karaman</name></author><summary type="html"><![CDATA[Bu yöntem DELL OptiPlex kasalar için anlatilmistir. BIOS ayarları diğer markalarda da benzer olmakla beraber bir miktar farklılık gösterebilir.]]></summary></entry><entry xml:lang="tr"><title type="html">CMake</title><link href="https://karaman.dev/2022/07/20/cmake.html" rel="alternate" type="text/html" title="CMake" /><published>2022-07-20T18:35:00+00:00</published><updated>2022-07-20T18:35:00+00:00</updated><id>https://karaman.dev/2022/07/20/cmake</id><content type="html" xml:base="https://karaman.dev/2022/07/20/cmake.html"><![CDATA[<p>C ve C++ projeleriniz için platform ve derleyici bağımsız derleme komutları üreten bir otomasyon yazılımıdır. CMake bulunduğunuz platformda yüklü derleyici ve kütüphaneleri tarayıp  sizin için en uygun araçları seçer.</p>
+
+<div class="mermaid">
+graph TD
+    A[Source Code] --&gt;B(CMakeList.txt)
+    B --&gt; C{CMake}
+    C --&gt; G[Visual Studio files]
+    C --&gt; E[Makefiles]
+    C --&gt; F[XCode files]
+    G --&gt;|msbuild| H\[Windows App]
+    E --&gt;|make| I\[Linux App]
+    F --&gt;|xcodebuild| J\[MacOs App]
+</div>
+
+<h2 id="basit-bir-cmakelisttxt-dosyasi">Basit bir CMakeList.txt dosyasi</h2>
+<div class="language-cmake highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">cmake_minimum_required</span><span class="p">(</span>VERSION 3.5<span class="p">)</span>
+<span class="c1"># Gereklı minimum CMake sürümünü. Her cmake dosyasında bulunması gerekir. </span>
+
+<span class="nb">project</span><span class="p">(</span>
+        TicTacToe 
+        VERSION <span class="s2">"0.2.1"</span> 
+        LANGUAGES CXX
+<span class="p">)</span>
+<span class="c1"># Proje ismi ve sürümünü belirtir.</span>
+
+<span class="nb">set</span><span class="p">(</span>CMAKE_CXX_STANDARD 20<span class="p">)</span>
+<span class="c1"># C++ standardını belirtir. Örneğin: 98, 11, 14, 17, 20, 23</span>
+
+<span class="nb">set</span><span class="p">(</span>PROJECT_SOURCES
+        main.cpp
+        widget.cpp
+        widget.h
+        mainwindow.ui
+        mainwindow.cpp
+        mainwindow.h
+<span class="p">)</span>
+<span class="c1"># Proje içinde kullanılan kaynak kodların listesini </span>
+<span class="c1"># PROJECT_SOURCES degişkeni olarak tanımlar.</span>
+
+<span class="nb">add_executable</span><span class="p">(</span>TicTacToe  <span class="si">${</span><span class="nv">PROJECT_SOURCES</span><span class="si">}</span> <span class="p">)</span>
+<span class="c1"># PROJECT_SOURCES kullanılarak çalıştırılabilir dosya üretir. </span>
+<span class="c1"># Windows için .exe uzantısı eklenir.</span>
+</code></pre></div></div>
+
+<h2 id="video-eğitim-serisi">Video eğitim serisi</h2>
+<p><img src="https://www.youtube.com/watch?v=lZ4VytXLNSo" alt="" /></p>
+
+<p><img src="https://www.youtube.com/watch?v=vnHYECjSmFk" alt="" /></p>
+
+<p><img src="https://www.youtube.com/watch?v=I5d45OOAXPk" alt="" /></p>]]></content><author><name>M. Serdar Karaman</name></author><summary type="html"><![CDATA[C ve C++ projeleriniz için platform ve derleyici bağımsız derleme komutları üreten bir otomasyon yazılımıdır. CMake bulunduğunuz platformda yüklü derleyici ve kütüphaneleri tarayıp sizin için en uygun araçları seçer.]]></summary></entry><entry xml:lang="tr"><title type="html">Fonksiyonel olmayan yazılım gereksinimleri</title><link href="https://karaman.dev/2022/07/11/fonksiyonel-olmayan-yazilim-gereksinimleri.html" rel="alternate" type="text/html" title="Fonksiyonel olmayan yazılım gereksinimleri" /><published>2022-07-11T15:59:34+00:00</published><updated>2022-07-11T15:59:34+00:00</updated><id>https://karaman.dev/2022/07/11/fonksiyonel-olmayan-yazilim-gereksinimleri</id><content type="html" xml:base="https://karaman.dev/2022/07/11/fonksiyonel-olmayan-yazilim-gereksinimleri.html"><![CDATA[<p>Fonksiyonel olmayan gereksinimler, adından da anlaşılabileceği gibi uygulamanın işlevselliği ile ilgili olmayan, genel yazılım özelliklerini belirleyen ya da kısıtlayan gereksinimlerdir. Zaman kısıtlarının, geliştirme süreci üstündeki kısıtlamaları ve standartlarla dayatılan kısıtlamaları içerir. Fonksiyonel olmayan gereksinimler genellikle tek tek sistem özelliklerine değil sistemin tamamına uygulanır.</p>
+
+<p>Fonksiyonel olmayan gereksinimler genellikle fonksiyonel gereksinimlere göre proje başarısında daha kritik etkiye sahiptir. Fonksiyonel olmayan bir gereksinimin karşılanmaması bütün sistemin kullanılamaz hale gelmesine, projenin iptal edilmesine neden olabilir. Örneğin bir DAL A seviyesi bir aviyonik projenin DO178 ile alakalı güvenilirlik gereksinimlerini karşılamaması üretilen ürünün sertifikalandırılamamasına ve hava aracında kullanılamamasına neden olur.</p>
+
+<p>Fonksiyonel gereksinimleri ürün bileşenlerine kolayca bölmek mümkünken bunu fonksiyonel olmayan gereksinimlerde yapmak çok daha zordur. Fonksiyonel olmayan gereksinimlerin sağlanması iki nedenden dolayı tüm sistemi etkiliyor olabilir.</p>
+
+<ol>
+  <li>Sağlanması gereken fonksiyonel olmayan gereksinim tüm sistem mimarisini etkiliyor olabilir. Örneğin performans ile alakalı bir gereksinimi sağlamak için tüm sistem mimarisinde köklü değişiklikler yapılması gerekebilir.</li>
+  <li>Fonksiyonel olmayan gereksinimlerin sağlanması yeni fonksiyonel gereksinimler yaratılmasına neden olabilir. Örneğin sistemin güvenlik gereksinimi modüllerde kısıtlara neden olacak yeni fonksiyonel gereksinimler yaratabilir.</li>
+</ol>
+
+<p><img src="/img/posts/non-functional-reqs.png" alt="Fonksiyonel olmayan gereksinimler" style="display:block; margin-left:auto; margin-right:auto;width: 700px;" /></p>
+
+<p>Bu diyagramdan da görülebileceği gibi fonksiyonel olmayan gereksinimler birçok çeşitli kaynaktan gelebilir.</p>
+
+<ol>
+  <li><strong>Ürün gereksinimleri:</strong> Yazılımın çalışma zamanındaki gereksinimleri. Sistemin ne kadar hızlı çalışması, ihtiyaç duyacağı disk ve max bellek kullanımı bu gereksinimlere örnektir.</li>
+  <li><strong>Organizasyonel gereksinimler:</strong> Müşteri ve gelistiricinin organizasyonunda yer alan politika ve prosedürlerden kaynaklanan geniş gereksinimlerdir. Programlama dili, geliştirme ortamı, süreç standartları, yazılımın işletim ortamını vs gibi çevresel gereksinimler bunlara örnektir.</li>
+  <li><strong>Dış gereksinimler:</strong> Yukarıda sayılan ilk iki gereksinim tipi dışında kalan dış kaynaklı gereksinimlerdir. Sistemin yasalara uygunluğu ve kullanıcılar tarafından kabulü için uyulması gereken etik gereksinimler dış gereksinimin olarak örneklendirilebilir.</li>
+</ol>
+
+<p>Fonksiyonel olmayan gereksinimlerin genellikle yuvarlak bir dille yazılır. Bu durum onların test ve ürün kabul süreçlerini zorlaştırır. Fonksiyonel olmayan gereksinimler, fonksiyonel olan gereksinimler gibi net bir ifade ile yazılmalı, test edilebilir olmalıdır. Kabul kriterleri olabildiğince nicel metriklerle tanımlanmalıdır.</p>
+
+<h2 id="fonksiyonel-olmayan-gereksinim-örnekleri">Fonksiyonel olmayan gereksinim örnekleri</h2>
+
+<p>Aşağıda bazı fonksiyonel olmayan gereksinim türleri ve onlara örnekler bulabilirsiniz.</p>
+
+<ul>
+  <li>Hız
+    <ul>
+      <li>Hızlı cevap verme (Responsiveness) ,</li>
+    </ul>
+  </li>
+  <li>Büyüklük
+    <ul>
+      <li>Depolama alanı ihtiyacı</li>
+    </ul>
+  </li>
+  <li>Kullanım kolaylığı
+    <ul>
+      <li>Yeni kullanıcının sistemi öğrenme süresi</li>
+    </ul>
+  </li>
+  <li>Güvenilirlik (Stabilite)
+    <ul>
+      <li>Yazılımın son 24 saat içerisinde çalışabilir olduğun süre</li>
+    </ul>
+  </li>
+  <li>Dayanıklılık
+    <ul>
+      <li>Hatalara karşı nasıl tepki veriyor.</li>
+      <li>Hata sonrası tekrar başlama süreci</li>
+    </ul>
+  </li>
+  <li>Bakım yapılabilirlik (maintainability)
+    <ul>
+      <li>Dokümantasyon</li>
+      <li>Teknik borç</li>
+      <li>Clean architecture</li>
+    </ul>
+  </li>
+  <li>Taşınabilirlik
+    <ul>
+      <li>Hangi platformlara(İşletim sistem, İşlemci) ve teknolojilere(Dil, Framework) bağımlı.</li>
+    </ul>
+  </li>
+  <li>Performans
+    <ul>
+      <li>Kaç kişiye eş zamanlı hizmet verebiliyor.</li>
+    </ul>
+  </li>
+  <li>Verimlilik
+    <ul>
+      <li>Yazılımın sistem kaynaklarını kullanma oranı</li>
+    </ul>
+  </li>
+  <li>Güvenlik
+    <ul>
+      <li>Sistemin hack saldırılara karşı dayanıklılığı</li>
+      <li>Kullanıcı verilerinin şifrelenmesi</li>
+      <li>Kişisel verilerin korunması</li>
+      <li>Kullanici mahremiyetinin sağlanmasi</li>
+    </ul>
+  </li>
+  <li>Karşılıklı uyum içinde çalışma (interoperability)
+    <ul>
+      <li>Sistemin uyumlu olduğu donanımla</li>
+      <li>Etkileşimde olduğu yazılım sistemleri</li>
+    </ul>
+  </li>
+</ul>]]></content><author><name>M. Serdar Karaman</name></author><summary type="html"><![CDATA[Fonksiyonel olmayan gereksinimler, adından da anlaşılabileceği gibi uygulamanın işlevselliği ile ilgili olmayan, genel yazılım özelliklerini belirleyen ya da kısıtlayan gereksinimlerdir. Zaman kısıtlarının, geliştirme süreci üstündeki kısıtlamaları ve standartlarla dayatılan kısıtlamaları içerir. Fonksiyonel olmayan gereksinimler genellikle tek tek sistem özelliklerine değil sistemin tamamına uygulanır. Fonksiyonel olmayan gereksinimler genellikle fonksiyonel gereksinimlere göre proje başarısında daha kritik etkiye sahiptir. Fonksiyonel olmayan bir gereksinimin karşılanmaması bütün sistemin kullanılamaz hale gelmesine, projenin iptal edilmesine neden olabilir. Örneğin bir DAL A seviyesi bir aviyonik projenin DO178 ile alakalı güvenilirlik gereksinimlerini karşılamaması üretilen ürünün sertifikalandırılamamasına ve hava aracında kullanılamamasına neden olur.]]></summary></entry><entry xml:lang="tr"><title type="html">Gereksinimler ve Test: Yedi Eksik Bağlantı Efsanesi</title><link href="https://karaman.dev/2022/05/08/gereksinimler-ve-test-yedi-eksik-baglanti-efsanesi.html" rel="alternate" type="text/html" title="Gereksinimler ve Test: Yedi Eksik Bağlantı Efsanesi" /><published>2022-05-08T10:44:09+00:00</published><updated>2022-05-08T10:44:09+00:00</updated><id>https://karaman.dev/2022/05/08/gereksinimler-ve-test-yedi-eksik-baglanti-efsanesi</id><content type="html" xml:base="https://karaman.dev/2022/05/08/gereksinimler-ve-test-yedi-eksik-baglanti-efsanesi.html"><![CDATA[<blockquote>
+  <p>Test uzmanı Dorothy Graham, test gereksinimlerine test uzmanları dahil olursa çok fazla zaman ve para tasarrufu sağlayabileceğinizi iddia ediyor. Gereksinimler bazı tutarlı kalite kriterlerine sahipse, test uzmanları soru sorabilir ve sorunları biz onları koda dönüştürmeden önce bulabilir. –Suzanne Robertson</p>
+</blockquote>
+
+<p>Test ve gereksinim mühendisliği arasındaki güçlü bağlantı her iki tarafa da fayda sağlayabilir, ancak çoğu zaman bu bağlantı eksiktir. Bu yazı eksik halkanın ardındaki en yaygın yedi efsaneyi veya yanlış kanıyı inceliyor.</p>
+
+<h2 id="efsane-1-başlangıçta-gereksinimler-sonda-test">EFSANE 1: Başlangıçta Gereksinimler, Sonda Test</h2>
+<p>“Henüz test hakkında düşünmemize gerek yok. Sadece gereksinimlere odaklanalım.” Bu tutum, projenin sonunda zor zamanlar geçirileceğini garanti eder. Tabii ki, iyi gereksinimlerin elde edilmesi önemlidir, ancak test sırasında test uzmanlarını dahil etmek gereksinim analizi, iyi gereksinimleri sağlamanın en iyi yollarından biridir.</p>
+
+<p>V-Modele göre genellikle sistem ve kullanıcı kabul testleri için gereksinim analizi sırasında, test tasarlamak için işlemlere başlandığı anda test tasarım faaliyetlerini gerçekleştiremezsiniz.</p>
+
+<p>Özellikle test kullanıcıları için yaygın bir sorun, geç değişikliklerin gereksinimler üzerindeki etkisidir. Diyelim ki sistem testinin son haftalarındasınız ve kullanıcı kabul testlerinin iki hafta içinde çalışmaya başlaması planlanıyor. Aniden kullanıcılarınız, “Bu arada, sistemin bunu farklı şekilde yapmasını istiyoruz” diyor ve bu davranış şekli sistemi yapan kurumu veya kişiyi  zor durumda bırakıyor. Test tasarımı eylemi sitemin gerçekte yapılması gerekenleri vurgular. Eğer, testler erkenden tasarlasaydı sorunlar sisteme yerleşmeden önlenebilirdi. Kullanıcıları hem gereksinimlere hem de testlere dahil etmek çok önemlidir. Burada ki örneğe göre, bir arabayı almadan önce onu kullanırız ve test sürüşüne çıkarız. Böylece, arabayı almadan önce hataları tespit edebilir ve zarardan kaçınabiliriz. Araba örneğinde olduğu gibi kullanıcılarda “Siz daha bilgili olduğunuz için bizim yerimize kabul testlerini yapın demezler ve sistemi kendileri test ederler.”</p>
+
+<h2 id="efsane-2-sistem-var-olmadan-test-yapmak-mümkün-değildir">EFSANE 2: Sistem var olmadan test yapmak mümkün değildir</h2>
+<p>“Henüz hiçbir şey inşa edilmediği için herhangi bir test yapamıyoruz. Testçiler sadece sistemle oynar ve ne olduğunu görür. Her neyse, bir kağıt parçasını test edemezsiniz.” Bu teoride yanlış olan üç şey vardır.</p>
+<ol>
+  <li>Test etmek sadece olanları görmekten fazlasıdır. Bu, bundan çok daha titiz ve sistematiktir.</li>
+  <li>Sadece testler koşumundan daha fazlasıdır. Politika ve stratejilerde gösterildiği gibi  testleri yürütmek ve sonuçları kontrol etmek temel test sürecinin bir parçasıdır, ancak başka önemli faaliyetler de mevcuttur.</li>
+  <li>Eksiksizlik ve doğruluk için yazılı gereksinim belgelerini iş veya proje hedeflerine göre test edebilir ve etmelisiniz. Gereksinimleri kağıt üzerinde test etmezseniz, sistemde çok daha önce kolayca düzeltebileceğiniz hatalar oluşturacaksınız ve bunlar erken çözülmediği için “problem çözme” maliyeti giderek artacaktır.</li>
+</ol>
+
+<h2 id="efsane-3-gereksinimler-testte-kullanılır-ancak-tersi-kullanılmaz">EFSANE 3: Gereksinimler testte kullanılır, ancak tersi kullanılmaz</h2>
+<p>“Gereksinimleri test etmiyorsunuz - onlardan test ediyorsunuz.” Bir testçinin zihniyeti, bir geliştiricinin zihniyetinden farklıdır. Biraz muğlak ama sorun yok gibi görünen bir gereksinim yazmak oldukça kolaydır. Bununla birlikte, iyi test uzmanları bir gereksinim ifadesine baktığında belirsiz, çift anlamlı veya net olmayan gereksinimleri gidermek için özel test senaryoları tasarlarlar.</p>
+
+<p>Birine soyut bir kavramı açıklamaya çalıştığınızda “mesela” diyorsunuz ve kavramı netleştirmek için fikri somut ve özel durumlarla gösteriyorsunuz. Testler, gereksinimler için “örnekler”dir. Kullanım senaryolarını veya iş senaryolarını “ya olursa” diye düşünün. Belirli bir kullanıcının sistemi nasıl kullanacağını düşünürseniz, ilk tanımlandığında soyut görünen sistem işlevselliği o kullanıcıya özel hale gelir. Hem test etme hem de gereksinim analizi, bu geri bildirim döngüsünün yerinde olmasından yararlanır. İyi gereksinim mühendisliği daha iyi testler üretir; iyi test analizi daha iyi gereksinimler üretir.</p>
+
+<h2 id="efsane-4-test-yazmak-zorsa-bu-sadece-bir-test-problemidir">EFSANE 4: Test yazmak zorsa, bu sadece bir test problemidir</h2>
+<p>“Testçiler, gereksinimlerimizden test yazarken sorun yaşıyor gibi görünüyor - belki daha iyi testçiler almalıyız.” Bir testçinin bakış açısından tüm gereksinimler eşit yaratılmamıştır. Bazıları için testler belirlemek kolaydır; diğerleri için, sistemin tam olarak ne yapması gerektiğini belirlemek (ve böylece bunları yapabileceğini doğrulamak için testleri belirlemek) bir kabustur.</p>
+
+<p>Kullanılabilirlik veya performans gibi test edilebilir işlevsel olmayan gereksinimleri belirlemek zordur. Kullanımı kolay, kullanıcı dostu, çok güvenilir veya kabul edilebilir performans gibi ifadeler spesifikasyonlar değildir: belirsiz niyetlerdir. Tom Gilb’in yasasına katılıyorum: “Herhangi bir ölçüm yöntemi onu hiç ölçmemekten daha üstündür.” Bir gereksinim mükemmel bir şekilde değil, faydalı bir şekilde ölçülebilir hale getirilmeli.</p>
+
+<h2 id="efsane-5-gereksinimlerdeki-küçük-değişiklikler-projeyi-çok-etkilemez">EFSANE 5: Gereksinimlerdeki küçük değişiklikler projeyi (çok) etkilemez</h2>
+<p>“Bu giriş alanına birkaç boşluk daha ekleyin. Ekranda çok yer var. Bu küçük bir değişiklik; Çok küçük olduğu için test etmenize gerek kalmayacak.” Gereksinimler açısından küçük görünen bir değişiklik, özellikle testlerde geniş kapsamlı bir etkiye sahip olabilir. Bir alana iki karakter daha eklemenin, bu alanın tanımlandığı veritabanının yeniden düzenlenmesi gerektiği anlamına geldiğini varsayalım. Bu alan, sistemin başka bir yerinde tutulan benzer bilgilere karşılık geliyorsa ne olur? Ya bu alanı kontrol eden rutinler, uzunluğunu artırmadığınız diğer alanları da kontrol ederse? Şimdi iki kontrol rutinine mi ihtiyacınız var?</p>
+
+<p>Sistemin şu anda bu değişiklikten etkilenen her durumda doğru şeyi yaptığını doğrulamak için tüm bu değişiklikleri test etmelisiniz. Ayrıca bazı beklenmedik yan etkiler ortaya çıkabilir, bu nedenle sistemin başka hiçbir alanda gerilemediğinden emin olmak için regresyon testi de yapmalısınız. Ne kadar test yapacağınız, sistem üzerinde hem bilinen hem de bilinmeyen etkileri olan bir değişikliğin risklerine bağlıdır. Test, bu tür etkilerin düşük olduğuna dair güven vererek değişiklik riskinin azaltılmasına da yardımcı olabilir.</p>
+
+<h2 id="efsane-6-testçilerin-gerçekten-gereksinimlere-ihtiyacı-yoktur">EFSANE 6: Testçilerin gerçekten gereksinimlere ihtiyacı yoktur</h2>
+<p>“Bu sistem için iyi gereksinimlerimiz olmadığını biliyorum, ancak elinizden geldiğince test edin - sistemin ne yaptığını görün.” Bir testçinin işi, bir sistemin ne yaptığı ve ne yapması gerektiği arasında karar vermektir. Sistem, işletmenin bir hedefe ulaşmasına yardımcı olmalıdır, bu nedenle sistemin gerçekte yaptığı şey bu hedeflerle karşılaştırılmalıdır.</p>
+
+<p>Testte bir kahin varsayımı vardır. Kahin varsayımı, test edenin rutin olarak doğru cevabın ne olması gerektiğini bildiğini belirtir ki bu test için temeldir. Bir test, test girdilerini, ön koşulları ve beklenen sonuçları içerir. Beklenen sonucun ne olması gerektiğini nereden biliyorsunuz? Testçilerin gereksinimlere ihtiyacı var; Aksi takdirde, bunun gerçekten bir test olmadığını iddia edebilirsiniz.</p>
+
+<h2 id="efsane-7-testçiler-gereksinimler-olmadan-test-faaliyetini-yürütemez">EFSANE 7: Testçiler gereksinimler olmadan test faaliyetini yürütemez.</h2>
+<p>“Gereksinimler testlerin temelini oluşturduğundan, açıkçası yeterli gereksinimlerimiz olana kadar herhangi bir test yapamayız.” Bu aynı zamanda yaygın bir testçinin yanılgısıdır. Bazen gereksinimlerin yetersiz olduğu veya hiç olmadığı sistemlerde değişiklikler yapılır. Bu, testi daha zor hale getirir, ancak ellerinizi havaya kaldırıp yapamayacağınızı söylememelisiniz.</p>
+
+<p>Gereksinimler olmadan, testçiler hala bir tür test kahinine ihtiyaç duyarlar - belki sistemin çalışma şekline, eski sisteme, kullanım kılavuzlarına veya testçinin kendi fikirlerine aşina olan kullanıcılar. Sistemi test kahini test ederse ne olur? Bir sistemi yalnızca bir belgeyle karşılaştırmak yerine, test edenler sistemi ne yapması gerektiğine dair kendi kişisel görüşlerine göre yargılarlar. (Aslında, testçiler her zaman bunun bir kısmını yapmalıdır, ama bu başka bir hikaye.)</p>
+
+<p>Bazıları, bir spesifikasyon olmadan, test etmediğinizi, sadece sistemi keşfettiğinizi söyleyebilir. Bu, yetersiz gereksinimler ve ciddi zaman baskısı olan durumlar için tasarlanmış keşif testi olarak bilinen yaklaşımda resmileştirilmiştir.</p>
+
+<p>Test uzmanlarının daha iyi gereksinimler üretmek için sunacak çok fazla bilgisi ve tecrübesi vardır. Pratikte bu bilgiden ve tecrübeden yararlanmak için;</p>
+<ol>
+  <li>Test uzmanlarını gereksinim gözden geçirmelerine(review) ve incelemelerine(inspection) katılmaya davet edin</li>
+  <li>Gereksinim analizine paralel olarak test faaliyetlerini planlamaya başlayın</li>
+  <li>Gereksinimler spesifikasyonunda örnek olarak kullanmak için örnek test koşulları ve test senaryoları isteyin</li>
+  <li>Gereksinimleri analiz ederken aklınızdaki özel durumları gereksinimlere not ekleyin</li>
+  <li>Sistemin nasıl çalışması gerektiğine dair örnek iş senaryolarını ve kullanım durumları belirtin</li>
+  <li>Hem işlevsel hem de işlevsel olmayan gereksinimler için ölçülebilir kriterler belirleyin</li>
+</ol>
+
+<p>Test etmek iki şekilde zorlayıcıdır: Bu ödüllendirici bir entelektüel aktivitedir, ancak aynı zamanda testlerin dayandığı her şeye meydan okur. Gereksinimler ve test arasındaki bağlantıyı kurun. Test uzmanlarının gereksinimlerine getirdiği zorlukları kabul eder ve teşvik ederseniz, bu yanlış anlamalardan kaçınacak ve önemli ölçüde daha iyi gereksinimler ve testler elde edeceksiniz.</p>]]></content><author><name>M. Serdar Karaman</name></author><summary type="html"><![CDATA[Test uzmanı Dorothy Graham, test gereksinimlerine test uzmanları dahil olursa çok fazla zaman ve para tasarrufu sağlayabileceğinizi iddia ediyor. Gereksinimler bazı tutarlı kalite kriterlerine sahipse, test uzmanları soru sorabilir ve sorunları biz onları koda dönüştürmeden önce bulabilir. –Suzanne Robertson]]></summary></entry><entry xml:lang="tr"><title type="html">Yazılım Proje Yönetimini Pratikleri: Başarı ve Başarısızlık</title><link href="https://karaman.dev/2022/05/03/yazilim-proje-yonetimini-pratikleri-basari-ve-basarisizlik.html" rel="alternate" type="text/html" title="Yazılım Proje Yönetimini Pratikleri: Başarı ve Başarısızlık" /><published>2022-05-03T20:08:36+00:00</published><updated>2022-05-03T20:08:36+00:00</updated><id>https://karaman.dev/2022/05/03/yazilim-proje-yonetimini-pratikleri-basari-ve-basarisizlik</id><content type="html" xml:base="https://karaman.dev/2022/05/03/yazilim-proje-yonetimini-pratikleri-basari-ve-basarisizlik.html"><![CDATA[<p>1995-2004 yılları arasındaki yaklaşık 250 büyük yazılım projesinin incelenmesi ilginç benzerlikleri gösterdi. Maliyet ve çizelge tahminlerini başarıyla gerçekleştiren büyük projeleri geç kalan, bütçeyi aşan veya tamamlanmadan iptal edilen projelerle karşılaştırırken, altı ortak sorun gözlemlendi: zayıf proje planlaması, yetersiz maliyet tahmini, zayıf ölçümler, zayıf kilometre taşı takibi, zayıf değişim kontrolü ve düşük kalite kontrol. Buna karşılık, başarılı yazılım projeleri bu alanların altısında ortalamanın üzerinde olma eğilimindedir. Bu altı sorun alanının belki de en ilginç yanı, hepsinin teknik personelden çok proje yönetimiyle ilişkili olmasıdır. <strong>İki çalışma hipotezi ortaya çıktı:</strong></p>
+<ol>
+  <li>Yetersiz kalite kontrolü, maliyet ve zaman aşımına en büyük katkıyı sağlar</li>
+  <li>Yetersiz proje yönetimi, yetersiz kalite kontrolünün en olası nedenidir.</li>
+</ol>
+
+<p><strong>Araştırma dahilindeki 250 projeden;</strong></p>
+<ul>
+  <li>25 tanesi planlanan zamanda ve bütçe ile bitti,</li>
+  <li>50 tanesi plananan zamandan sonra bütçeyi %35 aşarak sonuçlandı,</li>
+  <li>175 tanesi büyük gecikmeler ve bütçe aşımı ile sonuçlandı ya da hiç tamamlanamadı.</li>
+</ul>
+
+<h2 id="başarılı-ve-başarısız-proje-planlaması">Başarılı ve Başarısız Proje Planlaması</h2>
+<p>Proje planlaması ifadesi, iş kırılım yapılarının oluşturulmasını ve ardından görevlerin zaman içinde ekip üyelerine dağıtılmasını kapsar. Proje planlaması, Gantt çizelgeleri, PERT çizelgeleri veya benzerleri dahil olmak üzere çeşitli zaman çizelgelerinin ve kritik yolların oluşturulmasını içerir.</p>
+
+<p><strong>2004 yıllarında büyük yazılım projeleri için başarılı planlama şunları içerir:</strong></p>
+<ul>
+  <li>Artemis Views veya Microsoft Project gibi otomatik planlama araçlarını kullanma.</li>
+  <li>Eksiksiz iş kırılım yapılarının geliştirilmesi.</li>
+  <li>Proje geliştirme faaliyetlerinin kritik yol analizinin yapılması.</li>
+  <li>Proje süresince personel alımını ve işten ayrılmayı dikkate almak.</li>
+  <li>Taşeronları ve uluslararası ekipleri dikkate almak.</li>
+  <li>Gereksinimlerin toplanması ve analizi için zamanında düzeltme.</li>
+  <li>Değişen gereksinimlerin üstesinden gelmek için zamanında düzeltme.</li>
+  <li>Eksiksiz bir kalite kontrol faaliyetleri paketi için zamanında düzeltme.</li>
+  <li>Gereksinim artışı önemliyse, birden fazla yayının değerlendirilmesi.</li>
+</ul>
+
+<p>Başarı projeler planlamayı iyi yapıyor, başarısız projelerde ise çoğunlukla planlama hataları var.</p>
+
+<p><strong>En yaygın planlama hataları:</strong></p>
+<ol>
+  <li>Değişen gereksinimlerle etkin bir şekilde ilgilenmemek,</li>
+  <li>Proje süresince personel alım sürecine katılmamak ve işten ayrılmayı öngörmemek,</li>
+  <li>Detaylı gereksinim analizi için zaman ayırmamak,</li>
+  <li>Denetimler, testler ve hata düzeltmeleri için yeterli zaman tahsis etmemek.</li>
+</ol>
+
+<p>Başarılı projelerde planlama süreci araçlar yardımcı ile otomatize edilmiş durumda. Piyasada 50 den fazla ticari proje planlama aracı var. Başarılı projeler en az bir tanesini kullanıyor.</p>
+
+<h2 id="başarılı-ve-başarısız-proje-maliyet-tahmini">Başarılı ve Başarısız Proje Maliyet Tahmini</h2>
+<p>Büyük yazılım projelerinde maliyet tahmini elle yapılamayacak kadar komplex. Piyasadaki 75’den fazla yazılım maliyet tahmini programını varlığı da bu durumu doğruluyor. Bunlardan en bilinenleri: COCOMO II, CostXpert, Knowledge-Plan, PRICE-S, SEER-SEM, SLIM</p>
+
+<p>Başarılı projelerde bu programlardan en az bir tanesini kullanıyor. Birden fazla programın kullanılması nadir değil.</p>
+
+<p><strong>Büyük sistemler için başarılı maliyet tahmini, aşağıdakilerin kullanılmasını içerir:</strong></p>
+<ul>
+  <li>Yazılım tahmin araçları (COCOMO II, CostXpert, KnowledgePLAN, PRICE-S, SEER-SEM, SLIM, vb.).</li>
+  <li>İşlev noktalarına dayalı ana çıktılar için resmi boyutlandırma yaklaşımları.</li>
+  <li>Tahminlerin benzer projelerden elde edilen geçmiş verilerle karşılaştırılması.</li>
+  <li>Eğitimli tahmin uzmanlarının veya proje yöneticilerinin varlığı.</li>
+  <li>Tahmine yeni ve değişen gereksinimlerin dahil edilmesi.</li>
+  <li>Kalite tahmininin yanı sıra program ve maliyet tahmininin dahil edilmesi.</li>
+</ul>
+
+<p>Projedeki verimlik oranın abatılarak tahmin edilmesi ya da küçük bir proje ile büyük bir projedeki verimin aynı olacağını yanılgısı en sık yapılan hatalardan.</p>
+
+<h2 id="başarılı-ve-başarısız-proje-ölçümlemesi">Başarılı ve Başarısız Proje Ölçümlemesi</h2>
+<p>Başarılı büyük projeler çoğunlukla üretkenlik ve kalite geçmiş verilerini kaydetmek için yazılım ölçüm programlarına sahip şirketlerden çıkar. Böylece herhangi bir yeni proje, çizelgelerin, maliyetlerin, kalitenin ve diğer önemli faktörlerin geçerliliğini değerlendirmek için benzer projelerle karşılaştırılabilir. 10.000 işlev puanı alanındaki projeler için <strong>en faydalı ölçümler</strong> aşağıdakilerin ölçümlerini içerir:</p>
+<ul>
+  <li>Birikmiş çaba.</li>
+  <li>Birikmiş maliyetler.</li>
+  <li>Geliştirme verimliliği.</li>
+  <li>İsterlerin hacmi ve değişim oranı.</li>
+  <li>Hataların kök nedeni.</li>
+  <li>Hata giderme verimliliği.</li>
+</ul>
+
+<p><strong>Geliştirme verimliliği genelde 2 farklı şekilde ölçülüyor.</strong></p>
+<ol>
+  <li>Adam-ay sürede geliştirilen işlev puanı</li>
+  <li>Birim işlev puanı için harcanan saat</li>
+</ol>
+
+<p>Bazı devlet kurumları ve savunma sanayi hala eski Lines-of-code metrikini kullanıyor. Bu metrik kullanımı tehlikeli çünkü sadece yazılım aşamasını değerlendiriyor. Planlama, isterler, dökümantasyon, proje yönetimi, kalite güvencesi gibi alanları yok sayıyor. Satır sayısı ve proje arasındaki ilişki kullanılan dile bağlı. Çok büyük projelerden birdan fazla yazılım dili kullanılıyor. 12 farklı yazılım dili içeren projeler mevcut.</p>
+
+<p>Başarılı projelerde hataların yakalanma ve giderilme oranları da takip ediliyor. Başarılı projelerde hataların %95’i geliştirme aşamasında yakalanıyor. Bu sektör ortalaması %85’den sadece 10 puan daha yüksek.</p>
+
+<p>Projedeki büyük takvim gecikmeleri genelde test aşamasında aşırı hatalar yüzünden ortaya çıkıyor. Büyük projelerdeki yetersiz kalite kontrolü takvim gecikmelerinin ve maliyet artışlarının ana sebebi.</p>
+
+<h2 id="başarılı-ve-başarısız-proje-kilometre-taşı-takibi">Başarılı ve Başarısız Proje Kilometre Taşı Takibi</h2>
+<p>Proje yönetimi, kilometre taşlarını oluşturmaktan, bunların tamamlanmasını izlemekten ve kilometre taşlarının başarıyla tamamlanıp tamamlanmadığını veya sorunlarla karşılaşıldığında doğru bir şekilde raporlamaktan sorumludur. Ciddi sorunlarla karşılaşıldığında, kilometre taşının tamamlandığını bildirmeden önce sorunları düzeltmek gerekir.
+<strong>Büyük projelerde bazı kilometre taşları:</strong></p>
+<ul>
+  <li>Gereksinim incelemesi.</li>
+  <li>Proje planının gözden geçirilmesi.</li>
+  <li>Maliyet ve kalite tahmini incelemesi.</li>
+  <li>Dış tasarım incelemeleri.</li>
+  <li>Veritabanı tasarımı incelemeleri.</li>
+  <li>İç tasarım incelemeleri.</li>
+  <li>Kalite planı ve test planı incelemeleri.</li>
+  <li>Dokümantasyon planı incelemesi.</li>
+  <li>Dağıtım planı incelemesi.</li>
+  <li>Eğitim planının gözden geçirilmesi.</li>
+  <li>Kod incelemeleri.</li>
+  <li>Her geliştirme test aşaması.</li>
+  <li>Müşteri kabul testi.</li>
+</ul>
+
+<p>Başarılı projelerin bir farklı da projede bir problem yaşandığında ya da takvimde bir gecikme görüldüğünde, düzeltici aksiyonları güçlü ve derhal bir şekilde yerine getirir.  Başarısız projelerde ise hatalar görmezden gelip ötelenir.</p>
+
+<h2 id="başarılı-ve-başarısız-proje-değişiklik-yönetimi">Başarılı ve Başarısız Proje Değişiklik Yönetimi</h2>
+<p>10000 işlev puanın sahip projelerde analiz ve tasarım aşamasında her ay isterlerin %1 ile %3’ü arası değişiyor, ekleniyor veya siliniyor. Bu durum proje başında ve sonunda işlev puanlarını hesaplanması ile bulundu. Proje başında 10000 işlev puan olan bir proje tasarım aşaması bittikten sonra 12000 işlev puana çıkabiliyor. Toplamda %20 lik bir proje büyümesi demek bu. Arada geçen süresini 10 ay olduğu varsayılırsa her ay proje %2 oranında büyümüş olmalı. Projedeki bu büyümeye bağlı olarak planların ve tahminlerin güncellenmesi gerekiyor.</p>
+
+<p><strong>Başarılı bir değişiklik kontrol yönetimi aşağıdakileri içeriyor:</strong></p>
+<ul>
+  <li>Ortak bir müşteri/geliştirme değişikliği kontrol kurulu veya belirlenmiş etki alanı uzmanları.</li>
+  <li>Aşağı yöndeki değişiklikleri en aza indirmek için ortak uygulama tasarımı (JAD) kullanma.</li>
+  <li>Aşağı yöndeki değişiklikleri en aza indirmek için resmi prototiplerin kullanılması.</li>
+  <li>Değişikliklere uyum sağlamak için yinelemeli geliştirmenin planlı kullanımı.</li>
+  <li>Tüm değişiklik taleplerinin resmi olarak gözden geçirilmesi.</li>
+  <li>10 fonksiyon noktasından büyük tüm değişiklikler için revize edilmiş maliyet ve zamanlama tahminleri.</li>
+  <li>İş etkisi açısından değişiklik taleplerini önceliklendirmek.</li>
+  <li>Değişiklik taleplerinin belirli sürümlere resmi olarak atanması.</li>
+  <li>Çapraz referans özelliklerine sahip otomatik değişiklik kontrol araçlarını kullanma.</li>
+</ul>
+
+<p>Gerçek dünyada isterlerin dondurmak pek olası bir durum değil. Bu yüzden değişikliğe hazır olmalıyız.</p>
+
+<h2 id="başarılı-ve-başarısız-proje-kalite-kontrolü">Başarılı ve Başarısız Proje Kalite Kontrolü</h2>
+<p>Etkili yazılım kalite kontrolü, başarılı projeleri gecikmelerden ve felaketlerden ayıran en önemli tek faktördür. Bunun nedeni, büyük sistemler için hata bulma ve düzeltmenin en pahalı maliyet unsuru olması ve diğer faaliyetlerden daha fazla zaman almasıdır.</p>
+
+<p>Başarılı kalite kontrol, hem hata önleme hem de hata giderme faaliyetlerini içerir. Hata önleme ifadesi, ilk etapta bir hata veya kusur oluşturma olasılığını en aza indiren tüm faaliyetleri içerir. Kusur giderme ifadesi, her türlü teslimatta hata veya kusur bulabilen tüm faaliyetleri içerir.</p>
+
+<p><strong>Hata Önleme:</strong></p>
+<ul>
+  <li>Gereksinimleri toplamak için JAD.</li>
+  <li>Resmi tasarım yöntemleri.</li>
+  <li>Yapılandırılmış kodlama yöntemleri.</li>
+  <li>Resmi test planları.</li>
+  <li>Resmi test senaryosu yapımı.</li>
+</ul>
+
+<p><strong>Hata Giderme:</strong></p>
+<ul>
+  <li>Gereksinim denetimleri.</li>
+  <li>Tasarım incelemeleri.</li>
+  <li>Belge incelemeleri.</li>
+  <li>Kod incelemeleri.</li>
+  <li>Test planı ve test durumu incelemeleri.</li>
+  <li>Arıza onarım muayeneleri.</li>
+  <li>Yazılım kalite güvence incelemeleri.</li>
+  <li>Birim testi.</li>
+  <li>Bileşen testi.</li>
+  <li>Yeni fonksiyon testi.</li>
+  <li>Gerileme testi.</li>
+  <li>Performans testi.</li>
+  <li>Sistem testi.</li>
+  <li>Kabul testleri.</li>
+</ul>
+
+<p>Hata önleme ve hata giderme faliyetlerindeki değişim  proje sonucundaki hata oranında ciddi bir fark yaratıyor.</p>
+
+<p>Başarılı bir projede ortalama her işlev puanı 4.0 hata içeriyor ve hata önleme faliyetlerinde %95’i müşteriye teslim edilmeden yakalanıyor. Bir başka deyişle, teslim edilen yazılımda her işlev puanına karşılık 0.2 hata var ya da toplamda 2000 hata var diyebiliriz. Bunların sadece %10u (200 hata) kritik seviyede oluyor.</p>
+
+<p>Başarısız bir projede ortalama her işlev puanı 7.0 hata içeriyor ve hata önleme faliyetlerinde sadece %80’i müşteriye teslim edilmeden yakalanıyor. Bir başka deyişle, teslim edilen yazılımda her işlev puanına karşılık 1.4 hata var ya da toplamda 14000 hata var diyebiliriz. Bunların sadece %20u (2800 hata) kritik seviyede oluyor.</p>
+
+<p>Yukarıdaki 2 örnekten görülebileceği üzere 2 proje arasında kritik hatlarda 14 kat fark var. Bu farklı oluşturan asıl neden başarılı projelerde resmi tasarım ve kod denetimi aşamalarının hata yakalamada %65 verimli olması.</p>
+
+<p>Başarısız projelerde genelde tasarım ve kodlama denetimi aşamları pas geçilip hata bulmada sadece test aşamasına  güveniliyor. <strong>Bu durum aşağıdaki 3 probleme neden oluyor:</strong></p>
+<ol>
+  <li>Test sırasında hala mevcut olan çok sayıdaki hata, projeyi durma noktasına getirir,</li>
+  <li>Denetimsiz projeler için hatalı düzeltme eklenme oranı endişe verici derecede yüksektir</li>
+  <li>Yalnızca testle ilişkili genel hata giderme yüzde 80’den daha yüksek kusur giderme oranları elde etmek için yeterli değildir.</li>
+</ol>
+
+<h2 id="sonuç">Sonuç</h2>
+<p>Büyük yazılım sistemlerini başarısızlıkla sonuçlanmasını birçok yolu vardır. Projeyi başarılı sonuçlandırmanın ise  sadece birkaç yolu var. Proje yönetiminin, projeleri başarıya veya başarısızlığa götüren ana faktör olması ilginçtir.</p>
+
+<p>Kalite kontrolünde beceriksiz ve proje yönetimi aşamalarında yetersiz olan büyük yazılım projeleri, genellikle ya tamamen başarısızlığa ya da büyük miktarda maliyet aşımına neden olur.</p>
+
+<p>Başarıya götüren en önemli yazılım geliştirme uygulamaları arasında, proje başlamadan önce planlama ve tahminde bulunma, proje sırasında değişen gereksinimleri absorbe etme ve hataları veya kusurları başarılı bir şekilde en aza indirme sayılabilir.</p>
+
+<p>Başarılı projeler her zaman şu kritik faaliyetlerde başarılı olur: planlama, tahmin, değişiklik kontrolü ve kalite kontrolü. Buna karşılık, geç veya başarısız bir şekilde yürütülen projelerin kusurlu veya iyimser planları, değişiklikleri öngörmeyen veya değişimi iyi idare edemeyen tahminleri vardır.</p>]]></content><author><name>M. Serdar Karaman</name></author><summary type="html"><![CDATA[1995-2004 yılları arasındaki yaklaşık 250 büyük yazılım projesinin incelenmesi ilginç benzerlikleri gösterdi. Maliyet ve çizelge tahminlerini başarıyla gerçekleştiren büyük projeleri geç kalan, bütçeyi aşan veya tamamlanmadan iptal edilen projelerle karşılaştırırken, altı ortak sorun gözlemlendi: zayıf proje planlaması, yetersiz maliyet tahmini, zayıf ölçümler, zayıf kilometre taşı takibi, zayıf değişim kontrolü ve düşük kalite kontrol. Buna karşılık, başarılı yazılım projeleri bu alanların altısında ortalamanın üzerinde olma eğilimindedir. Bu altı sorun alanının belki de en ilginç yanı, hepsinin teknik personelden çok proje yönetimiyle ilişkili olmasıdır. İki çalışma hipotezi ortaya çıktı: Yetersiz kalite kontrolü, maliyet ve zaman aşımına en büyük katkıyı sağlar Yetersiz proje yönetimi, yetersiz kalite kontrolünün en olası nedenidir.]]></summary></entry><entry xml:lang="tr"><title type="html">Use Case Tuzakları</title><link href="https://karaman.dev/2022/05/01/use-case-tuzaklari.html" rel="alternate" type="text/html" title="Use Case Tuzakları" /><published>2022-05-01T10:51:46+00:00</published><updated>2022-05-01T10:51:46+00:00</updated><id>https://karaman.dev/2022/05/01/use-case-tuzaklari</id><content type="html" xml:base="https://karaman.dev/2022/05/01/use-case-tuzaklari.html"><![CDATA[<p>Use case analizi yazılım projelerinde oldukça yaygın olarak kullanılan, pratik, erişilebilir ve basit bir formattır. Fakat basit olmasının da zorlukları vardır. Bu makale de use case kullanırken karşılaşılan 10 problemden bahsedilmiştir.</p>
+
+<p>Son birkaç yılda, bir dizi projenin “use case kullanarak” ilk denemelerini yaptıkları görüldü. Bu projeler, use case analizini çeşitli şekillerde kullanmıştır. Örneğin; sistem gereksinimlerinin bir parçası olarak, bir analiz tekniği olarak sistem gereksinimlerini daha açıklayıcı hale getirmek için, kullanıcı gereksinimlerini ortaya çıkarmak için. Proje ekipleri “use case” e başlarken küçük çapta sorunlarla karşılaştı fakat daha büyük projelerde de aynı sorunlarla karşılaşıldı. Bunlar; tanımsız veya birbiriyle uyuşmayan sistem sınırları, use case modelinin karmaşıklığı, use case belirtiminde yaşanan anlaşmazlıklar, uzun ve ayrıntılı projelerde zor ve asla tamamlanamayan vakalardır. Bu yazıda  örneklerin daha iyi anlaşılması için “Beyzbol Bilet Sipariş Sistemi” kullanılmış ve örneklendirilmiştir.</p>
+
+<h2 id="en-çok-karşılaşılan-10-sorun">En çok Karşılaşılan 10 Sorun</h2>
+
+<p><img src="/img/posts/use-case-tuzak.jpg" alt="Belirsiz sistem tanımı" style="display:block; margin-left:auto; margin-right:auto;width:700px;" /></p>
+
+<h3 id="problem-1---sistem-sınırı-tanımsız-veya-tutarsız-olabilir">Problem 1 - Sistem sınırı tanımsız veya tutarsız olabilir.</h3>
+<h4 id="belirti">Belirti:</h4>
+<p>Kullanım durumları tutarsız sistem kapsamında açıklanmıştır. Aktörleri belirlemeden önce sistem kapsamını belirlememiz gerekir. Öncelikle anlamamız gereken; bu bir bilgisayar sitemi mi?, bir başvuru sistemi mi? ya da tam bir ticari işletme mi? bunları belirlememiz gerekir. Bir sistem için uyumlu olmayan diğeri için uyumlu olabilir. Örneğin; “kiosk müşteri” bilet satın almak için bilgisayar sistemini kullanabilir. Aynı zamanda “kiosk müşteri” telefonla müşteri temsilcisini arayıp “telefon müşterisi” de olabilir.</p>
+<h4 id="çözüm">Çözüm:</h4>
+<p>Kapsam hakkında açık olun ve sistem sınırını buna göre etiketleyin. Yani burada üçüncü bir kullanıcı olarak “telefon müşterisi” ni ayrı tutmaya gerek yoktur. “Kiosk müşteri” ikisi de olabilir. Şunu ayırt etmek gerekiyor ki telefon kullanıcısı bilet satın alma işinin bir kullanıcısıdır. Fakat bilgisayar sisteminin bir kullanıcısı değildir.</p>
+
+<h3 id="problem-2---kullanım-senaryoları-sistemin-aktörlerin-değil-bakış-açısından-yazılmıştır">Problem 2 - Kullanım senaryoları sistemin (aktörlerin değil) bakış açısından yazılmıştır.</h3>
+<h4 id="belirti-1">Belirti:</h4>
+<p>Kullanım senaryosu adları, aktörün amacından ziyade sistemin ne yaptığını tanımlar.</p>
+<h4 id="çözüm-1">Çözüm:</h4>
+<p>Kullanım durumlarını Aktörün hedefleri açısından adlandırın. Bilet Sırası ve Görüntüleme Programı, sistemin yaptığı şeylerdir.Biletler ve Görünüm Takvimi, sistem kullanıcılarının hedefleridir. Sistemin aktörün amacını nasıl tatmin edeceğine değil, ne yapması gerektiğine odaklanılır.</p>
+
+<h4 id="belirti-2">Belirti:</h4>
+<p>Kullanım senaryosu modeli bir veri/süreç akış şemasına benziyor.</p>
+<h4 id="çözüm-2">Çözüm:</h4>
+<p>Kullanım senaryosu modelinin doğrudan ilişkili olmayan kullanım senaryoları içerip içermediğine dikkat etmek gerekir. Acemi modelleyiciler bu konu hakkında fazla bilgi sahibiolmadığından bu durumu kötüy kullanıp  karıştırabiliyorlar.</p>
+
+<h3 id="problem-3---aktör-isimleri-tutarsız-olabiliyor">Problem 3 - Aktör isimleri tutarsız olabiliyor.</h3>
+<h4 id="belirti-3">Belirti:</h4>
+<p>Bir rolü tanımlamak için birden fazla isim kullanılıyor. Bu en başta çok kolay bir yöntem gibi gözükse de ilerleyen zamanlarda bir takım karışıklıklara sebep olabilir ve kodlama aşamasına geçildiğinde programlamayı yapan kişi için zor olacaktır.</p>
+<h4 id="çözüm-3">Çözüm:</h4>
+<p>Aktör adları ve diğer programlama terimleri konusunda erken anlaşmaya varılmalıdır. Bunu için bir sözlük oluşturmak iyi bir yöntemdir. Böylece projenin ileri aşamalarında ki yaşanacak karışıklıkların önüne geçilir.</p>
+
+<p><img src="/img/posts/use-case-partitioning.jpg" alt="Use case Bölümleme" style="display:block; margin-left:auto; margin-right:auto;width:700px;" /></p>
+
+<h3 id="problem-4---çok-fazla-use-case-kullanılması-durumu">Problem 4 - Çok fazla use case kullanılması durumu</h3>
+<h4 id="belirti-4">Belirti:</h4>
+<p>Kullanım senaryosu modelinde çok sayıda kullanım senaryosu vardır. Bunu önlemek için bir konuyu çok iyi anlamak gerekiyor. Use case senaryolarının ayrıntı düzeyinin uygun olduğuna ve değer sonuçlarına dikkat etmemiz gerekir. Örneğin; iyi senaryoları içermeyen “ Kiosk Müşteri”nin 3 farklı use case’i var ise bunların göz önünde bulundurularak atomik bir şekilde yazılması gerekir.</p>
+<h4 id="çözüm-4">Çözüm:</h4>
+<p>Şayet sistem çok büyük bir sistem ise; Kullanım senaryosu modeli, her biri bir paket içeren kullanım senaryosu paketlerine ayırmak gerekir. Böylece, çok fazla use case kullanılması durumunda karışıklıktan kaçınılmış olunur.</p>
+
+<p><img src="/img/posts/use-case-generalization.jpg" alt="Use case Aktör Kalıtımı" style="display:block; margin-left:auto; margin-right:auto;width:700px;" /></p>
+
+<h3 id="problem-5---aktör-use-case-kullanım-durumu-bir-örümcek-ağına-benzer">Problem 5 - Aktör use case kullanım durumu bir örümcek ağına benzer</h3>
+<h4 id="belirti-5">Belirti:</h4>
+<ol>
+  <li>Aktörler ve kullanım durumları arasında çok fazla ilişki vardır.</li>
+  <li>Bir aktör her kullanım durumu ile etkileşime girer.</li>
+  <li>Bir kullanım durumu, her aktörle etkileşime girer.</li>
+</ol>
+
+<h4 id="çözüm-5">Çözüm:</h4>
+<p>Aktörlerin çok geniş bir skalada tanımlanabilir olup olmadığını belirlemek için aktörleri incelemek gerekir. Makale de belirtilen telefon memuru ve stadyum yöneticisi arasında ki ilişki bu konuyu anlamak için idealdir. Böylece, use case modelleme notasyonu, açık bir şekilde için bir mekanizma, aktör kalıtımı sağlar.</p>
+
+<h3 id="problem-6---genellikle-kullanım-senaryosu-özellikleri-çok-uzun-oluyor">Problem 6 - Genellikle kullanım senaryosu özellikleri çok uzun oluyor.</h3>
+<h4 id="belirti-6">Belirti:</h4>
+<p>Senaryolar çok geniş çapta ve uzun sürebiliyor.</p>
+<h4 id="çözüm-6">Çözüm:</h4>
+<p>Use case senaryoları daha özet, daha kısa ve anlaşılır olmalı ki ilerleyen zamanlarda use case senaryolarını inceleyen kişiler için daha özet ve bütün sisteme hakim bilgiler içerebilsin.</p>
+
+<h3 id="problem-7---kullanım-senaryosu-spesifikasyonları-kafa-karıştırıcıdır">Problem 7 - Kullanım senaryosu spesifikasyonları kafa karıştırıcıdır.</h3>
+<h4 id="belirti-7">Belirti:</h4>
+<p>Kullanım senaryosunun şart içermiyor ve bir hikaye anlatmıyor</p>
+<h4 id="çözüm-7">Çözüm:</h4>
+<p>Kullanım senaryosuna “şart” eklerseniz bu use case için daha iyi olabilir.</p>
+<ol>
+  <li>Koşullu davranışı (“Eğer…”) ayrı olarak tanımlanan alternatif akışlara ayrılmalı,</li>
+  <li>Normal akıştan daha kısa ve anlaşılması daha kolay olur.</li>
+  <li>Kullanım senaryosu adımları, önemsiz olmayan algoritmaları tanımlamak için özellikle etkili değildir.</li>
+  <li>Şartlar kurallara ayrılarak belirtilmeli.</li>
+</ol>
+
+<h3 id="problem-8---use-case-işlevsel-yetkiyi-doğru-bir-şekilde-tanımlayamıyor">Problem 8 - Use case işlevsel yetkiyi doğru bir şekilde tanımlayamıyor.</h3>
+<h4 id="belirti-8">Belirti:</h4>
+<p>Aktörler ve kullanım durumları arasındaki ilişkiler doğru veya tam olarak tanımlamıyor. Bunun 2 sebebi vardır. Birincisi; Kullanım senaryosu modelleyicileri, “nesne yönelimli” olmaya çalışıyorlar. “CRUD kullanımını bütün senaryoya yerleştirmek istiyorlar. İkincisi ise; arayüz ekranıyla entegre etmeye çalışıyorlar.</p>
+<h4 id="çözüm-8">Çözüm:</h4>
+<p>Bir kullanıcıya ait bütün senaryolar tek bir seferde yazılmaya çalışılması yerine bölünerek yazılmalıdır. Böylece daha anlaşılır olur.</p>
+
+<h3 id="problem-9---müşteri-modelleyici-tarafından-oluşturan-use-caseleri-anlamakta-zorluk-çekiyor">Problem 9 - Müşteri modelleyici tarafından oluşturan use case’leri anlamakta zorluk çekiyor</h3>
+<h4 id="belirti-9">Belirti:</h4>
+<p>Müşteri kendisine onaylaması için sunulan belgeleri anlamıyor ama bunları belirli zaman içinde kabul etmesi gerekiyor. Projenin ilerleyen safhalarında kabul etmiş ama anlamış olduğu doküman üzerinden bir sistem hayata geçirildiğinde bu durum ciddi sorunlar yaratabilir.</p>
+<h4 id="çözüm-9">Çözüm:</h4>
+<p>Çözüm olarak müşteriye anlayabileceği kadar bilgi verilmelidir. Böylece müşteri hem dokümanları anlayarak belgelere onay verecek hem de anlaşmazlıklar da en az bütçe harcanarak çözülecektir.</p>
+
+<h3 id="problem-10---use-case-durumları-asla-bitmez">Problem 10 - Use case durumları asla bitmez.</h3>
+<h4 id="belirti-10">Belirti:</h4>
+<p>Kullanıcı arayüzü her değiştiğinde kullanım senaryolarının değişmesi gerekiyor.</p>
+<h4 id="çözüm-10">Çözüm:</h4>
+<p>Use case senaryolarını çok katı olmayacak şekilde birleştirilmelidir ki dokümanların modifiye edilebilmesi kolay olsun.</p>
+
+<p>Not: Bu yazı Susan Lilly’nin <em>Use Case Pitfalls: Top 10 Problems from Real Projects Using Use Cases</em> isimli makalesi Türkçeleştirilerek oluşturulmuştur.</p>]]></content><author><name>M. Serdar Karaman</name></author><summary type="html"><![CDATA[Use case analizi yazılım projelerinde oldukça yaygın olarak kullanılan, pratik, erişilebilir ve basit bir formattır. Fakat basit olmasının da zorlukları vardır. Bu makale de use case kullanırken karşılaşılan 10 problemden bahsedilmiştir.]]></summary></entry><entry xml:lang="tr"><title type="html">Yazılım Sistem Mühendisliği</title><link href="https://karaman.dev/2022/04/29/yazilim-sistem-muhendisligi.html" rel="alternate" type="text/html" title="Yazılım Sistem Mühendisliği" /><published>2022-04-29T22:00:00+00:00</published><updated>2022-04-29T22:00:00+00:00</updated><id>https://karaman.dev/2022/04/29/yazilim-sistem-muhendisligi</id><content type="html" xml:base="https://karaman.dev/2022/04/29/yazilim-sistem-muhendisligi.html"><![CDATA[<p>Yazılım projeleri gün geçtikçe daha büyük ve daha komplex hale geliyorlar. Bilgisayar donanımlarındaki performans artışı yazılımlar üzerindeki büyüklük ve komplekslik limitini baskılama ihtiyacını ortadan kaldırdı.   Donanımlar geliştikçe üzerinde çalışan yazımlarla yeni özellikler eklendi. Microsoft Word gibi bir yazılım eskiden diskete sığarken şimdi CD ile dağıtılıyor.</p>
+
+<p>Büyük yazılım projeleri tahmin edilen zamanda ve bütçe ile bitirilemiyor ya da müşterinin ihtiyaçlarını tamamen karşılayamıyor.  Bu fenomen <em>yazılım krizi</em> olarak biliniyor. Bu krize karşılık yazılım geliştiricileri yeni yöntemler geliştirdi. Sadece proje içerisinde kullanılan kaynakları, sağlanan isterleri, tamamlanan testleri takip etmek proje hakkında sağlıklı bir bilgi vermiyor. Bunlar dışında teknik sürecin ve onun ürününün de takip edilmesi şart.  Sistem mühendisliği bunu için gerekli araçları sağlıyor.</p>
+
+<p>Sistem mühendisliği prensiplerinin yazılım geliştirme alanına uygulanmasına <strong>yazılım sistem mühendisliği</strong> diyoruz.</p>
+
+<p><img src="/img/posts/soft-sys-eng-v-model.png" alt="Yazılım Sistem Mühendisliği V Model" style="display:block; margin-left:auto; margin-right:auto" /></p>
+<h2 id="sistem-ve-sistem-mühendisliği">Sistem ve sistem mühendisliği</h2>
+<p>Sistem ortak bir amaca hizmet eden parçaların bütünüdür. Bilgisayar sistemleri için bu parçalar; donanım, yazılım, insanlar, tesisler, ve süreçlerdir.</p>
+
+<p>Sistem mühendisliği, bir ihtiyacı karşılayan en iyi çözümün bilimsel, mühendislik, ve yönetim becerileri ile bulunmasıdır. 
+Sistem mühendisliğin 5 aşaması vardır:</p>
+<ol>
+  <li>Problem tanımı</li>
+  <li>Çözüm analizi</li>
+  <li>Süreç planlanması</li>
+  <li>Süreç kontrolü</li>
+  <li>Ürün değerlendirme</li>
+</ol>
+
+<h2 id="yazılım-sistem-mühendisliği-nedir">Yazılım sistem mühendisliği nedir</h2>
+<p>Yazılım sistem mühendisliği terimi 1980 lere kadar gidiyor ve ilk olarak Winston W. Royce’un bunu kullandığı düşünülüyor. Yazılım sistem mühendisi, sistemin teknik yönetiminden ve son ürünün doğrulanmasından sorumludur. Yazılım sistem mühendisi, yazılım geliştiricilerin aksine kod yazmaz, proje ile ilgili dökümanları üretir. 
+Yazılım sistem mühendisliği faaliyeti sistem isterleri yazılım ve donanım şeklinde parçalara bölündükten sonra başlar.</p>
+
+<h2 id="yazılım-sistem-mühendisliği-ve-yazılım-mühendisliği">Yazılım sistem mühendisliği ve Yazılım mühendisliği</h2>
+<p><img src="/img/posts/soft-sys-eng-3-relation.png" alt="Yazılım Sistem Mühendisliği V Model" style="display:block; margin-left:auto; margin-right:auto" />
+Hem Yazılım sistem mühendisliği hem de Yazılım mühendisliği, teknik ve yönetimsel süreçler. Yazılım mühendisleri sistemin komponentleri ve dokümantasyonunu üretir. 
+Figure 1 üzerinden  sistem mühendisi, yazılım sistem mühendisi ve yazılım mühendisi arasındaki ilişki görülebilir. Sistem mühendisleri genel sistem analizini, sistem tasarımı, sistem entegrasyonunu ve testini yapar.
+Yazılım geliştime aşamasının başlarında yazılım sistem mühendisi, yazılım isterlerini analiz eder ve mimari tasarım ortaya çıkartır. Yazılım sistem mühendisi ayrıca yazılımın sistem entegrasyonundan  ve testinden sorumludur.</p>
+
+<h3 id="yazılım-sistem-mühendisliği-ve-proje-yönetimi">Yazılım sistem mühendisliği ve proje yönetimi</h3>
+<p>Proje yönetimi, yazılım sisteminin risklerini ve maliyetlerini değerlendirmeyi, proje takvimi oluşturmayı, projenin maliyetlere ve takvime uygun gittiğinden ve teknik gereksinimleri karşıladığından emin olmak için sürekli olarak projeyi denetler.
+Yazılım sistem mühendisi ise teknik yaklaşımı belirler ve teknik kararlar alır. Son ürünü onaylar.</p>
+
+<h2 id="yazılım-sistem-mühendisinin-görevleri">Yazılım sistem mühendisinin görevleri</h2>
+<h3 id="i̇ster-analizi">İster analizi</h3>
+<p>Bir yazılım geliştirme projesinin ilk aşaması sistem seviyesi isterlerin belirlenmesi ve dokümante edilmesidir. Sistem seviyesi isterler belli olduktan sonra yazılım sistem mühendisi bunları inceleyerek yazılım isterlerini belirler. 
+Yazılım isterleri kategorileri:</p>
+<ul>
+  <li>Fonksiyonel isterler</li>
+  <li>Performans isterleri</li>
+  <li>Harici arayüz isterleri</li>
+  <li>Tasarım limitleri</li>
+  <li>Kalite kıstasları</li>
+</ul>
+
+<h3 id="yazılım-tasarımı">Yazılım tasarımı</h3>
+<p>Yazılım tasarımı, yazalım isterlerini sağlayacak en etkili ve en verimli çözümün bulunması ve seçilmesidir.
+Yazılım tasarımı geleneksel olarak 2 parçaya ayrılır:</p>
+<ol>
+  <li>Mimari tasarım</li>
+  <li>Detaylı tasarım</li>
+</ol>
+
+<h3 id="sürecin-planlanması">Sürecin planlanması</h3>
+<p>Planlama, proje amaçlarını ve hedeflerini ve bunlara ulaşmak için stratejileri, politikaları, planları ve prosedürleri belirtir. Ne yapılacağını, nasıl yapılacağını, ne zaman yapılacağını ve kimin yapacağını önceden tanımlar.</p>
+
+<h3 id="sürecin-kontrolü">Sürecin kontrolü</h3>
+<p>Kontrol, projenin planlandığı gibi ilerlediğinden emin olmak için yapılan yönetimsel aktivitelerdir. Süreç kontrolü yapılan plandan sapmaları inceler bunlara karşı düzeltici aksiyonlar alır. Süreç orjinal plana uygun hale getirilemezse planlarlar tekrar gözden geçirilip düzeltilir. Eğer sapma aşırı boyutta ise proje iptal edilir.</p>
+
+<h3 id="doğrulama-onaylama2-ve-test">Doğrulama, Onaylama<sup>2</sup> ve test</h3>
+<p>Doğrulama, Onaylama ve test; mühendislik sürecinin doğru ve üretilen ürünün isterleri karşılama durumunu kontrol etme çabalarıdır.</p>
+
+<h4 id="doğrulama-verification">Doğrulama (Verification)</h4>
+<p>Bir iş ürününün bulunduğu aşamanın gereksinimlerine uygun olarak geliştirildiğinin değerlendirimesidir. Bu yapılırken planlar, gereksinim belgeleri, tasarım belgesi, kod, ve test belgeleri referans alınır. Bu belgelere bakılarak ürünün doğru mu geliştirildiği kontrol edilir.</p>
+
+<h4 id="onaylama-validation">Onaylama (Validation)</h4>
+<p>Geliştirilen nihai yazılımın kullanım amacına uygunluğun değerlendirilmesi ve gösterilmesidir. Onaylamanın amacı geliştirilen yazılım başta belirlenen kullanıcı ihtiyaçlarını karşıladığından ve doğru çalıştığından emin olmaktır. Başka bir deyişle ürünü amaçlanan ortama yerleştirildiğinde kullanım amacını yerine getirdiğini göstermektir. Onaylama işlemi nihai yazılım üzerinde yapılır.</p>
+
+<h4 id="test">Test</h4>
+<p>Yazılımın tamamını ya da bir kısmını çalıştırılarak verilen girişlere karşılık beklenen tahmin edilebilir ve gözlemlenebilir çıkışların alındığının hata bulmak amacıyla kontrol edilmesidir. Test genellikle Onaylama sürecinin bir parçası olarak kabul edilir.</p>
+
+<p>Doğrulama ve onaylama teknik ve yönetimsel planları, şartname standartlarını ve prosedürlerini takip edip etmediklerini belirlemek için sistem mühendisliği, yazılım sistem mühendisliği, yazılım mühendisliği ve proje yönetimi faaliyetlerinin sürekli izlenmesi sürecidir.</p>
+
+<p>Sistem mühendisliği ve yazılım sistem mühendisliği, öncelikle sistem yaşam döngüsünün ön ucundaki teknik planlama için ve proje sonunda planların karşılandığını doğrulamak için kullanılan disiplinlerdir. Ne yazık ki, özellikle tamamı yazılımdan oluşan ve sıradan donanımda çalışan projelerde genellikle bu disiplinler gözden kaçırır.
+Herhangi bir yazılım projesinin sistem yönlerinin göz ardı edilmesi, yazılımın seçilen donanım üzerinde çalışmamasına veya diğer yazılım sistemleri ile entegre edilememesine, projenin başarısızlıkla sonuçlanmasına neden olabilir.</p>
+
+<h2 id="referanslar">Referanslar</h2>
+<ol>
+  <li>R. H. Thayer, “Software system engineering: a tutorial,” in Computer, vol. 35, no. 4, pp. 68-73, March 2002, DOI: 10.1109/MC.2002.993773.</li>
+  <li>Ali Gürbüz, Yazılım Test Mühendisinin El Kitabı, Seçkin Yayıncılık, ISBN 9789750258992</li>
+</ol>]]></content><author><name>M. Serdar Karaman</name></author><summary type="html"><![CDATA[Yazılım projeleri gün geçtikçe daha büyük ve daha komplex hale geliyorlar. Bilgisayar donanımlarındaki performans artışı yazılımlar üzerindeki büyüklük ve komplekslik limitini baskılama ihtiyacını ortadan kaldırdı. Donanımlar geliştikçe üzerinde çalışan yazımlarla yeni özellikler eklendi. Microsoft Word gibi bir yazılım eskiden diskete sığarken şimdi CD ile dağıtılıyor.]]></summary></entry></feed>
