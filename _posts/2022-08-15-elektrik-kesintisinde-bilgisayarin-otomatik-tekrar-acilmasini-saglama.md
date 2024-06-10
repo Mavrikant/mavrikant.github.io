@@ -6,10 +6,10 @@ layout: post
 lang: tr
 ---
 
-Bu yöntem DELL OptiPlex kasalar için anlatilmistir. BİOS ayarlari diğer markalarda da benzer olmakla beraber bir miktar farklılık gösterebilir. 
+Bu yöntem DELL OptiPlex kasalar için anlatilmistir. BIOS ayarları diğer markalarda da benzer olmakla beraber bir miktar farklılık gösterebilir. 
 
 - Bilgisayar kapatılır
-- Bilgisayar tekrar açılırken F2 tusu ile BİOS ayarlarına girilir.
+- Bilgisayar tekrar açılırken F2 tusu ile BIOS ayarlarına girilir.
 
 ![](/img/posts/reboot-after-power-outage-1.png){:style="display:block; margin-left:auto; margin-right:auto;width: 700px;"}
 
@@ -33,4 +33,4 @@ Bu yöntem DELL OptiPlex kasalar için anlatilmistir. BİOS ayarlari diğer mark
 
 ![](/img/posts/reboot-after-power-outage-5.png){:style="display:block; margin-left:auto; margin-right:auto;width: 700px;"}
 
-- Sağ alttaki Exit butonuna tıklayarak BİOS'tan çıkılır.
+- Sağ alttaki Exit butonuna tıklayarak BIOS'tan çıkılır.
