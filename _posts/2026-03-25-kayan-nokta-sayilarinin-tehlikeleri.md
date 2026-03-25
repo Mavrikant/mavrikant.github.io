@@ -169,6 +169,90 @@ int goreli_esit(double a, double b, double epsilon) {
 
 ---
 
+## Sonsuz Döngü Tuzağı: While ile Açı Normalizasyonu
+
+Bir açıyı `[0°, 360°)` aralığına çekmek için sık yazılan kod şöyle görünür:
+
+```c
+// YANLIŞ - Sonsuz döngüye girebilir!
+float normalize_aci(float aci) {
+    while (aci >= 360.0f) {
+        aci -= 360.0f;
+    }
+    while (aci < 0.0f) {
+        aci += 360.0f;
+    }
+    return aci;
+}
+```
+
+Bu kod küçük sayılar için doğru çalışır. Ancak `aci` değeri çok büyükse **hiç bitmez.**
+
+### Neden?
+
+`float` türü 32 bittir ve yaklaşık **7 anlamlı ondalık basamak** tutabilir. Büyük sayılarda hassasiyet o kadar kabalaşır ki, `360.0f` çıkarmak sonucu hiç değiştirmez — sayı kendi kendine eşit kalır.
+
+```c
+#include <stdio.h>
+
+int main() {
+    float buyuk = 1e10f;  // 10,000,000,000
+
+    float sonuc = buyuk - 360.0f;
+
+    if (sonuc == buyuk) {
+        printf("360.0f cikarmak hic etki yapmadi!\n");
+        // Bu satır çalışır: 1e10f - 360.0f == 1e10f
+    }
+    return 0;
+}
+```
+
+`1e10f` sayısının ULP'si (Unit in the Last Place — son basamağın değeri) yaklaşık **1024.0f**'dir. Yani `float` bu büyüklükte iki komşu sayı arasındaki fark 1024'tür. `360 < 1024` olduğundan çıkarma işlemi **yuvarlama hatası yüzünden tamamen kaybolur** ve `aci` bir sonraki iterasyonda hâlâ `>= 360.0f` olur.
+
+```
+1e10f  →  1e10f - 360.0f  →  yuvarlama  →  1e10f   (değişmedi)
+1e10f  →  1e10f - 360.0f  →  yuvarlama  →  1e10f   (değişmedi)
+...  (sonsuz döngü)
+```
+
+### Çözüm: `fmodf` Kullan
+
+Standart kütüphanenin `fmodf` fonksiyonu bu işi tek adımda ve güvenle yapar:
+
+```c
+#include <math.h>
+
+float normalize_aci(float aci) {
+    aci = fmodf(aci, 360.0f);   // Kalanı al: [-360, 360) aralığına çeker
+    if (aci < 0.0f) {
+        aci += 360.0f;           // Negatifi pozitife çevir
+    }
+    return aci;
+}
+```
+
+```c
+int main() {
+    printf("%.2f\n", normalize_aci(1e10f));   // 0.00  (doğru)
+    printf("%.2f\n", normalize_aci(450.0f));  // 90.00 (doğru)
+    printf("%.2f\n", normalize_aci(-90.0f));  // 270.00 (doğru)
+    printf("%.2f\n", normalize_aci(720.5f));  // 0.50  (doğru)
+    return 0;
+}
+```
+
+`fmodf`, bölme işlemini doğrudan gerçekleştirdiğinden büyük sayılarda da çalışır ve döngü gerektirmez. Aynı prensip `double` için `fmod`, tam sayıya yakın değerler için `remainder` fonksiyonlarına da uygulanır.
+
+### Özet Karşılaştırma
+
+| Yöntem | `aci = 45.0f` | `aci = 1e10f` |
+|--------|--------------|---------------|
+| `while` döngüsü | Doğru | **Sonsuz döngü** |
+| `fmodf` | Doğru | Doğru |
+
+---
+
 ## Performans: Float vs Double
 
 Kayan nokta işlemleri, özellikle eski veya gömülü sistemlerde, tamsayı işlemlerine kıyasla **çok daha yavaş** çalışabilir. Yazılım tabanlı kayan nokta birimi (soft-float) kullanan sistemlerde (bazı mikrodenetleyiciler) bir `double` çarpması onlarca döngü sürebilir.
@@ -189,6 +273,7 @@ Modern masaüstü işlemcilerde FPU donanımı bu farkı büyük ölçüde kapat
 | Float döngü sayacı | Tamsayı sayaç kullan |
 | `==` ile karşılaştırma | Epsilon tabanlı karşılaştırma kullan |
 | Denormalize sayılar | Performans kritik kodlarda `FTZ`/`DAZ` bayraklarını değerlendir |
+| `while` ile açı normalizasyonu | `fmodf` / `fmod` kullan |
 
 Kayan nokta matematiği güçlü bir araçtır; ancak bu araçın sınırlarını bilmek, güvenilir ve doğru yazılımlar geliştirmenin temel koşuludur.
 
