@@ -23,6 +23,7 @@ Bu değerler nasıl oluşur?
 
 ```c
 #include <stdio.h>
+#include <math.h>
 
 int main() {
     float pos_inf =  1.0f / 0.0f;  // +INF
@@ -47,7 +48,7 @@ float b = a + 5.0f;     // NaN
 float c = a * 0.0f;     // NaN (sıfırla çarpmak bile kurtarmaz!)
 float d = a - a;        // NaN
 
-printf("%f %f %f %f\n", b, c, d); // nan nan nan nan
+printf("%f %f %f %f\n", a, b, c, d); // nan nan nan nan
 ```
 
 Bu durum, hesaplama zincirinin herhangi bir noktasında oluşan bir NaN'ın tüm sonuçları sessizce bozmasına yol açar. Hata mesajı yoktur, program çökmez; sadece anlamsız çıktılar üretilir.
@@ -156,9 +157,12 @@ int double_esit(double a, double b) {
 }
 ```
 
-Ancak sabit bir epsilon her durumda işe yaramaz. Sayıların büyüklüğüne göre **göreli (relative) epsilon** kullanmak daha sağlamlıdır:
+Ancak sabit bir epsilon her durumda işe yaramaz. Sayıların büyüklüğüne göre **göreli (relative) epsilon** kullanmak daha sağlamdır:
 
 ```c
+#include <math.h>
+#include <float.h>
+
 int goreli_esit(double a, double b, double epsilon) {
     double fark = fabs(a - b);
     double buyuk = fmax(fabs(a), fabs(b));
@@ -275,7 +279,7 @@ Modern masaüstü işlemcilerde FPU donanımı bu farkı büyük ölçüde kapat
 | Denormalize sayılar | Performans kritik kodlarda `FTZ`/`DAZ` bayraklarını değerlendir |
 | `while` ile açı normalizasyonu | `fmodf` / `fmod` kullan |
 
-Kayan nokta matematiği güçlü bir araçtır; ancak bu araçın sınırlarını bilmek, güvenilir ve doğru yazılımlar geliştirmenin temel koşuludur.
+Kayan nokta matematiği güçlü bir araçtır; ancak bu aracın sınırlarını bilmek, güvenilir ve doğru yazılımlar geliştirmenin temel koşuludur.
 
 ---
 
