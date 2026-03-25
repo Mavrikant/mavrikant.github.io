@@ -29,7 +29,6 @@ int main() {
     float pos_inf =  1.0f / 0.0f;  // +INF
     float neg_inf = -1.0f / 0.0f;  // -INF
     float nan_val =  0.0f / 0.0f;  // NaN
-    float sqrt_neg = sqrtf(-1.0f); // NaN
 
     printf("1/0   = %f\n", pos_inf);  // inf
     printf("-1/0  = %f\n", neg_inf);  // -inf
@@ -45,10 +44,10 @@ NaN değerinin en sinsi özelliği, **bulaşıcı** olmasıdır. NaN içeren her
 ```c
 float a = 0.0f / 0.0f;  // NaN
 float b = a + 5.0f;     // NaN
-float c = a * 0.0f;     // NaN (sıfırla çarpmak bile kurtarmaz!)
-float d = a - a;        // NaN
+float c = a * 0.0f;     // NaN (Sıfırla çarpmak bile kurtarmaz!)
+float d = a - a;        // NaN (Kendimi kendimden çıkarsam sıfır kalmaz!)
 
-printf("%f %f %f %f\n", a, b, c, d); // nan nan nan nan
+printf("%f %f %f %f\n", a, b, c, d); // nan nan nan nan veya -nan -nan -nan -nan
 ```
 
 Bu durum, hesaplama zincirinin herhangi bir noktasında oluşan bir NaN'ın tüm sonuçları sessizce bozmasına yol açar. Hata mesajı yoktur, program çökmez; sadece anlamsız çıktılar üretilir.
@@ -137,7 +136,7 @@ float b = 0.3f;
 if (a == b) {
     printf("Eşit\n");       // Bu satır hiç çalışmayabilir!
 } else {
-    printf("Eşit değil\n"); // Büyük ihtimalle bu çalışır
+    printf("Eşit değil\n"); // Büyük ihtimalle bu çalışır ama compiler'a da bağlı.
 }
 ```
 
