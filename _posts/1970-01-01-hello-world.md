@@ -12,7 +12,7 @@ Bu sitede, tecrübe sahibi olduğum, öğrenmeyi planladığım veya yeni öğre
  
 Günümüzde bilgi(!) inanılmaz derecede fazla. Her konuda güncelliği ve doğruluğu şüpheli bir çok bilgiye bir google araması ile ulaşabilirsiniz. Bu çöplükte doğru bilgiye ulaşmak ciddi bir çaba ve titiz bir araştırma gerektiriyor. Kendim uğraşarak edindiğim bu bilgileri hem sizler için hem de gelecekte tekrar bakmak amacıyla kendim için burada arşivlemek istiyorum. 
  
-Şimdilik aşağıdaki konular çerçevesinde yazılar yayınlamayı planlıyor:
+Şimdilik aşağıdaki konular çerçevesinde yazılar yayınlamayı planlıyorum:
  
 - C ile yazılım geliştirme
 - Modern C++ ile yazılım geliştirme
