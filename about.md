@@ -5,14 +5,18 @@ description: This is me
 background: "/img/me-animated.gif"
 ---
 
-Hi, I'm an embedded software developer(C++) with 4+ years of experience. Currently, I'm working on an avionic project of [ESEN System](https://www.esensi.com.tr/) and pursuing my Software Engineering master's degree at Hacettepe University. 
+Hi, I'm a **Software Developer** with over **8 years of experience** in developing reliable and performance-critical systems. I currently work on **avionics systems** at [ESEN System](https://www.esensi.com.tr/).
 
+I hold a Master’s degree in Software Engineering from Hacettepe University, and I am currently pursuing a second Master’s degree in Systems Engineering.
 
-Other than work and school; I spent my time writing technical stuff on my blog, developing pet projects on GitHub, and helping 
-Wikipedia. 
+My work mainly focuses on embedded systems, signal processing, and safety-critical software development.
 
+Outside of work and academia, I enjoy:
 
-After you check my blog  post you can also check my social media accounts and open source projects on my GitHub page. 
+- Writing technical articles on my blog
+- Developing open-source and experimental projects on GitHub
+- Contributing to Wikipedia
 
+After reading my blog posts, you can also explore my social media profiles and open-source projects on my GitHub page.
 
-*Ancora imparo*
+_Ancora imparo — I am still learning._
