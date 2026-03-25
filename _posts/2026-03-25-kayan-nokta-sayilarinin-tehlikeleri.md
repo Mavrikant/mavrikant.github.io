@@ -62,8 +62,8 @@ float nan_val = 0.0f / 0.0f;
 
 printf("%d\n", nan_val == nan_val);  // 0 (FALSE!)
 printf("%d\n", nan_val != nan_val);  // 1 (TRUE)
-printf("%d\n", nan_val < 1.0f);     // 0 (FALSE)
-printf("%d\n", nan_val > 1.0f);     // 0 (FALSE)
+printf("%d\n", nan_val < 1.0f);      // 0 (FALSE)
+printf("%d\n", nan_val > 1.0f);      // 0 (FALSE)
 ```
 
 NaN kontrolü için `isnan()` fonksiyonu kullanılmalıdır:
@@ -89,9 +89,8 @@ int main() {
     float  f = 0.1f + 1000000.0f - 1000000.0f;
     double d = 0.1  + 1000000.0  - 1000000.0;
 
-    printf("float:  %.10f\n", f);  // 0.1015625000 (YANLIŞ!)
-    printf("double: %.10f\n", d);  // 0.1000000134 (hâlâ hatalı)
-    printf("beklenen: 0.1000000000\n");
+    printf("float:  %f\n", f);  // 0.125000 (YANLIŞ!)
+    printf("double: %f\n", d);  // 0.100000
     return 0;
 }
 ```
@@ -238,10 +237,10 @@ float normalize_aci(float aci) {
 
 ```c
 int main() {
-    printf("%.2f\n", normalize_aci(1e10f));   // 0.00  (doğru)
-    printf("%.2f\n", normalize_aci(450.0f));  // 90.00 (doğru)
+    printf("%.2f\n", normalize_aci(1e10f));   // 280.00 (doğru)
+    printf("%.2f\n", normalize_aci(450.0f));  // 90.00  (doğru)
     printf("%.2f\n", normalize_aci(-90.0f));  // 270.00 (doğru)
-    printf("%.2f\n", normalize_aci(720.5f));  // 0.50  (doğru)
+    printf("%.2f\n", normalize_aci(720.5f));  // 0.50   (doğru)
     return 0;
 }
 ```
