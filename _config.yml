@@ -28,9 +28,7 @@ plugins:
   - jekyll-feed
   - jekyll-paginate
   - jekyll-sitemap
-  - jekyll-admin
   - jekyll-seo-tag
   - jekyll-email-protect
   - jekyll-spaceship
   - jekyll-favicon
-  - jekyll-coffeescript
