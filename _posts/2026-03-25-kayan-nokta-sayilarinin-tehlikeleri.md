@@ -263,8 +263,122 @@ Kayan nokta işlemleri, özellikle eski veya gömülü sistemlerde, tamsayı iş
 
 Modern masaüstü işlemcilerde FPU donanımı bu farkı büyük ölçüde kapatmış olsa da şunlara dikkat etmek gerekir:
 
-- **Denormalize sayılar (subnormals):** FPU'nun donanım hızlandırmasından yararlanamaz; sıradan sayılara kıyasla onlarca kat daha yavaş işlenebilir.
+- **Denormalize sayılar (subnormals):** Aşağıda detaylı açıklanmaktadır.
 - **Vektörleştirme engelleyici karşılaştırmalar:** NaN kontrolü gerektiren kodlar SIMD optimizasyonunu zorlaştırır.
+
+### Denormalize (Subnormal) Sayılar Nedir?
+
+IEEE 754'te bir `float` sayısı üç bileşenden oluşur:
+
+```
+[İşaret: 1 bit] [Üs (exponent): 8 bit] [Mantis (fraction): 23 bit]
+```
+
+Normal bir `float` sayısında üs değeri `1` ile `254` arasındadır (0 ve 255 özel durumlara ayrılmıştır). Bu durumda mantisin başında **örtülü bir 1 biti** (`1.xxxxx`) varsayılır.
+
+**Denormalize sayılar** ise üs değeri `0` olduğunda ortaya çıkar. Bu durumda örtülü bit `0` olur (`0.xxxxx`) ve sayı sıfıra çok yakın küçük değerleri temsil eder:
+
+```
+Normal:      (-1)^s × 2^(e-127) × 1.mantis     (e: 1..254)
+Denormalize: (-1)^s × 2^(-126)  × 0.mantis      (e: 0)
+```
+
+| Tür | En küçük pozitif değer (`float`) | Üs |
+|-----|----------------------------------|-----|
+| Normal | ~1.175 × 10⁻³⁸ (`FLT_MIN`) | 1..254 |
+| Denormalize | ~1.401 × 10⁻⁴⁵ (`FLT_TRUE_MIN`) | 0 |
+
+Denormalize sayılar, sıfıra çok yakın hesaplamalarda **gradual underflow** sağlayarak aniden sıfıra düşmeyi önler. Ancak bunun bir bedeli vardır.
+
+### Performans Sorunu
+
+Çoğu FPU, denormalize sayıları **donanım hızlandırmasıyla** işlemez. İşlemci bu sayılarla karşılaştığında **microcode fallback** (mikrokod geri dönüş) mekanizmasını kullanır; bu da normal sayılara kıyasla **10x–100x daha yavaş** çalışmaya yol açar.
+
+```c
+#include <stdio.h>
+#include <time.h>
+#include <float.h>
+
+int main() {
+    volatile float sonuc;
+    clock_t baslangic;
+
+    // Normal sayılarla hesaplama
+    float normal = 1.0f;
+    baslangic = clock();
+    for (int i = 0; i < 100000000; i++) {
+        sonuc = normal * 0.999999f;
+    }
+    printf("Normal:      %lu ms\n",
+           (clock() - baslangic) * 1000 / CLOCKS_PER_SEC);
+
+    // Denormalize sayılarla hesaplama
+    float denorm = FLT_MIN * 0.5f;  // Denormalize sayı
+    baslangic = clock();
+    for (int i = 0; i < 100000000; i++) {
+        sonuc = denorm * 0.999999f;
+    }
+    printf("Denormalize: %lu ms\n",
+           (clock() - baslangic) * 1000 / CLOCKS_PER_SEC);
+
+    return 0;
+}
+```
+
+Bazı sistemlerde denormalize versiyonun **onlarca kat** daha yavaş olduğu görülebilir.
+
+### FTZ ve DAZ Bayrakları
+
+Bu performans sorununu çözmek için x86 işlemcilerin MXCSR kontrol kaydında iki bayrak bulunur:
+
+| Bayrak | Açılım | Ne yapar? |
+|--------|--------|-----------|
+| **FTZ** | Flush To Zero | Bir işlemin **sonucu** denormalize olacaksa, sonuç sıfıra yuvarlanır |
+| **DAZ** | Denormals Are Zero | Bir işlemin **girişi** denormalize ise, sıfır olarak ele alınır |
+
+```
+                    DAZ                           FTZ
+                     │                             │
+  [Denormalize giriş]──→ 0.0    [İşlem sonucu]──→ 0.0
+                                 (denormalize ise)
+```
+
+Her iki bayrak da etkinleştirildiğinde FPU hiçbir zaman denormalize sayıyla uğraşmaz; tüm işlemler tam donanım hızında çalışır.
+
+#### C/C++'da FTZ ve DAZ Nasıl Etkinleştirilir?
+
+```c
+#include <xmmintrin.h>  // SSE
+#include <pmmintrin.h>  // SSE3
+
+// Yöntem 1: Tek tek bayrak ayarlama
+_MM_SET_FLUSH_ZERO_MODE(_MM_FLUSH_ZERO_ON);         // FTZ
+_MM_SET_DENORMALS_ZERO_MODE(_MM_DENORMALS_ZERO_ON);  // DAZ
+
+// Yöntem 2: İkisini birden ayarlama (MXCSR doğrudan)
+_mm_setcsr(_mm_getcsr() | 0x8040);  // FTZ (bit 15) + DAZ (bit 6)
+```
+
+GCC ve Clang ile derleme sırasında da etkinleştirilebilir:
+
+```bash
+gcc -ffast-math program.c -o program
+# -ffast-math, FTZ ve DAZ'ı otomatik olarak etkinleştirir
+# Ancak DİKKAT: -ffast-math aynı zamanda NaN/INF kontrollerini
+# devre dışı bırakır ve IEEE 754 uyumluluğunu kırar!
+```
+
+#### Ne Zaman Kullanılmalı, Ne Zaman Kullanılmamalı?
+
+| Durum | FTZ/DAZ | Neden |
+|-------|---------|-------|
+| Ses/görüntü işleme, oyun motoru | Kullan | Sıfıra yakın değerler zaten duyulmaz/görünmez; performans kritik |
+| Bilimsel simülasyon | **Kullanma** | Gradual underflow doğruluğu önemli |
+| Finansal hesaplama | **Kullanma** | Her kuruş farkı önemli |
+| Sinyal işleme (DSP) | Genellikle kullan | IIR filtre gibi yapılarda denormalize birikimi yaygın |
+| Havacılık / güvenlik kritik | **Kullanma** | IEEE 754 uyumu sertifikasyon gereksinimi olabilir (DO-178C) |
+
+**Gerçek dünya örneği:** Ses işleme yazılımlarında IIR (Infinite Impulse Response) filtreleri, sinyal sessizleştiğinde çıkışlarında denormalize sayılar üretir. Bu sayılar donanımı yavaşlatarak ses akışında kesintilere (glitch) neden olabilir. FTZ/DAZ bayrakları bu sorunu ortadan kaldırır.
 
 ---
 
