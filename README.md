@@ -1,4 +1,4 @@
-# M. Serdar Karaman's Blog — [karaman.dev](https://karaman.dev)
+# M. Serdar Karaman's Blog
 
 Personal blog of **M. Serdar Karaman**, a Software Developer with over 8 years of experience in developing reliable and performance-critical systems, currently working on avionics systems at [ESEN System](https://www.esensi.com.tr/).
 
