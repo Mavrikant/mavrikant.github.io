@@ -34,3 +34,21 @@ plugins:
   - jekyll-spaceship
   - jekyll-favicon
   - jekyll-coffeescript
+
+# Giscus Comments Configuration
+# Setup instructions:
+#   1. Install the giscus GitHub App: https://github.com/apps/giscus
+#   2. Visit https://giscus.app, enter this repo, and copy the generated category_id
+#   3. Paste the category_id value below
+giscus:
+  repo: "Mavrikant/mavrikant.github.io"
+  repo_id: "R_kgDOGsFIYQ"
+  category: "General"
+  category_id: ""  # Required: get from https://giscus.app
+  mapping: "pathname"
+  strict: "0"
+  reactions_enabled: "1"
+  emit_metadata: "0"
+  input_position: "bottom"
+  theme: "preferred_color_scheme"
+  lang: "tr"
