@@ -1,84 +1,98 @@
 <!-- Footer -->
 
-<hr>
+<footer class="footer-modern">
+  <div class="footer-main">
+    <div class="container">
+      <div class="row">
 
-<footer>
-  <div class="container">
-    <div class="row">
-      <div class="col-lg-8 col-md-10 mx-auto">
-        <ul class="list-inline text-center">
-          {% if site.email %}
-          <li class="list-inline-item">
-            <a href="mailto:{{ site.email | encode_email }}">
-              <span class="fa-stack fa-lg">
-                <em class="fas fa-circle fa-stack-2x"></em>
-                <em class="far fa-envelope fa-stack-1x fa-inverse"></em>
-              </span>
-            </a>
-          </li>
-          {% endif %}
-          {% if site.twitter_username %}
-          <li class="list-inline-item">
-            <a href="https://twitter.com/{{ site.twitter_username }}">
-              <span class="fa-stack fa-lg">
-                <em class="fas fa-circle fa-stack-2x"></em>
-                <em class="fab fa-twitter fa-stack-1x fa-inverse"></em>
-              </span>
-            </a>
-          </li>
-          {% endif %}
-          {% if site.facebook_username %}
-          <li class="list-inline-item">
-            <a href="https://www.facebook.com/{{ site.facebook_username }}">
-              <span class="fa-stack fa-lg">
-                <em class="fas fa-circle fa-stack-2x"></em>
-                <em class="fab fa-facebook-f fa-stack-1x fa-inverse"></em>
-              </span>
-            </a>
-          </li>
-          {% endif %}
-          {% if site.linkedin_username %}
-          <li class="list-inline-item">
-            <a href="https://www.linkedin.com/in/{{ site.linkedin_username }}">
-              <span class="fa-stack fa-lg">
-                <em class="fas fa-circle fa-stack-2x"></em>
-                <em class="fab fa-linkedin fa-stack-1x fa-inverse"></em>
-              </span>
-            </a>
-          </li>
-          {% endif %}
-          {% if site.github_username %}
-          <li class="list-inline-item">
-            <a href="https://github.com/{{ site.github_username }}">
-              <span class="fa-stack fa-lg">
-                <em class="fas fa-circle fa-stack-2x"></em>
-                <em class="fab fa-github fa-stack-1x fa-inverse"></em>
-              </span>
-            </a>
-          </li>
-          {% endif %}
-          {% if site.instagram_username %}
-          <li class="list-inline-item">
-            <a href="https://instagram.com/{{ site.instagram_username }}">
-              <span class="fa-stack fa-lg">
-                <em class="fas fa-circle fa-stack-2x"></em>
-                <em class="fab fa-instagram fa-stack-1x fa-inverse"></em>
-              </span>
-            </a>
-          </li>
-          {% endif %}
-          {% if site.youtube_username %}
-          <li class="list-inline-item">
-            <a href="https://www.youtube.com/channel/{{ site.youtube_username }}">
-              <span class="fa-stack fa-lg">
-                <em class="fas fa-circle fa-stack-2x"></em>
-                <em class="fab fa-youtube fa-stack-1x fa-inverse"></em>
-              </span>
-            </a>
-          </li>
-          {% endif %}
-        </ul>
-        <p class="copyright text-muted">Copyright &copy; {{ site.author }} {{ 'now' | date: "%Y" }}</p>
+        <!-- About column -->
+        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+          <h5 class="footer-heading">{{ site.title | escape }}</h5>
+          <p class="footer-description">{{ site.description | escape }}</p>
+        </div>
+
+        <!-- Quick links column -->
+        <div class="col-lg-2 col-md-6 mb-4 mb-lg-0 offset-lg-1">
+          <h5 class="footer-heading">Quick Links</h5>
+          <ul class="footer-links">
+            <li><a href="{{ "/" | relative_url }}">Home</a></li>
+            <li><a href="{{ "/about" | relative_url }}">About</a></li>
+            <li><a href="{{ "/posts" | relative_url }}">Posts</a></li>
+            <li><a href="{{ "/contact" | relative_url }}">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Social column -->
+        <div class="col-lg-4 col-md-12 mb-0 offset-lg-1">
+          <h5 class="footer-heading">Connect</h5>
+          <ul class="footer-social list-inline">
+            {% if site.email %}
+            <li class="list-inline-item">
+              <a href="mailto:{{ site.email | encode_email }}" aria-label="Email">
+                <em class="far fa-envelope"></em>
+              </a>
+            </li>
+            {% endif %}
+            {% if site.github_username %}
+            <li class="list-inline-item">
+              <a href="https://github.com/{{ site.github_username }}" aria-label="GitHub" target="_blank" rel="noopener">
+                <em class="fab fa-github"></em>
+              </a>
+            </li>
+            {% endif %}
+            {% if site.linkedin_username %}
+            <li class="list-inline-item">
+              <a href="https://www.linkedin.com/in/{{ site.linkedin_username }}" aria-label="LinkedIn" target="_blank" rel="noopener">
+                <em class="fab fa-linkedin-in"></em>
+              </a>
+            </li>
+            {% endif %}
+            {% if site.twitter_username %}
+            <li class="list-inline-item">
+              <a href="https://twitter.com/{{ site.twitter_username }}" aria-label="Twitter" target="_blank" rel="noopener">
+                <em class="fab fa-twitter"></em>
+              </a>
+            </li>
+            {% endif %}
+            {% if site.facebook_username %}
+            <li class="list-inline-item">
+              <a href="https://www.facebook.com/{{ site.facebook_username }}" aria-label="Facebook" target="_blank" rel="noopener">
+                <em class="fab fa-facebook-f"></em>
+              </a>
+            </li>
+            {% endif %}
+            {% if site.instagram_username %}
+            <li class="list-inline-item">
+              <a href="https://instagram.com/{{ site.instagram_username }}" aria-label="Instagram" target="_blank" rel="noopener">
+                <em class="fab fa-instagram"></em>
+              </a>
+            </li>
+            {% endif %}
+            {% if site.youtube_username %}
+            <li class="list-inline-item">
+              <a href="https://www.youtube.com/channel/{{ site.youtube_username }}" aria-label="YouTube" target="_blank" rel="noopener">
+                <em class="fab fa-youtube"></em>
+              </a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6 text-center text-md-left">
+          <p class="copyright mb-0">&copy; {{ 'now' | date: "%Y" }} {{ site.author | escape }}. All rights reserved.</p>
+        </div>
+        <div class="col-md-6 text-center text-md-right mt-2 mt-md-0">
+          <a href="#page-top" class="back-to-top" aria-label="Back to top">
+            <em class="fas fa-chevron-up"></em>
+          </a>
+        </div>
       </div>
     </div>
   </div>
