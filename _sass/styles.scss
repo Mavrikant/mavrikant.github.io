@@ -122,3 +122,15 @@
     }
   }
 }
+
+// Giscus Comments Section
+.giscus-comments {
+  margin-top: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e8e8e8;
+
+  .giscus,
+  .giscus-frame {
+    width: 100%;
+  }
+}
