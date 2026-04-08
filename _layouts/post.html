@@ -2,71 +2,169 @@
 layout: default
 ---
 
-<!-- Page Header -->
 {% if page.background %}
 <header class="masthead" style="background-image: url('{{ page.background | prepend: site.baseurl | replace: '//', '/' }}')">
-  {% else %}
-  <header class="masthead">
-    {% endif %}
-    <div class="overlay"></div>
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-8 col-md-10 mx-auto">
-          <div class="post-heading">
-            <h1>{{ page.title }}</h1>
-            {% if page.subtitle %}
-            <h2 class="subheading">{{ page.subtitle }}</h2>
-            {% endif %}
-            <span class="meta">Posted by
-              <a href="#">{% if page.author %}{{ page.author }}{% else %}{{ site.author }}{% endif %}</a>
-              on {{ page.date | date: '%B %d, %Y' }} &middot; {% include read_time.html
-              content=page.content %}
-            </span>
-          </div>
-        </div>
-      </div>
-    </div>
-  </header>
-
-  <div class="container" {% if page.lang %}lang="{{ page.lang }}" {% endif %}>
+{% else %}
+<header class="masthead">
+{% endif %}
+  <div class="overlay"></div>
+  <div class="container">
     <div class="row">
       <div class="col-lg-8 col-md-10 mx-auto">
-
-        {{ content }}
-
-        <hr>
-
-        <div class="clearfix">
-
-          {% if page.previous.url %}
-          <a class="btn btn-primary float-left" href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{ page.previous.title }}">&larr; Previous<span class="d-none d-md-inline">
-              Post</span></a>
+        <div class="post-heading">
+          <h1>{{ page.title }}</h1>
+          {% if page.subtitle %}
+          <h2 class="subheading">{{ page.subtitle }}</h2>
           {% endif %}
-          {% if page.next.url %}
-          <a class="btn btn-primary float-right" href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{ page.next.title }}">Next<span class="d-none d-md-inline">
-              Post</span> &rarr;</a>
-          {% endif %}
+          <span class="meta">Posted by
+            <a href="#">{% if page.author %}{{ page.author }}{% else %}{{ site.author }}{% endif %}</a>
+            on {{ page.date | date: '%B %d, %Y' }} &middot; {% include read_time.html content=page.content %}
+          </span>
         </div>
-        <br><br>
-        <div class="clearfix" id="disqus_thread"></div>
-          <script>
-              /**
-              *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
-              *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
-              /*
-              var disqus_config = function () {
-              this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
-              this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-              };
-              */
-              (function() { // DON'T EDIT BELOW THIS LINE
-              var d = document, s = d.createElement('script');
-              s.src = 'https://karaman-dev.disqus.com/embed.js';
-              s.setAttribute('data-timestamp', +new Date());
-              (d.head || d.body).appendChild(s);
-              })();
-          </script>
-          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
       </div>
     </div>
   </div>
+</header>
+
+<div class="container" {% if page.lang %}lang="{{ page.lang }}" {% endif %}>
+  <div class="row">
+    <div class="col-lg-8 col-md-10 mx-auto">
+
+      {{ content }}
+
+      <hr>
+
+      <div class="clearfix">
+        {% if page.previous.url %}
+        <a class="btn btn-primary float-left" href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{ page.previous.title }}">&larr; Previous<span class="d-none d-md-inline"> Post</span></a>
+        {% endif %}
+        {% if page.next.url %}
+        <a class="btn btn-primary float-right" href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}" data-toggle="tooltip" data-placement="top" title="{{ page.next.title }}">Next<span class="d-none d-md-inline"> Post</span> &rarr;</a>
+        {% endif %}
+      </div>
+
+      <br><br>
+
+      <style>
+        .modern-feedback-card {
+          background: #ffffff;
+          border-radius: 24px;
+          padding: 35px;
+          border: 1px solid #eef2f6;
+          box-shadow: 0 20px 40px rgba(0,0,0,0.06);
+          font-family: 'Inter', -apple-system, sans-serif;
+        }
+        .feedback-header { text-align: center; margin-bottom: 25px; }
+        .feedback-header h3 { font-weight: 800; color: #0f172a; margin: 0; }
+        .feedback-header p { color: #64748b; font-size: 0.9rem; margin-top: 5px; }
+
+        .emoji-selector {
+          display: flex;
+          justify-content: center;
+          gap: 12px;
+          margin-bottom: 25px;
+          background: #f8fafc;
+          padding: 12px;
+          border-radius: 16px;
+        }
+        .emoji-btn { position: relative; cursor: pointer; }
+        .emoji-btn input { position: absolute; opacity: 0; }
+        .emoji-icon {
+          font-size: 30px;
+          display: inline-block;
+          padding: 8px;
+          border-radius: 12px;
+          transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .emoji-btn input:checked + .emoji-icon {
+          background: white;
+          box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+          transform: scale(1.25) translateY(-3px);
+        }
+
+        .form-row { display: flex; gap: 15px; margin-bottom: 15px; }
+        .form-group { flex: 1; }
+        .form-label { font-weight: 600; font-size: 0.8rem; color: #475569; text-transform: uppercase; margin-bottom: 6px; display: block; }
+        
+        .modern-input {
+          width: 100%;
+          border: 1.5px solid #e2e8f0;
+          border-radius: 12px;
+          padding: 12px 16px;
+          font-size: 0.95rem;
+          transition: all 0.2s;
+        }
+        .modern-input:focus {
+          border-color: #0085a1;
+          outline: none;
+          box-shadow: 0 0 0 4px rgba(0, 133, 161, 0.08);
+        }
+
+        .send-btn {
+          background: #0085a1;
+          color: white;
+          border: none;
+          padding: 14px;
+          border-radius: 12px;
+          width: 100%;
+          font-weight: 700;
+          cursor: pointer;
+          margin-top: 10px;
+          transition: all 0.3s;
+          letter-spacing: 0.5px;
+        }
+        .send-btn:hover { background: #006b81; transform: translateY(-1px); }
+      </style>
+
+      <div class="modern-feedback-card">
+        <div class="feedback-header">
+          <h3>Bir Yorum Bırak</h3>
+          <p>Bu yazı hakkındaki düşünceni yaz.</p>
+        </div>
+
+        <form action="https://formsubmit.co/askingunduzz@gmail.com" method="POST">
+          <input type="hidden" name="_captcha" value="false">
+          <input type="hidden" name="_next" value="{{ page.url | absolute_url }}">
+
+          <div class="emoji-selector">
+            <label class="emoji-btn">
+              <input type="radio" name="vibe" value="Love" required>
+              <span class="emoji-icon">🥰</span>
+            </label>
+            <label class="emoji-btn">
+              <input type="radio" name="vibe" value="Fire">
+              <span class="emoji-icon">🔥</span>
+            </label>
+            <label class="emoji-btn">
+              <input type="radio" name="vibe" value="Think">
+              <span class="emoji-icon">🤔</span>
+            </label>
+            <label class="emoji-btn">
+              <input type="radio" name="vibe" value="Rocket">
+              <span class="emoji-icon">🚀</span>
+            </label>
+            <label class="emoji-btn">
+              <input type="radio" name="vibe" value="Cool">
+              <span class="emoji-icon">😎</span>
+            </label>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label">İsim</label>
+              <input type="text" name="name" class="modern-input" placeholder="Adın" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label">Yorumun</label>
+            <textarea name="message" class="modern-input" rows="4" placeholder="Buraya yazabilirsin..." required></textarea>
+          </div>
+
+          <button type="submit" class="send-btn">YORUMU GÖNDER</button>
+        </form>
+      </div>
+
+    </div>
+  </div>
+</div>
