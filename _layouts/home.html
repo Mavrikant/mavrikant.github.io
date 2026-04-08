@@ -30,31 +30,32 @@ layout: default
         {{ content }}
 
         <!-- Home Post List -->
-        {% for post in site.posts limit : 5 %}
-
-        <article class="post-preview">
-          <a href="{{ post.url | prepend: site.baseurl | replace: '//', '/' }}">
-            <h2 class="post-title">{{ post.title }}</h2>
-            {% if post.subtitle %}
-            <h3 class="post-subtitle">{{ post.subtitle }}</h3>
-            {% else %}
-            <h3 class="post-subtitle">{{ post.excerpt | strip_html | truncatewords: 15 }}</h3>
-            {% endif %}
-          </a>
-          <p class="post-meta">Posted by
-            {% if post.author %}
-            {{ post.author }}
-            {% else %}
-            {{ site.author }}
-            {% endif %}
-            on
-            {{ post.date | date: '%B %d, %Y' }} &middot; {% include read_time.html content=post.content %}            
-          </p>
-        </article>
-
-        <hr>
-
-        {% endfor %}
+        <div class="post-list">
+          {% for post in site.posts limit : 5 %}
+          {% assign card_image = post.background | default: '/img/posts/1.jpg' %}
+          <article class="post-card">
+            <a class="post-card__media" href="{{ post.url | prepend: site.baseurl | replace: '//', '/' }}" aria-label="{{ post.title | escape }}">
+              <img src="{{ card_image | prepend: site.baseurl | replace: '//', '/' }}" alt="" loading="lazy">
+            </a>
+            <div class="post-card__body">
+              <h2 class="post-card__title">
+                <a href="{{ post.url | prepend: site.baseurl | replace: '//', '/' }}">{{ post.title }}</a>
+              </h2>
+              <p class="post-card__subtitle">
+                {% if post.subtitle %}
+                  {{ post.subtitle }}
+                {% else %}
+                  {{ post.excerpt | strip_html | truncatewords: 18 }}
+                {% endif %}
+              </p>
+              <div class="post-card__meta">
+                <span class="meta-chip"><em class="far fa-calendar-alt"></em>{{ post.date | date: '%b %d, %Y' }}</span>
+                <span class="meta-chip"><em class="far fa-clock"></em>{% include read_time.html content=post.content %}</span>
+              </div>
+            </div>
+          </article>
+          {% endfor %}
+        </div>
 
         <!-- Pager -->
         <div class="clearfix">
