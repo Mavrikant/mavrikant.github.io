@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="/favicon.ico" rel="shortcut icon" sizes="36x36 24x24 16x16" type="image/x-icon">
+<link href="/favicon.png" rel="icon" sizes="196x196" type="image/png">
+<meta content="/mstile-icon-128x128.png" name="msapplication-TileImage">
+<meta content="transparent" name="msapplication-TileColor">
+<link href="/manifest.webmanifest" rel="manifest">
+<meta content="/browserconfig.xml" name="msapplication-config">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Kayan Nokta Sayılarının Tehlikeleri | M. Serdar Karaman’s Blog</title>
+<meta name="generator" content="Jekyll v4.2.2">
+<meta property="og:title" content="Kayan Nokta Sayılarının Tehlikeleri">
+<meta name="author" content="M. Serdar Karaman">
+<meta property="og:locale" content="tr">
+<meta name="description" content="Yazılım geliştirirken float ve double türlerini sıklıkla kullanırız. Ancak kayan nokta sayıları, görünürde masum olan birçok tuzak barındırır. Bu yazıda, IEEE 754 standardının getirdiği sınırlamalar ve bu sınırlamaların nasıl beklenmedik hatalara yol açabileceği üzerinde duracağız.">
+<meta property="og:description" content="Yazılım geliştirirken float ve double türlerini sıklıkla kullanırız. Ancak kayan nokta sayıları, görünürde masum olan birçok tuzak barındırır. Bu yazıda, IEEE 754 standardının getirdiği sınırlamalar ve bu sınırlamaların nasıl beklenmedik hatalara yol açabileceği üzerinde duracağız.">
+<link rel="canonical" href="https://karaman.dev/2026/03/25/kayan-nokta-sayilarinin-tehlikeleri.html">
+<meta property="og:url" content="https://karaman.dev/2026/03/25/kayan-nokta-sayilarinin-tehlikeleri.html">
+<meta property="og:site_name" content="M. Serdar Karaman’s Blog">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-03-25T09:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Kayan Nokta Sayılarının Tehlikeleri">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"M. Serdar Karaman"},"dateModified":"2026-03-25T09:00:00+00:00","datePublished":"2026-03-25T09:00:00+00:00","description":"Yazılım geliştirirken float ve double türlerini sıklıkla kullanırız. Ancak kayan nokta sayıları, görünürde masum olan birçok tuzak barındırır. Bu yazıda, IEEE 754 standardının getirdiği sınırlamalar ve bu sınırlamaların nasıl beklenmedik hatalara yol açabileceği üzerinde duracağız.","headline":"Kayan Nokta Sayılarının Tehlikeleri","mainEntityOfPage":{"@type":"WebPage","@id":"https://karaman.dev/2026/03/25/kayan-nokta-sayilarinin-tehlikeleri.html"},"url":"https://karaman.dev/2026/03/25/kayan-nokta-sayilarinin-tehlikeleri.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+<script>
+  // No-flash dark mode: applies the saved theme before paint.
+  (function () {
+    try {
+      var stored = localStorage.getItem('theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = stored || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch (e) {}
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Source+Serif+Pro:ital,wght@0,400;0,600;1,400;1,600&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/assets/main.css">
+<link rel="alternate" type="application/rss+xml" title="M. Serdar Karaman's Blog" href="/feed.xml">
+</head>
+<body>
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">M. Serdar Karaman's Blog</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contact">Contact</a>
+        </li>
+        <li class="nav-item d-flex align-items-center">
+          <button type="button" class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <!-- Page Header -->
+
+<header class="masthead" style="background-image: url('/img/posts/6.jpg')">
+  
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Kayan Nokta Sayılarının Tehlikeleri</h1>
+            
+            <span class="meta">Posted by
+              <a href="#">M. Serdar Karaman</a>
+              on March 25, 2026 · <span class="reading-time" title="Estimated read time">
+  
+   15 mins  read </span>
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container" lang="tr">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+
+        <p>Yazılım geliştirirken <code class="language-plaintext highlighter-rouge">float</code> ve <code class="language-plaintext highlighter-rouge">double</code> türlerini sıklıkla kullanırız. Ancak kayan nokta sayıları, görünürde masum olan birçok tuzak barındırır. Bu yazıda, IEEE 754 standardının getirdiği sınırlamalar ve bu sınırlamaların nasıl beklenmedik hatalara yol açabileceği üzerinde duracağız.</p>
+
+<h2 id="ieee-754-ve-özel-değerler">IEEE 754 ve Özel Değerler</h2>
+
+<p>Modern bilgisayarlar kayan nokta sayılarını <a href="https://en.wikipedia.org/wiki/IEEE_754">IEEE 754</a> standardına göre temsil eder. Bu standart yalnızca gerçek sayıları değil, bir dizi <strong>özel değeri</strong> de tanımlar:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Değer</th>
+      <th>Açıklama</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">+INF</code></td>
+      <td>Pozitif sonsuz</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">-INF</code></td>
+      <td>Negatif sonsuz</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">+NaN</code></td>
+      <td>Sayı Değil (Not a Number) - pozitif</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">-NaN</code></td>
+      <td>Sayı Değil (Not a Number) - negatif</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Bu değerler nasıl oluşur?</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;math.h&gt;</span><span class="cp">
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">float</span> <span class="n">pos_inf</span> <span class="o">=</span>  <span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span> <span class="o">/</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span><span class="p">;</span>  <span class="c1">// +INF</span>
+    <span class="kt">float</span> <span class="n">neg_inf</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span> <span class="o">/</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span><span class="p">;</span>  <span class="c1">// -INF</span>
+    <span class="kt">float</span> <span class="n">nan_val</span> <span class="o">=</span>  <span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span> <span class="o">/</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span><span class="p">;</span>  <span class="c1">// NaN</span>
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">"1/0   = %f</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">pos_inf</span><span class="p">);</span>  <span class="c1">// inf</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"-1/0  = %f</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">neg_inf</span><span class="p">);</span>  <span class="c1">// -inf</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"0/0   = %f</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">nan_val</span><span class="p">);</span>  <span class="c1">// -nan veya nan</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<h3 id="nan-yayılımı-nan-propagation">NaN Yayılımı (NaN Propagation)</h3>
+
+<p>NaN değerinin en sinsi özelliği, <strong>bulaşıcı</strong> olmasıdır. NaN içeren herhangi bir aritmetik işlemin sonucu da NaN olur:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">float</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span> <span class="o">/</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span><span class="p">;</span>  <span class="c1">// NaN</span>
+<span class="kt">float</span> <span class="n">b</span> <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="mi">5</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span><span class="p">;</span>     <span class="c1">// NaN</span>
+<span class="kt">float</span> <span class="n">c</span> <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span><span class="p">;</span>     <span class="c1">// NaN (Sıfırla çarpmak bile kurtarmaz!)</span>
+<span class="kt">float</span> <span class="n">d</span> <span class="o">=</span> <span class="n">a</span> <span class="o">-</span> <span class="n">a</span><span class="p">;</span>        <span class="c1">// NaN (Kendimi kendimden çıkarsam sıfır kalmaz!)</span>
+
+<span class="n">printf</span><span class="p">(</span><span class="s">"%f %f %f %f</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="n">d</span><span class="p">);</span> <span class="c1">// nan nan nan nan veya -nan -nan -nan -nan</span>
+</code></pre></div></div>
+
+<p>Bu durum, hesaplama zincirinin herhangi bir noktasında oluşan bir NaN’ın tüm sonuçları sessizce bozmasına yol açar. Hata mesajı yoktur, program çökmez; sadece anlamsız çıktılar üretilir.</p>
+
+<h3 id="nan-karşılaştırmaları">NaN Karşılaştırmaları</h3>
+
+<p>NaN, kendisi dahil hiçbir değere eşit değildir:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">float</span> <span class="n">nan_val</span> <span class="o">=</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span> <span class="o">/</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span><span class="p">;</span>
+
+<span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">nan_val</span> <span class="o">==</span> <span class="n">nan_val</span><span class="p">);</span>  <span class="c1">// 0 (FALSE!)</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">nan_val</span> <span class="o">!=</span> <span class="n">nan_val</span><span class="p">);</span>  <span class="c1">// 1 (TRUE)</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">nan_val</span> <span class="o">&lt;</span> <span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span><span class="p">);</span>      <span class="c1">// 0 (FALSE)</span>
+<span class="n">printf</span><span class="p">(</span><span class="s">"%d</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">nan_val</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span><span class="p">);</span>      <span class="c1">// 0 (FALSE)</span>
+</code></pre></div></div>
+
+<p>NaN kontrolü için <code class="language-plaintext highlighter-rouge">isnan()</code> fonksiyonu kullanılmalıdır:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;math.h&gt;</span><span class="cp">
+</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">isnan</span><span class="p">(</span><span class="n">deger</span><span class="p">))</span> <span class="p">{</span>
+    <span class="c1">// NaN durumunu ele al</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="hassasiyet-kaybı-01--1m---1m--01">Hassasiyet Kaybı: 0.1 + 1M - 1M ≠ 0.1</h2>
+
+<p>Onluk sistemde tam olarak ifade edilen birçok sayı, ikili (binary) kayan nokta sisteminde <strong>sonsuz kesirli bir seriye</strong> dönüşür. <code class="language-plaintext highlighter-rouge">0.1</code> bunların en bilinen örneğidir.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">float</span>  <span class="n">f</span> <span class="o">=</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="n">f</span> <span class="o">+</span> <span class="mi">1000000</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span> <span class="o">-</span> <span class="mi">1000000</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span><span class="p">;</span>
+    <span class="kt">double</span> <span class="n">d</span> <span class="o">=</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1</span>  <span class="o">+</span> <span class="mi">1000000</span><span class="p">.</span><span class="mi">0</span>  <span class="o">-</span> <span class="mi">1000000</span><span class="p">.</span><span class="mi">0</span><span class="p">;</span>
+
+    <span class="n">printf</span><span class="p">(</span><span class="s">"float:  %f</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">f</span><span class="p">);</span>  <span class="c1">// 0.125000 (YANLIŞ!)</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"double: %f</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">d</span><span class="p">);</span>  <span class="c1">// 0.100000</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Büyük bir sayıyla toplama yapıldığında, küçük sayının hassas bitleri kaybolur. Büyük sayı çıkarıldığında kayıp geri döndürülemez.</p>
+
+<p>Bu tür <strong>katastrofik iptal (catastrophic cancellation)</strong> hataları, finansal hesaplamalarda ve bilimsel simülasyonlarda ciddi sonuçlar doğurabilir.</p>
+
+<hr>
+
+<h2 id="döngü-sayacı-olarak-float-kullanmak">Döngü Sayacı Olarak Float Kullanmak</h2>
+
+<p><a href="https://wiki.sei.cmu.edu/confluence/display/c/FLP30-C.+Do+not+use+floating-point+variables+as+loop+counters">SEI CERT C Coding Standard</a>, kayan nokta değişkenlerini döngü sayacı olarak kullanmayı <strong>açıkça yasaklar</strong>.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// YANLIŞ - Kayan nokta döngü sayacı</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">float</span> <span class="n">f</span> <span class="o">=</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="n">f</span><span class="p">;</span> <span class="n">f</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span><span class="p">;</span> <span class="n">f</span> <span class="o">+=</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="n">f</span><span class="p">)</span> <span class="p">{</span>
+    <span class="c1">// Bu döngü hiç bitmeyebilir ya da beklenenden</span>
+    <span class="c1">// farklı sayıda çalışabilir!</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%.10f</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">f</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">0.1</code> ikili sistemde tam temsil edilemediğinden, toplanan hata birikir ve döngü <code class="language-plaintext highlighter-rouge">1.0f</code> değerine hiç ulaşamayabilir veya atlar. Döngü sayacı olarak her zaman tamsayı kullanın:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// DOĞRU</span>
+<span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">float</span> <span class="n">f</span> <span class="o">=</span> <span class="n">i</span> <span class="o">*</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="n">f</span><span class="p">;</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%.10f</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">f</span><span class="p">);</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="kayan-nokta-karşılaştırması-eşitlik-kontrolü">Kayan Nokta Karşılaştırması: Eşitlik Kontrolü</h2>
+
+<p>İki kayan nokta sayısını <code class="language-plaintext highlighter-rouge">==</code> ile karşılaştırmak neredeyse her zaman yanlıştır:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">float</span> <span class="n">a</span> <span class="o">=</span> <span class="mi">0</span><span class="p">.</span><span class="mi">1</span><span class="n">f</span> <span class="o">+</span> <span class="mi">0</span><span class="p">.</span><span class="mi">2</span><span class="n">f</span><span class="p">;</span>
+<span class="kt">float</span> <span class="n">b</span> <span class="o">=</span> <span class="mi">0</span><span class="p">.</span><span class="mi">3</span><span class="n">f</span><span class="p">;</span>
+
+<span class="k">if</span> <span class="p">(</span><span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Eşit</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>       <span class="c1">// Bu satır hiç çalışmayabilir!</span>
+<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"Eşit değil</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span> <span class="c1">// Büyük ihtimalle bu çalışır ama compiler'a da bağlı.</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Bunun yerine <strong>epsilon (delta) karşılaştırması</strong> yapılmalıdır:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;math.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;float.h&gt;</span><span class="cp">
+</span>
+<span class="kt">int</span> <span class="nf">float_esit</span><span class="p">(</span><span class="kt">float</span> <span class="n">a</span><span class="p">,</span> <span class="kt">float</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">fabsf</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">FLT_EPSILON</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kt">int</span> <span class="nf">double_esit</span><span class="p">(</span><span class="kt">double</span> <span class="n">a</span><span class="p">,</span> <span class="kt">double</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="n">fabs</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">DBL_EPSILON</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Ancak sabit bir epsilon her durumda işe yaramaz. Sayıların büyüklüğüne göre <strong>göreli (relative) epsilon</strong> kullanmak daha sağlamdır:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;math.h&gt;</span><span class="cp">
+#include</span> <span class="cpf">&lt;float.h&gt;</span><span class="cp">
+</span>
+<span class="kt">int</span> <span class="nf">goreli_esit</span><span class="p">(</span><span class="kt">double</span> <span class="n">a</span><span class="p">,</span> <span class="kt">double</span> <span class="n">b</span><span class="p">,</span> <span class="kt">double</span> <span class="n">epsilon</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kt">double</span> <span class="n">fark</span> <span class="o">=</span> <span class="n">fabs</span><span class="p">(</span><span class="n">a</span> <span class="o">-</span> <span class="n">b</span><span class="p">);</span>
+    <span class="kt">double</span> <span class="n">buyuk</span> <span class="o">=</span> <span class="n">fmax</span><span class="p">(</span><span class="n">fabs</span><span class="p">(</span><span class="n">a</span><span class="p">),</span> <span class="n">fabs</span><span class="p">(</span><span class="n">b</span><span class="p">));</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">buyuk</span> <span class="o">&lt;</span> <span class="n">DBL_MIN</span><span class="p">)</span> <span class="k">return</span> <span class="n">fark</span> <span class="o">&lt;</span> <span class="n">epsilon</span><span class="p">;</span> <span class="c1">// Her ikisi de sıfıra yakın</span>
+    <span class="k">return</span> <span class="p">(</span><span class="n">fark</span> <span class="o">/</span> <span class="n">buyuk</span><span class="p">)</span> <span class="o">&lt;</span> <span class="n">epsilon</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="sonsuz-döngü-tuzağı-while-ile-açı-normalizasyonu">Sonsuz Döngü Tuzağı: While ile Açı Normalizasyonu</h2>
+
+<p>Bir açıyı <code class="language-plaintext highlighter-rouge">[0°, 360°)</code> aralığına çekmek için sık yazılan kod şöyle görünür:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1">// YANLIŞ - Sonsuz döngüye girebilir!</span>
+<span class="kt">float</span> <span class="nf">normalize_aci</span><span class="p">(</span><span class="kt">float</span> <span class="n">aci</span><span class="p">)</span> <span class="p">{</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">aci</span> <span class="o">&gt;=</span> <span class="mi">360</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">aci</span> <span class="o">-=</span> <span class="mi">360</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">while</span> <span class="p">(</span><span class="n">aci</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">aci</span> <span class="o">+=</span> <span class="mi">360</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span><span class="p">;</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">aci</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p>Bu kod küçük sayılar için doğru çalışır. Ancak <code class="language-plaintext highlighter-rouge">aci</code> değeri çok büyükse <strong>hiç bitmez.</strong></p>
+
+<h3 id="neden">Neden?</h3>
+
+<p><code class="language-plaintext highlighter-rouge">float</code> türü 32 bittir ve yaklaşık <strong>7 anlamlı ondalık basamak</strong> tutabilir. Büyük sayılarda hassasiyet o kadar kabalaşır ki, <code class="language-plaintext highlighter-rouge">360.0f</code> çıkarmak sonucu hiç değiştirmez — sayı kendi kendine eşit kalır.</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdio.h&gt;</span><span class="cp">
+</span>
+<span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="kt">float</span> <span class="n">buyuk</span> <span class="o">=</span> <span class="mf">1e10</span><span class="n">f</span><span class="p">;</span>  <span class="c1">// 10,000,000,000</span>
+
+    <span class="kt">float</span> <span class="n">sonuc</span> <span class="o">=</span> <span class="n">buyuk</span> <span class="o">-</span> <span class="mi">360</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span><span class="p">;</span>
+
+    <span class="k">if</span> <span class="p">(</span><span class="n">sonuc</span> <span class="o">==</span> <span class="n">buyuk</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">printf</span><span class="p">(</span><span class="s">"360.0f cikarmak hic etki yapmadi!</span><span class="se">\n</span><span class="s">"</span><span class="p">);</span>
+        <span class="c1">// Bu satır çalışır: 1e10f - 360.0f == 1e10f</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">1e10f</code> sayısının ULP’si (Unit in the Last Place — son basamağın değeri) yaklaşık <strong>1024.0f</strong>‘dir. Yani <code class="language-plaintext highlighter-rouge">float</code> bu büyüklükte iki komşu sayı arasındaki fark 1024’tür. <code class="language-plaintext highlighter-rouge">360 &lt; 1024</code> olduğundan çıkarma işlemi <strong>yuvarlama hatası yüzünden tamamen kaybolur</strong> ve <code class="language-plaintext highlighter-rouge">aci</code> bir sonraki iterasyonda hâlâ <code class="language-plaintext highlighter-rouge">&gt;= 360.0f</code> olur.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>1e10f  →  1e10f - 360.0f  →  yuvarlama  →  1e10f   (değişmedi)
+1e10f  →  1e10f - 360.0f  →  yuvarlama  →  1e10f   (değişmedi)
+...  (sonsuz döngü)
+</code></pre></div></div>
+
+<h3 id="çözüm-fmodf-kullan">Çözüm: <code class="language-plaintext highlighter-rouge">fmodf</code> Kullan</h3>
+
+<p>Standart kütüphanenin <code class="language-plaintext highlighter-rouge">fmodf</code> fonksiyonu bu işi tek adımda ve güvenle yapar:</p>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;math.h&gt;</span><span class="cp">
+</span>
+<span class="kt">float</span> <span class="nf">normalize_aci</span><span class="p">(</span><span class="kt">float</span> <span class="n">aci</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">aci</span> <span class="o">=</span> <span class="n">fmodf</span><span class="p">(</span><span class="n">aci</span><span class="p">,</span> <span class="mi">360</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span><span class="p">);</span>   <span class="c1">// Kalanı al: [-360, 360) aralığına çeker</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">aci</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span><span class="p">)</span> <span class="p">{</span>
+        <span class="n">aci</span> <span class="o">+=</span> <span class="mi">360</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span><span class="p">;</span>           <span class="c1">// Negatifi pozitife çevir</span>
+    <span class="p">}</span>
+    <span class="k">return</span> <span class="n">aci</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%.2f</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">normalize_aci</span><span class="p">(</span><span class="mf">1e10</span><span class="n">f</span><span class="p">));</span>   <span class="c1">// 280.00 (doğru)</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%.2f</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">normalize_aci</span><span class="p">(</span><span class="mi">450</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span><span class="p">));</span>  <span class="c1">// 90.00  (doğru)</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%.2f</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">normalize_aci</span><span class="p">(</span><span class="o">-</span><span class="mi">90</span><span class="p">.</span><span class="mi">0</span><span class="n">f</span><span class="p">));</span>  <span class="c1">// 270.00 (doğru)</span>
+    <span class="n">printf</span><span class="p">(</span><span class="s">"%.2f</span><span class="se">\n</span><span class="s">"</span><span class="p">,</span> <span class="n">normalize_aci</span><span class="p">(</span><span class="mi">720</span><span class="p">.</span><span class="mi">5</span><span class="n">f</span><span class="p">));</span>  <span class="c1">// 0.50   (doğru)</span>
+    <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+<span class="p">}</span>
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">fmodf</code>, bölme işlemini doğrudan gerçekleştirdiğinden büyük sayılarda da çalışır ve döngü gerektirmez. Aynı prensip <code class="language-plaintext highlighter-rouge">double</code> için <code class="language-plaintext highlighter-rouge">fmod</code>, tam sayıya yakın değerler için <code class="language-plaintext highlighter-rouge">remainder</code> fonksiyonlarına da uygulanır.</p>
+
+<h3 id="özet-karşılaştırma">Özet Karşılaştırma</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Yöntem</th>
+      <th><code class="language-plaintext highlighter-rouge">aci = 45.0f</code></th>
+      <th><code class="language-plaintext highlighter-rouge">aci = 1e10f</code></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">while</code> döngüsü</td>
+      <td>Doğru</td>
+      <td><strong>Sonsuz döngü</strong></td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">fmodf</code></td>
+      <td>Doğru</td>
+      <td>Doğru</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h2 id="performans-float-vs-double">Performans: Float vs Double</h2>
+
+<p>Kayan nokta işlemleri, özellikle eski veya gömülü sistemlerde, tamsayı işlemlerine kıyasla <strong>çok daha yavaş</strong> çalışabilir. Yazılım tabanlı kayan nokta birimi (soft-float) kullanan sistemlerde (bazı mikrodenetleyiciler) bir <code class="language-plaintext highlighter-rouge">double</code> çarpması onlarca döngü sürebilir.</p>
+
+<p>Modern masaüstü işlemcilerde FPU donanımı bu farkı büyük ölçüde kapatmış olsa da şunlara dikkat etmek gerekir:</p>
+
+<ul>
+  <li>
+<strong>Denormalize sayılar (subnormals):</strong> FPU’nun donanım hızlandırmasından yararlanamaz; sıradan sayılara kıyasla onlarca kat daha yavaş işlenebilir.</li>
+  <li>
+<strong>Vektörleştirme engelleyici karşılaştırmalar:</strong> NaN kontrolü gerektiren kodlar SIMD optimizasyonunu zorlaştırır.</li>
+</ul>
+
+<hr>
+
+<h2 id="özet">Özet</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Tuzak</th>
+      <th>Öneri</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>NaN yayılımı</td>
+      <td>
+<code class="language-plaintext highlighter-rouge">isnan()</code> ile kontrol et</td>
+    </tr>
+    <tr>
+      <td>Hassasiyet kaybı</td>
+      <td>Büyük ve küçük sayıları doğrudan toplamaktan kaçın</td>
+    </tr>
+    <tr>
+      <td>Float döngü sayacı</td>
+      <td>Tamsayı sayaç kullan</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">==</code> ile karşılaştırma</td>
+      <td>Epsilon tabanlı karşılaştırma kullan</td>
+    </tr>
+    <tr>
+      <td>Denormalize sayılar</td>
+      <td>Performans kritik kodlarda <code class="language-plaintext highlighter-rouge">FTZ</code>/<code class="language-plaintext highlighter-rouge">DAZ</code> bayraklarını değerlendir</td>
+    </tr>
+    <tr>
+      <td>
+<code class="language-plaintext highlighter-rouge">while</code> ile açı normalizasyonu</td>
+      <td>
+<code class="language-plaintext highlighter-rouge">fmodf</code> / <code class="language-plaintext highlighter-rouge">fmod</code> kullan</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Kayan nokta matematiği güçlü bir araçtır; ancak bu aracın sınırlarını bilmek, güvenilir ve doğru yazılımlar geliştirmenin temel koşuludur.</p>
+
+<hr>
+
+<p><strong>Kaynaklar:</strong></p>
+<ul>
+  <li><a href="https://wiki.sei.cmu.edu/confluence/display/c/FLP30-C.+Do+not+use+floating-point+variables+as+loop+counters">SEI CERT C: FLP30-C</a></li>
+  <li><a href="https://learn.microsoft.com/en-us/cpp/build/why-floating-point-numbers-may-lose-precision?view=msvc-170">Microsoft: Why Floating-Point Numbers May Lose Precision</a></li>
+  <li><a href="https://docs.oracle.com/cd/E19957-01/806-3568/ncg_goldberg.html">What Every Computer Scientist Should Know About Floating-Point Arithmetic</a></li>
+</ul>
+
+
+        <hr>
+
+        <div class="clearfix">
+
+          
+          <a class="btn btn-primary float-left" href="/2023/12/01/turkiyede-debugging-asamalari.html" data-toggle="tooltip" data-placement="top" title="Türkiye'de Debugging aşamaları">← Previous<span class="d-none d-md-inline">
+              Post</span></a>
+          
+          
+          <a class="btn btn-primary float-right" href="/2026/03/25/versiyon-kontrol-sistemleri-git-svn-clearcase.html" data-toggle="tooltip" data-placement="top" title="Versiyon Kontrol Sistemleri: Git vs SVN vs ClearCase">Next<span class="d-none d-md-inline">
+              Post</span> →</a>
+          
+        </div>
+        <br><br>
+        <div class="clearfix" id="disqus_thread"></div>
+          <script>
+            (function () {
+              var loaded = false;
+              function loadDisqus() {
+                if (loaded) return;
+                loaded = true;
+                var d = document, s = d.createElement('script');
+                s.src = 'https://karaman-dev.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+              }
+              if ('IntersectionObserver' in window) {
+                var observer = new IntersectionObserver(function (entries) {
+                  if (entries[0].isIntersecting) {
+                    loadDisqus();
+                    observer.disconnect();
+                  }
+                }, { rootMargin: '200px' });
+                observer.observe(document.getElementById('disqus_thread'));
+              } else {
+                loadDisqus();
+              }
+            })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+
+<footer class="footer-modern">
+  <div class="footer-main">
+    <div class="container">
+      <div class="row">
+
+        <!-- About column -->
+        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+          <h5 class="footer-heading">M. Serdar Karaman's Blog</h5>
+          <p class="footer-description">A personal blog about software engineering, programming, C, C++, Qt, Python, Linux, avionics, and life.</p>
+        </div>
+
+        <!-- Quick links column -->
+        <div class="col-lg-2 col-md-6 mb-4 mb-lg-0 offset-lg-1">
+          <h5 class="footer-heading">Quick Links</h5>
+          <ul class="footer-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/posts">Posts</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Social column -->
+        <div class="col-lg-4 col-md-12 mb-0 offset-lg-1">
+          <h5 class="footer-heading">Connect</h5>
+          <ul class="footer-social list-inline">
+            
+            <li class="list-inline-item">
+              <a href="mailto:%73%65%72%64%61%72@%6B%61%72%61%6D%61%6E.%64%65%76" aria-label="Email">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              </a>
+            </li>
+            
+            
+            <li class="list-inline-item">
+              <a href="https://github.com/Mavrikant" aria-label="GitHub" target="_blank" rel="noopener">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"></path></svg>
+              </a>
+            </li>
+            
+            
+            <li class="list-inline-item">
+              <a href="https://www.linkedin.com/in/mserdarkaraman" aria-label="LinkedIn" target="_blank" rel="noopener">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+              </a>
+            </li>
+            
+            
+            
+            
+            
+            <li class="list-inline-item">
+              <a href="https://www.youtube.com/channel/UCIlBH9QynIkHxX8uiY0UEMQ" aria-label="YouTube" target="_blank" rel="noopener">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20.06 12 20.06 12 20.06s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"></path><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"></polygon></svg>
+              </a>
+            </li>
+            
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6 text-center text-md-left">
+          <p class="copyright mb-0">© 2026 M. Serdar Karaman. All rights reserved.</p>
+        </div>
+        <div class="col-md-6 text-center text-md-right mt-2 mt-md-0">
+          <a href="#page-top" class="back-to-top" aria-label="Back to top">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"></polyline></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+  <script src="/assets/vendor/startbootstrap-clean-blog/js/scripts.js"></script>
+
+<script src="/assets/scripts.js"></script>
+
+
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YDEV31NZ5J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YDEV31NZ5J');
+</script>
+
+
+</body>
+</html>

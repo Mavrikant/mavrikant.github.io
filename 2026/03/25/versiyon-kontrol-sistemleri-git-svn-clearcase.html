@@ -1,0 +1,638 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="/favicon.ico" rel="shortcut icon" sizes="36x36 24x24 16x16" type="image/x-icon">
+<link href="/favicon.png" rel="icon" sizes="196x196" type="image/png">
+<meta content="/mstile-icon-128x128.png" name="msapplication-TileImage">
+<meta content="transparent" name="msapplication-TileColor">
+<link href="/manifest.webmanifest" rel="manifest">
+<meta content="/browserconfig.xml" name="msapplication-config">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Versiyon Kontrol Sistemleri: Git vs SVN vs ClearCase | M. Serdar Karaman’s Blog</title>
+<meta name="generator" content="Jekyll v4.2.2">
+<meta property="og:title" content="Versiyon Kontrol Sistemleri: Git vs SVN vs ClearCase">
+<meta name="author" content="M. Serdar Karaman">
+<meta property="og:locale" content="tr">
+<meta name="description" content="Yazılım geliştirmenin vazgeçilmez parçası olan versiyon kontrol sistemleri (VCS), kod değişikliklerini takip eder, ekip çalışmasını koordine eder ve geçmişe dönük izlenebilirlik sağlar. Bu yazıda en yaygın üç sistemi — Git, SVN (Subversion) ve ClearCase — mimari, özellik ve kullanım kolaylığı açısından karşılaştıracağız.">
+<meta property="og:description" content="Yazılım geliştirmenin vazgeçilmez parçası olan versiyon kontrol sistemleri (VCS), kod değişikliklerini takip eder, ekip çalışmasını koordine eder ve geçmişe dönük izlenebilirlik sağlar. Bu yazıda en yaygın üç sistemi — Git, SVN (Subversion) ve ClearCase — mimari, özellik ve kullanım kolaylığı açısından karşılaştıracağız.">
+<link rel="canonical" href="https://karaman.dev/2026/03/25/versiyon-kontrol-sistemleri-git-svn-clearcase.html">
+<meta property="og:url" content="https://karaman.dev/2026/03/25/versiyon-kontrol-sistemleri-git-svn-clearcase.html">
+<meta property="og:site_name" content="M. Serdar Karaman’s Blog">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-03-25T12:00:00+00:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Versiyon Kontrol Sistemleri: Git vs SVN vs ClearCase">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"M. Serdar Karaman"},"dateModified":"2026-03-25T12:00:00+00:00","datePublished":"2026-03-25T12:00:00+00:00","description":"Yazılım geliştirmenin vazgeçilmez parçası olan versiyon kontrol sistemleri (VCS), kod değişikliklerini takip eder, ekip çalışmasını koordine eder ve geçmişe dönük izlenebilirlik sağlar. Bu yazıda en yaygın üç sistemi — Git, SVN (Subversion) ve ClearCase — mimari, özellik ve kullanım kolaylığı açısından karşılaştıracağız.","headline":"Versiyon Kontrol Sistemleri: Git vs SVN vs ClearCase","mainEntityOfPage":{"@type":"WebPage","@id":"https://karaman.dev/2026/03/25/versiyon-kontrol-sistemleri-git-svn-clearcase.html"},"url":"https://karaman.dev/2026/03/25/versiyon-kontrol-sistemleri-git-svn-clearcase.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+<script>
+  // No-flash dark mode: applies the saved theme before paint.
+  (function () {
+    try {
+      var stored = localStorage.getItem('theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = stored || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch (e) {}
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Source+Serif+Pro:ital,wght@0,400;0,600;1,400;1,600&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/9.1.3/mermaid.min.js" integrity="sha512-E/owfVh8/U1xwhvIT4HSI064DRc1Eo/xf7AYax84rt9gVqA8tc/JNH/lvTl1tuw9PUHQIMGUtObkjYkgRjFqAA==" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/assets/main.css">
+<link rel="alternate" type="application/rss+xml" title="M. Serdar Karaman's Blog" href="/feed.xml">
+</head>
+<body>
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">M. Serdar Karaman's Blog</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contact">Contact</a>
+        </li>
+        <li class="nav-item d-flex align-items-center">
+          <button type="button" class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <!-- Page Header -->
+
+<header class="masthead" style="background-image: url('/img/posts/4.jpg')">
+  
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Versiyon Kontrol Sistemleri: Git vs SVN vs ClearCase</h1>
+            
+            <span class="meta">Posted by
+              <a href="#">M. Serdar Karaman</a>
+              on March 25, 2026 · <span class="reading-time" title="Estimated read time">
+  
+   9 mins  read </span>
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container" lang="tr">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+
+        <p>Yazılım geliştirmenin vazgeçilmez parçası olan versiyon kontrol sistemleri (VCS), kod değişikliklerini takip eder, ekip çalışmasını koordine eder ve geçmişe dönük izlenebilirlik sağlar. Bu yazıda en yaygın üç sistemi — <strong>Git</strong>, <strong>SVN (Subversion)</strong> ve <strong>ClearCase</strong> — mimari, özellik ve kullanım kolaylığı açısından karşılaştıracağız.</p>
+
+<hr>
+
+<h2 id="mimari-merkezi-mi-dağıtık-mı">Mimari: Merkezi mi, Dağıtık mı?</h2>
+
+<p>Üç sistem arasındaki en temel fark mimaridir.</p>
+
+<div class="mermaid">
+graph TD
+    subgraph Git - Dağıtık
+        GR\[Uzak Repo] &lt;--&gt;|push/pull| GL1\[Geliştirici A - Yerel Repo]
+        GR &lt;--&gt;|push/pull| GL2\[Geliştirici B - Yerel Repo]
+        GR &lt;--&gt;|push/pull| GL3\[Geliştirici C - Yerel Repo]
+    end
+</div>
+
+<div class="mermaid">
+graph TD
+    subgraph SVN / ClearCase - Merkezi
+        CR\[Merkezi Sunucu] --&gt;|checkout| CL1\[Geliştirici A]
+        CR --&gt;|checkout| CL2\[Geliştirici B]
+        CL1 --&gt;|commit| CR
+        CL2 --&gt;|commit| CR
+    end
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Özellik</th>
+      <th>Git</th>
+      <th>SVN</th>
+      <th>ClearCase</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Mimari</td>
+      <td>Dağıtık</td>
+      <td>Merkezi</td>
+      <td>Merkezi</td>
+    </tr>
+    <tr>
+      <td>Yerel commit</td>
+      <td>Evet</td>
+      <td>Hayır</td>
+      <td>Hayır</td>
+    </tr>
+    <tr>
+      <td>Çevrimdışı çalışma</td>
+      <td>Tam</td>
+      <td>Kısıtlı</td>
+      <td>Hayır</td>
+    </tr>
+    <tr>
+      <td>Tam geçmiş yerel</td>
+      <td>Evet</td>
+      <td>Hayır</td>
+      <td>Hayır</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h2 id="git">Git</h2>
+
+<p>2005 yılında Linux çekirdeği geliştirmesi için Linus Torvalds tarafından yazılan Git, günümüzde dünyada en çok kullanılan VCS’dir.</p>
+
+<h3 id="temel-kavramlar">Temel Kavramlar</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Çalışma Dizini  →  git add  →  Staging (Index)  →  git commit  →  Yerel Repo
+                                                                        ↕
+                                                                   git push/pull
+                                                                   Uzak Repo
+</code></pre></div></div>
+
+<h3 id="güçlü-yönleri">Güçlü Yönleri</h3>
+
+<ul>
+  <li>
+<strong>Dallanma (branching) ucuzdur:</strong> Yeni bir dal oluşturmak milisaniyeler alır; dal esasen bir işaretçidir.</li>
+  <li>
+<strong>Çevrimdışı çalışma:</strong> Tüm geçmiş yerel diskinizdedir; sunucuya erişim olmadan commit, diff ve log işlemleri yapılabilir.</li>
+  <li>
+<strong>Hız:</strong> Tüm işlemler (diff, log, blame) yerel olduğundan çok hızlıdır.</li>
+  <li>
+<strong>Esnek iş akışları:</strong> GitFlow, trunk-based, forking — her ekibe uygun bir model mevcuttur.</li>
+</ul>
+
+<h3 id="sık-kullanılan-komutlar">Sık Kullanılan Komutlar</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>git init                    <span class="c"># Yeni repo başlat</span>
+git clone &lt;url&gt;             <span class="c"># Uzak repoyu klonla</span>
+git checkout <span class="nt">-b</span> feature/x   <span class="c"># Yeni dal oluştur ve geç</span>
+git add <span class="nb">.</span>                   <span class="c"># Değişiklikleri sahneye al</span>
+git commit <span class="nt">-m</span> <span class="s2">"mesaj"</span>       <span class="c"># Yerel commit</span>
+git push origin feature/x   <span class="c"># Uzak repoya gönder</span>
+git merge main              <span class="c"># Dalları birleştir</span>
+git rebase main             <span class="c"># Değişiklikleri yeniden uygula</span>
+git stash                   <span class="c"># Değişiklikleri geçici olarak sakla</span>
+</code></pre></div></div>
+
+<h3 id="zayıf-yönleri">Zayıf Yönleri</h3>
+
+<ul>
+  <li>Büyük ikili (binary) dosyalar için uygun değildir (LFS eklentisi gerekir)</li>
+  <li>Öğrenme eğrisi dik olabilir (<code class="language-plaintext highlighter-rouge">rebase</code>, <code class="language-plaintext highlighter-rouge">cherry-pick</code>, <code class="language-plaintext highlighter-rouge">reflog</code>…)</li>
+  <li>Merkezi erişim kontrolü SVN/ClearCase kadar ince taneli değildir</li>
+</ul>
+
+<hr>
+
+<h2 id="svn-subversion">SVN (Subversion)</h2>
+
+<p>2000 yılında CVS’in sorunlarını gidermek amacıyla geliştirilen SVN, merkezi bir sunucu üzerinden çalışır. Hâlâ kurumsal ortamlarda ve eski projelerde yaygındır.</p>
+
+<h3 id="temel-kavramlar-1">Temel Kavramlar</h3>
+
+<p>SVN’de <code class="language-plaintext highlighter-rouge">branches/</code>, <code class="language-plaintext highlighter-rouge">tags/</code> ve <code class="language-plaintext highlighter-rouge">trunk/</code> dizinleri dosya sistemi seviyesindedir; dal oluşturmak aslında sunucuda bir kopyalama işlemidir.</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>svn repository/
+├── trunk/          ← Ana geliştirme hattı
+├── branches/
+│   ├── feature-x/
+│   └── release-1.0/
+└── tags/
+    └── v1.0.0/
+</code></pre></div></div>
+
+<h3 id="sık-kullanılan-komutlar-1">Sık Kullanılan Komutlar</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>svn checkout &lt;url&gt;          <span class="c"># Çalışma kopyası al</span>
+svn update                  <span class="c"># Sunucudan güncelle</span>
+svn add dosya.c             <span class="c"># Takibe ekle</span>
+svn commit <span class="nt">-m</span> <span class="s2">"mesaj"</span>       <span class="c"># Sunucuya gönder</span>
+svn diff                    <span class="c"># Değişiklikleri göster</span>
+svn log                     <span class="c"># Geçmişi göster</span>
+svn merge &lt;url&gt;             <span class="c"># Dalları birleştir</span>
+svn revert dosya.c          <span class="c"># Değişikliği geri al</span>
+</code></pre></div></div>
+
+<h3 id="güçlü-yönleri-1">Güçlü Yönleri</h3>
+
+<ul>
+  <li>Basit ve anlaşılır model; Git’e göre öğrenmesi kolay</li>
+  <li>Dosya/dizin bazında erişim kontrolü (<code class="language-plaintext highlighter-rouge">svnserve</code> + <code class="language-plaintext highlighter-rouge">authz</code>)</li>
+  <li>Kısmi checkout: yalnızca bir alt dizini alabilirsiniz</li>
+  <li>İkili dosya yönetimi daha az sorunlu</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">svn:externals</code> ile bağımlılık yönetimi</li>
+</ul>
+
+<h3 id="zayıf-yönleri-1">Zayıf Yönleri</h3>
+
+<ul>
+  <li>Sunucu bağlantısı olmadan commit yapılamaz</li>
+  <li>Dallanma maliyetli (sunucu tarafı kopyalama)</li>
+  <li>Birleştirme (merge) geçmişi Git kadar güçlü takip edilmez</li>
+  <li>Tüm repo geçmişi yerel değil</li>
+</ul>
+
+<hr>
+
+<h2 id="ibm-rational-clearcase">IBM Rational ClearCase</h2>
+
+<p>ClearCase, 1992’de Rational Software tarafından geliştirildi; daha sonra IBM tarafından satın alındı. Başta havacılık, savunma ve telekomünikasyon gibi <strong>yüksek güvenceli ve denetlenen (regulated)</strong> sektörlerde yaygındır.</p>
+
+<h3 id="temel-kavramlar-2">Temel Kavramlar</h3>
+
+<p>ClearCase’in en özgün özelliği <strong>VOB (Versioned Object Base)</strong> ve <strong>View</strong> mimarisidir:</p>
+
+<ul>
+  <li>
+<strong>VOB:</strong> Tüm versiyon bilgisinin depolandığı merkezi veri tabanı</li>
+  <li>
+<strong>View (Dynamic / Snapshot):</strong>
+    <ul>
+      <li>
+<em>Dynamic View:</em> Dosyalar ağ üzerinden canlı olarak bağlanır (mount edilir), disk alanı kullanmaz</li>
+      <li>
+<em>Snapshot View:</em> Dosyalar yerel diske kopyalanır, çevrimdışı çalışılabilir</li>
+    </ul>
+  </li>
+  <li>
+<strong>Config Spec:</strong> Hangi versiyonların görüneceğini tanımlayan kural seti</li>
+</ul>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>VOB
+ └── element/
+      ├── main/
+      │    ├── 1  (versiyon 1)
+      │    ├── 2  (versiyon 2)
+      │    └── feature-x/
+      │         └── 1
+      └── ...
+</code></pre></div></div>
+
+<h3 id="clearcase-multisite">ClearCase MultiSite</h3>
+
+<p>Coğrafi olarak dağılmış ekipler için VOB’ları replike eden <strong>MultiSite</strong> özelliği, kurumsal düzeyde kullanımı mümkün kılar.</p>
+
+<h3 id="güçlü-yönleri-2">Güçlü Yönleri</h3>
+
+<ul>
+  <li>
+<strong>İnce taneli erişim kontrolü:</strong> Dosya, element, hatta versiyon seviyesinde izin yönetimi</li>
+  <li>
+<strong>Tam denetlenebilirlik:</strong> DO-178C, AS9100, CMMI gibi standartların gerektirdiği iz kaydı</li>
+  <li>
+<strong>UCM (Unified Change Management):</strong> Aktivite (activity) bazlı değişiklik takibi</li>
+  <li>
+<strong>Dynamic View:</strong> Çok büyük repolar için disk alanından bağımsız çalışma</li>
+  <li>
+<strong>Güçlü etiketleme ve baseline:</strong> Release yönetimi için zengin altyapı</li>
+</ul>
+
+<h3 id="zayıf-yönleri-2">Zayıf Yönleri</h3>
+
+<ul>
+  <li>Kurulum ve bakım son derece karmaşık ve pahalı</li>
+  <li>Lisans maliyeti yüksek</li>
+  <li>Modern CI/CD araçlarıyla entegrasyon zor</li>
+  <li>Komut satırı arayüzü <code class="language-plaintext highlighter-rouge">cleartool</code> alışılmadık</li>
+  <li>Geliştirici deneyimi (DX) Git’in çok gerisinde</li>
+</ul>
+
+<h3 id="temel-clearcase-komutları">Temel ClearCase Komutları</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cleartool lsview            <span class="c"># Mevcut view'ları listele</span>
+cleartool setview myview    <span class="c"># View'a geç</span>
+cleartool checkout <span class="nt">-nc</span> dosya.c   <span class="c"># Dosyayı düzenlemeye aç</span>
+cleartool checkin <span class="nt">-m</span> <span class="s2">"mesaj"</span> dosya.c  <span class="c"># Değişikliği kaydet</span>
+cleartool lshistory dosya.c      <span class="c"># Dosya geçmişini göster</span>
+cleartool diff <span class="nt">-pred</span> dosya.c     <span class="c"># Önceki versiyonla karşılaştır</span>
+cleartool mkbl <span class="nt">-full</span> BASELINE_1  <span class="c"># Baseline oluştur</span>
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="kapsamlı-karşılaştırma-tablosu">Kapsamlı Karşılaştırma Tablosu</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Özellik</th>
+      <th style="text-align: center">Git</th>
+      <th style="text-align: center">SVN</th>
+      <th style="text-align: center">ClearCase</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Mimari</td>
+      <td style="text-align: center">Dağıtık</td>
+      <td style="text-align: center">Merkezi</td>
+      <td style="text-align: center">Merkezi</td>
+    </tr>
+    <tr>
+      <td>Çevrimdışı commit</td>
+      <td style="text-align: center">✅</td>
+      <td style="text-align: center">❌</td>
+      <td style="text-align: center">❌</td>
+    </tr>
+    <tr>
+      <td>Dallanma hızı</td>
+      <td style="text-align: center">Çok hızlı</td>
+      <td style="text-align: center">Yavaş</td>
+      <td style="text-align: center">Orta</td>
+    </tr>
+    <tr>
+      <td>Merge kalitesi</td>
+      <td style="text-align: center">Çok iyi</td>
+      <td style="text-align: center">Orta</td>
+      <td style="text-align: center">İyi (UCM)</td>
+    </tr>
+    <tr>
+      <td>İkili dosya desteği</td>
+      <td style="text-align: center">Orta (LFS)</td>
+      <td style="text-align: center">İyi</td>
+      <td style="text-align: center">İyi</td>
+    </tr>
+    <tr>
+      <td>Erişim kontrolü</td>
+      <td style="text-align: center">Kaba</td>
+      <td style="text-align: center">İnce</td>
+      <td style="text-align: center">Çok ince</td>
+    </tr>
+    <tr>
+      <td>Denetlenebilirlik</td>
+      <td style="text-align: center">Orta</td>
+      <td style="text-align: center">Orta</td>
+      <td style="text-align: center">Çok yüksek</td>
+    </tr>
+    <tr>
+      <td>Öğrenme eğrisi</td>
+      <td style="text-align: center">Orta-Dik</td>
+      <td style="text-align: center">Düz</td>
+      <td style="text-align: center">Çok dik</td>
+    </tr>
+    <tr>
+      <td>Kurulum maliyeti</td>
+      <td style="text-align: center">Düşük</td>
+      <td style="text-align: center">Orta</td>
+      <td style="text-align: center">Çok yüksek</td>
+    </tr>
+    <tr>
+      <td>CI/CD entegrasyonu</td>
+      <td style="text-align: center">Mükemmel</td>
+      <td style="text-align: center">İyi</td>
+      <td style="text-align: center">Zor</td>
+    </tr>
+    <tr>
+      <td>Topluluk / ekosistem</td>
+      <td style="text-align: center">Devasa</td>
+      <td style="text-align: center">Orta</td>
+      <td style="text-align: center">Küçük</td>
+    </tr>
+    <tr>
+      <td>Büyük repo performansı</td>
+      <td style="text-align: center">Orta</td>
+      <td style="text-align: center">İyi</td>
+      <td style="text-align: center">İyi</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr>
+
+<h2 id="hangi-sistemi-seçmeli">Hangi Sistemi Seçmeli?</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Proje türü nedir?
+│
+├── Açık kaynak / web / startup
+│    └── → Git (GitHub / GitLab / Bitbucket)
+│
+├── Kurumsal, orta ölçek, basit iş akışı
+│    └── → SVN (veya Git'e geçiş planla)
+│
+└── Havacılık, savunma, DO-178C / AS9100
+     ├── Mevcut süreçler ClearCase etrafında mı kurulu?
+     │    └── → ClearCase (kısa vadede)
+     └── Yeni proje / modernizasyon
+          └── → Git + güçlü CI/CD + politika araçları
+</code></pre></div></div>
+
+<hr>
+
+<h2 id="clearcaseden-gite-geçiş">ClearCase’den Git’e Geçiş</h2>
+
+<p>Savunma sanayii gibi sektörlerde ClearCase’den Git’e geçiş giderek yaygınlaşmaktadır. Bu süreçte dikkat edilmesi gereken noktalar:</p>
+
+<ol>
+  <li>
+<strong>Geçmiş aktarımı:</strong> <code class="language-plaintext highlighter-rouge">git-cc</code> veya <code class="language-plaintext highlighter-rouge">clearcase2git</code> araçları VOB geçmişini Git’e taşır</li>
+  <li>
+<strong>İnce erişim kontrolünü karşılama:</strong> GitLab/GitHub’ın <code class="language-plaintext highlighter-rouge">CODEOWNERS</code>, branch koruma kuralları ve zorunlu inceleme (required review) özellikleri kullanılabilir</li>
+  <li>
+<strong>Denetlenebilirlik:</strong> Signed commits (<code class="language-plaintext highlighter-rouge">git commit -S</code>) ve koruma dalları iz kaydını güçlendirir</li>
+  <li>
+<strong>Büyük ikili dosyalar:</strong> Git LFS ile yönetilmelidir</li>
+</ol>
+
+<hr>
+
+<h2 id="özet">Özet</h2>
+
+<ul>
+  <li>
+<strong>Git:</strong> Modern yazılım geliştirmenin fiili standardı. Hız, esneklik ve ekosistem açısından rakipsiz.</li>
+  <li>
+<strong>SVN:</strong> Basitliği ve merkezi erişim kontrolüyle hâlâ geçerli; ancak uzun vadede Git’e geçişi öneririz.</li>
+  <li>
+<strong>ClearCase:</strong> Yüksek güvenceli, denetlenen projelerde derinlemesine izlenebilirlik ve ince erişim kontrolü sunar; ancak maliyeti ve karmaşıklığı yüksektir.</li>
+</ul>
+
+<p>Doğru araç, projenin ölçeğine, sektörün gereksinimlerine ve ekibin olgunluğuna bağlıdır. Ancak günümüzde yeni bir projeye başlıyorsanız Git neredeyse her zaman ilk tercih olmalıdır.</p>
+
+
+        <hr>
+
+        <div class="clearfix">
+
+          
+          <a class="btn btn-primary float-left" href="/2026/03/25/kayan-nokta-sayilarinin-tehlikeleri.html" data-toggle="tooltip" data-placement="top" title="Kayan Nokta Sayılarının Tehlikeleri">← Previous<span class="d-none d-md-inline">
+              Post</span></a>
+          
+          
+          <a class="btn btn-primary float-right" href="/2026/04/05/misra-c-2025-ile-neler-degisti.html" data-toggle="tooltip" data-placement="top" title="MISRA C:2025 ile Neler Değişti?">Next<span class="d-none d-md-inline">
+              Post</span> →</a>
+          
+        </div>
+        <br><br>
+        <div class="clearfix" id="disqus_thread"></div>
+          <script>
+            (function () {
+              var loaded = false;
+              function loadDisqus() {
+                if (loaded) return;
+                loaded = true;
+                var d = document, s = d.createElement('script');
+                s.src = 'https://karaman-dev.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+              }
+              if ('IntersectionObserver' in window) {
+                var observer = new IntersectionObserver(function (entries) {
+                  if (entries[0].isIntersecting) {
+                    loadDisqus();
+                    observer.disconnect();
+                  }
+                }, { rootMargin: '200px' });
+                observer.observe(document.getElementById('disqus_thread'));
+              } else {
+                loadDisqus();
+              }
+            })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+
+<footer class="footer-modern">
+  <div class="footer-main">
+    <div class="container">
+      <div class="row">
+
+        <!-- About column -->
+        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+          <h5 class="footer-heading">M. Serdar Karaman's Blog</h5>
+          <p class="footer-description">A personal blog about software engineering, programming, C, C++, Qt, Python, Linux, avionics, and life.</p>
+        </div>
+
+        <!-- Quick links column -->
+        <div class="col-lg-2 col-md-6 mb-4 mb-lg-0 offset-lg-1">
+          <h5 class="footer-heading">Quick Links</h5>
+          <ul class="footer-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/posts">Posts</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Social column -->
+        <div class="col-lg-4 col-md-12 mb-0 offset-lg-1">
+          <h5 class="footer-heading">Connect</h5>
+          <ul class="footer-social list-inline">
+            
+            <li class="list-inline-item">
+              <a href="mailto:%73%65%72%64%61%72@%6B%61%72%61%6D%61%6E.%64%65%76" aria-label="Email">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              </a>
+            </li>
+            
+            
+            <li class="list-inline-item">
+              <a href="https://github.com/Mavrikant" aria-label="GitHub" target="_blank" rel="noopener">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"></path></svg>
+              </a>
+            </li>
+            
+            
+            <li class="list-inline-item">
+              <a href="https://www.linkedin.com/in/mserdarkaraman" aria-label="LinkedIn" target="_blank" rel="noopener">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+              </a>
+            </li>
+            
+            
+            
+            
+            
+            <li class="list-inline-item">
+              <a href="https://www.youtube.com/channel/UCIlBH9QynIkHxX8uiY0UEMQ" aria-label="YouTube" target="_blank" rel="noopener">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20.06 12 20.06 12 20.06s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"></path><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"></polygon></svg>
+              </a>
+            </li>
+            
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6 text-center text-md-left">
+          <p class="copyright mb-0">© 2026 M. Serdar Karaman. All rights reserved.</p>
+        </div>
+        <div class="col-md-6 text-center text-md-right mt-2 mt-md-0">
+          <a href="#page-top" class="back-to-top" aria-label="Back to top">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"></polyline></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+  <script src="/assets/vendor/startbootstrap-clean-blog/js/scripts.js"></script>
+
+<script src="/assets/scripts.js"></script>
+
+
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YDEV31NZ5J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YDEV31NZ5J');
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="/favicon.ico" rel="shortcut icon" sizes="36x36 24x24 16x16" type="image/x-icon">
+<link href="/favicon.png" rel="icon" sizes="196x196" type="image/png">
+<meta content="/mstile-icon-128x128.png" name="msapplication-TileImage">
+<meta content="transparent" name="msapplication-TileColor">
+<link href="/manifest.webmanifest" rel="manifest">
+<meta content="/browserconfig.xml" name="msapplication-config">
+<!-- Begin Jekyll SEO tag v2.8.0 -->
+<title>Yazılım Proje Yönetimini Pratikleri: Başarı ve Başarısızlık | M. Serdar Karaman’s Blog</title>
+<meta name="generator" content="Jekyll v4.2.2">
+<meta property="og:title" content="Yazılım Proje Yönetimini Pratikleri: Başarı ve Başarısızlık">
+<meta name="author" content="M. Serdar Karaman">
+<meta property="og:locale" content="tr">
+<meta name="description" content="1995-2004 yılları arasındaki yaklaşık 250 büyük yazılım projesinin incelenmesi ilginç benzerlikleri gösterdi. Maliyet ve çizelge tahminlerini başarıyla gerçekleştiren büyük projeleri geç kalan, bütçeyi aşan veya tamamlanmadan iptal edilen projelerle karşılaştırırken, altı ortak sorun gözlemlendi: zayıf proje planlaması, yetersiz maliyet tahmini, zayıf ölçümler, zayıf kilometre taşı takibi, zayıf değişim kontrolü ve düşük kalite kontrol. Buna karşılık, başarılı yazılım projeleri bu alanların altısında ortalamanın üzerinde olma eğilimindedir. Bu altı sorun alanının belki de en ilginç yanı, hepsinin teknik personelden çok proje yönetimiyle ilişkili olmasıdır. İki çalışma hipotezi ortaya çıktı: Yetersiz kalite kontrolü, maliyet ve zaman aşımına en büyük katkıyı sağlar Yetersiz proje yönetimi, yetersiz kalite kontrolünün en olası nedenidir.">
+<meta property="og:description" content="1995-2004 yılları arasındaki yaklaşık 250 büyük yazılım projesinin incelenmesi ilginç benzerlikleri gösterdi. Maliyet ve çizelge tahminlerini başarıyla gerçekleştiren büyük projeleri geç kalan, bütçeyi aşan veya tamamlanmadan iptal edilen projelerle karşılaştırırken, altı ortak sorun gözlemlendi: zayıf proje planlaması, yetersiz maliyet tahmini, zayıf ölçümler, zayıf kilometre taşı takibi, zayıf değişim kontrolü ve düşük kalite kontrol. Buna karşılık, başarılı yazılım projeleri bu alanların altısında ortalamanın üzerinde olma eğilimindedir. Bu altı sorun alanının belki de en ilginç yanı, hepsinin teknik personelden çok proje yönetimiyle ilişkili olmasıdır. İki çalışma hipotezi ortaya çıktı: Yetersiz kalite kontrolü, maliyet ve zaman aşımına en büyük katkıyı sağlar Yetersiz proje yönetimi, yetersiz kalite kontrolünün en olası nedenidir.">
+<link rel="canonical" href="https://karaman.dev/2022/05/03/yazilim-proje-yonetimini-pratikleri-basari-ve-basarisizlik.html">
+<meta property="og:url" content="https://karaman.dev/2022/05/03/yazilim-proje-yonetimini-pratikleri-basari-ve-basarisizlik.html">
+<meta property="og:site_name" content="M. Serdar Karaman’s Blog">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2022-05-03T20:08:36+00:00">
+<meta name="twitter:card" content="summary">
+<meta property="twitter:title" content="Yazılım Proje Yönetimini Pratikleri: Başarı ve Başarısızlık">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"M. Serdar Karaman"},"dateModified":"2022-05-03T20:08:36+00:00","datePublished":"2022-05-03T20:08:36+00:00","description":"1995-2004 yılları arasındaki yaklaşık 250 büyük yazılım projesinin incelenmesi ilginç benzerlikleri gösterdi. Maliyet ve çizelge tahminlerini başarıyla gerçekleştiren büyük projeleri geç kalan, bütçeyi aşan veya tamamlanmadan iptal edilen projelerle karşılaştırırken, altı ortak sorun gözlemlendi: zayıf proje planlaması, yetersiz maliyet tahmini, zayıf ölçümler, zayıf kilometre taşı takibi, zayıf değişim kontrolü ve düşük kalite kontrol. Buna karşılık, başarılı yazılım projeleri bu alanların altısında ortalamanın üzerinde olma eğilimindedir. Bu altı sorun alanının belki de en ilginç yanı, hepsinin teknik personelden çok proje yönetimiyle ilişkili olmasıdır. İki çalışma hipotezi ortaya çıktı: Yetersiz kalite kontrolü, maliyet ve zaman aşımına en büyük katkıyı sağlar Yetersiz proje yönetimi, yetersiz kalite kontrolünün en olası nedenidir.","headline":"Yazılım Proje Yönetimini Pratikleri: Başarı ve Başarısızlık","mainEntityOfPage":{"@type":"WebPage","@id":"https://karaman.dev/2022/05/03/yazilim-proje-yonetimini-pratikleri-basari-ve-basarisizlik.html"},"url":"https://karaman.dev/2022/05/03/yazilim-proje-yonetimini-pratikleri-basari-ve-basarisizlik.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+<script>
+  // No-flash dark mode: applies the saved theme before paint.
+  (function () {
+    try {
+      var stored = localStorage.getItem('theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = stored || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch (e) {}
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Source+Serif+Pro:ital,wght@0,400;0,600;1,400;1,600&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="/assets/main.css">
+<link rel="alternate" type="application/rss+xml" title="M. Serdar Karaman's Blog" href="/feed.xml">
+</head>
+<body>
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">M. Serdar Karaman's Blog</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+      Menu
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">About</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Posts</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contact">Contact</a>
+        </li>
+        <li class="nav-item d-flex align-items-center">
+          <button type="button" class="theme-toggle" aria-label="Toggle dark mode" title="Toggle dark mode">
+            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <!-- Page Header -->
+
+<header class="masthead" style="background-image: url('/img/posts/1.jpg')">
+  
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Yazılım Proje Yönetimini Pratikleri:  Başarı ve Başarısızlık</h1>
+            
+            <span class="meta">Posted by
+              <a href="#">M. Serdar Karaman</a>
+              on May 03, 2022 · <span class="reading-time" title="Estimated read time">
+  
+   10 mins  read </span>
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container" lang="tr">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+
+        <p>1995-2004 yılları arasındaki yaklaşık 250 büyük yazılım projesinin incelenmesi ilginç benzerlikleri gösterdi. Maliyet ve çizelge tahminlerini başarıyla gerçekleştiren büyük projeleri geç kalan, bütçeyi aşan veya tamamlanmadan iptal edilen projelerle karşılaştırırken, altı ortak sorun gözlemlendi: zayıf proje planlaması, yetersiz maliyet tahmini, zayıf ölçümler, zayıf kilometre taşı takibi, zayıf değişim kontrolü ve düşük kalite kontrol. Buna karşılık, başarılı yazılım projeleri bu alanların altısında ortalamanın üzerinde olma eğilimindedir. Bu altı sorun alanının belki de en ilginç yanı, hepsinin teknik personelden çok proje yönetimiyle ilişkili olmasıdır. <strong>İki çalışma hipotezi ortaya çıktı:</strong></p>
+<ol>
+  <li>Yetersiz kalite kontrolü, maliyet ve zaman aşımına en büyük katkıyı sağlar</li>
+  <li>Yetersiz proje yönetimi, yetersiz kalite kontrolünün en olası nedenidir.</li>
+</ol>
+
+<p><strong>Araştırma dahilindeki 250 projeden;</strong></p>
+<ul>
+  <li>25 tanesi planlanan zamanda ve bütçe ile bitti,</li>
+  <li>50 tanesi plananan zamandan sonra bütçeyi %35 aşarak sonuçlandı,</li>
+  <li>175 tanesi büyük gecikmeler ve bütçe aşımı ile sonuçlandı ya da hiç tamamlanamadı.</li>
+</ul>
+
+<h2 id="başarılı-ve-başarısız-proje-planlaması">Başarılı ve Başarısız Proje Planlaması</h2>
+<p>Proje planlaması ifadesi, iş kırılım yapılarının oluşturulmasını ve ardından görevlerin zaman içinde ekip üyelerine dağıtılmasını kapsar. Proje planlaması, Gantt çizelgeleri, PERT çizelgeleri veya benzerleri dahil olmak üzere çeşitli zaman çizelgelerinin ve kritik yolların oluşturulmasını içerir.</p>
+
+<p><strong>2004 yıllarında büyük yazılım projeleri için başarılı planlama şunları içerir:</strong></p>
+<ul>
+  <li>Artemis Views veya Microsoft Project gibi otomatik planlama araçlarını kullanma.</li>
+  <li>Eksiksiz iş kırılım yapılarının geliştirilmesi.</li>
+  <li>Proje geliştirme faaliyetlerinin kritik yol analizinin yapılması.</li>
+  <li>Proje süresince personel alımını ve işten ayrılmayı dikkate almak.</li>
+  <li>Taşeronları ve uluslararası ekipleri dikkate almak.</li>
+  <li>Gereksinimlerin toplanması ve analizi için zamanında düzeltme.</li>
+  <li>Değişen gereksinimlerin üstesinden gelmek için zamanında düzeltme.</li>
+  <li>Eksiksiz bir kalite kontrol faaliyetleri paketi için zamanında düzeltme.</li>
+  <li>Gereksinim artışı önemliyse, birden fazla yayının değerlendirilmesi.</li>
+</ul>
+
+<p>Başarı projeler planlamayı iyi yapıyor, başarısız projelerde ise çoğunlukla planlama hataları var.</p>
+
+<p><strong>En yaygın planlama hataları:</strong></p>
+<ol>
+  <li>Değişen gereksinimlerle etkin bir şekilde ilgilenmemek,</li>
+  <li>Proje süresince personel alım sürecine katılmamak ve işten ayrılmayı öngörmemek,</li>
+  <li>Detaylı gereksinim analizi için zaman ayırmamak,</li>
+  <li>Denetimler, testler ve hata düzeltmeleri için yeterli zaman tahsis etmemek.</li>
+</ol>
+
+<p>Başarılı projelerde planlama süreci araçlar yardımcı ile otomatize edilmiş durumda. Piyasada 50 den fazla ticari proje planlama aracı var. Başarılı projeler en az bir tanesini kullanıyor.</p>
+
+<h2 id="başarılı-ve-başarısız-proje-maliyet-tahmini">Başarılı ve Başarısız Proje Maliyet Tahmini</h2>
+<p>Büyük yazılım projelerinde maliyet tahmini elle yapılamayacak kadar komplex. Piyasadaki 75’den fazla yazılım maliyet tahmini programını varlığı da bu durumu doğruluyor. Bunlardan en bilinenleri: COCOMO II, CostXpert, Knowledge-Plan, PRICE-S, SEER-SEM, SLIM</p>
+
+<p>Başarılı projelerde bu programlardan en az bir tanesini kullanıyor. Birden fazla programın kullanılması nadir değil.</p>
+
+<p><strong>Büyük sistemler için başarılı maliyet tahmini, aşağıdakilerin kullanılmasını içerir:</strong></p>
+<ul>
+  <li>Yazılım tahmin araçları (COCOMO II, CostXpert, KnowledgePLAN, PRICE-S, SEER-SEM, SLIM, vb.).</li>
+  <li>İşlev noktalarına dayalı ana çıktılar için resmi boyutlandırma yaklaşımları.</li>
+  <li>Tahminlerin benzer projelerden elde edilen geçmiş verilerle karşılaştırılması.</li>
+  <li>Eğitimli tahmin uzmanlarının veya proje yöneticilerinin varlığı.</li>
+  <li>Tahmine yeni ve değişen gereksinimlerin dahil edilmesi.</li>
+  <li>Kalite tahmininin yanı sıra program ve maliyet tahmininin dahil edilmesi.</li>
+</ul>
+
+<p>Projedeki verimlik oranın abatılarak tahmin edilmesi ya da küçük bir proje ile büyük bir projedeki verimin aynı olacağını yanılgısı en sık yapılan hatalardan.</p>
+
+<h2 id="başarılı-ve-başarısız-proje-ölçümlemesi">Başarılı ve Başarısız Proje Ölçümlemesi</h2>
+<p>Başarılı büyük projeler çoğunlukla üretkenlik ve kalite geçmiş verilerini kaydetmek için yazılım ölçüm programlarına sahip şirketlerden çıkar. Böylece herhangi bir yeni proje, çizelgelerin, maliyetlerin, kalitenin ve diğer önemli faktörlerin geçerliliğini değerlendirmek için benzer projelerle karşılaştırılabilir. 10.000 işlev puanı alanındaki projeler için <strong>en faydalı ölçümler</strong> aşağıdakilerin ölçümlerini içerir:</p>
+<ul>
+  <li>Birikmiş çaba.</li>
+  <li>Birikmiş maliyetler.</li>
+  <li>Geliştirme verimliliği.</li>
+  <li>İsterlerin hacmi ve değişim oranı.</li>
+  <li>Hataların kök nedeni.</li>
+  <li>Hata giderme verimliliği.</li>
+</ul>
+
+<p><strong>Geliştirme verimliliği genelde 2 farklı şekilde ölçülüyor.</strong></p>
+<ol>
+  <li>Adam-ay sürede geliştirilen işlev puanı</li>
+  <li>Birim işlev puanı için harcanan saat</li>
+</ol>
+
+<p>Bazı devlet kurumları ve savunma sanayi hala eski Lines-of-code metrikini kullanıyor. Bu metrik kullanımı tehlikeli çünkü sadece yazılım aşamasını değerlendiriyor. Planlama, isterler, dökümantasyon, proje yönetimi, kalite güvencesi gibi alanları yok sayıyor. Satır sayısı ve proje arasındaki ilişki kullanılan dile bağlı. Çok büyük projelerden birdan fazla yazılım dili kullanılıyor. 12 farklı yazılım dili içeren projeler mevcut.</p>
+
+<p>Başarılı projelerde hataların yakalanma ve giderilme oranları da takip ediliyor. Başarılı projelerde hataların %95’i geliştirme aşamasında yakalanıyor. Bu sektör ortalaması %85’den sadece 10 puan daha yüksek.</p>
+
+<p>Projedeki büyük takvim gecikmeleri genelde test aşamasında aşırı hatalar yüzünden ortaya çıkıyor. Büyük projelerdeki yetersiz kalite kontrolü takvim gecikmelerinin ve maliyet artışlarının ana sebebi.</p>
+
+<h2 id="başarılı-ve-başarısız-proje-kilometre-taşı-takibi">Başarılı ve Başarısız Proje Kilometre Taşı Takibi</h2>
+<p>Proje yönetimi, kilometre taşlarını oluşturmaktan, bunların tamamlanmasını izlemekten ve kilometre taşlarının başarıyla tamamlanıp tamamlanmadığını veya sorunlarla karşılaşıldığında doğru bir şekilde raporlamaktan sorumludur. Ciddi sorunlarla karşılaşıldığında, kilometre taşının tamamlandığını bildirmeden önce sorunları düzeltmek gerekir.
+<strong>Büyük projelerde bazı kilometre taşları:</strong></p>
+<ul>
+  <li>Gereksinim incelemesi.</li>
+  <li>Proje planının gözden geçirilmesi.</li>
+  <li>Maliyet ve kalite tahmini incelemesi.</li>
+  <li>Dış tasarım incelemeleri.</li>
+  <li>Veritabanı tasarımı incelemeleri.</li>
+  <li>İç tasarım incelemeleri.</li>
+  <li>Kalite planı ve test planı incelemeleri.</li>
+  <li>Dokümantasyon planı incelemesi.</li>
+  <li>Dağıtım planı incelemesi.</li>
+  <li>Eğitim planının gözden geçirilmesi.</li>
+  <li>Kod incelemeleri.</li>
+  <li>Her geliştirme test aşaması.</li>
+  <li>Müşteri kabul testi.</li>
+</ul>
+
+<p>Başarılı projelerin bir farklı da projede bir problem yaşandığında ya da takvimde bir gecikme görüldüğünde, düzeltici aksiyonları güçlü ve derhal bir şekilde yerine getirir.  Başarısız projelerde ise hatalar görmezden gelip ötelenir.</p>
+
+<h2 id="başarılı-ve-başarısız-proje-değişiklik-yönetimi">Başarılı ve Başarısız Proje Değişiklik Yönetimi</h2>
+<p>10000 işlev puanın sahip projelerde analiz ve tasarım aşamasında her ay isterlerin %1 ile %3’ü arası değişiyor, ekleniyor veya siliniyor. Bu durum proje başında ve sonunda işlev puanlarını hesaplanması ile bulundu. Proje başında 10000 işlev puan olan bir proje tasarım aşaması bittikten sonra 12000 işlev puana çıkabiliyor. Toplamda %20 lik bir proje büyümesi demek bu. Arada geçen süresini 10 ay olduğu varsayılırsa her ay proje %2 oranında büyümüş olmalı. Projedeki bu büyümeye bağlı olarak planların ve tahminlerin güncellenmesi gerekiyor.</p>
+
+<p><strong>Başarılı bir değişiklik kontrol yönetimi aşağıdakileri içeriyor:</strong></p>
+<ul>
+  <li>Ortak bir müşteri/geliştirme değişikliği kontrol kurulu veya belirlenmiş etki alanı uzmanları.</li>
+  <li>Aşağı yöndeki değişiklikleri en aza indirmek için ortak uygulama tasarımı (JAD) kullanma.</li>
+  <li>Aşağı yöndeki değişiklikleri en aza indirmek için resmi prototiplerin kullanılması.</li>
+  <li>Değişikliklere uyum sağlamak için yinelemeli geliştirmenin planlı kullanımı.</li>
+  <li>Tüm değişiklik taleplerinin resmi olarak gözden geçirilmesi.</li>
+  <li>10 fonksiyon noktasından büyük tüm değişiklikler için revize edilmiş maliyet ve zamanlama tahminleri.</li>
+  <li>İş etkisi açısından değişiklik taleplerini önceliklendirmek.</li>
+  <li>Değişiklik taleplerinin belirli sürümlere resmi olarak atanması.</li>
+  <li>Çapraz referans özelliklerine sahip otomatik değişiklik kontrol araçlarını kullanma.</li>
+</ul>
+
+<p>Gerçek dünyada isterlerin dondurmak pek olası bir durum değil. Bu yüzden değişikliğe hazır olmalıyız.</p>
+
+<h2 id="başarılı-ve-başarısız-proje-kalite-kontrolü">Başarılı ve Başarısız Proje Kalite Kontrolü</h2>
+<p>Etkili yazılım kalite kontrolü, başarılı projeleri gecikmelerden ve felaketlerden ayıran en önemli tek faktördür. Bunun nedeni, büyük sistemler için hata bulma ve düzeltmenin en pahalı maliyet unsuru olması ve diğer faaliyetlerden daha fazla zaman almasıdır.</p>
+
+<p>Başarılı kalite kontrol, hem hata önleme hem de hata giderme faaliyetlerini içerir. Hata önleme ifadesi, ilk etapta bir hata veya kusur oluşturma olasılığını en aza indiren tüm faaliyetleri içerir. Kusur giderme ifadesi, her türlü teslimatta hata veya kusur bulabilen tüm faaliyetleri içerir.</p>
+
+<p><strong>Hata Önleme:</strong></p>
+<ul>
+  <li>Gereksinimleri toplamak için JAD.</li>
+  <li>Resmi tasarım yöntemleri.</li>
+  <li>Yapılandırılmış kodlama yöntemleri.</li>
+  <li>Resmi test planları.</li>
+  <li>Resmi test senaryosu yapımı.</li>
+</ul>
+
+<p><strong>Hata Giderme:</strong></p>
+<ul>
+  <li>Gereksinim denetimleri.</li>
+  <li>Tasarım incelemeleri.</li>
+  <li>Belge incelemeleri.</li>
+  <li>Kod incelemeleri.</li>
+  <li>Test planı ve test durumu incelemeleri.</li>
+  <li>Arıza onarım muayeneleri.</li>
+  <li>Yazılım kalite güvence incelemeleri.</li>
+  <li>Birim testi.</li>
+  <li>Bileşen testi.</li>
+  <li>Yeni fonksiyon testi.</li>
+  <li>Gerileme testi.</li>
+  <li>Performans testi.</li>
+  <li>Sistem testi.</li>
+  <li>Kabul testleri.</li>
+</ul>
+
+<p>Hata önleme ve hata giderme faliyetlerindeki değişim  proje sonucundaki hata oranında ciddi bir fark yaratıyor.</p>
+
+<p>Başarılı bir projede ortalama her işlev puanı 4.0 hata içeriyor ve hata önleme faliyetlerinde %95’i müşteriye teslim edilmeden yakalanıyor. Bir başka deyişle, teslim edilen yazılımda her işlev puanına karşılık 0.2 hata var ya da toplamda 2000 hata var diyebiliriz. Bunların sadece %10u (200 hata) kritik seviyede oluyor.</p>
+
+<p>Başarısız bir projede ortalama her işlev puanı 7.0 hata içeriyor ve hata önleme faliyetlerinde sadece %80’i müşteriye teslim edilmeden yakalanıyor. Bir başka deyişle, teslim edilen yazılımda her işlev puanına karşılık 1.4 hata var ya da toplamda 14000 hata var diyebiliriz. Bunların sadece %20u (2800 hata) kritik seviyede oluyor.</p>
+
+<p>Yukarıdaki 2 örnekten görülebileceği üzere 2 proje arasında kritik hatlarda 14 kat fark var. Bu farklı oluşturan asıl neden başarılı projelerde resmi tasarım ve kod denetimi aşamalarının hata yakalamada %65 verimli olması.</p>
+
+<p>Başarısız projelerde genelde tasarım ve kodlama denetimi aşamları pas geçilip hata bulmada sadece test aşamasına  güveniliyor. <strong>Bu durum aşağıdaki 3 probleme neden oluyor:</strong></p>
+<ol>
+  <li>Test sırasında hala mevcut olan çok sayıdaki hata, projeyi durma noktasına getirir,</li>
+  <li>Denetimsiz projeler için hatalı düzeltme eklenme oranı endişe verici derecede yüksektir</li>
+  <li>Yalnızca testle ilişkili genel hata giderme yüzde 80’den daha yüksek kusur giderme oranları elde etmek için yeterli değildir.</li>
+</ol>
+
+<h2 id="sonuç">Sonuç</h2>
+<p>Büyük yazılım sistemlerini başarısızlıkla sonuçlanmasını birçok yolu vardır. Projeyi başarılı sonuçlandırmanın ise  sadece birkaç yolu var. Proje yönetiminin, projeleri başarıya veya başarısızlığa götüren ana faktör olması ilginçtir.</p>
+
+<p>Kalite kontrolünde beceriksiz ve proje yönetimi aşamalarında yetersiz olan büyük yazılım projeleri, genellikle ya tamamen başarısızlığa ya da büyük miktarda maliyet aşımına neden olur.</p>
+
+<p>Başarıya götüren en önemli yazılım geliştirme uygulamaları arasında, proje başlamadan önce planlama ve tahminde bulunma, proje sırasında değişen gereksinimleri absorbe etme ve hataları veya kusurları başarılı bir şekilde en aza indirme sayılabilir.</p>
+
+<p>Başarılı projeler her zaman şu kritik faaliyetlerde başarılı olur: planlama, tahmin, değişiklik kontrolü ve kalite kontrolü. Buna karşılık, geç veya başarısız bir şekilde yürütülen projelerin kusurlu veya iyimser planları, değişiklikleri öngörmeyen veya değişimi iyi idare edemeyen tahminleri vardır.</p>
+
+
+        <hr>
+
+        <div class="clearfix">
+
+          
+          <a class="btn btn-primary float-left" href="/2022/05/01/use-case-tuzaklari.html" data-toggle="tooltip" data-placement="top" title="Use Case Tuzakları">← Previous<span class="d-none d-md-inline">
+              Post</span></a>
+          
+          
+          <a class="btn btn-primary float-right" href="/2022/05/08/gereksinimler-ve-test-yedi-eksik-baglanti-efsanesi.html" data-toggle="tooltip" data-placement="top" title="Gereksinimler ve Test: Yedi Eksik Bağlantı Efsanesi">Next<span class="d-none d-md-inline">
+              Post</span> →</a>
+          
+        </div>
+        <br><br>
+        <div class="clearfix" id="disqus_thread"></div>
+          <script>
+            (function () {
+              var loaded = false;
+              function loadDisqus() {
+                if (loaded) return;
+                loaded = true;
+                var d = document, s = d.createElement('script');
+                s.src = 'https://karaman-dev.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+              }
+              if ('IntersectionObserver' in window) {
+                var observer = new IntersectionObserver(function (entries) {
+                  if (entries[0].isIntersecting) {
+                    loadDisqus();
+                    observer.disconnect();
+                  }
+                }, { rootMargin: '200px' });
+                observer.observe(document.getElementById('disqus_thread'));
+              } else {
+                loadDisqus();
+              }
+            })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+
+<footer class="footer-modern">
+  <div class="footer-main">
+    <div class="container">
+      <div class="row">
+
+        <!-- About column -->
+        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+          <h5 class="footer-heading">M. Serdar Karaman's Blog</h5>
+          <p class="footer-description">A personal blog about software engineering, programming, C, C++, Qt, Python, Linux, avionics, and life.</p>
+        </div>
+
+        <!-- Quick links column -->
+        <div class="col-lg-2 col-md-6 mb-4 mb-lg-0 offset-lg-1">
+          <h5 class="footer-heading">Quick Links</h5>
+          <ul class="footer-links">
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/posts">Posts</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </div>
+
+        <!-- Social column -->
+        <div class="col-lg-4 col-md-12 mb-0 offset-lg-1">
+          <h5 class="footer-heading">Connect</h5>
+          <ul class="footer-social list-inline">
+            
+            <li class="list-inline-item">
+              <a href="mailto:%73%65%72%64%61%72@%6B%61%72%61%6D%61%6E.%64%65%76" aria-label="Email">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              </a>
+            </li>
+            
+            
+            <li class="list-inline-item">
+              <a href="https://github.com/Mavrikant" aria-label="GitHub" target="_blank" rel="noopener">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"></path></svg>
+              </a>
+            </li>
+            
+            
+            <li class="list-inline-item">
+              <a href="https://www.linkedin.com/in/mserdarkaraman" aria-label="LinkedIn" target="_blank" rel="noopener">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+              </a>
+            </li>
+            
+            
+            
+            
+            
+            <li class="list-inline-item">
+              <a href="https://www.youtube.com/channel/UCIlBH9QynIkHxX8uiY0UEMQ" aria-label="YouTube" target="_blank" rel="noopener">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20.06 12 20.06 12 20.06s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"></path><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"></polygon></svg>
+              </a>
+            </li>
+            
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6 text-center text-md-left">
+          <p class="copyright mb-0">© 2026 M. Serdar Karaman. All rights reserved.</p>
+        </div>
+        <div class="col-md-6 text-center text-md-right mt-2 mt-md-0">
+          <a href="#page-top" class="back-to-top" aria-label="Back to top">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"></polyline></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js" integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF" crossorigin="anonymous"></script>
+  <script src="/assets/vendor/startbootstrap-clean-blog/js/scripts.js"></script>
+
+<script src="/assets/scripts.js"></script>
+
+
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YDEV31NZ5J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YDEV31NZ5J');
+</script>
+
+
+</body>
+</html>
