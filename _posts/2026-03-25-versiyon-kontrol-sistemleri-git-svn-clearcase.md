@@ -4,6 +4,7 @@ background: "/img/posts/4.jpg"
 date: '2026-03-25 12:00:00'
 layout: post
 lang: tr
+mermaid: true
 ---
 
 Yazılım geliştirmenin vazgeçilmez parçası olan versiyon kontrol sistemleri (VCS), kod değişikliklerini takip eder, ekip çalışmasını koordine eder ve geçmişe dönük izlenebilirlik sağlar. Bu yazıda en yaygın üç sistemi — **Git**, **SVN (Subversion)** ve **ClearCase** — mimari, özellik ve kullanım kolaylığı açısından karşılaştıracağız.
