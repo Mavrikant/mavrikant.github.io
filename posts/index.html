@@ -23,8 +23,8 @@ background: '/img/bg-post.jpg'
         {% endif %}
       </p>
       <div class="post-card__meta">
-        <span class="meta-chip"><em class="far fa-calendar-alt"></em>{{ post.date | date: '%b %d, %Y' }}</span>
-        <span class="meta-chip"><em class="far fa-clock"></em>{% include read_time.html content=post.content %}</span>
+      <span class="meta-chip">{% include icon-calendar.html %}{{ post.date | date: '%b %d, %Y' }}</span>
+        <span class="meta-chip">{% include icon-clock.html %}{% include read_time.html content=post.content %}</span>
       </div>
     </div>
   </article>

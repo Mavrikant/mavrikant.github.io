@@ -232,10 +232,10 @@ body > .container,
   }
 
   .icon-sun { display: none; }
-  .icon-moon { display: inline; }
+  .icon-moon { display: inline-block; }
 
   [data-theme="dark"] & {
-    .icon-sun { display: inline; }
+    .icon-sun { display: inline-block; }
     .icon-moon { display: none; }
   }
 
