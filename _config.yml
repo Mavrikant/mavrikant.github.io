@@ -6,8 +6,15 @@ baseurl:            "/"
 url:                "https://karaman.dev"
 favicon:
   source: favicon.jpg
+  assets:
+    - name: favicon.ico
+    - name: favicon.png
+    - name: apple-touch-icon.png
+    - name: android-chrome-192x192.png
+    - name: android-chrome-512x512.png
 sass:
   style: compressed
+  sourcemap: never
 
 # Social Profiles
 twitter_username:

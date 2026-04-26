@@ -1,7 +1,7 @@
 ---
 title: Tümleşik Gereksinim Yönetimi
 subtitle: Integrated Requirements Engineering
-background: "/img/posts/babilonia.jpg"
+background: "/img/posts/babilonia.webp"
 date: '2022-04-28 15:00:13 -0400'
 layout: post
 lang: tr
@@ -23,7 +23,7 @@ Bütün gereksinim mühendisliği süreçlerini temel adımları:
 * **Belgeler:** Gereksinimleri paydaşlar ve yazılım geliştiriciler anlayabileceği bir şekilde yazın. 
 * **Yönetim:** Kaçınılmaz olarak yaşanacak gereksinim değişikliklerini kontrol edin.
 
-![Gereksinim Mühendisliği Aktivite Döngüsü](/img/posts/gereksinim-muhendisligi-aktivite-dongusu.png){:style="display:block; margin-left:auto; margin-right:auto"}
+![Gereksinim Mühendisliği Aktivite Döngüsü](/img/posts/gereksinim-muhendisligi-aktivite-dongusu.webp){:style="display:block; margin-left:auto; margin-right:auto"}
 
 Bu aktivitelerin her zaman sırayla yapılacağına inanılsada aslında bu bir döngüsel aktivitedir. 
 

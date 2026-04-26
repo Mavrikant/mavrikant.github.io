@@ -1,7 +1,7 @@
 ---
 title: "Yöneylem Araştırması Yöntemleri: Kesin ve Metasezgisel Yaklaşımlar"
 subtitle: "Operational Research Methods: Exact and Metaheuristic Approaches"
-background: "/img/posts/5.jpg"
+background: "/img/posts/5.webp"
 date: '2026-04-14 09:00:00'
 layout: post
 lang: tr

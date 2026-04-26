@@ -1,6 +1,6 @@
 ---
 title: Yazılım Sistem Mühendisliği
-background: "/img/posts/soft-sys-eng-page-header.png"
+background: "/img/posts/soft-sys-eng-page-header.webp"
 date: '2022-04-29 22:00:00'
 layout: post
 lang: tr
@@ -12,7 +12,7 @@ Büyük yazılım projeleri tahmin edilen zamanda ve bütçe ile bitirilemiyor y
 
 Sistem mühendisliği prensiplerinin yazılım geliştirme alanına uygulanmasına **yazılım sistem mühendisliği** diyoruz. 
 
-![Yazılım Sistem Mühendisliği V Model](/img/posts/soft-sys-eng-v-model.png){:style="display:block; margin-left:auto; margin-right:auto"}
+![Yazılım Sistem Mühendisliği V Model](/img/posts/soft-sys-eng-v-model.webp){:style="display:block; margin-left:auto; margin-right:auto"}
 ## Sistem ve sistem mühendisliği
 Sistem ortak bir amaca hizmet eden parçaların bütünüdür. Bilgisayar sistemleri için bu parçalar; donanım, yazılım, insanlar, tesisler, ve süreçlerdir.
 
@@ -29,7 +29,7 @@ Yazılım sistem mühendisliği terimi 1980 lere kadar gidiyor ve ilk olarak Win
 Yazılım sistem mühendisliği faaliyeti sistem isterleri yazılım ve donanım şeklinde parçalara bölündükten sonra başlar. 
 
 ## Yazılım sistem mühendisliği ve Yazılım mühendisliği
-![Yazılım Sistem Mühendisliği V Model](/img/posts/soft-sys-eng-3-relation.png){:style="display:block; margin-left:auto; margin-right:auto"}
+![Yazılım Sistem Mühendisliği V Model](/img/posts/soft-sys-eng-3-relation.webp){:style="display:block; margin-left:auto; margin-right:auto"}
 Hem Yazılım sistem mühendisliği hem de Yazılım mühendisliği, teknik ve yönetimsel süreçler. Yazılım mühendisleri sistemin komponentleri ve dokümantasyonunu üretir. 
 Figure 1 üzerinden  sistem mühendisi, yazılım sistem mühendisi ve yazılım mühendisi arasındaki ilişki görülebilir. Sistem mühendisleri genel sistem analizini, sistem tasarımı, sistem entegrasyonunu ve testini yapar.
 Yazılım geliştime aşamasının başlarında yazılım sistem mühendisi, yazılım isterlerini analiz eder ve mimari tasarım ortaya çıkartır. Yazılım sistem mühendisi ayrıca yazılımın sistem entegrasyonundan  ve testinden sorumludur.

@@ -1,13 +1,13 @@
 ---
 layout: page
 title: Yazılar
-background: '/img/bg-post.jpg'
+background: '/img/bg-post.webp'
 lang: tr
 ---
 
 <div class="post-list">
   {% for post in paginator.posts %}
-  {% assign card_image = post.background | default: '/img/posts/1.jpg' %}
+  {% assign card_image = post.background | default: '/img/posts/1.webp' %}
   <article class="post-card">
     <a class="post-card__media" href="{{ post.url | prepend: site.baseurl | replace: '//', '/' }}" aria-label="{{ post.title | escape }}">
       <img src="{{ card_image | prepend: site.baseurl | replace: '//', '/' }}" alt="" loading="lazy">

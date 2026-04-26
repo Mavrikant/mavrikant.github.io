@@ -1,7 +1,7 @@
 ---
 title: Fonksiyonel olmayan yazılım gereksinimleri
 subtitle: Non-functional Requirements in Software Engineering
-background: "/img/posts/8.jpg"
+background: "/img/posts/8.webp"
 date: '2022-07-11 15:59:34'
 layout: post
 lang: tr
@@ -16,7 +16,7 @@ Fonksiyonel gereksinimleri ürün bileşenlerine kolayca bölmek mümkünken bun
  1. Sağlanması gereken fonksiyonel olmayan gereksinim tüm sistem mimarisini etkiliyor olabilir. Örneğin performans ile alakalı bir gereksinimi sağlamak için tüm sistem mimarisinde köklü değişiklikler yapılması gerekebilir.
  2. Fonksiyonel olmayan gereksinimlerin sağlanması yeni fonksiyonel gereksinimler yaratılmasına neden olabilir. Örneğin sistemin güvenlik gereksinimi modüllerde kısıtlara neden olacak yeni fonksiyonel gereksinimler yaratabilir.
  
-![Fonksiyonel olmayan gereksinimler](/img/posts/non-functional-reqs.png){:style="display:block; margin-left:auto; margin-right:auto;width: 700px;"}
+![Fonksiyonel olmayan gereksinimler](/img/posts/non-functional-reqs.webp){:style="display:block; margin-left:auto; margin-right:auto;width: 700px;"}
  
 Bu diyagramdan da görülebileceği gibi fonksiyonel olmayan gereksinimler birçok çeşitli kaynaktan gelebilir.
  

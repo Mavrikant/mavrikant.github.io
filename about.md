@@ -2,7 +2,7 @@
 title: About Me
 layout: page
 description: Senior Avionics Software Design Engineer
-background: "/img/me-animated.gif"
+background: "/img/me-animated.webp"
 permalink: /about/
 ---
 

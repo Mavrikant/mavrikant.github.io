@@ -1,7 +1,7 @@
 ---
 title: "MISRA C:2025 ile Neler Değişti?"
 subtitle: "What Changed with MISRA C:2025?"
-background: "/img/posts/7.jpg"
+background: "/img/posts/7.webp"
 date: '2026-04-05 09:00:00'
 layout: post
 lang: tr

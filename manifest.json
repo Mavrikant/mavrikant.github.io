@@ -1,0 +1,23 @@
+{
+  "name": "M. Serdar Karaman",
+  "short_name": "karaman.dev",
+  "description": "Aviyonik yazılım, DO-178C ve emniyet kritik mühendislik üzerine sahadan notlar.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "minimal-ui",
+  "background_color": "#ffffff",
+  "theme_color": "#0085A1",
+  "lang": "tr",
+  "icons": [
+    {
+      "src": "/android-chrome-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/android-chrome-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 ---
 title: Use Case Tuzakları
 subtitle: Use Case Kullanan Gerçek Projelerde Karşılaşılan En Önemli 10 Sorun
-background: "/img/posts/use-case-tuzak.jpg"
+background: "/img/posts/use-case-tuzak.webp"
 date: '2022-05-01 10:51:46'
 layout: post
 lang: tr
@@ -13,7 +13,7 @@ Son birkaç yılda, bir dizi projenin "use case kullanarak" ilk denemelerini yap
 
 ## En çok Karşılaşılan 10 Sorun
 
-![Belirsiz sistem tanımı](/img/posts/use-case-tuzak.jpg){:style="display:block; margin-left:auto; margin-right:auto;width:700px;"}
+![Belirsiz sistem tanımı](/img/posts/use-case-tuzak.webp){:style="display:block; margin-left:auto; margin-right:auto;width:700px;"}
 
 ### Problem 1 - Sistem sınırı tanımsız veya tutarsız olabilir.
 #### Belirti:
@@ -39,7 +39,7 @@ Bir rolü tanımlamak için birden fazla isim kullanılıyor. Bu en başta çok 
 #### Çözüm:
 Aktör adları ve diğer programlama terimleri konusunda erken anlaşmaya varılmalıdır. Bunu için bir sözlük oluşturmak iyi bir yöntemdir. Böylece projenin ileri aşamalarında ki yaşanacak karışıklıkların önüne geçilir.
 
-![Use case Bölümleme](/img/posts/use-case-partitioning.jpg){:style="display:block; margin-left:auto; margin-right:auto;width:700px;"}
+![Use case Bölümleme](/img/posts/use-case-partitioning.webp){:style="display:block; margin-left:auto; margin-right:auto;width:700px;"}
 
 ### Problem 4 - Çok fazla use case kullanılması durumu
 #### Belirti:
@@ -47,7 +47,7 @@ Kullanım senaryosu modelinde çok sayıda kullanım senaryosu vardır. Bunu ön
 #### Çözüm:
 Şayet sistem çok büyük bir sistem ise; Kullanım senaryosu modeli, her biri bir paket içeren kullanım senaryosu paketlerine ayırmak gerekir. Böylece, çok fazla use case kullanılması durumunda karışıklıktan kaçınılmış olunur.
 
-![Use case Aktör Kalıtımı](/img/posts/use-case-generalization.jpg){:style="display:block; margin-left:auto; margin-right:auto;width:700px;"}
+![Use case Aktör Kalıtımı](/img/posts/use-case-generalization.webp){:style="display:block; margin-left:auto; margin-right:auto;width:700px;"}
 
 ### Problem 5 - Aktör use case kullanım durumu bir örümcek ağına benzer
 #### Belirti:

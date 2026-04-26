@@ -32,10 +32,10 @@ layout: default
         <!-- Home Post List -->
         <div class="post-list">
           {% for post in site.posts limit : 5 %}
-          {% assign card_image = post.background | default: '/img/posts/1.jpg' %}
+          {% assign card_image = post.background | default: '/img/posts/1.webp' %}
           <article class="post-card">
             <a class="post-card__media" href="{{ post.url | prepend: site.baseurl | replace: '//', '/' }}" aria-label="{{ post.title | escape }}">
-              <img src="{{ card_image | prepend: site.baseurl | replace: '//', '/' }}" alt="" loading="lazy">
+              <img src="{{ card_image | prepend: site.baseurl | replace: '//', '/' }}" alt="" loading="lazy" width="1600" height="1067" decoding="async">
             </a>
             <div class="post-card__body">
               <h2 class="post-card__title">

@@ -1082,3 +1082,28 @@ article {
     line-height: 1.4;
   }
 }
+
+// =============================================================================
+// Responsive overrides for wide content (tables, Mermaid diagrams)
+// =============================================================================
+.mermaid {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+
+  svg {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+@media (max-width: 640px) {
+  .post-content,
+  article {
+    table {
+      display: block;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      max-width: 100%;
+    }
+  }
+}

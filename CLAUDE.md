@@ -44,9 +44,9 @@ This is the personal blog of **M. Serdar Karaman**, hosted at <https://karaman.d
 │   ├── scripts.js
 │   └── vendor/              # Bootstrap, jQuery, Font Awesome, etc.
 ├── img/
-│   ├── bg-*.jpg             # Page header backgrounds
+│   ├── bg-*.webp             # Page header backgrounds
 │   ├── me-animated.gif
-│   └── posts/               # Post hero images (1.jpg, 2.jpg, ...)
+│   └── posts/               # Post hero images (1.webp, 2.webp, ...)
 ├── posts/
 │   └── index.html           # Paginated post index (/posts/)
 ├── bin/
@@ -132,7 +132,7 @@ Use this structure (see existing posts like `_posts/2026-04-05-misra-c-2025-ile-
 ---
 title: "Post Title"
 subtitle: "Optional English or secondary subtitle"
-background: "/img/posts/7.jpg"
+background: "/img/posts/7.webp"
 date: '2026-04-05 09:00:00'
 layout: post
 lang: tr

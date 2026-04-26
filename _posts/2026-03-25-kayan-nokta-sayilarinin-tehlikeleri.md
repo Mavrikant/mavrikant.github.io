@@ -1,6 +1,6 @@
 ---
 title: Kayan Nokta Sayılarının Tehlikeleri
-background: "/img/posts/6.jpg"
+background: "/img/posts/6.webp"
 date: '2026-03-25 09:00:00'
 layout: post
 lang: tr
