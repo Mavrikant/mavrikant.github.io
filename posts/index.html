@@ -1,7 +1,8 @@
 ---
 layout: page
-title: Posts
+title: Yazılar
 background: '/img/bg-post.jpg'
+lang: tr
 ---
 
 <div class="post-list">
@@ -23,7 +24,7 @@ background: '/img/bg-post.jpg'
         {% endif %}
       </p>
       <div class="post-card__meta">
-      <span class="meta-chip">{% include icon-calendar.html %}{{ post.date | date: '%b %d, %Y' }}</span>
+        <span class="meta-chip">{% include icon-calendar.html %}{% include tr-month.html date=post.date format="long" %}</span>
         <span class="meta-chip">{% include icon-clock.html %}{% include read_time.html content=post.content %}</span>
       </div>
     </div>
@@ -34,17 +35,14 @@ background: '/img/bg-post.jpg'
 <!-- Pager -->
 {% if paginator.total_pages > 1 %}
 
-<div class="clearfix">
-
+<div class="pager-row">
   {% if paginator.previous_page %}
-  <a class="btn btn-primary float-left" href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&larr;
-    Newer<span class="d-none d-md-inline"> Posts</span></a>
-  {% endif %}
+  <a class="btn btn-primary" href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&larr; Yeni yazılar</a>
+  {% else %}<span></span>{% endif %}
 
   {% if paginator.next_page %}
-  <a class="btn btn-primary float-right" href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Older<span class="d-none d-md-inline"> Posts</span> &rarr;</a>
+  <a class="btn btn-primary" href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Eski yazılar &rarr;</a>
   {% endif %}
-
 </div>
 
 {% endif %}

@@ -1,0 +1,6 @@
+{%- assign tr_months_short = "Oca,Şub,Mar,Nis,May,Haz,Tem,Ağu,Eyl,Eki,Kas,Ara" | split: "," -%}
+{%- assign tr_months_long  = "Ocak,Şubat,Mart,Nisan,Mayıs,Haziran,Temmuz,Ağustos,Eylül,Ekim,Kasım,Aralık" | split: "," -%}
+{%- assign month_idx = include.date | date: "%-m" | minus: 1 -%}
+{%- assign day = include.date | date: "%-d" -%}
+{%- assign year = include.date | date: "%Y" -%}
+{%- if include.format == "long" -%}{{ day }} {{ tr_months_long[month_idx] }} {{ year }}{%- else -%}{{ tr_months_short[month_idx] }} {{ year }}{%- endif -%}

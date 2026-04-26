@@ -1,22 +1,28 @@
 ---
 title: About Me
 layout: page
-description: This is me
+description: Senior Avionics Software Design Engineer
 background: "/img/me-animated.gif"
+permalink: /about/
 ---
 
-Hi, I'm a **Software Developer** with over **8 years of experience** in developing reliable and performance-critical systems. I currently work on **avionics systems** at [ESEN System](https://www.esensi.com.tr/).
+<div class="lang-switch">
+  <a href="{{ '/about/' | relative_url }}" class="active">English</a>
+  <a href="{{ '/hakkimda/' | relative_url }}">Türkçe</a>
+</div>
 
-I hold a Master’s degree in Software Engineering from Hacettepe University, and I am currently pursuing a second Master’s degree in Systems Engineering.
+Hi, I'm **M. Serdar Karaman** — a **Senior Avionics Software Design Engineer** based in Ankara, Türkiye. I work on safety-critical avionics software at the most stringent assurance level (**DO-178C DAL A**) and have spent close to a decade in the avionics, defence and embedded systems space.
 
-My work mainly focuses on embedded systems, signal processing, and safety-critical software development.
+My day-to-day moves between requirements, C and C++ code that has to behave under MISRA and JSF rules, hardware-software integration on Xilinx Zynq targets, ARINC 429 / MIL-STD-1553 buses, and the test automation infrastructure that keeps it all honest. I author the DO-178C plans and standards that go with the work and review the rest of the team's. Past projects have ranged from helicopter cockpit displays and swarm-UAV R&D to embedded medical electronics.
 
-Outside of work and academia, I enjoy:
+I hold an M.Sc. in Computer Software Engineering from Hacettepe University and a B.Sc. in Electrical, Electronics and Communications Engineering from İzmir Institute of Technology. I'm currently pursuing a second M.Sc. in Systems Engineering.
 
-- Writing technical articles on my blog
-- Developing open-source and experimental projects on GitHub
-- Contributing to Wikipedia
+Outside the day job I write at [karaman.dev](https://karaman.dev/) and [aviyonikyazilim.com](https://www.aviyonikyazilim.com/), ship pet projects on [GitHub](https://github.com/Mavrikant), and have contributed 225,000+ edits and bot scripts to Wikipedia since 2014.
 
-After reading my blog posts, you can also explore my social media profiles and open-source projects on my GitHub page.
+<ul class="skill-tags">
+  <li>Avionics</li><li>DO-178C DAL A</li><li>MISRA C</li><li>JSF C++</li><li>Embedded Systems</li><li>C / C++</li><li>Python</li><li>Qt</li><li>Test Automation</li><li>Systems Engineering</li><li>Xilinx Zynq</li><li>ARINC 429</li><li>MIL-STD-1553</li>
+</ul>
+
+For the full CV — companies, dates, certifications — head over to [LinkedIn](https://www.linkedin.com/in/mserdarkaraman/). The easiest way to reach me is the [Contact]({{ '/contact' | relative_url }}) page.
 
 _Ancora imparo — I am still learning._

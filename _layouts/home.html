@@ -49,7 +49,7 @@ layout: default
                 {% endif %}
               </p>
               <div class="post-card__meta">
-                <span class="meta-chip">{% include icon-calendar.html %}{{ post.date | date: '%b %d, %Y' }}</span>
+                <span class="meta-chip">{% include icon-calendar.html %}{% include tr-month.html date=post.date format="long" %}</span>
                 <span class="meta-chip">{% include icon-clock.html %}{% include read_time.html content=post.content %}</span>
               </div>
             </div>
@@ -58,8 +58,8 @@ layout: default
         </div>
 
         <!-- Pager -->
-        <div class="clearfix">
-          <a class="btn btn-primary float-right" href="{{"/posts" | relative_url }}">View All Posts &rarr;</a>
+        <div class="pager-row pager-row--end">
+          <a class="btn btn-primary" href="{{"/posts" | relative_url }}">Tüm yazılar &rarr;</a>
         </div>
 
       </div>
