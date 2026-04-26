@@ -4,14 +4,20 @@ description:        Aviyonik yazılım, DO-178C ve emniyet kritik mühendislik �
 author:             M. Serdar Karaman
 baseurl:            "/"
 url:                "https://karaman.dev"
+lang:               tr
+locale:             tr_TR
+
+# jekyll-seo-tag — sosyal medya / OG defaults
+defaults:
+  - scope:
+      path: ""
+    values:
+      image: /img/og-default.webp
+      twitter:
+        card: summary_large_image
+
 favicon:
   source: favicon.jpg
-  assets:
-    - name: favicon.ico
-    - name: favicon.png
-    - name: apple-touch-icon.png
-    - name: android-chrome-192x192.png
-    - name: android-chrome-512x512.png
 sass:
   style: compressed
   sourcemap: never
@@ -26,6 +32,10 @@ youtube_username: UCIlBH9QynIkHxX8uiY0UEMQ
 
 # Add your google-analytics ID here to activate google analytics
 google_analytics:   G-YDEV31NZ5J
+
+# Add your Sentry Loader Script ID here to activate Sentry
+# Found in Sentry: Settings → Projects → <project> → Client Keys (DSN) → Loader Script
+sentry_loader_id:   d9df60c4bcc41adb14bb648db4013b52
 
 # Build settings
 markdown:           kramdown

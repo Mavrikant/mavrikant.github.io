@@ -1,0 +1,20 @@
+{% if site.sentry_loader_id and site.sentry_loader_id != "YOUR_LOADER_ID_HERE" %}
+<!-- Sentry (errors + performance + replay) -->
+<script src="https://js.sentry-cdn.com/{{ site.sentry_loader_id }}.min.js" crossorigin="anonymous"></script>
+<script>
+  Sentry.onLoad(function () {
+    Sentry.init({
+      integrations: [
+        Sentry.browserTracingIntegration(),
+        Sentry.replayIntegration({
+          maskAllText: false,
+          blockAllMedia: false,
+        }),
+      ],
+      tracesSampleRate: 1.0,
+      replaysSessionSampleRate: 0.1,
+      replaysOnErrorSampleRate: 1.0,
+    });
+  });
+</script>
+{% endif %}
