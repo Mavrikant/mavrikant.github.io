@@ -260,13 +260,37 @@ CI'da test başarısız olduğunda bu log dosyası paha biçilmezdir.
 
 ## FPGA / PL Tarafı Nasıl Simüle Edilir?
 
-Renode'un en sık sorulan sorularından biri: "Peki ya FPGA?" Renode kendi başına Verilog ya da VHDL kodunu yorumlamaz. PL tarafını ele almak için üç yaygın yaklaşım vardır:
+Renode'un en sık sorulan sorularından biri: "Peki ya FPGA?" Renode kendi başına Verilog ya da VHDL kodunu yorumlamaz. PL tarafını ele almak için iki yaygın yaklaşım vardır:
 
-### a) Mock / Stub Peripheral
+### a) Python Peripheral (TLM Modeli)
 
-FPGA'da yapılacak işin **davranışsal modelini** Python ile yazarsınız. AXI register haritası taklit edilir, içerideki algoritma host kodunda çalışır. RTL test edilmez ama yazılım entegrasyonu sorunsuz ilerler. Yukarıdaki `my_sensor.py` örneği aslında bu yaklaşımın tipik bir uygulamasıdır.
+FPGA'da yapılacak işin **davranışsal modelini** Python ile yazarsınız. Renode peripheral'ları **register-transaction seviyesinde** (TLM) modellendiği için AXI handshake'i, burst transfer'leri ve back-pressure gibi protokol detayları Renode tarafından soyutlanır; sizin kodunuz yalnızca register okuma/yazma çağrılarına yanıt verir. Bu yaklaşımda RTL test edilmez, ancak yazılım entegrasyonu sorunsuz ilerler.
 
-**Ne zaman uygun?** Henüz HDL kodu yazılmadan, sadece yazılım tarafının ilerlemesi gerektiğinde. PoC ve erken aşama firmware geliştirme için idealdir.
+Yukarıdaki `my_sensor.py` basit bir sensör modeliydi. PL tarafında daha tipik bir şey de — örneğin yazılan veriyi sayıp hazır bayrağı tutan minimal bir AXI slave — aynı yapıyla yazılır:
+
+```python
+# axi_fifo.py - Yazilanlari sayan basit AXI slave
+if request.IsInit:
+    write_count = 0
+    last_data = 0
+
+elif request.IsRead:
+    if request.Offset == 0x00:
+        request.Value = 0xDEADBEEF       # IP ID register
+    elif request.Offset == 0x04:
+        request.Value = write_count      # kac kez yazildi
+    elif request.Offset == 0x08:
+        request.Value = last_data        # son yazilan veri
+
+elif request.IsWrite:
+    if request.Offset == 0x08:
+        last_data = request.Value
+        write_count += 1
+```
+
+Bu kadar küçük bir model bile sürücü geliştirmek ve yazılım entegrasyonunu test etmek için yeterlidir.
+
+**Ne zaman uygun?** Henüz HDL yazılmamışken yazılımın ilerlemesi gerektiğinde, PoC ve erken aşama firmware geliştirmede ve fault injection senaryolarını hızla kurmak istediğinizde.
 
 ### b) Verilator Co-simülasyon
 
@@ -287,43 +311,16 @@ sysbus.my_axi_ip SimulationFilePath @libVtop.so
 
 Bundan sonra firmware'in `0x43C00000` adresine yaptığı her AXI okuma/yazma, Verilator simülasyonuna iletilir; RTL'in yanıtı geri döner.
 
-**Ne zaman uygun?** PL bloğunuzun RTL doğrulamasını da sistem testine dahil etmek istediğinizde. Saf RTL simülasyonuna kıyasla yavaş kalsa da, yazılım sürücüleriyle birlikte uçtan uca test imkânı verir.
+**Ne zaman uygun?** PL bloğunuzun RTL doğrulamasını da sistem testine dahil etmek istediğinizde. Saf RTL simülasyonuna kıyasla yavaş kalsa da, yazılım sürücüleriyle birlikte uçtan uca test imkânı sağlar.
 
-### c) AXI Bus Modeli + Soyut Peripheral
-
-İkisinin arası bir yol: HDL yazmadan, AXI protokolünün doğru ritmini taklit eden bir **Python peripheral** yazarsınız. AXI handshake'i ve register davranışını modellersiniz; gerçek FPGA mantığı yerine kabul edilebilir bir yazılım modeli koyarsınız. Örneğin yazılan veriyi sayıp, hazır bayrağı tutan minimal bir AXI slave:
-
-```python
-# axi_fifo.py - Yazilanlari sayan basit AXI slave
-if request.IsInit:
-    write_count = 0
-    last_data = 0
-
-elif request.IsRead:
-    if request.Offset == 0x00:
-        request.Value = 0xDEADBEEF       # IP ID register
-    elif request.Offset == 0x04:
-        request.Value = write_count       # kac kez yazildi
-    elif request.Offset == 0x08:
-        request.Value = last_data         # son yazilan veri
-
-elif request.IsWrite:
-    if request.Offset == 0x08:
-        last_data = request.Value
-        write_count += 1
-```
-
-Bu kadar küçük bir model bile, sürücü geliştirmek ve yazılım entegrasyonunu test etmek için yeterlidir; RTL henüz olgunlaşmamış olsa bile çalışır.
-
-### Üç Yaklaşımın Karşılaştırması
+### İki Yaklaşımın Karşılaştırması
 
 | Yaklaşım | Hız | Gerçekçilik | Kurulum Zorluğu | RTL Testi |
 |----------|-----|-------------|------------------|-----------|
-| Mock peripheral | Çok yüksek | Düşük | Çok kolay | Hayır |
-| AXI bus modeli | Yüksek | Orta | Orta | Hayır |
-| Verilator co-sim | Düşük | Yüksek | Yüksek | Evet |
+| Python peripheral | Çok yüksek | TLM seviyesi | Çok kolay | Hayır |
+| Verilator co-sim | Düşük | Cycle-accurate | Yüksek | Evet |
 
-Pratikte ekipler bu yaklaşımları **birlikte** kullanır: yazılım ekibi mock peripheral ile hızlıca ilerler, RTL hazır olduğunda Verilator co-simülasyonuna geçilir.
+Pratikte ekipler bu iki yaklaşımı **birlikte** kullanır: yazılım ekibi Python peripheral ile hızlıca ilerler, RTL hazır olduğunda Verilator co-simülasyonuna geçilir.
 
 ---
 
