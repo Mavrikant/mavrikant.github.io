@@ -16,7 +16,7 @@ Gömülü sistem geliştirmenin en yorucu yanlarından biri, donanımın kendisi
 
 ## Renode Nedir?
 
-[Renode](https://renode.io), [Antmicro](https://antmicro.com/) tarafından geliştirilen, **Apache 2.0** lisansı ile dağıtılan açık kaynak bir tam SoC emülatörüdür. QEMU'nun aksine yalnızca CPU emülasyonuna odaklanmaz; çevre birimleri, sensörler, ağ arayüzleri, kablosuz iletişim modülleri ve hatta birden fazla cihazın aynı anda çalıştığı sistemleri tek bir simülasyon ortamında ele alır.
+[Renode](https://renode.io), [Antmicro](https://antmicro.com/) tarafından geliştirilen, **MIT** lisansı ile dağıtılan açık kaynak bir tam SoC emülatörüdür. QEMU'nun aksine yalnızca CPU emülasyonuna odaklanmaz; çevre birimleri, sensörler, ağ arayüzleri, kablosuz iletişim modülleri ve hatta birden fazla cihazın aynı anda çalıştığı sistemleri tek bir simülasyon ortamında ele alır.
 
 Renode'un öne çıkan özellikleri:
 
@@ -34,7 +34,7 @@ QEMU'dan en belirgin farkı, Renode'un **sistem entegrasyon testlerine** odaklı
 
 Zynq7000, tek bir silikon üzerinde iki dünyayı birleştirir:
 
-- **PS (Processing System):** Çift çekirdekli **ARM Cortex-A9** (866 MHz'e kadar), NEON SIMD birimi, donanımsal FPU, L1/L2 önbellek, DDR3 denetleyicisi ve sabit çevre birimleri (UART, SPI, I2C, GPIO, USB, Gigabit Ethernet, SD/MMC).
+- **PS (Processing System):** Çift çekirdekli **ARM Cortex-A9** (1 GHz'e kadar, parça hızına göre), NEON SIMD birimi, donanımsal FPU, L1/L2 önbellek, DDR3 denetleyicisi ve sabit çevre birimleri (UART, SPI, I2C, GPIO, USB, Gigabit Ethernet, SD/MMC).
 - **PL (Programmable Logic):** Artix-7 ya da Kintex-7 ailesinden bir **FPGA dokusu**. Geliştiricinin kendi IP bloklarını, hızlandırıcılarını veya özel arayüzlerini sentezleyebildiği yer.
 - **AXI Interconnect:** PS ile PL arasındaki yüksek bant genişlikli köprü. AXI3 / AXI4 protokolü üzerinden General-Purpose (GP), High-Performance (HP) ve Accelerator Coherency Port (ACP) bağlantıları sunar.
 
@@ -132,19 +132,19 @@ Bir `.repl` dosyası, platformun adres haritasını, kesme bağlantılarını ve
 
 ```
 gic: IRQControllers.ARM_GenericInterruptController @ {
-        sysbus new Bus.BusMultiRegistration { address: 0xF8F00000; size: 0x1000; region: "distributor" };
+        sysbus new Bus.BusMultiRegistration { address: 0xF8F01000; size: 0x1000; region: "distributor" };
         sysbus new Bus.BusMultiRegistration { address: 0xF8F00100; size: 0x100; region: "cpuInterface" }
     }
     [0-1] -> cpu0@[0-1]
 
 uart1: UART.Cadence_UART @ sysbus 0xE0001000
-    -> gic@52
+    -> gic@50
 
 gpio: GPIOPort.XilinxGPIOPS @ sysbus 0xE000A000
-    IRQ -> gic@53
+    IRQ -> gic@52
 
 ttc0: Timers.Cadence_TTC @ sysbus 0xF8001000
-    [0-2] -> gic@[42-44]
+    [0-2] -> gic@[10-12]
 ```
 
 Burada `Cadence_UART`, `XilinxGPIOPS` gibi tip isimleri, Renode içinde hazır olarak gelen çevre birimi modellerine karşılık gelir. Adres alanı (`0xE0001000`), reset davranışı ve IRQ numarası, fiziksel Zynq7000 ile birebir eşleşir. Yani aynı sürücü kodu, hem Renode üzerinde hem gerçek kart üzerinde değişiklik gerektirmeden çalışır.
@@ -179,18 +179,18 @@ Sonra Python betiğini yazarız. Burada `request` nesnesi her bus erişiminde ot
 
 ```python
 # my_sensor.py
-if request.isInit:
+if request.IsInit:
     sensor_value = 0
 
-elif request.isRead:
-    if request.offset == 0x00:
-        request.value = sensor_value      # sicaklik degeri
-    elif request.offset == 0x04:
-        request.value = 0x0001            # durum bayragi: hazir
+elif request.IsRead:
+    if request.Offset == 0x00:
+        request.Value = sensor_value      # sicaklik degeri
+    elif request.Offset == 0x04:
+        request.Value = 0x0001            # durum bayragi: hazir
 
-elif request.isWrite:
-    if request.offset == 0x08:
-        sensor_value = request.value      # firmware kalibrasyon yazabilir
+elif request.IsWrite:
+    if request.Offset == 0x08:
+        sensor_value = request.Value      # firmware kalibrasyon yazabilir
 ```
 
 Hepsi bu kadar — sınıf, kalıtım ya da derleme adımı yok. Renode konsolundan simülasyon sırasında `sysbus.my_sensor WriteDoubleWord 0x08 42` yazarak sensör değerini değiştirebilirsiniz; firmware tam o anda farklı bir koda dallanır. Bu, **fault injection** testleri için son derece güçlü bir araçtır.
@@ -270,16 +270,22 @@ FPGA'da yapılacak işin **davranışsal modelini** Python olarak yazarsınız. 
 
 ### b) Verilator Co-simülasyon
 
-Renode, **Verilator** ile sıkı entegrasyona sahiptir. HDL kaynak dosyaları Verilator ile C++'a derlenir; ortaya çıkan ikili dosya bir soket aracılığıyla Renode'a bağlanır. Renode'un AXI işlemleri (read/write transaction'lar) bu köprü üzerinden Verilator'a iletilir, Verilator yanıtı geri döner. PL bloğunuz **gerçek RTL** ile test edilmiş olur.
+Renode, **Verilator** ile sıkı entegrasyona sahiptir. HDL kaynak dosyaları Verilator ile C++'a derlenir; ortaya çıkan paylaşılan kütüphane Renode'a bağlanır. Renode'un AXI işlemleri (read/write transaction'lar) bu köprü üzerinden Verilator'a iletilir, Verilator yanıtı geri döner. PL bloğunuz **gerçek RTL** ile test edilmiş olur.
+
+Önce `.repl` dosyasında co-simüle edilecek peripheral'ı tanımlarız:
 
 ```
-mach create "zynq_with_pl"
-machine LoadPlatformDescription @platforms/boards/zedboard.repl
-
-# Verilator ile co-sim baglantisi
-sysbus LoadCFG @my_axi_ip.cfg
-machine LoadPeripheralAtAddress sysbus.myPLBlock 0x43C00000
+my_axi_ip: CoSimulated.CoSimulatedPeripheral @ sysbus <0x43C00000, +0x1000>
+    frequency: 100000000
 ```
+
+Sonra `.resc` betiğinde Verilator çıktısı paylaşımlı kütüphaneyi bağlarız:
+
+```
+sysbus.my_axi_ip SimulationFilePath @libVtop.so
+```
+
+Bundan sonra firmware'in `0x43C00000` adresine yaptığı her AXI okuma/yazma, Verilator simülasyonuna iletilir; RTL'in yanıtı geri döner.
 
 **Ne zaman uygun?** PL bloğunuzun RTL doğrulamasını da sistem testine dahil etmek istediğinizde. Saf RTL simülasyonuna kıyasla yavaş kalsa da, yazılım sürücüleriyle birlikte uçtan uca test imkânı verir.
 
@@ -289,21 +295,21 @@ machine LoadPeripheralAtAddress sysbus.myPLBlock 0x43C00000
 
 ```python
 # axi_fifo.py - Yazilanlari sayan basit AXI slave
-if request.isInit:
+if request.IsInit:
     write_count = 0
     last_data = 0
 
-elif request.isRead:
-    if request.offset == 0x00:
-        request.value = 0xDEADBEEF       # IP ID register
-    elif request.offset == 0x04:
-        request.value = write_count       # kac kez yazildi
-    elif request.offset == 0x08:
-        request.value = last_data         # son yazilan veri
+elif request.IsRead:
+    if request.Offset == 0x00:
+        request.Value = 0xDEADBEEF       # IP ID register
+    elif request.Offset == 0x04:
+        request.Value = write_count       # kac kez yazildi
+    elif request.Offset == 0x08:
+        request.Value = last_data         # son yazilan veri
 
-elif request.isWrite:
-    if request.offset == 0x08:
-        last_data = request.value
+elif request.IsWrite:
+    if request.Offset == 0x08:
+        last_data = request.Value
         write_count += 1
 ```
 
@@ -369,6 +375,45 @@ New value = 1
 
 **Time-travel hata ayıklama:** Renode deterministik olduğu için, hatadan önce snapshot alıp koşumu tamamlayabilir, sonra snapshot'ı yeniden yükleyip farklı bir yol deneyebilirsiniz. Heisenbug avına alışkın olanlar için bu çok değerli bir kapasitedir.
 
+### Reverse Debugging — Geri Adım Atmak
+
+Renode'un belki de en az bilinen yeteneklerinden biri **GDB reverse execution** desteğidir. Sadece zamanı durduramaz, **geriye doğru** çalıştırabilirsiniz.
+
+Açmak için, GDB bağlanmadan önce Renode tarafında bir komut:
+
+```
+machine StartGdbServer 3333
+reverseExecMode true
+```
+
+Sonra GDB'de standart "reverse" komutları çalışır:
+
+```
+(gdb) target remote :3333
+(gdb) b main
+(gdb) c
+Breakpoint 1, main () at main.c:42
+
+(gdb) n                # 5 satir ileri git
+(gdb) n
+(gdb) n
+(gdb) n
+(gdb) n
+
+(gdb) reverse-step     # bir satir geri (rs kisaltmasi)
+(gdb) reverse-stepi    # bir assembly instruction geri (rsi)
+(gdb) reverse-continue # son breakpoint'e ya da ilk snapshot'a kadar geri
+(gdb) rsi 50           # 50 instruction geri
+```
+
+Mekanizma snapshot tabanlıdır: Renode arka planda periyodik state snapshot'ları alır; reverse komutları, en yakın snapshot'a dönüp oradan tekrar ileri koşturarak istenen noktaya ulaşır. Bu yüzden:
+
+- Reverse hız olarak forward'dan yavaş çalışır
+- Snapshot sıklığı performans/granülerlik dengesini belirler
+- **Tek çekirdek (single-core) emülasyonlarda** desteklenir; çift Cortex-A9 Zynq7000'de bu özelliği kullanmak isterseniz SMP yerine tek CPU başlatan bir senaryo kurmanız gerekir
+
+**Pratik değer:** Zor reproduce edilen bir hata yakaladınız diyelim. Kritik anı geçtikten sonra bir register'ın yanlış değer aldığını fark ettiniz. Forward debugging'de tüm koşumu sıfırdan başlatıp doğru noktada durmaya çalışırsınız. Reverse ile o anı geçtiğiniz yerden **geriye doğru** giderek ilk yanlış adımı bulursunuz — çoğu zaman dakikalar yerine saniyeler.
+
 VS Code, CLion, Eclipse'in GDB entegrasyonu doğrudan çalışır. Tipik bir `launch.json`:
 
 ```json
@@ -394,17 +439,17 @@ Hook'lar, simülasyon sırasında belirli olaylara **Python callback** bağlaman
 Belirli bir adrese yapılan her yazmayı yakala:
 
 ```
-sysbus AddWatchpoint 0xE000A040 4 1 "print('GPIO yazildi: ' + hex(value))"
+sysbus AddWatchpointHook 0xE000A040 DoubleWord Write "print('GPIO yazildi: ' + hex(value))"
 ```
 
-Parametreler: adres, byte boyutu, write modu (1=write, 2=read), Python ifadesi. Firmware bu register'a her yazdığında ekrana satır basılır. Bu yöntemle protokol traces çıkarmak, donanımda yapılması son derece zor olan bir iş.
+Parametreler: adres, genişlik (`Byte` / `Word` / `DoubleWord` / `QuadWord` ya da numerik `1`/`2`/`4`/`8`), erişim modu (`Read` / `Write` / `ReadWrite`), Python ifadesi. Firmware bu register'a her yazdığında ekrana satır basılır. Bu yöntemle protokol trace'i çıkarmak, fiziksel donanımda yapılması son derece zor olan bir iş.
 
 ### Fonksiyon başı hook
 
-Bir sembole varıldığında çalışacak callback:
+Bir sembole varıldığında çalışacak callback. Renode'un `AddSymbolHook` komutu adresi otomatik çözer:
 
 ```
-cpu0 AddHook `sysbus GetSymbolAddress "panic"` "print('PANIC! PC=' + hex(pc))"
+cpu0 AddSymbolHook "panic" "print('PANIC! PC=' + hex(pc))"
 ```
 
 `panic` fonksiyonu çağrıldığında log basılır — ya da `machine Pause` ile simülasyonu durdurursunuz. Hata yakalama için ideal.
@@ -432,22 +477,23 @@ Bu betiği Renode'a yükleyip `spi_read` sembolüne bağlayın. Test, retry mant
 ### Coverage toplama
 
 ```
-cpu0 EnableProfilerCollapsedStack "@coverage.txt" 0
+cpu0 EnableProfilerCollapsedStack @coverage.txt false
 ```
 
 Her instruction'ı yakalar, hangi fonksiyonların ne kadar çalıştığını üretir. Çıktıyı `inferno-flamegraph` ile besleyerek bir gecede tam **flame graph** üretebilirsiniz. Donanımda coverage almak `gcov` ile bile bu kadar temiz değildir.
 
 ### IRQ hook
 
-Bir kesme tetiklendiğinde:
+Bir kesme tetiklendiğinde, CPU üzerinden hook bağlanır:
 
 ```
-sysbus.gic AddInterruptHook 52 "print('UART IRQ tetiklendi')"
+cpu0 AddHookAtInterruptBegin "print('IRQ basladi')"
+cpu0 AddHookAtInterruptEnd   "print('IRQ bitti')"
 ```
 
-IRQ akışını anlamak için altın değerinde. Çoklu kesme yarış koşullarını anlamada da yardımcı.
+IRQ akışını anlamak için altın değerinde. Çoklu kesme yarış koşullarını anlamada da yardımcıdır.
 
-**Önemli:** Hook'ları her zaman test sonrası temizleyin (`cpu0 RemoveAllHooks` ya da spesifik `RemoveHook`). Aksi takdirde sonraki testlere taşınır ve flakiness oluşturur.
+**Önemli:** Hook'lar simülasyon ömrü boyunca aktif kalır. Test izolasyonu için her test başlangıcında `Reset Emulation` ile makine durumunu tertemiz başlatın; aksi takdirde hook'lar sonraki testlere taşınır ve flakiness kaynağı olur.
 
 Hook'lar, Renode'u sıradan bir emülatörden, **gözlemlenebilir ve müdahale edilebilir** bir sisteme dönüştürür.
 
@@ -505,7 +551,7 @@ Simülasyonu duraklat, yavaşlat, hızlandır. Real-time zorunluluğu olmayan te
 
 ### Wireless ve PCAP
 
-Renode'un IEEE 802.15.4 (Zigbee), BLE ve LoRa için sanal "radio medium" desteği vardır. Birden fazla cihaz aynı medyumda paket alıp gönderir, Wireshark uyumlu PCAP dosyası kaydedilir. Mesh ağ firmware'i geliştirenler için biçilmiş kaftan.
+Renode'un IEEE 802.15.4 (Zigbee) ve Bluetooth Low Energy için sanal "radio medium" desteği vardır. Birden fazla cihaz aynı medyumda paket alıp gönderir, Wireshark uyumlu PCAP dosyası kaydedilir (Ethernet, 802.15.4 ve BLE için). Mesh ağ firmware'i geliştirenler için biçilmiş kaftan.
 
 ### Sembol bazlı `cpu0 LogFunctionNames`
 
@@ -637,7 +683,7 @@ Renode'u proje sürecine sokarken biriken pratik dersler:
 
 **9. Headless modu kullanın.** GUI Renode debug için iyi; CI için `--disable-xwt --console` veya `--hide-monitor` ile başlatın. Hız kazanırsınız, ekran bağımlılığı kalmaz.
 
-**10. Real-time bağımlılıkları dikkatli ele alın.** Renode `RealTimeMode`'da fiziksel zamana hizalanmaya çalışır ama saat doğruluğu çekirdek kullanımına bağlıdır. Sıkı timing testleri için `MachineQuantum` ve `GlobalQuantum` ile deterministik time-step kullanın; gerçek zamana güvenmeyin.
+**10. Real-time bağımlılıkları dikkatli ele alın.** Renode `RealTimeMode`'da fiziksel zamana hizalanmaya çalışır ama saat doğruluğu çekirdek kullanımına bağlıdır. Sıkı timing testleri için `emulation SetGlobalQuantum` ile deterministik time-step kullanın; gerçek zamana güvenmeyin.
 
 **11. Sensör akışlarını dosyadan besleyin.** Sensör simülasyonunu inline değil, JSON/CSV dosyasından okuyacak Python peripheral yazın. Aynı test senaryosu farklı veri setleriyle koşturulabilir — data-driven testing kapısı açılır.
 
