@@ -197,6 +197,67 @@ Hepsi bu kadar — sınıf, kalıtım ya da derleme adımı yok. Renode konsolun
 
 ---
 
+## UART'ı TCP'ye Bağlamak
+
+Renode'un en pratik özelliklerinden biri, sanal UART'ları **TCP soketleri** olarak dışa açabilmesidir. Bu sayede headless ortamlarda (CI sunucuları, Docker container'lar, uzak makinalar) simülasyonu çalıştırıp `telnet`, `netcat` ya da kendi test betiğinizle bağlanabilirsiniz.
+
+Renode tarafında iki komut yeter:
+
+```
+emulation CreateServerSocketTerminal 3456 "uart_term"
+connector Connect sysbus.uart1 uart_term
+start
+```
+
+İlk komut 3456 portunda bir TCP sunucusu açar, ikincisi sanal UART'ı bu sokete bağlar. Artık başka bir terminalden bağlanabilirsiniz:
+
+```bash
+$ telnet localhost 3456
+Trying 127.0.0.1...
+Connected to localhost.
+Boot tamamlandi
+Sensor degeri: 42
+> help
+Komutlar: status, reset, dump
+```
+
+Klavyeden yazdığınız her karakter firmware'in UART RX FIFO'suna düşer; firmware'in TX FIFO'suna yazdığı her karakter terminale akar. Tıpkı gerçek bir kart gibi.
+
+Bu, **otomatik testleri Python ile yazmanın** en temiz yoludur. Pexpect ya da düz `socket`:
+
+```python
+import socket
+
+s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+s.connect(("localhost", 3456))
+
+# Boot tamamlanmasini bekle
+buf = b""
+while b"Boot tamamlandi" not in buf:
+    buf += s.recv(4096)
+
+# Komut gonder, cevabi yakala
+s.sendall(b"sensor read\n")
+buf = b""
+while b"\n" not in buf:
+    buf += s.recv(4096)
+
+print("Firmware cevabi:", buf.decode().strip())
+s.close()
+```
+
+Birden fazla UART'a aynı anda farklı portlarda hizmet verebilirsiniz — örneğin debug UART'ı 3456, telemetri UART'ı 3457. Aynı simülasyonda iki ayrı Python istemcisi farklı port'lara bağlanır.
+
+Ek olarak UART'ı dosyaya yazdırmak da mümkündür:
+
+```
+sysbus.uart1 CreateFileBackend @uart.log true
+```
+
+CI'da test başarısız olduğunda bu log dosyası paha biçilmezdir.
+
+---
+
 ## FPGA / PL Tarafı Nasıl Simüle Edilir?
 
 Renode'un en sık sorulan sorularından biri: "Peki ya FPGA?" Renode kendi başına Verilog ya da VHDL kodunu yorumlamaz. PL tarafını ele almak için üç yaygın yaklaşım vardır:
@@ -260,6 +321,202 @@ Pratikte ekipler bu yaklaşımları **birlikte** kullanır: yazılım ekibi mock
 
 ---
 
+## Hata Ayıklama: GDB ile Bağlanmak
+
+Renode, her sanal CPU için **GDB Remote Serial Protocol** sunucusu açabilir. Bu, fiziksel JTAG bağlantısının yerine geçer; üstelik çok daha hızlı ve dert üretmez. Kablosu kopmaz, hedef "wedge" olmaz, sürücü çakışmaz.
+
+Renode tarafında:
+
+```
+machine StartGdbServer 3333
+```
+
+Başka terminalde:
+
+```bash
+arm-none-eabi-gdb firmware.elf
+(gdb) target remote :3333
+(gdb) b main
+Breakpoint 1 at 0x100040
+(gdb) c
+Continuing.
+Breakpoint 1, main () at main.c:42
+
+(gdb) info registers
+r0   0x00000000
+r1   0xe0001000
+...
+(gdb) x/16wx 0xE0001000   # UART register'larini incele
+```
+
+Tüm standart GDB özellikleri çalışır:
+
+- **Breakpoint, watchpoint, conditional break:** Hardware watchpoint sayısı simülasyonda sınırsızdır
+- **Stack trace, frame inspection:** Tam debug bilgisi varsa kaynak satırına kadar
+- **Memory read/write:** Aktif simülasyonda istediğiniz adresi okuyup yazabilirsiniz
+- **Source-level stepping:** `step`, `next`, `finish`
+
+Bir watchpoint örneği — GPIO data register'ı her değiştiğinde dur:
+
+```
+(gdb) watch *(uint32_t*)0xE000A040
+Hardware watchpoint 1: *(unsigned int*)0xE000A040
+(gdb) c
+Hardware watchpoint 1: *(unsigned int*)0xE000A040
+Old value = 0
+New value = 1
+```
+
+**Time-travel hata ayıklama:** Renode deterministik olduğu için, hatadan önce snapshot alıp koşumu tamamlayabilir, sonra snapshot'ı yeniden yükleyip farklı bir yol deneyebilirsiniz. Heisenbug avına alışkın olanlar için bu çok değerli bir kapasitedir.
+
+VS Code, CLion, Eclipse'in GDB entegrasyonu doğrudan çalışır. Tipik bir `launch.json`:
+
+```json
+{
+    "type": "cppdbg",
+    "request": "launch",
+    "program": "${workspaceFolder}/build/firmware.elf",
+    "miDebuggerServerAddress": "localhost:3333",
+    "miDebuggerPath": "/usr/bin/arm-none-eabi-gdb"
+}
+```
+
+Tek değişiklik — gerçek board için kullanılan OpenOCD adresinin yerine Renode portu. Kalan tüm IDE deneyimi aynı.
+
+---
+
+## Hook'lar: Renode'un Süper Gücü
+
+Hook'lar, simülasyon sırasında belirli olaylara **Python callback** bağlamanın yoludur. Renode'u QEMU'dan ya da basit bir emülatörden ayıran en güçlü özellik bu olabilir. Hook ile, gerçek donanımda asla erişemeyeceğiniz iç durumlara müdahale edebilirsiniz.
+
+### Adres tabanlı (watchpoint) hook
+
+Belirli bir adrese yapılan her yazmayı yakala:
+
+```
+sysbus AddWatchpoint 0xE000A040 4 1 "print('GPIO yazildi: ' + hex(value))"
+```
+
+Parametreler: adres, byte boyutu, write modu (1=write, 2=read), Python ifadesi. Firmware bu register'a her yazdığında ekrana satır basılır. Bu yöntemle protokol traces çıkarmak, donanımda yapılması son derece zor olan bir iş.
+
+### Fonksiyon başı hook
+
+Bir sembole varıldığında çalışacak callback:
+
+```
+cpu0 AddHook `sysbus GetSymbolAddress "panic"` "print('PANIC! PC=' + hex(pc))"
+```
+
+`panic` fonksiyonu çağrıldığında log basılır — ya da `machine Pause` ile simülasyonu durdurursunuz. Hata yakalama için ideal.
+
+### Fault injection hook
+
+Diyelim SPI flash okuma fonksiyonunun **17. çağrısında** hata enjekte etmek istiyorsunuz. Fiziksel donanımda bu çok zordur; Renode'da Python ile birkaç satır:
+
+```python
+# fault_inject.py
+call_count = 0
+
+def on_spi_read_entry(cpu):
+    global call_count
+    call_count += 1
+    if call_count == 17:
+        # R0 (donus degeri) = 0xFFFFFFFF (hata)
+        cpu.SetRegisterUnsafe(0, 0xFFFFFFFF)
+        # Fonksiyonu erken sonlandir
+        cpu.PC = cpu.GetRegisterUnsafe(14).RawValue  # LR
+```
+
+Bu betiği Renode'a yükleyip `spi_read` sembolüne bağlayın. Test, retry mantığını gerçekçi koşullar altında doğrular.
+
+### Coverage toplama
+
+```
+cpu0 EnableProfilerCollapsedStack "@coverage.txt" 0
+```
+
+Her instruction'ı yakalar, hangi fonksiyonların ne kadar çalıştığını üretir. Çıktıyı `inferno-flamegraph` ile besleyerek bir gecede tam **flame graph** üretebilirsiniz. Donanımda coverage almak `gcov` ile bile bu kadar temiz değildir.
+
+### IRQ hook
+
+Bir kesme tetiklendiğinde:
+
+```
+sysbus.gic AddInterruptHook 52 "print('UART IRQ tetiklendi')"
+```
+
+IRQ akışını anlamak için altın değerinde. Çoklu kesme yarış koşullarını anlamada da yardımcı.
+
+**Önemli:** Hook'ları her zaman test sonrası temizleyin (`cpu0 RemoveAllHooks` ya da spesifik `RemoveHook`). Aksi takdirde sonraki testlere taşınır ve flakiness oluşturur.
+
+Hook'lar, Renode'u sıradan bir emülatörden, **gözlemlenebilir ve müdahale edilebilir** bir sisteme dönüştürür.
+
+---
+
+## Diğer İleri Düzey Özellikler
+
+Renode'un günlük kullanımda ezberlenmesi gereken birkaç başka özelliği:
+
+### Logger seviyeleri ve filtreleri
+
+```
+sysbus.uart1 LogLevel 0    # NOISY - her byte'i logla
+sysbus.gpio  LogLevel 3    # WARNING ve uzeri
+logFile @sim.log true
+```
+
+Her çevre birimi bağımsız log seviyesi alır. Sorunlu modülü debug log'una yükseltip diğerlerini sessizleştirebilirsiniz; CI loglarınız böylece manageable kalır.
+
+### Snapshot / Restore
+
+```
+Save @before-test.snapshot
+# ... test calistir, sistemde degisiklik yap
+Load @before-test.snapshot
+# ... tertemiz bastan basla
+```
+
+Tipik kullanım: Linux boot edildikten sonra snapshot al, her test snapshot'tan başlasın. 30 saniyelik boot, 50 ms restore'a düşer. Bu, CI suite süresini dramatik şekilde kısaltır.
+
+### Multi-machine simülasyonu
+
+```
+mach create "node1"
+machine LoadPlatformDescription @platforms/boards/zedboard.repl
+mach create "node2"
+machine LoadPlatformDescription @platforms/boards/zedboard.repl
+
+emulation CreateSwitch "switch1"
+connector Connect node1.eth0 switch1
+connector Connect node2.eth0 switch1
+```
+
+İki Zynq7000 kartı arasında Ethernet trafiği simüle edilir. Distributed sistem firmware'i, master/slave protokoller, redundancy senaryoları için olmazsa olmaz.
+
+### Time control
+
+```
+emulation SetGlobalQuantum '0.000010'   # 10 us quantum
+machine Pause
+machine Resume
+```
+
+Simülasyonu duraklat, yavaşlat, hızlandır. Real-time zorunluluğu olmayan testler simülasyonu **gerçek zamandan kat kat hızlı** koşturarak saatlerce sürecek bir testi dakikalara indirebilir.
+
+### Wireless ve PCAP
+
+Renode'un IEEE 802.15.4 (Zigbee), BLE ve LoRa için sanal "radio medium" desteği vardır. Birden fazla cihaz aynı medyumda paket alıp gönderir, Wireshark uyumlu PCAP dosyası kaydedilir. Mesh ağ firmware'i geliştirenler için biçilmiş kaftan.
+
+### Sembol bazlı `cpu0 LogFunctionNames`
+
+```
+cpu0 LogFunctionNames true
+```
+
+Her fonksiyon çağrısını log'a yazar. Boot sırasında ne çağrıldığını görmek, çağrı grafiğini anlamak için çok hızlı bir araç.
+
+---
+
 ## Test Otomasyonu
 
 Renode, **Robot Framework** ile gelir. Bu, simülasyonun CI/CD ortamlarına entegrasyonunu çok kolaylaştırır. Tipik bir test dosyası şuna benzer:
@@ -291,9 +548,9 @@ Komut: `renode-test test.robot`. CI ortamında bu komut, fiziksel kart gerektirm
 
 ---
 
-## Avantajlar
+## Geliştirme, Debug ve Test için Avantajlar
 
-Renode ile Zynq7000 simülasyonunun fiziksel kartla karşılaştırması:
+Renode ile Zynq7000 simülasyonunun fiziksel kartla yüksek seviyeli karşılaştırması:
 
 | Özellik | Fiziksel Kart | Renode Simülasyon |
 |---------|---------------|-------------------|
@@ -307,9 +564,90 @@ Renode ile Zynq7000 simülasyonunun fiziksel kartla karşılaştırması:
 | Sensör değeri enjeksiyonu | Donanım hilesi | Tek komut |
 | Boot süresi | Saniyeler | Snapshot ile ms |
 
-Buna ek olarak Renode, **donanım gelmeden önce** firmware geliştirmeyi mümkün kılar. Yeni bir kart için PCB üretimi haftalar alırken, yazılım ekibi Renode üzerinde ilk gün çalışmaya başlayabilir. Donanım geldiğinde, port maliyeti çoğu zaman birkaç satır `.repl` değişikliğiyle sınırlı kalır.
+Bu tablo özet sunuyor; üç ayrı disiplin için somut faydalara bakalım.
 
-Eğitim ve dokümantasyon açısından da çok değerlidir: yeni katılan bir mühendis, kart için sıraya girmek zorunda kalmadan ilk haftadan itibaren kodu çalıştırıp deney yapabilir.
+### Geliştirme tarafında
+
+- **Donanım gelmeden başla.** Yeni bir Zynq7000 kartı tasarlandığı sırada yazılım ekibi simülasyon üzerinde sürücüleri yazmaya başlayabilir. PCB üretimi 6 hafta sürüyorsa, o 6 hafta atılmış değildir.
+- **Hızlı iterasyon.** Bitstream sentezi 30 dakikaysa, Renode platform değişikliği 2 saniyedir. Yazılım geliştiriciler, donanım ekibinin bir sonraki sentezini beklemek zorunda kalmaz.
+- **Yeni katılan eşiği düşer.** Yeni gelen mühendise kart, JTAG, USB-UART, lab erişimi ayarlamak yerine `git clone && renode boot.resc` yeterli olur.
+- **Aynı kod, hem simülasyon hem gerçek donanım.** Renode adresleri ve davranışı fiziksel SoC ile birebir eşleşir; sürücü kodu portlama olmadan iki tarafta çalışır.
+
+### Debug tarafında
+
+- **Determinizm.** Aynı bug aynı şekilde tekrar üretilir; "bende çalışıyor" durumu yoktur. Reproducer'lar snapshot ya da `.resc` betiği olarak paylaşılır.
+- **Time-travel.** Bug'dan önce snapshot alın, koşumu tamamlayın, sonra snapshot'ı yükleyip farklı bir yolda deneyin. Heisenbug'ları çözmek için fiziksel donanımda imkansıza yakın bir kapasite.
+- **Görünürlük.** Hook'lar ve logger sayesinde gerçek donanımda görünmez olan iç durumlar (register snapshot'ı, IRQ akışı, AXI handshake) izlenebilir hale gelir.
+- **GDB her zaman bağlı.** JTAG kopmaz, hedef wedge olmaz. İstediğiniz anda dur, durumu incele, devam et.
+- **Coverage temiz toplanır.** Renode tarafından üretilen instruction trace, tamamen offline işlenebilir; gerçek donanımda bunu yapmak için ek donanım veya kod enstrümantasyonu gerekir.
+
+### Test tarafında
+
+- **CI/CD entegrasyonu.** Robot Framework + headless Renode + Docker = her commit'te full sistem testi. Kart farm operasyonel maliyeti yoktur.
+- **Paralel koşum.** Tek makinede 16 simülasyon paralel; tek board farmında 16 fiziksel kart gerekirdi.
+- **Fault injection.** "Şu IRQ kaybolsa ne olur? DMA timeout olursa? Sensör NaN dönerse?" Hepsi tek hook satırı ile test edilebilir; fiziksel donanımda haftalar süren senaryolar.
+- **Regresyon süresi.** Snapshot'lar ile bir geceyi 100x test koşumuna çevirebilirsiniz; günlük geri bildirim döngüsü çok daha sıkıdır.
+- **Veri odaklı test.** Sensör girdilerini dosyadan besleyen Python peripheral'lar, aynı testi yüzlerce farklı veri setiyle koşturmayı mümkün kılar.
+
+---
+
+## Kullanım Alanları
+
+Renode + Zynq7000 ikilisinin somut kullanım alanları:
+
+**1. Bootloader geliştirme.** U-Boot, FSBL, SPL ve özel bootloader'lar Renode'da boot edilir. SD kart imajı yüklenir, JTAG ya da USB-UART kurmaya gerek kalmaz. Her commit'te boot tamamlanma süresi otomatik ölçülür ve regresyon olarak işaretlenebilir.
+
+**2. Linux kernel hata ayıklama.** Custom kernel patch'leri Renode üzerinde test edilir. `kgdb` çalıştırmak fiziksel kartta yorucudur; Renode'un yerleşik GDB sunucusu doğrudan çekirdek sembollerine bağlanır.
+
+**3. Avionik ve fonksiyonel güvenlik.** DO-178C, IEC 61508, EN 50128 gibi standartlar yüksek test kapsamı ve **kanıtlanabilir tekrarlanabilirlik** gerektirir. Renode'un deterministik yapısı bu beklentiyi doğal olarak karşılar; testi `.resc` betiği olarak sertifikasyon dosyasına eklemek mümkündür.
+
+**4. Drone, robot ve otonom sistemler.** Sensör verisini dosyadan besleyen mock peripheral'lar ile simüle edilen GPS, IMU, lidar girdileriyle uçuş kontrol algoritmaları test edilir. Saha uçuşu yapmadan algoritma doğrulanır.
+
+**5. Eğitim laboratuvarları.** Üniversite ya da kurum içi eğitimlerde, her öğrenci için kart sağlamak yerine herkesin laptop'ında Renode çalışır. Yanlış kod yazılsa bile kart yanmaz.
+
+**6. Güvenlik araştırması.** Firmware fuzzing'i hızlandırır; AFL veya libFuzzer ile birlikte koşturulur. Side-channel analizi için instruction trace çıkarılabilir. CVE PoC'leri snapshot olarak paylaşılır, reproducer net olur.
+
+**7. Firmware OTA güncelleme testleri.** OTA başarısız olursa fiziksel kart bricklenir; Renode'da bricklendiyse `Reset` komutu yeterli. Riskli bootloader değişikliklerini Renode'da yüzlerce kez test edip karta sadece kararlı versiyonu atabilirsiniz.
+
+**8. Müşteri demo'ları ve eğitim.** Sahaya kart götürmeden firmware'in çalıştığını gösterebilirsiniz. Müşteriye veya entegrasyon ortağına Docker imajı bırakırsanız, kart olmadan da değerlendirebilir.
+
+**9. Hızlı PoC ve teklif aşaması.** Müşteri "şu çevre birimi destekleniyor mu?" diye sorduğunda, fiziksel kart sipariş etmeden Renode'da basit bir prototip yapıp gösterebilirsiniz.
+
+---
+
+## Best Practices
+
+Renode'u proje sürecine sokarken biriken pratik dersler:
+
+**1. `.resc` ve `.repl` dosyalarını versiyon kontrolünde tutun.** Bunlar projeye ait konfigürasyondur; firmware kaynak kodu kadar değerlidir. Repo'da `sim/` klasörü açın, scriptleri orada yaşatın, code review'a tabi tutun.
+
+**2. Renode versiyonunu pinleyin.** `renode --version` çıktısını CI loglarına yazdırın; Dockerfile'da spesifik tag (örn. `antmicro/renode:1.14.0`) kullanın. Determinizm bunu gerektirir; aynı testin aynı sonucu üretmesi versiyon sabitliğiyle başlar.
+
+**3. Snapshot stratejisi kurun.** Uzun boot'ları her test başında tekrarlamak israftır. "Linux boot tamamlandıktan sonra", "Init script çalıştıktan sonra" gibi tipik anlarda snapshot alın, test suite'leri bu noktadan başlatın. Tek bir karmaşık projede toplam CI süresini saatlerden dakikalara çekebilir.
+
+**4. Logger seviyesini ortama göre ayarlayın.** CI'da `LogLevel 3` (Warning); lokal debug'da `LogLevel 0` (Noisy). Aksi takdirde CI logu fazlasıyla şişer, gerçek sorunlar gürültü altında kaybolur.
+
+**5. Hook'ları test sonrası temizleyin.** `Suite Teardown` veya `Test Teardown`'da `cpu0 RemoveAllHooks` ile sıfırlayın. Hook leak'i, en sinsi flakiness kaynağıdır.
+
+**6. Custom peripheral'lar küçük olsun.** Bir Python peripheral 50 satırı geçiyorsa, ayrı bir `.py` dosyasına alın ve `pytest` ile unit test yazın. Test edilmemiş peripheral, ana firmware'in tüm hatalarını maskeleyebilir.
+
+**7. Robot Framework testlerini paralel koşturun.** `pabot` ile paralel koşum mümkündür. Her test kendi machine instance'ında izole olsun; `Reset Emulation` Test Setup'ta zorunlu olsun.
+
+**8. UART çıktısını dosyaya da yazdırın.** `sysbus.uart1 CreateFileBackend @uart.log true` ile UART akışını dosyaya kaydedin. CI'da test başarısız olduğunda bu log paha biçilmezdir.
+
+**9. Headless modu kullanın.** GUI Renode debug için iyi; CI için `--disable-xwt --console` veya `--hide-monitor` ile başlatın. Hız kazanırsınız, ekran bağımlılığı kalmaz.
+
+**10. Real-time bağımlılıkları dikkatli ele alın.** Renode `RealTimeMode`'da fiziksel zamana hizalanmaya çalışır ama saat doğruluğu çekirdek kullanımına bağlıdır. Sıkı timing testleri için `MachineQuantum` ve `GlobalQuantum` ile deterministik time-step kullanın; gerçek zamana güvenmeyin.
+
+**11. Sensör akışlarını dosyadan besleyin.** Sensör simülasyonunu inline değil, JSON/CSV dosyasından okuyacak Python peripheral yazın. Aynı test senaryosu farklı veri setleriyle koşturulabilir — data-driven testing kapısı açılır.
+
+**12. Mevcut platformları kopyalayıp özelleştirin.** `@platforms/boards/zedboard.repl`'i kopyalayıp `my_board.repl` yapın, `using` ile orijinali dahil edip üzerine **sadece farkları** yazın. Renode güncellemelerinde temel platform iyileşirken sizin patch'iniz korunur.
+
+**13. Coverage'ı simülasyondan toplayın.** `cpu0 EnableProfilerCollapsedStack` ile çıkan log + `inferno-flamegraph` = bir gecede test kapsamı raporu. Manuel kart üzerinde coverage almak çok daha pahalıdır.
+
+**14. PR'lara Renode test sonucu ekleyin.** GitHub Actions'ta `renode-test`'in çıktısını PR yorumuna yapıştıran bir adım kurun. Reviewer'lar testin yeşil olduğunu görerek inceler; "deneyip baktım" kültürünü destekler.
+
+**15. Renode dokümantasyonunu sıkça açın.** Renode hızla gelişiyor; `renode.readthedocs.io` yeni özellikler için en güncel kaynaktır. Antmicro blog'u Verilator entegrasyonu, yeni platformlar ve case study'ler için kıymetlidir.
 
 ---
 
