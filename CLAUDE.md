@@ -108,7 +108,6 @@ Deployment is automated via GitHub Actions:
 Other workflows:
 
 - `calibreapp-image-actions.yml` — compresses images in PRs
-- `codacy.yml` — Codacy code quality analysis
 - `codeql-analysis.yml` — GitHub CodeQL security scan
 - `dependency-review.yml` — dependency review on PRs
 
