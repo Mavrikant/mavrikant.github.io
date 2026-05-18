@@ -5,7 +5,6 @@ subtitle: "MC/DC Coverage: Why DO-178C DAL A Requires Modified Condition/Decisio
 background: "/img/posts/2.webp"
 date: '2026-05-18 09:00:00 +0300'
 lang: tr
-mermaid: true
 ---
 
 Sertifikasyon denetiminin ikinci günü. Denetçi karşınıza bir kod parçası koyuyor:
