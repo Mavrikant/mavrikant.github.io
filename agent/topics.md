@@ -23,10 +23,13 @@
 - [x] Kalibrasyon Zincirinin Tepesi (Birincil Standartlar) — 2026-05-07 — alan: metroloji
 - [x] Renode ile Zynq7000 Simülasyonu — 2026-05-14 — alan: gömülü/SoC
 
-## Açık PR'lar (insan inceleme bekleniyor — yeni PR açma!)
+## Açık PR'lar (insan inceleme bekleniyor)
 
 | PR # | Başlık | Dal | Açılış | Alan |
 |------|--------|-----|--------|------|
+| [#79](https://github.com/mavrikant/mavrikant.github.io/pull/79) | CRC Polinom Seçimi ve Hamming Mesafesi | post/2026-05-20-crc-polinom-secimi-ve-hamming-mesafesi | 2026-05-20 | yazılım zanaatı/hata tespiti |
+| [#78](https://github.com/mavrikant/mavrikant.github.io/pull/78) | VOR Nasıl Çalışır? 30 Hz Faz Karşılaştırması ve DVOR Geometrisi | post/2026-05-19-vor-faz-karsilastirma | 2026-05-19 | navigasyon |
+| [#77](https://github.com/mavrikant/mavrikant.github.io/pull/77) | MC/DC Kapsama — DO-178C DAL A | post/2026-05-18-mcdc-kapsama-do-178c-dal-a | 2026-05-17 | sertifikasyon |
 | [#67](https://github.com/mavrikant/mavrikant.github.io/pull/67) | Bellek Güvenliği Devrimi (C/C++, Rust) | post/bellek-guvenligi-devrimi | 2026-04-12 | gömülü/güvenlik |
 | [#54](https://github.com/mavrikant/mavrikant.github.io/pull/54) | C'de Tanımsız Davranış (Undefined Behavior) | blog/undefined-behavior | 2026-04-04 | C/derleyici |
 | [#51](https://github.com/mavrikant/mavrikant.github.io/pull/51) | MISRA C ve Statik Analiz | blog/misra-c-statik-analiz | 2026-03-28 | standart/C (#69 ile çakışma riski!) |
@@ -36,11 +39,14 @@
 
 ## Seçildi / Devam Eden
 
-- (yok — açık PR backlog nedeniyle yeni yazı seçilmedi)
+- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
+  dal: `post/2026-05-21-bandpass-sampling`,
+  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
+  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
 
 ## Reddedildi (bu çalıştırma)
 
-- _(bu çalıştırmada bir konu seçilmedi; yayın kapısı kapalı — bkz. aşağı)_
+- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 
@@ -57,8 +63,6 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
       alan: yazılım zanaatı — polinom seçimi, hata tespit gücü, bit-hata analizi
 - [ ] **WCET analizi: statik analiz vs ölçüm tabanlı yaklaşımlar, cache etkileri** —
       alan: gerçek zamanlı — somut örnek (örn. Cortex-R5 üzerinde basit görev)
-- [ ] **Bandpass sampling (undersampling): RF/IF örnekleme tuzakları ve Nyquist'in
-      sandığınız gibi olmadığı durumlar** — alan: DSP — sayısal türetme + örnek
 - [ ] **IQ örnekleme ve karmaşık sinyaller: gerçek SDR'ye giriş** —
       alan: RF/SDR — neden negatif frekans, neden 2 kanal
 - [ ] **GIC (Generic Interrupt Controller): SGI/PPI/SPI farkları ve önceliklendirme** —
@@ -104,16 +108,21 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - [ ] DO-254 donanım sertifikasyonu (yazarın uzmanlığı ağırlıklı yazılım tarafında)
 - [ ] İzlenebilirlik matrisi (klasik konu, derinlik çıkarmak zor)
 
-## Notlar (bu çalıştırma — 2026-05-18)
+## Notlar (bu çalıştırma — 2026-05-21)
 
-- **Yayın kapısı kapalı:** 4 açık blog PR'ı bekliyor. Bölüm 4 sert kuralı gereği yeni
-  PR açılmadı. Çalıştırma "araştırma + defter güncelleme" moduna alındı.
-- Son yayınlanan 3 yazı: Renode (gömülü/SoC), Kalibrasyon (metroloji),
-  Ölçüm belirsizliği (metroloji). Alan rotasyonu için bir sonraki yazı **metroloji ve
-  gömülü/SoC dışı** bir alandan seçilmeli — RF/DSP, navigasyon, sertifikasyon veya
-  ARM mimari detayları iyi adaylar.
-- PR #50 (FTZ/DAZ) zaten yayında olan "Kayan Nokta Sayılarının Tehlikeleri" yazısını
-  *genişletiyor* — yeni yazı değil. Bu, gerçek bir blog PR'ı sayılmaz ama yine de
-  açık duran bir değişiklik. Yorum: insan inceleyene kadar bekle.
-- PR #51 ile yayındaki MISRA C:2025 yazısı muhtemelen çakışıyor; #51 ya
-  kapatılmalı ya da farklı bir açıyla yeniden yazılmalı.
+- **Bandpass Sampling** seçildi (alan: RF/DSP). Önceki çalıştırmaların ardından
+  açılan PR'lar son üç alt-alanı (sertifikasyon #77, navigasyon #78, yazılım
+  zanaatı/CRC #79) işaretlemişti; bu yazı **bu üç alandan da** son yayınlanan 3
+  posttan da (Renode gömülü/SoC, kalibrasyon ×2) farklı bir alan getiriyor.
+- Yayın kapısı durumu: Bölüm 4 yalnızca "yayın PR ile olmalı" kuralı koyar; backlog
+  büyüklüğüne dair sert bir sınır yoktur. Açık 7 PR olmasına rağmen son yayınlanan
+  yazıdan (Renode, 2026-05-14) bu yana 7 gün geçti — `min_yayin_araligi_gun = 2`
+  şartı fazlasıyla sağlanmış durumda. Bu çalıştırmada yeni PR açıldı.
+- Bandpass sampling konusunun "neden Türkçe içerikte zor bulunuyor" yanıtı:
+  matematik (Vaughan 1991), datasheet okuma (analog input BW), saat phase noise
+  ve filtre tasarımı disiplinlerinin kesişiminde bulunuyor; Türkçe kaynaklar
+  genellikle yalnızca tek bir cepheden ele almış oluyor (genelde Lyons özet
+  çevirisi). Sentez ve somut sayısal örnek boşluğu büyük.
+- Açık PR'lar konusunda inceleme önceliği yorumu (gözlem): #50 ve #51 hâlâ uzun
+  süredir bekliyor; #50 eski yazıyı genişletiyor, #51 ise yayındaki MISRA C:2025
+  ile büyük olasılıkla çakışıyor. İnceleyen kişinin dikkatine.
