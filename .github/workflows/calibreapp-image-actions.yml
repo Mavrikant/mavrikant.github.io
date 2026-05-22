@@ -2,7 +2,14 @@ name: Compress Images
 on:
   pull_request:
     branches: [ master ]
-    
+    paths:
+      - 'img/**'
+      - 'favicon.jpg'
+
+concurrency:
+  group: compress-images-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
     name: calibreapp/image-actions

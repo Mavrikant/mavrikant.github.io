@@ -14,11 +14,29 @@ name: "CodeQL"
 on:
   push:
     branches: [ master ]
+    paths-ignore:
+      - '_posts/**'
+      - 'img/**'
+      - '**/*.md'
+      - 'CNAME'
+      - 'ads.txt'
+      - 'favicon.jpg'
   pull_request:
     # The branches below must be a subset of the branches above
     branches: [ master ]
+    paths-ignore:
+      - '_posts/**'
+      - 'img/**'
+      - '**/*.md'
+      - 'CNAME'
+      - 'ads.txt'
+      - 'favicon.jpg'
   schedule:
     - cron: '34 8 * * 0'
+
+concurrency:
+  group: codeql-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   analyze:
