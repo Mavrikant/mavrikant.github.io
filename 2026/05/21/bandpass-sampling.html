@@ -10,9 +10,9 @@
 <link href="/manifest.webmanifest" rel="manifest">
 <meta content="/browserconfig.xml" name="msapplication-config">
 <!-- Begin Jekyll SEO tag v2.9.0 -->
-<title>Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek | M. Serdar Karaman</title>
+<title>Bandpass Sampling: 1 GHz Sinyali 50 MHz Clock ile Örneklemek | M. Serdar Karaman</title>
 <meta name="generator" content="Jekyll v4.2.2">
-<meta property="og:title" content="Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek">
+<meta property="og:title" content="Bandpass Sampling: 1 GHz Sinyali 50 MHz Clock ile Örneklemek">
 <meta name="author" content="M. Serdar Karaman">
 <meta property="og:locale" content="tr_TR">
 <meta name="description" content="Mühendislik mülakatlarında klasik bir soru vardır: “1090 MHz’deki ADS-B sinyalini sayısal olarak yakalamak istiyorsun. Hangi hızda ADC kullanırsın?”">
@@ -26,9 +26,9 @@
 <meta property="article:modified_time" content="2026-05-21T09:00:00+00:00">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://karaman.dev/img/og-default.webp">
-<meta name="twitter:title" content="Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek">
+<meta name="twitter:title" content="Bandpass Sampling: 1 GHz Sinyali 50 MHz Clock ile Örneklemek">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"M. Serdar Karaman"},"dateModified":"2026-05-21T09:00:00+00:00","datePublished":"2026-05-21T09:00:00+00:00","description":"Mühendislik mülakatlarında klasik bir soru vardır: “1090 MHz’deki ADS-B sinyalini sayısal olarak yakalamak istiyorsun. Hangi hızda ADC kullanırsın?”","headline":"Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek","image":"https://karaman.dev/img/og-default.webp","mainEntityOfPage":{"@type":"WebPage","@id":"https://karaman.dev/2026/05/21/bandpass-sampling.html"},"url":"https://karaman.dev/2026/05/21/bandpass-sampling.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"M. Serdar Karaman"},"dateModified":"2026-05-21T09:00:00+00:00","datePublished":"2026-05-21T09:00:00+00:00","description":"Mühendislik mülakatlarında klasik bir soru vardır: “1090 MHz’deki ADS-B sinyalini sayısal olarak yakalamak istiyorsun. Hangi hızda ADC kullanırsın?”","headline":"Bandpass Sampling: 1 GHz Sinyali 50 MHz Clock ile Örneklemek","image":"https://karaman.dev/img/og-default.webp","mainEntityOfPage":{"@type":"WebPage","@id":"https://karaman.dev/2026/05/21/bandpass-sampling.html"},"url":"https://karaman.dev/2026/05/21/bandpass-sampling.html"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -127,7 +127,7 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="post-heading">
-            <h1>Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek</h1>
+            <h1>Bandpass Sampling: 1 GHz Sinyali 50 MHz Clock ile Örneklemek</h1>
             
             <h2 class="subheading">Bandpass Sampling: How to Digitize a 1 GHz Signal with a 50 MHz Clock</h2>
             
@@ -157,7 +157,7 @@
           <div class="post-content">
             <p>Mühendislik mülakatlarında klasik bir soru vardır: <em>“1090 MHz’deki ADS-B sinyalini sayısal olarak yakalamak istiyorsun. Hangi hızda ADC kullanırsın?”</em></p>
 
-<p>Nyquist–Shannon teoremini hatırlayan herkes refleksle cevaplar: <em>“En az 2.18 GSPS.”</em> Mantıklı görünür: en yüksek frekansın iki katı. Cevap teknik olarak yanlış olmasa da, gerçek hayatta hiçbir ADS-B alıcısı 2 GSPS’lik bir ADC ile çalışmaz. Tipik bir donanım, 1090 MHz’in komşuluğundaki <strong>2 MHz</strong> civarındaki dar bandı 50 MSPS hatta daha yavaş saatlerle örnekler — ve hiçbir şey kaybolmaz.</p>
+<p>Nyquist–Shannon teoremini hatırlayan herkes refleksle cevaplar: <em>“En az 2.18 GSPS.”</em> Mantıklı görünür: en yüksek frekansın iki katı. Cevap teknik olarak yanlış olmasa da, gerçek hayatta hiçbir ADS-B alıcısı 2 GSPS’lik bir ADC ile çalışmaz. Tipik bir donanım, 1090 MHz’in komşuluğundaki <strong>2 MHz</strong> civarındaki dar bandı 50 MSPS hatta daha yavaş clock ile örnekler — ve hiçbir şey kaybolmaz.</p>
 
 <p>Burada işin sırrı <strong>bandpass sampling</strong> (veya <em>IF sampling</em>, <em>undersampling</em>) denilen, klasik örnekleme teoreminin az bilinen kuzenidir. Bu yazıda teoremin geometrisine, izinli/yasak örnekleme oranlarının nasıl ortaya çıktığına, spektral ters çevrilme tuzağına ve modern ADC’lerin neden GHz mertebesinde analog bant genişliği ilan ettiğine inip somut bir Python örneğiyle her şeyi yerine oturtacağız.</p>
 
@@ -271,12 +271,12 @@ $$</p>
   <li>
 <strong>Yasak bölgeler vardır.</strong> Örneğin 43 MSPS ile 50 MSPS arasında <em>hiçbir</em> n çalışmaz. Bu aralıkta sinyal mutlaka iki komşu Nyquist bölgesi arasındaki sınırı keser ve alias’lar çakışır.</li>
   <li>
-<strong>n büyüdükçe izinli aralık daralır.</strong> n = 7’de pencere yalnızca 240 kHz genişliktedir. Saat kaynağınızın drift’i, anti-alias filtresinin roll-off bölgesi, sıcaklık değişimi — hepsi bu dar yarığa sığmak zorundadır. Pratikte n = 7 ile bir tasarım yapmak intihardır.</li>
+<strong>n büyüdükçe izinli aralık daralır.</strong> n = 7’de pencere yalnızca 240 kHz genişliktedir. Clock kaynağınızın drift’i, anti-alias filtresinin roll-off bölgesi, sıcaklık değişimi — hepsi bu dar yarığa sığmak zorundadır. Pratikte n = 7 ile bir tasarım yapmak intihardır.</li>
   <li>
 <strong>Tek tek hıza inerken bir kazanım var.</strong> 75 MSPS yerine 31 MSPS’de çalışan bir ADC seçmek, hem güç tüketimini hem dijital arka uçtaki örnek hızını yarıdan fazla düşürür. Cortex-M tabanlı bir alıcıda bu ciddi bir mimari kazançtır.</li>
 </ol>
 
-<p>İyi bir tasarımcı aralığın <strong>ortasında</strong> durur. n = 3 için 50–65 MSPS aralığının ortası ~57 MSPS’dir; saatte 5 MSPS sapsa bile hâlâ izinli bölgenin içindedir.</p>
+<p>İyi bir tasarımcı aralığın <strong>ortasında</strong> durur. n = 3 için 50–65 MSPS aralığının ortası ~57 MSPS’dir; clockla 5 MSPS sapsa bile hâlâ izinli bölgenin içindedir.</p>
 
 <hr>
 
@@ -295,7 +295,7 @@ $$</p>
 <strong>Sol ucu</strong> noktada (kamanın tepesi) f_s = 2·B’dir — teorik alt sınır.</li>
 </ul>
 
-<p>Yasak bölgeler, kamalar arasındaki üçgen “boşluklar”dır ve geometrik olarak 2B’nin tamsayı katlarında biriker. Bu yüzden “f_s’i 2B’ye çok yakın seçme” sezgisi vardır: tepe noktasının yakınında çalışan bir tasarım için saat drift’inin minik bir parçası dahi sistemi yasak bölgeye sürüklemeye yeter.</p>
+<p>Yasak bölgeler, kamalar arasındaki üçgen “boşluklar”dır ve geometrik olarak 2B’nin tamsayı katlarında biriker. Bu yüzden “f_s’i 2B’ye çok yakın seçme” sezgisi vardır: tepe noktasının yakınında çalışan bir tasarım için clock drift’inin minik bir parçası dahi sistemi yasak bölgeye sürüklemeye yeter.</p>
 
 <p>Yine de wedge diyagramı sadece bir gözlem aracıdır. Saha tasarımının değişmez kuralı şudur: <strong>bir kamanın iç noktasında dur, kenardan uzak kal.</strong> Vaughan’ın 1991 makalesi bu hassasiyet analizini ayrı bir bölümle ele alır.</p>
 
@@ -391,13 +391,13 @@ $$</p>
 
 <h2 id="sınırı-belirleyen-aslında-jitter">Sınırı Belirleyen Aslında Jitter</h2>
 
-<p>ADC analog bant genişliği yeterli olsa bile, yüksek IF’te sinyali sınırlandıran başka bir parametre ortaya çıkar: <strong>saat jitter’ı</strong>, yani aperture jitter. Tipik formülü şudur:</p>
+<p>ADC analog bant genişliği yeterli olsa bile, yüksek IF’te sinyali sınırlandıran başka bir parametre ortaya çıkar: <strong>clock jitter’ı</strong>, yani aperture jitter. Tipik formülü şudur:</p>
 
 <p>$$
 \text{SNR}<em>{\text{jitter}} = -20 \log</em>{10}(2\pi \cdot f_{\text{in}} \cdot \sigma_t)
 $$</p>
 
-<p>Burada f_in <strong>analog giriş</strong> frekansıdır (örnekleme hızı değil!) ve σ_t saat kaynağının RMS jitter değeridir. Formülde gizli olan korkutucu gerçek şudur: SNR, sinyal frekansıyla doğrudan azalır. Baseband’de problem değil olan jitter, 1 GHz IF’te uygulamayı imkânsız hale getirebilir.</p>
+<p>Burada f_in <strong>analog giriş</strong> frekansıdır (örnekleme hızı değil!) ve σ_t clock kaynağının RMS jitter değeridir. Formülde gizli olan korkutucu gerçek şudur: SNR, sinyal frekansıyla doğrudan azalır. Baseband’de problem değil olan jitter, 1 GHz IF’te uygulamayı imkânsız hale getirebilir.</p>
 
 <p>Somut bir hesap: σ_t = 100 fs (modern bir VCXO için iyi bir değer), f_in = 1 GHz:</p>
 
@@ -405,9 +405,9 @@ $$</p>
 \text{SNR} = -20 \log_{10}(2\pi \cdot 10^9 \cdot 10^{-13}) \approx 64 \text{ dB}
 $$</p>
 
-<p>64 dB SNR, etkin bit sayısı (ENOB) cinsinden yaklaşık 10.3 bit’e karşılık gelir. Yani 16-bit’lik LTC2208’i 1 GHz’de örneklerseniz, bitlerinizin <strong>3 ila 5 tanesini saat kaynağına kurban etmiş</strong> olursunuz. ADC’nin ilan ettiği 78 dB SNR’ı görmek için çok daha düşük IF’te kalmanız ya da çok daha temiz bir saat (örneğin 10 fs sınıfı bir SAW veya kristal osilatör) kullanmanız gerekir.</p>
+<p>64 dB SNR, etkin bit sayısı (ENOB) cinsinden yaklaşık 10.3 bit’e karşılık gelir. Yani 16-bit’lik LTC2208’i 1 GHz’de örneklerseniz, bitlerinizin <strong>3 ila 5 tanesini clock kaynağına kurban etmiş</strong> olursunuz. ADC’nin ilan ettiği 78 dB SNR’ı görmek için çok daha düşük IF’te kalmanız ya da çok daha temiz bir clock (örneğin 10 fs sınıfı bir SAW veya kristal osilatör) kullanmanız gerekir.</p>
 
-<p>Bu yüzden bandpass sampling tasarımlarında saat kaynağı, alıcının LO’su kadar — bazen daha fazla — özen ister. Phase noise spektrumunun, sinyal yakınında −150 dBc/Hz’in altına inebilmesi tipik bir hedeftir.</p>
+<p>Bu yüzden bandpass sampling tasarımlarında clock kaynağı, alıcının LO’su kadar — bazen daha fazla — özen ister. Phase noise spektrumunun, sinyal yakınında −150 dBc/Hz’in altına inebilmesi tipik bir hedeftir.</p>
 
 <hr>
 
@@ -527,7 +527,7 @@ $$</p>
   <li>
 <strong>Wedge’in tepe noktasından kaç.</strong> Pratik bir kural: izinli aralığın ortasına denk gelen n’i seç. Eğer ortası çok dar bir kamaya düşüyorsa daha küçük n’e geç.</li>
   <li>
-<strong>Saatin phase noise’unu RF mühendisliği gibi düşün.</strong> σ_t = 1 ps’lik bir saat, baseband alıcısında lüks; 1 GHz IF’te facia.</li>
+<strong>Clockun phase noise’unu RF mühendisliği gibi düşün.</strong> σ_t = 1 ps’lik bir clock, baseband alıcısında lüks; 1 GHz IF’te facia.</li>
   <li>
 <strong>Anti-alias filtresini erken seç.</strong> SAW filtresinin sipariş süresi haftalar olabilir. Sistem mimarisinde yeri belirlenmeden FPGA yazılımına geçmek riskli.</li>
   <li>
@@ -535,14 +535,14 @@ $$</p>
   <li>
 <strong>Gürültü figürünü unutma.</strong> Filtreyi geçen out-of-band gürültü doğrudan baseband’e iner. Aktif önyükselticinin gürültü figürü, geniş analog BW’de etkin gürültüye dönüşür.</li>
   <li>
-<strong>Sıcaklık üzerinden saat drift’ini düşün.</strong> −40 °C’de farklı bir TCXO frekansı, izinli kamadan çıkmana neden olabilir. Tasarım marjı somut olarak hesaplanmalı.</li>
+<strong>Sıcaklık üzerinden clock drift’ini düşün.</strong> −40 °C’de farklı bir TCXO frekansı, izinli kamadan çıkmana neden olabilir. Tasarım marjı somut olarak hesaplanmalı.</li>
 </ol>
 
 <hr>
 
 <h2 id="bandpass-sampling-nerede-kullanılır">Bandpass Sampling Nerede Kullanılır?</h2>
 
-<p>Modern alıcı mimarilerinin büyük kısmı hâlâ analog ön-karıştırıcı (mixer) ile bandı önce baseband’e ya da düşük IF’e indirir, sonra örnekler. Bunun nedeni hem analog BW yeterli ADC’lerin pahalı olması, hem de saat phase noise’unun maliyetli yönetimi.</p>
+<p>Modern alıcı mimarilerinin büyük kısmı hâlâ analog ön-karıştırıcı (mixer) ile bandı önce baseband’e ya da düşük IF’e indirir, sonra örnekler. Bunun nedeni hem analog BW yeterli ADC’lerin pahalı olması, hem de clock phase noise’unun maliyetli yönetimi.</p>
 
 <p>Ama doğrudan-IF veya doğrudan-RF örnekleme yapan tasarımlar son 10 yılda hızla yayıldı:</p>
 
@@ -555,7 +555,7 @@ $$</p>
 <strong>Yazılım tanımlı askeri telsizler</strong> ve doğrudan-IF örnekleme yapan üst-uç ölçüm cihazları (modern spektrum analizörleri, vektör sinyal analizörleri).</li>
 </ul>
 
-<p>Buna karşılık <strong>PlutoSDR</strong>, <strong>RTL-SDR</strong> gibi popüler hobi/laboratuvar SDR’ler bandpass sampling kullanmaz — bunların hepsinde analog quadrature downconversion yapan tuner yongaları (AD9363, R820T2 vb.) vardır. ADC görece düşük IF’te (RTL-SDR için ~3.57 MHz) çalışır. Bandpass sampling görüldüğü kadar bedava değildir; ödediği bedel, saat ve filtre alt sisteminin yüksek karmaşıklığıdır.</p>
+<p>Buna karşılık <strong>PlutoSDR</strong>, <strong>RTL-SDR</strong> gibi popüler hobi/laboratuvar SDR’ler bandpass sampling kullanmaz — bunların hepsinde analog quadrature downconversion yapan tuner yongaları (AD9363, R820T2 vb.) vardır. ADC görece düşük IF’te (RTL-SDR için ~3.57 MHz) çalışır. Bandpass sampling görüldüğü kadar bedava değildir; ödediği bedel, clock ve filtre alt sisteminin yüksek karmaşıklığıdır.</p>
 
 <hr>
 
@@ -563,7 +563,7 @@ $$</p>
 
 <p>Nyquist–Shannon teoremi temel bir doğrudur, ama <strong>“en yüksek frekansın iki katı”</strong> ezberi onu bir nevi karikatürleştirir. Sinyalin baseband değil dar-bantlı olduğu durumda, gerçek alt sınır bilgi yüküdür: f_s ≥ 2B. Bandpass sampling, bu alt sınıra hangi sayısal hilelerle nasıl yaklaşacağımızı söyler.</p>
 
-<p>Pratikte bandpass sampling’i benimseyen tasarımlarda kritik karar üç sayıyla özetlenir: hangi n, hangi ADC analog BW, hangi saat jitter’ı. Bu üç sayıyı doğru yere koyarsanız, gerçekten <strong>1 GHz’lik sinyali 50 MHz saatle örneklemek</strong> mümkündür — ve sahada her gün çalışır. Yanlış yere koyarsanız sistem ya hiç çalışmaz ya da bazen, anlayamadığınız zamanlarda kendi kendine gizemli biçimde bozulur. RF mühendisliğinde her iki son da görülmüştür.</p>
+<p>Pratikte bandpass sampling’i benimseyen tasarımlarda kritik karar üç sayıyla özetlenir: hangi n, hangi ADC analog BW, hangi clock jitter’ı. Bu üç sayıyı doğru yere koyarsanız, gerçekten <strong>1 GHz’lik sinyali 50 MHz clockla örneklemek</strong> mümkündür — ve sahada her gün çalışır. Yanlış yere koyarsanız sistem ya hiç çalışmaz ya da bazen, anlayamadığınız zamanlarda kendi kendine gizemli biçimde bozulur. RF mühendisliğinde her iki son da görülmüştür.</p>
 
 <p>Sonraki yazı için iyi bir devam konusu: bandpass sampling’in çıktısı zone 1’e indikten sonra <strong>dijital downconversion (DDC)</strong> ile I/Q ayrımı nasıl yapılır, ve neden “f_s/4 trick” denilen küçük sihir hem CIC filtresinden hem de NCO’dan tasarruf sağlar. Bu defterimde duruyor.</p>
 
