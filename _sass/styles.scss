@@ -1145,7 +1145,10 @@ article {
 
 .bayram-splash__panel {
   position: relative;
-  width: min(640px, 100%);
+  // Note: avoid `min(640px, 100%)` — Jekyll's sass-converter 2.x (libsass)
+  // treats `min()` as a SCSS math function and chokes on px/% mixing.
+  width: 100%;
+  max-width: 640px;
   max-height: calc(100vh - 48px);
   overflow-y: auto;
   background: var(--color-bg);
