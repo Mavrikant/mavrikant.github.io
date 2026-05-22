@@ -14,6 +14,11 @@ Nyquist–Shannon teoremini hatırlayan herkes refleksle cevaplar: *"En az 2.18 
 
 Burada işin sırrı **bandpass sampling** (veya *IF sampling*, *undersampling*) denilen, klasik örnekleme teoreminin az bilinen kuzenidir. Bu yazıda teoremin geometrisine, izinli/yasak örnekleme oranlarının nasıl ortaya çıktığına, spektral ters çevrilme tuzağına ve modern ADC'lerin neden GHz mertebesinde analog bant genişliği ilan ettiğine inip somut bir Python örneğiyle her şeyi yerine oturtacağız.
 
+<figure>
+  <img src="/img/posts/bandpass-sampling-signal.webp" alt="70 MHz IF bandpass sinyali ve 31.25 MSPS örnekleme noktaları" class="img-fluid rounded">
+  <figcaption><strong>Şekil 1.</strong> 70 MHz IF sinyali (67.5 + 72.5 MHz iki ton, mavi) ve 31.25 MSPS örnekleme noktaları (kırmızı). Örnekler arasındaki boşluk T = 32 ns; sinyalin kendi periyodu ise yaklaşık 14 ns — klasik Nyquist açısından yetersiz ama bandpass sampling açısından mükemmel.</figcaption>
+</figure>
+
 ---
 
 ## Nyquist'in Saklı Varsayımı
@@ -83,6 +88,11 @@ Bu yasak ve izinli bölgeler bir grafiğe dökülünce ortaya **wedge** (kama) d
 Yasak bölgeler, kamalar arasındaki üçgen "boşluklar"dır ve geometrik olarak 2B'nin tamsayı katlarında biriker. Bu yüzden "f_s'i 2B'ye çok yakın seçme" sezgisi vardır: tepe noktasının yakınında çalışan bir tasarım için saat drift'inin minik bir parçası dahi sistemi yasak bölgeye sürüklemeye yeter.
 
 Yine de wedge diyagramı sadece bir gözlem aracıdır. Saha tasarımının değişmez kuralı şudur: **bir kamanın iç noktasında dur, kenardan uzak kal.** Vaughan'ın 1991 makalesi bu hassasiyet analizini ayrı bir bölümle ele alır.
+
+<figure>
+  <img src="/img/posts/bandpass-sampling-zones.webp" alt="70 MHz IF için izinli ve yasak örnekleme hızları" class="img-fluid rounded">
+  <figcaption><strong>Şekil 2.</strong> 70 MHz IF (65–75 MHz bant) için izinli (mavi/mor) ve yasak (kırmızı) örnekleme hızları. Mavi bölgeler n tek → spektrum düz; mor bölgeler n çift → spektrum ters. Kırmızı aralar hiçbir n için çalışmaz. Dikey çizgiler: n = 5 için kullanılan 31.25 MSPS (lacivert) ve n = 3 için ideal orta nokta ~57.5 MSPS (teal). Teorik alt sınır 2B = 20 MSPS noktalı çizgiyle gösterilmiş.</figcaption>
+</figure>
 
 ---
 
@@ -208,6 +218,11 @@ plt.grid(); plt.show()
 ```
 
 Çalıştırınca pozitif yarıda **5 MHz ve 10 MHz** civarında iki keskin tepe görmelisiniz. Hesap doğrudan modulodur: n = 5 için kayma miktarı `(n−1)/2 · f_s = 2 · 31.25 = 62.5 MHz`; alt ton 67.5 − 62.5 = 5 MHz'e, üst ton 72.5 − 62.5 = 10 MHz'e iner. n tek olduğu için spektrum upright kalır, yani alt-üst sıra korunur.
+
+<figure>
+  <img src="/img/posts/bandpass-sampling-fft.webp" alt="Orijinal analog spektrum ve örneklenmiş alias spektrumu karşılaştırması" class="img-fluid rounded">
+  <figcaption><strong>Şekil 3.</strong> <em>Sol:</em> 70 MHz IF sinyalinin orijinal analog spektrumu — tonlar 67.5 MHz ve 72.5 MHz'de. <em>Sağ:</em> 31.25 MSPS örnekleme sonrası zone 1'deki alias spektrumu — aynı tonlar 5 MHz ve 10 MHz'e inmiş, spektrum düz (n = 5 tek). Bilgi kayıpsız: tonlar arasındaki frekans farkı (5 MHz) ve göreli konumları korunuyor.</figcaption>
+</figure>
 
 Şimdi denemeye değer bir alıştırma: `step = 30` yapın — bu, f_s = 33.33 MSPS demektir ve n = 5 için izinli aralığın (32.5 MSPS) dışındadır. Sinyalin alt kenarı zone 4'e, üst kenarı zone 5'e düşer; baseband'e farklı parite ile aliase oldukları için zone 1'deki spektrum bozulur ve iki tonun konumu artık `f − shift` formülüyle doğru çıkmaz. Yasak bölgenin gözlemlenebilir kanıtı budur.
 
