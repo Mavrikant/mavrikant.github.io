@@ -18,7 +18,7 @@ Gündelik işim gereksinimler, MISRA ve JSF kurallarına göre yazılan C/C++ ko
 
 Hacettepe Üniversitesi Bilgisayar Yazılımı Mühendisliği yüksek lisansım ve İzmir Yüksek Teknoloji Enstitüsü Elektrik-Elektronik ve Haberleşme Mühendisliği lisansım var. Şu anda Sistem Mühendisliği alanında ikinci yüksek lisansıma devam ediyorum.
 
-İşin dışında [karaman.dev](https://karaman.dev/) ve [aviyonikyazilim.com](https://www.aviyonikyazilim.com/) üzerinde yazıyor, [GitHub](https://github.com/Mavrikant)'da kişisel projeler geliştiriyor ve 2014'ten bu yana Vikipedi'ye 225 binden fazla düzenleme ve bot betiğiyle katkı veriyorum.
+İşin dışında [karaman.dev](https://karaman.dev/) ve [aviyonikyazilim.com](https://www.aviyonikyazilim.com/) üzerinde yazıyor, [GitHub](https://github.com/Mavrikant)'da kişisel projeler geliştiriyor ve 2014'ten bu yana Vikipedi'ye 225 binden fazla düzenleme ve bot betiğiyle katkı veriyorum. Site üzerinde barındırdığım bazı yan projelerime de göz atabilirsiniz: [Oyunlar](https://karaman.dev/games) ve [OR Araçları](https://karaman.dev/or-araclari).
 
 <ul class="skill-tags">
   <li>Aviyonik</li><li>DO-178C DAL A</li><li>MISRA C</li><li>JSF C++</li><li>Gömülü sistemler</li><li>C / C++</li><li>Python</li><li>Qt</li><li>Test otomasyonu</li><li>Sistem mühendisliği</li><li>Xilinx Zynq</li><li>ARINC 429</li><li>MIL-STD-1553</li>
