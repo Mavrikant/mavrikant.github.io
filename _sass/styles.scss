@@ -1107,3 +1107,349 @@ article {
     }
   }
 }
+
+// =============================================================================
+// Bayram splash — first-visit Kurban Bayramı greeting
+// =============================================================================
+.bayram-splash {
+  --splash-chrome: #0b0d12;
+  --splash-chrome-border: rgba(255, 255, 255, 0.08);
+  --splash-chrome-text: rgba(245, 247, 250, 0.78);
+
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 280ms cubic-bezier(0.22, 1, 0.36, 1);
+
+  &[hidden] { display: none; }
+
+  &.is-open {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+.bayram-splash__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 10, 14, 0.72);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+}
+
+.bayram-splash__panel {
+  position: relative;
+  width: min(640px, 100%);
+  max-height: calc(100vh - 48px);
+  overflow-y: auto;
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  transform: translateY(8px) scale(0.98);
+  opacity: 0;
+  transition: transform 320ms cubic-bezier(0.22, 1, 0.36, 1),
+              opacity 240ms cubic-bezier(0.22, 1, 0.36, 1);
+
+  .bayram-splash.is-open & {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.bayram-splash__status {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 32px;
+  padding: 0 14px;
+  background: var(--splash-chrome);
+  border-bottom: 1px solid var(--splash-chrome-border);
+  color: var(--splash-chrome-text);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+  border-top-left-radius: var(--radius-lg);
+  border-top-right-radius: var(--radius-lg);
+}
+
+.bayram-splash__status-left,
+.bayram-splash__status-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.bayram-splash__pip {
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: var(--color-accent);
+  box-shadow: 0 0 6px var(--color-accent);
+}
+
+.bayram-splash__sep { opacity: 0.32; }
+.bayram-splash__status-dim { opacity: 0.75; }
+.bayram-splash__status-faint { opacity: 0.55; }
+
+.bayram-splash__ticks {
+  position: absolute;
+  inset: 38px 12px 12px 12px;
+  pointer-events: none;
+}
+
+.bayram-splash__tick {
+  position: absolute;
+  width: 18px;
+  height: 18px;
+}
+
+.bayram-splash__tick::before,
+.bayram-splash__tick::after {
+  content: '';
+  position: absolute;
+  background: var(--color-heading);
+  opacity: 0.55;
+}
+
+.bayram-splash__tick::before { width: 100%; height: 1px; top: 0; left: 0; }
+.bayram-splash__tick::after  { width: 1px; height: 100%; top: 0; left: 0; }
+
+.bayram-splash__tick--tl { top: 0; left: 0; }
+.bayram-splash__tick--tr { top: 0; right: 0; transform: scaleX(-1); }
+.bayram-splash__tick--bl { bottom: 0; left: 0; transform: scaleY(-1); }
+.bayram-splash__tick--br { bottom: 0; right: 0; transform: scale(-1, -1); }
+
+.bayram-splash__close {
+  position: absolute;
+  top: 40px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  background: transparent;
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  color: var(--color-text-muted);
+  cursor: pointer;
+  z-index: 2;
+  transition: color 160ms ease, border-color 160ms ease, background-color 160ms ease;
+
+  &:hover,
+  &:focus-visible {
+    color: var(--color-heading);
+    border-color: var(--color-border-strong);
+    background: var(--color-bg-alt);
+    outline: none;
+  }
+}
+
+.bayram-splash__body {
+  padding: 44px 48px 40px;
+  text-align: center;
+  position: relative;
+}
+
+.bayram-splash__art {
+  display: flex;
+  justify-content: center;
+  margin: 0 0 18px;
+}
+
+.bayram-splash__art svg { display: block; }
+
+.bayram-splash__crescent-fill { fill: var(--color-accent); }
+.bayram-splash__nodes circle { fill: rgba(8, 22, 30, 0.85); }
+.bayram-splash__star { fill: var(--color-accent); }
+
+.bayram-splash__eyebrow {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: none;
+  color: var(--color-accent);
+  margin: 0 0 18px;
+}
+
+.bayram-splash__title {
+  font-family: var(--font-serif);
+  font-size: clamp(30px, 5vw, 42px);
+  font-weight: 500;
+  letter-spacing: -0.02em;
+  line-height: 1.08;
+  color: var(--color-heading);
+  margin: 0 0 22px;
+}
+
+.bayram-splash__divider {
+  width: 120px;
+  height: 1px;
+  background: var(--color-border);
+  margin: 0 auto 20px;
+}
+
+.bayram-splash__subtitle {
+  font-family: var(--font-serif);
+  font-size: clamp(18px, 2.4vw, 22px);
+  font-style: italic;
+  color: var(--color-text);
+  margin: 0 0 18px;
+}
+
+.bayram-splash__subtitle em { font-style: italic; }
+
+.bayram-splash__wish {
+  font-family: var(--font-serif);
+  font-size: 15px;
+  line-height: 1.5;
+  color: var(--color-text-muted);
+  margin: 0 0 28px;
+}
+
+.bayram-splash__signature {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-family: var(--font-sans);
+}
+
+.bayram-splash__sig-rule {
+  width: 36px;
+  height: 1.5px;
+  background: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.bayram-splash__sig-name {
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  color: var(--color-heading);
+}
+
+// Dark theme tweaks
+[data-theme="dark"] .bayram-splash__nodes circle { fill: rgba(8, 22, 30, 0.92); }
+[data-theme="dark"] .bayram-splash__net          { stroke: rgba(8, 22, 30, 0.65); }
+
+@media (max-width: 520px) {
+  .bayram-splash { padding: 12px; }
+  .bayram-splash__body { padding: 36px 22px 30px; }
+  .bayram-splash__close { top: 38px; right: 10px; }
+  .bayram-splash__ticks { inset: 36px 8px 8px 8px; }
+  .bayram-splash__art svg { width: 180px; height: 180px; }
+  .bayram-splash__title { font-size: 28px; }
+}
+
+// ─── Splash entry animation cascade ─────────────────────────────────────────
+// All elements start hidden; .is-open on the splash root triggers a staggered
+// sequence: chrome → ticks → crescent wipe → star snap → editorial text cascade.
+@keyframes bayram-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes bayram-fade-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes bayram-tick-h { from { width: 0; } to { width: 100%; } }
+@keyframes bayram-tick-v { from { height: 0; } to { height: 100%; } }
+@keyframes bayram-art {
+  from { opacity: 0; transform: scale(0.94); }
+  to   { opacity: 1; transform: scale(1); }
+}
+@keyframes bayram-mask-wipe {
+  from { cx: 170; }
+  to   { cx: 208; }
+}
+@keyframes bayram-star-snap {
+  0%   { opacity: 0; transform: scale(0.35); }
+  70%  { opacity: 1; transform: scale(1.10); }
+  100% { opacity: 1; transform: scale(1); }
+}
+@keyframes bayram-divider-grow {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+
+// Hidden initial states (only when animations aren't suppressed)
+.bayram-splash__status,
+.bayram-splash__close,
+.bayram-splash__art,
+.bayram-splash__eyebrow,
+.bayram-splash__title,
+.bayram-splash__subtitle,
+.bayram-splash__wish,
+.bayram-splash__signature { opacity: 0; }
+
+.bayram-splash__divider { transform: scaleX(0); transform-origin: center; }
+
+.bayram-splash__tick::before { width: 0; }
+.bayram-splash__tick::after  { height: 0; }
+
+.bayram-splash__star {
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.bayram-splash__mask-inner { cx: 170; }
+
+// Trigger cascade when modal opens
+.bayram-splash.is-open {
+  .bayram-splash__status { animation: bayram-fade 240ms 80ms ease-out forwards; }
+  .bayram-splash__close  { animation: bayram-fade 240ms 80ms ease-out forwards; }
+
+  .bayram-splash__tick--tl::before { animation: bayram-tick-h 260ms 220ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  .bayram-splash__tick--tl::after  { animation: bayram-tick-v 260ms 220ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  .bayram-splash__tick--tr::before { animation: bayram-tick-h 260ms 300ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  .bayram-splash__tick--tr::after  { animation: bayram-tick-v 260ms 300ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  .bayram-splash__tick--br::before { animation: bayram-tick-h 260ms 380ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  .bayram-splash__tick--br::after  { animation: bayram-tick-v 260ms 380ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  .bayram-splash__tick--bl::before { animation: bayram-tick-h 260ms 460ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  .bayram-splash__tick--bl::after  { animation: bayram-tick-v 260ms 460ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+
+  .bayram-splash__art         { animation: bayram-art 600ms 380ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  .bayram-splash__mask-inner  { animation: bayram-mask-wipe 720ms 440ms cubic-bezier(0.65, 0, 0.35, 1) forwards; }
+  .bayram-splash__star        { animation: bayram-star-snap 520ms 980ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+
+  .bayram-splash__eyebrow   { animation: bayram-fade-up 380ms 1200ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  .bayram-splash__title     { animation: bayram-fade-up 460ms 1380ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  .bayram-splash__divider   { animation: bayram-divider-grow 460ms 1700ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  .bayram-splash__subtitle  { animation: bayram-fade-up 380ms 1880ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  .bayram-splash__wish      { animation: bayram-fade-up 380ms 2080ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  .bayram-splash__signature { animation: bayram-fade-up 440ms 2260ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bayram-splash,
+  .bayram-splash__panel { transition: none; }
+
+  // Skip animations; show final state immediately
+  .bayram-splash__status,
+  .bayram-splash__close,
+  .bayram-splash__art,
+  .bayram-splash__star,
+  .bayram-splash__eyebrow,
+  .bayram-splash__title,
+  .bayram-splash__subtitle,
+  .bayram-splash__wish,
+  .bayram-splash__signature { opacity: 1; }
+  .bayram-splash__divider { transform: scaleX(1); }
+  .bayram-splash__tick::before { width: 100%; }
+  .bayram-splash__tick::after  { height: 100%; }
+  .bayram-splash__mask-inner   { cx: 208; }
+
+  .bayram-splash.is-open *,
+  .bayram-splash.is-open *::before,
+  .bayram-splash.is-open *::after { animation: none !important; }
+}

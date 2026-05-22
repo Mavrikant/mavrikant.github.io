@@ -207,10 +207,65 @@
     }
   }
 
+  // ---------------------------------------------------------------------------
+  // Bayram splash — first-visit Kurban Bayramı greeting
+  // ---------------------------------------------------------------------------
+  function initBayramSplash() {
+    var splash = document.getElementById('bayram-splash');
+    if (!splash) return;
+
+    var STORAGE_KEY = 'bayram_splash_2026_seen';
+    try {
+      if (localStorage.getItem(STORAGE_KEY) === '1') return;
+    } catch (e) {}
+
+    var lastFocus = document.activeElement;
+
+    function open() {
+      splash.hidden = false;
+      // Force a reflow so the transition runs from the hidden state.
+      void splash.offsetWidth;
+      splash.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+      var closeBtn = splash.querySelector('.bayram-splash__close');
+      if (closeBtn) closeBtn.focus();
+    }
+
+    function close() {
+      splash.classList.remove('is-open');
+      document.body.style.overflow = '';
+      try { localStorage.setItem(STORAGE_KEY, '1'); } catch (e) {}
+
+      var onEnd = function () {
+        splash.hidden = true;
+        splash.removeEventListener('transitionend', onEnd);
+      };
+      splash.addEventListener('transitionend', onEnd);
+      // Fallback in case transitionend doesn't fire.
+      setTimeout(function () { splash.hidden = true; }, 400);
+
+      if (lastFocus && typeof lastFocus.focus === 'function') {
+        lastFocus.focus();
+      }
+    }
+
+    splash.addEventListener('click', function (e) {
+      var target = e.target.closest('[data-bayram-close]');
+      if (target) close();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && splash.classList.contains('is-open')) close();
+    });
+
+    open();
+  }
+
   ready(function () {
     initThemeToggle();
     initCodeEnhancements();
     initPostToc();
     initNavbarToggle();
+    initBayramSplash();
   });
 })();
