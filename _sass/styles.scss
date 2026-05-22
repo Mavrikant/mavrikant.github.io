@@ -1354,34 +1354,67 @@ article {
 }
 
 // ─── Splash entry animation cascade ─────────────────────────────────────────
-// All elements start hidden; .is-open on the splash root triggers a staggered
-// sequence: chrome → ticks → crescent wipe → star snap → editorial text cascade.
+// Total run ~4.5 s. Paced so each beat reads as a distinct event, not a
+// single simultaneous fade-in. Initial 280 ms offset lets the panel's own
+// entry transition settle before children start moving.
 @keyframes bayram-fade { from { opacity: 0; } to { opacity: 1; } }
-@keyframes bayram-fade-up {
-  from { opacity: 0; transform: translateY(10px); }
+
+@keyframes bayram-status-drop {
+  from { opacity: 0; transform: translateY(-14px); }
   to   { opacity: 1; transform: translateY(0); }
 }
+
+@keyframes bayram-fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 @keyframes bayram-tick-h { from { width: 0; } to { width: 100%; } }
 @keyframes bayram-tick-v { from { height: 0; } to { height: 100%; } }
+
 @keyframes bayram-art {
-  from { opacity: 0; transform: scale(0.94); }
-  to   { opacity: 1; transform: scale(1); }
+  0%   { opacity: 0; transform: scale(0.78); }
+  60%  { opacity: 1; }
+  100% { opacity: 1; transform: scale(1); }
 }
+
 @keyframes bayram-mask-wipe {
   from { cx: 170; }
   to   { cx: 208; }
 }
+
+// Star snaps in with a real overshoot — scale + rotate so it visibly "locks".
 @keyframes bayram-star-snap {
-  0%   { opacity: 0; transform: scale(0.35); }
-  70%  { opacity: 1; transform: scale(1.10); }
-  100% { opacity: 1; transform: scale(1); }
+  0%   { opacity: 0; transform: scale(0.15) rotate(-25deg); }
+  60%  { opacity: 1; transform: scale(1.25) rotate(8deg); }
+  80%  {              transform: scale(0.92) rotate(-3deg); }
+  100% { opacity: 1; transform: scale(1) rotate(0); }
 }
+
+// Headline reveals with a cinematic focus-pull — blur clears, letter-spacing
+// tightens, opacity + Y settle. Avoids clip-path (libsass chokes on
+// inset() with mixed % / px / unitless 0 args).
+@keyframes bayram-title-focus {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+    letter-spacing: 0.08em;
+    filter: blur(8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+    letter-spacing: -0.02em;
+    filter: blur(0);
+  }
+}
+
 @keyframes bayram-divider-grow {
   from { transform: scaleX(0); }
   to   { transform: scaleX(1); }
 }
 
-// Hidden initial states (only when animations aren't suppressed)
+// Hidden initial states
 .bayram-splash__status,
 .bayram-splash__close,
 .bayram-splash__art,
@@ -1391,6 +1424,7 @@ article {
 .bayram-splash__wish,
 .bayram-splash__signature { opacity: 0; }
 
+.bayram-splash__title   { filter: blur(8px); letter-spacing: 0.08em; }
 .bayram-splash__divider { transform: scaleX(0); transform-origin: center; }
 
 .bayram-splash__tick::before { width: 0; }
@@ -1406,28 +1440,35 @@ article {
 
 // Trigger cascade when modal opens
 .bayram-splash.is-open {
-  .bayram-splash__status { animation: bayram-fade 240ms 80ms ease-out forwards; }
-  .bayram-splash__close  { animation: bayram-fade 240ms 80ms ease-out forwards; }
+  .bayram-splash__status { animation: bayram-status-drop 420ms 300ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  .bayram-splash__close  { animation: bayram-fade 360ms 420ms ease-out forwards; }
 
-  .bayram-splash__tick--tl::before { animation: bayram-tick-h 260ms 220ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-  .bayram-splash__tick--tl::after  { animation: bayram-tick-v 260ms 220ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-  .bayram-splash__tick--tr::before { animation: bayram-tick-h 260ms 300ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-  .bayram-splash__tick--tr::after  { animation: bayram-tick-v 260ms 300ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-  .bayram-splash__tick--br::before { animation: bayram-tick-h 260ms 380ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-  .bayram-splash__tick--br::after  { animation: bayram-tick-v 260ms 380ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-  .bayram-splash__tick--bl::before { animation: bayram-tick-h 260ms 460ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-  .bayram-splash__tick--bl::after  { animation: bayram-tick-v 260ms 460ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  // Corner ticks: each one needs both arms; wider stagger so they
+  // visibly tick around the panel rather than appear all at once.
+  .bayram-splash__tick--tl::before { animation: bayram-tick-h 360ms 520ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  .bayram-splash__tick--tl::after  { animation: bayram-tick-v 360ms 520ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  .bayram-splash__tick--tr::before { animation: bayram-tick-h 360ms 680ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  .bayram-splash__tick--tr::after  { animation: bayram-tick-v 360ms 680ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  .bayram-splash__tick--br::before { animation: bayram-tick-h 360ms 840ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  .bayram-splash__tick--br::after  { animation: bayram-tick-v 360ms 840ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  .bayram-splash__tick--bl::before { animation: bayram-tick-h 360ms 1000ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  .bayram-splash__tick--bl::after  { animation: bayram-tick-v 360ms 1000ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
 
-  .bayram-splash__art         { animation: bayram-art 600ms 380ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-  .bayram-splash__mask-inner  { animation: bayram-mask-wipe 720ms 440ms cubic-bezier(0.65, 0, 0.35, 1) forwards; }
-  .bayram-splash__star        { animation: bayram-star-snap 520ms 980ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+  // Crescent: scale + fade in, then the mask slowly slides off to reveal
+  // the lune shape — the slow wipe is what sells the oscilloscope feel.
+  .bayram-splash__art         { animation: bayram-art 780ms 700ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  .bayram-splash__mask-inner  { animation: bayram-mask-wipe 1100ms 900ms cubic-bezier(0.65, 0, 0.35, 1) forwards; }
 
-  .bayram-splash__eyebrow   { animation: bayram-fade-up 380ms 1200ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-  .bayram-splash__title     { animation: bayram-fade-up 460ms 1380ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-  .bayram-splash__divider   { animation: bayram-divider-grow 460ms 1700ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-  .bayram-splash__subtitle  { animation: bayram-fade-up 380ms 1880ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-  .bayram-splash__wish      { animation: bayram-fade-up 380ms 2080ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
-  .bayram-splash__signature { animation: bayram-fade-up 440ms 2260ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  // Star locks on after crescent settles — overshoot + rotation tick.
+  .bayram-splash__star        { animation: bayram-star-snap 720ms 1950ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards; }
+
+  // Editorial text cascade — wide staggers so each line gets its own beat.
+  .bayram-splash__eyebrow   { animation: bayram-fade-up 480ms 2550ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  .bayram-splash__title     { animation: bayram-title-focus 900ms 2850ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  .bayram-splash__divider   { animation: bayram-divider-grow 520ms 3500ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  .bayram-splash__subtitle  { animation: bayram-fade-up 480ms 3750ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  .bayram-splash__wish      { animation: bayram-fade-up 480ms 4050ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+  .bayram-splash__signature { animation: bayram-fade-up 520ms 4350ms cubic-bezier(0.22, 1, 0.36, 1) forwards; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -1444,7 +1485,8 @@ article {
   .bayram-splash__subtitle,
   .bayram-splash__wish,
   .bayram-splash__signature { opacity: 1; }
-  .bayram-splash__divider { transform: scaleX(1); }
+  .bayram-splash__title        { filter: none; letter-spacing: -0.02em; }
+  .bayram-splash__divider      { transform: scaleX(1); }
   .bayram-splash__tick::before { width: 100%; }
   .bayram-splash__tick::after  { height: 100%; }
   .bayram-splash__mask-inner   { cx: 208; }
