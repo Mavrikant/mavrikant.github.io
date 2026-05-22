@@ -199,6 +199,43 @@
     });
   }
 
+  // ---------------------------------------------------------------------------
+  // Navbar dropdowns: vanilla JS replacement for Bootstrap 4 jQuery dropdown.
+  // ---------------------------------------------------------------------------
+  function initNavbarDropdowns() {
+    var toggles = document.querySelectorAll('[data-toggle="dropdown"]');
+    if (!toggles.length) return;
+
+    toggles.forEach(function (toggle) {
+      toggle.addEventListener('click', function (e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var parentLi = toggle.closest('.dropdown');
+        if (!parentLi) return;
+        var menu = parentLi.querySelector('.dropdown-menu');
+        if (!menu) return;
+        var isOpen = parentLi.classList.contains('show');
+        // Close all other open dropdowns first
+        document.querySelectorAll('.nav-item.dropdown.show').forEach(function (el) {
+          el.classList.remove('show');
+          el.querySelector('[data-toggle="dropdown"]').setAttribute('aria-expanded', 'false');
+        });
+        if (!isOpen) {
+          parentLi.classList.add('show');
+          toggle.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    // Close dropdowns when clicking outside
+    document.addEventListener('click', function () {
+      document.querySelectorAll('.nav-item.dropdown.show').forEach(function (el) {
+        el.classList.remove('show');
+        el.querySelector('[data-toggle="dropdown"]').setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
   function ready(fn) {
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', fn);
@@ -266,6 +303,7 @@
     initCodeEnhancements();
     initPostToc();
     initNavbarToggle();
+    initNavbarDropdowns();
     initBayramSplash();
   });
 })();
