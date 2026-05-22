@@ -1,0 +1,97 @@
+/* =============================================================================
+   Rouge syntax highlighting — token-driven, GitHub Dark inspired.
+   Code blocks use a dark background in both light and dark site themes
+   (see --color-code-bg in styles.scss), so the syntax palette is tuned for
+   that single dark surface. Imported by _sass/styles.scss.
+   ========================================================================== */
+
+:root {
+  --syn-comment:  #8b949e;
+  --syn-keyword:  #ff7b72;
+  --syn-type:     #ffa657;
+  --syn-string:   #a5d6ff;
+  --syn-number:   #79c0ff;
+  --syn-func:     #d2a8ff;
+  --syn-attr:     #7ee787;
+  --syn-builtin:  #79c0ff;
+  --syn-operator: #ff7b72;
+  --syn-name:     #c9d1d9;
+  --syn-tag:      #7ee787;
+  --syn-deleted:  #ffa198;
+  --syn-inserted: #7ee787;
+  --syn-error:    #ffa198;
+  --syn-deleted-bg:  rgba(248, 81, 73, 0.15);
+  --syn-inserted-bg: rgba(46, 160, 67, 0.15);
+}
+
+/* The dark site theme uses an even darker code surface — slightly brighten
+   the lower-contrast tokens for readability. */
+[data-theme="dark"] {
+  --syn-comment:  #9aa3ad;
+  --syn-name:     #e6edf3;
+}
+
+/* Container override — defer to styles.scss for bg/border. */
+.highlight pre,
+.highlight .hll { background-color: transparent; }
+
+/* Comments */
+.highlight .c,  .highlight .ch, .highlight .cm, .highlight .cp,
+.highlight .cpf, .highlight .c1, .highlight .cs { color: var(--syn-comment); font-style: italic; }
+
+/* Errors */
+.highlight .err { color: var(--syn-error); }
+
+/* Keywords */
+.highlight .k,  .highlight .kc, .highlight .kd, .highlight .kn,
+.highlight .kp, .highlight .kr { color: var(--syn-keyword); }
+.highlight .kt { color: var(--syn-type); }
+
+/* Generic / structural */
+.highlight .g  { color: inherit; }
+.highlight .gd { color: var(--syn-deleted);  background-color: var(--syn-deleted-bg); }
+.highlight .ge { font-style: italic; }
+.highlight .gr { color: var(--syn-error); }
+.highlight .gh { color: var(--syn-func); font-weight: 700; }
+.highlight .gi { color: var(--syn-inserted); background-color: var(--syn-inserted-bg); }
+.highlight .go { color: var(--syn-comment); }
+.highlight .gp { color: var(--syn-comment); font-weight: 700; }
+.highlight .gs { font-weight: 700; }
+.highlight .gu { color: var(--syn-func); font-weight: 700; }
+.highlight .gt { color: var(--syn-error); }
+
+/* Literals */
+.highlight .l   { color: inherit; }
+.highlight .ld  { color: var(--syn-string); }
+.highlight .m, .highlight .mb, .highlight .mf, .highlight .mh,
+.highlight .mi, .highlight .il, .highlight .mo { color: var(--syn-number); }
+
+/* Names */
+.highlight .n   { color: var(--syn-name); }
+.highlight .na  { color: var(--syn-attr); }
+.highlight .nb  { color: var(--syn-builtin); }
+.highlight .bp  { color: var(--syn-builtin); }
+.highlight .nc  { color: var(--syn-type); font-weight: 600; }
+.highlight .no  { color: var(--syn-builtin); }
+.highlight .nd  { color: var(--syn-func); }
+.highlight .ni  { color: var(--syn-builtin); }
+.highlight .ne  { color: var(--syn-keyword); font-weight: 600; }
+.highlight .nf, .highlight .fm { color: var(--syn-func); }
+.highlight .nl  { color: var(--syn-keyword); }
+.highlight .nn  { color: var(--syn-name); }
+.highlight .nx  { color: var(--syn-name); }
+.highlight .py  { color: var(--syn-name); }
+.highlight .nt  { color: var(--syn-tag); }
+.highlight .nv, .highlight .vc, .highlight .vg,
+.highlight .vi, .highlight .vm { color: var(--syn-builtin); }
+
+/* Operators / punctuation */
+.highlight .o, .highlight .ow { color: var(--syn-operator); }
+.highlight .p { color: var(--syn-name); }
+.highlight .w { color: var(--syn-comment); }
+
+/* Strings */
+.highlight .s,  .highlight .sa, .highlight .sb, .highlight .sc,
+.highlight .dl, .highlight .sd, .highlight .s2, .highlight .se,
+.highlight .sh, .highlight .si, .highlight .sx, .highlight .sr,
+.highlight .s1, .highlight .ss { color: var(--syn-string); }

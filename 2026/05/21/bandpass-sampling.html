@@ -1,0 +1,854 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="/favicon.ico" rel="shortcut icon" sizes="36x36 24x24 16x16" type="image/x-icon">
+<link href="/favicon.png" rel="icon" sizes="196x196" type="image/png">
+<meta content="/mstile-icon-128x128.png" name="msapplication-TileImage">
+<meta content="transparent" name="msapplication-TileColor">
+<link href="/manifest.webmanifest" rel="manifest">
+<meta content="/browserconfig.xml" name="msapplication-config">
+<!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek | M. Serdar Karaman</title>
+<meta name="generator" content="Jekyll v4.2.2">
+<meta property="og:title" content="Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek">
+<meta name="author" content="M. Serdar Karaman">
+<meta property="og:locale" content="tr_TR">
+<meta name="description" content="Mühendislik mülakatlarında klasik bir soru vardır: “1090 MHz’deki ADS-B sinyalini sayısal olarak yakalamak istiyorsun. Hangi hızda ADC kullanırsın?”">
+<meta name="twitter:description" property="og:description" content="Mühendislik mülakatlarında klasik bir soru vardır: “1090 MHz’deki ADS-B sinyalini sayısal olarak yakalamak istiyorsun. Hangi hızda ADC kullanırsın?”">
+<link rel="canonical" href="https://karaman.dev/2026/05/21/bandpass-sampling.html">
+<meta property="og:url" content="https://karaman.dev/2026/05/21/bandpass-sampling.html">
+<meta property="og:site_name" content="M. Serdar Karaman">
+<meta property="og:image" content="https://karaman.dev/img/og-default.webp">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-05-21T09:00:00+00:00">
+<meta property="article:modified_time" content="2026-05-21T09:00:00+00:00">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://karaman.dev/img/og-default.webp">
+<meta name="twitter:title" content="Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"M. Serdar Karaman"},"dateModified":"2026-05-21T09:00:00+00:00","datePublished":"2026-05-21T09:00:00+00:00","description":"Mühendislik mülakatlarında klasik bir soru vardır: “1090 MHz’deki ADS-B sinyalini sayısal olarak yakalamak istiyorsun. Hangi hızda ADC kullanırsın?”","headline":"Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek","image":"https://karaman.dev/img/og-default.webp","mainEntityOfPage":{"@type":"WebPage","@id":"https://karaman.dev/2026/05/21/bandpass-sampling.html"},"url":"https://karaman.dev/2026/05/21/bandpass-sampling.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<!-- Sentry (errors + performance + replay) -->
+<script src="https://js.sentry-cdn.com/d9df60c4bcc41adb14bb648db4013b52.min.js" crossorigin="anonymous"></script>
+<script>
+  Sentry.onLoad(function () {
+    Sentry.init({
+      integrations: [
+        Sentry.browserTracingIntegration(),
+        Sentry.replayIntegration({
+          maskAllText: false,
+          blockAllMedia: false,
+        }),
+      ],
+      tracesSampleRate: 1.0,
+      replaysSessionSampleRate: 0.1,
+      replaysOnErrorSampleRate: 1.0,
+    });
+  });
+</script>
+
+
+<script>
+  // No-flash dark mode: applies the saved theme before paint.
+  (function () {
+    try {
+      var stored = localStorage.getItem('theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = stored || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch (e) {}
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="/img/posts/2.webp" fetchpriority="high">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.12.0/mermaid.min.js" integrity="sha512-5TKaYvhenABhlGIKSxAWLFJBZCSQw7HTV7aL1dJcBokM/+3PNtfgJFlv8E6Us/B1VMlQ4u8sPzjudL9TEQ06ww==" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/assets/main.css">
+<link rel="alternate" type="application/rss+xml" title="M. Serdar Karaman" href="/feed.xml">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e1014" media="(prefers-color-scheme: dark)">
+<link rel="manifest" href="/manifest.json">
+<script>MathJax={"tex":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]},"svg":{"fontCache":"global"}}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body id="page-top">
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">M. Serdar Karaman</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Menüyü aç/kapat">
+      Menü
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Ana sayfa</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">Hakkımda</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Yazılar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contact">İletişim</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownProjects" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Projeler
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProjects">
+            <a class="dropdown-item" href="https://karaman.dev/games" target="_blank" rel="noopener">Oyunlar</a>
+            <a class="dropdown-item" href="https://karaman.dev/or-araclari" target="_blank" rel="noopener">OR Araçları</a>
+          </div>
+        </li>
+        <li class="nav-item d-flex align-items-center">
+          <button type="button" class="theme-toggle" aria-label="Tema değiştir" title="Tema değiştir">
+            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <!-- Page Header -->
+
+<header class="masthead" style="background-image: url('/img/posts/2.webp')">
+  
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek</h1>
+            
+            <h2 class="subheading">Bandpass Sampling: How to Digitize a 1 GHz Signal with a 50 MHz Clock</h2>
+            
+            <span class="meta">
+              <a href="/about">M. Serdar Karaman</a>
+              · 21 Mayıs 2026 · <span class="reading-time" title="Estimated read time">
+  
+   25 mins  read </span>
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container" lang="tr">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+
+        <div class="post-shell">
+          <aside class="post-toc" aria-label="İçindekiler">
+  <h2 class="post-toc__title">İçindekiler</h2>
+  <nav id="post-toc-nav"></nav>
+</aside>
+
+          <div class="post-content">
+            <p>Mühendislik mülakatlarında klasik bir soru vardır: <em>“1090 MHz’deki ADS-B sinyalini sayısal olarak yakalamak istiyorsun. Hangi hızda ADC kullanırsın?”</em></p>
+
+<p>Nyquist–Shannon teoremini hatırlayan herkes refleksle cevaplar: <em>“En az 2.18 GSPS.”</em> Mantıklı görünür: en yüksek frekansın iki katı. Cevap teknik olarak yanlış olmasa da, gerçek hayatta hiçbir ADS-B alıcısı 2 GSPS’lik bir ADC ile çalışmaz. Tipik bir donanım, 1090 MHz’in komşuluğundaki <strong>2 MHz</strong> civarındaki dar bandı 50 MSPS hatta daha yavaş saatlerle örnekler — ve hiçbir şey kaybolmaz.</p>
+
+<p>Burada işin sırrı <strong>bandpass sampling</strong> (veya <em>IF sampling</em>, <em>undersampling</em>) denilen, klasik örnekleme teoreminin az bilinen kuzenidir. Bu yazıda teoremin geometrisine, izinli/yasak örnekleme oranlarının nasıl ortaya çıktığına, spektral ters çevrilme tuzağına ve modern ADC’lerin neden GHz mertebesinde analog bant genişliği ilan ettiğine inip somut bir Python örneğiyle her şeyi yerine oturtacağız.</p>
+
+<figure>
+  <img src="/img/posts/bandpass-sampling-signal.webp" alt="70 MHz IF bandpass sinyali ve 31.25 MSPS örnekleme noktaları" class="img-fluid rounded">
+  <figcaption><strong>Şekil 1.</strong> 70 MHz IF sinyali (67.5 + 72.5 MHz iki ton, mavi) ve 31.25 MSPS örnekleme noktaları (kırmızı). Örnekler arasındaki boşluk T = 32 ns; sinyalin kendi periyodu ise yaklaşık 14 ns — klasik Nyquist açısından yetersiz ama bandpass sampling açısından mükemmel.</figcaption>
+</figure>
+
+<hr>
+
+<h2 id="nyquistin-saklı-varsayımı">Nyquist’in Saklı Varsayımı</h2>
+
+<p>Genel anlamıyla Nyquist–Shannon teoremi şunu söyler: bir sinyalin <strong>en yüksek frekans bileşeninin</strong> en az iki katı hızla örneklersen, bilgiyi kaybetmeden geri çevirebilirsin. Bu formülasyondaki gizli varsayım, sinyalin <strong>baseband</strong> (taban bant) olduğudur — yani spektrumun <code class="language-plaintext highlighter-rouge">[0, f_max]</code> aralığında yaşadığını kabul eder.</p>
+
+<p>Oysa modern bir RF alıcısının önündeki sinyaller hiç de böyle değildir. Bir VHF havacılık telsizi <code class="language-plaintext highlighter-rouge">[118, 137]</code> MHz aralığında çalışır; ADS-B 1090 MHz civarında birkaç megahertz’lik bir bantta yaşar; GPS L1 1575.42 MHz taşıyıcısının etrafında C/A kodu için yaklaşık ±1 MHz, P(Y) kodu içinse ±10 MHz mertebesinde bir spektruma sahiptir. Bu sinyallerin ortak özelliği <strong>dar bantlı</strong> olmalarıdır: f_H − f_L değeri f_c değerine kıyasla çok küçüktür. Spektrumun büyük bölümü zaten boş.</p>
+
+<p>Eğer boş alanı saymayı bırakırsak — ki kimse 0 ile f_L arasındaki sessizliği örneklemek için ADC çevirmiyor — gerçek bilgi yükümüz sadece <code class="language-plaintext highlighter-rouge">B = f_H − f_L</code> kadardır. Information-theoretic alt sınır da bu: f_s ≥ 2B yeterli <strong>olmalı</strong>. Tek soru, <em>hangi</em> 2B’nin (ya da 3B’nin, 5B’nin) işe yarayacağıdır.</p>
+
+<hr>
+
+<h2 id="bandpass-sampling-teoremi">Bandpass Sampling Teoremi</h2>
+
+<p>Resmi formülasyonu 1991’de Vaughan, Scott ve White, IEEE Transactions on Signal Processing’de yayınladığı <strong>“The Theory of Bandpass Sampling”</strong> makalesinde verdi (cilt 39, sayı 9, ss. 1973–1984). Teorem şunu söyler:</p>
+
+<p>Spektrumu <code class="language-plaintext highlighter-rouge">[f_L, f_H]</code> aralığında yaşayan, B = f_H − f_L bant genişliğine sahip bir bandpass sinyali, aşağıdaki eşitsizliği sağlayan herhangi bir f_s ile birinci-derece tek-tip örnekleme (uniform first-order sampling) altında geri çevrilebilir biçimde sayısallaştırılabilir:</p>
+
+<p>$$
+\frac{2 f_H}{n} \le f_s \le \frac{2 f_L}{n - 1}
+$$</p>
+
+<p>burada <code class="language-plaintext highlighter-rouge">n</code>, <code class="language-plaintext highlighter-rouge">1 ≤ n ≤ ⌊f_H / B⌋</code> aralığında bir tamsayıdır.</p>
+
+<p><code class="language-plaintext highlighter-rouge">n = 1</code> aldığımızda eşitsizliğin sağ tarafı tanımsızdır (bölü sıfır); bu, klasik Nyquist durumudur: f_s ≥ 2·f_H. Daha büyük n değerleri, daha düşük örnekleme hızlarına izin verir — <strong>ama tüm aralıklar değil</strong>, sadece belirli aralıklar.</p>
+
+<p>Burada <code class="language-plaintext highlighter-rouge">n</code>, sinyalin sonuçta yerleşeceği <strong>Nyquist bölgesinin</strong> indeksidir. Nyquist bölgesi <code class="language-plaintext highlighter-rouge">n</code>: <code class="language-plaintext highlighter-rouge">[(n−1)·f_s/2, n·f_s/2]</code> aralığını kapsar. Sinyalin tamamı tek bir Nyquist bölgesinin <strong>içine</strong> sığmak zorundadır — bir bölgenin sınırına denk gelirse iki komşu bölgeden alias’lar birbiriyle çakışır ve veri umutsuzca bozulur.</p>
+
+<hr>
+
+<h2 id="sayısal-bir-örnek-70-mhz-if-10-mhz-bant">Sayısal Bir Örnek: 70 MHz IF, 10 MHz Bant</h2>
+
+<p>Klasik bir ara frekans (intermediate frequency, IF) seçimini düşünelim: f_c = 70 MHz, B = 10 MHz, dolayısıyla f_L = 65 MHz, f_H = 75 MHz.</p>
+
+<p>Bu durumda izin verilen n değerleri <code class="language-plaintext highlighter-rouge">1 ≤ n ≤ ⌊75 / 10⌋ = 7</code> aralığındadır. Her n için izinli aralık şudur:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>n</th>
+      <th>f_s_min = 2·f_H / n</th>
+      <th>f_s_max = 2·f_L / (n−1)</th>
+      <th>Aralık genişliği</th>
+      <th>Yerleşeceği bölge</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>150 MSPS</td>
+      <td>∞ (üst sınır yok)</td>
+      <td>—</td>
+      <td>klasik Nyquist</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>75 MSPS</td>
+      <td>130 MSPS</td>
+      <td>55 MSPS</td>
+      <td>zone 2 (ters)</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>50 MSPS</td>
+      <td>65 MSPS</td>
+      <td>15 MSPS</td>
+      <td>zone 3 (düz)</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>37.5 MSPS</td>
+      <td>43.33 MSPS</td>
+      <td>5.83 MSPS</td>
+      <td>zone 4 (ters)</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>30 MSPS</td>
+      <td>32.5 MSPS</td>
+      <td>2.5 MSPS</td>
+      <td>zone 5 (düz)</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>25 MSPS</td>
+      <td>26 MSPS</td>
+      <td>1 MSPS</td>
+      <td>zone 6 (ters)</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>21.43 MSPS</td>
+      <td>21.67 MSPS</td>
+      <td>0.24 MSPS</td>
+      <td>zone 7 (düz)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Üç şey hemen göze çarpıyor:</p>
+
+<ol>
+  <li>
+<strong>Yasak bölgeler vardır.</strong> Örneğin 43 MSPS ile 50 MSPS arasında <em>hiçbir</em> n çalışmaz. Bu aralıkta sinyal mutlaka iki komşu Nyquist bölgesi arasındaki sınırı keser ve alias’lar çakışır.</li>
+  <li>
+<strong>n büyüdükçe izinli aralık daralır.</strong> n = 7’de pencere yalnızca 240 kHz genişliktedir. Saat kaynağınızın drift’i, anti-alias filtresinin roll-off bölgesi, sıcaklık değişimi — hepsi bu dar yarığa sığmak zorundadır. Pratikte n = 7 ile bir tasarım yapmak intihardır.</li>
+  <li>
+<strong>Tek tek hıza inerken bir kazanım var.</strong> 75 MSPS yerine 31 MSPS’de çalışan bir ADC seçmek, hem güç tüketimini hem dijital arka uçtaki örnek hızını yarıdan fazla düşürür. Cortex-M tabanlı bir alıcıda bu ciddi bir mimari kazançtır.</li>
+</ol>
+
+<p>İyi bir tasarımcı aralığın <strong>ortasında</strong> durur. n = 3 için 50–65 MSPS aralığının ortası ~57 MSPS’dir; saatte 5 MSPS sapsa bile hâlâ izinli bölgenin içindedir.</p>
+
+<hr>
+
+<h2 id="wedge-diyagramı-geometriye-bakmak">Wedge Diyagramı: Geometriye Bakmak</h2>
+
+<p>Bu yasak ve izinli bölgeler bir grafiğe dökülünce ortaya <strong>wedge</strong> (kama) diyagramı çıkar. X ekseninde normalize merkez frekansı <code class="language-plaintext highlighter-rouge">f_c / B</code>, Y ekseninde normalize örnekleme hızı <code class="language-plaintext highlighter-rouge">f_s / B</code> vardır.</p>
+
+<p>İzinli bölgeler, her biri bir n değerine karşılık gelen, üçgen şeklinde “kamalar”dır. Kamaların ortak özelliği:</p>
+
+<ul>
+  <li>
+<strong>Üst kenarı</strong> f_s = 2·f_L / (n − 1) doğrusudur.</li>
+  <li>
+<strong>Alt kenarı</strong> f_s = 2·f_H / n doğrusudur.</li>
+  <li>
+<strong>Sol ucu</strong> noktada (kamanın tepesi) f_s = 2·B’dir — teorik alt sınır.</li>
+</ul>
+
+<p>Yasak bölgeler, kamalar arasındaki üçgen “boşluklar”dır ve geometrik olarak 2B’nin tamsayı katlarında biriker. Bu yüzden “f_s’i 2B’ye çok yakın seçme” sezgisi vardır: tepe noktasının yakınında çalışan bir tasarım için saat drift’inin minik bir parçası dahi sistemi yasak bölgeye sürüklemeye yeter.</p>
+
+<p>Yine de wedge diyagramı sadece bir gözlem aracıdır. Saha tasarımının değişmez kuralı şudur: <strong>bir kamanın iç noktasında dur, kenardan uzak kal.</strong> Vaughan’ın 1991 makalesi bu hassasiyet analizini ayrı bir bölümle ele alır.</p>
+
+<figure>
+  <img src="/img/posts/bandpass-sampling-zones.webp" alt="70 MHz IF için izinli ve yasak örnekleme hızları" class="img-fluid rounded">
+  <figcaption><strong>Şekil 2.</strong> 70 MHz IF (65–75 MHz bant) için izinli (mavi/mor) ve yasak (kırmızı) örnekleme hızları. Mavi bölgeler n tek → spektrum düz; mor bölgeler n çift → spektrum ters. Kırmızı aralar hiçbir n için çalışmaz. Dikey çizgiler: n = 5 için kullanılan 31.25 MSPS (lacivert) ve n = 3 için ideal orta nokta ~57.5 MSPS (teal). Teorik alt sınır 2B = 20 MSPS noktalı çizgiyle gösterilmiş.</figcaption>
+</figure>
+
+<hr>
+
+<h2 id="spectral-inversion-çift-n-hayatınızı-berbat-eder">Spectral Inversion: Çift n Hayatınızı Berbat Eder</h2>
+
+<p>Bandpass sampling’in en sinsi tuzağı <strong>spektral inversiyon</strong>dur. Sinyalin Nyquist bölgesinin parite’sine bağlı olarak baseband’e indiğinde <strong>ters çevrilmiş</strong> olabilir.</p>
+
+<p>Lyons’un <em>Understanding Digital Signal Processing</em> kitabındaki konvansiyonu kullanırsak:</p>
+
+<ul>
+  <li>
+<strong>n tek</strong> → spektrum yukarı doğru (“upright”), orijinaliyle aynı yönde.</li>
+  <li>
+<strong>n çift</strong> → spektrum <strong>ters çevrilmiş</strong> (mirror about f_s/4 in zone 1).</li>
+</ul>
+
+<table>
+  <tbody>
+    <tr>
+      <td style="text-align: right">Hızlı bir mental doğrulama: f_s = 10 Hz, gerçek sinyalin 11.5 ila 12.5 Hz aralığında bir spektrumu olsun. Zone 3’e (n = 3, tek) düşer. Alias</td>
+      <td>12 − 1·10</td>
+      <td>= 2 Hz. 12.5 → 2.5, 11.5 → 1.5 — alt-üst sıralama korunur. Üst kenar yine üstte.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Şimdi gerçek sinyali 7.5 ila 8.5 Hz arasına koyalım — zone 2 (n = 2, çift). Alias: 8.5 → 1.5, 7.5 → 2.5. Üst kenar artık altta. Ters çevrilmiş.</p>
+
+<p>Bu, simetrik modülasyonlarda (DSB, gerçek değerli BPSK gibi) görünmez bir hatadır — spektrum simetrik olduğu için ters de aynı görünür. Ama <strong>single sideband (SSB), asimetrik PSK, ya da Doppler işareti taşıyan FM</strong> sinyallerinde alıcının demodülatörü tam tersine çalışır. Bandpass sampling tasarımlarında klasik bir bug kaynağıdır ve genelde “neden konuşma anlaşılır ama yön bilgisi tersine” gibi anlamsız belirtilerle kendini gösterir.</p>
+
+<p>Düzeltmesi basit: örnekleri <code class="language-plaintext highlighter-rouge">(−1)^k</code> ile çarpmak ya da downconversion sonrası I/Q kanallarından birinin işaretini çevirmek yeter. Önemli olan, hangi rejimde olduğunuzu <em>bilmektir</em>.</p>
+
+<hr>
+
+<h2 id="adcde-önemli-olan-f_s-değil-analog-bant-genişliğidir">ADC’de Önemli Olan f_s Değil, Analog Bant Genişliğidir</h2>
+
+<p>Bandpass sampling’in pratik mühendisliği burada başlar. Bir ADC’yi 50 MSPS’de örnekleyip 1090 MHz’lik bir sinyal yakalamak istiyorsanız, <strong>ADC’nin analog girişi 1090 MHz’i geçirebilmek zorundadır.</strong></p>
+
+<p>İşte tam burası, Nyquist’i ezbere bilen mühendislerin tökezlediği yerdir. Çoğu kişi ADC datasheet’ine baktığında “100 MSPS” gibi sayısal hıza odaklanır ve <strong>analog input bandwidth</strong> (veya <em>full-power input bandwidth</em>) satırını kaçırır. Halbuki bandpass sampling’in fizibilitesi tamamen o satırla belirlenir.</p>
+
+<p>Üç somut örnek üzerinden bakalım:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>ADC</th>
+      <th>Çözünürlük</th>
+      <th>Örnekleme</th>
+      <th>Analog BW</th>
+      <th>Notlar</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Analog Devices <strong>AD9265</strong>
+</td>
+      <td>16-bit</td>
+      <td>125 MSPS</td>
+      <td><strong>650 MHz</strong></td>
+      <td>Datasheet açıkça “IF sampling up to 300 MHz” diyor</td>
+    </tr>
+    <tr>
+      <td>Texas Instruments <strong>ADS5474</strong>
+</td>
+      <td>14-bit</td>
+      <td>400 MSPS</td>
+      <td><strong>1.4 GHz</strong></td>
+      <td>400 MHz üzerindeki sinyaller için pazarlanıyor</td>
+    </tr>
+    <tr>
+      <td>Linear Technology <strong>LTC2208</strong>
+</td>
+      <td>16-bit</td>
+      <td>130 MSPS</td>
+      <td><strong>700 MHz</strong></td>
+      <td>70 fs RMS aperture jitter, undersampling için satılıyor</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Bu cihazların ilan ettikleri “Nyquist hızlarının çok üstündeki analog bant genişliği” tesadüf değildir — bandpass sampling pazarı için <strong>kasıtlı olarak</strong> öyle tasarlanmışlardır. Sample-and-hold devresinin RC zaman sabiti, takip kapasitansı, switch açma süresi: hepsi yüzlerce megahertz hatta gigahertz ölçeğinde sinyalin “doğru” anda yakalanmasına izin verecek şekilde optimize edilmiştir.</p>
+
+<p>Bir tasarım kuralı olarak: <strong>f_H &lt; analog BW / 2</strong> koşulu sağlanmadan o ADC bandpass sampling’e uygun değildir. Spec edge’inde çalışmak istemezsiniz.</p>
+
+<hr>
+
+<h2 id="sınırı-belirleyen-aslında-jitter">Sınırı Belirleyen Aslında Jitter</h2>
+
+<p>ADC analog bant genişliği yeterli olsa bile, yüksek IF’te sinyali sınırlandıran başka bir parametre ortaya çıkar: <strong>saat jitter’ı</strong>, yani aperture jitter. Tipik formülü şudur:</p>
+
+<p>$$
+\text{SNR}<em>{\text{jitter}} = -20 \log</em>{10}(2\pi \cdot f_{\text{in}} \cdot \sigma_t)
+$$</p>
+
+<p>Burada f_in <strong>analog giriş</strong> frekansıdır (örnekleme hızı değil!) ve σ_t saat kaynağının RMS jitter değeridir. Formülde gizli olan korkutucu gerçek şudur: SNR, sinyal frekansıyla doğrudan azalır. Baseband’de problem değil olan jitter, 1 GHz IF’te uygulamayı imkânsız hale getirebilir.</p>
+
+<p>Somut bir hesap: σ_t = 100 fs (modern bir VCXO için iyi bir değer), f_in = 1 GHz:</p>
+
+<p>$$
+\text{SNR} = -20 \log_{10}(2\pi \cdot 10^9 \cdot 10^{-13}) \approx 64 \text{ dB}
+$$</p>
+
+<p>64 dB SNR, etkin bit sayısı (ENOB) cinsinden yaklaşık 10.3 bit’e karşılık gelir. Yani 16-bit’lik LTC2208’i 1 GHz’de örneklerseniz, bitlerinizin <strong>3 ila 5 tanesini saat kaynağına kurban etmiş</strong> olursunuz. ADC’nin ilan ettiği 78 dB SNR’ı görmek için çok daha düşük IF’te kalmanız ya da çok daha temiz bir saat (örneğin 10 fs sınıfı bir SAW veya kristal osilatör) kullanmanız gerekir.</p>
+
+<p>Bu yüzden bandpass sampling tasarımlarında saat kaynağı, alıcının LO’su kadar — bazen daha fazla — özen ister. Phase noise spektrumunun, sinyal yakınında −150 dBc/Hz’in altına inebilmesi tipik bir hedeftir.</p>
+
+<hr>
+
+<h2 id="anti-alias-filtresi-artık-bir-bandpass">Anti-Alias Filtresi Artık Bir Bandpass</h2>
+
+<p>Klasik baseband örneklemede anti-alias filtresi bir <strong>alçak geçirendir</strong> (lowpass): f_s/2 üzerindeki her şeyi keser. Bandpass sampling’de ise işin doğası değişir: hedeflediğiniz tek Nyquist bölgesinden <strong>başka her şey</strong> alias olur ve bandın içine düşer.</p>
+
+<p>Yani filtre artık şunu yapmak zorundadır:</p>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">[f_L, f_H]</code> arasını geçirmek</li>
+  <li>Diğer <strong>tüm</strong> Nyquist bölgelerine düşen sinyali ve gürültüyü bastırmak — özellikle DC’den f_L’e kadar olan geniş bant ve f_H’in üstündeki ADC analog BW’sine kadar olan bant.</li>
+</ul>
+
+<p>Bunu sağlamak ciddi bir RF filtre tasarımı işidir. SAW (Surface Acoustic Wave) filtreleri, cavity filtreleri ya da seramik filtreler kullanılır. Pasif L-C ile yapmak istediğinizde, gereken yan-bant bastırma seviyesi (60–80 dB) ve dar bant (B/f_c = 1% civarı) yüksek-Q kapasitörler ve hassas frekans cevabı ister.</p>
+
+<p>İkinci ve daha önemli nokta: filtre sinyali geçirirken bantlardaki <strong>gürültüyü de geçirir</strong>. Bandpass sampling’de gürültü integration aralığı <code class="language-plaintext highlighter-rouge">f_s/2</code> ile sınırlı değildir — ADC’nin analog BW’sine kadardır. Yani filtreyi geçen 600 MHz’lik geniş bir bant gürültüsü, sinyalle birlikte zone 1’e alias’lanır. Bu, Vaughan’ın 1991 makalesinin önemli bir sonucudur ve sıklıkla göz ardı edilir.</p>
+
+<hr>
+
+<h2 id="python-ile-sayısal-doğrulama">Python ile Sayısal Doğrulama</h2>
+
+<p>Teori güzel, ama her zaman dediğim gibi <em>gözlerinizle görmediğiniz hiçbir şeye güvenmeyin.</em> Aşağıdaki Python kodu 70 MHz IF’teki 10 MHz bant genişlikli bir sinyali üretir, n = 5 için izinli olan 31.25 MSPS’de örnekler ve sonucun zone 1’de doğru yere düştüğünü gösterir.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="c1"># Sinyal parametreleri
+</span><span class="n">f_c</span>    <span class="o">=</span> <span class="mf">70e6</span>        <span class="c1"># taşıyıcı (IF merkezi)
+</span><span class="n">B</span>      <span class="o">=</span> <span class="mf">10e6</span>        <span class="c1"># bant genişliği
+</span><span class="n">T</span>      <span class="o">=</span> <span class="mf">100e-6</span>      <span class="c1"># toplam süre
+</span><span class="n">f_high</span> <span class="o">=</span> <span class="mf">1.0e9</span>       <span class="c1"># "sürekli zaman" benzetimi için yüksek hızda örnekleme
+</span><span class="n">t_high</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">T</span><span class="p">,</span> <span class="mi">1</span><span class="o">/</span><span class="n">f_high</span><span class="p">)</span>
+
+<span class="c1"># Bandpass sinyali: basitlik için f_c ± B/4 konumunda iki ton
+</span><span class="n">x_high</span> <span class="o">=</span> <span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="p">.</span><span class="n">pi</span><span class="o">*</span><span class="p">(</span><span class="n">f_c</span> <span class="o">-</span> <span class="n">B</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="o">*</span><span class="n">t_high</span><span class="p">)</span>
+        <span class="o">+</span> <span class="n">np</span><span class="p">.</span><span class="n">cos</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="p">.</span><span class="n">pi</span><span class="o">*</span><span class="p">(</span><span class="n">f_c</span> <span class="o">+</span> <span class="n">B</span><span class="o">/</span><span class="mi">4</span><span class="p">)</span><span class="o">*</span><span class="n">t_high</span><span class="p">))</span>
+
+<span class="c1"># Bandpass sampling: f_s = 31.25 MSPS, n = 5 (izinli aralık [30, 32.5])
+</span><span class="n">step</span> <span class="o">=</span> <span class="mi">32</span>                       <span class="c1"># 1.0e9 / 32 = 31.25 MSPS
+</span><span class="n">f_s</span>  <span class="o">=</span> <span class="n">f_high</span> <span class="o">/</span> <span class="n">step</span>
+<span class="n">x_bp</span> <span class="o">=</span> <span class="n">x_high</span><span class="p">[::</span><span class="n">step</span><span class="p">]</span>
+
+<span class="c1"># FFT
+</span><span class="n">N</span>    <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">x_bp</span><span class="p">)</span>
+<span class="n">X</span>    <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">fft</span><span class="p">.</span><span class="n">fft</span><span class="p">(</span><span class="n">x_bp</span><span class="p">)</span>
+<span class="n">freq</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">fft</span><span class="p">.</span><span class="n">fftfreq</span><span class="p">(</span><span class="n">N</span><span class="p">,</span> <span class="n">d</span><span class="o">=</span><span class="mi">1</span><span class="o">/</span><span class="n">f_s</span><span class="p">)</span>
+<span class="n">mag</span>  <span class="o">=</span> <span class="mi">20</span><span class="o">*</span><span class="n">np</span><span class="p">.</span><span class="n">log10</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nb">abs</span><span class="p">(</span><span class="n">X</span><span class="p">)</span> <span class="o">+</span> <span class="mf">1e-12</span><span class="p">)</span>
+
+<span class="c1"># n = 5 tek → upright; kayma miktarı (n-1)/2 · f_s = 2·f_s
+</span><span class="n">shift</span> <span class="o">=</span> <span class="p">(</span><span class="mi">5</span> <span class="o">-</span> <span class="mi">1</span><span class="p">)</span> <span class="o">/</span> <span class="mi">2</span> <span class="o">*</span> <span class="n">f_s</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Beklenen alias tonları (MHz):"</span><span class="p">,</span>
+      <span class="nb">sorted</span><span class="p">([(</span><span class="n">f</span> <span class="o">-</span> <span class="n">shift</span><span class="p">)</span> <span class="o">/</span> <span class="mf">1e6</span> <span class="k">for</span> <span class="n">f</span> <span class="ow">in</span> <span class="p">(</span><span class="n">f_c</span> <span class="o">-</span> <span class="n">B</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="n">f_c</span> <span class="o">+</span> <span class="n">B</span><span class="o">/</span><span class="mi">4</span><span class="p">)]))</span>
+
+<span class="n">pos</span> <span class="o">=</span> <span class="n">freq</span> <span class="o">&gt;=</span> <span class="mi">0</span>
+<span class="n">peaks</span> <span class="o">=</span> <span class="n">freq</span><span class="p">[</span><span class="n">pos</span><span class="p">][</span><span class="n">np</span><span class="p">.</span><span class="n">argsort</span><span class="p">(</span><span class="n">mag</span><span class="p">[</span><span class="n">pos</span><span class="p">])[</span><span class="o">-</span><span class="mi">2</span><span class="p">:]]</span>
+<span class="k">print</span><span class="p">(</span><span class="s">"Ölçülen alias tonları (MHz):"</span><span class="p">,</span> <span class="nb">sorted</span><span class="p">(</span><span class="n">peaks</span> <span class="o">/</span> <span class="mf">1e6</span><span class="p">))</span>
+
+<span class="n">plt</span><span class="p">.</span><span class="n">plot</span><span class="p">(</span><span class="n">freq</span><span class="p">[</span><span class="n">pos</span><span class="p">]</span> <span class="o">/</span> <span class="mf">1e6</span><span class="p">,</span> <span class="n">mag</span><span class="p">[</span><span class="n">pos</span><span class="p">])</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">xlabel</span><span class="p">(</span><span class="s">"Frekans (MHz)"</span><span class="p">);</span> <span class="n">plt</span><span class="p">.</span><span class="n">ylabel</span><span class="p">(</span><span class="s">"Genlik (dB)"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s">"f_s = </span><span class="si">{</span><span class="n">f_s</span><span class="o">/</span><span class="mf">1e6</span><span class="si">:</span><span class="p">.</span><span class="mi">2</span><span class="n">f</span><span class="si">}</span><span class="s"> MSPS, n = 5 — zone 1 alias'ı"</span><span class="p">)</span>
+<span class="n">plt</span><span class="p">.</span><span class="n">grid</span><span class="p">();</span> <span class="n">plt</span><span class="p">.</span><span class="n">show</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>Çalıştırınca pozitif yarıda <strong>5 MHz ve 10 MHz</strong> civarında iki keskin tepe görmelisiniz. Hesap doğrudan modulodur: n = 5 için kayma miktarı <code class="language-plaintext highlighter-rouge">(n−1)/2 · f_s = 2 · 31.25 = 62.5 MHz</code>; alt ton 67.5 − 62.5 = 5 MHz’e, üst ton 72.5 − 62.5 = 10 MHz’e iner. n tek olduğu için spektrum upright kalır, yani alt-üst sıra korunur.</p>
+
+<figure>
+  <img src="/img/posts/bandpass-sampling-fft.webp" alt="Orijinal analog spektrum ve örneklenmiş alias spektrumu karşılaştırması" class="img-fluid rounded">
+  <figcaption><strong>Şekil 3.</strong> <em>Sol:</em> 70 MHz IF sinyalinin orijinal analog spektrumu — tonlar 67.5 MHz ve 72.5 MHz'de. <em>Sağ:</em> 31.25 MSPS örnekleme sonrası zone 1'deki alias spektrumu — aynı tonlar 5 MHz ve 10 MHz'e inmiş, spektrum düz (n = 5 tek). Bilgi kayıpsız: tonlar arasındaki frekans farkı (5 MHz) ve göreli konumları korunuyor.</figcaption>
+</figure>
+
+<p>Şimdi denemeye değer bir alıştırma: <code class="language-plaintext highlighter-rouge">step = 30</code> yapın — bu, f_s = 33.33 MSPS demektir ve n = 5 için izinli aralığın (32.5 MSPS) dışındadır. Sinyalin alt kenarı zone 4’e, üst kenarı zone 5’e düşer; baseband’e farklı parite ile aliase oldukları için zone 1’deki spektrum bozulur ve iki tonun konumu artık <code class="language-plaintext highlighter-rouge">f − shift</code> formülüyle doğru çıkmaz. Yasak bölgenin gözlemlenebilir kanıtı budur.</p>
+
+<hr>
+
+<h2 id="etkileşimli-simülatör">Etkileşimli Simülatör</h2>
+
+<p>Aşağıdaki araçla f<sub>c</sub>, B ve f<sub>s</sub> değerlerini değiştirerek alias konumunu ve izinli/yasak bölge sınırlarını anlık görebilirsiniz.</p>
+
+<div class="card my-3" id="bps-demo">
+  <div class="card-header py-2"><strong>Bandpass Sampling Simülatörü</strong></div>
+  <div class="card-body">
+    <div class="form-row mb-2">
+      <div class="col-md-4 mb-2">
+        <label class="mb-0 small">f<sub>c</sub> (IF merkezi) = <b id="v-fc">70</b> MHz</label>
+        <input type="range" class="custom-range" id="sl-fc" min="10" max="400" value="70" step="1">
+      </div>
+      <div class="col-md-4 mb-2">
+        <label class="mb-0 small">B (bant genişliği) = <b id="v-bw">10</b> MHz</label>
+        <input type="range" class="custom-range" id="sl-bw" min="1" max="80" value="10" step="1">
+      </div>
+      <div class="col-md-4 mb-2">
+        <label class="mb-0 small">f<sub>s</sub> (örnekleme) = <b id="v-fs">31.25</b> MSPS</label>
+        <input type="range" class="custom-range" id="sl-fs" min="5" max="300" value="31.25" step="0.25">
+      </div>
+    </div>
+    <div id="bps-status" class="px-2 py-1 mb-2 rounded small" style="font-family:monospace;min-height:2.2em;"></div>
+    <canvas id="bps-canvas" style="width:100%;display:block;border-radius:4px;border:1px solid #dee2e6;"></canvas>
+    <p class="text-muted small mt-1 mb-0">Sol: analog spektrum. Sağ: örneklenmiş zone-1 alias'ı. Yasak bölgede iki farklı zone'dan alias çakışır.</p>
+  </div>
+</div>
+
+<!-- JS extracted to an external file so jekyll-spaceship/kramdown don't
+     mangle `[` and `(` characters inside the simulator's source. -->
+<script src="/assets/js/posts/bandpass-sampling.js"></script>
+
+<hr>
+
+<h2 id="mühendislik-notları-ve-pratik-tuzaklar">Mühendislik Notları ve Pratik Tuzaklar</h2>
+
+<p>Bandpass sampling’i sahaya çıkarmadan önce kontrol listesi:</p>
+
+<ol>
+  <li>
+<strong>Önce f_H’i, sonra f_s’i seç.</strong> Sinyal yüksek bandının ADC’nin analog input BW’sinin yarısını aşmaması ilk koşuldur. Bunu hesaplamadan datasheet’in MSPS satırına bakmak hatalıdır.</li>
+  <li>
+<strong>Wedge’in tepe noktasından kaç.</strong> Pratik bir kural: izinli aralığın ortasına denk gelen n’i seç. Eğer ortası çok dar bir kamaya düşüyorsa daha küçük n’e geç.</li>
+  <li>
+<strong>Saatin phase noise’unu RF mühendisliği gibi düşün.</strong> σ_t = 1 ps’lik bir saat, baseband alıcısında lüks; 1 GHz IF’te facia.</li>
+  <li>
+<strong>Anti-alias filtresini erken seç.</strong> SAW filtresinin sipariş süresi haftalar olabilir. Sistem mimarisinde yeri belirlenmeden FPGA yazılımına geçmek riskli.</li>
+  <li>
+<strong>Spektral inversiyonu cebine yaz.</strong> n çift kullanıyorsan downstream demodülatörün önüne <code class="language-plaintext highlighter-rouge">(-1)^k</code> veya I/Q swap ekle. Test günü “neden tersine konuşuyor?” diye paniklemekten daha ucuza geliyor.</li>
+  <li>
+<strong>Gürültü figürünü unutma.</strong> Filtreyi geçen out-of-band gürültü doğrudan baseband’e iner. Aktif önyükselticinin gürültü figürü, geniş analog BW’de etkin gürültüye dönüşür.</li>
+  <li>
+<strong>Sıcaklık üzerinden saat drift’ini düşün.</strong> −40 °C’de farklı bir TCXO frekansı, izinli kamadan çıkmana neden olabilir. Tasarım marjı somut olarak hesaplanmalı.</li>
+</ol>
+
+<hr>
+
+<h2 id="bandpass-sampling-nerede-kullanılır">Bandpass Sampling Nerede Kullanılır?</h2>
+
+<p>Modern alıcı mimarilerinin büyük kısmı hâlâ analog ön-karıştırıcı (mixer) ile bandı önce baseband’e ya da düşük IF’e indirir, sonra örnekler. Bunun nedeni hem analog BW yeterli ADC’lerin pahalı olması, hem de saat phase noise’unun maliyetli yönetimi.</p>
+
+<p>Ama doğrudan-IF veya doğrudan-RF örnekleme yapan tasarımlar son 10 yılda hızla yayıldı:</p>
+
+<ul>
+  <li>
+<strong>AMD/Xilinx Zynq UltraScale+ RFSoC</strong> (ZCU111, ZCU216 değerlendirme kartları) — yongaya entegre GSPS-sınıf doğrudan RF örnekleme ADC ve DAC blokları, FPGA fabric’i içinde sert IP olarak dijital downconverter/upconverter. Birkaç GHz’e ulaşan analog girişlerle, klasik mixer + IF + ADC zincirini tek yonga ile değiştirme amacı taşır.</li>
+  <li>
+<strong>Ettus USRP X410</strong> — Zynq RFSoC tabanlı, kanal başına 400 MHz anlık bant genişliği veren doğrudan RF örnekleme platformu.</li>
+  <li>
+<strong>Yazılım tanımlı askeri telsizler</strong> ve doğrudan-IF örnekleme yapan üst-uç ölçüm cihazları (modern spektrum analizörleri, vektör sinyal analizörleri).</li>
+</ul>
+
+<p>Buna karşılık <strong>PlutoSDR</strong>, <strong>RTL-SDR</strong> gibi popüler hobi/laboratuvar SDR’ler bandpass sampling kullanmaz — bunların hepsinde analog quadrature downconversion yapan tuner yongaları (AD9363, R820T2 vb.) vardır. ADC görece düşük IF’te (RTL-SDR için ~3.57 MHz) çalışır. Bandpass sampling görüldüğü kadar bedava değildir; ödediği bedel, saat ve filtre alt sisteminin yüksek karmaşıklığıdır.</p>
+
+<hr>
+
+<h2 id="sonuç">Sonuç</h2>
+
+<p>Nyquist–Shannon teoremi temel bir doğrudur, ama <strong>“en yüksek frekansın iki katı”</strong> ezberi onu bir nevi karikatürleştirir. Sinyalin baseband değil dar-bantlı olduğu durumda, gerçek alt sınır bilgi yüküdür: f_s ≥ 2B. Bandpass sampling, bu alt sınıra hangi sayısal hilelerle nasıl yaklaşacağımızı söyler.</p>
+
+<p>Pratikte bandpass sampling’i benimseyen tasarımlarda kritik karar üç sayıyla özetlenir: hangi n, hangi ADC analog BW, hangi saat jitter’ı. Bu üç sayıyı doğru yere koyarsanız, gerçekten <strong>1 GHz’lik sinyali 50 MHz saatle örneklemek</strong> mümkündür — ve sahada her gün çalışır. Yanlış yere koyarsanız sistem ya hiç çalışmaz ya da bazen, anlayamadığınız zamanlarda kendi kendine gizemli biçimde bozulur. RF mühendisliğinde her iki son da görülmüştür.</p>
+
+<p>Sonraki yazı için iyi bir devam konusu: bandpass sampling’in çıktısı zone 1’e indikten sonra <strong>dijital downconversion (DDC)</strong> ile I/Q ayrımı nasıl yapılır, ve neden “f_s/4 trick” denilen küçük sihir hem CIC filtresinden hem de NCO’dan tasarruf sağlar. Bu defterimde duruyor.</p>
+
+<hr>
+
+<p><strong>Kaynaklar:</strong></p>
+
+<ul>
+  <li>R. G. Vaughan, N. L. Scott, D. R. White — <a href="https://doi.org/10.1109/78.134430">“The Theory of Bandpass Sampling”</a>, IEEE Transactions on Signal Processing, Vol. 39, No. 9, Sept. 1991, pp. 1973–1984.</li>
+  <li>Richard G. Lyons — <em>Understanding Digital Signal Processing</em> (3rd ed., Pearson, 2010), Bölüm 2: “Sampling Bandpass Signals” ve “Spectral Inversion in Bandpass Sampling”.</li>
+  <li>Walt Kester (Analog Devices) — <a href="https://www.analog.com/media/en/training-seminars/tutorials/MT-007.pdf">MT-007 Tutorial, “Aperture Time, Aperture Jitter, Aperture Delay Time — Removing the Confusion”</a>.</li>
+  <li>Walt Kester (ed.) — <a href="https://www.analog.com/en/education/education-library/data-conversion-handbook.html"><em>Analog-Digital Conversion</em></a>, Analog Devices Education Library, 2004.</li>
+  <li>Analog Devices — <a href="https://www.analog.com/en/products/ad9265.html">AD9265 datasheet (16-bit, 125 MSPS, 650 MHz analog BW)</a>.</li>
+  <li>Texas Instruments — <a href="https://www.ti.com/product/ADS5474">ADS5474 datasheet (14-bit, 400 MSPS, 1.4 GHz analog BW)</a>.</li>
+  <li>Analog Devices — <a href="https://www.analog.com/en/products/ltc2208.html">LTC2208 datasheet (16-bit, 130 MSPS, 700 MHz analog BW, 70 fs aperture jitter)</a>.</li>
+  <li>AMD/Xilinx — <a href="https://www.amd.com/en/products/adaptive-socs-and-fpgas/soc/zynq-ultrascale-plus-rfsoc.html">Zynq UltraScale+ RFSoC ürün sayfası ve veri sayfaları</a>.</li>
+</ul>
+
+          </div>
+        </div>
+
+        <nav class="post-nav" aria-label="Yazı navigasyonu">
+          
+          <a class="post-nav__item post-nav__item--prev" href="/2026/05/14/renode-ile-zynq7000-simulasyonu.html">
+            <span class="post-nav__direction">← Önceki yazı</span>
+            <span class="post-nav__title">Renode ile Zynq7000 Simülasyonu</span>
+            <span class="post-nav__date">May 2026</span>
+          </a>
+          
+          
+        </nav>
+
+        <div class="clearfix" id="disqus_thread"></div>
+          <script>
+            (function () {
+              var loaded = false;
+              function loadDisqus() {
+                if (loaded) return;
+                loaded = true;
+                var d = document, s = d.createElement('script');
+                s.src = 'https://karaman-dev.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+              }
+              if ('IntersectionObserver' in window) {
+                var observer = new IntersectionObserver(function (entries) {
+                  if (entries[0].isIntersecting) {
+                    loadDisqus();
+                    observer.disconnect();
+                  }
+                }, { rootMargin: '200px' });
+                observer.observe(document.getElementById('disqus_thread'));
+              } else {
+                loadDisqus();
+              }
+            })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+
+<footer class="footer-modern">
+  <div class="footer-main">
+    <div class="container">
+      <div class="row">
+
+        <!-- About column -->
+        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+          <h5 class="footer-heading">M. Serdar Karaman</h5>
+          <p class="footer-description">Aviyonik yazılım, DO-178C ve emniyet kritik mühendislik üzerine sahadan notlar.</p>
+        </div>
+
+        <!-- Quick links column -->
+        <div class="col-lg-2 col-md-6 mb-4 mb-lg-0 offset-lg-1">
+          <h5 class="footer-heading">Bağlantılar</h5>
+          <ul class="footer-links">
+            <li><a href="/">Ana sayfa</a></li>
+            <li><a href="/hakkimda">Hakkımda</a></li>
+            <li><a href="/posts">Yazılar</a></li>
+            <li><a href="/contact">İletişim</a></li>
+          </ul>
+          <h5 class="footer-heading mt-3">Projeler</h5>
+          <ul class="footer-links">
+            <li><a href="https://karaman.dev/games" target="_blank" rel="noopener">Oyunlar</a></li>
+            <li><a href="https://karaman.dev/or-araclari" target="_blank" rel="noopener">OR Araçları</a></li>
+          </ul>
+        </div>
+
+        <!-- Social column -->
+        <div class="col-lg-4 col-md-12 mb-0 offset-lg-1">
+          <h5 class="footer-heading">İletişim</h5>
+          <ul class="footer-social list-inline">
+            
+            <li class="list-inline-item">
+              <a href="mailto:%73%65%72%64%61%72@%6B%61%72%61%6D%61%6E.%64%65%76" aria-label="E-posta">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              </a>
+            </li>
+            
+            
+            <li class="list-inline-item">
+              <a href="https://github.com/Mavrikant" aria-label="GitHub" target="_blank" rel="noopener">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"></path></svg>
+              </a>
+            </li>
+            
+            
+            <li class="list-inline-item">
+              <a href="https://www.linkedin.com/in/mserdarkaraman" aria-label="LinkedIn" target="_blank" rel="noopener">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+              </a>
+            </li>
+            
+            
+            
+            
+            
+            <li class="list-inline-item">
+              <a href="https://www.youtube.com/channel/UCIlBH9QynIkHxX8uiY0UEMQ" aria-label="YouTube" target="_blank" rel="noopener">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20.06 12 20.06 12 20.06s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"></path><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"></polygon></svg>
+              </a>
+            </li>
+            
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6 text-center text-md-left">
+          <p class="copyright mb-0">© 2026 M. Serdar Karaman. Tüm hakları saklıdır.</p>
+        </div>
+        <div class="col-md-6 text-center text-md-right mt-2 mt-md-0">
+          <a href="#page-top" class="back-to-top" aria-label="Başa dön">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"></polyline></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  
+<div id="bayram-splash" class="bayram-splash" data-theme="dark" role="dialog" aria-modal="true" aria-labelledby="bayram-splash-title" aria-describedby="bayram-splash-subtitle" hidden>
+  <div class="bayram-splash__backdrop" data-bayram-close="backdrop"></div>
+
+  <div class="bayram-splash__panel" role="document">
+    <button type="button" class="bayram-splash__close" aria-label="Kapat" data-bayram-close="button">
+      <svg width="18" height="18" viewbox="0 0 18 18" fill="none" aria-hidden="true">
+        <path d="M3 3 L15 15 M15 3 L3 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"></path>
+      </svg>
+    </button>
+
+    <div class="bayram-splash__status" aria-hidden="true">
+      <div class="bayram-splash__status-left">
+        <span class="bayram-splash__pip"></span>
+        <span>karaman.dev</span>
+        <span class="bayram-splash__sep">/</span>
+        <span class="bayram-splash__status-dim">bayram</span>
+        <span class="bayram-splash__sep">/</span>
+        <span class="bayram-splash__status-faint">lang · tr / en</span>
+      </div>
+      <div class="bayram-splash__status-right">
+        <span class="bayram-splash__status-faint">REF · BAYRAM-2026</span>
+      </div>
+    </div>
+
+    <div class="bayram-splash__ticks" aria-hidden="true">
+      <span class="bayram-splash__tick bayram-splash__tick--tl"></span>
+      <span class="bayram-splash__tick bayram-splash__tick--tr"></span>
+      <span class="bayram-splash__tick bayram-splash__tick--bl"></span>
+      <span class="bayram-splash__tick bayram-splash__tick--br"></span>
+    </div>
+
+    <div class="bayram-splash__body">
+      <div class="bayram-splash__art" aria-hidden="true">
+        <svg viewbox="0 0 360 360" width="220" height="220" role="img" aria-label="Hilâl ve yıldız">
+          <defs>
+            <mask id="bayram-crescent-mask" maskunits="userSpaceOnUse">
+              <rect x="0" y="0" width="360" height="360" fill="black"></rect>
+              <circle cx="170" cy="180" r="120" fill="white"></circle>
+              <circle class="bayram-splash__mask-inner" cx="208" cy="180" r="120" fill="black"></circle>
+            </mask>
+            <pattern id="bayram-pcb" width="22" height="22" patternunits="userSpaceOnUse">
+              <circle cx="3" cy="3" r="0.9" fill="rgba(8,22,30,0.55)"></circle>
+              <circle cx="19" cy="19" r="0.7" fill="rgba(8,22,30,0.4)"></circle>
+              <circle cx="19" cy="3" r="0.5" fill="rgba(8,22,30,0.28)"></circle>
+              <circle cx="3" cy="19" r="0.5" fill="rgba(8,22,30,0.28)"></circle>
+              <path d="M3 3 L3 11 L11 11 L11 3 M11 11 L19 11 L19 19 M3 19 L3 11" stroke="rgba(8,22,30,0.32)" stroke-width="0.4" fill="none"></path>
+            </pattern>
+          </defs>
+
+          <g mask="url(#bayram-crescent-mask)">
+            <circle cx="170" cy="180" r="120" class="bayram-splash__crescent-fill"></circle>
+            <rect x="50" y="60" width="240" height="240" fill="url(#bayram-pcb)"></rect>
+
+            <g class="bayram-splash__net" stroke="rgba(8,22,30,0.55)" stroke-width="0.9" fill="none">
+              <line x1="86" y1="129" x2="120" y2="106"></line>
+              <line x1="86" y1="129" x2="116" y2="139"></line>
+              <line x1="86" y1="129" x2="116" y2="180"></line>
+              <line x1="79" y1="174" x2="116" y2="139"></line>
+              <line x1="79" y1="174" x2="116" y2="180"></line>
+              <line x1="79" y1="174" x2="116" y2="220"></line>
+              <line x1="86" y1="228" x2="116" y2="180"></line>
+              <line x1="86" y1="228" x2="116" y2="220"></line>
+              <line x1="86" y1="228" x2="120" y2="252"></line>
+              <line x1="120" y1="106" x2="151" y2="132"></line>
+              <line x1="116" y1="139" x2="151" y2="132"></line>
+              <line x1="116" y1="139" x2="148" y2="180"></line>
+              <line x1="116" y1="180" x2="148" y2="180"></line>
+              <line x1="116" y1="180" x2="151" y2="228"></line>
+              <line x1="116" y1="220" x2="148" y2="180"></line>
+              <line x1="116" y1="220" x2="151" y2="228"></line>
+              <line x1="120" y1="252" x2="151" y2="228"></line>
+            </g>
+            <g class="bayram-splash__nodes">
+              <circle cx="86" cy="129" r="3"></circle>
+              <circle cx="79" cy="174" r="3"></circle>
+              <circle cx="86" cy="228" r="3"></circle>
+              <circle cx="120" cy="106" r="3"></circle>
+              <circle cx="116" cy="139" r="3"></circle>
+              <circle cx="116" cy="180" r="3"></circle>
+              <circle cx="116" cy="220" r="3"></circle>
+              <circle cx="120" cy="252" r="3"></circle>
+              <circle cx="151" cy="132" r="3"></circle>
+              <circle cx="148" cy="180" r="3"></circle>
+              <circle cx="151" cy="228" r="3"></circle>
+            </g>
+
+            <g class="bayram-splash__hex" font-family="'JetBrains Mono', monospace" fill="rgba(8,22,30,0.7)">
+              <text x="86" y="100" font-size="10" letter-spacing="0.1em">0xAI</text>
+              <text x="100" y="270" font-size="8" letter-spacing="0.15em">01010111</text>
+              <text x="70" y="195" font-size="7" letter-spacing="0.12em">v1.447</text>
+            </g>
+          </g>
+
+          <path class="bayram-splash__star" d="M 280 168 L 290 188 L 312 191 L 296 207 L 300 229 L 280 219 L 260 229 L 264 207 L 248 191 L 270 188 Z"></path>
+        </svg>
+      </div>
+
+      <p class="bayram-splash__eyebrow">01 / Tebrik · Kurban Bayramı · 1447 H</p>
+
+      <h2 id="bayram-splash-title" class="bayram-splash__title">
+        Kurban Bayramınız<br>mübarek olsun.
+      </h2>
+
+      <div class="bayram-splash__divider" aria-hidden="true"></div>
+
+      <p id="bayram-splash-subtitle" class="bayram-splash__subtitle">
+        <em>Eid al‑Adha Mubarak</em>
+      </p>
+
+      <p class="bayram-splash__wish">
+        Sevdiklerinizle birlikte sağlık, huzur<br>ve nice güzelliklere.
+      </p>
+
+      <div class="bayram-splash__signature">
+        <span class="bayram-splash__sig-rule"></span>
+        <span class="bayram-splash__sig-name">karaman.dev</span>
+        <span class="bayram-splash__sig-rule"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="/assets/scripts.js"></script>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YDEV31NZ5J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YDEV31NZ5J');
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="/favicon.ico" rel="shortcut icon" sizes="36x36 24x24 16x16" type="image/x-icon">
+<link href="/favicon.png" rel="icon" sizes="196x196" type="image/png">
+<meta content="/mstile-icon-128x128.png" name="msapplication-TileImage">
+<meta content="transparent" name="msapplication-TileColor">
+<link href="/manifest.webmanifest" rel="manifest">
+<meta content="/browserconfig.xml" name="msapplication-config">
+<!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>Saatçinin Saatini Kim Kalibre Eder? Kalibrasyon Zincirinin Tepesi | M. Serdar Karaman</title>
+<meta name="generator" content="Jekyll v4.2.2">
+<meta property="og:title" content="Saatçinin Saatini Kim Kalibre Eder? Kalibrasyon Zincirinin Tepesi">
+<meta name="author" content="M. Serdar Karaman">
+<meta property="og:locale" content="tr_TR">
+<meta name="description" content="Aviyonik yazılım, DO-178C ve emniyet kritik mühendislik üzerine sahadan notlar.">
+<meta name="twitter:description" property="og:description" content="Aviyonik yazılım, DO-178C ve emniyet kritik mühendislik üzerine sahadan notlar.">
+<link rel="canonical" href="https://karaman.dev/2026/05/07/kalibrasyon-zincirinin-tepesi-birincil-standartlar.html">
+<meta property="og:url" content="https://karaman.dev/2026/05/07/kalibrasyon-zincirinin-tepesi-birincil-standartlar.html">
+<meta property="og:site_name" content="M. Serdar Karaman">
+<meta property="og:image" content="https://karaman.dev/img/og-default.webp">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-05-07T09:00:00+00:00">
+<meta property="article:modified_time" content="2026-05-07T09:00:00+00:00">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://karaman.dev/img/og-default.webp">
+<meta name="twitter:title" content="Saatçinin Saatini Kim Kalibre Eder? Kalibrasyon Zincirinin Tepesi">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"M. Serdar Karaman"},"dateModified":"2026-05-07T09:00:00+00:00","datePublished":"2026-05-07T09:00:00+00:00","description":"Aviyonik yazılım, DO-178C ve emniyet kritik mühendislik üzerine sahadan notlar.","headline":"Saatçinin Saatini Kim Kalibre Eder? Kalibrasyon Zincirinin Tepesi","image":"https://karaman.dev/img/og-default.webp","mainEntityOfPage":{"@type":"WebPage","@id":"https://karaman.dev/2026/05/07/kalibrasyon-zincirinin-tepesi-birincil-standartlar.html"},"url":"https://karaman.dev/2026/05/07/kalibrasyon-zincirinin-tepesi-birincil-standartlar.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<!-- Sentry (errors + performance + replay) -->
+<script src="https://js.sentry-cdn.com/d9df60c4bcc41adb14bb648db4013b52.min.js" crossorigin="anonymous"></script>
+<script>
+  Sentry.onLoad(function () {
+    Sentry.init({
+      integrations: [
+        Sentry.browserTracingIntegration(),
+        Sentry.replayIntegration({
+          maskAllText: false,
+          blockAllMedia: false,
+        }),
+      ],
+      tracesSampleRate: 1.0,
+      replaysSessionSampleRate: 0.1,
+      replaysOnErrorSampleRate: 1.0,
+    });
+  });
+</script>
+
+
+<script>
+  // No-flash dark mode: applies the saved theme before paint.
+  (function () {
+    try {
+      var stored = localStorage.getItem('theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = stored || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch (e) {}
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="/img/posts/8.webp" fetchpriority="high">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.12.0/mermaid.min.js" integrity="sha512-5TKaYvhenABhlGIKSxAWLFJBZCSQw7HTV7aL1dJcBokM/+3PNtfgJFlv8E6Us/B1VMlQ4u8sPzjudL9TEQ06ww==" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/assets/main.css">
+<link rel="alternate" type="application/rss+xml" title="M. Serdar Karaman" href="/feed.xml">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e1014" media="(prefers-color-scheme: dark)">
+<link rel="manifest" href="/manifest.json">
+</head>
+<body id="page-top">
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">M. Serdar Karaman</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Menüyü aç/kapat">
+      Menü
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Ana sayfa</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">Hakkımda</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Yazılar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contact">İletişim</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownProjects" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Projeler
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProjects">
+            <a class="dropdown-item" href="https://karaman.dev/games" target="_blank" rel="noopener">Oyunlar</a>
+            <a class="dropdown-item" href="https://karaman.dev/or-araclari" target="_blank" rel="noopener">OR Araçları</a>
+          </div>
+        </li>
+        <li class="nav-item d-flex align-items-center">
+          <button type="button" class="theme-toggle" aria-label="Tema değiştir" title="Tema değiştir">
+            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <!-- Page Header -->
+
+<header class="masthead" style="background-image: url('/img/posts/8.webp')">
+  
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Saatçinin Saatini Kim Kalibre Eder? Kalibrasyon Zincirinin Tepesi</h1>
+            
+            <h2 class="subheading">Who Calibrates the Calibrators? The Top of the Traceability Chain</h2>
+            
+            <span class="meta">
+              <a href="/about">M. Serdar Karaman</a>
+              · 7 Mayıs 2026 · <span class="reading-time" title="Estimated read time">
+  
+   41 mins  read </span>
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container" lang="tr">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+
+        <div class="post-shell">
+          <aside class="post-toc" aria-label="İçindekiler">
+  <h2 class="post-toc__title">İçindekiler</h2>
+  <nav id="post-toc-nav"></nav>
+</aside>
+
+          <div class="post-content">
+            <script src="https://cdn.plot.ly/plotly-basic-2.27.0.min.js"></script>
+
+<p>Akreditasyon denetimi sabahı. Denetçi elinde bir kalem, masanızdaki Keysight 34465A multimetreyi gösteriyor.</p>
+
+<p>— “Bu cihazı neyle kalibre ediyorsunuz?”
+— “Yan rafta duran Fluke 5720A kalibratörle.”
+— “Peki Fluke 5720A neyle kalibre edildi?”
+— “Geçen yıl TÜBİTAK UME’ye gönderdik.”
+— “Peki UME neyle kalibre etti?”</p>
+
+<p>Kısa bir sessizlik. Cevabı tahmin ediyorsunuz ama ifadeyi bulamıyorsunuz: <em>daha iyi bir kalibratörle</em>. Peki o kalibratör neyle? <em>Daha iyisiyle.</em> Sonra? Sonsuza mı gidiyor bu zincir?</p>
+
+<p><a href="/2026/05/06/olcum-belirsizligi-gum-annex-f-ncsli-rp-12.html">Bir önceki yazıda</a> bir cihazın belirsizliğinin nasıl hesaplandığını adım adım gördük. Belirsizlik bütçesinin son satırında “kalibrasyon belgesi (UME, k=2)” diye bir kaynak vardı; o satıra bir sayı yazıp geçtik. Bu yazıda o satırın <strong>arkasını</strong> açacağız. Kalibrasyon belgesindeki belirsizlik nereden geliyor? UME bu sayıyı nasıl üretiyor? Ve zincirin en tepesindeki cihazlar — ki onlar bu sektörün gerçekten en hassas ölçüm aletleri — <em>nasıl</em> doğrulanıyorlar?</p>
+
+<p>Cevap, mühendislikten yavaş yavaş fiziğe doğru kayıyor. Zincirin tepesinde başka bir cihaz yok. Doğa yasaları var.</p>
+
+<hr>
+
+<h2 id="i̇zlenebilirlik-piramidi">İzlenebilirlik Piramidi</h2>
+
+<p>Önceki yazıda izlenebilirlik zincirini lineer bir akış olarak çizmiştik: SI → UME → akredite lab → cihaz. Aslında bu akış bir piramidin yan kesiti. Tepede bir avuç birincil standart var; tabanda dünyadaki milyonlarca ölçüm cihazı.</p>
+
+<div class="mermaid">
+flowchart TB
+    SI["<b>Seviye 0</b>   SI Birim Tanımları<br>7 doğa sabiti — h, c, e, k, N_A, Δν_Cs, K_cd<br><i>belirsizlik: tanım gereği sıfır</i>"]
+    PRI["<b>Seviye 1</b>   Birincil Standartlar<br>NMI'ler — UME, NIST, PTB, NPL, BIPM<br>Sezyum fıskiyesi, Kibble terazisi, Josephson, kuantum Hall<br><i>belirsizlik: 10⁻⁹ – 10⁻¹⁶</i>"]
+    REF["<b>Seviye 2</b>   İkincil / Transfer Standartlar<br>Akredite kalibrasyon laboratuvarları, TÜRKAK<br>Fluke 732C, ESI SR104, Agilent 3458A<br><i>belirsizlik: 10⁻⁷ – 10⁻⁸</i>"]
+    WORK["<b>Seviye 3</b>   Çalışma Standartları<br>Sanayinin lab referansı<br>Fluke 5720A/5730A, Druck DPI 620<br><i>belirsizlik: 10⁻⁶</i>"]
+    UUT["<b>Seviye 4</b>   Saha Cihazları (UUT)<br>Multimetre, basınç sensörü, sıcaklık probu<br><i>belirsizlik: 10⁻⁴ – 10⁻⁵</i>"]
+    SI --&gt; PRI --&gt; REF --&gt; WORK --&gt; UUT
+    style SI fill:#1a73e8,color:#fff,stroke:#0c4ea2,stroke-width:2px
+    style PRI fill:#2e7d32,color:#fff,stroke:#1b5e20,stroke-width:2px
+    style REF fill:#e8711a,color:#fff,stroke:#a14b00,stroke-width:2px
+    style WORK fill:#c62828,color:#fff,stroke:#8a1010,stroke-width:2px
+    style UUT fill:#6a1b9a,color:#fff,stroke:#3c0d59,stroke-width:2px
+</div>
+
+<p>Piramidi okumanın iki yolu var. Yukarıdan aşağı baktığınızda her seviyede <strong>belirsizlik artar, maliyet düşer, erişim genişler</strong>. Aşağıdan yukarı baktığınızda her cihaz “bir üstündeki seviyenin daha hassas örneğine” karşı kalibre edilir. Bu mantığın doğal sonucu, en üstte de bir cihaz olması gerektiği — ve onun da bir başkasına karşı kalibre edilmesi gerektiği. Ama bir yerde durması lazım. Yoksa kalibrasyon kavramının kendisi anlamsız.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Seviye</th>
+      <th>Tipik cihaz</th>
+      <th>Kim sahibi</th>
+      <th>Tipik belirsizlik (10 V için)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>0</td>
+      <td>(cihaz yok, doğa sabiti)</td>
+      <td>doğa</td>
+      <td>0 (tanım)</td>
+    </tr>
+    <tr>
+      <td>1</td>
+      <td>Programlanabilir Josephson voltaj standardı</td>
+      <td>UME, NIST, PTB</td>
+      <td>~0,05 µV (5 ppb)</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Fluke 732C / ESI SR104 / Agilent 3458A</td>
+      <td>TÜRKAK akrediteli lab</td>
+      <td>~5 µV (0,5 ppm)</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Fluke 5720A / 5730A</td>
+      <td>Sanayi lab</td>
+      <td>~50 µV (5 ppm)</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>Keysight 34465A multimetre</td>
+      <td>Test mühendisi</td>
+      <td>~500 µV (50 ppm)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Piramidin her seviyesinde belirsizlik yaklaşık <strong>bir mertebe</strong> (10×) artıyor. Bu rastlantı değil. Pratik bir kuraldır: <strong>referans cihazınız, kalibre edeceğiniz cihazdan en az dört kat daha iyi olmalı</strong> (TUR ≥ 4 kuralı, önceki yazıdaki Z540.3 sınırı). Üreticiler ve akredite laboratuvarlar piramidi bu kurala göre kurarlar; tipik aralık 4 ile 10 arasında değişir. Daha iyi olmak şart değil çünkü pahalı; ama 4’ün altına düşmek de pratik olarak kararı bozar.</p>
+
+<hr>
+
+<h2 id="kim-kalibre-eder-sorusunun-sonu">“Kim Kalibre Eder?” Sorusunun Sonu</h2>
+
+<p>Şimdi denetçinin sorusuna geri dönelim. Piramitte hep yukarı çıkıyoruz: cihaz, kalibratör, transfer standardı, NMI’nin birincil standardı. Sonunda Seviye 1’e ulaşıyoruz. UME’deki sezyum fıskiyesi. Kibble terazisi. Josephson eklem dizisi. <strong>Bunları kim kalibre ediyor?</strong></p>
+
+<p>Yanıt iki kademede gelir.</p>
+
+<p>İlk kademe pratiğin cevabıdır: <strong>kimse</strong>. Birincil standart başka bir cihaza karşı doğrulanmaz. Çünkü daha hassası yok. Eğer birinci sınıf bir Josephson voltaj standardından sapma görmek isterseniz, bunu görmenin tek yolu <strong>başka bir Josephson standardı</strong> ile karşılaştırmaktır. Bu da “kalibrasyon” değil, <strong>karşılaştırma</strong> olarak tanımlanır. (Bu konuya bölüm 6’da döneceğiz.)</p>
+
+<p>İkinci kademe felsefenin cevabıdır: <strong>doğa yasaları</strong>. Modern birincil standartlar, başka bir cihazın değerlerine karşı değil, <strong>fiziğin sabit niceliklerine</strong> karşı tanımlanır. Sezyum fıskiyesinin doğru çalışıp çalışmadığını anlamanın yolu, ürettiği frekansın gerçekten sezyum-133 atomunun hiperince geçişine denk düşüp düşmediğine bakmaktır. Bu geçiş frekansı (Δν_Cs) ise <strong>tam tanım gereği</strong> 9 192 631 770 Hz’tir; SI saniyesi tam olarak böyle tanımlanmıştır.</p>
+
+<p>Yani saat “kalibre” edilmez. <strong>Sayar.</strong> Saatin görevi sezyum-133 atomlarını gözlemleyip kaç hiperince geçiş geçtiğini saymaktır. Eğer 9 192 631 770 saymışsa, üzerinden 1 saniye geçmiş demektir. Tanım, fizik ve cihaz aynı şeyi söylüyor.</p>
+
+<p>Tarih boyunca her zaman böyle değildi.</p>
+
+<p>1889’dan 2019’a kadar <strong>kilogram</strong>ın tanımı şöyleydi: “Uluslararası Kilogram Prototipi (IPK), Saint-Cloud’daki Pavillon de Breteuil’de (posta adresi: Sèvres) BIPM kasasında saklanan platin-iridyum silindirin kütlesi.” Yani dünyadaki <em>bir tek</em> gerçek 1 kg vardı; o silindir. Diğer her şey ona göre tanımlanmıştı. IPK günlük çalışma için kullanılmıyordu; yanında BIPM’in kendi yedekleri (témoin) ve bir avuç çalışma standardı vardı. Tarih boyunca yalnızca dört defa kasadan çıkarıldı — 1889 onayı ve üç doğrulama kampanyası (1939-46, 1989-92, 2014). Bu kampanyalarda BIPM yedekleri ve ülkelerin ulusal prototipleri (K20, K54…) IPK ile karşılaştırıldı. IPK’nın kendisinin bir kalibrasyonu yoktu — <em>o</em>, kalibrasyonun referansıydı.</p>
+
+<p>Sorun şuydu: özellikle 1989-92 karşılaştırmasında, IPK ile resmi yedekleri arasında ortalama yaklaşık <strong>50 µg</strong>‘lık bir farklılaşma raporlandı (yedeklerin çoğu IPK’ya göre kütle kazandı, ya da IPK kütle kaybetti). Yaklaşık bir asırlık değişim 50 mikrogram. Az gibi duruyor — ama önemli olan miktarı değil, ilkesi: <strong>eğer 1 kg’ın tanımı bu silindirse</strong>, silindir değişirse 1 kg da değişir. Mantık olarak silindirin <em>yanlış</em> olması mümkün değildi. Yanlış olan, dünyadaki diğer tüm 1 kg ölçümleriydi.</p>
+
+<p>Bu durum, dünyanın en hassas ölçümlerini yapan kuruluşları rahatsız etti. Birim tanımı bir esere bağlıyken, eserin iyi durumda olup olmadığından asla emin olamazdınız.</p>
+
+<p>16 Kasım 2018’de BIPM’in <strong>26. Genel Konferansı (CGPM)</strong> çözümü oybirliğiyle kabul etti: SI birimleri artık eserlere değil, <strong>doğa sabitlerine</strong> bağlanacak. Planck sabiti tam değer atandı, belirsizlik sıfır. IPK emekli edildi. Aynı şey amper, kelvin ve mol için de yapıldı. Yeni tanımlar 20 Mayıs 2019’da — Metre Konvansiyonu’nun 144. yıl dönümünde, yani Dünya Metroloji Günü’nde — yürürlüğe girdi.</p>
+
+<p>Bu, 130 yılın en büyük metroloji reformuydu. Ve şimdi zincirin tepesinde <em>cihaz</em> yok; <em>fizik</em> var.</p>
+
+<blockquote>
+  <p><strong>Akılda kalsın — birincil standart kalibre edilmez:</strong> Bir sezyum fıskiyesini “şuna karşı kalibre ettik” diyemezsiniz. Sadece başka bir sezyum fıskiyesiyle <strong>karşılaştırırsınız</strong>. Anlaşmazlık olursa fizik konuşur, cihaz değil.</p>
+</blockquote>
+
+<hr>
+
+<h2 id="2019-devrimi-sabitler-tanımlanır-birimler-türetilir">2019 Devrimi: Sabitler Tanımlanır, Birimler Türetilir</h2>
+
+<p>Reformun mantığı tek satırla şu: önceden birim tanımı belliydi, doğa sabiti ölçülürdü; şimdi doğa sabiti tanımlıdır, birim ölçülür.</p>
+
+<div class="mermaid">
+flowchart LR
+    subgraph eski["1889 – 2019: Eserden Birime"]
+        A1["Eser<br>(IPK, metre çubuğu)"] --&gt; A2["Birim<br>(kg, m)"]
+        A2 --&gt; A3["Sabit<br>(h, c) ölçülür"]
+    end
+    subgraph yeni["2019 sonrası: Sabitten Birime"]
+        B1["Sabit<br>(h, c, e, k, ...)<br><i>tam değer atanır</i>"] --&gt; B2["Birim<br>(kg, m, A, K, ...)"]
+        B2 --&gt; B3["Gerçekleme<br>(Kibble, Josephson, ...)"]
+    end
+    style A1 fill:#fce4ec,stroke:#c2185b
+    style A2 fill:#f8bbd0,stroke:#c2185b
+    style A3 fill:#f48fb1,stroke:#c2185b
+    style B1 fill:#e3f2fd,stroke:#1565c0
+    style B2 fill:#90caf9,stroke:#1565c0
+    style B3 fill:#42a5f5,stroke:#1565c0,color:#fff
+</div>
+
+<p>Reformun yarım asrı bulan tarihsel dönüm noktaları:</p>
+
+<div class="mermaid">
+flowchart TB
+    Y1875["<b>1875</b><br>Metre Konvansiyonu imzalandı<br>BIPM kuruldu"]
+    Y1889["<b>1889</b><br>1. CGPM<br>IPK ve metre prototipi onaylandı<br><i>(eserlerle tanım çağı başlar)</i>"]
+    Y1960["<b>1960</b><br>11. CGPM<br>SI resmi olarak ilan edildi<br>metre kripton-86'ya bağlandı"]
+    Y1967["<b>1967</b><br>13. CGPM<br>saniye sezyum-133'e bağlandı<br><i>(ilk fiziksel sabit tabanlı tanım)</i>"]
+    Y1983["<b>1983</b><br>17. CGPM<br>metre ışık hızıyla tanımlandı<br>(c = tam değer)"]
+    Y2005["<b>2005</b><br>CIPM tavsiyesi<br>kilogramın yeniden tanımı önerildi"]
+    Y2018["<b>2018-11-16</b><br>26. CGPM oybirliği<br>h, e, k, N_A tam değer atandı"]
+    Y2019["<b>2019-05-20</b><br>Yeni SI yürürlükte<br><i>(IPK emekli; tüm tanımlar sabit tabanlı)</i>"]
+    Y1875 --&gt; Y1889 --&gt; Y1960 --&gt; Y1967 --&gt; Y1983 --&gt; Y2005 --&gt; Y2018 --&gt; Y2019
+    style Y1875 fill:#fce4ec,stroke:#c2185b
+    style Y1889 fill:#f8bbd0,stroke:#c2185b
+    style Y1960 fill:#e1bee7,stroke:#7b1fa2
+    style Y1967 fill:#d1c4e9,stroke:#512da8
+    style Y1983 fill:#c5cae9,stroke:#3949ab
+    style Y2005 fill:#bbdefb,stroke:#1565c0
+    style Y2018 fill:#90caf9,stroke:#1565c0
+    style Y2019 fill:#1a73e8,color:#fff,stroke:#0c4ea2,stroke-width:2px
+</div>
+
+<p>Eski sistemde Planck sabitinin “ölçülmüş değeri” vardı, sürekli daha hassas ölçüm yapmaya çalışıyorduk. Yeni sistemde Planck sabiti <strong>tam olarak</strong> 6,626 070 15 × 10⁻³⁴ J·s. Belirsizlik sıfır, çünkü tanım böyle. Ölçtüğümüz şey artık Planck sabiti değil — <strong>kilogram</strong>. Yani Kibble terazisi, kilogramı Planck sabitinden ne kadar iyi <em>gerçekleyebildiğimizi</em> sınar.</p>
+
+<p>Yedi tanımlayıcı sabit (defining constants):</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Sabit</th>
+      <th>Sembol</th>
+      <th>Tam değer</th>
+      <th>Tanımladığı SI birimi</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Sezyum-133 hiperince geçiş frekansı</td>
+      <td>Δν_Cs</td>
+      <td>9 192 631 770 Hz</td>
+      <td>saniye (s)</td>
+    </tr>
+    <tr>
+      <td>Vakumda ışık hızı</td>
+      <td>c</td>
+      <td>299 792 458 m/s</td>
+      <td>metre (m)</td>
+    </tr>
+    <tr>
+      <td>Planck sabiti</td>
+      <td>h</td>
+      <td>6,626 070 15 × 10⁻³⁴ J·s</td>
+      <td>kilogram (kg)</td>
+    </tr>
+    <tr>
+      <td>Temel yük</td>
+      <td>e</td>
+      <td>1,602 176 634 × 10⁻¹⁹ C</td>
+      <td>amper (A)</td>
+    </tr>
+    <tr>
+      <td>Boltzmann sabiti</td>
+      <td>k</td>
+      <td>1,380 649 × 10⁻²³ J/K</td>
+      <td>kelvin (K)</td>
+    </tr>
+    <tr>
+      <td>Avogadro sabiti</td>
+      <td>N_A</td>
+      <td>6,022 140 76 × 10²³ mol⁻¹</td>
+      <td>mol</td>
+    </tr>
+    <tr>
+      <td>540 THz ışınım için aydınlanma etkinliği</td>
+      <td>K_cd</td>
+      <td>683 lm/W</td>
+      <td>kandela (cd)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Tablonun anlamı şu: bu yedi sayıyı doğa kanunu olarak kabul ediyoruz. Diğer her şey buradan türüyor. Saniye Δν_Cs’den, metre c × s’den, kilogram h’den, amper e’den, kelvin k’den… Dünyanın her yerinde aynı yedi sayı kullanılıyor; herkes aynı birime sahip.</p>
+
+<p>Pratik bir test: bir Türk laboratuvarındaki 1 kg ile bir Alman laboratuvarındaki 1 kg birbirinden farklı olabilir mi? Eski sistemde <strong>evet</strong> — Türk silindiri Sèvres’deki orijinalden ne kadar farklılaştığına bağlı. Yeni sistemde <strong>hayır</strong> — her ikisi de aynı Planck sabitinden türetiliyor; en kötü ihtimalle gerçekleme cihazlarının belirsizliği kadar farklılık olur, sistematik bir kayma yok.</p>
+
+<blockquote>
+  <p><strong>Akılda kalsın — gerçekleme (realization) ile kalibrasyonun farkı:</strong> Kalibrasyon, bir cihazın değerini <em>üst seviyedeki</em> başka bir cihaza göre düzeltmektir. Gerçekleme, bir cihazın değerini <em>birim tanımına</em> — yani fiziksel bir olguya — göre üretmektir. Birincil standart kalibre edilmez, birimi gerçekler.</p>
+</blockquote>
+
+<hr>
+
+<h2 id="birincil-standartlar-yakın-plan">Birincil Standartlar Yakın Plan</h2>
+
+<p>Sırayla altı birimin birincil gerçeklenişine bakalım. Her biri için soracağımız sorular: cihaz nedir, hangi sabite dayanır, tipik belirsizlik nedir, dünyada ve Türkiye’de kim çalıştırıyor.</p>
+
+<h3 id="saniye-sezyum-fıskiyesi-ve-optik-saatler">Saniye: Sezyum Fıskiyesi ve Optik Saatler</h3>
+
+<p>SI tüm birimleri arasında en hassas tanımlananı saniyedir. Çünkü sezyum-133 atomunun hiperince geçişi, doğanın sunduğu en kararlı periyodik olgu sayılıyor.</p>
+
+<p>İlk pratik sezyum atomik saati 1955’te NPL’de (İngiltere) Louis Essen ve Jack Parry tarafından yapıldı; sıcak bir fırından çıkan atom demetini frekans rezonansından geçiren bir düzendi, doğruluğu 1×10⁻⁹ mertebesindeydi. <strong>Sezyum fıskiyesi</strong> ise modern tasarım: atomlar lazerle soğutuluyor (mikrokelvin mertebesinde), yukarı doğru fırlatılıyor, yerçekimiyle aşağı düşüyor. Bu “fıskiye” geometrisi atomların rezonans bölgesinden iki kez geçmesini sağlıyor — birincide frekansı işaretliyor, ikincide kontrol ediyor. Daha uzun gözlem süresi, daha keskin rezonans, daha düşük belirsizlik.</p>
+
+<div class="mermaid">
+flowchart TB
+    OVEN["Sezyum atom kaynağı<br>(katı sezyum-133, ısıtılır)"]
+    COOL["Lazer soğutma<br>µK seviyesine indir"]
+    TOSS["Yukarı doğru lazerle fırlat<br>(saniyede ~5 m hız)"]
+    UP["Yukarı çıkış<br>mikrodalga kavitesinden geç (1. geçiş)"]
+    PEAK["Tepe noktası<br>(yerçekimi atomları durdurur)"]
+    DOWN["Aşağı düşüş<br>aynı kaviteden tekrar geç (2. geçiş)"]
+    DETECT["Floresan dedektörü<br>kaç atom 'işaretli' durumda?"]
+    SERVO["Mikrodalga frekansını ayarla<br>maksimum işaretli atom sayısı için"]
+    OVEN --&gt; COOL --&gt; TOSS --&gt; UP --&gt; PEAK --&gt; DOWN --&gt; DETECT --&gt; SERVO
+    SERVO -.-&gt; UP
+    style OVEN fill:#fce4ec,stroke:#c2185b
+    style COOL fill:#e1bee7,stroke:#7b1fa2
+    style TOSS fill:#c5cae9,stroke:#3949ab
+    style UP fill:#bbdefb,stroke:#1565c0
+    style PEAK fill:#b3e5fc,stroke:#0277bd
+    style DOWN fill:#bbdefb,stroke:#1565c0
+    style DETECT fill:#c8e6c9,stroke:#388e3c
+    style SERVO fill:#fff9c4,stroke:#f57f17
+</div>
+
+<p>Tipik kararlılıklar:</p>
+
+<ul>
+  <li>1955 NPL sezyum demet saati (Essen-Parry): ~10⁻⁹ (~30 yılda 1 s — yine de mekanik saatlerden bin kat daha iyi)</li>
+  <li>Klasik sezyum demet saati (1990’lar): ~10⁻¹³ – 10⁻¹⁴</li>
+  <li>Modern sezyum fıskiyesi (NIST-F1 hâlâ aktif, PTB-CSF1/CSF2): ~5×10⁻¹⁶ – 1×10⁻¹⁵</li>
+  <li>En iyi optik latis saati (JILA/NIST stronsiyum, 2024): 8,1×10⁻¹⁹</li>
+</ul>
+
+<p>10⁻¹⁶ kararlılık ne demek? Saat ~300 milyon yılda 1 saniye sapar demek. 8×10⁻¹⁹’un anlamı ise <strong>evrenin yaşının iki katı boyunca 1 saniyeden az sapma</strong>.</p>
+
+<p>Sezyum saatinin doğruluğu yetmiş yılda yaklaşık 10 milyar kat iyileşti — bilim tarihinde belki de en büyük tek kuantitatif ilerleme:</p>
+
+<div id="grafik-saat-tarihi" style="width:100%;max-width:760px;margin:1.5rem auto 2.5rem auto;height:380px;"></div>
+<script>
+(function(){
+  var data = [{
+    type: 'scatter',
+    mode: 'lines+markers',
+    x: [1955, 1968, 1991, 1999, 2005, 2014, 2019, 2024],
+    y: [1e-9, 1e-12, 1e-13, 1.5e-15, 1e-15, 1.1e-16, 9.4e-19, 8.1e-19],
+    text: ['NPL Essen-Parry sezyum demet', 'NBS-3 sezyum demet', 'Klasik sezyum demet (PTB)', 'NIST-F1 sezyum fıskiyesi', 'Optik atom saati ilk gösterimler', 'NIST-F2 ilk değerlendirme', 'NIST Al+ kuantum mantık saati', 'JILA Sr optik latis saati'],
+    hovertemplate: '%{x}<br>%{text}<br>Bağıl belirsizlik: %{y:.2e}<extra></extra>',
+    marker: { size: 10, color: '#1a73e8' },
+    line: { color: '#1a73e8', width: 2 }
+  }];
+  var layout = {
+    title: { text: 'Sezyum/optik atom saatlerinin doğruluğu (1955–2024)', font: { size: 14 } },
+    xaxis: { title: 'Yıl' },
+    yaxis: { title: 'Bağıl belirsizlik (log eksen)', type: 'log', autorange: true },
+    margin: { l: 80, r: 30, t: 50, b: 50 },
+    plot_bgcolor: '#ffffff',
+    paper_bgcolor: '#ffffff'
+  };
+  Plotly.newPlot('grafik-saat-tarihi', data, layout, {responsive: true, displayModeBar: false});
+})();
+</script>
+
+<p>Türkiye tarafında UME’nin Zaman ve Frekans Laboratuvarı 1994’ten beri BIPM’in koordine ettiği Uluslararası Atom Zamanı (TAI) ağına katkı sağlıyor. UME birincil standardı bir <strong>sezyum fıskiyesi değil</strong>, hidrojen maser (1 adet) + ticari sezyum atom saati ensemble’ı (5 adet) + GPS alıcılarından (2 adet) oluşan bir sistem. UTC(UME) zaman ölçeğinin belirsizliği 2×10⁻¹⁴’ün altında. UME ayrıca <strong>stronsiyum tabanlı optik latis saati</strong> projesini sürdürüyor; tamamlandığında Türkiye’nin zaman birimi gerçekleme doğruluğu 100 kattan fazla iyileşecek.</p>
+
+<p>Optik saatler bir sonraki SI yeniden tanımının başında. CCTF (Time &amp; Frequency Consultative Committee) yol haritası 2030’a kadar saniye tanımının optik geçişlere kaymasını öngörüyor. O zaman sezyum, kilogramın IPK silindiri gibi tarihe karışacak.</p>
+
+<h3 id="metre-saniyeden-türeyen-mesafe">Metre: Saniyeden Türeyen Mesafe</h3>
+
+<p>Metre tanımı 1983’ten beri şudur: vakumda ışığın 1/299 792 458 saniyede aldığı yol. Yani metreyi gerçekleme problemi, <strong>ışık hızı</strong> ile bağlanmış bir frekans/zaman ölçme problemine indirgenir.</p>
+
+<p>Pratikte metre, <strong>stabilize edilmiş lazerlerle</strong> gerçeklenir:</p>
+
+<ul>
+  <li>633 nm iyot-stabilize He-Ne lazer (BIPM önerilen liste, ~10⁻¹¹ kararlılık)</li>
+  <li>532 nm iyot-stabilize Nd:YAG lazer</li>
+  <li>1542 nm asetilen-stabilize lazer (telekomünikasyon dalga boyu)</li>
+</ul>
+
+<p>Bu lazerlerin frekansı sezyum saatine karşı sayılır (frekans tarağı/optik kombinasyon teknolojisi); böylece metre dolaylı olarak sezyumdan geliyor. Boy ölçümü ⇒ frekans ölçümü ⇒ saniye standardı ⇒ sezyum.</p>
+
+<p>UME’de uzunluk laboratuvarı 633 nm iyot-stabilize HeNe lazerle çalışıyor; mekanik mihenkleri, blok mihenklerini, koordinat ölçüm cihazlarını bu lazerden türetilen interferometrik ölçümlerle kalibre ediyor.</p>
+
+<h3 id="kilogram-kibble-terazisi-ve-planck-sabiti">Kilogram: Kibble Terazisi ve Planck Sabiti</h3>
+
+<p>Reformun en dramatik tarafı kilogramda. 130 yıl boyunca kütle birimini Saint-Cloud’daki bir silindir tanımlıyordu. 20 Mayıs 2019’dan itibaren tanım şu: kilogram, Planck sabiti tam değerinden Kibble terazisi (veya eşdeğer yöntem) ile gerçeklenen kütledir.</p>
+
+<p>Kibble terazisi (eskiden “watt terazisi”, Haziran 2016’da mucidi Bryan Kibble [1938-2016] anısına CCU kararıyla yeniden adlandırıldı) iki aşamada çalışır:</p>
+
+<div class="mermaid">
+flowchart TB
+    subgraph weighing["1. TARTMA FAZI (statik)"]
+        W1["Test kütlesi yerçekiminde:<br>F_grav = m · g"]
+        W2["Bobinden akım geçer:<br>F_coil = B · L · I"]
+        W3["Denge kurulur:<br><b>m · g = B · L · I</b>"]
+        W1 --&gt; W3
+        W2 --&gt; W3
+    end
+    subgraph moving["2. HAREKET FAZI (dinamik)"]
+        M1["Bobin manyetik alanda<br>kontrollü hızda hareket: v"]
+        M2["Bobinde indüklenen voltaj:<br><b>V = B · L · v</b>"]
+        M1 --&gt; M2
+    end
+    COMBINE["İki fazı çarp ⇒ B·L sadeleşir<br><b>m · g · v = V · I</b><br>(mekanik güç = elektrik güç)"]
+    QUANTUM["V Josephson'dan (∝ h)<br>I = V_R / R, R kuantum Hall'den (∝ h/e²)<br>⇒ V·I tamamen Planck sabitiyle ifade edilir"]
+    KG["m = h · (sayılan frekanslar²) / (g · v) · (sayısal sabitler)<br><i>kilogram, başka bir kütleye değil h'ye karşı tartılır</i>"]
+    weighing --&gt; COMBINE
+    moving --&gt; COMBINE
+    COMBINE --&gt; QUANTUM --&gt; KG
+    style weighing fill:#fce4ec,stroke:#c2185b
+    style moving fill:#e3f2fd,stroke:#1565c0
+    style COMBINE fill:#fff9c4,stroke:#f57f17
+    style QUANTUM fill:#e8f5e9,stroke:#2e7d32
+    style KG fill:#1a73e8,color:#fff,stroke:#0c4ea2
+</div>
+
+<p>İki fazın püf noktası: tek başına <code class="language-plaintext highlighter-rouge">B·L</code> (manyetik alan × bobin uzunluğu) çarpımı çok hassas ölçülemez. Ama tartma fazında <code class="language-plaintext highlighter-rouge">B·L = m·g/I</code> ve hareket fazında <code class="language-plaintext highlighter-rouge">B·L = V/v</code> aynı çarpımdır; iki ifadeyi eşitlediğinizde <code class="language-plaintext highlighter-rouge">B·L</code> tamamen sadeleşir. Geriye kalan <code class="language-plaintext highlighter-rouge">m·g·v = V·I</code> ilişkisi, kütleyi yerçekimi ivmesi (g, mutlak gravimetrelerle ölçülür), hız (v, lazer interferometre), voltaj (V, Josephson) ve akım (I, kuantum Hall direnciyle ölçülen voltaj farkından) cinsinden verir. Sonuç: <code class="language-plaintext highlighter-rouge">m</code> doğrudan Planck sabitine bağlanır.</p>
+
+<p>Kibble terazileri NIST-4 (ABD), NRC (Kanada), BIPM (Fransa), PTB (Almanya), NIM (Çin), KRISS (Güney Kore), LNE (Fransa) tarafından çalıştırılıyor. Tipik bağıl belirsizlikler 10⁻⁸ mertebesinde.</p>
+
+<p><strong>Türkiye tarafı:</strong> UME, Kibble terazisi geliştirmesini 2014’te başlattı; ülke için kilogramın salınımlı mıknatıs (oscillating magnet) tipi Kibble terazisiyle gerçeklenmesi yolunu seçti. Bu tasarımda mıknatıs hareketsiz kütleyle birlikte titrer; sinyal frekans alanında okunur. Yayımlanan ön ölçümlerde 1 kg paslanmaz çelik artefakt 54 ppb (yaklaşık ±54 µg) bağıl belirsizlikle ölçüldü; aynı düzenekle Planck sabiti 6 ppm bağıl standart belirsizlikle elde edildi. Günlük kalibrasyon hizmeti hâlâ BIPM kalibrasyonlu transfer kilogram referansı üzerinden veriliyor; Kibble teraziyle gerçekleme tam üretim seviyesine geçildiğinde devreye alınacak.</p>
+
+<p>Alternatif yöntem: <strong>Avogadro projesi</strong> veya <strong>X-ışını kristal yoğunluk (XRCD) yöntemi</strong>. Hassas işlenmiş tek kristal silisyum küresinin atom sayısı X-ışını difraksiyonu ile sayılıyor; N_A tam değer olduğundan kütle hesaplanıyor. Almanya’daki PTB bu yöntemin başlıca yürütücüsü; uluslararası IAC (International Avogadro Coordination) konsorsiyumunda LNE, NMIJ, INRIM, NIST de var. 2019’daki ilk uluslararası <code class="language-plaintext highlighter-rouge">kg</code> karşılaştırmasında (CCM.M-K8.2019) Kibble terazisi sonuçları XRCD sonuçlarıyla iyi tutarlılık gösterdi.</p>
+
+<h3 id="volt-josephson-eklem-dizileri">Volt: Josephson Eklem Dizileri</h3>
+
+<p>Süperiletken bir eklemden geçen elektronlar, eklem mikrodalga ile ışınlandığında <strong>kuantize voltaj basamakları</strong> üretir:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>V_n = n · f / K_J
+K_J = 2e / h  (Josephson sabiti)
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">n</code> tam sayı (basamak numarası), <code class="language-plaintext highlighter-rouge">f</code> mikrodalga frekansı (sezyum saatten gelir), K_J ise temel sabitlerden türeyen <em>tam</em> bir sayı. Yani V tamamen sayılan bir frekansa bağlı; sıvı helyum sıcaklığında (4 K) eklem doğru çalıştığı sürece, voltaj <strong>doğa kanunu</strong> kadar kararlı.</p>
+
+<p>Pratik cihaz: <strong>Programlanabilir Josephson Voltaj Standardı (PJVS)</strong>. On binlerce eklemin diziliminde dijital olarak basamak seçilebiliyor; istenen voltaj (0 – 10 V arası) belirleniyor. Tipik belirsizlik 1 part in 10⁹ — yani 10 V’ta ~0,01 µV.</p>
+
+<p>Cihaz kullanışlı ama maliyetli ve karmaşık altyapı gerektiriyor: ya sıvı helyum (geleneksel) ya da kapalı çevrim cryocooler (modern, tercih edilen) ile 4 K civarına soğutma, hassas mikrodalga jeneratörü, manyetik ekranlama, geri besleme elektroniği. Bu nedenle PJVS dünyada büyük ölçüde NMI’lerde ve birkaç askeri/araştırma laboratuvarında bulunuyor; sıvı helyum tedariğinde dünya çapındaki sıkıntılar son yıllarda cryocooler tabanlı sistemlere geçişi hızlandırdı. UME’de DC Voltaj Laboratuvarı Josephson tabanlı sistemiyle hizmet veriyor; Türkiye’deki akredite kalibrasyon laboratuvarları DC voltaj izlenebilirliklerini buradan alıyor.</p>
+
+<p>Dünyada NIST, PTB, NPL, BIPM, NMIJ, KRISS, NMIA başta olmak üzere pek çok NMI PJVS işletiyor. Bunların hepsi BIPM’in koordine ettiği sürekli karşılaştırmalara katılıyor (<strong>BIPM.EM-K10</strong> DC voltaj Josephson karşılaştırması; bağlı olarak BIPM.EM-K11 ile 1,018 V ve 10 V Zener referans karşılaştırmaları).</p>
+
+<h3 id="ohm-kuantum-hall-etkisi">Ohm: Kuantum Hall Etkisi</h3>
+
+<p>İki boyutlu elektron gazına sahip bir GaAs/AlGaAs yarı iletkeni 1,5 K sıcaklıkta ve 10 T manyetik alan altında ölçtüğünüzde, Hall direnci sürekli değil <strong>kuantize</strong> değerler alır:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>R_H = R_K / i
+R_K = h / e²  (von Klitzing sabiti)
+R_K = 25 812,807 45 Ω  (tam değer, h ve e tam olduğundan)
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">i</code> tam sayı (Landau seviyesi numarası, tipik olarak 1, 2, 3, 4); R_K von Klitzing sabiti, hidrojenden tutun da galaktik bulutlara kadar her yerde aynı.</p>
+
+<p>i=2 platosunda direnç <strong>tam olarak</strong> 12 906,403 725 Ω — laboratuvarda hiç direnç telini ölçmeden, sadece manyetik alan ve sıcaklık doğru ayarlandığında. Bu plato genişliği yeterince büyükse (manyetik alan birkaç tesla aralığında), direnç değerinin kararlılığı 10⁻⁹ mertebesinde.</p>
+
+<p>UME’de Kuantum Hall laboratuvarı 2010’lardan beri çalışıyor. Türkiye’deki tüm DC direnç ölçümlerinin tepe noktası burası. Direnç laboratuvarları periyodik olarak ESI SR104 veya benzeri 10 kΩ standart dirençlerini UME’ye gönderir; UME bunları kuantum Hall ile karşılaştırır, sertifikayla geri verir.</p>
+
+<p>Josephson + kuantum Hall kombinasyonunun önemli bir yan etkisi var: ikisi birlikte kullanıldığında <strong>akım</strong> ve <strong>güç</strong> de doğrudan h ve e cinsinden ölçülebilir. Kibble terazisinin işleyişi tam olarak bu birlikteliğe dayanıyor. Aynı laboratuvar üç temel elektriksel birimi (V, Ω, A) ortak fizikten türetir.</p>
+
+<h3 id="kelvin-boltzmanndan-pratik-sıcaklığa">Kelvin: Boltzmann’dan Pratik Sıcaklığa</h3>
+
+<p>Sıcaklık biraz farklı bir hikâye. 2019 reformunda kelvin tanımı Boltzmann sabitine bağlandı:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>T = E / k  (E enerji, k Boltzmann sabiti)
+</code></pre></div></div>
+
+<p>Termodinamik sıcaklık ilkesel olarak ya <strong>akustik gaz termometresi</strong> (gaz içindeki ses hızı T’ye bağlı) ya da <strong>Johnson gürültüsü termometresi</strong> (bir direnç üzerinde termal gürültünün gücü T’ye bağlı) ile ölçülür. Bu yöntemler temel; ama günlük kalibrasyon için pratik değil — saatlerce ölçüm gerektiriyorlar.</p>
+
+<p>Pratik dünyada kelvin <strong>ITS-90 (International Temperature Scale 1990)</strong> ile gerçeklenir. ITS-90, 0,65 K’den 1357 K’ye kadar sıcaklık aralığını <strong>17 sabit faz geçişi</strong> ile etiketler:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Sabit nokta</th>
+      <th>Sıcaklık (K)</th>
+      <th>Sıcaklık (°C)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Suyun üçlü noktası</td>
+      <td>273,16</td>
+      <td>0,01</td>
+    </tr>
+    <tr>
+      <td>Galyum erime</td>
+      <td>302,9146</td>
+      <td>29,7646</td>
+    </tr>
+    <tr>
+      <td>İndiyum donma</td>
+      <td>429,7485</td>
+      <td>156,5985</td>
+    </tr>
+    <tr>
+      <td>Kalay donma</td>
+      <td>505,078</td>
+      <td>231,928</td>
+    </tr>
+    <tr>
+      <td>Çinko donma</td>
+      <td>692,677</td>
+      <td>419,527</td>
+    </tr>
+    <tr>
+      <td>Alüminyum donma</td>
+      <td>933,473</td>
+      <td>660,323</td>
+    </tr>
+    <tr>
+      <td>Gümüş donma</td>
+      <td>1234,93</td>
+      <td>961,78</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Suyun üçlü noktası en kritiği: özel olarak hazırlanmış cam hücrelerde (TPW cell, triple point of water) buz, sıvı ve buhar dengede; sıcaklık tam olarak 273,16 K. Bu hücreler dünyada birkaç laboratuvarda üretilir; UME’nin de kendi TPW hücreleri var.</p>
+
+<p>Sıcaklık piramidi şöyle çalışıyor: SI tanımı (Boltzmann) ile birincil termometreler (akustik gaz/Johnson gürültüsü) ITS-90 sabit noktalarını <strong>doğrular</strong>; UME bu sabit noktaları muhafaza eder; akredite laboratuvarlar UME’den izlenebilirlik alır; sanayi termometreleri akredite laboratuvarlardan kalibre olur. Sıradan bir PT100 sensörünün kalibrasyon belgesindeki belirsizlik, son tahlilde Boltzmann sabitine ve ITS-90 hücrelerine bağlanır.</p>
+
+<blockquote>
+  <p><strong>Akılda kalsın — birincil ile pratik aynı şey değil:</strong> Kelvin SI’da Boltzmann üzerinden tanımlı, ama dünyada hiçbir kalibrasyon laboratuvarı doğrudan akustik gaz termometresi kullanmaz. Pratik referans ITS-90’dır. Tanım fiziksel, gerçekleme tarihsel ve pratik. İkisi arasındaki tutarlılığı NMI’ler üst düzey karşılaştırmalarla kontrol eder.</p>
+</blockquote>
+
+<h3 id="birincil-gerçeklemelerin-karşılaştırması">Birincil Gerçeklemelerin Karşılaştırması</h3>
+
+<p>Yedi SI temel biriminin en iyi gerçekleme belirsizlikleri arasında 15 mertebelik bir uçurum var. Saniye en hassas, kandela en kaba. Bu fark hem tarihsel hem de fiziksel: bazı olgular daha kararlı, bazılarını ölçmek daha zor.</p>
+
+<div id="grafik-si-belirsizlik" style="width:100%;max-width:760px;margin:1.5rem auto 2.5rem auto;height:380px;"></div>
+<script>
+(function(){
+  var data = [{
+    type: 'bar',
+    orientation: 'h',
+    x: [8.1e-19, 1e-11, 1.5e-8, 1e-9, 1e-9, 1e-7, 1e-4],
+    y: ['Saniye (Sr optik latis saati)', 'Metre (iyot-stabilize HeNe)', 'Kilogram (Kibble terazisi)', 'Amper (Josephson + QHE üzerinden)', 'Mol (XRCD / Si küre)', 'Kelvin (akustik gaz termometresi)', 'Kandela (kriyojenik radyometre)'],
+    text: ['8×10⁻¹⁹', '~10⁻¹¹', '~1,5×10⁻⁸', '~10⁻⁹', '~10⁻⁹', '~10⁻⁷', '~10⁻⁴'],
+    textposition: 'auto',
+    marker: { color: ['#1a73e8', '#1976d2', '#1565c0', '#0d47a1', '#2e7d32', '#c62828', '#b71c1c'] }
+  }];
+  var layout = {
+    title: { text: '7 SI temel biriminin en iyi gerçekleme belirsizlikleri (bağıl, log eksen)', font: { size: 14 } },
+    xaxis: { title: 'Bağıl belirsizlik (log eksen)', type: 'log', autorange: true },
+    yaxis: { autorange: 'reversed' },
+    margin: { l: 280, r: 30, t: 50, b: 60 },
+    plot_bgcolor: '#ffffff',
+    paper_bgcolor: '#ffffff'
+  };
+  Plotly.newPlot('grafik-si-belirsizlik', data, layout, {responsive: true, displayModeBar: false});
+})();
+</script>
+
+<p>Grafiği okumak: saniye gerçeklemesi 10¹⁵ kat daha hassas (8×10⁻¹⁹) iken kandelanın gerçeklemesi 10⁻⁴ mertebesinde. Bu, kandelanın “kötü” tanımlanması demek değil — fiziksel olgu (insan gözünün spektral duyarlılığı) doğası gereği belirsiz. Saniye ise atomik geçişe dayanıyor; daha kararlı bir olgu yok.</p>
+
+<p>Pratik sonuç: bir test mühendisi için frekans ölçümü daima en güvenilir; sıcaklık ve aydınlatma ölçümleri en kaba. Belirsizlik bütçenizde bu mertebe farkı yansır.</p>
+
+<hr>
+
+<h2 id="uluslararası-karşılaştırmalar-cipm-mra">Uluslararası Karşılaştırmalar (CIPM MRA)</h2>
+
+<p>Diyelim UME’nin Josephson voltaj standardı 10 V’ta 0,01 µV belirsizlik beyan ediyor. Bunun gerçekten doğru olduğunu nasıl biliyoruz? Hiçbir cihaza karşı kalibre etmediğimize göre — peki <em>yanılıyor</em> olabilir mi? Mesela laboratuvarın mikrodalga jeneratörü kalibrasyondan kaymış, ekleme yanlış frekans gönderiyor olabilir mi?</p>
+
+<p>Bu olasılığı sıfırlamanın tek yolu <strong>uluslararası karşılaştırma</strong>. Aynı 10 V’u dünyanın farklı bir laboratuvarında, bağımsız bir Josephson sisteminde de üretip iki sonucu karşılaştırırsanız, ikisinin tutarlı olması (beyan edilen belirsizliklerin altında) sistemin sağlıklı çalıştığının kanıtıdır.</p>
+
+<p>Bu süreç <strong>CIPM MRA (Mutual Recognition Arrangement)</strong> çatısı altında yürütülür. 14 Ekim 1999’da Paris’te 38 üye devletin NMI direktörleri ve iki uluslararası kuruluş tarafından imzalanan MRA, üye ülkelerin metroloji enstitülerinin birbirinin sertifikalarını karşılıklı tanımasını sağlar. <strong>Türkiye TÜBİTAK UME aracılığıyla 1999 kuruluş imzacılarından biri.</strong> Bugün 62 üye devlet, 40 ortak ve 4 uluslararası kuruluşu, toplam 250’yi aşkın enstitüyü kapsıyor. MRA’nın iki ayağı var: <strong>Anahtar Karşılaştırmalar (Key Comparisons)</strong> ve <strong>CMC kayıtları</strong>.</p>
+
+<div class="mermaid">
+flowchart TB
+    BIPM["<b>BIPM</b><br>Karşılaştırmayı koordine eder<br>Pilot laboratuvar atar"]
+    TS["<b>Transfer Standardı</b><br>(örn. zener voltaj referansı,<br>1 kg paslanmaz çelik kütle, ...)"]
+    NMI1["NMI 1 (NIST)<br>ölçer, raporlar"]
+    NMI2["NMI 2 (PTB)<br>ölçer, raporlar"]
+    NMI3["NMI 3 (UME)<br>ölçer, raporlar"]
+    NMI4["NMI 4 (NPL)<br>ölçer, raporlar"]
+    PILOT["<b>Pilot Lab</b><br>verileri toplar<br>Referans değer (KCRV)<br>her NMI için ofset (D_i)"]
+    KCDB["<b>KCDB</b><br>(Key Comparison Database)<br>açık erişim"]
+    BIPM --&gt; TS
+    TS --&gt; NMI1
+    TS --&gt; NMI2
+    TS --&gt; NMI3
+    TS --&gt; NMI4
+    NMI1 --&gt; PILOT
+    NMI2 --&gt; PILOT
+    NMI3 --&gt; PILOT
+    NMI4 --&gt; PILOT
+    PILOT --&gt; KCDB
+    style BIPM fill:#1a73e8,color:#fff
+    style TS fill:#fbbc04,color:#000
+    style PILOT fill:#34a853,color:#fff
+    style KCDB fill:#673ab7,color:#fff
+</div>
+
+<p>Akış şöyle: BIPM bir karşılaştırma planlar, pilot laboratuvar atar. Pilot, bir transfer standardını (örneğin Fluke 7000 zener voltaj referansı, 1 kg paslanmaz çelik kütle, 100 Ω resistör) hazırlar ve katılımcı NMI’lere gönderir. Her NMI standardı kendi birincil sistemine karşı ölçer ve sonucu raporlar. Pilot, sonuçları toplar; ağırlıklı ortalamadan <strong>referans değeri (KCRV — Key Comparison Reference Value)</strong> hesaplar; her NMI için sapmayı (D_i) yayınlar. Tüm sonuçlar <strong>KCDB</strong> açık veritabanında saklanır.</p>
+
+<p>Karşılaştırmaların adlandırması: koordinatör kuruluşun kodu + alanı belirten alt komite + sıra numarası. Birkaç tipik örnek:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Kod</th>
+      <th>Karşılaştırma alanı</th>
+      <th>Tipik transfer standardı</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>BIPM.EM-K10</td>
+      <td>DC voltaj — Josephson (sürekli karşılaştırma)</td>
+      <td>BIPM transfer Josephson sistemi</td>
+    </tr>
+    <tr>
+      <td>BIPM.EM-K11</td>
+      <td>1,018 V ve 10 V Zener referansları</td>
+      <td>zener voltaj referansı (Fluke 732B vb.)</td>
+    </tr>
+    <tr>
+      <td>CCT-K7 / CCT-K7.2021</td>
+      <td>suyun üçlü noktası (TPW)</td>
+      <td>TPW hücreleri</td>
+    </tr>
+    <tr>
+      <td>CCT-K9</td>
+      <td>ITS-90 sabit noktaları (83,8 K – 692,7 K, çinko, galyum, kalay vb.)</td>
+      <td>platin direnç termometre</td>
+    </tr>
+    <tr>
+      <td>CCM.M-K8</td>
+      <td>1 kg gerçeklemeleri (Kibble + XRCD, 2019/2021/2024)</td>
+      <td>paslanmaz çelik kütle</td>
+    </tr>
+    <tr>
+      <td>CCL-K11</td>
+      <td>optik frekans / dalga boyu (sürekli)</td>
+      <td>iyot-stabilize He-Ne 633 nm vb.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Her NMI’nin verdiği değerin <strong>belirsizlik bütçesini aşacak şekilde</strong> sapması, problem işaretidir. Örnek olarak 2021-2022’de yapılan <strong>CCT-K7.2021</strong> karşılaştırmasında, 21 katılımcı NMI’nin TPW gerçeklemeleri arasındaki <strong>maksimum fark 111 µK, standart sapma 28 µK</strong> olarak rapor edildi — yani uluslararası sıcaklık ölçeğinin koordinasyonu sub-mK seviyesinde tutarlı. Eğer bir NMI 1 mK saparsa, hücreleri yeniden değerlendirilir, kapsamı revize edilir, sertifikalardaki belirsizlik artar.</p>
+
+<p>Karşılaştırmaların ikinci ürünü <strong>CMC (Calibration and Measurement Capability)</strong> beyanları. CMC, bir NMI’nin sunduğu rutin kalibrasyon hizmeti için <strong>beyan edilebilir en iyi belirsizliği</strong> ifade eder. Akran değerlendirmesinden geçer, KCDB’de yayınlanır. Türk sanayicisi UME’den hangi alanda hangi belirsizlikle hizmet alabileceğini buradan görür; aynı sayfada NIST veya PTB’nin aynı kapsamı görür ve karşılaştırır.</p>
+
+<blockquote>
+  <p><strong>Akılda kalsın — birincil standart kontrolü iki katmanlıdır:</strong> İçsel olarak fiziksel sabite bağlanır (gerçekleme), dışsal olarak başka NMI’lerin gerçeklemeleriyle karşılaştırılır (KC). Tek katmandan biri kaymışsa diğer katmandan yakalanır.</p>
+</blockquote>
+
+<hr>
+
+<h2 id="tübi̇tak-ume-ve-türkiyenin-birincil-standartları">TÜBİTAK UME ve Türkiye’nin Birincil Standartları</h2>
+
+<p>UME, 11 Ocak 1992’de TÜBİTAK Marmara Araştırma Merkezi bünyesinde, Gebze’de kuruldu. Bugün çok sayıda laboratuvarda zaman/frekans, elektriksel, kütle, uzunluk, sıcaklık, basınç, kuvvet, akustik, fotometri ve iyonlaştırıcı radyasyon alanlarında birincil standart işletiyor.</p>
+
+<p>Yaklaşık başlık başlık birincil yetenekler (kesin değerler için KCDB’ye bakılmalı):</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Alan</th>
+      <th>Birincil cihaz/yöntem</th>
+      <th>Tipik belirsizlik mertebesi</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Zaman/frekans</td>
+      <td>1 hidrojen maser + 5 sezyum atom saati ensemble (UTC(UME)); TAI’ye katkı 1994’ten beri; stronsiyum optik latis saati geliştirme aşamasında</td>
+      <td>UTC(UME) &lt; 2×10⁻¹⁴</td>
+    </tr>
+    <tr>
+      <td>DC voltaj</td>
+      <td>Programlanabilir Josephson (PJVS)</td>
+      <td>~10⁻⁹</td>
+    </tr>
+    <tr>
+      <td>DC direnç</td>
+      <td>Kuantum Hall etkisi</td>
+      <td>~10⁻⁹</td>
+    </tr>
+    <tr>
+      <td>Kütle (1 kg)</td>
+      <td>Salınımlı mıknatıs Kibble terazisi (geliştirme; ön ölçümler 54 ppb); BIPM kalibrasyonlu transfer prototipi (servis)</td>
+      <td>~50 µg (transfer)</td>
+    </tr>
+    <tr>
+      <td>Uzunluk</td>
+      <td>İyot-stabilize He-Ne lazer (633 nm) + frekans tarağı</td>
+      <td>~10⁻¹¹</td>
+    </tr>
+    <tr>
+      <td>Sıcaklık</td>
+      <td>ITS-90 sabit nokta hücreleri + SPRT’ler + birincil radyasyon termometresi</td>
+      <td>~50 µK (suyun üçlü noktası mertebesi)</td>
+    </tr>
+    <tr>
+      <td>Basınç</td>
+      <td>Piston-silindir basınç dengesi</td>
+      <td>~10⁻⁵ mertebesi</td>
+    </tr>
+    <tr>
+      <td>Kuvvet</td>
+      <td>Karşılaştırma kuvvet ölçer makinesi</td>
+      <td>~10⁻⁵ mertebesi</td>
+    </tr>
+    <tr>
+      <td>Akustik</td>
+      <td>Karşılıklı (reciprocity) basınç-pistonfon kalibrasyonu</td>
+      <td>~0,05 dB</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>UME’nin KCDB’deki CMC kayıtları herkese açık. Türk akredite kalibrasyon laboratuvarları (TÜRKAK belgesi alanlar) UME’den izlenebilirlik alır; akredite olmayan iç laboratuvarlar (örneğin bir fabrikanın kalite kontrol bölümü) ya doğrudan UME’ye giderler ya da bir akredite labdan hizmet alırlar.</p>
+
+<p>Aviyonik ve savunmada tipik bir akış şöyle olur. TUSAS’ın bir uçak gövdesinde kullandığı <strong>PT100 sıcaklık sensörü</strong>, üretici dokümanına göre 6 ayda bir kalibre edilmeli. TUSAS bunu TÜRKAK akredite bir kalibrasyon laboratuvarına gönderir; lab kendi referans termometresini (genelde ikinci sınıf Standart Platin Direnç Termometresi, SPRT) kullanarak fırın içinde sensörü doğrular. O lab kendi SPRT’sini her 1-2 yılda UME’ye gönderir; UME ITS-90 sabit noktalarında SPRT’yi karakterize eder. UME’nin sabit nokta hücreleri belirli aralıklarla CCT-K7, CCT-K9 anahtar karşılaştırmalarına katılır — yani başka NMI’lerin TPW hücreleriyle, başka galyum-erime hücreleriyle çapraz kontrol edilir.</p>
+
+<p>Bu zincirin yedi halkası var: <strong>Boltzmann sabiti → ITS-90 → UME hücreleri → SPRT → akredite lab → PT100 → uçak</strong>. Her halka bir kalibrasyon belgesi, bir izlenebilirlik kanıtı taşır. Ucundaki sayı (uçaktaki PT100’ün okuduğu sıcaklık) ancak zincir baştan sona sağlamsa anlamlı.</p>
+
+<hr>
+
+<h2 id="belirsizlik-piramidi-yukarıdan-aşağıya">Belirsizlik Piramidi: Yukarıdan Aşağıya</h2>
+
+<p>Önceki yazıda <strong>u_birleşik</strong> kavramını tanıttık: birden çok belirsizlik kaynağının karekök kareler toplamı. İzlenebilirlik zincirinin her aktarımı, mevcut belirsizliğin üzerine yeni bir katkı ekler. Tipik bir DC voltaj zincirinde aşağıdaki gibi büyür:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Seviye</th>
+      <th>Cihaz</th>
+      <th>Tipik U(10 V)</th>
+      <th>Bağıl belirsizlik</th>
+      <th>Tipik maliyet</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1 — UME</td>
+      <td>Programlanabilir Josephson</td>
+      <td>0,05 µV</td>
+      <td>5 ppb</td>
+      <td>$400k+</td>
+    </tr>
+    <tr>
+      <td>2 — Akredite lab</td>
+      <td>Fluke 732C bank + 3458A</td>
+      <td>5 µV</td>
+      <td>0,5 ppm</td>
+      <td>$80k+</td>
+    </tr>
+    <tr>
+      <td>3 — Sanayi lab</td>
+      <td>Fluke 5720A kalibratör</td>
+      <td>50 µV</td>
+      <td>5 ppm</td>
+      <td>$30k+</td>
+    </tr>
+    <tr>
+      <td>4 — Saha</td>
+      <td>Keysight 34465A multimetre</td>
+      <td>500 µV</td>
+      <td>50 ppm</td>
+      <td>$4k+</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Her seviyede bağıl belirsizlik yaklaşık 10× kötüleşiyor. Bu pratik bir sonuç değil, kalibrasyon sürecinin doğasından geliyor: her aktarımda transfer cihazının kendi katkısı, ortam etkileri (sıcaklık, nem, EMG), operatör katkısı, kabloların direnci eklenir. Üç-dört katkıyı kareli toplamla birleştirdiğinizde sonuç yaklaşık on kat artar.</p>
+
+<div id="grafik-zincir" style="width:100%;max-width:760px;margin:1.5rem auto 2.5rem auto;height:380px;"></div>
+<script>
+(function(){
+  var data = [{
+    type: 'bar',
+    orientation: 'h',
+    x: [0.05, 5, 50, 500],
+    y: ['Seviye 1: UME (Josephson)', 'Seviye 2: Akredite lab (Fluke 732C + 3458A)', 'Seviye 3: Sanayi lab (Fluke 5720A)', 'Seviye 4: Saha multimetresi (Keysight 34465A)'],
+    text: ['0,05 µV (5 ppb)', '5 µV (0,5 ppm)', '50 µV (5 ppm)', '500 µV (50 ppm)'],
+    textposition: 'auto',
+    marker: { color: ['#1a73e8', '#e8711a', '#c62828', '#6a1b9a'] }
+  }];
+  var layout = {
+    title: { text: '10 V için Beklenen Belirsizlik (zincirin her seviyesinde)', font: { size: 14 } },
+    xaxis: { title: 'Genişletilmiş belirsizlik U (µV) — log eksen', type: 'log' },
+    yaxis: { autorange: 'reversed' },
+    margin: { l: 280, r: 30, t: 50, b: 60 },
+    plot_bgcolor: '#ffffff',
+    paper_bgcolor: '#ffffff'
+  };
+  Plotly.newPlot('grafik-zincir', data, layout, {responsive: true, displayModeBar: false});
+})();
+</script>
+
+<p>Grafikten çıkan ders şu: <strong>alttaki cihazınızın belirsizliği üstteki halkaların belirsizliklerine bağımlıdır</strong>. Multimetreyle 50 ppm okuyabiliyorsanız, kalibratörünüz 5 ppm sunuyor olmalı; kalibratörünüzü kalibre eden lab 0,5 ppm sunmalı; o labın referansı 5 ppb olmalı. Dört halka. Birinde sorun varsa, sayısal değer altta düzgün okunsa bile <strong>anlamı yok</strong>.</p>
+
+<p>Bunun pratik karşılığı: kalibrasyon sertifikasında “UME izlenebilirliği” yazsa bile zincirde halka eksikse (bir halkadaki cihazın geçerli akreditasyonu yoksa, ya da belge süresi geçmişse) tüm zincir geçersiz. Akreditasyon denetiminde ilk sorulan sorular tam olarak bunu test eder.</p>
+
+<blockquote>
+  <p><strong>Akılda kalsın — TUR’unuz sizinle değil zincirinizle başlar:</strong> Multimetrenizle 50 ppm okuyabilmek için zincirin tepesinde 5 ppb belirsizlikli bir Josephson sistemine ihtiyacınız var. Aradaki halkalardan biri kayarsa hepsi etkilenir. Belirsizlik bütçenizdeki “sertifika belirsizliği” tek satırı, aslında tüm üst zincirin damıtılmış halidir.</p>
+</blockquote>
+
+<hr>
+
+<h2 id="kalibrasyon-sertifikasından-i̇zlenebilirlik-çıkarımı">Kalibrasyon Sertifikasından İzlenebilirlik Çıkarımı</h2>
+
+<p>Önceki yazıda akreditasyon denetiminde sorulanlar listesi vermiştik. Bu yazının pratik sonucu olarak listeyi izlenebilirlik tarafına genişletelim. Eline kalibrasyon sertifikası geldiğinde test mühendisinin sorması gereken sorular:</p>
+
+<ul>
+  <li>
+<strong>Sertifikayı veren laboratuvar akredite mi?</strong> TÜRKAK numarası (örn. AB-0001-K) veya muadil bir ILAC üyesi akreditasyon kuruluşu numarası olmalı. Akreditasyon kapsam belgesi sorularak doğrulanır; ölçüm büyüklüğünüzün kapsamda olduğundan emin olun.</li>
+  <li>
+<strong>Kullanılan üst kademe ekipmanın seri numarası belirtilmiş mi?</strong> “Fluke 5720A, S/N 9876543” gibi. Bu olmadan zincir kanıtlanamaz.</li>
+  <li>
+<strong>Üst kademe ekipmanın bir önceki kalibrasyonunun belge numarası ve tarihi yazılmış mı?</strong> “Reference instrument: UME ID K-2024-…” şeklinde. Sertifika tarihiniz, üst kademe sertifikanın geçerlilik süresi içinde olmalı.</li>
+  <li>
+<strong>Beyan edilen belirsizlik U + k + PDF varsayımı içeriyor mu?</strong> “U = 28 µV, k=2, normal dağılım” yeterli; sadece “± 28 µV” yetersiz.</li>
+  <li>
+<strong>TUR ≥ 4 sağlanıyor mu?</strong> Cihazınızın spec’i ile sertifika belirsizliği oranı 4’ün altındaysa, kabul/red kararı için güvenlik payı (guard band) hesaplanmalı.</li>
+  <li>
+<strong>Çevre koşulları belgelenmiş mi?</strong> Sertifika ölçüm sırasındaki sıcaklık (genelde 23 ± 2 °C) ve nem değerlerini içermeli. Sizin laboratuvarınızda koşullar farklıysa düzeltme veya ek belirsizlik gerekir.</li>
+  <li>
+<strong>Süre sonu belirtilmiş mi?</strong> “Geçerlilik 1 yıl”, “kalibrasyon aralığı kullanıcı sorumluluğunda” vb. ayrımına dikkat edin.</li>
+  <li>
+<strong>Izlenebilirlik beyanı genel mi yoksa NMI numarasıyla mı?</strong> “Traceable to SI through UME via … “ spesifikse iyi; sadece “Traceable to NIST/UME” cümlesi tek başına yeterli kanıt değil.</li>
+</ul>
+
+<p>Bu sekiz madde aslında zincirin her halkasını sorgulayan tek bir kontrol listesi. Bir tanesi cevapsız kalıyorsa zincirde kopukluk var demektir; bu durumda kalibrasyon sertifikası işinize yaramaz.</p>
+
+<hr>
+
+<h2 id="sonuç">Sonuç</h2>
+
+<p>“Saatçinin saatini kim kalibre eder?” sorusunun cevabı — biraz şaşırtıcı bir biçimde — <em>kimse</em>. Zincirin tepesinde bir cihaz değil, bir doğa kanunu var. Sezyum fıskiyesi, Kibble terazisi, Josephson eklem dizisi, kuantum Hall örnekleri başka bir cihaza karşı kalibre edilmez; doğrudan fiziksel sabitleri <strong>gerçekler</strong>. 2019 SI yeniden tanımı bu fikri tüm temel birimlere taşıdı: artık bir kilogram bile bir parçaya değil, Planck sabitine bağlı.</p>
+
+<p>Birincil standartların kendi içlerindeki tutarlılığı <strong>uluslararası karşılaştırmalar</strong> garanti ediyor. CIPM MRA çatısı altında BIPM koordinasyonunda yürütülen anahtar karşılaştırmalar (KC), her NMI’nin gerçeklemesini diğerleriyle düzenli olarak çapraz kontrol ediyor; sonuçlar KCDB’de açık. UME bu sürecin aktif bir parçası — Türk sanayisi ve test mühendisi, UME üzerinden dünya birincil standart sistemine bağlı.</p>
+
+<p>Bir test mühendisi için pratik mesaj kalın çizgilerle şu: kalibrasyon sertifikanızı sadece imzalı bir kâğıt olarak değil, bir <strong>zincir kanıtı</strong> olarak okuyun. Halkaları sayın. Eksik halka varsa “geçti/kaldı” kararınızın altında imzanız var, onun altında da sizin doğruladığınızı varsaydığınız zincir. Zincir kopuksa karar da kopuktur.</p>
+
+<p>Önceki yazıda söz verdiğimiz <strong>Monte Carlo simülasyonu</strong> yazısı hâlâ yolda. Doğrusal olmayan ölçüm modellerinde GUM’un karekök kareler toplam yaklaşımı yetersiz kalıyor; bilgisayarda 100 000 simülasyon yaparak dağılımı doğrudan üretmek gerekiyor. Bir sonraki yazıda RP-12 Ek B’nin uygulamalı versiyonunu yazacağız — önceki yazıdaki üç örneği Monte Carlo ile yeniden çözeceğiz, sonuçları klasik GUM hesabıyla karşılaştıracağız.</p>
+
+<hr>
+
+<h2 id="kaynaklar">Kaynaklar</h2>
+
+<ul>
+  <li><a href="https://www.bipm.org/en/publications/si-brochure">BIPM — SI Brochure (9. baskı, 2019)</a></li>
+  <li><a href="https://www.bipm.org/en/committees/cg/cgpm/26-2018/resolution-1">BIPM — Resolution 1 of the 26th CGPM (2018) — SI yeniden tanımı</a></li>
+  <li><a href="https://www.bipm.org/en/cipm-mra">BIPM — CIPM MRA ana sayfası</a></li>
+  <li><a href="https://www.bipm.org/kcdb/">BIPM — KCDB (Key Comparison Database)</a></li>
+  <li><a href="https://www.bipm.org/en/mass-metrology/kibble-balance">BIPM — Kibble balance ana sayfası</a></li>
+  <li><a href="https://www.nist.gov/si-redefinition">NIST — SI Yeniden Tanımı (2019) genel sayfası</a></li>
+  <li><a href="https://www.nist.gov/atomic-clocks/how-atomic-clocks-work/fountains-atoms-exquisite-timekeepers">NIST — “How Atomic Clocks Work” (sezyum fıskiyesi açıklaması)</a></li>
+  <li><a href="https://www.nist.gov/programs-projects/redefining-kilogram-kibble-balance">NIST — NIST-4 Kibble Balance proje sayfası</a></li>
+  <li><a href="https://www.npl.co.uk/si-units">NPL — “What is the SI?” eğitim sayfası</a></li>
+  <li><a href="https://www.npl.co.uk/about-us/history/famous/bryan-kibble">NPL — Bryan Kibble biyografi</a></li>
+  <li><a href="https://www.ptb.de/cms/en/ptb/fachabteilungen/abt4/fb-44/ag-441/realisation-of-the-si-second.html">PTB — Atomic Fountain Clock CSF1 ve CSF2</a></li>
+  <li><a href="https://iopscience.iop.org/article/10.1088/0026-1394/53/5/A46">Stock, M. — “The Watt or Kibble Balance: a Technique for Implementing the New SI Definition of the Unit of Mass”, <em>Metrologia</em> 53 (2016)</a></li>
+  <li><a href="https://www.bipm.org/en/committees/cc/cct/publications-cc.html">BIPM — ITS-90 Defining Document</a></li>
+  <li><a href="https://www.researchgate.net/publication/365573229_A_UME_Kibble_balance_displacement_measurement_procedure">Ahmedov H. ve ark. — “A UME Kibble Balance Displacement Measurement Procedure” (UME Kibble terazisi)</a></li>
+  <li><a href="https://www.ume.tubitak.gov.tr/en/laboratuvarlarimiz/time-frequency-and-wavelength-laboratories">TÜBİTAK UME — Zaman ve Frekans Laboratuvarı</a></li>
+  <li><a href="https://www.ume.tubitak.gov.tr/">TÜBİTAK UME — Ulusal Metroloji Enstitüsü ana sayfası</a></li>
+  <li><a href="https://www.turkak.org.tr/">TÜRKAK — Akreditasyon Kapsam Sorgulama</a></li>
+  <li><a href="https://ilac.org/">ILAC — Uluslararası Laboratuvar Akreditasyonu Birliği</a></li>
+  <li><a href="https://jila.colorado.edu/yelabs">JILA — Optik Latis Saat Çalışmaları (Ye Lab)</a></li>
+  <li><a href="https://en.wikipedia.org/wiki/2019_revision_of_the_SI">Wikipedia — 2019 redefinition of the SI base units (özet)</a></li>
+</ul>
+
+          </div>
+        </div>
+
+        <nav class="post-nav" aria-label="Yazı navigasyonu">
+          
+          <a class="post-nav__item post-nav__item--prev" href="/2026/05/06/olcum-belirsizligi-gum-annex-f-ncsli-rp-12.html">
+            <span class="post-nav__direction">← Önceki yazı</span>
+            <span class="post-nav__title">Ölçtüğünüz Sayı Ne Kadar Doğru? Ölçüm Belirsizliği için Bir Rehber</span>
+            <span class="post-nav__date">May 2026</span>
+          </a>
+          
+          
+          <a class="post-nav__item post-nav__item--next" href="/2026/05/14/renode-ile-zynq7000-simulasyonu.html">
+            <span class="post-nav__direction">Sonraki yazı →</span>
+            <span class="post-nav__title">Renode ile Zynq7000 Simülasyonu</span>
+            <span class="post-nav__date">May 2026</span>
+          </a>
+          
+        </nav>
+
+        <div class="clearfix" id="disqus_thread"></div>
+          <script>
+            (function () {
+              var loaded = false;
+              function loadDisqus() {
+                if (loaded) return;
+                loaded = true;
+                var d = document, s = d.createElement('script');
+                s.src = 'https://karaman-dev.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+              }
+              if ('IntersectionObserver' in window) {
+                var observer = new IntersectionObserver(function (entries) {
+                  if (entries[0].isIntersecting) {
+                    loadDisqus();
+                    observer.disconnect();
+                  }
+                }, { rootMargin: '200px' });
+                observer.observe(document.getElementById('disqus_thread'));
+              } else {
+                loadDisqus();
+              }
+            })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+
+<footer class="footer-modern">
+  <div class="footer-main">
+    <div class="container">
+      <div class="row">
+
+        <!-- About column -->
+        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+          <h5 class="footer-heading">M. Serdar Karaman</h5>
+          <p class="footer-description">Aviyonik yazılım, DO-178C ve emniyet kritik mühendislik üzerine sahadan notlar.</p>
+        </div>
+
+        <!-- Quick links column -->
+        <div class="col-lg-2 col-md-6 mb-4 mb-lg-0 offset-lg-1">
+          <h5 class="footer-heading">Bağlantılar</h5>
+          <ul class="footer-links">
+            <li><a href="/">Ana sayfa</a></li>
+            <li><a href="/hakkimda">Hakkımda</a></li>
+            <li><a href="/posts">Yazılar</a></li>
+            <li><a href="/contact">İletişim</a></li>
+          </ul>
+          <h5 class="footer-heading mt-3">Projeler</h5>
+          <ul class="footer-links">
+            <li><a href="https://karaman.dev/games" target="_blank" rel="noopener">Oyunlar</a></li>
+            <li><a href="https://karaman.dev/or-araclari" target="_blank" rel="noopener">OR Araçları</a></li>
+          </ul>
+        </div>
+
+        <!-- Social column -->
+        <div class="col-lg-4 col-md-12 mb-0 offset-lg-1">
+          <h5 class="footer-heading">İletişim</h5>
+          <ul class="footer-social list-inline">
+            
+            <li class="list-inline-item">
+              <a href="mailto:%73%65%72%64%61%72@%6B%61%72%61%6D%61%6E.%64%65%76" aria-label="E-posta">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              </a>
+            </li>
+            
+            
+            <li class="list-inline-item">
+              <a href="https://github.com/Mavrikant" aria-label="GitHub" target="_blank" rel="noopener">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"></path></svg>
+              </a>
+            </li>
+            
+            
+            <li class="list-inline-item">
+              <a href="https://www.linkedin.com/in/mserdarkaraman" aria-label="LinkedIn" target="_blank" rel="noopener">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+              </a>
+            </li>
+            
+            
+            
+            
+            
+            <li class="list-inline-item">
+              <a href="https://www.youtube.com/channel/UCIlBH9QynIkHxX8uiY0UEMQ" aria-label="YouTube" target="_blank" rel="noopener">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20.06 12 20.06 12 20.06s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"></path><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"></polygon></svg>
+              </a>
+            </li>
+            
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6 text-center text-md-left">
+          <p class="copyright mb-0">© 2026 M. Serdar Karaman. Tüm hakları saklıdır.</p>
+        </div>
+        <div class="col-md-6 text-center text-md-right mt-2 mt-md-0">
+          <a href="#page-top" class="back-to-top" aria-label="Başa dön">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"></polyline></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  
+<div id="bayram-splash" class="bayram-splash" data-theme="dark" role="dialog" aria-modal="true" aria-labelledby="bayram-splash-title" aria-describedby="bayram-splash-subtitle" hidden>
+  <div class="bayram-splash__backdrop" data-bayram-close="backdrop"></div>
+
+  <div class="bayram-splash__panel" role="document">
+    <button type="button" class="bayram-splash__close" aria-label="Kapat" data-bayram-close="button">
+      <svg width="18" height="18" viewbox="0 0 18 18" fill="none" aria-hidden="true">
+        <path d="M3 3 L15 15 M15 3 L3 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"></path>
+      </svg>
+    </button>
+
+    <div class="bayram-splash__status" aria-hidden="true">
+      <div class="bayram-splash__status-left">
+        <span class="bayram-splash__pip"></span>
+        <span>karaman.dev</span>
+        <span class="bayram-splash__sep">/</span>
+        <span class="bayram-splash__status-dim">bayram</span>
+        <span class="bayram-splash__sep">/</span>
+        <span class="bayram-splash__status-faint">lang · tr / en</span>
+      </div>
+      <div class="bayram-splash__status-right">
+        <span class="bayram-splash__status-faint">REF · BAYRAM-2026</span>
+      </div>
+    </div>
+
+    <div class="bayram-splash__ticks" aria-hidden="true">
+      <span class="bayram-splash__tick bayram-splash__tick--tl"></span>
+      <span class="bayram-splash__tick bayram-splash__tick--tr"></span>
+      <span class="bayram-splash__tick bayram-splash__tick--bl"></span>
+      <span class="bayram-splash__tick bayram-splash__tick--br"></span>
+    </div>
+
+    <div class="bayram-splash__body">
+      <div class="bayram-splash__art" aria-hidden="true">
+        <svg viewbox="0 0 360 360" width="220" height="220" role="img" aria-label="Hilâl ve yıldız">
+          <defs>
+            <mask id="bayram-crescent-mask" maskunits="userSpaceOnUse">
+              <rect x="0" y="0" width="360" height="360" fill="black"></rect>
+              <circle cx="170" cy="180" r="120" fill="white"></circle>
+              <circle class="bayram-splash__mask-inner" cx="208" cy="180" r="120" fill="black"></circle>
+            </mask>
+            <pattern id="bayram-pcb" width="22" height="22" patternunits="userSpaceOnUse">
+              <circle cx="3" cy="3" r="0.9" fill="rgba(8,22,30,0.55)"></circle>
+              <circle cx="19" cy="19" r="0.7" fill="rgba(8,22,30,0.4)"></circle>
+              <circle cx="19" cy="3" r="0.5" fill="rgba(8,22,30,0.28)"></circle>
+              <circle cx="3" cy="19" r="0.5" fill="rgba(8,22,30,0.28)"></circle>
+              <path d="M3 3 L3 11 L11 11 L11 3 M11 11 L19 11 L19 19 M3 19 L3 11" stroke="rgba(8,22,30,0.32)" stroke-width="0.4" fill="none"></path>
+            </pattern>
+          </defs>
+
+          <g mask="url(#bayram-crescent-mask)">
+            <circle cx="170" cy="180" r="120" class="bayram-splash__crescent-fill"></circle>
+            <rect x="50" y="60" width="240" height="240" fill="url(#bayram-pcb)"></rect>
+
+            <g class="bayram-splash__net" stroke="rgba(8,22,30,0.55)" stroke-width="0.9" fill="none">
+              <line x1="86" y1="129" x2="120" y2="106"></line>
+              <line x1="86" y1="129" x2="116" y2="139"></line>
+              <line x1="86" y1="129" x2="116" y2="180"></line>
+              <line x1="79" y1="174" x2="116" y2="139"></line>
+              <line x1="79" y1="174" x2="116" y2="180"></line>
+              <line x1="79" y1="174" x2="116" y2="220"></line>
+              <line x1="86" y1="228" x2="116" y2="180"></line>
+              <line x1="86" y1="228" x2="116" y2="220"></line>
+              <line x1="86" y1="228" x2="120" y2="252"></line>
+              <line x1="120" y1="106" x2="151" y2="132"></line>
+              <line x1="116" y1="139" x2="151" y2="132"></line>
+              <line x1="116" y1="139" x2="148" y2="180"></line>
+              <line x1="116" y1="180" x2="148" y2="180"></line>
+              <line x1="116" y1="180" x2="151" y2="228"></line>
+              <line x1="116" y1="220" x2="148" y2="180"></line>
+              <line x1="116" y1="220" x2="151" y2="228"></line>
+              <line x1="120" y1="252" x2="151" y2="228"></line>
+            </g>
+            <g class="bayram-splash__nodes">
+              <circle cx="86" cy="129" r="3"></circle>
+              <circle cx="79" cy="174" r="3"></circle>
+              <circle cx="86" cy="228" r="3"></circle>
+              <circle cx="120" cy="106" r="3"></circle>
+              <circle cx="116" cy="139" r="3"></circle>
+              <circle cx="116" cy="180" r="3"></circle>
+              <circle cx="116" cy="220" r="3"></circle>
+              <circle cx="120" cy="252" r="3"></circle>
+              <circle cx="151" cy="132" r="3"></circle>
+              <circle cx="148" cy="180" r="3"></circle>
+              <circle cx="151" cy="228" r="3"></circle>
+            </g>
+
+            <g class="bayram-splash__hex" font-family="'JetBrains Mono', monospace" fill="rgba(8,22,30,0.7)">
+              <text x="86" y="100" font-size="10" letter-spacing="0.1em">0xAI</text>
+              <text x="100" y="270" font-size="8" letter-spacing="0.15em">01010111</text>
+              <text x="70" y="195" font-size="7" letter-spacing="0.12em">v1.447</text>
+            </g>
+          </g>
+
+          <path class="bayram-splash__star" d="M 280 168 L 290 188 L 312 191 L 296 207 L 300 229 L 280 219 L 260 229 L 264 207 L 248 191 L 270 188 Z"></path>
+        </svg>
+      </div>
+
+      <p class="bayram-splash__eyebrow">01 / Tebrik · Kurban Bayramı · 1447 H</p>
+
+      <h2 id="bayram-splash-title" class="bayram-splash__title">
+        Kurban Bayramınız<br>mübarek olsun.
+      </h2>
+
+      <div class="bayram-splash__divider" aria-hidden="true"></div>
+
+      <p id="bayram-splash-subtitle" class="bayram-splash__subtitle">
+        <em>Eid al‑Adha Mubarak</em>
+      </p>
+
+      <p class="bayram-splash__wish">
+        Sevdiklerinizle birlikte sağlık, huzur<br>ve nice güzelliklere.
+      </p>
+
+      <div class="bayram-splash__signature">
+        <span class="bayram-splash__sig-rule"></span>
+        <span class="bayram-splash__sig-name">karaman.dev</span>
+        <span class="bayram-splash__sig-rule"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="/assets/scripts.js"></script>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YDEV31NZ5J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YDEV31NZ5J');
+</script>
+
+
+</body>
+</html>

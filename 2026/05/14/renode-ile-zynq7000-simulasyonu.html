@@ -1,0 +1,1251 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="/favicon.ico" rel="shortcut icon" sizes="36x36 24x24 16x16" type="image/x-icon">
+<link href="/favicon.png" rel="icon" sizes="196x196" type="image/png">
+<meta content="/mstile-icon-128x128.png" name="msapplication-TileImage">
+<meta content="transparent" name="msapplication-TileColor">
+<link href="/manifest.webmanifest" rel="manifest">
+<meta content="/browserconfig.xml" name="msapplication-config">
+<!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>Renode ile Zynq7000 Simülasyonu | M. Serdar Karaman</title>
+<meta name="generator" content="Jekyll v4.2.2">
+<meta property="og:title" content="Renode ile Zynq7000 Simülasyonu">
+<meta name="author" content="M. Serdar Karaman">
+<meta property="og:locale" content="tr_TR">
+<meta name="description" content="Gömülü sistem geliştirmenin en yorucu yanlarından biri donanımın kendisidir. FPGA bitstream’leri saatler süren sentez işlemleri gerektirir, geliştirme kartları ekipler arasında paylaşılır, JTAG bağlantıları kopar, sahada hata ayıklamak ise çoğu zaman pratik değildir. Sürekli entegrasyon (CI) altyapısına fiziksel kart bağlamak ayrı bir mühendislik problemidir.">
+<meta name="twitter:description" property="og:description" content="Gömülü sistem geliştirmenin en yorucu yanlarından biri donanımın kendisidir. FPGA bitstream’leri saatler süren sentez işlemleri gerektirir, geliştirme kartları ekipler arasında paylaşılır, JTAG bağlantıları kopar, sahada hata ayıklamak ise çoğu zaman pratik değildir. Sürekli entegrasyon (CI) altyapısına fiziksel kart bağlamak ayrı bir mühendislik problemidir.">
+<link rel="canonical" href="https://karaman.dev/2026/05/14/renode-ile-zynq7000-simulasyonu.html">
+<meta property="og:url" content="https://karaman.dev/2026/05/14/renode-ile-zynq7000-simulasyonu.html">
+<meta property="og:site_name" content="M. Serdar Karaman">
+<meta property="og:image" content="https://karaman.dev/img/og-default.webp">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-05-14T09:00:00+00:00">
+<meta property="article:modified_time" content="2026-05-14T09:00:00+00:00">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://karaman.dev/img/og-default.webp">
+<meta name="twitter:title" content="Renode ile Zynq7000 Simülasyonu">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"M. Serdar Karaman"},"dateModified":"2026-05-14T09:00:00+00:00","datePublished":"2026-05-14T09:00:00+00:00","description":"Gömülü sistem geliştirmenin en yorucu yanlarından biri donanımın kendisidir. FPGA bitstream’leri saatler süren sentez işlemleri gerektirir, geliştirme kartları ekipler arasında paylaşılır, JTAG bağlantıları kopar, sahada hata ayıklamak ise çoğu zaman pratik değildir. Sürekli entegrasyon (CI) altyapısına fiziksel kart bağlamak ayrı bir mühendislik problemidir.","headline":"Renode ile Zynq7000 Simülasyonu","image":"https://karaman.dev/img/og-default.webp","mainEntityOfPage":{"@type":"WebPage","@id":"https://karaman.dev/2026/05/14/renode-ile-zynq7000-simulasyonu.html"},"url":"https://karaman.dev/2026/05/14/renode-ile-zynq7000-simulasyonu.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<!-- Sentry (errors + performance + replay) -->
+<script src="https://js.sentry-cdn.com/d9df60c4bcc41adb14bb648db4013b52.min.js" crossorigin="anonymous"></script>
+<script>
+  Sentry.onLoad(function () {
+    Sentry.init({
+      integrations: [
+        Sentry.browserTracingIntegration(),
+        Sentry.replayIntegration({
+          maskAllText: false,
+          blockAllMedia: false,
+        }),
+      ],
+      tracesSampleRate: 1.0,
+      replaysSessionSampleRate: 0.1,
+      replaysOnErrorSampleRate: 1.0,
+    });
+  });
+</script>
+
+
+<script>
+  // No-flash dark mode: applies the saved theme before paint.
+  (function () {
+    try {
+      var stored = localStorage.getItem('theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = stored || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch (e) {}
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="/img/posts/5.webp" fetchpriority="high">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.12.0/mermaid.min.js" integrity="sha512-5TKaYvhenABhlGIKSxAWLFJBZCSQw7HTV7aL1dJcBokM/+3PNtfgJFlv8E6Us/B1VMlQ4u8sPzjudL9TEQ06ww==" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/assets/main.css">
+<link rel="alternate" type="application/rss+xml" title="M. Serdar Karaman" href="/feed.xml">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e1014" media="(prefers-color-scheme: dark)">
+<link rel="manifest" href="/manifest.json">
+</head>
+<body id="page-top">
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">M. Serdar Karaman</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Menüyü aç/kapat">
+      Menü
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Ana sayfa</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">Hakkımda</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Yazılar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contact">İletişim</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownProjects" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Projeler
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProjects">
+            <a class="dropdown-item" href="https://karaman.dev/games" target="_blank" rel="noopener">Oyunlar</a>
+            <a class="dropdown-item" href="https://karaman.dev/or-araclari" target="_blank" rel="noopener">OR Araçları</a>
+          </div>
+        </li>
+        <li class="nav-item d-flex align-items-center">
+          <button type="button" class="theme-toggle" aria-label="Tema değiştir" title="Tema değiştir">
+            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <!-- Page Header -->
+
+<header class="masthead" style="background-image: url('/img/posts/5.webp')">
+  
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Renode ile Zynq7000 Simülasyonu</h1>
+            
+            <h2 class="subheading">Zynq7000 Simulation with Renode</h2>
+            
+            <span class="meta">
+              <a href="/about">M. Serdar Karaman</a>
+              · 14 Mayıs 2026 · <span class="reading-time" title="Estimated read time">
+  
+   36 mins  read </span>
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container" lang="tr">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+
+        <div class="post-shell">
+          <aside class="post-toc" aria-label="İçindekiler">
+  <h2 class="post-toc__title">İçindekiler</h2>
+  <nav id="post-toc-nav"></nav>
+</aside>
+
+          <div class="post-content">
+            <p>Gömülü sistem geliştirmenin en yorucu yanlarından biri donanımın kendisidir. FPGA bitstream’leri saatler süren sentez işlemleri gerektirir, geliştirme kartları ekipler arasında paylaşılır, JTAG bağlantıları kopar, sahada hata ayıklamak ise çoğu zaman pratik değildir. Sürekli entegrasyon (CI) altyapısına fiziksel kart bağlamak ayrı bir mühendislik problemidir.</p>
+
+<p>İşte bu noktada <strong>Renode</strong> devreye giriyor. Bu yazıda, Xilinx (artık AMD) <strong>Zynq7000</strong> SoC ailesinin Renode üzerinde nasıl simüle edildiğine, donanım çevre birimleri ile FPGA tarafının nasıl modellendiğine ve bu yaklaşımın hangi avantajları getirdiğine bakacağız.</p>
+
+<hr>
+
+<h2 id="renode-nedir">Renode Nedir?</h2>
+
+<p><a href="https://renode.io">Renode</a>, <a href="https://antmicro.com/">Antmicro</a> tarafından geliştirilen ve <strong>MIT</strong> lisansı ile dağıtılan açık kaynak bir tam-SoC emülatörüdür. QEMU’nun aksine yalnızca CPU emülasyonuna odaklanmaz; çevre birimlerini, sensörleri, ağ arayüzlerini, kablosuz iletişim modüllerini ve hatta birden fazla cihazın aynı anda çalıştığı sistemleri tek bir simülasyon ortamında ele alır.</p>
+
+<p>Renode’un öne çıkan özellikleri:</p>
+
+<ul>
+  <li>
+<strong>Geniş platform desteği:</strong> 100’den fazla SoC ve geliştirme kartı (ARM Cortex-M/A, RISC-V, x86, PowerPC)</li>
+  <li>
+<strong>Python ile genişletilebilirlik:</strong> Yeni bir çevre birimi, birkaç satırlık bir Python betiği ile eklenebilir</li>
+  <li>
+<strong>Deterministik yürütme:</strong> Aynı senaryo her çalıştırıldığında tıpatıp aynı sonucu üretir</li>
+  <li>
+<strong>Robot Framework entegrasyonu:</strong> Test otomasyonu doğrudan desteklenir</li>
+  <li>
+<strong>Yerleşik GDB sunucusu:</strong> Hata ayıklama için ek araç gerekmez</li>
+</ul>
+
+<p>Renode’un QEMU’dan en belirgin farkı, <strong>sistem entegrasyon testlerine</strong> odaklı tasarlanmış olmasıdır. UART çıktısını yakalamak, GPIO durumunu değiştirmek, sensörden değer “enjekte etmek” ya da ağ trafiğini iki sanal cihaz arasında köprülemek gibi işlemler Renode’da birinci sınıf vatandaş muamelesi görür.</p>
+
+<hr>
+
+<h2 id="zynq7000-mimarisine-kısa-bir-bakış">Zynq7000 Mimarisine Kısa Bir Bakış</h2>
+
+<p>Zynq7000, tek bir silikon üzerinde iki dünyayı birleştirir:</p>
+
+<ul>
+  <li>
+<strong>PS (Processing System):</strong> Çift çekirdekli <strong>ARM Cortex-A9</strong> (1 GHz’e kadar, parça hızına göre), NEON SIMD birimi, donanımsal FPU, L1/L2 önbellek, DDR3 denetleyicisi ve sabit çevre birimleri (UART, SPI, I2C, GPIO, USB, Gigabit Ethernet, SD/MMC).</li>
+  <li>
+<strong>PL (Programmable Logic):</strong> Artix-7 ya da Kintex-7 ailesinden bir <strong>FPGA dokusu</strong>; geliştiricinin kendi IP bloklarını, hızlandırıcılarını veya özel arayüzlerini sentezlediği alandır.</li>
+  <li>
+<strong>AXI Interconnect:</strong> PS ile PL arasındaki yüksek bant genişlikli köprüdür. AXI3 / AXI4 protokolü üzerinden General-Purpose (GP), High-Performance (HP) ve Accelerator Coherency Port (ACP) bağlantılarını sunar.</li>
+</ul>
+
+<p>PS tarafı, donanım üreticisi tarafından sabitlenmiş bir mikrodenetleyiciye benzer. PL tarafı ise tamamen sizin elinizdedir; bitstream ile yeniden programlayabilirsiniz. Renode’un bu iki dünyayı simüle ederken nasıl ele aldığı, yazının kalbini oluşturuyor.</p>
+
+<div class="mermaid">
+graph TB
+    subgraph PS[Processing System - PS]
+        CPU0[Cortex-A9 #0]
+        CPU1[Cortex-A9 #1]
+        GIC[GIC Interrupt Controller]
+        UART[PS7_UART]
+        GPIO[PS7_GPIO]
+        TIMER[Triple Timer Counter]
+        DDR[DDR3 Controller]
+    end
+    subgraph PL[Programmable Logic - PL / FPGA]
+        IP1[Özel IP Bloğu]
+        IP2[AXI Slave Peripheral]
+        IP3[DMA Hızlandırıcı]
+    end
+    AXI{AXI Interconnect}
+    CPU0 --&gt; AXI
+    CPU1 --&gt; AXI
+    UART --&gt; GIC
+    GPIO --&gt; GIC
+    TIMER --&gt; GIC
+    AXI --&gt; IP1
+    AXI --&gt; IP2
+    AXI --&gt; IP3
+</div>
+
+<hr>
+
+<h2 id="kurulum">Kurulum</h2>
+
+<p>Renode’u edinmenin birkaç yolu vardır. Linux üzerinde en hızlı yol resmi paket deposunu kullanmaktır:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Ubuntu / Debian</span>
+wget https://github.com/renode/renode/releases/latest/download/renode_latest.deb
+<span class="nb">sudo </span>apt <span class="nb">install</span> ./renode_latest.deb
+
+<span class="c"># Çalıştır</span>
+renode
+</code></pre></div></div>
+
+<p>Docker tercih edenler için resmi imaj da mevcuttur:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>docker run <span class="nt">-it</span> <span class="nt">--rm</span> antmicro/renode:latest
+</code></pre></div></div>
+
+<p>Kaynaktan derlemek isteyenler <code class="language-plaintext highlighter-rouge">dotnet</code> SDK 8.0 ile depoyu çekip <code class="language-plaintext highlighter-rouge">build.sh</code> betiğini çalıştırabilir. macOS ve Windows için de hazır paketler mevcuttur.</p>
+
+<p>Kurulum doğrulaması basittir: <code class="language-plaintext highlighter-rouge">renode</code> komutu sizi <code class="language-plaintext highlighter-rouge">(monitor)</code> istemi ile karşılayacaktır.</p>
+
+<hr>
+
+<h2 id="i̇lk-simülasyon-resc-senaryo-dosyası">İlk Simülasyon: .resc Senaryo Dosyası</h2>
+
+<p>Renode iki tür dosya kullanır:</p>
+
+<ul>
+  <li>
+<strong><code class="language-plaintext highlighter-rouge">.repl</code></strong> (Renode Platform) — Platformun tanımı: hangi çevre birimleri hangi adreslerde, hangi IRQ’lara bağlı.</li>
+  <li>
+<strong><code class="language-plaintext highlighter-rouge">.resc</code></strong> (Renode Script) — Senaryo: hangi platformu yükle, hangi firmware’i çalıştır, hangi pencereleri aç.</li>
+</ul>
+
+<p>Renode kurulumu, Zynq tabanlı popüler kartlar için hazır platform dosyaları içerir. Örneğin <strong>ZedBoard</strong> için tipik bir senaryo şöyle görünür:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>:name: ZedBoard ile Zynq7000 Simulasyonu
+:description: Zynq7000 uzerinde bare-metal firmware
+
+mach create "zedboard"
+machine LoadPlatformDescription @platforms/boards/zedboard.repl
+
+# UART cikti penceresini ac
+showAnalyzer sysbus.uart1
+
+# Firmware'i yukle
+sysbus LoadELF @firmware.elf
+
+# CPU0'i belirli bir adresten baslat
+cpu0 PC 0x00100000
+
+start
+</code></pre></div></div>
+
+<p>Bu senaryoyu <code class="language-plaintext highlighter-rouge">renode boot.resc</code> ile çalıştırdığınızda yeni bir pencere açılır ve UART çıktısı orada akmaya başlar. <code class="language-plaintext highlighter-rouge">pause</code>, <code class="language-plaintext highlighter-rouge">step</code>, <code class="language-plaintext highlighter-rouge">start</code> komutlarıyla zamanı tamamen kontrol edebilirsiniz: simülasyonu istediğiniz anda dondurabilir, talimatları tek tek ilerletebilir veya gerçek zamandan kat kat hızlı çalıştırabilirsiniz.</p>
+
+<hr>
+
+<h2 id="platform-tanımı-repl-dosyaları">Platform Tanımı: .repl Dosyaları</h2>
+
+<p>Bir <code class="language-plaintext highlighter-rouge">.repl</code> dosyası, platformun adres haritasını, kesme bağlantılarını ve reset değerlerini tanımlar. ZedBoard platformunun küçük bir parçası:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>gic: IRQControllers.ARM_GenericInterruptController @ {
+        sysbus new Bus.BusMultiRegistration { address: 0xF8F01000; size: 0x1000; region: "distributor" };
+        sysbus new Bus.BusMultiRegistration { address: 0xF8F00100; size: 0x100; region: "cpuInterface" }
+    }
+    [0-1] -&gt; cpu0@[0-1]
+
+uart1: UART.Cadence_UART @ sysbus 0xE0001000
+    -&gt; gic@50
+
+gpio: GPIOPort.XilinxGPIOPS @ sysbus 0xE000A000
+    IRQ -&gt; gic@52
+
+ttc0: Timers.Cadence_TTC @ sysbus 0xF8001000
+    [0-2] -&gt; gic@[10-12]
+</code></pre></div></div>
+
+<p>Burada <code class="language-plaintext highlighter-rouge">Cadence_UART</code>, <code class="language-plaintext highlighter-rouge">XilinxGPIOPS</code> gibi tip adları, Renode içinde hazır olarak gelen çevre birimi modellerine karşılık gelir. Adres alanı (<code class="language-plaintext highlighter-rouge">0xE0001000</code>), reset davranışı ve IRQ numarası, fiziksel Zynq7000 ile birebir eşleşir. Bu sayede aynı sürücü kodu, hem Renode’da hem de gerçek kartta değişiklik gerektirmeden çalışır.</p>
+
+<p>İhtiyacınız olan bir çevre birimi platformda yoksa iki seçeneğiniz var: kendi <code class="language-plaintext highlighter-rouge">.repl</code> dosyanızı baştan yazmak, ya da mevcut olanı <code class="language-plaintext highlighter-rouge">using</code> ile dahil edip üzerine ekleme yapmak.</p>
+
+<hr>
+
+<h2 id="donanım-çevre-birimlerinin-simülasyonu">Donanım Çevre Birimlerinin Simülasyonu</h2>
+
+<p>Renode, çevre birimlerini <strong>kayıt davranış seviyesinde</strong> (register-transaction-level) modeller. Cycle-accurate değildir; yani saat döngüsü hassasiyetinde zamanlama yapmaz. Bunun yerine, yazılımın gördüğü her şeyin doğru olmasına odaklanır: aynı register adresleri, aynı bit alanları, aynı IRQ tetikleme davranışı, aynı protokol durum makineleri.</p>
+
+<p>Zynq7000 için yerleşik olarak modellenen başlıca çevre birimler:</p>
+
+<ul>
+  <li>
+<strong>UART (PS7_UART / Cadence_UART)</strong> — Tam fonksiyonel; FIFO seviyesi, baud rate, IRQ davranışı</li>
+  <li>
+<strong>GIC (Generic Interrupt Controller)</strong> — ARM PrimeCell standart GIC modeli</li>
+  <li>
+<strong>TTC (Triple Timer Counter)</strong> — Üç bağımsız 16-bit sayaç</li>
+  <li>
+<strong>GPIO (XilinxGPIOPS)</strong> — 4 banka, MIO ve EMIO pinleri</li>
+  <li>
+<strong>I2C, SPI</strong> — Cadence master/slave denetleyicileri</li>
+  <li>
+<strong>DMA, Ethernet (GEM), SD/MMC</strong> — Temel düzeyde modellenmiştir</li>
+</ul>
+
+<p>Eksik bir çevre birimi varsa, <strong>Python ile birkaç satırda</strong> basit bir model yazılabilir. Renode’un <code class="language-plaintext highlighter-rouge">PythonPeripheral</code> sınıfı, harici <code class="language-plaintext highlighter-rouge">.py</code> dosyalarını doğrudan çevre birimi olarak yükler. Önce platforma yeni cihazı ekleriz:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>my_sensor: Python.PythonPeripheral @ sysbus 0x43C00000
+    size: 0x100
+    initable: true
+    filename: "@scripts/my_sensor.py"
+</code></pre></div></div>
+
+<p>Sonra Python betiğini yazarız. Her bus erişiminde <code class="language-plaintext highlighter-rouge">request</code> nesnesi otomatik olarak sağlanır:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># my_sensor.py
+</span><span class="k">if</span> <span class="n">request</span><span class="p">.</span><span class="n">IsInit</span><span class="p">:</span>
+    <span class="n">sensor_value</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">elif</span> <span class="n">request</span><span class="p">.</span><span class="n">IsRead</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">request</span><span class="p">.</span><span class="n">Offset</span> <span class="o">==</span> <span class="mh">0x00</span><span class="p">:</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">Value</span> <span class="o">=</span> <span class="n">sensor_value</span>      <span class="c1"># sicaklik degeri
+</span>    <span class="k">elif</span> <span class="n">request</span><span class="p">.</span><span class="n">Offset</span> <span class="o">==</span> <span class="mh">0x04</span><span class="p">:</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">Value</span> <span class="o">=</span> <span class="mh">0x0001</span>            <span class="c1"># durum bayragi: hazir
+</span>
+<span class="k">elif</span> <span class="n">request</span><span class="p">.</span><span class="n">IsWrite</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">request</span><span class="p">.</span><span class="n">Offset</span> <span class="o">==</span> <span class="mh">0x08</span><span class="p">:</span>
+        <span class="n">sensor_value</span> <span class="o">=</span> <span class="n">request</span><span class="p">.</span><span class="n">Value</span>      <span class="c1"># firmware kalibrasyon yazabilir
+</span></code></pre></div></div>
+
+<p>Hepsi bu kadar — sınıf, kalıtım ya da derleme adımı yok. Renode konsolundan simülasyon sırasında <code class="language-plaintext highlighter-rouge">sysbus.my_sensor WriteDoubleWord 0x08 42</code> yazarak sensör değerini değiştirebilirsiniz; firmware tam o anda farklı bir koda dallanır. Bu, <strong>fault injection</strong> testleri için son derece güçlü bir araçtır.</p>
+
+<hr>
+
+<h2 id="uartı-tcpye-bağlamak">UART’ı TCP’ye Bağlamak</h2>
+
+<p>Renode’un en pratik özelliklerinden biri, sanal UART’ları <strong>TCP soketleri</strong> olarak dışa açabilmesidir. Bu sayede ekransız ortamlarda (CI sunucuları, Docker konteynerleri, uzak makineler) simülasyonu çalıştırıp <code class="language-plaintext highlighter-rouge">telnet</code>, <code class="language-plaintext highlighter-rouge">netcat</code> ya da kendi test betiğinizle bağlanabilirsiniz.</p>
+
+<p>Renode tarafında iki komut yeter:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>emulation CreateServerSocketTerminal 3456 "uart_term"
+connector Connect sysbus.uart1 uart_term
+start
+</code></pre></div></div>
+
+<p>İlk komut 3456 portunda bir TCP sunucusu açar, ikincisi sanal UART’ı bu sokete bağlar. Artık başka bir terminalden bağlanabilirsiniz:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nv">$ </span>telnet localhost 3456
+Trying 127.0.0.1...
+Connected to localhost.
+Boot tamamlandi
+Sensor degeri: 42
+<span class="o">&gt;</span> <span class="nb">help
+</span>Komutlar: status, reset, dump
+</code></pre></div></div>
+
+<p>Klavyeden yazdığınız her karakter firmware’in UART RX FIFO’suna düşer; firmware’in TX FIFO’suna yazdığı her karakter terminale akar. Tıpkı gerçek bir kart gibi.</p>
+
+<p>Bu, <strong>otomatik testleri Python ile yazmanın</strong> en temiz yoludur. Pexpect ya da düz <code class="language-plaintext highlighter-rouge">socket</code>:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">socket</span>
+
+<span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="p">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="p">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="p">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+<span class="n">s</span><span class="p">.</span><span class="n">connect</span><span class="p">((</span><span class="s">"localhost"</span><span class="p">,</span> <span class="mi">3456</span><span class="p">))</span>
+
+<span class="c1"># Boot tamamlanmasini bekle
+</span><span class="n">buf</span> <span class="o">=</span> <span class="sa">b</span><span class="s">""</span>
+<span class="k">while</span> <span class="sa">b</span><span class="s">"Boot tamamlandi"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">buf</span><span class="p">:</span>
+    <span class="n">buf</span> <span class="o">+=</span> <span class="n">s</span><span class="p">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">4096</span><span class="p">)</span>
+
+<span class="c1"># Komut gonder, cevabi yakala
+</span><span class="n">s</span><span class="p">.</span><span class="n">sendall</span><span class="p">(</span><span class="sa">b</span><span class="s">"sensor read</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
+<span class="n">buf</span> <span class="o">=</span> <span class="sa">b</span><span class="s">""</span>
+<span class="k">while</span> <span class="sa">b</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">buf</span><span class="p">:</span>
+    <span class="n">buf</span> <span class="o">+=</span> <span class="n">s</span><span class="p">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">4096</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="s">"Firmware cevabi:"</span><span class="p">,</span> <span class="n">buf</span><span class="p">.</span><span class="n">decode</span><span class="p">().</span><span class="n">strip</span><span class="p">())</span>
+<span class="n">s</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+</code></pre></div></div>
+
+<p>Birden fazla UART’ı aynı anda farklı portlardan dışa açabilirsiniz — örneğin debug UART’ı 3456, telemetri UART’ı 3457 portundan. Aynı simülasyona iki ayrı Python istemcisi, iki ayrı porttan bağlanır.</p>
+
+<p>Ek olarak UART’ı dosyaya yazdırmak da mümkündür:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sysbus.uart1 CreateFileBackend @uart.log true
+</code></pre></div></div>
+
+<p>CI’da test başarısız olduğunda bu log dosyası paha biçilmezdir.</p>
+
+<hr>
+
+<h2 id="fpga--pl-tarafı-nasıl-simüle-edilir">FPGA / PL Tarafı Nasıl Simüle Edilir?</h2>
+
+<p>Renode’un en sık sorulan sorularından biri: “Peki ya FPGA?” Renode kendi başına Verilog ya da VHDL kodunu yorumlamaz. PL tarafını ele almak için iki yaygın yaklaşım vardır:</p>
+
+<h3 id="a-python-peripheral-tlm-modeli">a) Python Peripheral (TLM Modeli)</h3>
+
+<p>FPGA’da yapılacak işin <strong>davranışsal modelini</strong> Python ile yazarsınız. Renode peripheral’ları <strong>register-transaction seviyesinde</strong> (TLM) modellendiği için AXI handshake’i, burst transfer’leri ve back-pressure gibi protokol detayları Renode tarafından soyutlanır; sizin kodunuz yalnızca register okuma/yazma çağrılarına yanıt verir. Bu yaklaşımda RTL test edilmez, ancak yazılım entegrasyonu sorunsuz ilerler.</p>
+
+<p>Yukarıdaki <code class="language-plaintext highlighter-rouge">my_sensor.py</code> basit bir sensör modeliydi. PL tarafında daha tipik bir şey de — örneğin yazılan veriyi sayıp hazır bayrağı tutan minimal bir AXI slave — aynı yapıyla yazılır:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># axi_fifo.py - Yazilanlari sayan basit AXI slave
+</span><span class="k">if</span> <span class="n">request</span><span class="p">.</span><span class="n">IsInit</span><span class="p">:</span>
+    <span class="n">write_count</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">last_data</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">elif</span> <span class="n">request</span><span class="p">.</span><span class="n">IsRead</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">request</span><span class="p">.</span><span class="n">Offset</span> <span class="o">==</span> <span class="mh">0x00</span><span class="p">:</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">Value</span> <span class="o">=</span> <span class="mh">0xDEADBEEF</span>       <span class="c1"># IP ID register
+</span>    <span class="k">elif</span> <span class="n">request</span><span class="p">.</span><span class="n">Offset</span> <span class="o">==</span> <span class="mh">0x04</span><span class="p">:</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">Value</span> <span class="o">=</span> <span class="n">write_count</span>      <span class="c1"># kac kez yazildi
+</span>    <span class="k">elif</span> <span class="n">request</span><span class="p">.</span><span class="n">Offset</span> <span class="o">==</span> <span class="mh">0x08</span><span class="p">:</span>
+        <span class="n">request</span><span class="p">.</span><span class="n">Value</span> <span class="o">=</span> <span class="n">last_data</span>        <span class="c1"># son yazilan veri
+</span>
+<span class="k">elif</span> <span class="n">request</span><span class="p">.</span><span class="n">IsWrite</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">request</span><span class="p">.</span><span class="n">Offset</span> <span class="o">==</span> <span class="mh">0x08</span><span class="p">:</span>
+        <span class="n">last_data</span> <span class="o">=</span> <span class="n">request</span><span class="p">.</span><span class="n">Value</span>
+        <span class="n">write_count</span> <span class="o">+=</span> <span class="mi">1</span>
+</code></pre></div></div>
+
+<p>Bu kadar küçük bir model bile sürücü geliştirmek ve yazılım entegrasyonunu test etmek için yeterlidir.</p>
+
+<p><strong>Ne zaman uygun?</strong> Henüz HDL yazılmamışken yazılımın ilerlemesi gerektiğinde, PoC ve erken aşama firmware geliştirmede ve fault injection senaryolarını hızla kurmak istediğinizde.</p>
+
+<h3 id="b-verilator-co-simülasyon">b) Verilator Co-simülasyon</h3>
+
+<p>Renode, <strong>Verilator</strong> ile sıkı entegrasyona sahiptir. HDL kaynak dosyaları Verilator ile C++’a derlenir; ortaya çıkan paylaşılan kütüphane Renode’a bağlanır. Renode’un AXI işlemleri (read/write transaction’lar) bu köprü üzerinden Verilator’a iletilir, Verilator yanıtı geri döner. PL bloğunuz <strong>gerçek RTL</strong> ile test edilmiş olur.</p>
+
+<p>Önce <code class="language-plaintext highlighter-rouge">.repl</code> dosyasında co-simüle edilecek peripheral’ı tanımlarız:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>my_axi_ip: CoSimulated.CoSimulatedPeripheral @ sysbus &lt;0x43C00000, +0x1000&gt;
+    frequency: 100000000
+</code></pre></div></div>
+
+<p>Sonra <code class="language-plaintext highlighter-rouge">.resc</code> betiğinde Verilator çıktısı paylaşımlı kütüphaneyi bağlarız:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sysbus.my_axi_ip SimulationFilePath @libVtop.so
+</code></pre></div></div>
+
+<p>Bundan sonra firmware’in <code class="language-plaintext highlighter-rouge">0x43C00000</code> adresine yaptığı her AXI okuma/yazma, Verilator simülasyonuna iletilir; RTL’in yanıtı geri döner.</p>
+
+<p><strong>Ne zaman uygun?</strong> PL bloğunuzun RTL doğrulamasını da sistem testine dahil etmek istediğinizde. Saf RTL simülasyonuna kıyasla yavaş kalsa da, yazılım sürücüleriyle birlikte uçtan uca test imkânı sağlar.</p>
+
+<h3 id="i̇ki-yaklaşımın-karşılaştırması">İki Yaklaşımın Karşılaştırması</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Yaklaşım</th>
+      <th>Hız</th>
+      <th>Gerçekçilik</th>
+      <th>Kurulum Zorluğu</th>
+      <th>RTL Testi</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Python peripheral</td>
+      <td>Çok yüksek</td>
+      <td>TLM seviyesi</td>
+      <td>Çok kolay</td>
+      <td>Hayır</td>
+    </tr>
+    <tr>
+      <td>Verilator co-sim</td>
+      <td>Düşük</td>
+      <td>Cycle-accurate</td>
+      <td>Yüksek</td>
+      <td>Evet</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Pratikte ekipler bu iki yaklaşımı <strong>birlikte</strong> kullanır: yazılım ekibi Python peripheral ile hızlıca ilerler, RTL hazır olduğunda Verilator co-simülasyonuna geçilir.</p>
+
+<hr>
+
+<h2 id="hata-ayıklama-gdb-ile-bağlanmak">Hata Ayıklama: GDB ile Bağlanmak</h2>
+
+<p>Renode, her sanal CPU için <strong>GDB Remote Serial Protocol</strong> sunucusu açabilir. Bu, fiziksel JTAG bağlantısının yerine geçer; üstelik çok daha hızlıdır ve sorun çıkarmaz. Kablosu kopmaz, hedef “wedge” olmaz, sürücü çakışması yaşanmaz.</p>
+
+<p>Renode tarafında:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>machine StartGdbServer 3333
+</code></pre></div></div>
+
+<p>Başka terminalde:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>arm-none-eabi-gdb firmware.elf
+<span class="o">(</span>gdb<span class="o">)</span> target remote :3333
+<span class="o">(</span>gdb<span class="o">)</span> b main
+Breakpoint 1 at 0x100040
+<span class="o">(</span>gdb<span class="o">)</span> c
+Continuing.
+Breakpoint 1, main <span class="o">()</span> at main.c:42
+
+<span class="o">(</span>gdb<span class="o">)</span> info registers
+r0   0x00000000
+r1   0xe0001000
+...
+<span class="o">(</span>gdb<span class="o">)</span> x/16wx 0xE0001000   <span class="c"># UART register'larini incele</span>
+</code></pre></div></div>
+
+<p>Tüm standart GDB özellikleri çalışır:</p>
+
+<ul>
+  <li>
+<strong>Breakpoint, watchpoint, conditional break:</strong> Hardware watchpoint sayısı simülasyonda sınırsızdır</li>
+  <li>
+<strong>Stack trace, frame inspection:</strong> Tam debug bilgisi varsa kaynak satırına kadar</li>
+  <li>
+<strong>Memory read/write:</strong> Aktif simülasyonda istediğiniz adresi okuyup yazabilirsiniz</li>
+  <li>
+<strong>Source-level stepping:</strong> <code class="language-plaintext highlighter-rouge">step</code>, <code class="language-plaintext highlighter-rouge">next</code>, <code class="language-plaintext highlighter-rouge">finish</code>
+</li>
+</ul>
+
+<p>Bir watchpoint örneği — GPIO data register’ı her değiştiğinde dur:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(gdb) watch *(uint32_t*)0xE000A040
+Hardware watchpoint 1: *(unsigned int*)0xE000A040
+(gdb) c
+Hardware watchpoint 1: *(unsigned int*)0xE000A040
+Old value = 0
+New value = 1
+</code></pre></div></div>
+
+<p><strong>Time-travel hata ayıklama:</strong> Renode deterministik olduğu için, hatadan önce snapshot alıp koşumu tamamlayabilir, sonra snapshot’ı yeniden yükleyip farklı bir yol deneyebilirsiniz. Heisenbug avına alışkın olanlar için bu çok değerli bir yetenektir.</p>
+
+<h3 id="reverse-debugging--geri-adım-atmak">Reverse Debugging — Geri Adım Atmak</h3>
+
+<p>Renode’un belki de en az bilinen yeteneklerinden biri <strong>GDB reverse execution</strong> desteğidir. Yani simülasyonu sadece duraklatmakla kalmaz, <strong>geriye doğru</strong> da çalıştırabilirsiniz.</p>
+
+<p>Açmak için, GDB bağlanmadan önce Renode tarafında tek satırlık bir ayar yeterlidir:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>machine StartGdbServer 3333
+reverseExecMode true
+</code></pre></div></div>
+
+<p>Sonra GDB’de standart “reverse” komutları çalışır:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(gdb) target remote :3333
+(gdb) b main
+(gdb) c
+Breakpoint 1, main () at main.c:42
+
+(gdb) n                # 5 satir ileri git
+(gdb) n
+(gdb) n
+(gdb) n
+(gdb) n
+
+(gdb) reverse-step     # bir satir geri (rs kisaltmasi)
+(gdb) reverse-stepi    # bir assembly instruction geri (rsi)
+(gdb) reverse-continue # son breakpoint'e ya da ilk snapshot'a kadar geri
+(gdb) rsi 50           # 50 instruction geri
+</code></pre></div></div>
+
+<p>Mekanizma snapshot tabanlıdır: Renode arka planda periyodik state snapshot’ları alır; reverse komutları, en yakın snapshot’a dönüp oradan tekrar ileri koşturarak istenen noktaya ulaşır. Bu yüzden:</p>
+
+<ul>
+  <li>Reverse hız olarak forward’dan yavaş çalışır</li>
+  <li>Snapshot sıklığı performans/granülerlik dengesini belirler</li>
+  <li>
+<strong>Tek çekirdek (single-core) emülasyonlarda</strong> desteklenir; çift Cortex-A9’lu Zynq7000’de bu özelliği kullanmak isterseniz SMP yerine yalnızca tek CPU başlatan bir senaryo kurmanız gerekir</li>
+</ul>
+
+<p><strong>Pratik değer:</strong> Diyelim ki zor yeniden üretilen bir hata yakaladınız. Kritik anı geçtikten sonra, bir register’ın yanlış değer aldığını fark ettiniz. Forward debugging’de tüm koşumu sıfırdan başlatıp doğru noktada durmaya çalışırsınız. Reverse ile bulunduğunuz noktadan <strong>geriye doğru</strong> giderek ilk yanlış adımı bulursunuz — çoğu zaman dakikalar yerine saniyeler içinde.</p>
+
+<p>VS Code, CLion, Eclipse’in GDB entegrasyonu doğrudan çalışır. Tipik bir <code class="language-plaintext highlighter-rouge">launch.json</code>:</p>
+
+<div class="language-json highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="p">{</span><span class="w">
+    </span><span class="nl">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"cppdbg"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"request"</span><span class="p">:</span><span class="w"> </span><span class="s2">"launch"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"program"</span><span class="p">:</span><span class="w"> </span><span class="s2">"${workspaceFolder}/build/firmware.elf"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"miDebuggerServerAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"localhost:3333"</span><span class="p">,</span><span class="w">
+    </span><span class="nl">"miDebuggerPath"</span><span class="p">:</span><span class="w"> </span><span class="s2">"/usr/bin/arm-none-eabi-gdb"</span><span class="w">
+</span><span class="p">}</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Tek değişiklik şudur: gerçek board için kullanılan OpenOCD adresinin yerine Renode portu yazılır. Geri kalan tüm IDE deneyimi aynıdır.</p>
+
+<hr>
+
+<h2 id="hooklar-renodeun-süper-gücü">Hook’lar: Renode’un Süper Gücü</h2>
+
+<p>Hook’lar, simülasyon sırasında belirli olaylara <strong>Python callback</strong> bağlamanın yoludur. Renode’u QEMU’dan ya da basit bir emülatörden ayıran en güçlü özellik budur. Hook’lar sayesinde, gerçek donanımda asla erişemeyeceğiniz iç durumlara müdahale edebilirsiniz.</p>
+
+<h3 id="adres-tabanlı-watchpoint-hook">Adres tabanlı (watchpoint) hook</h3>
+
+<p>Belirli bir adrese yapılan her yazmayı yakalayalım:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sysbus AddWatchpointHook 0xE000A040 DoubleWord Write "print('GPIO yazildi: ' + hex(value))"
+</code></pre></div></div>
+
+<p>Parametreler: adres, genişlik (<code class="language-plaintext highlighter-rouge">Byte</code> / <code class="language-plaintext highlighter-rouge">Word</code> / <code class="language-plaintext highlighter-rouge">DoubleWord</code> / <code class="language-plaintext highlighter-rouge">QuadWord</code> ya da numerik <code class="language-plaintext highlighter-rouge">1</code>/<code class="language-plaintext highlighter-rouge">2</code>/<code class="language-plaintext highlighter-rouge">4</code>/<code class="language-plaintext highlighter-rouge">8</code>), erişim modu (<code class="language-plaintext highlighter-rouge">Read</code> / <code class="language-plaintext highlighter-rouge">Write</code> / <code class="language-plaintext highlighter-rouge">ReadWrite</code>), Python ifadesi. Firmware bu register’a her yazdığında ekrana satır basılır. Bu yöntemle protokol trace’i çıkarmak, fiziksel donanımda son derece zordur.</p>
+
+<h3 id="fonksiyon-başı-hook">Fonksiyon başı hook</h3>
+
+<p>Bir sembole varıldığında çalışacak callback’i kurmak için <code class="language-plaintext highlighter-rouge">AddSymbolHook</code> kullanılır; komut sembolün adresini otomatik olarak çözer:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cpu0 AddSymbolHook "panic" "print('PANIC! PC=' + hex(pc))"
+</code></pre></div></div>
+
+<p><code class="language-plaintext highlighter-rouge">panic</code> fonksiyonu çağrıldığında log basılır — ya da <code class="language-plaintext highlighter-rouge">machine Pause</code> ile simülasyonu durdurursunuz. Hata yakalama için idealdir.</p>
+
+<h3 id="fault-injection-hook">Fault injection hook</h3>
+
+<p>Diyelim ki SPI flash okuma fonksiyonunun <strong>17. çağrısında</strong> hata enjekte etmek istiyorsunuz. Fiziksel donanımda bunu yapmak çok zordur; Renode’da Python ile birkaç satır yeterlidir:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># fault_inject.py
+</span><span class="n">call_count</span> <span class="o">=</span> <span class="mi">0</span>
+
+<span class="k">def</span> <span class="nf">on_spi_read_entry</span><span class="p">(</span><span class="n">cpu</span><span class="p">):</span>
+    <span class="k">global</span> <span class="n">call_count</span>
+    <span class="n">call_count</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="k">if</span> <span class="n">call_count</span> <span class="o">==</span> <span class="mi">17</span><span class="p">:</span>
+        <span class="c1"># R0 (donus degeri) = 0xFFFFFFFF (hata)
+</span>        <span class="n">cpu</span><span class="p">.</span><span class="n">SetRegisterUnsafe</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mh">0xFFFFFFFF</span><span class="p">)</span>
+        <span class="c1"># Fonksiyonu erken sonlandir
+</span>        <span class="n">cpu</span><span class="p">.</span><span class="n">PC</span> <span class="o">=</span> <span class="n">cpu</span><span class="p">.</span><span class="n">GetRegisterUnsafe</span><span class="p">(</span><span class="mi">14</span><span class="p">).</span><span class="n">RawValue</span>  <span class="c1"># LR
+</span></code></pre></div></div>
+
+<p>Bu betiği Renode’a yükleyip <code class="language-plaintext highlighter-rouge">spi_read</code> sembolüne bağlayın. Test, retry mantığını gerçekçi koşullar altında doğrular.</p>
+
+<h3 id="coverage-toplama">Coverage toplama</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cpu0 EnableProfilerCollapsedStack @coverage.txt false
+</code></pre></div></div>
+
+<p>Her instruction’ı yakalar; hangi fonksiyonların ne kadar çalıştığını ortaya çıkarır. Çıktıyı <code class="language-plaintext highlighter-rouge">inferno-flamegraph</code> ile besleyerek bir gecede eksiksiz bir <strong>flame graph</strong> üretebilirsiniz. Donanımda coverage toplamak <code class="language-plaintext highlighter-rouge">gcov</code> ile dahi bu kadar temiz olmaz.</p>
+
+<h3 id="irq-hook">IRQ hook</h3>
+
+<p>Bir kesme tetiklendiğinde, CPU üzerinden hook bağlanır:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cpu0 AddHookAtInterruptBegin "print('IRQ basladi')"
+cpu0 AddHookAtInterruptEnd   "print('IRQ bitti')"
+</code></pre></div></div>
+
+<p>IRQ akışını anlamak için altın değerindedir. Çoklu kesme yarış koşullarını çözmekte de yardımcı olur.</p>
+
+<p><strong>Önemli:</strong> Hook’lar simülasyon ömrü boyunca aktif kalır. Test izolasyonu için her test başlangıcında <code class="language-plaintext highlighter-rouge">Reset Emulation</code> ile makine durumunu tertemiz başlatın; aksi takdirde hook’lar sonraki testlere taşınır ve flakiness kaynağı olur.</p>
+
+<p>Hook’lar, Renode’u sıradan bir emülatörden, <strong>gözlemlenebilir ve müdahale edilebilir</strong> bir sisteme dönüştürür.</p>
+
+<hr>
+
+<h2 id="diğer-i̇leri-düzey-özellikler">Diğer İleri Düzey Özellikler</h2>
+
+<p>Renode’un günlük kullanımda ezberlenmesi gereken birkaç başka özelliği:</p>
+
+<h3 id="logger-seviyeleri-ve-filtreleri">Logger seviyeleri ve filtreleri</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sysbus.uart1 LogLevel 0    # NOISY - her byte'i logla
+sysbus.gpio  LogLevel 3    # WARNING ve uzeri
+logFile @sim.log true
+</code></pre></div></div>
+
+<p>Her çevre birimi bağımsız log seviyesi alır. Sorunlu modülü debug log’una yükseltip diğerlerini sessizleştirebilirsiniz; CI loglarınız böylece yönetilebilir kalır.</p>
+
+<h3 id="snapshot--restore">Snapshot / Restore</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Save @before-test.snapshot
+# ... test calistir, sistemde degisiklik yap
+Load @before-test.snapshot
+# ... tertemiz bastan basla
+</code></pre></div></div>
+
+<p>Tipik kullanım: Linux boot edildikten sonra snapshot alın, her test bu snapshot’tan başlasın. 30 saniyelik boot, 50 ms’lik restore’a düşer. Bu yaklaşım CI suite süresini dramatik şekilde kısaltır.</p>
+
+<h3 id="multi-machine-simülasyonu">Multi-machine simülasyonu</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>mach create "node1"
+machine LoadPlatformDescription @platforms/boards/zedboard.repl
+mach create "node2"
+machine LoadPlatformDescription @platforms/boards/zedboard.repl
+
+emulation CreateSwitch "switch1"
+connector Connect node1.eth0 switch1
+connector Connect node2.eth0 switch1
+</code></pre></div></div>
+
+<p>İki Zynq7000 kartı arasında Ethernet trafiği simüle edilir. Dağıtık sistem firmware’i, master/slave protokoller ve redundans senaryoları için olmazsa olmazdır.</p>
+
+<h3 id="time-control">Time control</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>emulation SetGlobalQuantum '0.000010'   # 10 us quantum
+machine Pause
+machine Resume
+</code></pre></div></div>
+
+<p>Simülasyonu duraklatabilir, yavaşlatabilir veya hızlandırabilirsiniz. Gerçek zaman zorunluluğu olmayan testler, simülasyonu <strong>gerçek zamandan kat kat hızlı</strong> koşturarak saatlerce sürecek bir testi dakikalara indirebilir.</p>
+
+<h3 id="wireless-ve-pcap">Wireless ve PCAP</h3>
+
+<p>Renode’un IEEE 802.15.4 (Zigbee) ve Bluetooth Low Energy için sanal “radio medium” desteği vardır. Birden fazla cihaz aynı medyumda paket alıp gönderir, Wireshark uyumlu PCAP dosyası kaydedilir (Ethernet, 802.15.4 ve BLE için). Mesh ağ firmware’i geliştirenler için biçilmiş kaftan.</p>
+
+<h3 id="sembol-bazlı-cpu0-logfunctionnames">Sembol bazlı <code class="language-plaintext highlighter-rouge">cpu0 LogFunctionNames</code>
+</h3>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>cpu0 LogFunctionNames true
+</code></pre></div></div>
+
+<p>Her fonksiyon çağrısını log’a yazar. Boot sırasında nelerin çağrıldığını görmek ve çağrı grafiğini anlamak için son derece hızlı bir araçtır.</p>
+
+<hr>
+
+<h2 id="test-otomasyonu">Test Otomasyonu</h2>
+
+<p>Renode, kutudan çıktığı haliyle <strong>Robot Framework</strong> desteği sunar. Bu özellik, simülasyonun CI/CD ortamlarına entegrasyonunu çok kolaylaştırır. Tipik bir test dosyası şuna benzer:</p>
+
+<div class="language-robot highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="gh">*** Settings ***</span><span class="w">
+</span><span class="bp">Suite Setup</span><span class="w">     </span><span class="nf">Setup</span><span class="w">
+</span><span class="bp">Suite Teardown</span><span class="w">  </span><span class="nf">Teardown</span><span class="w">
+</span><span class="bp">Test Setup</span><span class="w">      </span><span class="nf">Reset Emulation</span><span class="w">
+</span><span class="bp">Resource</span><span class="w">        </span><span class="nv">${RENODEKEYWORDS}</span><span class="w">
+
+</span><span class="gh">*** Test Cases ***</span><span class="w">
+</span><span class="nl">Boot ZedBoard Firmware</span><span class="w">
+    </span><span class="nf">Execute Command</span><span class="w">          </span><span class="s">include @scripts/boot.resc</span><span class="w">
+    </span><span class="nf">Create Terminal Tester</span><span class="w">   </span><span class="s">sysbus.uart1</span><span class="w">
+    </span><span class="nf">Start Emulation</span><span class="w">
+    </span><span class="nf">Wait For Line On Uart</span><span class="w">    </span><span class="s">Boot tamamlandi</span><span class="w">
+    </span><span class="nf">Wait For Line On Uart</span><span class="w">    </span><span class="s">Sensor degeri: 42</span><span class="w">
+
+</span><span class="nl">GPIO Pini Yuksek Cikmali</span><span class="w">
+    </span><span class="nf">Execute Command</span><span class="w">          </span><span class="s">include @scripts/boot.resc</span><span class="w">
+    </span><span class="nf">Start Emulation</span><span class="w">
+    </span><span class="nf">Execute Command</span><span class="w">          </span><span class="s">sysbus.gpio WritePin 7 true</span><span class="w">
+    </span><span class="c"># Firmware'in pini okuyup yanit vermesini bekle</span><span class="w">
+    </span><span class="nf">Wait For Line On Uart</span><span class="w">    </span><span class="s">Pin 7 yuksek</span><span class="w">
+</span></code></pre></div></div>
+
+<p>Çalıştırma komutu: <code class="language-plaintext highlighter-rouge">renode-test test.robot</code>. CI ortamında bu komut, fiziksel kart gerektirmeden bütün regresyon testlerini koşturur. Uzun boot sürelerini atlamak için <strong>snapshot / restore</strong> mekanizmasını kullanabilirsiniz: simülasyonu bir kez boot edip durumu snapshot olarak kaydedersiniz, sonraki testler o noktadan başlar.</p>
+
+<hr>
+
+<h2 id="geliştirme-debug-ve-test-için-avantajlar">Geliştirme, Debug ve Test için Avantajlar</h2>
+
+<p>Renode ile Zynq7000 simülasyonunun fiziksel kartla yüksek seviyeli karşılaştırması:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Özellik</th>
+      <th>Fiziksel Kart</th>
+      <th>Renode Simülasyon</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Birim maliyet</td>
+      <td>Yüksek (~$200+)</td>
+      <td>Sıfır</td>
+    </tr>
+    <tr>
+      <td>CI/CD entegrasyonu</td>
+      <td>Karmaşık (kart farm gerekir)</td>
+      <td>Tek Docker imajı</td>
+    </tr>
+    <tr>
+      <td>Paralel test</td>
+      <td>1 kart = 1 test</td>
+      <td>Sınırsız (CPU sayısı kadar)</td>
+    </tr>
+    <tr>
+      <td>Determinizm</td>
+      <td>Düşük (zamanlama varyasyonu)</td>
+      <td>Yüksek (bit-bit tekrarlanabilir)</td>
+    </tr>
+    <tr>
+      <td>Hata ayıklama</td>
+      <td>JTAG + ek donanım</td>
+      <td>Yerleşik GDB sunucusu</td>
+    </tr>
+    <tr>
+      <td>Zaman kontrolü</td>
+      <td>Yok</td>
+      <td>Pause / step / hızlandır</td>
+    </tr>
+    <tr>
+      <td>Multi-node senaryo</td>
+      <td>Karmaşık</td>
+      <td>Yerleşik</td>
+    </tr>
+    <tr>
+      <td>Sensör değeri enjeksiyonu</td>
+      <td>Donanım hilesi</td>
+      <td>Tek komut</td>
+    </tr>
+    <tr>
+      <td>Boot süresi</td>
+      <td>Saniyeler</td>
+      <td>Snapshot ile ms</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Bu tablo özet sunuyor; üç ayrı disiplin için somut faydalara bakalım.</p>
+
+<h3 id="geliştirme-tarafında">Geliştirme tarafında</h3>
+
+<ul>
+  <li>
+<strong>Donanım gelmeden başlanır.</strong> Yeni bir Zynq7000 kartı tasarlandığı sırada yazılım ekibi simülasyon üzerinde sürücüleri yazmaya başlayabilir. PCB üretimi 6 hafta sürüyorsa, o 6 hafta boşa gitmez.</li>
+  <li>
+<strong>Hızlı iterasyon.</strong> Bitstream sentezi 30 dakika sürüyorsa, Renode’da platform değişikliği 2 saniye sürer. Yazılım geliştiricilerin donanım ekibinin bir sonraki sentezini beklemesine gerek kalmaz.</li>
+  <li>
+<strong>Yeni katılım eşiği düşer.</strong> Yeni gelen mühendise kart, JTAG, USB-UART ve lab erişimi ayarlamak yerine <code class="language-plaintext highlighter-rouge">git clone &amp;&amp; renode boot.resc</code> yeterli olur.</li>
+  <li>
+<strong>Aynı kod hem simülasyonda hem gerçek donanımda çalışır.</strong> Renode’un adresleri ve davranışı fiziksel SoC ile birebir eşleşir; sürücü kodu port etmeden iki tarafta da koşar.</li>
+</ul>
+
+<h3 id="debug-tarafında">Debug tarafında</h3>
+
+<ul>
+  <li>
+<strong>Determinizm.</strong> Aynı bug aynı şekilde tekrar üretilir; “bende çalışıyor” durumu yoktur. Reproducer’lar snapshot ya da <code class="language-plaintext highlighter-rouge">.resc</code> betiği olarak paylaşılır.</li>
+  <li>
+<strong>Time-travel.</strong> Bug’dan önce snapshot alın, koşumu tamamlayın, sonra snapshot’ı yükleyip farklı bir yolda deneyin. Heisenbug’ları çözmek için fiziksel donanımda imkansıza yakın bir yetenektir.</li>
+  <li>
+<strong>Görünürlük.</strong> Hook’lar ve logger sayesinde gerçek donanımda görünmez olan iç durumlar (register snapshot’ı, IRQ akışı, AXI handshake) izlenebilir hale gelir.</li>
+  <li>
+<strong>GDB her zaman bağlı.</strong> JTAG kopmaz, hedef wedge olmaz. İstediğiniz anda durdurursunuz, durumu incelersiniz, devam ettirirsiniz.</li>
+  <li>
+<strong>Coverage temiz toplanır.</strong> Renode tarafından üretilen instruction trace tamamen offline işlenebilir; gerçek donanımda bunu yapmak için ek donanım ya da kod enstrümantasyonu gerekir.</li>
+</ul>
+
+<h3 id="test-tarafında">Test tarafında</h3>
+
+<ul>
+  <li>
+<strong>CI/CD entegrasyonu.</strong> Robot Framework + ekransız Renode + Docker = her commit’te tam sistem testi. Kart farmının operasyonel maliyeti yoktur.</li>
+  <li>
+<strong>Paralel koşum.</strong> Tek bir makinede 16 simülasyon paralel çalışır; aynısını fiziksel kart farmında yapmak 16 ayrı kart gerektirir.</li>
+  <li>
+<strong>Fault injection.</strong> “Şu IRQ kaybolsa ne olur? DMA timeout olursa? Sensör NaN dönerse?” Hepsi tek hook satırı ile test edilebilir; fiziksel donanımda kurulması haftalar sürecek senaryolar dakikalara iner.</li>
+  <li>
+<strong>Regresyon süresi.</strong> Snapshot’lar sayesinde bir gecede onlarca kat fazla test koşturulur; günlük geri bildirim döngüsü çok daha sıkı hale gelir.</li>
+  <li>
+<strong>Veri odaklı test.</strong> Sensör girdilerini dosyadan besleyen Python peripheral’lar, aynı testi yüzlerce farklı veri kümesiyle koşturmayı mümkün kılar.</li>
+</ul>
+
+<hr>
+
+<h2 id="kullanım-alanları">Kullanım Alanları</h2>
+
+<p>Renode + Zynq7000 ikilisinin somut kullanım alanları:</p>
+
+<p><strong>1. Bootloader geliştirme.</strong> U-Boot, FSBL, SPL ve özel bootloader’lar Renode’da boot edilir. SD kart imajı yüklenir, JTAG ya da USB-UART kurmaya gerek kalmaz. Her commit’te boot tamamlanma süresi otomatik ölçülür ve regresyon olarak işaretlenebilir.</p>
+
+<p><strong>2. Linux kernel hata ayıklama.</strong> Custom kernel patch’leri Renode üzerinde test edilir. <code class="language-plaintext highlighter-rouge">kgdb</code> çalıştırmak fiziksel kartta yorucudur; Renode’un yerleşik GDB sunucusu doğrudan çekirdek sembollerine bağlanır.</p>
+
+<p><strong>3. Avionik ve fonksiyonel güvenlik.</strong> DO-178C, IEC 61508, EN 50128 gibi standartlar yüksek test kapsamı ve <strong>kanıtlanabilir tekrarlanabilirlik</strong> gerektirir. Renode’un deterministik yapısı bu beklentiyi doğal olarak karşılar; testi <code class="language-plaintext highlighter-rouge">.resc</code> betiği olarak sertifikasyon dosyasına eklemek mümkündür.</p>
+
+<p><strong>4. Drone, robot ve otonom sistemler.</strong> Mock peripheral’lar üzerinden GPS, IMU ve lidar girdileri dosyadan simüle edilerek uçuş kontrol algoritmaları test edilir. Saha uçuşu yapmadan algoritma doğrulanmış olur.</p>
+
+<p><strong>5. Eğitim laboratuvarları.</strong> Üniversite ya da kurum içi eğitimlerde, her öğrenci için kart sağlamak yerine herkesin laptop’ında Renode çalışır. Yanlış kod yazılsa bile kart yanmaz.</p>
+
+<p><strong>6. Güvenlik araştırması.</strong> Firmware fuzzing’i hızlandırır; AFL veya libFuzzer ile birlikte koşturulur. Side-channel analizi için instruction trace çıkarılabilir. CVE PoC’leri snapshot olarak paylaşılır, reproducer net olur.</p>
+
+<p><strong>7. Firmware OTA güncelleme testleri.</strong> OTA başarısız olursa fiziksel kart bricklenir; Renode’da bricklendiyse <code class="language-plaintext highlighter-rouge">Reset</code> komutu yeterlidir. Riskli bootloader değişikliklerini Renode’da yüzlerce kez test edip karta yalnızca kararlı sürümü atabilirsiniz.</p>
+
+<p><strong>8. Müşteri demo’ları ve eğitim.</strong> Sahaya kart götürmeden firmware’in çalıştığını gösterebilirsiniz. Müşteriye veya entegrasyon ortağına Docker imajı bırakırsanız, kart olmadan da deneyebilirler.</p>
+
+<p><strong>9. Hızlı PoC ve teklif aşaması.</strong> Müşteri “şu çevre birimi destekleniyor mu?” diye sorduğunda, fiziksel kart sipariş etmeden Renode’da basit bir prototip yapıp gösterebilirsiniz.</p>
+
+<hr>
+
+<h2 id="best-practices">Best Practices</h2>
+
+<p>Renode’u proje sürecine sokarken biriken pratik dersler:</p>
+
+<p><strong>1. <code class="language-plaintext highlighter-rouge">.resc</code> ve <code class="language-plaintext highlighter-rouge">.repl</code> dosyalarını versiyon kontrolünde tutun.</strong> Bunlar projeye ait konfigürasyondur; firmware kaynak kodu kadar değerlidir. Repo’da <code class="language-plaintext highlighter-rouge">sim/</code> klasörü açıp betikleri orada tutun ve kod incelemesine tabi kılın.</p>
+
+<p><strong>2. Renode versiyonunu pinleyin.</strong> <code class="language-plaintext highlighter-rouge">renode --version</code> çıktısını CI loglarına yazdırın; Dockerfile’da spesifik tag (örn. <code class="language-plaintext highlighter-rouge">antmicro/renode:1.14.0</code>) kullanın. Determinizm bunu gerektirir; aynı testin aynı sonucu üretmesi versiyon sabitliğiyle başlar.</p>
+
+<p><strong>3. Snapshot stratejisi kurun.</strong> Uzun boot’ları her test başında tekrarlamak israftır. “Linux boot tamamlandıktan sonra” ya da “init betiği çalıştıktan sonra” gibi tipik anlarda snapshot alıp test suite’lerini bu noktadan başlatın. Bu yaklaşım, karmaşık bir projede toplam CI süresini saatlerden dakikalara çekebilir.</p>
+
+<p><strong>4. Logger seviyesini ortama göre ayarlayın.</strong> CI’da <code class="language-plaintext highlighter-rouge">LogLevel 3</code> (Warning); lokal debug’da <code class="language-plaintext highlighter-rouge">LogLevel 0</code> (Noisy). Aksi takdirde CI logu fazlasıyla şişer, gerçek sorunlar gürültü altında kaybolur.</p>
+
+<p><strong>5. Test başlangıçlarını izole edin.</strong> Her test başında <code class="language-plaintext highlighter-rouge">Reset Emulation</code> çağırın; bu, kalan hook’lar dahil makine durumunu tertemiz sıfırlar. Hook sızıntısı, en sinsi flakiness kaynağıdır.</p>
+
+<p><strong>6. Custom peripheral’lar küçük olsun.</strong> Bir Python peripheral 50 satırı geçiyorsa ayrı bir <code class="language-plaintext highlighter-rouge">.py</code> dosyasına alın ve <code class="language-plaintext highlighter-rouge">pytest</code> ile birim testini yazın. Test edilmemiş bir peripheral, ana firmware’in hatalarını maskeleyebilir.</p>
+
+<p><strong>7. Robot Framework testlerini paralel koşturun.</strong> <code class="language-plaintext highlighter-rouge">pabot</code> ile paralel koşum mümkündür. Her test kendi makine örneğinde izole olsun; <code class="language-plaintext highlighter-rouge">Reset Emulation</code>, <code class="language-plaintext highlighter-rouge">Test Setup</code> adımında zorunlu olsun.</p>
+
+<p><strong>8. UART çıktısını dosyaya da yazdırın.</strong> <code class="language-plaintext highlighter-rouge">sysbus.uart1 CreateFileBackend @uart.log true</code> ile UART akışını dosyaya kaydedin. CI’da test başarısız olduğunda bu log paha biçilmezdir.</p>
+
+<p><strong>9. Ekransız modu kullanın.</strong> Renode GUI yerel hata ayıklama için iyidir; CI için ise <code class="language-plaintext highlighter-rouge">--disable-xwt --console</code> veya <code class="language-plaintext highlighter-rouge">--hide-monitor</code> bayraklarıyla başlatın. Hem hız kazanırsınız hem de ekran bağımlılığı kalmaz.</p>
+
+<p><strong>10. Real-time bağımlılıkları dikkatli ele alın.</strong> Renode <code class="language-plaintext highlighter-rouge">RealTimeMode</code>‘da fiziksel zamana hizalanmaya çalışır ama saat doğruluğu çekirdek kullanımına bağlıdır. Sıkı timing testleri için <code class="language-plaintext highlighter-rouge">emulation SetGlobalQuantum</code> ile deterministik time-step kullanın; gerçek zamana güvenmeyin.</p>
+
+<p><strong>11. Sensör akışlarını dosyadan besleyin.</strong> Sensör simülasyonunu kod içine gömmek yerine, JSON / CSV dosyasından okuyacak şekilde yazın. Aynı test senaryosu farklı veri kümeleriyle koşturulabilir — veri odaklı test (data-driven testing) kapısı böylece açılır.</p>
+
+<p><strong>12. Mevcut platformları kopyalayıp özelleştirin.</strong> <code class="language-plaintext highlighter-rouge">@platforms/boards/zedboard.repl</code>‘i kopyalayıp <code class="language-plaintext highlighter-rouge">my_board.repl</code> yapın, <code class="language-plaintext highlighter-rouge">using</code> ile orijinali dahil edip üzerine <strong>sadece farkları</strong> yazın. Renode güncellemelerinde temel platform iyileşirken sizin patch’iniz korunur.</p>
+
+<p><strong>13. Coverage’ı simülasyondan toplayın.</strong> <code class="language-plaintext highlighter-rouge">cpu0 EnableProfilerCollapsedStack</code> ile çıkan log + <code class="language-plaintext highlighter-rouge">inferno-flamegraph</code> = bir gecede test kapsamı raporu. Manuel kart üzerinde coverage almak çok daha pahalıdır.</p>
+
+<p><strong>14. PR’lara Renode test sonucu ekleyin.</strong> GitHub Actions’ta <code class="language-plaintext highlighter-rouge">renode-test</code> çıktısını PR yorumuna yapıştıran bir adım kurun. İnceleyiciler testin yeşil olduğunu görerek incelemeye başlar; bu, “deneyip baktım” kültürünü destekler.</p>
+
+<p><strong>15. Renode dokümantasyonunu sıkça açın.</strong> Renode hızla gelişiyor; <code class="language-plaintext highlighter-rouge">renode.readthedocs.io</code> yeni özellikler için en güncel kaynaktır. Antmicro blog’u Verilator entegrasyonu, yeni platformlar ve case study’ler için kıymetlidir.</p>
+
+<hr>
+
+<h2 id="sınırlamalar">Sınırlamalar</h2>
+
+<p>Renode’un her şeye çare olmadığını da unutmamak gerekir:</p>
+
+<ul>
+  <li>
+<strong>Cycle-accurate değildir.</strong> Gerçek zamanlı performans profili ölçümü için uygun değildir. Cache miss oranları, DDR3 timing’i, pipeline davranışı gerçek donanımdaki sonuçlarla birebir örtüşmez.</li>
+  <li>
+<strong>Tüm çevre birimleri tam modellenmemiştir.</strong> Zynq7000’in PCIe, USB OTG gibi bazı blokları yalnızca temel düzeyde simüle edilir.</li>
+  <li>
+<strong>FPGA HDL doğrulaması için Verilator gibi ek bir araç gerekir.</strong> Renode tek başına RTL çalıştıramaz.</li>
+  <li>
+<strong>Analog dünya kısıtlıdır.</strong> ADC/DAC kanalları yerleşik olarak gelmez; veri akışını siz “enjekte etmelisiniz”.</li>
+</ul>
+
+<p>Bu sınırlamalara rağmen, sistem entegrasyon testlerinin <strong>%80’i</strong> Renode üzerinde yapılabilir. Geri kalan kısım fiziksel donanımda son doğrulamayla tamamlanır.</p>
+
+<hr>
+
+<h2 id="sonuç">Sonuç</h2>
+
+<p>Zynq7000 gibi PS+PL hibrit bir SoC’yi geliştirmek, donanım kaynaklı bekleme süreleri ve test maliyetleri yüzünden çoğu zaman acı verici olur. Renode, açık kaynak doğası, geniş çevre birim kütüphanesi ve Verilator ile co-simülasyon yeteneği sayesinde bu sürecin önemli bir bölümünü masaüstüne ya da CI sunucusuna taşımanıza imkân tanır.</p>
+
+<p>Yazılım, donanım gelmeden hazır olabilir; testler her commit’te otomatik koşabilir; “şu hatayı tekrarlat” denildiğinde simülasyon snapshot’ı paylaşmak yeterli olabilir. Üstelik bunların tümü için herhangi bir lisans ücreti ödemezsiniz.</p>
+
+<p>Renode’un Zynq7000’i ile başlamak için yapmanız gereken yalnızca <code class="language-plaintext highlighter-rouge">renode</code> komutunu çalıştırıp <code class="language-plaintext highlighter-rouge">start @scripts/single-node/zedboard.resc</code> yazmaktır. Gerisi, zaten gömülü mühendisin bildiği iştir.</p>
+
+<hr>
+
+<p><strong>Kaynaklar:</strong></p>
+
+<ul>
+  <li><a href="https://renode.io">Renode resmi sitesi</a></li>
+  <li><a href="https://github.com/renode/renode">Renode GitHub deposu</a></li>
+  <li><a href="https://renode.readthedocs.io">Renode dokümantasyonu</a></li>
+  <li><a href="https://antmicro.com/blog/2020/06/co-simulating-rtl-with-renode/">Antmicro — Verilator ile Renode co-simülasyon</a></li>
+  <li><a href="https://www.amd.com/en/products/adaptive-socs-and-fpgas/soc/zynq-7000.html">AMD/Xilinx Zynq7000 SoC ailesi</a></li>
+  <li><a href="https://renode.readthedocs.io/en/latest/introduction/testing.html">Renode Robot Framework rehberi</a></li>
+</ul>
+
+          </div>
+        </div>
+
+        <nav class="post-nav" aria-label="Yazı navigasyonu">
+          
+          <a class="post-nav__item post-nav__item--prev" href="/2026/05/07/kalibrasyon-zincirinin-tepesi-birincil-standartlar.html">
+            <span class="post-nav__direction">← Önceki yazı</span>
+            <span class="post-nav__title">Saatçinin Saatini Kim Kalibre Eder? Kalibrasyon Zincirinin Tepesi</span>
+            <span class="post-nav__date">May 2026</span>
+          </a>
+          
+          
+          <a class="post-nav__item post-nav__item--next" href="/2026/05/21/bandpass-sampling.html">
+            <span class="post-nav__direction">Sonraki yazı →</span>
+            <span class="post-nav__title">Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek</span>
+            <span class="post-nav__date">May 2026</span>
+          </a>
+          
+        </nav>
+
+        <div class="clearfix" id="disqus_thread"></div>
+          <script>
+            (function () {
+              var loaded = false;
+              function loadDisqus() {
+                if (loaded) return;
+                loaded = true;
+                var d = document, s = d.createElement('script');
+                s.src = 'https://karaman-dev.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+              }
+              if ('IntersectionObserver' in window) {
+                var observer = new IntersectionObserver(function (entries) {
+                  if (entries[0].isIntersecting) {
+                    loadDisqus();
+                    observer.disconnect();
+                  }
+                }, { rootMargin: '200px' });
+                observer.observe(document.getElementById('disqus_thread'));
+              } else {
+                loadDisqus();
+              }
+            })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+
+<footer class="footer-modern">
+  <div class="footer-main">
+    <div class="container">
+      <div class="row">
+
+        <!-- About column -->
+        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+          <h5 class="footer-heading">M. Serdar Karaman</h5>
+          <p class="footer-description">Aviyonik yazılım, DO-178C ve emniyet kritik mühendislik üzerine sahadan notlar.</p>
+        </div>
+
+        <!-- Quick links column -->
+        <div class="col-lg-2 col-md-6 mb-4 mb-lg-0 offset-lg-1">
+          <h5 class="footer-heading">Bağlantılar</h5>
+          <ul class="footer-links">
+            <li><a href="/">Ana sayfa</a></li>
+            <li><a href="/hakkimda">Hakkımda</a></li>
+            <li><a href="/posts">Yazılar</a></li>
+            <li><a href="/contact">İletişim</a></li>
+          </ul>
+          <h5 class="footer-heading mt-3">Projeler</h5>
+          <ul class="footer-links">
+            <li><a href="https://karaman.dev/games" target="_blank" rel="noopener">Oyunlar</a></li>
+            <li><a href="https://karaman.dev/or-araclari" target="_blank" rel="noopener">OR Araçları</a></li>
+          </ul>
+        </div>
+
+        <!-- Social column -->
+        <div class="col-lg-4 col-md-12 mb-0 offset-lg-1">
+          <h5 class="footer-heading">İletişim</h5>
+          <ul class="footer-social list-inline">
+            
+            <li class="list-inline-item">
+              <a href="mailto:%73%65%72%64%61%72@%6B%61%72%61%6D%61%6E.%64%65%76" aria-label="E-posta">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              </a>
+            </li>
+            
+            
+            <li class="list-inline-item">
+              <a href="https://github.com/Mavrikant" aria-label="GitHub" target="_blank" rel="noopener">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"></path></svg>
+              </a>
+            </li>
+            
+            
+            <li class="list-inline-item">
+              <a href="https://www.linkedin.com/in/mserdarkaraman" aria-label="LinkedIn" target="_blank" rel="noopener">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+              </a>
+            </li>
+            
+            
+            
+            
+            
+            <li class="list-inline-item">
+              <a href="https://www.youtube.com/channel/UCIlBH9QynIkHxX8uiY0UEMQ" aria-label="YouTube" target="_blank" rel="noopener">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20.06 12 20.06 12 20.06s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"></path><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"></polygon></svg>
+              </a>
+            </li>
+            
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6 text-center text-md-left">
+          <p class="copyright mb-0">© 2026 M. Serdar Karaman. Tüm hakları saklıdır.</p>
+        </div>
+        <div class="col-md-6 text-center text-md-right mt-2 mt-md-0">
+          <a href="#page-top" class="back-to-top" aria-label="Başa dön">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"></polyline></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  
+<div id="bayram-splash" class="bayram-splash" data-theme="dark" role="dialog" aria-modal="true" aria-labelledby="bayram-splash-title" aria-describedby="bayram-splash-subtitle" hidden>
+  <div class="bayram-splash__backdrop" data-bayram-close="backdrop"></div>
+
+  <div class="bayram-splash__panel" role="document">
+    <button type="button" class="bayram-splash__close" aria-label="Kapat" data-bayram-close="button">
+      <svg width="18" height="18" viewbox="0 0 18 18" fill="none" aria-hidden="true">
+        <path d="M3 3 L15 15 M15 3 L3 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"></path>
+      </svg>
+    </button>
+
+    <div class="bayram-splash__status" aria-hidden="true">
+      <div class="bayram-splash__status-left">
+        <span class="bayram-splash__pip"></span>
+        <span>karaman.dev</span>
+        <span class="bayram-splash__sep">/</span>
+        <span class="bayram-splash__status-dim">bayram</span>
+        <span class="bayram-splash__sep">/</span>
+        <span class="bayram-splash__status-faint">lang · tr / en</span>
+      </div>
+      <div class="bayram-splash__status-right">
+        <span class="bayram-splash__status-faint">REF · BAYRAM-2026</span>
+      </div>
+    </div>
+
+    <div class="bayram-splash__ticks" aria-hidden="true">
+      <span class="bayram-splash__tick bayram-splash__tick--tl"></span>
+      <span class="bayram-splash__tick bayram-splash__tick--tr"></span>
+      <span class="bayram-splash__tick bayram-splash__tick--bl"></span>
+      <span class="bayram-splash__tick bayram-splash__tick--br"></span>
+    </div>
+
+    <div class="bayram-splash__body">
+      <div class="bayram-splash__art" aria-hidden="true">
+        <svg viewbox="0 0 360 360" width="220" height="220" role="img" aria-label="Hilâl ve yıldız">
+          <defs>
+            <mask id="bayram-crescent-mask" maskunits="userSpaceOnUse">
+              <rect x="0" y="0" width="360" height="360" fill="black"></rect>
+              <circle cx="170" cy="180" r="120" fill="white"></circle>
+              <circle class="bayram-splash__mask-inner" cx="208" cy="180" r="120" fill="black"></circle>
+            </mask>
+            <pattern id="bayram-pcb" width="22" height="22" patternunits="userSpaceOnUse">
+              <circle cx="3" cy="3" r="0.9" fill="rgba(8,22,30,0.55)"></circle>
+              <circle cx="19" cy="19" r="0.7" fill="rgba(8,22,30,0.4)"></circle>
+              <circle cx="19" cy="3" r="0.5" fill="rgba(8,22,30,0.28)"></circle>
+              <circle cx="3" cy="19" r="0.5" fill="rgba(8,22,30,0.28)"></circle>
+              <path d="M3 3 L3 11 L11 11 L11 3 M11 11 L19 11 L19 19 M3 19 L3 11" stroke="rgba(8,22,30,0.32)" stroke-width="0.4" fill="none"></path>
+            </pattern>
+          </defs>
+
+          <g mask="url(#bayram-crescent-mask)">
+            <circle cx="170" cy="180" r="120" class="bayram-splash__crescent-fill"></circle>
+            <rect x="50" y="60" width="240" height="240" fill="url(#bayram-pcb)"></rect>
+
+            <g class="bayram-splash__net" stroke="rgba(8,22,30,0.55)" stroke-width="0.9" fill="none">
+              <line x1="86" y1="129" x2="120" y2="106"></line>
+              <line x1="86" y1="129" x2="116" y2="139"></line>
+              <line x1="86" y1="129" x2="116" y2="180"></line>
+              <line x1="79" y1="174" x2="116" y2="139"></line>
+              <line x1="79" y1="174" x2="116" y2="180"></line>
+              <line x1="79" y1="174" x2="116" y2="220"></line>
+              <line x1="86" y1="228" x2="116" y2="180"></line>
+              <line x1="86" y1="228" x2="116" y2="220"></line>
+              <line x1="86" y1="228" x2="120" y2="252"></line>
+              <line x1="120" y1="106" x2="151" y2="132"></line>
+              <line x1="116" y1="139" x2="151" y2="132"></line>
+              <line x1="116" y1="139" x2="148" y2="180"></line>
+              <line x1="116" y1="180" x2="148" y2="180"></line>
+              <line x1="116" y1="180" x2="151" y2="228"></line>
+              <line x1="116" y1="220" x2="148" y2="180"></line>
+              <line x1="116" y1="220" x2="151" y2="228"></line>
+              <line x1="120" y1="252" x2="151" y2="228"></line>
+            </g>
+            <g class="bayram-splash__nodes">
+              <circle cx="86" cy="129" r="3"></circle>
+              <circle cx="79" cy="174" r="3"></circle>
+              <circle cx="86" cy="228" r="3"></circle>
+              <circle cx="120" cy="106" r="3"></circle>
+              <circle cx="116" cy="139" r="3"></circle>
+              <circle cx="116" cy="180" r="3"></circle>
+              <circle cx="116" cy="220" r="3"></circle>
+              <circle cx="120" cy="252" r="3"></circle>
+              <circle cx="151" cy="132" r="3"></circle>
+              <circle cx="148" cy="180" r="3"></circle>
+              <circle cx="151" cy="228" r="3"></circle>
+            </g>
+
+            <g class="bayram-splash__hex" font-family="'JetBrains Mono', monospace" fill="rgba(8,22,30,0.7)">
+              <text x="86" y="100" font-size="10" letter-spacing="0.1em">0xAI</text>
+              <text x="100" y="270" font-size="8" letter-spacing="0.15em">01010111</text>
+              <text x="70" y="195" font-size="7" letter-spacing="0.12em">v1.447</text>
+            </g>
+          </g>
+
+          <path class="bayram-splash__star" d="M 280 168 L 290 188 L 312 191 L 296 207 L 300 229 L 280 219 L 260 229 L 264 207 L 248 191 L 270 188 Z"></path>
+        </svg>
+      </div>
+
+      <p class="bayram-splash__eyebrow">01 / Tebrik · Kurban Bayramı · 1447 H</p>
+
+      <h2 id="bayram-splash-title" class="bayram-splash__title">
+        Kurban Bayramınız<br>mübarek olsun.
+      </h2>
+
+      <div class="bayram-splash__divider" aria-hidden="true"></div>
+
+      <p id="bayram-splash-subtitle" class="bayram-splash__subtitle">
+        <em>Eid al‑Adha Mubarak</em>
+      </p>
+
+      <p class="bayram-splash__wish">
+        Sevdiklerinizle birlikte sağlık, huzur<br>ve nice güzelliklere.
+      </p>
+
+      <div class="bayram-splash__signature">
+        <span class="bayram-splash__sig-rule"></span>
+        <span class="bayram-splash__sig-name">karaman.dev</span>
+        <span class="bayram-splash__sig-rule"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="/assets/scripts.js"></script>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YDEV31NZ5J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YDEV31NZ5J');
+</script>
+
+
+</body>
+</html>

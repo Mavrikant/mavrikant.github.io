@@ -1,0 +1,1932 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="/favicon.ico" rel="shortcut icon" sizes="36x36 24x24 16x16" type="image/x-icon">
+<link href="/favicon.png" rel="icon" sizes="196x196" type="image/png">
+<meta content="/mstile-icon-128x128.png" name="msapplication-TileImage">
+<meta content="transparent" name="msapplication-TileColor">
+<link href="/manifest.webmanifest" rel="manifest">
+<meta content="/browserconfig.xml" name="msapplication-config">
+<!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>Ölçtüğünüz Sayı Ne Kadar Doğru? Ölçüm Belirsizliği için Bir Rehber | M. Serdar Karaman</title>
+<meta name="generator" content="Jekyll v4.2.2">
+<meta property="og:title" content="Ölçtüğünüz Sayı Ne Kadar Doğru? Ölçüm Belirsizliği için Bir Rehber">
+<meta name="author" content="M. Serdar Karaman">
+<meta property="og:locale" content="tr_TR">
+<meta name="description" content="Aviyonik yazılım, DO-178C ve emniyet kritik mühendislik üzerine sahadan notlar.">
+<meta name="twitter:description" property="og:description" content="Aviyonik yazılım, DO-178C ve emniyet kritik mühendislik üzerine sahadan notlar.">
+<link rel="canonical" href="https://karaman.dev/2026/05/06/olcum-belirsizligi-gum-annex-f-ncsli-rp-12.html">
+<meta property="og:url" content="https://karaman.dev/2026/05/06/olcum-belirsizligi-gum-annex-f-ncsli-rp-12.html">
+<meta property="og:site_name" content="M. Serdar Karaman">
+<meta property="og:image" content="https://karaman.dev/img/og-default.webp">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-05-06T09:00:00+00:00">
+<meta property="article:modified_time" content="2026-05-06T09:00:00+00:00">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://karaman.dev/img/og-default.webp">
+<meta name="twitter:title" content="Ölçtüğünüz Sayı Ne Kadar Doğru? Ölçüm Belirsizliği için Bir Rehber">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"M. Serdar Karaman"},"dateModified":"2026-05-06T09:00:00+00:00","datePublished":"2026-05-06T09:00:00+00:00","description":"Aviyonik yazılım, DO-178C ve emniyet kritik mühendislik üzerine sahadan notlar.","headline":"Ölçtüğünüz Sayı Ne Kadar Doğru? Ölçüm Belirsizliği için Bir Rehber","image":"https://karaman.dev/img/og-default.webp","mainEntityOfPage":{"@type":"WebPage","@id":"https://karaman.dev/2026/05/06/olcum-belirsizligi-gum-annex-f-ncsli-rp-12.html"},"url":"https://karaman.dev/2026/05/06/olcum-belirsizligi-gum-annex-f-ncsli-rp-12.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<!-- Sentry (errors + performance + replay) -->
+<script src="https://js.sentry-cdn.com/d9df60c4bcc41adb14bb648db4013b52.min.js" crossorigin="anonymous"></script>
+<script>
+  Sentry.onLoad(function () {
+    Sentry.init({
+      integrations: [
+        Sentry.browserTracingIntegration(),
+        Sentry.replayIntegration({
+          maskAllText: false,
+          blockAllMedia: false,
+        }),
+      ],
+      tracesSampleRate: 1.0,
+      replaysSessionSampleRate: 0.1,
+      replaysOnErrorSampleRate: 1.0,
+    });
+  });
+</script>
+
+
+<script>
+  // No-flash dark mode: applies the saved theme before paint.
+  (function () {
+    try {
+      var stored = localStorage.getItem('theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = stored || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch (e) {}
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="/img/posts/3.webp" fetchpriority="high">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.12.0/mermaid.min.js" integrity="sha512-5TKaYvhenABhlGIKSxAWLFJBZCSQw7HTV7aL1dJcBokM/+3PNtfgJFlv8E6Us/B1VMlQ4u8sPzjudL9TEQ06ww==" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/assets/main.css">
+<link rel="alternate" type="application/rss+xml" title="M. Serdar Karaman" href="/feed.xml">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e1014" media="(prefers-color-scheme: dark)">
+<link rel="manifest" href="/manifest.json">
+</head>
+<body id="page-top">
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">M. Serdar Karaman</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Menüyü aç/kapat">
+      Menü
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Ana sayfa</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">Hakkımda</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Yazılar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contact">İletişim</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownProjects" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Projeler
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProjects">
+            <a class="dropdown-item" href="https://karaman.dev/games" target="_blank" rel="noopener">Oyunlar</a>
+            <a class="dropdown-item" href="https://karaman.dev/or-araclari" target="_blank" rel="noopener">OR Araçları</a>
+          </div>
+        </li>
+        <li class="nav-item d-flex align-items-center">
+          <button type="button" class="theme-toggle" aria-label="Tema değiştir" title="Tema değiştir">
+            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <!-- Page Header -->
+
+<header class="masthead" style="background-image: url('/img/posts/3.webp')">
+  
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Ölçtüğünüz Sayı Ne Kadar Doğru? Ölçüm Belirsizliği için Bir Rehber</h1>
+            
+            <h2 class="subheading">How Accurate Is Your Measurement? A Guide to Measurement Uncertainty</h2>
+            
+            <span class="meta">
+              <a href="/about">M. Serdar Karaman</a>
+              · 6 Mayıs 2026 · <span class="reading-time" title="Estimated read time">
+  
+   58 mins  read </span>
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container" lang="tr">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+
+        <div class="post-shell">
+          <aside class="post-toc" aria-label="İçindekiler">
+  <h2 class="post-toc__title">İçindekiler</h2>
+  <nav id="post-toc-nav"></nav>
+</aside>
+
+          <div class="post-content">
+            <script src="https://cdn.plot.ly/plotly-basic-2.27.0.min.js"></script>
+
+<p>Test laboratuvarındaki ilk gününüz. Önünüzdeki multimetre 24,98 V gösteriyor. Test belgesi diyor ki: cihazın çıkışı 24 V ± 1 V olmalı. Yan masadaki kıdemli mühendis formun üstüne büyük harflerle “GEÇTİ” yazıyor. Doğru değer 24,98 V. Sınırın çok içinde. Tamam.</p>
+
+<p>Ama dur. O ekrandaki 24,98 sayısı ne kadar gerçeği yansıtıyor? Multimetre dün kalibre edildi. Kabloların kendi direnci var. Oda sıcaklığı sabah 21 °C iken öğleden sonra 25 °C oldu. Bakır konnektörlerde küçük gerilimler oluşuyor. Bunların hepsi, ekrandaki sayının yanına bir hata payı ekliyor. Eğer bu pay 5 mV ise sorun yok. Ama ya 1,5 V ise? O zaman cihaz gerçekte 23,5 V ya da 26,5 V çıkış veriyor olabilir. Sınırın dışında, yani aslında geçmemiş.</p>
+
+<p>İşte bu hata payına <strong>ölçüm belirsizliği</strong> diyoruz. Bu yazının amacı, belirsizliği nasıl hesapladığınızı sıfırdan anlatmak. İki uluslararası kılavuza dayanacağız. Birincisi <strong>GUM</strong> (Türkçe açılımıyla “Ölçüm Belirsizliğinin İfadesi Kılavuzu”), uluslararası referans. İkincisi <strong>NCSLI RP-12</strong>, ABD kalibrasyon mühendislerinin yazdığı pratik el kitabı. Üç gerçek örnek üzerinden hesabı tamamlayacağız: bir voltmetre, bir sıcaklık sensörü, bir basınç sensörü. Sonra aviyonik UUT üreticisi bir şirketin neden farklı bir disiplinle çalışması gerektiğini somut bir VOR/ILS alıcısı örneği üzerinden inceleyeceğiz. Sayılar gerçek, formüller gerçek; dil olabildiğince sade.</p>
+
+<hr>
+
+<h2 id="bu-belgeler-nereden-çıktı">Bu Belgeler Nereden Çıktı?</h2>
+
+<p>Ölçüm belirsizliği bilimi yaklaşık 50 yıllık. Aşağıdaki zaman çizelgesi ana adımları gösteriyor.</p>
+
+<div class="mermaid">
+flowchart TB
+    A["<b>1977</b>   CIPM, BIPM'e talimat verdi<br><i>Ortak bir dile geçilmesi sağlanmalı</i>"]
+    B["<b>1980</b>   INC-1 kararı<br>Tip A ve Tip B kavramları ilk kez"]
+    C["<b>1993</b>   İlk GUM yayını<br>ISO + IEC + OIML + BIPM ortak imza"]
+    D["<b>1995</b>   İlk NCSLI RP-12 yayımlandı"]
+    E["<b>2006</b>   ANSI Z540.3 standardı<br>Yanlış kabul olasılığı %2 sınırı"]
+    F["<b>2008</b>   JCGM 100:2008 + JCGM 101<br>GUM yenilendi, Monte Carlo eklendi"]
+    G["<b>2013</b>   NCSLI RP-12 yeni baskı<br>Howard Castrup öncülüğünde"]
+    H["<b>2020</b>   JCGM GUM-6<br>Modelleme ve uygulama rehberi"]
+    A --&gt; B --&gt; C --&gt; D --&gt; E --&gt; F --&gt; G --&gt; H
+    style A fill:#e8eef7,stroke:#4a6fa5,stroke-width:2px
+    style B fill:#dbe7f5,stroke:#4a6fa5,stroke-width:2px
+    style C fill:#cee0f3,stroke:#4a6fa5,stroke-width:2px
+    style D fill:#bfd6f0,stroke:#4a6fa5,stroke-width:2px
+    style E fill:#aecbed,stroke:#4a6fa5,stroke-width:2px
+    style F fill:#9cc0e9,stroke:#3a5f95,stroke-width:2px
+    style G fill:#88b3e5,stroke:#3a5f95,stroke-width:2px
+    style H fill:#73a6e0,stroke:#2a4f85,stroke-width:2px,color:#fff
+</div>
+
+<p>1970’lerde dünyada ölçüm yapan büyük kurumlar — Amerika’da NIST, İngiltere’de NPL, Almanya’da PTB, Fransa’da BIPM — ortak bir derde sahipti. Hepsi aynı miktarı ölçüyordu (1 metrenin uzunluğu, 1 kilogramın ağırlığı), ama her biri farklı şekilde rapor ediyordu. Kimi “± 0,1 mm” yazıyordu, kimi “%95 güvenle 0,15 mm”. Sonuçları karşılaştırmak çok zordu.</p>
+
+<p>1977’de uluslararası ağırlıklar ve ölçümler komitesi <strong>CIPM</strong>, alt birimi olan BIPM’den bu sorunu çözmesini istedi. BIPM, 1980’de 11 ulusal metroloji laboratuvarından uzmanları bir araya getirdi ve “Belirsizlik Beyanı Çalışma Grubu” toplandı. Çalışma grubunun çıkardığı <strong>INC-1 (1980)</strong> kararı, bugün hâlâ kullandığımız iki kavramı tanımladı:</p>
+
+<ul>
+  <li>
+<strong>Tip A belirsizlik:</strong> Aynı ölçümü defalarca yaparak, çıkan sayıların ne kadar dağıldığına bakarak hesaplanan belirsizlik. Örneğin cihazı 10 kez ölçüp standart sapmayı hesaplamak.</li>
+  <li>
+<strong>Tip B belirsizlik:</strong> Tekrarlı ölçüm dışındaki her bilgi. Kalibrasyon belgesi, üretici kataloğu, geçmiş deneyim.</li>
+</ul>
+
+<p>13 yıl sonra, 1993’te bu fikirler genişletildi ve uluslararası dört kuruluş (ISO, IEC, OIML, BIPM) ortak bir el kitabı yayımladı: <strong>GUM</strong>. 2008’de küçük düzeltmelerle yeniden basıldı, bugün <strong>JCGM 100:2008</strong> adıyla kullanılıyor. Sonra ek belgeler geldi: <strong>JCGM 101</strong> (Monte Carlo simülasyonu ile belirsizlik hesabı, 2008), <strong>JCGM 102</strong> (birden fazla sonuç veren ölçümler, 2011), <strong>JCGM 106</strong> (uyum kararı, 2012).</p>
+
+<p>Amerika tarafında <strong>NCSL International</strong> kalibrasyon mühendislerinin oluşturduğu bir dernek. 1995’te ilk <strong>RP-12</strong> belgesini yayımladılar, 2013’te tamamen yeniden yazdılar. RP-12, GUM’un akademik dilini günlük kalibrasyon laboratuvarının diline çevirir. Yanına 2006’da yayımlanan <strong>ANSI Z540.3</strong> standardı kalibrasyon laboratuvarları için bağlayıcı kurallar getirir.</p>
+
+<p>Türkiye’de <strong>TÜBİTAK UME</strong> (Ulusal Metroloji Enstitüsü) ulusal ölçüm referanslarını korur. <strong>TÜRKAK</strong> kalibrasyon laboratuvarlarına akreditasyon verir. Aldığınız kalibrasyon belgesinin doğruluğu, bu zincirden geçerek Paris’in batısındaki Sèvres ilçesinde bulunan BIPM merkezine ve oradan da SI birim tanımlarına bağlanır. Bu bağlantıya <strong>izlenebilirlik</strong> deniyor.</p>
+
+<p>İzlenebilirlik zinciri görsel olarak şu şekilde:</p>
+
+<div class="mermaid">
+flowchart TB
+    SI[SI Birim Tanımları<br>BIPM, Sèvres - Fransa<br>2019'dan beri Planck sabiti, c, e, k_B, ...]
+    UME[TÜBİTAK UME<br>Ulusal Metroloji Enstitüsü<br>Türkiye'nin birincil referansı]
+    KAL[Akredite Kalibrasyon Laboratuvarı<br>TÜRKAK belgeli<br>ISO 17025 uyumlu]
+    UUT[Test edilen cihaz<br>multimetre, PT100, basınç sensörü...]
+    URUN[Ürün ölçümü<br>uçak, otomobil, medikal cihaz...]
+    SI --&gt; UME
+    UME --&gt; KAL
+    KAL --&gt; UUT
+    UUT --&gt; URUN
+    style SI fill:#1a73e8,color:#fff
+    style UME fill:#2e7d32,color:#fff
+    style KAL fill:#e8711a,color:#fff
+    style UUT fill:#c62828,color:#fff
+    style URUN fill:#6a1b9a,color:#fff
+</div>
+
+<p>Her okun başında ve sonunda bir <strong>belirsizlik kazanımı</strong> olur. SI tanımlarındaki belirsizlik atomik mertebede sıfıra yakındır. UME’nin referansları nano düzeyde belirsizlik taşır. Akredite laboratuvarın belirsizliği biraz daha büyük, sizin cihazınızın daha da. Ürün ölçümünüzün belirsizliği zincirin son halkası — ve eğer zincirde kopukluk varsa (mesela “akredite olmayan bir laboratuvarda kalibre ettirdik”) tüm zincir geçersiz olur.</p>
+
+<hr>
+
+<h2 id="belirsizlik-nedir-birkaç-temel-kavram">Belirsizlik Nedir? Birkaç Temel Kavram</h2>
+
+<p>Önce küçük bir sözlük. Bu kavramları sık karıştırırız:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Terim</th>
+      <th>Anlamı</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Hata</strong></td>
+      <td>Ölçtüğümüz değer eksi gerçek değer. Gerçek değeri hiçbir zaman tam bilemediğimiz için hatayı da tam bilemeyiz.</td>
+    </tr>
+    <tr>
+      <td><strong>Belirsizlik</strong></td>
+      <td>Ölçüme atfedebileceğimiz değerlerin dağılımı. “Sayım şu civarda olabilir” demek.</td>
+    </tr>
+    <tr>
+      <td><strong>Doğruluk (accuracy)</strong></td>
+      <td>Ölçümün gerçek değere ne kadar yakın olduğu.</td>
+    </tr>
+    <tr>
+      <td><strong>Kesinlik (precision)</strong></td>
+      <td>Aynı ölçümü tekrarladığımızda sayıların birbirine ne kadar yakın çıktığı.</td>
+    </tr>
+    <tr>
+      <td><strong>Tolerans</strong></td>
+      <td>Ürünün kabul edilebilir aralığı (örn. 24 V ± 1 V).</td>
+    </tr>
+    <tr>
+      <td><strong>İzlenebilirlik</strong></td>
+      <td>Ölçüm cihazımızın doğruluğunun zincir halinde uluslararası referansa bağlanması.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Doğruluk ve kesinlik birbirinden bağımsız iki şey. Bir cihaz çok doğru ama az kesin olabilir, ya da çok kesin ama doğru olmayabilir. Bunu anlatmanın en kolay yolu nişan tahtasıdır. Aşağıda dört durum var: her tahtada beş atış var; merkez gerçek değer, atışlar ölçümler.</p>
+
+<div id="grafik-dogruluk" style="width:100%;max-width:760px;margin:1.5rem auto 2.5rem auto;height:680px;"></div>
+<script>
+(function(){
+  var MEAS = '#c62828';
+  var CENTER = '#1a73e8';
+
+  function meas(xs, ys, xaxis, yaxis, showleg){
+    return {x:xs, y:ys, mode:'markers', type:'scatter',
+            marker:{size:12, color:MEAS, line:{color:'#000', width:1}},
+            xaxis:xaxis, yaxis:yaxis,
+            name:'Ölçüm sonucu (5 tekrar)',
+            legendgroup:'meas', showlegend:showleg};
+  }
+  function center(xaxis, yaxis, showleg){
+    return {x:[0], y:[0], mode:'markers', type:'scatter',
+            marker:{size:20, color:CENTER, symbol:'star', line:{color:'#000', width:1.5}},
+            xaxis:xaxis, yaxis:yaxis,
+            name:'Gerçek değer (hedef merkezi)',
+            legendgroup:'center', showlegend:showleg};
+  }
+  function targetShapes(xref, yref){
+    var shapes = [];
+    [3, 2, 1].forEach(function(r){
+      shapes.push({
+        type:'circle', xref:xref, yref:yref,
+        x0:-r, y0:-r, x1:r, y1:r,
+        line:{color:'#888', width:1},
+        fillcolor: r===3 ? 'rgba(220,220,220,0.4)' : (r===2 ? 'rgba(240,240,240,0.4)' : 'rgba(255,255,255,0.6)')
+      });
+    });
+    return shapes;
+  }
+
+  var data = [
+    meas([0.15,-0.1,0.05,-0.05,0.1], [0.05,0.1,-0.1,0.15,-0.05], 'x1', 'y1', true),
+    center('x1', 'y1', true),
+    meas([0.9,0.7,0.6,1.0,0.8], [-0.5,-0.3,-0.7,-0.4,-0.6], 'x2', 'y2', false),
+    center('x2', 'y2', false),
+    meas([1.2,-0.8,0.5,-1.4,1.5], [1.3,-1.0,1.4,0.6,-0.9], 'x3', 'y3', false),
+    center('x3', 'y3', false),
+    meas([1.6,-1.2,0.9,-0.6,1.4], [-1.5,1.7,-1.6,-1.8,-2.0], 'x4', 'y4', false),
+    center('x4', 'y4', false)
+  ];
+  var shapes = []
+    .concat(targetShapes('x1','y1'))
+    .concat(targetShapes('x2','y2'))
+    .concat(targetShapes('x3','y3'))
+    .concat(targetShapes('x4','y4'));
+  var ax = function(){ return {range:[-3.2,3.2], showgrid:false, zeroline:false, showticklabels:false, fixedrange:true};};
+
+  var layout = {
+    grid: {rows:2, columns:2, pattern:'independent', ygap:0.30, xgap:0.10},
+    xaxis: ax(), yaxis: ax(),
+    xaxis2: ax(), yaxis2: ax(),
+    xaxis3: ax(), yaxis3: ax(),
+    xaxis4: ax(), yaxis4: ax(),
+    annotations:[
+      {text:'<b>1) Doğru ve kesin</b><br><span style="font-size:11px;color:#555">merkezde toplanmış</span>',
+       x:0.225, y:1.04, xref:'paper', yref:'paper', showarrow:false, font:{size:13}, align:'center', xanchor:'center', yanchor:'bottom'},
+      {text:'<b>2) Doğru değil ama kesin</b><br><span style="font-size:11px;color:#555">sapma (bias) var, ama tutarlı</span>',
+       x:0.775, y:1.04, xref:'paper', yref:'paper', showarrow:false, font:{size:13}, align:'center', xanchor:'center', yanchor:'bottom'},
+      {text:'<b>3) Doğru ama kesin değil</b><br><span style="font-size:11px;color:#555">merkez etrafı, dağınık</span>',
+       x:0.225, y:0.46, xref:'paper', yref:'paper', showarrow:false, font:{size:13}, align:'center', xanchor:'center', yanchor:'bottom'},
+      {text:'<b>4) Ne doğru ne kesin</b><br><span style="font-size:11px;color:#555">her yerde, sapma + dağınık</span>',
+       x:0.775, y:0.46, xref:'paper', yref:'paper', showarrow:false, font:{size:13}, align:'center', xanchor:'center', yanchor:'bottom'}
+    ],
+    shapes: shapes,
+    margin:{l:30, r:30, t:80, b:80},
+    plot_bgcolor:'#ffffff', paper_bgcolor:'#ffffff',
+    legend:{orientation:'h', x:0.5, xanchor:'center', y:-0.02, yanchor:'top', font:{size:12},
+            bgcolor:'rgba(255,255,255,0.85)', bordercolor:'#ccc', borderwidth:1},
+    showlegend:true
+  };
+  Plotly.newPlot('grafik-dogruluk', data, layout, {responsive:true, displayModeBar:false});
+})();
+</script>
+
+<p>İdeal durum tabii ki sol üst: hem doğru hem kesin. Sağ üst tehlikeli; cihaz çok kesin ölçüm yapıyor (atışlar bir arada) ama hep yanlış yönde sapıyor. <strong>Sapma (bias)</strong> dediğimiz durum bu. Sağ alt durumda atışlar merkezi etrafına yığılmış ama dağınık; ortalamasını alırsak doğru cevaba ulaşırız. Kalibrasyon ve belirsizlik analizinin işi, bu dört durumdan hangisinde olduğumuzu bulup uygun şekilde raporlamaktır.</p>
+
+<p>Belirsizliği iki adımda hesaplıyoruz. Önce her bir kaynağı <strong>standart belirsizlik</strong> denilen bir sayıya dönüştürüyoruz (1 sigmaya, yani normal dağılımın bir standart sapmasına denk düşen değer). Sonra hepsini birleştirip <strong>birleşik belirsizlik</strong> elde ediyoruz. Birleştirme yöntemi şu: her bileşeni karesel olarak topla, sonra karekökünü al. Buna “<strong>karekök kareler toplamı</strong>” diyelim, kısaltılmışı <strong>KKT</strong> (İngilizce literatürde RSS).</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>u_birleşik² = u_1² + u_2² + u_3² + ...
+u_birleşik = √(u_1² + u_2² + u_3² + ...)
+</code></pre></div></div>
+
+<p>Neden böyle topluyoruz? Çünkü farklı kaynaklardan gelen küçük rastlantısal hatalar, doğrudan toplanmaz; istatistik kuralı gereği kareleri toplanır. İki adet ±1 mm hata yan yana geldiğinde sonuç ±2 mm değil, ±1,4 mm olur (√2 ≈ 1,41).</p>
+
+<p>Son olarak, <strong>kapsama faktörü</strong> denilen bir sayı (genelde k=2) ile çarparak <strong>genişletilmiş belirsizliği</strong> elde ederiz. k=2, yaklaşık olarak %95 güven düzeyine karşılık gelir. Yani “U=56 µV (k=2)” demek, “gerçek değer büyük olasılıkla ölçtüğümüz sayının 56 µV içinde” demek.</p>
+
+<blockquote>
+  <p><strong>Akılda kalsın — üç temel formül:</strong></p>
+  <ul>
+    <li>
+<strong>Standart belirsizlik:</strong> her bileşeni 1σ’a çevir (Tip A için s/√n; Tip B için aralığı dağılım faktörüne böl).</li>
+    <li>
+<strong>Birleşik belirsizlik:</strong> u_birleşik = √(u₁² + u₂² + … + uₙ²)</li>
+    <li>
+<strong>Genişletilmiş belirsizlik:</strong> U = k × u_birleşik (genelde k = 2, ≈ %95 güven)</li>
+  </ul>
+</blockquote>
+
+<p>Tip B belirsizlikleri standart belirsizliğe çevirirken bir varsayım yapmamız gerekir: dağılım nasıl dağılıyor? Üretici “±1 mV” diyorsa o aralığın içinde her değer eşit ihtimalli mi, yoksa orta yoğun mu? Üç tipik durum:</p>
+
+<ul>
+  <li>
+<strong>Düz (üniform) dağılım:</strong> Aralık içinde her nokta eşit olası. Standart belirsizliği = a / √3.</li>
+  <li>
+<strong>Üçgen dağılım:</strong> Orta nokta daha olası, kenarlar düşer. Standart belirsizliği = a / √6.</li>
+  <li>
+<strong>Normal dağılım:</strong> Genelde sertifikadan gelir. k ile birlikte verilirse, standart belirsizlik = U / k.</li>
+</ul>
+
+<p>Bilgi yoksa, en güvenli tercih düz dağılım varsaymaktır. Aşağıdaki grafik dört dağılım tipini yan yana gösteriyor; hepsinde aralık ±1 birim, ama içerideki olasılık şekli farklı.</p>
+
+<div id="grafik-pdf" style="width:100%;max-width:780px;margin:1.5rem auto 2.5rem auto;height:340px;"></div>
+<script>
+(function(){
+  var x = [];
+  for (var i=-150; i<=150; i++) x.push(i/100);
+  var uniform = x.map(function(v){return (v>=-1 && v<=1) ? 0.5 : 0;});
+  var triangular = x.map(function(v){return (v>=-1 && v<=1) ? (1-Math.abs(v)) : 0;});
+  var normal = x.map(function(v){var s=0.5; return Math.exp(-v*v/(2*s*s))/(s*Math.sqrt(2*Math.PI));});
+  var ushape = x.map(function(v){return (v>-1 && v<1) ? 1/(Math.PI*Math.sqrt(1-v*v)) : 0;});
+  var common = {type:'scatter', mode:'lines', fill:'tozeroy', line:{width:2}};
+  var data = [
+    Object.assign({}, common, {x:x, y:uniform, name:'Düz', xaxis:'x1', yaxis:'y1', line:{color:'#1a73e8', width:2}, fillcolor:'rgba(26,115,232,0.25)'}),
+    Object.assign({}, common, {x:x, y:triangular, name:'Üçgen', xaxis:'x2', yaxis:'y2', line:{color:'#e8711a', width:2}, fillcolor:'rgba(232,113,26,0.25)'}),
+    Object.assign({}, common, {x:x, y:normal, name:'Normal', xaxis:'x3', yaxis:'y3', line:{color:'#2e7d32', width:2}, fillcolor:'rgba(46,125,50,0.25)'}),
+    Object.assign({}, common, {x:x, y:ushape, name:'U-shape', xaxis:'x4', yaxis:'y4', line:{color:'#6a1b9a', width:2}, fillcolor:'rgba(106,27,154,0.25)'})
+  ];
+  var ax = function(){ return {range:[-1.5,1.5], showgrid:false, zeroline:false, showticklabels:false, fixedrange:true};};
+  var ay = function(){ return {showgrid:false, zeroline:false, showticklabels:false, fixedrange:true};};
+  var layout = {
+    grid:{rows:1, columns:4, pattern:'independent'},
+    xaxis:ax(), yaxis:ay(), xaxis2:ax(), yaxis2:ay(),
+    xaxis3:ax(), yaxis3:ay(), xaxis4:ax(), yaxis4:ay(),
+    annotations:[
+      {text:'<b>Düz</b><br>u = a/√3', x:0, y:1.15, xref:'x1', yref:'paper', showarrow:false, font:{size:13}},
+      {text:'<b>Üçgen</b><br>u = a/√6', x:0, y:1.15, xref:'x2', yref:'paper', showarrow:false, font:{size:13}},
+      {text:'<b>Normal</b><br>u = U/k', x:0, y:1.15, xref:'x3', yref:'paper', showarrow:false, font:{size:13}},
+      {text:'<b>U-shape</b><br>u = a/√2', x:0, y:1.15, xref:'x4', yref:'paper', showarrow:false, font:{size:13}}
+    ],
+    showlegend:false,
+    margin:{l:10, r:10, t:50, b:30},
+    plot_bgcolor:'#ffffff', paper_bgcolor:'#ffffff'
+  };
+  Plotly.newPlot('grafik-pdf', data, layout, {responsive:true, displayModeBar:false});
+})();
+</script>
+
+<p>U-shape dağılım sıcaklık dalgalanmaları gibi durumlarda görülür: termostatlı bir oda sıcaklığı çoğunlukla alt sınır veya üst sınıra yakın salınır, orta noktada nadir kalır. Klasik üç dağılım dışında ihtiyaç doğdukça başka dağılımlar da kullanılır.</p>
+
+<blockquote>
+  <p><strong>Akılda kalsın — aralığı standart belirsizliğe çevirme:</strong></p>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Elinizde olan</th>
+        <th>Yapacağınız</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Sertifika “U = … (k=2)” der</td>
+        <td>u = U / 2</td>
+      </tr>
+      <tr>
+        <td>Sertifika “U = … (k=3)” der</td>
+        <td>u = U / 3</td>
+      </tr>
+      <tr>
+        <td>Üretici “±a” der, ek bilgi yok</td>
+        <td>u = a / √3 <em>(düz/üniform)</em>
+</td>
+      </tr>
+      <tr>
+        <td>“Merkez yakını daha olası” notu var</td>
+        <td>u = a / √6 <em>(üçgen)</em>
+</td>
+      </tr>
+      <tr>
+        <td>Termostat dalgalanması, ±a sınırlı</td>
+        <td>u = a / √2 <em>(U-shape)</em>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p>Şüpheliyseniz <strong>düz dağılım</strong> seçin — en muhafazakâr olanı.</p>
+</blockquote>
+
+<hr>
+
+<h2 id="gum-annex-f-pratik-uyarılar">GUM Annex F: Pratik Uyarılar</h2>
+
+<p>GUM’un ana metni biraz akademik dilde yazılmış: integraller, kovaryans matrisleri. Yeni başlayan biri için zorlu bir okuma. Ama belgenin <strong>F eki</strong> (Annex F) bambaşka. Doğrudan ölçüm yapan mühendise sesleniyor, en sık yapılan yanlışları sıralıyor, çözüm öneriyor. Aşağıda en önemli yedi noktayı açıklayalım.</p>
+
+<h3 id="1-tekrar-ölçümleriniz-gerçekten-rastgele-mi">1. Tekrar ölçümleriniz gerçekten “rastgele” mi?</h3>
+
+<p>10 ölçüm aldınız, standart sapmasını hesapladınız, “Tip A belirsizlik = 5 mV” dediniz. Ama o 10 ölçüm sırasında oda sıcaklığı 1 °C arttı, kalibratör yavaşça kaymaya başladı, kablonun bağlantı noktasında küçük voltajlar birikti. Bu durumda standart sapma rastgele dalgalanmayı değil, <strong>sıralı bir gidişatı</strong> ölçer. GUM uyarısı: tekrar ölçümler arasında koşulları gerçekten yenileyin. Cihazı kapatıp açın, sıfırlayın, kabloyu temizleyin, ısıl dengelenmeyi bekleyin.</p>
+
+<h3 id="2-ortalamanın-belirsizliği-ile-tek-ölçümün-belirsizliği-farklı-şeyler">2. Ortalamanın belirsizliği ile tek ölçümün belirsizliği farklı şeyler.</h3>
+
+<p>10 ölçümün ortalamasının standart belirsizliği s/√10 olur. Yani standart sapmayı √10 ile bölersiniz. Ama gelecekte yapılacak tek bir ölçümün belirsizliği s’in kendisidir. Test prosedüründe gelecekte hep 10 kez ölçüp ortalama mı raporlayacaksınız, yoksa tek ölçüm mü? Birinciyse s/√10, ikinciyse s. Pek çok kişi bu ikisini karıştırır.</p>
+
+<h3 id="3-birden-fazla-küçük-örnek-varsa-havuzlayın">3. Birden fazla küçük örnek varsa havuzlayın.</h3>
+
+<p>Diyelim ki 10 farklı günde, her gün 5 ölçüm yapıyorsunuz. Toplam 50 ölçüm var ama her gün için ayrı bir standart sapma çıkıyor. Hangisini kullanacaksınız? GUM cevabı: hepsini “havuzlayın”. Şu formülle:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        Σ ν_i · s_i²
+s² =  ──────────────
+          Σ ν_i
+</code></pre></div></div>
+
+<p>Burada her grubun “serbestlik derecesi” ν_i = n_i − 1. Sonuç: tek bir küçük gruba göre çok daha güvenilir bir s. Ölçüm tekrarlanabilirliği çalışmalarının (R&amp;R çalışmaları) matematiksel temeli budur.</p>
+
+<h3 id="4-üreticinin-verdiği-değerleri-olduğu-gibi-alın">4. Üreticinin verdiği değerleri olduğu gibi alın.</h3>
+
+<p>Tip B belirsizliği hesaplarken sık yapılan bir hata: “Üretici ±100 µV demiş ama ben yine de 200 µV koyayım, daha güvenli olsun.” Bu yanlış. Elinizdeki kanıt ne ise onu kullanın. Sertifika varsa sertifikadan, üretici belgesi varsa o belgeden, geçmiş ölçüm verisi varsa o veriden. Kendi sezginizle “biraz daha kötümser olalım” demek, sayıları güvenilmez yapar.</p>
+
+<h3 id="5-pdf-varsayımı-yargı-gerektirir">5. PDF varsayımı yargı gerektirir.</h3>
+
+<p>Üretici “±1%” diyorsa, içindeki dağılım nasıl? Üretici belirtmediyse düz dağılım varsayın. “Çoğunlukla orta yakınında çıkar” diye bir not varsa üçgen dağılım. Ama bu kararı belgenizde yazılı olarak gerekçelendirmelisiniz.</p>
+
+<h3 id="6-bağımsızlık-varsayımı-çoğu-zaman-yanlıştır">6. Bağımsızlık varsayımı çoğu zaman yanlıştır.</h3>
+
+<p>Birleşik belirsizlik formülü (“kareler toplamının karekökü”) sadece <strong>birbirinden bağımsız</strong> kaynaklar için geçerli. Eğer iki ölçüm aynı kalibratörden besleniyorsa, sertifikalarındaki belirsizlikler ilişkili demektir. Aynı operatör, aynı oda, aynı ortam koşulları… bunlar belirsizlikleri ilişkili kılar. İlişkili kaynakları “bağımsız” kabul edip topladığınızda, sonuç gerçeğin altında ya da üstünde çıkar. GUM bunun için ek bir terim ekler:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>u² = Σ u_i² + 2 · Σ u_ij
+</code></pre></div></div>
+
+<p>İkinci terim, ilişkili kaynak çiftleri arasında pozitifse belirsizliği büyütür, negatifse küçültür.</p>
+
+<h3 id="7-sertifika-belirsizliklerinde-gizli-sıcaklık-tuzağı">7. Sertifika belirsizliklerinde gizli sıcaklık tuzağı</h3>
+
+<p>Bu özellikle test laboratuvarlarında sık görülen bir tuzak. Kalibrasyon belgesi diyor ki: “Cihazın belirsizliği ±28 µV (k=2)”. Sonra ayrıca “ölçümler 23 °C ± 1 °C odada yapıldı” notu var. Şimdi siz cihazı kendi laboratuvarınızda 23 °C ± 3 °C koşullarda kullanıyorsunuz. Cihazın sıcaklık katsayısı bilgisini kataloga bakıp ayrıca ekliyorsunuz.</p>
+
+<p>Burada gizli bir çift sayma var. Cihazın 23 °C ± 1 °C aralığındaki davranışı zaten kalibrasyon belgesindeki ±28 µV içine girmiş. Siz “±3 °C” aralığını eklerken sadece <strong>fark olan ±2 °C’lik kısmı</strong> hesaba katmalısınız, tüm ±3 °C’yi değil. Aksi halde sıcaklık etkisini iki kez sayarsınız ve belirsizliği gerçeğin üstünde gösterirsiniz.</p>
+
+<blockquote>
+  <p><strong>Bu yedi maddenin ortak fikri:</strong> Belirsizlik bir tahmin değil, bir hesap. Her seçiminizi (dağılım varsayımı, bağımsızlık kararı, hangi sertifika değerinin kullanıldığı) belgenizde yazılı tutun. Akreditasyon denetiminde her birinin gerekçesi sorulur.</p>
+</blockquote>
+
+<hr>
+
+<h2 id="k2-mi-k3-mü-sorusu">“k=2 mi, k=3 mü?” Sorusu</h2>
+
+<p>Genişletilmiş belirsizliği hesaplarken k değerini seçmemiz gerekiyor. Çoğu uygulamada k=2 (yaklaşık %95 güven) standart. Bazı kritik uygulamalarda k=3 (yaklaşık %99 güven) tercih ediliyor. Ama ikisi arasında dikkat etmemiz gereken bir ayrıntı var.</p>
+
+<p>k=2 yaklaşık %95’lik güven düzeyine <strong>sadece ölçüm sayısı yeterince çoksa</strong> karşılık geliyor. Eğer Tip A hesaplamasında az sayıda ölçüm yaptıysanız (örneğin sadece 5), istatistiksel dağılım normal değil <strong>Student-t</strong> dağılımı oluyor. Bu durumda k=2 yerine biraz daha büyük bir değer kullanmak gerekir.</p>
+
+<p>Bu hesabı <strong>Welch-Satterthwaite formülü</strong> yapar:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                u_birleşik⁴
+ν_etkin =  ──────────────────
+              Σ (u_i⁴ / ν_i)
+</code></pre></div></div>
+
+<p>Buradaki ν_etkin “etkin serbestlik derecesi”. Tip A bileşeninin serbestlik derecesi n−1, Tip B bileşenleri için (sertifikadan veya katalog değerinden geldikleri için) genelde sonsuz kabul edilir. Etkin serbestlik derecesi yeterince büyükse (genelde 30’dan büyük) k=2 güvenle kullanılabilir. Daha küçükse Student-t tablosundan k değerini bakarsınız.</p>
+
+<p>Pratik tavsiye: ölçümlerinizi en az 30 kere yapıyorsanız k=2 düşünmeyin bile, doğrudan kullanın. Daha az ölçüm yapıyorsanız etkin serbestlik derecesini hesaplayın. Hesabı kolaylaştıran bedava araçlar var; örneğin Amerika’nın NIST kurumunun yayımladığı “NIST Uncertainty Machine” web aracı bu hesabı tek tıkla yapar.</p>
+
+<hr>
+
+<h2 id="ncsli-rp-12-pratik-bir-el-kitabı">NCSLI RP-12: Pratik Bir El Kitabı</h2>
+
+<p>GUM size “ne yapmanız gerektiğini” söyler. NCSLI RP-12 ise “nasıl yaparsınız, hangi tabloları kullanırsınız, hangi şablonu doldurursunuz” sorusunu yanıtlar. 2013 baskısı NCSLI’nin Belirsizlik Analizi Komitesi tarafından yazıldı; komitenin başında belirsizlik analizinin önde gelen isimlerinden Howard Castrup (Integrated Sciences Group kurucusu, NCSLI Wildhack Ödülü 2002 sahibi) vardı.</p>
+
+<p>RP-12’nin yapısı GUM’dan biraz farklı. GUM “Tip A vs Tip B” ayrımıyla giderken, RP-12 hata kaynaklarını günlük dile daha yakın gruplara ayırır:</p>
+
+<ul>
+  <li>
+<strong>Sapma (bias):</strong> Cihazın gerçek değerden sürekli aynı yönde sapması.</li>
+  <li>
+<strong>Rastgele:</strong> Ölçümden ölçüme sebepsiz dalgalanma.</li>
+  <li>
+<strong>Kayma (drift):</strong> Zamanla yavaş değişme.</li>
+  <li>
+<strong>Çevre:</strong> Sıcaklık, nem, EMG (elektromanyetik girişim).</li>
+  <li>
+<strong>Operatör:</strong> Kim ölçtü.</li>
+  <li>
+<strong>Yöntem:</strong> Hangi adımlarla ölçüldü.</li>
+</ul>
+
+<p>Bu sınıflandırma, kalibrasyon laboratuvarı çalışanlarının kafasındaki gerçeğe daha yakın. Bir sorun bulduklarında “bu hangi kategoriden?” sorusuna kolay cevap verirler.</p>
+
+<p>RP-12’de işine yarayacak özel bölümler:</p>
+
+<ul>
+  <li>
+<strong>Üretici belgesinden belirsizlik çıkarmak:</strong> Hangi belge satırı hangi belirsizlik kaynağına karşılık geliyor; hangi durumlarda hangi PDF varsayılmalı.</li>
+  <li>
+<strong>Aynı anda birden çok cihazı kalibre etmek:</strong> Kalibrasyon prosedürü tek bir referansla 10 cihazı doğruluyorsa, belirsizlik nasıl bölüştürülür.</li>
+  <li>
+<strong>Düzeltilmemiş sapmalar için belirsizlik:</strong> Sertifika “+0,12 mV sapma” diyor ama prosedürünüz düzeltme uygulamıyor. Bu sapmayı belirsizliğe nasıl yansıtırsınız.</li>
+  <li>
+<strong>Monte Carlo simülasyonu:</strong> Doğrusal olmayan ölçüm modellerinde klasik GUM yöntemi yetersiz kalır. Bilgisayarda 100.000 simülasyon yapıp dağılımı doğrudan üretirsiniz. RP-12 bu yöntemi pratik bir şekilde anlatır.</li>
+</ul>
+
+<p><strong>ANSI Z540.3 ile bağlantı.</strong> Bu standart bir kalibrasyon laboratuvarının uyması gereken kurallardan biri. Ana maddesi şudur: kalibrasyon sonucu yanlış kabul olasılığı %2’den fazla olamaz. Ya da bunu hesaplamak zorsa, <strong>TUR ≥ 4:1</strong> olmalıdır. TUR, “test belirsizlik oranı” demek; cihazın toleransının kalibrasyon belirsizliğine oranı. Örnek: cihazın toleransı ±100 µV, kalibrasyon belirsizliği ±25 µV ise TUR = 4. RP-12 bu kuralı sağlamak için gerekli hesap yöntemlerini sunar.</p>
+
+<p><strong>Türkiye uygulaması.</strong> TÜRKAK akreditasyonlu kalibrasyon laboratuvarları çoğunlukla Avrupa rehberi EA-4/02’yi takip eder. Ama Türkiye’nin aviyonik (TUSAS, BAYKAR), savunma (ASELSAN, ROKETSAN) ve otomotiv (Togg ve tedarikçileri) firmaları ABD merkezli müşterilere de iş yapıyor. ABD ortağına rapor verdiğinizde NCSLI RP-12 ve Z540.3’e atıf gerekiyor. Yani Türk test mühendisinin masasında giderek artan oranda her iki belge de bulunmalı.</p>
+
+<hr>
+
+<h2 id="örnek-1-voltmetre-kalibrasyonu">Örnek 1: Voltmetre Kalibrasyonu</h2>
+
+<p><strong>Senaryo.</strong> Sistem entegrasyon laboratuvarında elinizdeki voltmetre (Keysight 34465A, 6½ haneli) referans bir kalibratörle (Fluke 5720A) doğrulanıyor. Kalibratör tam olarak 10,000 V veriyor. Voltmetrenin bu değeri ne kadar doğru okuduğunu ve okumanın ne kadar belirsizlik içerdiğini hesaplayacağız. Ortam sıcaklığı (23 ± 2) °C.</p>
+
+<h3 id="adım-1-tip-a--10-kez-ölçüm-yapın">Adım 1: Tip A — 10 kez ölçüm yapın</h3>
+
+<p>Aynı koşullarda 10 ardı ardına ölçüm. Her ölçüm öncesinde voltmetrenin girişini açıp kapayıp kabloyu temizliyoruz (önceki bölümdeki 1. uyarı). Sonuçlar:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Ölçüm</th>
+      <th>Değer (V)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>9,999870</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>9,999910</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>9,999890</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>9,999895</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>9,999860</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>9,999900</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>9,999875</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>9,999895</td>
+    </tr>
+    <tr>
+      <td>9</td>
+      <td>9,999920</td>
+    </tr>
+    <tr>
+      <td>10</td>
+      <td>9,999875</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li>Ortalama: x̄ = 9,999889 V</li>
+  <li>Standart sapma: s ≈ 19 µV</li>
+  <li>Ortalamanın standart belirsizliği: u_A = s / √10 ≈ 6 µV</li>
+</ul>
+
+<h3 id="adım-2-tip-b--diğer-kaynakları-listeleyin">Adım 2: Tip B — Diğer kaynakları listeleyin</h3>
+
+<p>Her kaynağı düzgün bir tabloya koyarız. Aralığı (üreticinin verdiği değer) ilgili dağılım varsayımıyla bölerek standart belirsizliğe geçeriz.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Kaynak</th>
+      <th>Aralık</th>
+      <th>Dağılım</th>
+      <th>Bölme</th>
+      <th>u (µV)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Kalibratör sertifikası (UME, k=2)</td>
+      <td>±28 µV</td>
+      <td>normal</td>
+      <td>2</td>
+      <td>14,0</td>
+    </tr>
+    <tr>
+      <td>Voltmetre çözünürlüğü (1 µV son hane)</td>
+      <td>±0,5 µV</td>
+      <td>düz</td>
+      <td>√3</td>
+      <td>0,29</td>
+    </tr>
+    <tr>
+      <td>Sıcaklık katsayısı (±2 °C, 2 ppm/°C × 10 V)</td>
+      <td>±40 µV</td>
+      <td>düz</td>
+      <td>√3</td>
+      <td>23,1</td>
+    </tr>
+    <tr>
+      <td>Bakır konnektörlerde gerilim oluşumu</td>
+      <td>±3 µV</td>
+      <td>düz</td>
+      <td>√3</td>
+      <td>1,73</td>
+    </tr>
+    <tr>
+      <td>Hat gürültüsü (50 Hz)</td>
+      <td>±2 µV</td>
+      <td>normal</td>
+      <td>1</td>
+      <td>2,0</td>
+    </tr>
+    <tr>
+      <td>Kalibratörün 1 yıllık kayması</td>
+      <td>±5 µV</td>
+      <td>düz</td>
+      <td>√3</td>
+      <td>2,89</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="adım-3-birleşik-belirsizliği-hesaplayın">Adım 3: Birleşik belirsizliği hesaplayın</h3>
+
+<p>Her bileşeni karesel olarak topla, karekök al:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>u² = 6² + 14² + 0,29² + 23,1² + 1,73² + 2² + 2,89²
+u² = 36 + 196 + 0,08 + 533,6 + 3 + 4 + 8,4
+u² ≈ 781
+u  ≈ 28 µV
+</code></pre></div></div>
+
+<h3 id="adım-4-genişletilmiş-belirsizlik">Adım 4: Genişletilmiş belirsizlik</h3>
+
+<p>Kapsama faktörü k=2 ile çarpın:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>U = 2 × 28 = 56 µV
+</code></pre></div></div>
+
+<h3 id="adım-5-sonucu-ifade-edin">Adım 5: Sonucu ifade edin</h3>
+
+<p>Voltmetrenin okuması = (9,999889 ± 0,000056) V, k = 2.</p>
+
+<p>Yani gerçek değer büyük olasılıkla 9,999833 V ile 9,999945 V arasında.</p>
+
+<h3 id="hangi-kaynak-en-çok-katkı-veriyor">Hangi kaynak en çok katkı veriyor?</h3>
+
+<p>Aşağıdaki grafikte, yedi belirsizlik kaynağının her birinin katkısını sıralı görüyorsunuz. Sıcaklık katsayısı toplam belirsizliğin yarısından fazlasını oluşturuyor.</p>
+
+<div id="grafik-multimetre" style="width:100%;max-width:760px;margin:1.5rem auto 2.5rem auto;height:380px;"></div>
+<script>
+(function(){
+  var data = [{
+    type: 'bar',
+    orientation: 'h',
+    x: [533.6, 196, 36, 8.4, 4, 3, 0.08],
+    y: ['Sıcaklık katsayısı', 'Kalibratör sertifikası', 'Tekrar ölçüm (Tip A)', 'Kalibratör kayması', 'Hat gürültüsü', 'Bakır konnektör', 'Voltmetre çözünürlüğü'],
+    text: ['68,3%', '25,1%', '4,6%', '1,1%', '0,5%', '0,4%', '0,01%'],
+    textposition: 'auto',
+    marker: { color: '#1a73e8' }
+  }];
+  var layout = {
+    title: { text: 'Voltmetre Belirsizlik Bütçesi (varyans katkısı)', font: { size: 14 } },
+    xaxis: { title: 'Varyans katkısı (µV²)' },
+    yaxis: { autorange: 'reversed' },
+    margin: { l: 180, r: 30, t: 50, b: 50 },
+    plot_bgcolor: '#ffffff',
+    paper_bgcolor: '#ffffff'
+  };
+  Plotly.newPlot('grafik-multimetre', data, layout, {responsive: true, displayModeBar: false});
+})();
+</script>
+
+<p>Grafiğin söylediği şey net. Belirsizliği düşürmek isteseniz nereye yatırım yaparsınız? Voltmetreye değil. Daha pahalı bir kalibratöre de değil. <strong>Oda sıcaklığını sabitlemeye.</strong> Sıcaklık aralığı ±2 °C yerine ±0,5 °C olsa, sıcaklık katkısı 23 µV’den 6 µV’ye düşer; toplam belirsizlik 28 µV’den 16 µV’ye iner. Hiçbir cihaz yatırımı yapmadan, sadece klimayı düzgün ayarlayarak belirsizliği yarıya indirdiniz.</p>
+
+<blockquote>
+  <p><strong>Akılda kalsın — Pareto kuralı:</strong>
+Belirsizlik bütçesindeki bileşenleri varyans katkısına göre sıralayın. <strong>İlk iki kaynak çoğu zaman toplamın %80–90’ını oluşturur.</strong> İyileştirmeye onlardan başlayın; küçük katkılarla uğraşmak vakit ve para kaybı. Önce en büyük katkıyı yarıya indirmek, geri kalan altıyla uğraşmaktan daha çok kazandırır.</p>
+</blockquote>
+
+<h3 id="bu-sonucu-kabul-etmeli-miyiz">Bu sonucu kabul etmeli miyiz?</h3>
+
+<p>Voltmetrenin teknik kataloğu diyor ki cihazın 10 V’ta toleransı ±100 µV. Şimdi TUR hesaplayalım:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>TUR = Tolerans / Belirsizlik = 100 / 56 ≈ 1,8
+</code></pre></div></div>
+
+<p>Z540.3’ün 4:1 sınırının çok altında. Ya kabul kararı verirken çok dikkatli olacağız (güvenlik payı uygulayacağız), ya da belirsizliği düşüreceğiz. Üç seçenek var:</p>
+
+<ol>
+  <li>
+<strong>Sıcaklığı sabitle.</strong> Yukarıda anlatıldı. Belirsizlik 16 µV’ye iner, TUR = 6,3 olur. En ucuz çözüm.</li>
+  <li>
+<strong>Daha iyi kalibratör kullan.</strong> UME’nin daha düşük belirsizlikle kalibre ettiği bir referans kaynağa geç. Sertifika belirsizliği ±10 µV olabilir. Ama maliyet artar.</li>
+  <li>
+<strong>Müşteriyle konuş.</strong> Belki ±100 µV toleransı çok sıkı, gerçek uygulamada ±200 µV bile yeterli olabilir.</li>
+</ol>
+
+<p>Bir test mühendisinin işi sadece sayı üretmek değil, bu üç seçeneği masaya getirip yöneticisiyle tartışmak. Belirsizlik bütçesi olmadan bu konuşmayı yapamazsınız.</p>
+
+<hr>
+
+<h2 id="örnek-2-sıcaklık-sensörü-ile-test-fırını-ölçümü">Örnek 2: Sıcaklık Sensörü ile Test Fırını Ölçümü</h2>
+
+<p><strong>Senaryo.</strong> Endüstriyel bir parçanın yüksek sıcaklık dayanım testini yapıyorsunuz. Test gereksinimi: parça 200 °C ± 2 °C ortamda 30 dakika çalışmalı. Fırının içine bir <strong>PT100</strong> sensörü koymuşsunuz. (PT100, 0 °C’de tam 100 ohm direnç gösteren platin tel sensörü; sıcaklıkla direnç doğrusal artar; çalışma aralığı tipik olarak −200 °C ile +650 °C arası.) Sensör bir <strong>veri toplama kartına</strong> (DAQ kartı, NI 9217) bağlı, kart bilgisayara veriyor.</p>
+
+<p>Sıcaklığın gerçek değeri ne olabilir? Belirsizlik bütçesi:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Kaynak</th>
+      <th>Aralık</th>
+      <th>Dağılım</th>
+      <th>u (°C)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>PT100 kalibrasyon belgesi (UME, k=2)</td>
+      <td>±0,15 °C</td>
+      <td>normal</td>
+      <td>0,075</td>
+    </tr>
+    <tr>
+      <td>Sensörün kendi kendine ısınması (1 mA × 100 Ω = 0,1 mW; ısıl direnç 0,5 K/mW)</td>
+      <td>±0,05 °C</td>
+      <td>düz</td>
+      <td>0,029</td>
+    </tr>
+    <tr>
+      <td>Bir yıllık kayma (kalibrasyondan bu yana)</td>
+      <td>±0,10 °C</td>
+      <td>düz</td>
+      <td>0,058</td>
+    </tr>
+    <tr>
+      <td>Fırın iç hacminde sıcaklık dağılımı (önceki ölçümlerden 0,3 °C tepe-tepe)</td>
+      <td>±0,15 °C</td>
+      <td>üçgen</td>
+      <td>0,061</td>
+    </tr>
+    <tr>
+      <td>DAQ kartı (NI 9217 katalog değeri, 200 °C civarı)</td>
+      <td>±0,15 °C</td>
+      <td>normal</td>
+      <td>0,075</td>
+    </tr>
+    <tr>
+      <td>4 telli kablo direnç dengesizliği</td>
+      <td>±0,02 °C</td>
+      <td>düz</td>
+      <td>0,012</td>
+    </tr>
+    <tr>
+      <td>30 ölçümün dağılımı (Tip A, s=0,04 °C)</td>
+      <td>s/√30</td>
+      <td>normal</td>
+      <td>0,007</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>Birleşik belirsizlik:</strong></p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>u² = 0,075² + 0,029² + 0,058² + 0,061² + 0,075² + 0,012² + 0,007²
+u² = 0,00563 + 0,00084 + 0,00336 + 0,00372 + 0,00563 + 0,00014 + 0,00005
+u² ≈ 0,0194
+u  ≈ 0,14 °C
+</code></pre></div></div>
+
+<p><strong>Genişletilmiş belirsizlik (k=2):</strong></p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>U = 2 × 0,14 = 0,28 °C
+</code></pre></div></div>
+
+<p><strong>Sonuç:</strong> Fırının iç sıcaklığı = (200,00 ± 0,28) °C, k = 2.</p>
+
+<p>Hangi bileşenler en çok katkı yapıyor? Bakalım:</p>
+
+<div id="grafik-pt100" style="width:100%;max-width:760px;margin:1.5rem auto 2.5rem auto;height:380px;"></div>
+<script>
+(function(){
+  var data = [{
+    type: 'bar',
+    orientation: 'h',
+    x: [0.00563, 0.00563, 0.00372, 0.00336, 0.00084, 0.00014, 0.00005],
+    y: ['PT100 kalibrasyon belgesi', 'DAQ kartı', 'Fırın sıcaklık dağılımı', 'Kayma', 'Kendi kendine ısınma', 'Kablo dengesizliği', 'Tekrar ölçüm (Tip A)'],
+    text: ['29,1%', '29,1%', '19,2%', '17,3%', '4,3%', '0,7%', '0,3%'],
+    textposition: 'auto',
+    marker: { color: '#e8711a' }
+  }];
+  var layout = {
+    title: { text: 'PT100 Belirsizlik Bütçesi (varyans katkısı)', font: { size: 14 } },
+    xaxis: { title: 'Varyans katkısı (°C²)' },
+    yaxis: { autorange: 'reversed' },
+    margin: { l: 200, r: 30, t: 50, b: 50 },
+    plot_bgcolor: '#ffffff',
+    paper_bgcolor: '#ffffff'
+  };
+  Plotly.newPlot('grafik-pt100', data, layout, {responsive: true, displayModeBar: false});
+})();
+</script>
+
+<p><strong>Test mühendisi olarak ne dersiniz?</strong> Gereksinim 200 ± 2 °C, ölçüm belirsizliği 0,28 °C. TUR = 2 / 0,28 ≈ 7,1. Z540.3’ün 4:1 sınırının çok üstünde, sorunsuz.</p>
+
+<p>Ama gereksinim daha sıkı olsaydı (örneğin 200 ± 0,5 °C), TUR = 1,8’e düşerdi. Bu durumda yapılacak iş şu: önce belirsizliği düşürmek lazım. Grafiğe bakın. İlk üç kaynak (PT100 belgesi, DAQ kartı, fırın dağılımı) toplam belirsizliğin %75’ini oluşturuyor. İyileştirme öncelikleri:</p>
+
+<ol>
+  <li>PT100’ü TÜBİTAK UME’de daha düşük belirsizlikle yeniden kalibre ettirin. ±0,15 yerine ±0,05 °C.</li>
+  <li>Daha yüksek doğruluklu DAQ kartı alın (NI 9226 gibi).</li>
+  <li>Fırın içine ek termal blok koyun, hava sirkülasyonunu artırın.</li>
+</ol>
+
+<p>Bu üç adım belirsizliği yarıya indirir. Hangi kaynağa dokunmadan da ayrı ayrı denenebilir. Mantığı: önce büyüğü azalt, sonra küçükleri düşün.</p>
+
+<hr>
+
+<h2 id="örnek-3-bir-sensörü-kabul-mü-edelim-reddedelim-mi">Örnek 3: Bir Sensörü Kabul mü Edelim, Reddedelim mi?</h2>
+
+<p><strong>Senaryo.</strong> Bir otomotiv basınç sensörü 0–100 bar arasında ölçüm yapıyor. Kalite kontrolünden geçmesi için toleransı ±0,10 bar. Yani ölçüm cihazı bir referans değer verirken sensör ±0,10 bar içinde okumalı. Kalibrasyon sürecinin belirsizliği: U = 0,025 bar.</p>
+
+<p><strong>TUR hesabı:</strong></p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>TUR = Tolerans / Belirsizlik = 0,10 / 0,025 = 4
+</code></pre></div></div>
+
+<p>Z540.3’ün 4:1 sınırına tam denk geldi. Bu sayı yetiyor mu?</p>
+
+<p>Soruyu şöyle çevirelim: ölçüm cihazı sensörü “geçti” diye işaretlediği halde sensör aslında toleransın dışındaysa, bu <strong>yanlış kabul</strong> olur. Yanlış kabul olasılığı (PFA = Probability of False Accept) ne kadar?</p>
+
+<p>Önce yanlış kabulun ne demek olduğunu görsel olarak görelim. Aşağıda bir sensörün ölçüm dağılımı çizilmiş. Sensörün gerçek değeri 0,098 bar diyelim — yani toleransın iç sınırına çok yakın. Ölçüm cihazı U = 0,025 bar belirsizlikle bu sensörü ölçüyor. Ölçüm sonucu, gerçek değer civarında bir normal dağılımdan rastgele bir nokta gibi düşünebiliriz. Ölçüm 0,10’un altında çıkarsa “geçti” diyoruz — ama gerçek değer 0,098’de bile, ölçüm dağılımının bir kısmı 0,10’un üstüne taşar. Taşan bu kısım yanlış kabul bölgesidir.</p>
+
+<div id="grafik-pfa-gorsel" style="width:100%;max-width:760px;margin:1.5rem auto 2.5rem auto;height:400px;"></div>
+<script>
+(function(){
+  var x = [];
+  for (var i=0; i<=400; i++) x.push(0.05 + i*(0.15-0.05)/400);
+  var mu = 0.098, sigma = 0.0125;
+  var pdf = x.map(function(v){return Math.exp(-(v-mu)*(v-mu)/(2*sigma*sigma))/(sigma*Math.sqrt(2*Math.PI));});
+  var maxY = Math.max.apply(null, pdf);
+  var xAccept = x.filter(function(v){return v <= 0.10;});
+  var pdfAccept = xAccept.map(function(v){return Math.exp(-(v-mu)*(v-mu)/(2*sigma*sigma))/(sigma*Math.sqrt(2*Math.PI));});
+  var xReject = x.filter(function(v){return v > 0.10;});
+  var pdfReject = xReject.map(function(v){return Math.exp(-(v-mu)*(v-mu)/(2*sigma*sigma))/(sigma*Math.sqrt(2*Math.PI));});
+  var data = [
+    {x:xAccept, y:pdfAccept, type:'scatter', mode:'lines', fill:'tozeroy',
+     line:{color:'#2e7d32', width:2}, fillcolor:'rgba(46,125,50,0.30)',
+     name:'Doğru kabul (geçti)', hoverinfo:'skip'},
+    {x:xReject, y:pdfReject, type:'scatter', mode:'lines', fill:'tozeroy',
+     line:{color:'#c62828', width:2}, fillcolor:'rgba(198,40,40,0.55)',
+     name:'Yanlış kabul (gerçekte tolerans dışı)', hoverinfo:'skip'}
+  ];
+  var layout = {
+    title:{text:'Ölçüm Dağılımı ve Yanlış Kabul Bölgesi', font:{size:14}},
+    xaxis:{title:'Ölçüm değeri (bar)', range:[0.05, 0.15], zeroline:false},
+    yaxis:{title:'Olasılık yoğunluğu', showticklabels:false, zeroline:false},
+    shapes:[
+      {type:'line', x0:0.10, x1:0.10, y0:0, y1:maxY*1.05,
+       line:{color:'#000', width:2, dash:'dash'}},
+      {type:'line', x0:mu, x1:mu, y0:0, y1:maxY*0.85,
+       line:{color:'#1a73e8', width:1.5, dash:'dot'}}
+    ],
+    annotations:[
+      {x:0.10, y:maxY*1.10, text:'Tolerans sınırı<br>0,10 bar', showarrow:false, font:{size:11}},
+      {x:mu, y:maxY*0.92, text:'Gerçek değer<br>0,098 bar', showarrow:false, font:{size:11, color:'#1a73e8'}},
+      {x:0.115, y:maxY*0.30, text:'Yanlış<br>kabul', showarrow:true, arrowhead:2, ax:-25, ay:-30, font:{size:11, color:'#c62828'}}
+    ],
+    showlegend:true, legend:{x:0.02, y:0.98},
+    margin:{l:60, r:30, t:50, b:60},
+    plot_bgcolor:'#ffffff', paper_bgcolor:'#ffffff'
+  };
+  Plotly.newPlot('grafik-pfa-gorsel', data, layout, {responsive:true, displayModeBar:false});
+})();
+</script>
+
+<p>Yeşil alan: ölçüm 0,10’un altında çıkıyor, doğru kabul. Kırmızı alan: ölçüm 0,10’un üstünde çıkıyor (gerçekte sensör tolerans içinde olduğu halde). Burada ölçüm cihazı “reddet” diyecek — ama bu durumda <strong>yanlış red</strong>. Tam tersi durum, yani sensörün gerçek değeri 0,103 bar olursa (tolerans dışı), ölçüm yine dağılım gösterir, ve dağılımın bir kısmı 0,10’un altına düşer; o zaman ölçüm cihazı “geçti” diyor ama sensör aslında tolerans dışı — <strong>yanlış kabul</strong>. Bu yazının kalan kısmında yanlış kabul bizi daha çok ilgilendiriyor (üreticinin çıkardığı bozuk ürün).</p>
+
+<p>Aşağıdaki ikinci grafik, TUR’a göre yanlış kabul olasılığının nasıl değiştiğini gösteriyor. Eğri, sensörün gerçek değerinin tolerans içinde <strong>uniform dağıldığı</strong> varsayımı altında.</p>
+
+<div id="grafik-tur-pfa" style="width:100%;max-width:760px;margin:1.5rem auto 2.5rem auto;height:380px;"></div>
+<script>
+(function(){
+  var data = [{
+    type: 'scatter',
+    mode: 'lines+markers',
+    x: [1, 1.5, 2, 2.5, 3, 4, 6, 10],
+    y: [30, 15, 8, 5, 3, 1.5, 0.5, 0.1],
+    line: { color: '#c62828', width: 3 },
+    marker: { size: 8, color: '#c62828' },
+    name: 'Yanlış kabul olasılığı'
+  }];
+  var layout = {
+    title: { text: 'TUR ile Yanlış Kabul Olasılığının Değişimi', font: { size: 14 } },
+    xaxis: { title: 'TUR (Tolerans / Belirsizlik)' },
+    yaxis: { title: 'Yanlış kabul olasılığı (%)', type: 'log' },
+    shapes: [{
+      type: 'line', x0: 4, x1: 4, y0: 0.05, y1: 30,
+      line: { color: '#888', width: 2, dash: 'dash' }
+    }],
+    annotations: [{
+      x: 4, y: 1.5, xref: 'x', yref: 'y',
+      text: 'Z540.3 sınırı (4:1)', showarrow: true, arrowhead: 2, ax: 60, ay: -30
+    }],
+    margin: { l: 70, r: 30, t: 50, b: 60 },
+    plot_bgcolor: '#ffffff',
+    paper_bgcolor: '#ffffff'
+  };
+  Plotly.newPlot('grafik-tur-pfa', data, layout, {responsive: true, displayModeBar: false});
+})();
+</script>
+
+<p>TUR = 4’te bile yanlış kabul olasılığı yaklaşık %1,5. 10.000 sensör sevkiyatında 150 hatalı kabul demek. Bu yüzden Z540.3 ek bir önlem öneriyor: <strong>kabul aralığını güvenlik payı kadar daraltmak</strong>. Buna <strong>güvenlik payı</strong> (İngilizcesi guard band) deniyor.</p>
+
+<p>Z540.3 6. yöntemde güvenlik payı çarpanı M, TUR’a göre tablodan okunur. PFA’yı %2’nin altında tutmak için tipik değerler:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>TUR</th>
+      <th>M çarpanı</th>
+      <th>Güvenlik payı (= M × U)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>4:1</td>
+      <td>≈ 0,053</td>
+      <td>%5,3 × U</td>
+    </tr>
+    <tr>
+      <td>3:1</td>
+      <td>≈ 0,155</td>
+      <td>%15,5 × U</td>
+    </tr>
+    <tr>
+      <td>2:1</td>
+      <td>≈ 0,282</td>
+      <td>%28,2 × U</td>
+    </tr>
+    <tr>
+      <td>1:1</td>
+      <td>≈ 0,457</td>
+      <td>%45,7 × U</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>TUR azaldıkça güvenlik payı büyür; bu mantıklı, çünkü belirsizlik tolerans büyüklüğüne yaklaştıkça yanlış kabul riski artıyor. Bizim örneğimiz için TUR = 4:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Güvenlik payı = 0,053 × 0,025 = 0,00133 bar
+Yeni kabul aralığı = ±(0,10 − 0,00133) = ±0,09867 bar
+</code></pre></div></div>
+
+<p>Yani sensörün ölçümü 0,099 bar çıkarsa: tolerans içinde ama güvenlik payı dışında. “Sınırda, manuel inceleme” durumu.</p>
+
+<p>Karşılaştırma için: ILAC G8 (Avrupa) güvenlik payını sade bir şekilde <strong>U</strong> olarak alır (M = 1). Bu daha muhafazakâr; bizim örneğimizde güvenlik payı 0,025 bar olur, kabul aralığı ±0,075 bar’a kadar daralır. ILAC ve ANSI farkı sahada önemli; müşterinizin hangi standardı şart koştuğuna bakın.</p>
+
+<p><strong>Önemli bir uyarı.</strong> “TUR ≥ 4 yeter” varsayımı eski bir kuraldır. Henry Zumbrun adlı uzman 2021’de yazdığı “TUR=4 Neden Yeterli Değil” makalesinde gerçek üretim verisi üzerinden gösterdi: bir ölçüm sınıra çok yakın çıktığında TUR=4 bile %30+ yanlış kabul olasılığı yaratabilir. Bu yüzden modern uygulama, sadece TUR’a bakmak değil, gerçek PFA’yı hesaplamaktır. Z540.3 6. yöntem ya da <strong>ILAC G8</strong> (Avrupa eşdeğeri, güvenlik payı = 1×U formülünü kullanır) bu işi yapar.</p>
+
+<blockquote>
+  <p><strong>Akılda kalsın — kabul/red kararı:</strong></p>
+  <ul>
+    <li><strong>TUR = Tolerans / Genişletilmiş belirsizlik (U)</strong></li>
+    <li>
+<strong>Z540.3 (ABD):</strong> Yanlış kabul olasılığı (PFA) ≤ %2 olmalı; pratik değilse TUR ≥ 4. Method 6 ile güvenlik payı: TUR=4 için ≈ 0,053×U; TUR=2 için ≈ 0,28×U.</li>
+    <li>
+<strong>ILAC G8 (Avrupa):</strong> Güvenlik payı = 1×U (kabul aralığı her iki yandan U kadar daraltılır).</li>
+    <li>
+<strong>Önemli:</strong> TUR ≥ 4 yeter zannetmeyin. Ölçüm sınıra çok yakın çıkarsa TUR=4 bile %30+ yanlış kabul üretebilir. Karar verirken hem TUR’a hem ölçümün sınıra uzaklığına bakın.</li>
+  </ul>
+</blockquote>
+
+<hr>
+
+<h2 id="aviyonik-uut-üreticisi-i̇çin-ölçüm-disiplini">Aviyonik UUT Üreticisi İçin Ölçüm Disiplini</h2>
+
+<p>Yukarıdaki üç örnek genel bir test laboratuvarı bakışıyla yazıldı. Ama bir aviyonik UUT (Unit Under Test, “test edilen cihaz”) üreten şirketin tablosu farklı. Bir VOR/ILS alıcısı üretiyorsunuz, datasheet’inize “azimuth accuracy ±0,1°” yazdınız, müşteriniz uçak üreticisi (TUSAS, Airbus, Sikorsky) bu beyana güvenerek tip sertifikasyonunu yürütüyor. Sahaya çıkan her cihaz için bu beyanı doğrulamak zorundasınız.</p>
+
+<p>Test ekipmanınız bir RF sinyal üreticisi. Datasheet’inde “azimuth çıkış doğruluğu ±0,001°” yazıyor. Sayılar büyüleyici görünüyor: TUR = 0,1 / 0,001 = 100. Yazının ilk yarısındaki “≥ 10 → sorunsuz” kategorisinin çok ötesinde. Burada bitti, geçtik mi?</p>
+
+<p>Hayır. Bu noktada üç gizli tuzak var ve aviyonik bağlamda her birine düşmek pahalıya patlıyor.</p>
+
+<h3 id="önce-kavram-belirsizlik-çıkarılır-mı-eklenir-mi-yoksa-hiç-dokunulmaz-mı">Önce kavram: belirsizlik çıkarılır mı, eklenir mi, yoksa hiç dokunulmaz mı?</h3>
+
+<p>Test laboratuvarında kabul/red kararı verirken belirsizlik üç farklı şekilde işlenebilir. Aşağıdaki grafik aynı toleransı (örnek olarak ±0,1) ve aynı ölçüm belirsizliğini (U = 0,025) üç yaklaşımla yan yana gösteriyor; her satırın yeşil bandı <strong>kabul aralığını</strong>, gri bandı toleransı temsil ediyor.</p>
+
+<div id="grafik-uut-uretici-yaklasimlar" style="width:100%;max-width:780px;margin:1.5rem auto 2.5rem auto;height:420px;"></div>
+<script>
+(function(){
+  var T = 0.1;
+  var U = 0.025;
+
+  var shapes = [
+    // 1) Paylaşılan risk - tolerans = kabul aralığı
+    {type:'rect', x0:-T,    x1:T,    y0:2.65, y1:3.35, fillcolor:'#cccccc', line:{color:'#999', width:1}},
+    {type:'rect', x0:-T,    x1:T,    y0:2.85, y1:3.15, fillcolor:'#2e7d32', line:{color:'#1b5e20', width:1}, opacity:0.85},
+
+    // 2) Korumalı kabul - kabul aralığı içeri daraltılmış (DOĞRU yaklaşım)
+    {type:'rect', x0:-T,    x1:T,    y0:1.65, y1:2.35, fillcolor:'#cccccc', line:{color:'#999', width:1}},
+    {type:'rect', x0:-(T-U), x1:(T-U), y0:1.85, y1:2.15, fillcolor:'#2e7d32', line:{color:'#1b5e20', width:1}, opacity:0.85},
+
+    // 3) Korumalı red - kabul aralığı dışarı genişletilmiş (RİSK)
+    {type:'rect', x0:-T,    x1:T,    y0:0.65, y1:1.35, fillcolor:'#cccccc', line:{color:'#999', width:1}},
+    {type:'rect', x0:-(T+U), x1:(T+U), y0:0.85, y1:1.15, fillcolor:'#c62828', line:{color:'#8e0000', width:1}, opacity:0.75}
+  ];
+
+  var data = [
+    // Tolerans sınır çizgileri (referans için her panelde)
+    {x:[-T, T], y:[3, 3], type:'scatter', mode:'markers', marker:{size:0.1, color:'rgba(0,0,0,0)'}, showlegend:false, hoverinfo:'skip'},
+    // Legend için sahte traceler
+    {x:[null], y:[null], type:'scatter', mode:'markers', marker:{size:14, color:'#cccccc', symbol:'square', line:{color:'#999', width:1}}, name:'Tolerans aralığı (±T)'},
+    {x:[null], y:[null], type:'scatter', mode:'markers', marker:{size:14, color:'#2e7d32', symbol:'square', line:{color:'#1b5e20', width:1}}, name:'Kabul aralığı (yeşil = doğru karar bölgesi)'},
+    {x:[null], y:[null], type:'scatter', mode:'markers', marker:{size:14, color:'#c62828', symbol:'square', line:{color:'#8e0000', width:1}}, name:'Kabul aralığı (kırmızı = riskli, PFA yüksek)'}
+  ];
+
+  var layout = {
+    title:{text:'Üç Yaklaşım: Belirsizliği Toleransla Nasıl İlişkilendirmeli?', font:{size:14}},
+    xaxis:{
+      title:'Ölçüm değeri',
+      range:[-0.16, 0.16], zeroline:true, zerolinecolor:'#444', zerolinewidth:1,
+      tickvals:[-T-U, -T, 0, T, T+U],
+      ticktext:['−(T+U)', '−T', '0', '+T', '+(T+U)']
+    },
+    yaxis:{
+      tickvals:[1, 2, 3],
+      ticktext:[
+        '<b>3) Korumalı red</b><br><span style="font-size:10px;color:#c62828">PFR↓, PFA↑ — RİSK</span>',
+        '<b>2) Korumalı kabul</b><br><span style="font-size:10px;color:#2e7d32">UUT üreticisi: DOĞRU</span>',
+        '<b>1) Paylaşılan risk</b><br><span style="font-size:10px;color:#666">eski yaklaşım</span>'
+      ],
+      range:[0.4, 3.6], showgrid:false, zeroline:false
+    },
+    shapes:shapes,
+    annotations:[
+      {x:0, y:3, text:'Kabul aralığı = ±T', showarrow:false, font:{size:11, color:'#fff'}, bgcolor:'rgba(0,0,0,0.35)', borderpad:2},
+      {x:0, y:2, text:'Kabul aralığı = ±(T − U)', showarrow:false, font:{size:11, color:'#fff'}, bgcolor:'rgba(0,0,0,0.35)', borderpad:2},
+      {x:0, y:1, text:'Kabul aralığı = ±(T + U)', showarrow:false, font:{size:11, color:'#fff'}, bgcolor:'rgba(0,0,0,0.35)', borderpad:2},
+      {x:T+U, y:1, ax:T+U+0.02, ay:1, xref:'x', yref:'y', axref:'x', ayref:'y',
+       text:'Tolerans dışına<br>taşıyor!', showarrow:true, arrowhead:2, font:{size:10, color:'#c62828'}, xanchor:'left'}
+    ],
+    showlegend:true,
+    legend:{orientation:'h', x:0.5, xanchor:'center', y:-0.18, yanchor:'top', font:{size:11}},
+    margin:{l:170, r:40, t:55, b:90},
+    plot_bgcolor:'#ffffff', paper_bgcolor:'#ffffff'
+  };
+  Plotly.newPlot('grafik-uut-uretici-yaklasimlar', data, layout, {responsive:true, displayModeBar:false});
+})();
+</script>
+
+<ul>
+  <li>
+<strong>1) Paylaşılan risk:</strong> Belirsizliği hesaba katmazsınız. Ölçüm tolerans içindeyse “geçti”. Eski test laboratuvarı uygulaması; ISO/IEC 17025 ile uyumlu beyan üretiyorsanız artık kabul edilmez.</li>
+  <li>
+<strong>2) Korumalı kabul (guarded acceptance):</strong> Belirsizlik tolerans sınırından <strong>içeri</strong> doğru çekilir. Müşteriyi/son kullanıcıyı korur, <strong>yanlış kabul</strong> olasılığını (PFA) düşürür. UUT üreticisi konumunda <strong>doğru</strong> yaklaşım.</li>
+  <li>
+<strong>3) Korumalı red (guarded rejection):</strong> Belirsizlik tolerans sınırından <strong>dışarı</strong> doğru itilir. Üreticiyi yanlış red’den korur ama yanlış kabul artar. Aviyonik bağlamda gerekçelendirilmesi zor.</li>
+</ul>
+
+<p>UUT üreticisi olarak ikinci sütundayım — bu yazının kalan kısmı bunu sayısal hale getiriyor.</p>
+
+<h3 id="risk-yönü-tartışılır-değil">Risk yönü tartışılır değil</h3>
+
+<p>Test laboratuvarında “shared risk” denilen bir uygulama yaygındır: belirsizliği hesaba katmazsın, ölçüm tolerans içindeyse geçer. Bunun temeli müşteri ile laboratuvar arasında risk paylaşımıdır. UUT üreticisi konumunda bu seçeneğiniz <strong>yok</strong>. Beyan size ait, kabul kararı sizin, sahaya çıkan cihazın sorumluluğu da sizin. İki olası hatanın bedeli aynı değildir:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Hata türü</th>
+      <th>Bedel</th>
+      <th>Kim öder</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Yanlış kabul (PFA)</td>
+      <td>Bozuk cihaz uçar</td>
+      <td>Pilot, yolcu, üretici (sertifika kaybı)</td>
+    </tr>
+    <tr>
+      <td>Yanlış red (PFR)</td>
+      <td>Sağlam cihaz hurdaya gider</td>
+      <td>Sadece üretici (üretim maliyeti)</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Bu asimetrik risk profilinde <strong>belirsizlik her zaman içeri çekilir</strong>, yani kabul aralığı toleranstan daraltılır. Yukarıdaki üç yaklaşımdan tek meşru olanı bu. Ekleme (kabul aralığını genişletme) yönü, DO-178C DAL A bir LRU için sertifikasyon denetiminde gerekçelendirilemez.</p>
+
+<h3 id="hangi-standart-ilac-g8-default">Hangi standart: ILAC G8 default</h3>
+
+<p>Türkiye’de TÜRKAK akreditasyonu üzerinden çalıştığınız için doğal default <strong>ILAC G8</strong> ve onun Avrupa eşdeğeri <strong>EA-4/02</strong>:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Kabul aralığı = ±(T − U)
+</code></pre></div></div>
+
+<p>Müşteriniz ABD merkezliyse (Lockheed, Raytheon, Boeing tedarik zincirinde değilseniz bile) sözleşme <strong>Z540.3</strong> atfı içerebilir. O durumda Method 6 ile TUR’a bağlı M çarpanı kullanırsınız. Pratik fark: ILAC G8 bütün TUR değerleri için 1×U çıkarır; Z540.3 yüksek TUR’da daha az çıkarır. Yani yüksek TUR’da Z540.3 daha gevşek, ILAC G8 daha muhafazakâr. Aviyonik için muhafazakâr olan tarafta kalın.</p>
+
+<p>İki müşteri tipi de varsa rapor şablonunu çift sütun yapın: “ILAC G8 kabul aralığı: ±X” ve “Z540.3 kabul aralığı: ±Y”. Sahada hangisini uygulayacağınızı sözleşme belirler.</p>
+
+<h3 id="datasheet-speci-son-çaredir">Datasheet spec’i son çaredir</h3>
+
+<p>Sinyal üreticinizin datasheet’inde “±0,001°” yazıyor. Bu satır, üreticinin geniş bir cihaz popülasyonu için garanti ettiği en kötü durumdur. Sizin elinizdeki tek tek cihaz büyük olasılıkla daha iyidir. Ama bunu nasıl bilirsiniz?</p>
+
+<p><strong>Akredite kalibrasyon belgesi.</strong> Sinyal üreticinizi TÜRKAK akredite (veya ulusal eşdeğer) bir laboratuvarda yıllık olarak kalibre ettirdiğinizde belgenizde “ölçülen değer = X, U = ±0,0002° (k=2)” tarzında bir veri olur. Bu sayı genelde datasheet spec’inin 3-10 katı küçüktür. Belirsizlik bütçenizde <strong>datasheet spec’i değil bu belgenin U’sunu</strong> kullanın.</p>
+
+<p>Datasheet spec ne zaman kullanılır? İki durumda:</p>
+
+<ol>
+  <li>Sinyal üretici hiç kalibre edilmedi (kötü uygulama, akreditasyon denetimi takılır).</li>
+  <li>Kalibrasyon belgesi var ama ölçüm yaptığınız belirli noktayı kapsamıyor (interpolasyon yapamıyorsunuz).</li>
+</ol>
+
+<p>Spec’i kullanırken yazıdaki kuralı uygulayın: bilgi yoksa düz dağılım, u = a / √3.</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>u_kaynak (datasheet)                       = 0,001 / √3   ≈ 0,000577°
+u_kaynak (akredite belge, U=0,0002, k=2)   = 0,0002 / 2   = 0,0001°
+</code></pre></div></div>
+
+<p>Akredite belgeyle çalışırsanız bu bileşenden gelen katkı yaklaşık <strong>6 kat</strong> azalır.</p>
+
+<h3 id="specin-geçerlilik-kapsamına-bakın">Spec’in geçerlilik kapsamına bakın</h3>
+
+<p>Datasheet spec’i her zaman bir koşullar paketinin içinde geçerlidir:</p>
+
+<ul>
+  <li>
+<strong>Sıcaklık aralığı:</strong> “23 °C ± 5 °C” tipik. Lab sıcaklığınız bu aralık dışında salınıyorsa spec geçersiz, ek bir tempco (sıcaklık katsayısı) bileşeni ekleyin.</li>
+  <li>
+<strong>Takvim:</strong> “90 gün spec” ve “1 yıl spec” sayıları farklıdır. Son kalibrasyondan bu yana ne kadar zaman geçti?</li>
+  <li>
+<strong>Isınma süresi:</strong> “30 dakika ısınma sonrası” yazıyorsa, üretimdeki testlerde bunu uygulayın.</li>
+  <li>
+<strong>Ölçüm bandı:</strong> Spec belli bir frekans ya da seviye aralığında geçerli olabilir. VOR sinyali için 108–118 MHz, ILS için 108–112 MHz gibi.</li>
+</ul>
+
+<p>Bu kapsam dışında kullanırsanız spec’i kullanmaya hakkınız yok. F Eki 7. uyarısının (gizli sıcaklık tuzağı) tersi: <strong>kapsam içindeyken çift saymak</strong>, <strong>kapsam dışındayken eksik saymak</strong> sık yapılan hata.</p>
+
+<h3 id="bileşen-listesi-tek-satıra-düşmez">Bileşen listesi tek satıra düşmez</h3>
+
+<p>±0,001° spec’ini tek bileşen olarak kullanmak yetmez. Bir VOR alıcısı azimuth doğruluğu testi için tipik bütçe şöyle görünür:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Kaynak</th>
+      <th>Aralık</th>
+      <th>Dağılım</th>
+      <th>Bölme</th>
+      <th>u (°)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>Sinyal üretici (akredite belge, k=2)</td>
+      <td>±0,0002</td>
+      <td>normal</td>
+      <td>2</td>
+      <td>0,0001</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>Sinyal üretici 1 yıllık drift</td>
+      <td>±0,0005</td>
+      <td>düz</td>
+      <td>√3</td>
+      <td>0,00029</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>Sinyal üretici tempco (lab Δ=±3 °C)</td>
+      <td>±0,0003</td>
+      <td>düz</td>
+      <td>√3</td>
+      <td>0,00017</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>UUT çözünürlüğü (0,01° son hane)</td>
+      <td>±0,005</td>
+      <td>düz</td>
+      <td>√3</td>
+      <td>0,00289</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>RF kablo kayıp/faz</td>
+      <td>±0,002</td>
+      <td>düz</td>
+      <td>√3</td>
+      <td>0,00115</td>
+    </tr>
+    <tr>
+      <td>6</td>
+      <td>Tip A (n=10 ölçüm, s=0,003°)</td>
+      <td>s/√10</td>
+      <td>normal</td>
+      <td>√10</td>
+      <td>0,00095</td>
+    </tr>
+    <tr>
+      <td>7</td>
+      <td>Multipath / antenna kuplajı</td>
+      <td>±0,001</td>
+      <td>düz</td>
+      <td>√3</td>
+      <td>0,00058</td>
+    </tr>
+    <tr>
+      <td>8</td>
+      <td>UUT ısınma + tempco</td>
+      <td>±0,002</td>
+      <td>düz</td>
+      <td>√3</td>
+      <td>0,00115</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Birleşik belirsizlik:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>u² = 0,0001² + 0,00029² + 0,00017² + 0,00289² + 0,00115²
+   + 0,00095² + 0,00058² + 0,00115²
+u² ≈ 1,24 × 10⁻⁵
+u  ≈ 0,0035°
+
+U  = 2 × 0,0035 ≈ 0,007°  (k=2)
+</code></pre></div></div>
+
+<p>Yani gerçek ölçüm belirsizliğiniz <code class="language-plaintext highlighter-rouge">±0,007°</code> mertebesinde. Datasheet spec’inden gelen <code class="language-plaintext highlighter-rouge">±0,001°</code> ise toplamın yalnızca <strong>küçük bir parçası</strong>. Çözünürlük (4. satır) ve RF kablolama (5. ve 8. satırlar) çok daha büyük katkı veriyor.</p>
+
+<h3 id="kabul-aralığı-ve-karar">Kabul aralığı ve karar</h3>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>TUR     = 0,1 / 0,007 ≈ 14,3
+Kabul aralığı (ILAC G8) = ±(0,1 − 0,007) = ±0,093°
+</code></pre></div></div>
+
+<p>UUT’nin ölçülen azimuth hatası <code class="language-plaintext highlighter-rouge">±0,093°</code> içindeyse “azimuth accuracy ±0,1° spec’ini karşılıyor” beyanı verebilirsiniz. <code class="language-plaintext highlighter-rouge">±0,093°</code> ile <code class="language-plaintext highlighter-rouge">±0,1°</code> arasındaysa cihaz <strong>sınır bölgesinde</strong> — yazılı prosedürünüze göre bu cihazları ya tekrar test edersiniz, ya manuel inceleme yaparsınız, ya da reddedersiniz. Fail-safe tarafa düşmek için reddetmek en güvenlisidir.</p>
+
+<h3 id="üç-katmanlı-koruma">Üç katmanlı koruma</h3>
+
+<p>Bütün bu hesabı yapsanız bile sahaya çıkan her cihazın spec içinde kalması garanti değildir. Aviyonikte standart pratik <strong>çift güvence</strong>:</p>
+
+<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Tasarım hedefi   ⊆   Kabul aralığı   ⊆   Beyan toleransı
+   (±0,05°)            (±0,093°)            (±0,1°)
+</code></pre></div></div>
+
+<ul>
+  <li>
+<strong>Tasarım hedefi (±0,05°):</strong> R&amp;D ekibi devre tasarımını bu hedefe göre yapar; üretim sürecindeki normal varyasyonun beyana taşması engellenir.</li>
+  <li>
+<strong>Kabul aralığı (±0,093°):</strong> Üretim sonu testte kullanılan eşik. Ölçüm belirsizliği çıkarılmış halidir.</li>
+  <li>
+<strong>Beyan toleransı (±0,1°):</strong> Datasheet’te yazan, müşteriye verilen söz.</li>
+</ul>
+
+<p>Bu üç sınır arasındaki boşluklar — <code class="language-plaintext highlighter-rouge">0,05°</code> tasarım marjı ve <code class="language-plaintext highlighter-rouge">0,007°</code> ölçüm marjı — emniyet kritik sistemde “ücretsiz öğle yemeği” değildir; üretim verim kaybı (yield loss) olarak para olarak ödenir. Ama VOR/ILS bir LRU’nun sahada <code class="language-plaintext highlighter-rouge">±0,12°</code> ile gelmesinin bedeli, bir avukatın saatlik ücretiyle ölçülür. Yatırım bu açıdan değerlendirilir.</p>
+
+<h3 id="do-178c-do-254-ve-veri-yönetimi">DO-178C, DO-254 ve veri yönetimi</h3>
+
+<p>Bütün belirsizlik bütçeniz konfigürasyon yönetimi altında saklanmalı. Pratik kontroller:</p>
+
+<ul>
+  <li>Bütçe dökümanı bir baseline’a (DOORS, SVN vb.) bağlı; revizyon geçmişi var.</li>
+  <li>Test prosedürü (TPS) bütçeyi atıf olarak gösteriyor.</li>
+  <li>Sinyal üretici kalibrasyon belgeleri (PDF) prosedürün ek dosyaları olarak kayıtlı.</li>
+  <li>ATR (Acceptance Test Report) her seri için: ölçüm değeri, U, k, kabul aralığı, karar — dört sütunlu.</li>
+  <li>Akreditasyon denetiminde her bütçe satırı için <strong>gerekçe belgesi</strong> istenir (PDF varsayımı, dağılım seçimi, bağımsızlık kararı).</li>
+</ul>
+
+<p>DO-178C’nin doğrudan ölçüm belirsizliği zorunluluğu yoktur — yazılım standardıdır. Ama DO-254 (donanım), ARP4761 (emniyet değerlendirme) ve müşteriye verilen Hardware Acceptance Data Sheet’ler bütçeyi varsayar. ARP4761 FHA/PSSA aşamalarında “ölçüm doğrulanmamış” bir donanım performansı argüman olarak kullanılamaz.</p>
+
+<h3 id="aviyonik-uut-üreticisi-için-kontrol-listesi">Aviyonik UUT üreticisi için kontrol listesi</h3>
+
+<ol>
+  <li>
+<strong>Default ILAC G8’i seçin</strong>, müşteri Z540.3 isterse iki sütunlu rapor verin. Eklemeyi (genişletmeyi) hiçbir koşulda kullanmayın.</li>
+  <li>
+<strong>Sinyal üreticilerini akredite labda kalibre ettirin</strong>, datasheet spec’ini sadece son çare olarak kullanın.</li>
+  <li>
+<strong>Spec geçerlilik kapsamını okuyun</strong>: sıcaklık, takvim, ısınma, frekans, seviye. Lab koşullarınız dışındaysa ek bileşen ekleyin.</li>
+  <li>
+<strong>Bütçeyi tek satıra düşürmeyin</strong>: çözünürlük, RF kablolama, multipath, UUT tempco — hepsi aviyonikte kayda değer katkı verir.</li>
+  <li>
+<strong>Üç katmanlı koruma</strong>: tasarım hedefi &lt; kabul aralığı &lt; beyan toleransı. Tasarım marjı R&amp;D’nin işidir, ölçüm marjı sizin işiniz.</li>
+  <li>
+<strong>TUR yeterli sayılmaz</strong>: TUR=14 olsa bile guard band uygulayın. TUR &lt; 4 olursa ya bütçeyi düşürün ya beyanı gevşetin — denetimde “işte böyle çıkıyor” demek geçerli savunma değil.</li>
+  <li>
+<strong>Bütçeyi konfigürasyon yönetimi altına alın</strong>: revizyon, gerekçe, ek belgeler. Akreditasyon ve sertifikasyon denetiminde her satır sorulur.</li>
+</ol>
+
+<blockquote>
+  <p><strong>Akılda kalsın — UUT üreticisi için altın kural:</strong></p>
+  <ul>
+    <li>Risk size ait → belirsizlik <strong>çıkarılır</strong>, eklenmez.</li>
+    <li>Datasheet spec değil, akredite kalibrasyon belgesi.</li>
+    <li>Spec geçerlilik kapsamı dışındaysa, ek bileşen.</li>
+    <li>Tasarım hedefi, kabul aralığı ve beyan toleransı <strong>üç ayrı sayıdır</strong>; arada para kaybedersiniz, kaybetmek zorundasınız.</li>
+    <li>TUR ≥ 4 yeterli değil; PFA hesaplı guard band uygulayın.</li>
+  </ul>
+</blockquote>
+
+<hr>
+
+<h2 id="yedi-pratik-tavsiye">Yedi Pratik Tavsiye</h2>
+
+<p>Yazıyı bir el kitabına dönüştürelim. Yarın işe gittiğinizde uygulayabileceğiniz somut yedi madde:</p>
+
+<ol>
+  <li>
+    <p><strong>Belirsizlik bütçesini test prosedürünün parçası yapın.</strong> Test belgesinin içine “belirsizlik bütçesi” başlıklı bir bölüm koyun. Sonradan eklenen bütçe çoğunlukla eksik kalır.</p>
+  </li>
+  <li>
+    <p><strong>Tek ölçüm yapmayın.</strong> En az 10 tekrar ölçüm. Mümkünse iki farklı operatör, iki farklı gün. Kıdemli mühendis “bir kez ölçtüm geçti” derse, “tekrar yapalım” deyin.</p>
+  </li>
+  <li>
+    <p><strong>Kalibrasyon belgelerini saklayın.</strong> Her cihazın izlenebilirlik zincirinde TÜRKAK akreditasyonlu bir laboratuvarın belgesi olmalı. Belge numaralarını test belgesine yazın. Akreditasyon denetiminde her birinin sorulması olası.</p>
+  </li>
+  <li>
+    <p><strong>İlişkili kaynakları arayın.</strong> Aynı kalibratörden iki cihaz besleniyorsa, sertifika belirsizlikleri ilişkili. Aynı oda, aynı kullanıcı, aynı kablolar; bunlar ilişki yaratır. Bağımsızlık varsayımı doğal değildir, doğru olduğunu göstermek size düşer.</p>
+  </li>
+  <li>
+    <p><strong>PDF varsayımlarını yazılı gerekçelendirin.</strong> “Düz dağılım kullandım çünkü üretici belirtmedi” gibi bir not her satırın yanında olsun.</p>
+  </li>
+  <li>
+    <p><strong>TUR ≥ 4 yeterli demeyin.</strong> Yanlış kabul olasılığını hesaplayın. Z540.3 6. yöntem ya da ILAC G8 ile güvenlik payı ekleyin.</p>
+  </li>
+  <li>
+    <p><strong>Sonucu doğru ifade edin.</strong> “Geçti” yerine: “9,999889 V, U = 56 µV (k=2). Tolerans 10,000 V ± 100 µV. Sonuç: tolerans içinde, güvenlik payı içinde.” Sayı + birim + belirsizlik + k dörtlüsü eksik olduğunda rapor da eksik.</p>
+  </li>
+</ol>
+
+<hr>
+
+<h2 id="hızlı-referans-kartı">Hızlı Referans Kartı</h2>
+
+<p>Bu bölümü ayrı bir sayfaya yazdırıp masanızın üstüne koyabilirsiniz. Belirsizlik bütçesi yaparken sürekli geri dönülen şablon.</p>
+
+<h3 id="adım-adım-belirsizlik-hesabı">Adım adım belirsizlik hesabı</h3>
+
+<ol>
+  <li>Ölçtüğünüz büyüklüğün <strong>bileşenlerini listeleyin</strong> (Tip A + Tip B kaynakları).</li>
+  <li>Her bileşen için <strong>standart belirsizliği</strong> (u) hesaplayın:
+    <ul>
+      <li>Tip A: birden fazla ölçüm → s/√n</li>
+      <li>Tip B: aralığı dağılım faktörüne böl</li>
+    </ul>
+  </li>
+  <li>
+<strong>Birleşik belirsizlik:</strong> u = √(Σ uᵢ²)</li>
+  <li>
+<strong>Genişletilmiş belirsizlik:</strong> U = k × u (genelde k = 2)</li>
+  <li>
+<strong>Sonucu yazın:</strong> “X = (değer ± U) birim, k = 2”</li>
+  <li>
+<strong>TUR kontrol edin:</strong> TUR = Tolerans / U; gerekirse güvenlik payı uygulayın.</li>
+</ol>
+
+<h3 id="aralık--standart-belirsizlik-dönüşüm-tablosu">Aralık → standart belirsizlik dönüşüm tablosu</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Veri kaynağı</th>
+      <th>Standart belirsizlik formülü</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Sertifika “U, k=2”</td>
+      <td>u = U / 2</td>
+    </tr>
+    <tr>
+      <td>Sertifika “U, k=3”</td>
+      <td>u = U / 3</td>
+    </tr>
+    <tr>
+      <td>Üretici spec “±a” (bilgi yok)</td>
+      <td>u = a / √3</td>
+    </tr>
+    <tr>
+      <td>“Merkez yakını daha olası”</td>
+      <td>u = a / √6</td>
+    </tr>
+    <tr>
+      <td>Termostat dalgalanması</td>
+      <td>u = a / √2</td>
+    </tr>
+    <tr>
+      <td>Tip A: n ölçüm, ortalama raporlanır</td>
+      <td>u = s / √n</td>
+    </tr>
+    <tr>
+      <td>Tip A: tek ölçüm raporlanır</td>
+      <td>u = s</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="karar-kuralı">Karar kuralı</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>TUR (Tolerans / U)</th>
+      <th>Yaklaşık PFA</th>
+      <th>Yapılacak</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>≥ 10</td>
+      <td>≤ %0,1</td>
+      <td>Sorunsuz</td>
+    </tr>
+    <tr>
+      <td>≥ 4</td>
+      <td>≤ %1,5</td>
+      <td>Z540.3 sınırı, dikkat</td>
+    </tr>
+    <tr>
+      <td>2–4</td>
+      <td>%2–8</td>
+      <td>Güvenlik payı şart</td>
+    </tr>
+    <tr>
+      <td>&lt; 2</td>
+      <td>%8+</td>
+      <td>Belirsizliği düşür ya da toleransı gevşet</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="akreditasyon-denetiminde-sorulanlar">Akreditasyon denetiminde sorulanlar</h3>
+
+<ul>
+  <li>Her cihazın izlenebilirlik zinciri belge numarası var mı?</li>
+  <li>Tip B bileşenleri için PDF varsayımı <strong>yazılı gerekçesi</strong> var mı?</li>
+  <li>Bağımsızlık varsayımı kontrol edildi mi (aynı kalibratör, aynı operatör)?</li>
+  <li>Tip A ölçümleri arasında koşullar gerçekten yenilendi mi?</li>
+  <li>TUR &lt; 4 ise PFA hesabı belgelenmiş mi?</li>
+  <li>Sonuç raporu “değer + birim + U + k” dörtlüsünü içeriyor mu?</li>
+</ul>
+
+<h3 id="belirsizlik-bütçesi-şablonu-kopyala-doldur">Belirsizlik bütçesi şablonu (kopyala-doldur)</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Kaynak</th>
+      <th>Aralık</th>
+      <th>Dağılım</th>
+      <th>Bölme</th>
+      <th>u (birim)</th>
+      <th>u²</th>
+      <th>Katkı %</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>1</td>
+      <td>(örn. kalibrasyon belgesi)</td>
+      <td>± …</td>
+      <td>normal</td>
+      <td>2</td>
+      <td>…</td>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+    <tr>
+      <td>2</td>
+      <td>(örn. çözünürlük)</td>
+      <td>± …</td>
+      <td>düz</td>
+      <td>√3</td>
+      <td>…</td>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+    <tr>
+      <td>3</td>
+      <td>(örn. sıcaklık etkisi)</td>
+      <td>± …</td>
+      <td>düz</td>
+      <td>√3</td>
+      <td>…</td>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+    <tr>
+      <td>4</td>
+      <td>(örn. drift)</td>
+      <td>± …</td>
+      <td>düz</td>
+      <td>√3</td>
+      <td>…</td>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+    <tr>
+      <td>5</td>
+      <td>(Tip A, n ölçüm)</td>
+      <td>s = …</td>
+      <td>normal</td>
+      <td>√n</td>
+      <td>…</td>
+      <td>…</td>
+      <td>…</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td><strong>Birleşik (u)</strong></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><strong>√Σ</strong></td>
+      <td><strong>= ?</strong></td>
+      <td>%100</td>
+    </tr>
+    <tr>
+      <td> </td>
+      <td><strong>Genişletilmiş (U, k=2)</strong></td>
+      <td> </td>
+      <td> </td>
+      <td> </td>
+      <td><strong>2u</strong></td>
+      <td> </td>
+      <td> </td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Tabloyu doldurduktan sonra “Katkı %” sütunu hangi bileşenin en çok katkıyı verdiğini gösterir; iyileştirmeye en büyük yüzdeden başlayın.</p>
+
+<hr>
+
+<h2 id="sonuç">Sonuç</h2>
+
+<p>GUM teorik temeli kuruyor, <strong>F eki</strong> günlük ölçüm yapan mühendise yönelik en pratik bölüm. NCSLI RP-12 GUM’u günlük dile çeviriyor, somut tablo ve şablonlar veriyor. ANSI Z540.3 ile birleşince kalibrasyon laboratuvarlarının uyması gereken kurallar bütünü ortaya çıkıyor.</p>
+
+<p>Türkiye’de uçak elektroniği (TUSAS, BAYKAR), savunma (ASELSAN, ROKETSAN), otomotiv (Togg ve tedarikçileri) ve medikal cihaz alanında bu disiplin yavaş yavaş zorunlu hale geliyor. Akreditasyon denetimleri sertleşiyor, müşteriler belirsizlik bütçesini bir formalite değil mühendislik ürünü olarak istiyor. Aviyonik UUT üreticisi konumunda olanlar için ek bir disiplin var: belirsizlik daima toleranstan <strong>çıkarılır</strong>, üç katmanlı koruma (tasarım hedefi → kabul aralığı → beyan toleransı) standart pratiktir, ve bütün bütçe konfigürasyon yönetimi altında izlenebilir olmalıdır.</p>
+
+<p>Bir test mühendisinin işi sadece sayı üretmek değil. Sayının yanına eklenecek “± şu kadar” değerini de üretmek. Bu olmadan “geçti” sözünün ölçüsel bir karşılığı yok; sadece bir tahmin.</p>
+
+<p>Bir sonraki yazıda aynı problemleri <strong>Monte Carlo simülasyonu</strong> ile çözeceğiz. Doğrusal olmayan ölçüm modellerinde (radyo frekans güç ölçümü, dinamik basınç gibi) klasik kareli toplam yaklaşımı yetersiz kalır; bilgisayarda 100.000 simülasyon yaparak dağılımı doğrudan üretmek gerekir.</p>
+
+<hr>
+
+<h2 id="kaynaklar">Kaynaklar</h2>
+
+<ul>
+  <li><a href="https://www.bipm.org/documents/20126/2071204/JCGM_100_2008_E.pdf">JCGM 100:2008 — Ölçüm Belirsizliğinin İfadesi Kılavuzu (BIPM PDF)</a></li>
+  <li><a href="https://www.bipm.org/documents/20126/2071204/JCGM_101_2008_E.pdf">JCGM 101:2008 — Monte Carlo ile Belirsizlik Dağılımı (Ek 1)</a></li>
+  <li><a href="https://www.bipm.org/documents/20126/2071204/JCGM_GUM_6_2020.pdf">JCGM GUM-6:2020 — Ölçüm Modelleri Geliştirme ve Kullanma</a></li>
+  <li><a href="https://www.iso.org/sites/JCGM/GUM/JCGM100/C045315e-html/C045315e_FILES/MAIN_C045315e/AF_e.html">GUM F Eki — Belirsizlik Bileşenlerini Hesaplamak için Pratik Rehber (HTML)</a></li>
+  <li><a href="https://www.iso.org/sites/JCGM/GUM/JCGM100/C045315e-html/C045315e_FILES/MAIN_C045315e/AH_e.html">GUM H Eki — Sayısal Örnekler (HTML)</a></li>
+  <li><a href="https://ncsli.org/store/viewproduct.aspx?id=16960491">NCSLI RP-12: Ölçüm Belirsizliklerini Belirleme ve Raporlama (2013)</a></li>
+  <li><a href="https://www.isobudgets.com/pdf/uncertainty-guides/ea-4-02-m-2013-expression-of-the-uncertainty-of-measurement-in-calibration.pdf">EA-4/02 M:2013 — Avrupa Kalibrasyon Belirsizliği Rehberi</a></li>
+  <li><a href="https://ilac.org/publications-and-resources/ilac-guidance-series/">ILAC G8:09/2019 — Uygunluk Beyanı Kuralları için Rehber</a></li>
+  <li><a href="https://mhforce.com/wp-content/uploads/2021/04/TUR-is-not-enough-1-1.pdf">Henry Zumbrun — TUR=4 Neden Yeterli Değil (Morehouse, 2021)</a></li>
+  <li><a href="https://incompliancemag.com/using-welch-satterthwaite-formula-in-uncertainty-analysis/">Welch-Satterthwaite Formülü Pratik Açıklaması (In Compliance Magazine)</a></li>
+  <li><a href="https://www.isobudgets.com/calculating-effective-degrees-of-freedom/">Etkin Serbestlik Derecesi Hesabı (ISOBudgets)</a></li>
+  <li><a href="https://www.isobudgets.com/guard-banding-how-to-take-uncertainty-into-account/">Güvenlik Payı (Guard Band) Açıklaması (ISOBudgets)</a></li>
+  <li><a href="https://www.fluke.com/en-us/learn/blog/pressure-calibration/guide-determining-pressure-measurement-uncertainty">Basınç Ölçüm Belirsizliği Rehberi (Fluke Calibration)</a></li>
+  <li><a href="https://www.rtca.org/training-courses/do-254-design-assurance-guidance-for-airborne-electronic-hardware/">RTCA DO-254 — Aviyonik Donanım Tasarım Güvencesi Rehberi</a></li>
+  <li><a href="https://www.sae.org/standards/content/arp4761/">SAE ARP4761 — Sivil Hava Sistemleri Güvenlik Değerlendirme Rehberi</a></li>
+  <li><a href="https://www.ume.tubitak.gov.tr/">TÜBİTAK UME — Ulusal Metroloji Enstitüsü</a></li>
+  <li><a href="https://www.turkak.org.tr/">TÜRKAK — Türk Akreditasyon Kurumu</a></li>
+</ul>
+
+          </div>
+        </div>
+
+        <nav class="post-nav" aria-label="Yazı navigasyonu">
+          
+          <a class="post-nav__item post-nav__item--prev" href="/2026/04/14/operasyonel-arastirma-yontemleri.html">
+            <span class="post-nav__direction">← Önceki yazı</span>
+            <span class="post-nav__title">Yöneylem Araştırması Yöntemleri: Kesin ve Metasezgisel Yaklaşımlar</span>
+            <span class="post-nav__date">Nis 2026</span>
+          </a>
+          
+          
+          <a class="post-nav__item post-nav__item--next" href="/2026/05/07/kalibrasyon-zincirinin-tepesi-birincil-standartlar.html">
+            <span class="post-nav__direction">Sonraki yazı →</span>
+            <span class="post-nav__title">Saatçinin Saatini Kim Kalibre Eder? Kalibrasyon Zincirinin Tepesi</span>
+            <span class="post-nav__date">May 2026</span>
+          </a>
+          
+        </nav>
+
+        <div class="clearfix" id="disqus_thread"></div>
+          <script>
+            (function () {
+              var loaded = false;
+              function loadDisqus() {
+                if (loaded) return;
+                loaded = true;
+                var d = document, s = d.createElement('script');
+                s.src = 'https://karaman-dev.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+              }
+              if ('IntersectionObserver' in window) {
+                var observer = new IntersectionObserver(function (entries) {
+                  if (entries[0].isIntersecting) {
+                    loadDisqus();
+                    observer.disconnect();
+                  }
+                }, { rootMargin: '200px' });
+                observer.observe(document.getElementById('disqus_thread'));
+              } else {
+                loadDisqus();
+              }
+            })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+
+<footer class="footer-modern">
+  <div class="footer-main">
+    <div class="container">
+      <div class="row">
+
+        <!-- About column -->
+        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+          <h5 class="footer-heading">M. Serdar Karaman</h5>
+          <p class="footer-description">Aviyonik yazılım, DO-178C ve emniyet kritik mühendislik üzerine sahadan notlar.</p>
+        </div>
+
+        <!-- Quick links column -->
+        <div class="col-lg-2 col-md-6 mb-4 mb-lg-0 offset-lg-1">
+          <h5 class="footer-heading">Bağlantılar</h5>
+          <ul class="footer-links">
+            <li><a href="/">Ana sayfa</a></li>
+            <li><a href="/hakkimda">Hakkımda</a></li>
+            <li><a href="/posts">Yazılar</a></li>
+            <li><a href="/contact">İletişim</a></li>
+          </ul>
+          <h5 class="footer-heading mt-3">Projeler</h5>
+          <ul class="footer-links">
+            <li><a href="https://karaman.dev/games" target="_blank" rel="noopener">Oyunlar</a></li>
+            <li><a href="https://karaman.dev/or-araclari" target="_blank" rel="noopener">OR Araçları</a></li>
+          </ul>
+        </div>
+
+        <!-- Social column -->
+        <div class="col-lg-4 col-md-12 mb-0 offset-lg-1">
+          <h5 class="footer-heading">İletişim</h5>
+          <ul class="footer-social list-inline">
+            
+            <li class="list-inline-item">
+              <a href="mailto:%73%65%72%64%61%72@%6B%61%72%61%6D%61%6E.%64%65%76" aria-label="E-posta">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              </a>
+            </li>
+            
+            
+            <li class="list-inline-item">
+              <a href="https://github.com/Mavrikant" aria-label="GitHub" target="_blank" rel="noopener">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"></path></svg>
+              </a>
+            </li>
+            
+            
+            <li class="list-inline-item">
+              <a href="https://www.linkedin.com/in/mserdarkaraman" aria-label="LinkedIn" target="_blank" rel="noopener">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+              </a>
+            </li>
+            
+            
+            
+            
+            
+            <li class="list-inline-item">
+              <a href="https://www.youtube.com/channel/UCIlBH9QynIkHxX8uiY0UEMQ" aria-label="YouTube" target="_blank" rel="noopener">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20.06 12 20.06 12 20.06s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"></path><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"></polygon></svg>
+              </a>
+            </li>
+            
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6 text-center text-md-left">
+          <p class="copyright mb-0">© 2026 M. Serdar Karaman. Tüm hakları saklıdır.</p>
+        </div>
+        <div class="col-md-6 text-center text-md-right mt-2 mt-md-0">
+          <a href="#page-top" class="back-to-top" aria-label="Başa dön">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"></polyline></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  
+<div id="bayram-splash" class="bayram-splash" data-theme="dark" role="dialog" aria-modal="true" aria-labelledby="bayram-splash-title" aria-describedby="bayram-splash-subtitle" hidden>
+  <div class="bayram-splash__backdrop" data-bayram-close="backdrop"></div>
+
+  <div class="bayram-splash__panel" role="document">
+    <button type="button" class="bayram-splash__close" aria-label="Kapat" data-bayram-close="button">
+      <svg width="18" height="18" viewbox="0 0 18 18" fill="none" aria-hidden="true">
+        <path d="M3 3 L15 15 M15 3 L3 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"></path>
+      </svg>
+    </button>
+
+    <div class="bayram-splash__status" aria-hidden="true">
+      <div class="bayram-splash__status-left">
+        <span class="bayram-splash__pip"></span>
+        <span>karaman.dev</span>
+        <span class="bayram-splash__sep">/</span>
+        <span class="bayram-splash__status-dim">bayram</span>
+        <span class="bayram-splash__sep">/</span>
+        <span class="bayram-splash__status-faint">lang · tr / en</span>
+      </div>
+      <div class="bayram-splash__status-right">
+        <span class="bayram-splash__status-faint">REF · BAYRAM-2026</span>
+      </div>
+    </div>
+
+    <div class="bayram-splash__ticks" aria-hidden="true">
+      <span class="bayram-splash__tick bayram-splash__tick--tl"></span>
+      <span class="bayram-splash__tick bayram-splash__tick--tr"></span>
+      <span class="bayram-splash__tick bayram-splash__tick--bl"></span>
+      <span class="bayram-splash__tick bayram-splash__tick--br"></span>
+    </div>
+
+    <div class="bayram-splash__body">
+      <div class="bayram-splash__art" aria-hidden="true">
+        <svg viewbox="0 0 360 360" width="220" height="220" role="img" aria-label="Hilâl ve yıldız">
+          <defs>
+            <mask id="bayram-crescent-mask" maskunits="userSpaceOnUse">
+              <rect x="0" y="0" width="360" height="360" fill="black"></rect>
+              <circle cx="170" cy="180" r="120" fill="white"></circle>
+              <circle class="bayram-splash__mask-inner" cx="208" cy="180" r="120" fill="black"></circle>
+            </mask>
+            <pattern id="bayram-pcb" width="22" height="22" patternunits="userSpaceOnUse">
+              <circle cx="3" cy="3" r="0.9" fill="rgba(8,22,30,0.55)"></circle>
+              <circle cx="19" cy="19" r="0.7" fill="rgba(8,22,30,0.4)"></circle>
+              <circle cx="19" cy="3" r="0.5" fill="rgba(8,22,30,0.28)"></circle>
+              <circle cx="3" cy="19" r="0.5" fill="rgba(8,22,30,0.28)"></circle>
+              <path d="M3 3 L3 11 L11 11 L11 3 M11 11 L19 11 L19 19 M3 19 L3 11" stroke="rgba(8,22,30,0.32)" stroke-width="0.4" fill="none"></path>
+            </pattern>
+          </defs>
+
+          <g mask="url(#bayram-crescent-mask)">
+            <circle cx="170" cy="180" r="120" class="bayram-splash__crescent-fill"></circle>
+            <rect x="50" y="60" width="240" height="240" fill="url(#bayram-pcb)"></rect>
+
+            <g class="bayram-splash__net" stroke="rgba(8,22,30,0.55)" stroke-width="0.9" fill="none">
+              <line x1="86" y1="129" x2="120" y2="106"></line>
+              <line x1="86" y1="129" x2="116" y2="139"></line>
+              <line x1="86" y1="129" x2="116" y2="180"></line>
+              <line x1="79" y1="174" x2="116" y2="139"></line>
+              <line x1="79" y1="174" x2="116" y2="180"></line>
+              <line x1="79" y1="174" x2="116" y2="220"></line>
+              <line x1="86" y1="228" x2="116" y2="180"></line>
+              <line x1="86" y1="228" x2="116" y2="220"></line>
+              <line x1="86" y1="228" x2="120" y2="252"></line>
+              <line x1="120" y1="106" x2="151" y2="132"></line>
+              <line x1="116" y1="139" x2="151" y2="132"></line>
+              <line x1="116" y1="139" x2="148" y2="180"></line>
+              <line x1="116" y1="180" x2="148" y2="180"></line>
+              <line x1="116" y1="180" x2="151" y2="228"></line>
+              <line x1="116" y1="220" x2="148" y2="180"></line>
+              <line x1="116" y1="220" x2="151" y2="228"></line>
+              <line x1="120" y1="252" x2="151" y2="228"></line>
+            </g>
+            <g class="bayram-splash__nodes">
+              <circle cx="86" cy="129" r="3"></circle>
+              <circle cx="79" cy="174" r="3"></circle>
+              <circle cx="86" cy="228" r="3"></circle>
+              <circle cx="120" cy="106" r="3"></circle>
+              <circle cx="116" cy="139" r="3"></circle>
+              <circle cx="116" cy="180" r="3"></circle>
+              <circle cx="116" cy="220" r="3"></circle>
+              <circle cx="120" cy="252" r="3"></circle>
+              <circle cx="151" cy="132" r="3"></circle>
+              <circle cx="148" cy="180" r="3"></circle>
+              <circle cx="151" cy="228" r="3"></circle>
+            </g>
+
+            <g class="bayram-splash__hex" font-family="'JetBrains Mono', monospace" fill="rgba(8,22,30,0.7)">
+              <text x="86" y="100" font-size="10" letter-spacing="0.1em">0xAI</text>
+              <text x="100" y="270" font-size="8" letter-spacing="0.15em">01010111</text>
+              <text x="70" y="195" font-size="7" letter-spacing="0.12em">v1.447</text>
+            </g>
+          </g>
+
+          <path class="bayram-splash__star" d="M 280 168 L 290 188 L 312 191 L 296 207 L 300 229 L 280 219 L 260 229 L 264 207 L 248 191 L 270 188 Z"></path>
+        </svg>
+      </div>
+
+      <p class="bayram-splash__eyebrow">01 / Tebrik · Kurban Bayramı · 1447 H</p>
+
+      <h2 id="bayram-splash-title" class="bayram-splash__title">
+        Kurban Bayramınız<br>mübarek olsun.
+      </h2>
+
+      <div class="bayram-splash__divider" aria-hidden="true"></div>
+
+      <p id="bayram-splash-subtitle" class="bayram-splash__subtitle">
+        <em>Eid al‑Adha Mubarak</em>
+      </p>
+
+      <p class="bayram-splash__wish">
+        Sevdiklerinizle birlikte sağlık, huzur<br>ve nice güzelliklere.
+      </p>
+
+      <div class="bayram-splash__signature">
+        <span class="bayram-splash__sig-rule"></span>
+        <span class="bayram-splash__sig-name">karaman.dev</span>
+        <span class="bayram-splash__sig-rule"></span>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <script src="/assets/scripts.js"></script>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YDEV31NZ5J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YDEV31NZ5J');
+</script>
+
+
+</body>
+</html>
