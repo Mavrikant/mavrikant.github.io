@@ -1,4 +1,288 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="tr"><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://karaman.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://karaman.dev/" rel="alternate" type="text/html" hreflang="tr" /><updated>2026-05-26T14:59:29+00:00</updated><id>https://karaman.dev/feed.xml</id><title type="html">M. Serdar Karaman</title><subtitle>Aviyonik yazılım, DO-178C ve emniyet kritik mühendislik üzerine sahadan notlar.</subtitle><author><name>M. Serdar Karaman</name></author><entry xml:lang="tr"><title type="html">Bandpass Sampling: 1 GHz Sinyali 50 MHz Clock ile Örneklemek</title><link href="https://karaman.dev/2026/05/21/bandpass-sampling.html" rel="alternate" type="text/html" title="Bandpass Sampling: 1 GHz Sinyali 50 MHz Clock ile Örneklemek" /><published>2026-05-21T09:00:00+00:00</published><updated>2026-05-21T09:00:00+00:00</updated><id>https://karaman.dev/2026/05/21/bandpass-sampling</id><content type="html" xml:base="https://karaman.dev/2026/05/21/bandpass-sampling.html"><![CDATA[<p>Mühendislik mülakatlarında klasik bir soru vardır: <em>“1090 MHz’deki ADS-B sinyalini sayısal olarak yakalamak istiyorsun. Hangi hızda ADC kullanırsın?”</em></p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="tr"><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://karaman.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://karaman.dev/" rel="alternate" type="text/html" hreflang="tr" /><updated>2026-05-26T15:24:07+00:00</updated><id>https://karaman.dev/feed.xml</id><title type="html">M. Serdar Karaman</title><subtitle>Aviyonik yazılım, DO-178C ve emniyet kritik mühendislik üzerine sahadan notlar.</subtitle><author><name>M. Serdar Karaman</name></author><entry xml:lang="tr"><title type="html">Sistem Mühendisliği Nedir?</title><link href="https://karaman.dev/2026/05/26/sistem-muhendisligi-nedir.html" rel="alternate" type="text/html" title="Sistem Mühendisliği Nedir?" /><published>2026-05-26T09:00:00+00:00</published><updated>2026-05-26T09:00:00+00:00</updated><id>https://karaman.dev/2026/05/26/sistem-muhendisligi-nedir</id><content type="html" xml:base="https://karaman.dev/2026/05/26/sistem-muhendisligi-nedir.html"><![CDATA[<p>Modern bir yolcu uçağında milyonlarca parça, onlarca farklı mühendislik disiplini ve binlerce gereksinim bir arada bulunur. Aerodinamikçi kanadı, yazılımcı uçuş kontrol bilgisayarını, elektronik mühendisi aviyonik veri yolunu, malzeme mühendisi gövde alaşımını tasarlar. Hiçbiri tek başına diğerinin işini bilmek zorunda değildir. Peki bütün bu parçaların <em>birlikte</em> güvenli bir şekilde uçan tek bir uçak oluşturduğundan kim emin olur?</p>
+
+<p>İşte bu sorunun cevabı <strong>sistem mühendisliğidir</strong>. Sistem mühendisi, tek tek parçaları tasarlayan kişi değil; parçaların oluşturduğu <em>bütünün</em> doğru çalışmasından sorumlu olan kişidir.</p>
+
+<p>Daha önce <a href="/2022/04/29/yazilim-sistem-muhendisligi.html">Yazılım Sistem Mühendisliği</a> yazısında bu disiplinin yazılıma özel halini ele almıştık. Bu yazıda ise konuya bir adım geri çekilip sistem mühendisliğinin genel resmine bakacağız: ne olduğuna, neden gerekli olduğuna, yaşam döngüsünün nasıl yönetildiğine ve hangi standartların bu işi disipline ettiğine.</p>
+
+<hr />
+
+<h2 id="önce-sistem-nedir">Önce “Sistem” Nedir?</h2>
+
+<p>Sistem mühendisliğini anlamak için önce <strong>sistem</strong> kelimesinin mühendislikteki anlamını netleştirmek gerekir. Sistem; ortak bir amaca hizmet etmek üzere bir araya gelmiş, birbiriyle etkileşen parçaların oluşturduğu bütündür. Bu parçalar yalnızca donanım değildir; <strong>donanım, yazılım, insanlar, prosedürler, veri ve tesisler</strong> birlikte bir sistemi oluşturabilir.</p>
+
+<p>Sistemin en kritik özelliği, parçaların toplamından <em>fazlası</em> olmasıdır. Bir sistemin sergilediği ama hiçbir bileşeninde tek başına bulunmayan özelliklere <strong>beliren özellikler</strong> (<em>emergent properties</em>) denir:</p>
+
+<ul>
+  <li>Bir uçağın “uçabilmesi” hiçbir tek parçasının özelliği değildir; parçaların doğru birleşiminden doğar.</li>
+  <li>Bir sistemin “emniyetli” veya “güvenli” olması, bütünsel bir niteliktir; tek bir vidaya bakarak ölçülemez.</li>
+  <li>Tam tersi de geçerlidir: Her bileşeni ayrı ayrı kusursuz çalışan bir sistem, arayüzlerdeki uyumsuzluk yüzünden bütün olarak başarısız olabilir.</li>
+</ul>
+
+<p>İşte sistem mühendisliği tam da bu <strong>bütünsel</strong> ve <strong>beliren</strong> özelliklerle ilgilenir. Tek tek bileşenlerin mükemmelliği değil, onların birlikte çalıştığında ortaya çıkardığı davranış esas konudur.</p>
+
+<hr />
+
+<h2 id="sistem-mühendisliğinin-tanımı">Sistem Mühendisliğinin Tanımı</h2>
+
+<p>Alanın en yetkili kurumu olan <strong>INCOSE</strong> (International Council on Systems Engineering) sistem mühendisliğini şöyle tanımlar:</p>
+
+<blockquote>
+  <p><em>Sistem mühendisliği; mühendislik ürünü sistemlerin başarılı bir şekilde gerçekleştirilmesini, kullanılmasını ve hizmetten çıkarılmasını sağlamak amacıyla sistem ilke ve kavramlarını, bilimsel, teknolojik ve yönetimsel yöntemlerle birleştiren disiplinler ötesi ve bütünleştirici bir yaklaşımdır.</em></p>
+</blockquote>
+
+<p>Bu tanımın iki anahtar kelimesi vardır:</p>
+
+<ul>
+  <li><strong>Disiplinler ötesi (transdisciplinary):</strong> Sistem mühendisi tek bir uzmanlık alanına gömülmez; mekanik, elektronik, yazılım, güvenilirlik, maliyet ve insan faktörleri gibi alanların <em>kesişiminde</em> çalışır.</li>
+  <li><strong>Bütünleştirici (integrative):</strong> Asıl görev, farklı uzmanların ürettiği parçaları tutarlı bir bütün hâlinde birleştirmek ve aralarındaki arayüzleri yönetmektir.</li>
+</ul>
+
+<p>Buna sıkça eşlik eden bir benzetme vardır: Uzmanlık mühendisleri (yazılımcı, elektronikçi, makineci) bir orkestranın enstrüman sanatçılarıysa, sistem mühendisi <strong>orkestra şefidir</strong>. Şef hiçbir enstrümanı en iyi çalan kişi değildir; ama bütünün uyum içinde, doğru tempoda ve doğru notalarla çalmasından sorumludur.</p>
+
+<hr />
+
+<h2 id="neden-sistem-mühendisliğine-i̇htiyaç-var">Neden Sistem Mühendisliğine İhtiyaç Var?</h2>
+
+<p>Küçük ve basit bir ürün için ayrı bir sistem mühendisliği faaliyetine ihtiyaç olmayabilir. Sistemler büyüdükçe, karmaşıklaştıkça ve disiplin sayısı arttıkça üç temel problem ortaya çıkar:</p>
+
+<ol>
+  <li><strong>Karmaşıklık:</strong> Bileşen sayısı arttıkça aralarındaki olası etkileşim sayısı <em>karesel</em> olarak büyür. On bileşenli bir sistemde 45 olası ikili arayüz vardır; yüz bileşende bu sayı 4950’ye çıkar. Kimse bu karmaşıklığı kafasında tutamaz; yönetilmesi gerekir.</li>
+  <li><strong>Disiplinler arası çatışma:</strong> Yazılımcının “kolay” dediği şey elektronikçi için imkânsız, ağırlık mühendisi için kabul edilemez olabilir. Bu çelişen kısıtların dengelenmesi (<em>trade-off</em>) gerekir.</li>
+  <li><strong>Hataların geç fark edilmesinin maliyeti:</strong> Bir hatayı gereksinim aşamasında yakalamakla sahada yakalamak arasında binlerce kat maliyet farkı vardır.</li>
+</ol>
+
+<p>Bu son madde, sistem mühendisliğinin varlık sebebini en çarpıcı biçimde özetler. Barry Boehm’in klasik çalışmaları ve NASA verileriyle desteklenen meşhur <strong>hata maliyeti tırmanması</strong> şöyledir:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Hatanın yakalandığı aşama</th>
+      <th>Göreceli düzeltme maliyeti</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Gereksinim analizi</td>
+      <td>1×</td>
+    </tr>
+    <tr>
+      <td>Tasarım</td>
+      <td>~5×</td>
+    </tr>
+    <tr>
+      <td>Kodlama / üretim</td>
+      <td>~10×</td>
+    </tr>
+    <tr>
+      <td>Test ve entegrasyon</td>
+      <td>~20–50×</td>
+    </tr>
+    <tr>
+      <td>Operasyon / saha</td>
+      <td>~100–1000×</td>
+    </tr>
+  </tbody>
+</table>
+
+<figure>
+  <img src="/img/posts/sistem-muhendisligi-hata-maliyeti.webp" alt="Hatanın yakalandığı aşamaya göre göreli düzeltme maliyetini gösteren, logaritmik ölçekli çubuk grafik" class="img-fluid rounded" />
+  <figcaption><strong>Şekil 1.</strong> Bir hatanın düzeltme maliyeti, yakalandığı aşama geciktikçe logaritmik olarak büyür: gereksinim aşamasında 1× olan maliyet, sistem sahaya çıktıktan sonra 100–1000× seviyesine tırmanır. Dikey eksen logaritmik ölçektedir; çubuklardaki bıyıklar literatürde verilen alt–üst aralığı gösterir.</figcaption>
+</figure>
+
+<p>Buradaki ders nettir: Sistem mühendisliği maliyetin <strong>büyük kısmının henüz harcanmadığı</strong>, fakat o maliyetin <strong>büyük kısmının taahhüt edildiği</strong> erken aşamalara yoğunlaşır. Yaşam döngüsünün ilk %15’inde verilen kararlar, toplam maliyetin yaklaşık %80’ini kilitler. Doğru yatırım yeri burasıdır.</p>
+
+<hr />
+
+<h2 id="sistem-mühendisliği-yaşam-döngüsü-v-modeli">Sistem Mühendisliği Yaşam Döngüsü: V Modeli</h2>
+
+<p>Sistem mühendisliği sürecini anlatmak için en yaygın kullanılan görsel, <strong>V modelidir</strong>. V’nin sol kolu yukarıdan aşağıya <strong>ayrıştırma ve tanımlama</strong> sürecini, sağ kolu ise aşağıdan yukarıya <strong>entegrasyon ve doğrulama</strong> sürecini temsil eder. V’nin tabanında ise gerçekleştirme (kodlama/üretim) yer alır.</p>
+
+<div class="mermaid">
+graph LR
+    A[İhtiyaç ve Konsept<br />ConOps] --&gt; B[Sistem<br />Gereksinimleri]
+    B --&gt; C[Sistem Mimarisi]
+    C --&gt; D[Alt Sistem /<br />Birim Tasarımı]
+    D --&gt; E[Gerçekleştirme<br />Kodlama / Üretim]
+    E --&gt; F[Birim<br />Doğrulama]
+    F --&gt; G[Entegrasyon<br />ve Test]
+    G --&gt; H[Sistem Doğrulama<br />Verification]
+    H --&gt; I[Onaylama ve Kabul<br />Validation]
+    A -. onaylanır .-&gt; I
+    B -. doğrulanır .-&gt; H
+    C -. doğrulanır .-&gt; G
+    D -. doğrulanır .-&gt; F
+</div>
+
+<p>Bu modelin en güçlü fikri, sol koldaki her seviyenin sağ kolda <strong>kendisine eşlenen bir doğrulama seviyesi</strong> olmasıdır:</p>
+
+<ul>
+  <li>Sistem gereksinimleri ↔ Sistem doğrulama testleri</li>
+  <li>Mimari tasarım ↔ Entegrasyon testleri</li>
+  <li>Birim tasarımı ↔ Birim testleri</li>
+</ul>
+
+<p>Yani bir gereksinim yazılırken daha o anda “bu gereksinimi <em>nasıl</em> doğrulayacağım?” sorusu sorulur. Doğrulanamayan bir gereksinim, kötü bir gereksinimdir. V modelinin yatay okları bu izlenebilirlik (<em>traceability</em>) ilişkisini gösterir.</p>
+
+<hr />
+
+<h2 id="temel-süreçler">Temel Süreçler</h2>
+
+<p>Modern sistem mühendisliği, <strong>ISO/IEC/IEEE 15288</strong> standardıyla resmî bir çerçeveye oturtulmuştur. Bu standart, sistem yaşam döngüsü süreçlerini dört grupta toplar: anlaşma süreçleri, organizasyonel proje destek süreçleri, teknik yönetim süreçleri ve teknik süreçler. Pratikte sistem mühendisinin günlük işini oluşturan <strong>teknik süreçler</strong> şunlardır:</p>
+
+<h3 id="gereksinim-mühendisliği">Gereksinim Mühendisliği</h3>
+
+<p>Her şey paydaşların ihtiyaçlarıyla başlar. Sistem mühendisi bu ihtiyaçları toplar, çelişkilerini çözer ve onları ölçülebilir, test edilebilir <strong>sistem gereksinimlerine</strong> dönüştürür. Gereksinimler genellikle bir hiyerarşi oluşturur:</p>
+
+<div class="mermaid">
+graph TD
+    S[Paydaş İhtiyaçları] --&gt; SR[Sistem Gereksinimleri]
+    SR --&gt; H[Donanım Gereksinimleri]
+    SR --&gt; Y[Yazılım Gereksinimleri]
+    SR --&gt; M[Mekanik Gereksinimler]
+    H --&gt; H1[Bileşen Gereksinimleri]
+    Y --&gt; Y1[Modül Gereksinimleri]
+</div>
+
+<p>İyi bir gereksinim; tek anlamlı, doğrulanabilir, ulaşılabilir ve izlenebilir olmalıdır. Gereksinimler genellikle iki kümeye ayrılır:</p>
+
+<ul>
+  <li><strong>Fonksiyonel gereksinimler:</strong> Sistemin <em>ne yapacağını</em> tanımlar (“Sistem, hedefe X saniye içinde kilitlenmelidir”).</li>
+  <li><strong>Fonksiyonel olmayan gereksinimler</strong> (<em>-ilities</em>): Sistemin <em>nasıl olacağını</em> tanımlar — güvenilirlik (<em>reliability</em>), kullanılabilirlik (<em>availability</em>), bakım yapılabilirlik (<em>maintainability</em>), emniyet (<em>safety</em>), güvenlik (<em>security</em>), performans, taşınabilirlik. Sistemlerin başarısı çoğu zaman bu niteliklerde gizlidir.</li>
+</ul>
+
+<h3 id="mimari-ve-tasarım-tanımı">Mimari ve Tasarım Tanımı</h3>
+
+<p>Gereksinimler belirlendikten sonra sistem mühendisi sistemin <strong>mimarisini</strong> kurar: hangi fonksiyon hangi bileşene atanacak, bileşenler hangi arayüzlerle konuşacak, veri nasıl akacak. Bu aşamada en kritik ürün <strong>arayüz kontrol belgeleridir</strong> (<em>interface control documents</em>, ICD). Sistemlerin çoğu, bileşenlerin içinde değil, bileşenler <em>arasındaki</em> arayüzlerde patlar.</p>
+
+<h3 id="sistem-analizi-ve-trade-study">Sistem Analizi ve Trade Study</h3>
+
+<p>Hiçbir tasarım kararı tek başına doğru ya da yanlış değildir; bir denge içerir. Daha hafif mi yoksa daha ucuz mu? Daha hızlı mı yoksa daha güç-verimli mi? Sistem mühendisi bu alternatifleri <strong>trade study</strong> (denge analizi) ile sistematik biçimde değerlendirir: kriterleri belirler, ağırlıklandırır, seçenekleri puanlar ve kararı <em>gerekçesiyle</em> kayıt altına alır.</p>
+
+<h3 id="entegrasyon-doğrulama-ve-onaylama">Entegrasyon, Doğrulama ve Onaylama</h3>
+
+<p>Bileşenler üretildikten sonra sıra V’nin sağ kolundaki birleştirme ve sınama sürecine gelir. Burada sistem mühendisliğinin belki de en sık karıştırılan iki kavramı devreye girer:</p>
+
+<ul>
+  <li><strong>Doğrulama (Verification) — “Sistemi doğru mu yaptık?”</strong> Ürünün belirlenmiş gereksinimlere uyup uymadığının kontrolüdür. Referans, yazılı gereksinim ve tasarım belgeleridir.</li>
+  <li><strong>Onaylama (Validation) — “Doğru sistemi mi yaptık?”</strong> Ürünün, gerçek kullanım ortamında paydaşın asıl ihtiyacını karşılayıp karşılamadığının gösterilmesidir.</li>
+</ul>
+
+<p>Bir sistem her gereksinimini eksiksiz karşılayıp (doğrulamayı geçip) yine de yanlış sistem olabilir — çünkü gereksinimlerin kendisi baştan yanlış yazılmış olabilir. İyi sistem mühendisliği her ikisini de güvenceye alır.</p>
+
+<h3 id="süreç-boyunca-yatay-faaliyetler">Süreç Boyunca Yatay Faaliyetler</h3>
+
+<p>Bu teknik süreçlere ek olarak, projenin tamamına yayılan yönetimsel faaliyetler vardır: <strong>risk yönetimi</strong>, <strong>konfigürasyon yönetimi</strong> (hangi versiyon, hangi değişiklik), <strong>izlenebilirlik yönetimi</strong> ve <strong>teknik gözden geçirmeler</strong> (SRR, PDR, CDR gibi kapı niteliğindeki tasarım gözden geçirmeleri).</p>
+
+<hr />
+
+<h2 id="standartlar-ve-çerçeveler">Standartlar ve Çerçeveler</h2>
+
+<p>Sistem mühendisliği, sektöre göre farklılaşan zengin bir standart ekosistemine sahiptir. Başlıcaları:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Standart / Çerçeve</th>
+      <th>Alan</th>
+      <th>Kapsam</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>**ISO/IEC/IEEE 15288**</td>
+      <td>Genel</td>
+      <td>Sistem yaşam döngüsü süreçlerinin temel standardı</td>
+    </tr>
+    <tr>
+      <td>**INCOSE SE Handbook** (v5, 2023)</td>
+      <td>Genel</td>
+      <td>Uygulamaya dönük en yaygın başvuru kaynağı</td>
+    </tr>
+    <tr>
+      <td>**NASA SE Handbook** (SP-2016-6105)</td>
+      <td>Uzay</td>
+      <td>NASA’nın sistem mühendisliği uygulama kılavuzu</td>
+    </tr>
+    <tr>
+      <td>**SAE ARP4754B** (2023)</td>
+      <td>Sivil havacılık</td>
+      <td>Uçak ve sistem geliştirme süreçleri</td>
+    </tr>
+    <tr>
+      <td>**DO-178C / DO-254**</td>
+      <td>Havacılık</td>
+      <td>Aviyonik yazılım / donanım geliştirme</td>
+    </tr>
+    <tr>
+      <td>**ISO 26262**</td>
+      <td>Otomotiv</td>
+      <td>Yol araçlarında fonksiyonel emniyet</td>
+    </tr>
+    <tr>
+      <td>**IEC 61508**</td>
+      <td>Endüstri</td>
+      <td>Genel fonksiyonel emniyet ana standardı</td>
+    </tr>
+    <tr>
+      <td>**CMMI**</td>
+      <td>Süreç olgunluğu</td>
+      <td>Geliştirme süreçlerinin olgunluk değerlendirmesi</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Tarihsel olarak alanın kökleri 1950–60’lı yıllarda ABD savunma ve uzay programlarına (örneğin <strong>MIL-STD-499</strong>) ve Bell Labs’in karmaşık telekomünikasyon projelerine dayanır. Apollo programı, sistem mühendisliğini bir disiplin olarak olgunlaştıran kilometre taşı kabul edilir.</p>
+
+<hr />
+
+<h2 id="belge-merkezliden-model-merkezliye-mbse">Belge Merkezliden Model Merkezliye: MBSE</h2>
+
+<p>Geleneksel sistem mühendisliği büyük ölçüde <strong>belge merkezlidir</strong>: yüzlerce sayfalık gereksinim dokümanları, Word ve Excel tablolarında yönetilen izlenebilirlik matrisleri. Bu yaklaşımın sorunu, belgelerin kolayca tutarsız hâle gelmesi ve büyük sistemlerde senkronizasyonun imkânsızlaşmasıdır.</p>
+
+<p><strong>Model Tabanlı Sistem Mühendisliği</strong> (<em>Model-Based Systems Engineering</em>, MBSE) bu soruna yanıttır. INCOSE’un tanımıyla MBSE; gereksinim, tasarım, analiz, doğrulama ve onaylama faaliyetlerini desteklemek için modellemenin, kavramsal tasarım aşamasından itibaren resmî olarak kullanılmasıdır.</p>
+
+<p>MBSE’de “tek doğru kaynak” artık belgeler değil, <strong>tutarlı bir sistem modelidir</strong>. Bu modelden gereksinim raporları, arayüz tanımları ve diyagramlar otomatik türetilir. Modelin standart dili çoğunlukla <strong>SysML</strong>‘dir (Systems Modeling Language); son yıllarda olgunlaşan <strong>SysML v2</strong>, dilin ifade gücünü ve araç birlikte çalışabilirliğini önemli ölçüde artırmıştır.</p>
+
+<p>Bu dönüşüm, <strong>dijital iplik</strong> (<em>digital thread</em>) ve <strong>dijital ikiz</strong> (<em>digital twin</em>) gibi kavramların da temelini oluşturur: Sistemin kavramdan operasyona kadar tüm yaşam döngüsünün dijital, izlenebilir ve simüle edilebilir bir kopyasının tutulması.</p>
+
+<hr />
+
+<h2 id="sistem-mühendisinin-rolü">Sistem Mühendisinin Rolü</h2>
+
+<p>Yaygın bir yanılgı, sistem mühendisinin “her şeyi en iyi bilen süper mühendis” olduğudur. Gerçekte iyi bir sistem mühendisi genellikle <strong>T biçimli</strong> bir profile sahiptir: Bir alanda derin uzmanlık (T’nin dikey çizgisi) ile birlikte birçok alana yayılan geniş bir kavrayış (T’nin yatay çizgisi).</p>
+
+<p>Sistem mühendisinin asıl katma değeri teknik değil, çoğu zaman <strong>bütünleştirici</strong> ve <strong>iletişimsel</strong> olmasıdır:</p>
+
+<ul>
+  <li>Farklı disiplinlerin dilini anlar ve aralarında tercümanlık yapar.</li>
+  <li>Bütünü görür; lokal optimizasyonun (bir bileşeni mükemmelleştirirken sistemi bozmanın) tuzağına düşmez.</li>
+  <li>Kararların <em>gerekçesini</em> (<em>rationale</em>) kayıt altına alır; “neden böyle yapıldı?” sorusunun cevabını yıllar sonrasına taşır.</li>
+  <li>Projenin <strong>teknik vicdanıdır</strong>: Takvim baskısı altında “bunu sonra hallederiz” denen riskleri görünür kılar.</li>
+</ul>
+
+<hr />
+
+<h2 id="sonuç">Sonuç</h2>
+
+<p>Sistem mühendisliği, parlak bileşenler üretmekle ilgili değildir; o bileşenlerin <strong>birlikte, doğru ve güvenli biçimde çalışan bir bütün</strong> oluşturmasını sağlamakla ilgilidir. Karmaşıklık arttıkça, başarısızlığın asıl kaynağı tek tek parçaların kalitesi değil, parçalar arasındaki arayüzler, yanlış anlaşılan gereksinimler ve geç fark edilen tutarsızlıklar olur.</p>
+
+<p>Bu yüzden sistem mühendisliği yatırımını yaşam döngüsünün başına — gereksinimlerin yazıldığı, mimarinin kurulduğu, doğrulama stratejisinin belirlendiği erken aşamalara — yoğunlaştırır. Hata maliyeti tablosunun acımasız matematiği bunu zorunlu kılar.</p>
+
+<p>İster bir uçak, ister bir otomobil, ister büyük ölçekli bir yazılım platformu geliştiriyor olun, soru hep aynıdır: <em>Parçaların hepsi bir araya geldiğinde gerçekten işe yarayacak mı?</em> Bu sorunun sorumluluğunu üstlenen kişi sistem mühendisidir.</p>
+
+<hr />
+
+<p><strong>Kaynaklar:</strong></p>
+
+<ul>
+  <li>INCOSE — <a href="https://www.incose.org/products-and-publications/se-handbook">Systems Engineering Handbook, 5th Edition</a> (Wiley, 2023).</li>
+  <li>ISO/IEC/IEEE 15288:2023 — <a href="https://www.iso.org/standard/81702.html">Systems and software engineering — System life cycle processes</a>.</li>
+  <li>NASA — <a href="https://www.nasa.gov/reference/systems-engineering-handbook/">Systems Engineering Handbook, NASA/SP-2016-6105 Rev2</a>.</li>
+  <li>Barry W. Boehm — <em>Software Engineering Economics</em> (Prentice Hall, 1981).</li>
+  <li>SAE International — <a href="https://www.sae.org/standards/content/arp4754b/">ARP4754B: Guidelines for Development of Civil Aircraft and Systems</a> (2023).</li>
+  <li>Object Management Group — <a href="https://www.omg.org/spec/SysML/">OMG Systems Modeling Language (SysML)</a>.</li>
+  <li>R. H. Thayer — “Software system engineering: a tutorial,” <em>IEEE Computer</em>, vol. 35, no. 4, pp. 68-73, March 2002, DOI: 10.1109/MC.2002.993773.</li>
+</ul>]]></content><author><name>M. Serdar Karaman</name></author><summary type="html"><![CDATA[Modern bir yolcu uçağında milyonlarca parça, onlarca farklı mühendislik disiplini ve binlerce gereksinim bir arada bulunur. Aerodinamikçi kanadı, yazılımcı uçuş kontrol bilgisayarını, elektronik mühendisi aviyonik veri yolunu, malzeme mühendisi gövde alaşımını tasarlar. Hiçbiri tek başına diğerinin işini bilmek zorunda değildir. Peki bütün bu parçaların birlikte güvenli bir şekilde uçan tek bir uçak oluşturduğundan kim emin olur?]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://karaman.dev/img/og-default.webp" /><media:content medium="image" url="https://karaman.dev/img/og-default.webp" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry xml:lang="tr"><title type="html">Bandpass Sampling: 1 GHz Sinyali 50 MHz Clock ile Örneklemek</title><link href="https://karaman.dev/2026/05/21/bandpass-sampling.html" rel="alternate" type="text/html" title="Bandpass Sampling: 1 GHz Sinyali 50 MHz Clock ile Örneklemek" /><published>2026-05-21T09:00:00+00:00</published><updated>2026-05-21T09:00:00+00:00</updated><id>https://karaman.dev/2026/05/21/bandpass-sampling</id><content type="html" xml:base="https://karaman.dev/2026/05/21/bandpass-sampling.html"><![CDATA[<p>Mühendislik mülakatlarında klasik bir soru vardır: <em>“1090 MHz’deki ADS-B sinyalini sayısal olarak yakalamak istiyorsun. Hangi hızda ADC kullanırsın?”</em></p>
 
 <p>Nyquist–Shannon teoremini hatırlayan herkes refleksle cevaplar: <em>“En az 2.18 GSPS.”</em> Mantıklı görünür: en yüksek frekansın iki katı. Cevap teknik olarak yanlış olmasa da, gerçek hayatta hiçbir ADS-B alıcısı 2 GSPS’lik bir ADC ile çalışmaz. Tipik bir donanım, 1090 MHz’in komşuluğundaki <strong>2 MHz</strong> civarındaki dar bandı 50 MSPS hatta daha yavaş clock ile örnekler — ve hiçbir şey kaybolmaz.</p>
 
@@ -5165,12 +5449,4 @@ Mevcut kodun yapısal iyileştirmelerini ve refaktoring tekniklerini ele alan bi
   <li><strong>“Test Driven Development: By Example” by Kent Beck:</strong> Test odaklı geliştirme yaklaşımını ve yazılım kalitesini artırmak için testlerin nasıl kullanılacağını anlatan bir kitap.</li>
   <li><strong>“Code Complete: A Practical Handbook of Software Construction” by Steve McConnell:</strong> Yazılım inşası sürecini ve yazılım geliştirme prensiplerini geniş bir yelpazede ele alan bu eser, yazılım mühendisleri için kapsamlı bir rehber niteliğindedir.</li>
   <li><strong>“Effective Debugging: 66 Specific Ways to Debug Software and Systems” by Diomidis Spinellis:</strong> Bu kitap, yazılım ve sistem hatalarını bulma ve düzeltme konusunda 66 etkili yöntem sunar. Gerçek dünya örnekleriyle dolu bu kitap, hata ayıklama sürecini daha verimli hale getirmek için pratik ipuçları sağlar.</li>
-</ol>]]></content><author><name>M. Serdar Karaman</name></author><summary type="html"><![CDATA[Türkiye’deki yazılım geliştirme süreçlerinde debugging (hata ayıklama) aşamaları, genellikle evrensel yazılım geliştirme uygulamalarına benzer şekilde işler. İşte bu sürecin tipik adımları:]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://karaman.dev/img/og-default.webp" /><media:content medium="image" url="https://karaman.dev/img/og-default.webp" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry xml:lang="en"><title type="html">Merge Files with FFmpeg</title><link href="https://karaman.dev/2023/03/12/merge-files-with-ffmeg.html" rel="alternate" type="text/html" title="Merge Files with FFmpeg" /><published>2023-03-12T08:00:00+00:00</published><updated>2023-03-12T08:00:00+00:00</updated><id>https://karaman.dev/2023/03/12/merge-files-with-ffmeg</id><content type="html" xml:base="https://karaman.dev/2023/03/12/merge-files-with-ffmeg.html"><![CDATA[<p>Write your files list into <code class="language-plaintext highlighter-rouge">file_list.txt</code></p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>file /mnt/d/Videos/video_part1.mp4
-file /mnt/d/Videos/video_part2.mp4
-file /mnt/d/Videos/video_part3.mp4
-</code></pre></div></div>
-
-<p>Call following command in bash.</p>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>ffmpeg <span class="nt">-safe</span> 0 <span class="nt">-f</span> concat <span class="nt">-i</span> file_list.txt <span class="nt">-c</span> copy video_merged.mp4
-</code></pre></div></div>]]></content><author><name>M. Serdar Karaman</name></author><summary type="html"><![CDATA[Write your files list into file_list.txt file /mnt/d/Videos/video_part1.mp4 file /mnt/d/Videos/video_part2.mp4 file /mnt/d/Videos/video_part3.mp4]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://karaman.dev/img/og-default.webp" /><media:content medium="image" url="https://karaman.dev/img/og-default.webp" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+</ol>]]></content><author><name>M. Serdar Karaman</name></author><summary type="html"><![CDATA[Türkiye’deki yazılım geliştirme süreçlerinde debugging (hata ayıklama) aşamaları, genellikle evrensel yazılım geliştirme uygulamalarına benzer şekilde işler. İşte bu sürecin tipik adımları:]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://karaman.dev/img/og-default.webp" /><media:content medium="image" url="https://karaman.dev/img/og-default.webp" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
