@@ -159,7 +159,7 @@
 <p>Bu ayrım her zaman keskin değildir; çoğu zaman iç içe geçerler. Örneğin “kullanıcı verileri şifrelenmelidir” şeklindeki fonksiyonel olmayan bir güvenlik gereksinimi, “sistem AES-256 ile şifreleme yapmalıdır” gibi yeni fonksiyonel gereksinimler doğurabilir. Yine de gereksinimleri bu iki grupta düşünmek hem analizi hem de testi kolaylaştırır.</p>
 
 <div class="mermaid">
-graph TD
+graph LR
     R[Yazılım Gereksinimleri] --&gt; F[Fonksiyonel Gereksinimler]
     R --&gt; NF[Fonksiyonel Olmayan Gereksinimler]
     F --&gt; F1[Sistemin sunduğu servisler]
@@ -220,10 +220,10 @@ graph LR
     UR --&gt; TAS[Taşınabilirlik Gereksinimleri]
     UR --&gt; BAK[Bakım Yapılabilirlik Gereksinimleri]
     UR --&gt; BIR[Birlikte Çalışabilirlik Gereksinimleri]
+    UR --&gt; OLC[Ölçeklenebilirlik Gereksinimleri]v
     KUL --&gt; ERS[Erişilebilirlik Gereksinimleri]
     VER --&gt; PERF[Performans Gereksinimleri]
     VER --&gt; ALAN[Alan Gereksinimleri]
-    PERF --&gt; OLC[Ölçeklenebilirlik Gereksinimleri]
     GVB --&gt; DAY[Dayanıklılık Gereksinimleri]
     GVB --&gt; KUR[Kurtarılabilirlik Gereksinimleri]
 
@@ -302,7 +302,7 @@ graph LR
     </tr>
     <tr>
       <td>Büyüklük</td>
-      <td>Ihtiyac duyulan minimum bellek/depolama miktari</td>
+      <td>Ihtiyac duyulan minimum bellek/depolama miktarı</td>
     </tr>
     <tr>
       <td>Kullanım kolaylığı</td>
