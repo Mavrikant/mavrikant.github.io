@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "jekyll",
+      "runtimeExecutable": "/opt/homebrew/opt/ruby@3.2/bin/bundle",
+      "runtimeArgs": ["exec", "jekyll", "serve", "--port", "4001", "--no-watch", "--future"],
+      "port": 4001
+    }
+  ]
+}
