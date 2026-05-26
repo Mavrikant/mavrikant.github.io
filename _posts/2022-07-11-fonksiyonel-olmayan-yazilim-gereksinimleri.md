@@ -65,7 +65,7 @@ graph LR
     UR --> TAS[Taşınabilirlik Gereksinimleri]
     UR --> BAK[Bakım Yapılabilirlik Gereksinimleri]
     UR --> BIR[Birlikte Çalışabilirlik Gereksinimleri]
-    UR --> OLC[Ölçeklenebilirlik Gereksinimleri]v
+    UR --> OLC[Ölçeklenebilirlik Gereksinimleri]
     KUL --> ERS[Erişilebilirlik Gereksinimleri]
     VER --> PERF[Performans Gereksinimleri]
     VER --> ALAN[Alan Gereksinimleri]
