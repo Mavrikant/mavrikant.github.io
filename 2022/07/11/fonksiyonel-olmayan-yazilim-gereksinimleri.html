@@ -134,7 +134,7 @@
               <a href="/about">M. Serdar Karaman</a>
               · 11 Temmuz 2022 · <span class="reading-time" title="Estimated read time">
   
-   7 mins  read </span>
+   8 mins  read </span>
 
             </span>
           </div>
@@ -207,7 +207,40 @@ graph TD
   <li>Fonksiyonel olmayan gereksinimlerin sağlanması yeni fonksiyonel gereksinimler yaratılmasına neden olabilir. Örneğin sistemin güvenlik gereksinimi modüllerde kısıtlara neden olacak yeni fonksiyonel gereksinimler yaratabilir.</li>
 </ol>
 
-<p><img src="/img/posts/non-functional-reqs.webp" alt="Fonksiyonel olmayan gereksinimler" style="display:block; margin-left:auto; margin-right:auto;width: 700px;"></p>
+<div class="mermaid">
+graph LR
+    NF[Fonksiyonel Olmayan Gereksinimler] --&gt; UR[Ürün Gereksinimleri]
+    NF --&gt; ORG[Organizasyonel Gereksinimler]
+    NF --&gt; DIS[Dış Gereksinimler]
+
+    UR --&gt; KUL[Kullanılabilirlik Gereksinimleri]
+    UR --&gt; VER[Verimlilik Gereksinimleri]
+    UR --&gt; GVB[Güvenilebilirlik Gereksinimleri]
+    UR --&gt; GUV[Güvenlik Gereksinimleri]
+    UR --&gt; TAS[Taşınabilirlik Gereksinimleri]
+    UR --&gt; BAK[Bakım Yapılabilirlik Gereksinimleri]
+    UR --&gt; BIR[Birlikte Çalışabilirlik Gereksinimleri]
+    KUL --&gt; ERS[Erişilebilirlik Gereksinimleri]
+    VER --&gt; PERF[Performans Gereksinimleri]
+    VER --&gt; ALAN[Alan Gereksinimleri]
+    PERF --&gt; OLC[Ölçeklenebilirlik Gereksinimleri]
+    GVB --&gt; DAY[Dayanıklılık Gereksinimleri]
+    GVB --&gt; KUR[Kurtarılabilirlik Gereksinimleri]
+
+    ORG --&gt; CEV[Çevresel Gereksinimler]
+    ORG --&gt; OPR[Operasyonel Gereksinimler]
+    ORG --&gt; GEL[Geliştirme Gereksinimleri]
+    GEL --&gt; STD[Standart ve Süreç Gereksinimleri]
+    GEL --&gt; DIL[Programlama Dili Gereksinimleri]
+
+    DIS --&gt; DUZ[Düzenleyici Gereksinimler]
+    DIS --&gt; ETK[Etik Gereksinimler]
+    DIS --&gt; YAS[Yasal Gereksinimler]
+    DIS --&gt; MAH[Mahremiyet Gereksinimleri]
+    YAS --&gt; MUH[Muhasebe Gereksinimleri]
+    YAS --&gt; EMN[Emniyet ve Güvenlik Gereksinimleri]
+    YAS --&gt; UYM[Uyumluluk Gereksinimleri]
+</div>
 
 <p>Bu diyagramdan da görülebileceği gibi fonksiyonel olmayan gereksinimler birçok çeşitli kaynaktan gelebilir.</p>
 
@@ -219,47 +252,6 @@ graph TD
   <li>
 <strong>Dış gereksinimler:</strong> Yukarıda sayılan ilk iki gereksinim tipi dışında kalan dış kaynaklı gereksinimlerdir. Sistemin yasalara uygunluğu ve kullanıcılar tarafından kabulü için uyulması gereken etik gereksinimler dış gereksinimlere örnek olarak verilebilir.</li>
 </ol>
-
-<h3 id="ölçülebilir-olmalı">Ölçülebilir olmalı</h3>
-
-<p>Fonksiyonel olmayan gereksinimler genellikle yuvarlak bir dille yazılır. Bu durum onların test ve ürün kabul süreçlerini zorlaştırır. “Sistem kullanıcı dostu olmalıdır” ya da “sistem hızlı çalışmalıdır” gibi ifadeler birer niyet beyanıdır, gereksinim değildir. Fonksiyonel olmayan gereksinimler de fonksiyonel gereksinimler gibi net bir ifadeyle yazılmalı ve test edilebilir olmalıdır. Kabul kriterleri olabildiğince nicel metriklerle tanımlanmalıdır.</p>
-
-<p>Aşağıdaki tabloda bazı fonksiyonel olmayan özelliklerin nasıl ölçülebilir hale getirilebileceği gösterilmiştir.</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Özellik</th>
-      <th>Ölçü (metrik)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Hız</td>
-      <td>Saniyede işlenen işlem sayısı, kullanıcı/olay yanıt süresi, ekran tazeleme süresi</td>
-    </tr>
-    <tr>
-      <td>Büyüklük</td>
-      <td>MB cinsinden bellek/depolama, ROM çipi sayısı</td>
-    </tr>
-    <tr>
-      <td>Kullanım kolaylığı</td>
-      <td>Eğitim süresi, yardım ekranı sayısı</td>
-    </tr>
-    <tr>
-      <td>Güvenilirlik</td>
-      <td>Ortalama arızasız çalışma süresi (MTTF), kullanılamama olasılığı, erişilebilirlik oranı</td>
-    </tr>
-    <tr>
-      <td>Dayanıklılık</td>
-      <td>Arıza sonrası yeniden başlama süresi, hataya yol açan olayların yüzdesi</td>
-    </tr>
-    <tr>
-      <td>Taşınabilirlik</td>
-      <td>Hedefe bağımlı ifadelerin yüzdesi, desteklenen hedef sistem sayısı</td>
-    </tr>
-  </tbody>
-</table>
 
 <h2 id="fonksiyonel-olmayan-gereksinim-örnekleri">Fonksiyonel olmayan gereksinim örnekleri</h2>
 
@@ -289,6 +281,47 @@ graph TD
   <li>
 <strong>Birlikte çalışabilirlik (interoperability)</strong> — Sistemin uyumlu olduğu donanım ve etkileşimde olduğu yazılım sistemleri.</li>
 </ul>
+
+<h3 id="ölçülebilir-olmalı">Ölçülebilir olmalı</h3>
+
+<p>Fonksiyonel olmayan gereksinimler genellikle yuvarlak bir dille yazılır. Bu durum onların test ve ürün kabul süreçlerini zorlaştırır. “Sistem kullanıcı dostu olmalıdır” ya da “sistem hızlı çalışmalıdır” gibi ifadeler birer niyet beyanıdır, gereksinim değildir. Fonksiyonel olmayan gereksinimler de fonksiyonel gereksinimler gibi net bir ifadeyle yazılmalı ve test edilebilir olmalıdır. Kabul kriterleri olabildiğince nicel metriklerle tanımlanmalıdır.</p>
+
+<p>Aşağıdaki tabloda bazı fonksiyonel olmayan özelliklerin nasıl ölçülebilir hale getirilebileceği gösterilmiştir.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Özellik</th>
+      <th>Ölçü (metrik)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Hız</td>
+      <td>Saniyede işlenen işlem sayısı, kullanıcı/olay yanıt süresi, ekran tazeleme süresi</td>
+    </tr>
+    <tr>
+      <td>Büyüklük</td>
+      <td>Ihtiyac duyulan minimum bellek/depolama miktari</td>
+    </tr>
+    <tr>
+      <td>Kullanım kolaylığı</td>
+      <td>Eğitim süresi, yardım ekranı sayısı</td>
+    </tr>
+    <tr>
+      <td>Güvenilirlik</td>
+      <td>Ortalama arızasız çalışma süresi (MTTF), kullanılamama olasılığı, erişilebilirlik oranı</td>
+    </tr>
+    <tr>
+      <td>Dayanıklılık</td>
+      <td>Arıza sonrası yeniden başlama süresi, hataya yol açan olayların yüzdesi</td>
+    </tr>
+    <tr>
+      <td>Taşınabilirlik</td>
+      <td>Platforma (işletim sistemi, işlemci) baglı kodların yüzdesi, desteklenen isletim sistemi sayısı</td>
+    </tr>
+  </tbody>
+</table>
 
 <h2 id="fonksiyonel-ve-fonksiyonel-olmayan-gereksinimlerin-karşılaştırılması">Fonksiyonel ve fonksiyonel olmayan gereksinimlerin karşılaştırılması</h2>
 
