@@ -52,7 +52,29 @@ Fonksiyonel gereksinimleri ürün bileşenlerine kolayca bölmek mümkünken bun
 1. Sağlanması gereken fonksiyonel olmayan gereksinim tüm sistem mimarisini etkiliyor olabilir. Örneğin performans ile alakalı bir gereksinimi sağlamak için tüm sistem mimarisinde köklü değişiklikler yapılması gerekebilir.
 2. Fonksiyonel olmayan gereksinimlerin sağlanması yeni fonksiyonel gereksinimler yaratılmasına neden olabilir. Örneğin sistemin güvenlik gereksinimi modüllerde kısıtlara neden olacak yeni fonksiyonel gereksinimler yaratabilir.
 
-![Fonksiyonel olmayan gereksinimler](/img/posts/non-functional-reqs.webp){:style="display:block; margin-left:auto; margin-right:auto;width: 700px;"}
+<div class="mermaid">
+graph LR
+    NF[Fonksiyonel Olmayan Gereksinimler] --> UR[Ürün Gereksinimleri]
+    NF --> ORG[Organizasyonel Gereksinimler]
+    NF --> DIS[Dış Gereksinimler]
+
+    UR --> KUL[Kullanılabilirlik Gereksinimleri]
+    UR --> VER[Verimlilik Gereksinimleri]
+    UR --> GVB[Güvenilebilirlik Gereksinimleri]
+    UR --> GUV[Güvenlik Gereksinimleri]
+    VER --> PERF[Performans Gereksinimleri]
+    VER --> ALAN[Alan Gereksinimleri]
+
+    ORG --> CEV[Çevresel Gereksinimler]
+    ORG --> OPR[Operasyonel Gereksinimler]
+    ORG --> GEL[Geliştirme Gereksinimleri]
+
+    DIS --> DUZ[Düzenleyici Gereksinimler]
+    DIS --> ETK[Etik Gereksinimler]
+    DIS --> YAS[Yasal Gereksinimler]
+    YAS --> MUH[Muhasebe Gereksinimleri]
+    YAS --> EMN[Emniyet ve Güvenlik Gereksinimleri]
+</div>
 
 Bu diyagramdan da görülebileceği gibi fonksiyonel olmayan gereksinimler birçok çeşitli kaynaktan gelebilir.
 
