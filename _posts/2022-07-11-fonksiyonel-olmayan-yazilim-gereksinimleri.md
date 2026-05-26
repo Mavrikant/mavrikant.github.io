@@ -52,28 +52,46 @@ Fonksiyonel gereksinimleri ürün bileşenlerine kolayca bölmek mümkünken bun
 1. Sağlanması gereken fonksiyonel olmayan gereksinim tüm sistem mimarisini etkiliyor olabilir. Örneğin performans ile alakalı bir gereksinimi sağlamak için tüm sistem mimarisinde köklü değişiklikler yapılması gerekebilir.
 2. Fonksiyonel olmayan gereksinimlerin sağlanması yeni fonksiyonel gereksinimler yaratılmasına neden olabilir. Örneğin sistemin güvenlik gereksinimi modüllerde kısıtlara neden olacak yeni fonksiyonel gereksinimler yaratabilir.
 
-![Fonksiyonel olmayan gereksinimler](/img/posts/non-functional-reqs.webp){:style="display:block; margin-left:auto; margin-right:auto;width: 700px;"}
+<div class="mermaid">
+graph LR
+    NF[Fonksiyonel Olmayan Gereksinimler] --> UR[Ürün Gereksinimleri]
+    NF --> ORG[Organizasyonel Gereksinimler]
+    NF --> DIS[Dış Gereksinimler]
+
+    UR --> KUL[Kullanılabilirlik Gereksinimleri]
+    UR --> VER[Verimlilik Gereksinimleri]
+    UR --> GVB[Güvenilebilirlik Gereksinimleri]
+    UR --> GUV[Güvenlik Gereksinimleri]
+    UR --> TAS[Taşınabilirlik Gereksinimleri]
+    UR --> BAK[Bakım Yapılabilirlik Gereksinimleri]
+    UR --> BIR[Birlikte Çalışabilirlik Gereksinimleri]
+    KUL --> ERS[Erişilebilirlik Gereksinimleri]
+    VER --> PERF[Performans Gereksinimleri]
+    VER --> ALAN[Alan Gereksinimleri]
+    PERF --> OLC[Ölçeklenebilirlik Gereksinimleri]
+    GVB --> DAY[Dayanıklılık Gereksinimleri]
+    GVB --> KUR[Kurtarılabilirlik Gereksinimleri]
+
+    ORG --> CEV[Çevresel Gereksinimler]
+    ORG --> OPR[Operasyonel Gereksinimler]
+    ORG --> GEL[Geliştirme Gereksinimleri]
+    GEL --> STD[Standart ve Süreç Gereksinimleri]
+    GEL --> DIL[Programlama Dili Gereksinimleri]
+
+    DIS --> DUZ[Düzenleyici Gereksinimler]
+    DIS --> ETK[Etik Gereksinimler]
+    DIS --> YAS[Yasal Gereksinimler]
+    DIS --> MAH[Mahremiyet Gereksinimleri]
+    YAS --> MUH[Muhasebe Gereksinimleri]
+    YAS --> EMN[Emniyet ve Güvenlik Gereksinimleri]
+    YAS --> UYM[Uyumluluk Gereksinimleri]
+</div>
 
 Bu diyagramdan da görülebileceği gibi fonksiyonel olmayan gereksinimler birçok çeşitli kaynaktan gelebilir.
 
 1. **Ürün gereksinimleri:** Yazılımın çalışma zamanındaki gereksinimleri. Sistemin ne kadar hızlı çalışması, ihtiyaç duyacağı disk ve maksimum bellek kullanımı bu gereksinimlere örnektir.
 2. **Organizasyonel gereksinimler:** Müşteri ve geliştiricinin organizasyonunda yer alan politika ve prosedürlerden kaynaklanan geniş gereksinimlerdir. Programlama dili, geliştirme ortamı, süreç standartları, yazılımın işletim ortamı gibi çevresel gereksinimler bunlara örnektir.
 3. **Dış gereksinimler:** Yukarıda sayılan ilk iki gereksinim tipi dışında kalan dış kaynaklı gereksinimlerdir. Sistemin yasalara uygunluğu ve kullanıcılar tarafından kabulü için uyulması gereken etik gereksinimler dış gereksinimlere örnek olarak verilebilir.
-
-### Ölçülebilir olmalı
-
-Fonksiyonel olmayan gereksinimler genellikle yuvarlak bir dille yazılır. Bu durum onların test ve ürün kabul süreçlerini zorlaştırır. "Sistem kullanıcı dostu olmalıdır" ya da "sistem hızlı çalışmalıdır" gibi ifadeler birer niyet beyanıdır, gereksinim değildir. Fonksiyonel olmayan gereksinimler de fonksiyonel gereksinimler gibi net bir ifadeyle yazılmalı ve test edilebilir olmalıdır. Kabul kriterleri olabildiğince nicel metriklerle tanımlanmalıdır.
-
-Aşağıdaki tabloda bazı fonksiyonel olmayan özelliklerin nasıl ölçülebilir hale getirilebileceği gösterilmiştir.
-
-| Özellik | Ölçü (metrik) |
-|---------|----------------|
-| Hız | Saniyede işlenen işlem sayısı, kullanıcı/olay yanıt süresi, ekran tazeleme süresi |
-| Büyüklük | MB cinsinden bellek/depolama, ROM çipi sayısı |
-| Kullanım kolaylığı | Eğitim süresi, yardım ekranı sayısı |
-| Güvenilirlik | Ortalama arızasız çalışma süresi (MTTF), kullanılamama olasılığı, erişilebilirlik oranı |
-| Dayanıklılık | Arıza sonrası yeniden başlama süresi, hataya yol açan olayların yüzdesi |
-| Taşınabilirlik | Hedefe bağımlı ifadelerin yüzdesi, desteklenen hedef sistem sayısı |
 
 ## Fonksiyonel olmayan gereksinim örnekleri
 
@@ -90,6 +108,21 @@ Aşağıda bazı fonksiyonel olmayan gereksinim türleri ve onlara örnekler bul
 - **Verimlilik** — Yazılımın sistem kaynaklarını kullanma oranı.
 - **Güvenlik** — Sistemin saldırılara karşı dayanıklılığı, kullanıcı verilerinin şifrelenmesi, kişisel verilerin korunması ve kullanıcı mahremiyetinin sağlanması.
 - **Birlikte çalışabilirlik (interoperability)** — Sistemin uyumlu olduğu donanım ve etkileşimde olduğu yazılım sistemleri.
+
+### Ölçülebilir olmalı
+
+Fonksiyonel olmayan gereksinimler genellikle yuvarlak bir dille yazılır. Bu durum onların test ve ürün kabul süreçlerini zorlaştırır. "Sistem kullanıcı dostu olmalıdır" ya da "sistem hızlı çalışmalıdır" gibi ifadeler birer niyet beyanıdır, gereksinim değildir. Fonksiyonel olmayan gereksinimler de fonksiyonel gereksinimler gibi net bir ifadeyle yazılmalı ve test edilebilir olmalıdır. Kabul kriterleri olabildiğince nicel metriklerle tanımlanmalıdır.
+
+Aşağıdaki tabloda bazı fonksiyonel olmayan özelliklerin nasıl ölçülebilir hale getirilebileceği gösterilmiştir.
+
+| Özellik | Ölçü (metrik) |
+|---------|----------------|
+| Hız | Saniyede işlenen işlem sayısı, kullanıcı/olay yanıt süresi, ekran tazeleme süresi |
+| Büyüklük | Ihtiyac duyulan minimum bellek/depolama miktari |
+| Kullanım kolaylığı | Eğitim süresi, yardım ekranı sayısı |
+| Güvenilirlik | Ortalama arızasız çalışma süresi (MTTF), kullanılamama olasılığı, erişilebilirlik oranı |
+| Dayanıklılık | Arıza sonrası yeniden başlama süresi, hataya yol açan olayların yüzdesi |
+| Taşınabilirlik | Platforma (işletim sistemi, işlemci) baglı kodların yüzdesi, desteklenen isletim sistemi sayısı |
 
 ## Fonksiyonel ve fonksiyonel olmayan gereksinimlerin karşılaştırılması
 
