@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="tr"><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://karaman.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://karaman.dev/" rel="alternate" type="text/html" hreflang="tr" /><updated>2026-05-26T15:24:07+00:00</updated><id>https://karaman.dev/feed.xml</id><title type="html">M. Serdar Karaman</title><subtitle>Aviyonik yazılım, DO-178C ve emniyet kritik mühendislik üzerine sahadan notlar.</subtitle><author><name>M. Serdar Karaman</name></author><entry xml:lang="tr"><title type="html">Sistem Mühendisliği Nedir?</title><link href="https://karaman.dev/2026/05/26/sistem-muhendisligi-nedir.html" rel="alternate" type="text/html" title="Sistem Mühendisliği Nedir?" /><published>2026-05-26T09:00:00+00:00</published><updated>2026-05-26T09:00:00+00:00</updated><id>https://karaman.dev/2026/05/26/sistem-muhendisligi-nedir</id><content type="html" xml:base="https://karaman.dev/2026/05/26/sistem-muhendisligi-nedir.html"><![CDATA[<p>Modern bir yolcu uçağında milyonlarca parça, onlarca farklı mühendislik disiplini ve binlerce gereksinim bir arada bulunur. Aerodinamikçi kanadı, yazılımcı uçuş kontrol bilgisayarını, elektronik mühendisi aviyonik veri yolunu, malzeme mühendisi gövde alaşımını tasarlar. Hiçbiri tek başına diğerinin işini bilmek zorunda değildir. Peki bütün bu parçaların <em>birlikte</em> güvenli bir şekilde uçan tek bir uçak oluşturduğundan kim emin olur?</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="tr"><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://karaman.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://karaman.dev/" rel="alternate" type="text/html" hreflang="tr" /><updated>2026-05-26T15:36:11+00:00</updated><id>https://karaman.dev/feed.xml</id><title type="html">M. Serdar Karaman</title><subtitle>Aviyonik yazılım, DO-178C ve emniyet kritik mühendislik üzerine sahadan notlar.</subtitle><author><name>M. Serdar Karaman</name></author><entry xml:lang="tr"><title type="html">Sistem Mühendisliği Nedir?</title><link href="https://karaman.dev/2026/05/26/sistem-muhendisligi-nedir.html" rel="alternate" type="text/html" title="Sistem Mühendisliği Nedir?" /><published>2026-05-26T09:00:00+00:00</published><updated>2026-05-26T09:00:00+00:00</updated><id>https://karaman.dev/2026/05/26/sistem-muhendisligi-nedir</id><content type="html" xml:base="https://karaman.dev/2026/05/26/sistem-muhendisligi-nedir.html"><![CDATA[<p>Modern bir yolcu uçağında milyonlarca parça, onlarca farklı mühendislik disiplini ve binlerce gereksinim bir arada bulunur. Aerodinamikçi kanadı, yazılımcı uçuş kontrol bilgisayarını, elektronik mühendisi aviyonik veri yolunu, malzeme mühendisi gövde alaşımını tasarlar. Hiçbiri tek başına diğerinin işini bilmek zorunda değildir. Peki bütün bu parçaların <em>birlikte</em> güvenli bir şekilde uçan tek bir uçak oluşturduğundan kim emin olur?</p>
 
 <p>İşte bu sorunun cevabı <strong>sistem mühendisliğidir</strong>. Sistem mühendisi, tek tek parçaları tasarlayan kişi değil; parçaların oluşturduğu <em>bütünün</em> doğru çalışmasından sorumlu olan kişidir.</p>
 
@@ -51,38 +51,7 @@
   <li><strong>Hataların geç fark edilmesinin maliyeti:</strong> Bir hatayı gereksinim aşamasında yakalamakla sahada yakalamak arasında binlerce kat maliyet farkı vardır.</li>
 </ol>
 
-<p>Bu son madde, sistem mühendisliğinin varlık sebebini en çarpıcı biçimde özetler. Barry Boehm’in klasik çalışmaları ve NASA verileriyle desteklenen meşhur <strong>hata maliyeti tırmanması</strong> şöyledir:</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Hatanın yakalandığı aşama</th>
-      <th>Göreceli düzeltme maliyeti</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Gereksinim analizi</td>
-      <td>1×</td>
-    </tr>
-    <tr>
-      <td>Tasarım</td>
-      <td>~5×</td>
-    </tr>
-    <tr>
-      <td>Kodlama / üretim</td>
-      <td>~10×</td>
-    </tr>
-    <tr>
-      <td>Test ve entegrasyon</td>
-      <td>~20–50×</td>
-    </tr>
-    <tr>
-      <td>Operasyon / saha</td>
-      <td>~100–1000×</td>
-    </tr>
-  </tbody>
-</table>
+<p>Bu son madde, sistem mühendisliğinin varlık sebebini en çarpıcı biçimde özetler. Barry Boehm’in klasik çalışmaları ve NASA verileriyle desteklenen meşhur <strong>hata maliyeti tırmanması</strong> aşağıdaki grafikte gösterilmektedir:</p>
 
 <figure>
   <img src="/img/posts/sistem-muhendisligi-hata-maliyeti.webp" alt="Hatanın yakalandığı aşamaya göre göreli düzeltme maliyetini gösteren, logaritmik ölçekli çubuk grafik" class="img-fluid rounded" />
@@ -97,21 +66,7 @@
 
 <p>Sistem mühendisliği sürecini anlatmak için en yaygın kullanılan görsel, <strong>V modelidir</strong>. V’nin sol kolu yukarıdan aşağıya <strong>ayrıştırma ve tanımlama</strong> sürecini, sağ kolu ise aşağıdan yukarıya <strong>entegrasyon ve doğrulama</strong> sürecini temsil eder. V’nin tabanında ise gerçekleştirme (kodlama/üretim) yer alır.</p>
 
-<div class="mermaid">
-graph LR
-    A[İhtiyaç ve Konsept<br />ConOps] --&gt; B[Sistem<br />Gereksinimleri]
-    B --&gt; C[Sistem Mimarisi]
-    C --&gt; D[Alt Sistem /<br />Birim Tasarımı]
-    D --&gt; E[Gerçekleştirme<br />Kodlama / Üretim]
-    E --&gt; F[Birim<br />Doğrulama]
-    F --&gt; G[Entegrasyon<br />ve Test]
-    G --&gt; H[Sistem Doğrulama<br />Verification]
-    H --&gt; I[Onaylama ve Kabul<br />Validation]
-    A -. onaylanır .-&gt; I
-    B -. doğrulanır .-&gt; H
-    C -. doğrulanır .-&gt; G
-    D -. doğrulanır .-&gt; F
-</div>
+<p><img src="/img/posts/sistem-muhendisligi-v-modeli.webp" alt="Sistem Mühendisliği V Modeli" style="display:block; margin-left:auto; margin-right:auto" class="img-fluid" /></p>
 
 <p>Bu modelin en güçlü fikri, sol koldaki her seviyenin sağ kolda <strong>kendisine eşlenen bir doğrulama seviyesi</strong> olmasıdır:</p>
 
@@ -266,7 +221,7 @@ graph TD
 
 <p>Sistem mühendisliği, parlak bileşenler üretmekle ilgili değildir; o bileşenlerin <strong>birlikte, doğru ve güvenli biçimde çalışan bir bütün</strong> oluşturmasını sağlamakla ilgilidir. Karmaşıklık arttıkça, başarısızlığın asıl kaynağı tek tek parçaların kalitesi değil, parçalar arasındaki arayüzler, yanlış anlaşılan gereksinimler ve geç fark edilen tutarsızlıklar olur.</p>
 
-<p>Bu yüzden sistem mühendisliği yatırımını yaşam döngüsünün başına — gereksinimlerin yazıldığı, mimarinin kurulduğu, doğrulama stratejisinin belirlendiği erken aşamalara — yoğunlaştırır. Hata maliyeti tablosunun acımasız matematiği bunu zorunlu kılar.</p>
+<p>Bu yüzden sistem mühendisliği yatırımını yaşam döngüsünün başına — gereksinimlerin yazıldığı, mimarinin kurulduğu, doğrulama stratejisinin belirlendiği erken aşamalara — yoğunlaştırır. Hata maliyeti grafiğinin acımasız matematiği bunu zorunlu kılar.</p>
 
 <p>İster bir uçak, ister bir otomobil, ister büyük ölçekli bir yazılım platformu geliştiriyor olun, soru hep aynıdır: <em>Parçaların hepsi bir araya geldiğinde gerçekten işe yarayacak mı?</em> Bu sorunun sorumluluğunu üstlenen kişi sistem mühendisidir.</p>
 
