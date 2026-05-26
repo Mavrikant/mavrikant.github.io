@@ -12,7 +12,7 @@ Yazılım gereksinimleri, bir sistemin ne yapması gerektiğini ve hangi kısıt
 Bu ayrım her zaman keskin değildir; çoğu zaman iç içe geçerler. Örneğin "kullanıcı verileri şifrelenmelidir" şeklindeki fonksiyonel olmayan bir güvenlik gereksinimi, "sistem AES-256 ile şifreleme yapmalıdır" gibi yeni fonksiyonel gereksinimler doğurabilir. Yine de gereksinimleri bu iki grupta düşünmek hem analizi hem de testi kolaylaştırır.
 
 <div class="mermaid">
-graph TD
+graph LR
     R[Yazılım Gereksinimleri] --> F[Fonksiyonel Gereksinimler]
     R --> NF[Fonksiyonel Olmayan Gereksinimler]
     F --> F1[Sistemin sunduğu servisler]
@@ -65,10 +65,10 @@ graph LR
     UR --> TAS[Taşınabilirlik Gereksinimleri]
     UR --> BAK[Bakım Yapılabilirlik Gereksinimleri]
     UR --> BIR[Birlikte Çalışabilirlik Gereksinimleri]
+    UR --> OLC[Ölçeklenebilirlik Gereksinimleri]v
     KUL --> ERS[Erişilebilirlik Gereksinimleri]
     VER --> PERF[Performans Gereksinimleri]
     VER --> ALAN[Alan Gereksinimleri]
-    PERF --> OLC[Ölçeklenebilirlik Gereksinimleri]
     GVB --> DAY[Dayanıklılık Gereksinimleri]
     GVB --> KUR[Kurtarılabilirlik Gereksinimleri]
 
@@ -118,7 +118,7 @@ Aşağıdaki tabloda bazı fonksiyonel olmayan özelliklerin nasıl ölçülebil
 | Özellik | Ölçü (metrik) |
 |---------|----------------|
 | Hız | Saniyede işlenen işlem sayısı, kullanıcı/olay yanıt süresi, ekran tazeleme süresi |
-| Büyüklük | Ihtiyac duyulan minimum bellek/depolama miktari |
+| Büyüklük | Ihtiyac duyulan minimum bellek/depolama miktarı |
 | Kullanım kolaylığı | Eğitim süresi, yardım ekranı sayısı |
 | Güvenilirlik | Ortalama arızasız çalışma süresi (MTTF), kullanılamama olasılığı, erişilebilirlik oranı |
 | Dayanıklılık | Arıza sonrası yeniden başlama süresi, hataya yol açan olayların yüzdesi |
