@@ -10,13 +10,13 @@
 <link href="/manifest.webmanifest" rel="manifest">
 <meta content="/browserconfig.xml" name="msapplication-config">
 <!-- Begin Jekyll SEO tag v2.9.0 -->
-<title>Fonksiyonel olmayan yazılım gereksinimleri | M. Serdar Karaman</title>
+<title>Fonksiyonel ve fonksiyonel olmayan yazılım gereksinimleri | M. Serdar Karaman</title>
 <meta name="generator" content="Jekyll v4.2.2">
-<meta property="og:title" content="Fonksiyonel olmayan yazılım gereksinimleri">
+<meta property="og:title" content="Fonksiyonel ve fonksiyonel olmayan yazılım gereksinimleri">
 <meta name="author" content="M. Serdar Karaman">
 <meta property="og:locale" content="tr_TR">
-<meta name="description" content="Fonksiyonel olmayan gereksinimler, adından da anlaşılabileceği gibi uygulamanın işlevselliği ile ilgili olmayan, genel yazılım özelliklerini belirleyen ya da kısıtlayan gereksinimlerdir. Zaman kısıtlarının, geliştirme süreci üstündeki kısıtlamaları ve standartlarla dayatılan kısıtlamaları içerir. Fonksiyonel olmayan gereksinimler genellikle tek tek sistem özelliklerine değil sistemin tamamına uygulanır. Fonksiyonel olmayan gereksinimler genellikle fonksiyonel gereksinimlere göre proje başarısında daha kritik etkiye sahiptir. Fonksiyonel olmayan bir gereksinimin karşılanmaması bütün sistemin kullanılamaz hale gelmesine, projenin iptal edilmesine neden olabilir. Örneğin bir DAL A seviyesi bir aviyonik projenin DO178 ile alakalı güvenilirlik gereksinimlerini karşılamaması üretilen ürünün sertifikalandırılamamasına ve hava aracında kullanılamamasına neden olur.">
-<meta name="twitter:description" property="og:description" content="Fonksiyonel olmayan gereksinimler, adından da anlaşılabileceği gibi uygulamanın işlevselliği ile ilgili olmayan, genel yazılım özelliklerini belirleyen ya da kısıtlayan gereksinimlerdir. Zaman kısıtlarının, geliştirme süreci üstündeki kısıtlamaları ve standartlarla dayatılan kısıtlamaları içerir. Fonksiyonel olmayan gereksinimler genellikle tek tek sistem özelliklerine değil sistemin tamamına uygulanır. Fonksiyonel olmayan gereksinimler genellikle fonksiyonel gereksinimlere göre proje başarısında daha kritik etkiye sahiptir. Fonksiyonel olmayan bir gereksinimin karşılanmaması bütün sistemin kullanılamaz hale gelmesine, projenin iptal edilmesine neden olabilir. Örneğin bir DAL A seviyesi bir aviyonik projenin DO178 ile alakalı güvenilirlik gereksinimlerini karşılamaması üretilen ürünün sertifikalandırılamamasına ve hava aracında kullanılamamasına neden olur.">
+<meta name="description" content="Yazılım gereksinimleri, bir sistemin ne yapması gerektiğini ve hangi kısıtlar altında çalışacağını tanımlar. Gereksinimler genellikle iki ana başlık altında sınıflandırılır: fonksiyonel gereksinimler ve fonksiyonel olmayan gereksinimler. Fonksiyonel gereksinimler sistemin ne yapması gerektiğini anlatırken, fonksiyonel olmayan gereksinimler sistemin bu işi nasıl (ne kadar hızlı, ne kadar güvenli, ne kadar güvenilir) yapması gerektiğini belirler.">
+<meta name="twitter:description" property="og:description" content="Yazılım gereksinimleri, bir sistemin ne yapması gerektiğini ve hangi kısıtlar altında çalışacağını tanımlar. Gereksinimler genellikle iki ana başlık altında sınıflandırılır: fonksiyonel gereksinimler ve fonksiyonel olmayan gereksinimler. Fonksiyonel gereksinimler sistemin ne yapması gerektiğini anlatırken, fonksiyonel olmayan gereksinimler sistemin bu işi nasıl (ne kadar hızlı, ne kadar güvenli, ne kadar güvenilir) yapması gerektiğini belirler.">
 <link rel="canonical" href="https://karaman.dev/2022/07/11/fonksiyonel-olmayan-yazilim-gereksinimleri.html">
 <meta property="og:url" content="https://karaman.dev/2022/07/11/fonksiyonel-olmayan-yazilim-gereksinimleri.html">
 <meta property="og:site_name" content="M. Serdar Karaman">
@@ -26,9 +26,9 @@
 <meta property="article:modified_time" content="2022-07-11T15:59:34+00:00">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://karaman.dev/img/og-default.webp">
-<meta name="twitter:title" content="Fonksiyonel olmayan yazılım gereksinimleri">
+<meta name="twitter:title" content="Fonksiyonel ve fonksiyonel olmayan yazılım gereksinimleri">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"M. Serdar Karaman"},"dateModified":"2022-07-11T15:59:34+00:00","datePublished":"2022-07-11T15:59:34+00:00","description":"Fonksiyonel olmayan gereksinimler, adından da anlaşılabileceği gibi uygulamanın işlevselliği ile ilgili olmayan, genel yazılım özelliklerini belirleyen ya da kısıtlayan gereksinimlerdir. Zaman kısıtlarının, geliştirme süreci üstündeki kısıtlamaları ve standartlarla dayatılan kısıtlamaları içerir. Fonksiyonel olmayan gereksinimler genellikle tek tek sistem özelliklerine değil sistemin tamamına uygulanır. Fonksiyonel olmayan gereksinimler genellikle fonksiyonel gereksinimlere göre proje başarısında daha kritik etkiye sahiptir. Fonksiyonel olmayan bir gereksinimin karşılanmaması bütün sistemin kullanılamaz hale gelmesine, projenin iptal edilmesine neden olabilir. Örneğin bir DAL A seviyesi bir aviyonik projenin DO178 ile alakalı güvenilirlik gereksinimlerini karşılamaması üretilen ürünün sertifikalandırılamamasına ve hava aracında kullanılamamasına neden olur.","headline":"Fonksiyonel olmayan yazılım gereksinimleri","image":"https://karaman.dev/img/og-default.webp","mainEntityOfPage":{"@type":"WebPage","@id":"https://karaman.dev/2022/07/11/fonksiyonel-olmayan-yazilim-gereksinimleri.html"},"url":"https://karaman.dev/2022/07/11/fonksiyonel-olmayan-yazilim-gereksinimleri.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"M. Serdar Karaman"},"dateModified":"2022-07-11T15:59:34+00:00","datePublished":"2022-07-11T15:59:34+00:00","description":"Yazılım gereksinimleri, bir sistemin ne yapması gerektiğini ve hangi kısıtlar altında çalışacağını tanımlar. Gereksinimler genellikle iki ana başlık altında sınıflandırılır: fonksiyonel gereksinimler ve fonksiyonel olmayan gereksinimler. Fonksiyonel gereksinimler sistemin ne yapması gerektiğini anlatırken, fonksiyonel olmayan gereksinimler sistemin bu işi nasıl (ne kadar hızlı, ne kadar güvenli, ne kadar güvenilir) yapması gerektiğini belirler.","headline":"Fonksiyonel ve fonksiyonel olmayan yazılım gereksinimleri","image":"https://karaman.dev/img/og-default.webp","mainEntityOfPage":{"@type":"WebPage","@id":"https://karaman.dev/2022/07/11/fonksiyonel-olmayan-yazilim-gereksinimleri.html"},"url":"https://karaman.dev/2022/07/11/fonksiyonel-olmayan-yazilim-gereksinimleri.html"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -126,15 +126,15 @@
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="post-heading">
-            <h1>Fonksiyonel olmayan yazılım gereksinimleri</h1>
+            <h1>Fonksiyonel ve fonksiyonel olmayan yazılım gereksinimleri</h1>
             
-            <h2 class="subheading">Non-functional Requirements in Software Engineering</h2>
+            <h2 class="subheading">Functional and Non-functional Requirements in Software Engineering</h2>
             
             <span class="meta">
               <a href="/about">M. Serdar Karaman</a>
               · 11 Temmuz 2022 · <span class="reading-time" title="Estimated read time">
   
-   3 mins  read </span>
+   7 mins  read </span>
 
             </span>
           </div>
@@ -154,9 +154,51 @@
 </aside>
 
           <div class="post-content">
-            <p>Fonksiyonel olmayan gereksinimler, adından da anlaşılabileceği gibi uygulamanın işlevselliği ile ilgili olmayan, genel yazılım özelliklerini belirleyen ya da kısıtlayan gereksinimlerdir. Zaman kısıtlarının, geliştirme süreci üstündeki kısıtlamaları ve standartlarla dayatılan kısıtlamaları içerir. Fonksiyonel olmayan gereksinimler genellikle tek tek sistem özelliklerine değil sistemin tamamına uygulanır.</p>
+            <p>Yazılım gereksinimleri, bir sistemin ne yapması gerektiğini ve hangi kısıtlar altında çalışacağını tanımlar. Gereksinimler genellikle iki ana başlık altında sınıflandırılır: <strong>fonksiyonel gereksinimler</strong> ve <strong>fonksiyonel olmayan gereksinimler</strong>. Fonksiyonel gereksinimler sistemin <em>ne yapması</em> gerektiğini anlatırken, fonksiyonel olmayan gereksinimler sistemin bu işi <em>nasıl</em> (ne kadar hızlı, ne kadar güvenli, ne kadar güvenilir) yapması gerektiğini belirler.</p>
 
-<p>Fonksiyonel olmayan gereksinimler genellikle fonksiyonel gereksinimlere göre proje başarısında daha kritik etkiye sahiptir. Fonksiyonel olmayan bir gereksinimin karşılanmaması bütün sistemin kullanılamaz hale gelmesine, projenin iptal edilmesine neden olabilir. Örneğin bir DAL A seviyesi bir aviyonik projenin DO178 ile alakalı güvenilirlik gereksinimlerini karşılamaması üretilen ürünün sertifikalandırılamamasına ve hava aracında kullanılamamasına neden olur.</p>
+<p>Bu ayrım her zaman keskin değildir; çoğu zaman iç içe geçerler. Örneğin “kullanıcı verileri şifrelenmelidir” şeklindeki fonksiyonel olmayan bir güvenlik gereksinimi, “sistem AES-256 ile şifreleme yapmalıdır” gibi yeni fonksiyonel gereksinimler doğurabilir. Yine de gereksinimleri bu iki grupta düşünmek hem analizi hem de testi kolaylaştırır.</p>
+
+<div class="mermaid">
+graph TD
+    R[Yazılım Gereksinimleri] --&gt; F[Fonksiyonel Gereksinimler]
+    R --&gt; NF[Fonksiyonel Olmayan Gereksinimler]
+    F --&gt; F1[Sistemin sunduğu servisler]
+    F --&gt; F2[Girdilere verilen tepkiler]
+    F --&gt; F3[Belirli durumlardaki davranışlar]
+    NF --&gt; P[Ürün gereksinimleri]
+    NF --&gt; O[Organizasyonel gereksinimler]
+    NF --&gt; E[Dış gereksinimler]
+</div>
+
+<h2 id="fonksiyonel-gereksinimler">Fonksiyonel gereksinimler</h2>
+
+<p>Fonksiyonel gereksinimler; sistemin sağlaması gereken servisleri, belirli girdilere nasıl tepki vereceğini ve belirli durumlarda nasıl davranacağını tanımlayan ifadelerdir. Bazı durumlarda sistemin ne <em>yapmaması</em> gerektiğini de belirtebilirler.</p>
+
+<p>Örnek olarak bir kütüphane yönetim sistemi düşünelim:</p>
+
+<ul>
+  <li>Kullanıcı; kitap adına, yazara veya ISBN numarasına göre arama yapabilmelidir.</li>
+  <li>Sistem, ödünç verilen her kitap için son iade tarihini otomatik olarak hesaplamalıdır.</li>
+  <li>İade tarihi geçen kullanıcılara her gün e-posta hatırlatması gönderilmelidir.</li>
+  <li>Yalnızca yönetici rolündeki kullanıcılar katalogdan kitap silebilmelidir.</li>
+</ul>
+
+<p>Fonksiyonel gereksinimler yazılırken iki temel özelliğe dikkat edilmelidir:</p>
+
+<ul>
+  <li>
+<strong>Eksiksizlik (completeness):</strong> Kullanıcının ihtiyaç duyduğu tüm servisler tanımlanmış olmalıdır.</li>
+  <li>
+<strong>Tutarlılık (consistency):</strong> Gereksinimler birbiriyle çelişmemeli, aynı konuda farklı yerlerde birbirini tutmayan tanımlar bulunmamalıdır.</li>
+</ul>
+
+<p>Büyük ve karmaşık sistemlerde bu iki özelliği aynı anda sağlamak pratikte çok zordur. Bunun başlıca nedeni, doğal dille yazılan gereksinimlerin çoğu zaman belirsiz olmasıdır. “Sistem uygun bir biçimde tepki vermelidir” gibi bir ifade, onu yazan ile okuyan tarafından farklı yorumlanabilir. İyi yazılmış bir fonksiyonel gereksinim, yoruma yer bırakmayacak kadar net ve test edilebilir olmalıdır.</p>
+
+<h2 id="fonksiyonel-olmayan-gereksinimler">Fonksiyonel olmayan gereksinimler</h2>
+
+<p>Fonksiyonel olmayan gereksinimler, adından da anlaşılabileceği gibi uygulamanın işlevselliği ile ilgili olmayan, genel yazılım özelliklerini belirleyen ya da kısıtlayan gereksinimlerdir. Zaman kısıtlarını, geliştirme süreci üstündeki kısıtlamaları ve standartlarla dayatılan kısıtlamaları içerir. Fonksiyonel olmayan gereksinimler genellikle tek tek sistem özelliklerine değil sistemin tamamına uygulanır.</p>
+
+<p>Fonksiyonel olmayan gereksinimler genellikle fonksiyonel gereksinimlere göre proje başarısında daha kritik etkiye sahiptir. Fonksiyonel olmayan bir gereksinimin karşılanmaması bütün sistemin kullanılamaz hale gelmesine, projenin iptal edilmesine neden olabilir. Örneğin DAL A seviyesindeki bir aviyonik projenin DO-178 ile alakalı güvenilirlik gereksinimlerini karşılamaması, üretilen ürünün sertifikalandırılamamasına ve hava aracında kullanılamamasına neden olur.</p>
 
 <p>Fonksiyonel gereksinimleri ürün bileşenlerine kolayca bölmek mümkünken bunu fonksiyonel olmayan gereksinimlerde yapmak çok daha zordur. Fonksiyonel olmayan gereksinimlerin sağlanması iki nedenden dolayı tüm sistemi etkiliyor olabilir.</p>
 
@@ -171,83 +213,123 @@
 
 <ol>
   <li>
-<strong>Ürün gereksinimleri:</strong> Yazılımın çalışma zamanındaki gereksinimleri. Sistemin ne kadar hızlı çalışması, ihtiyaç duyacağı disk ve max bellek kullanımı bu gereksinimlere örnektir.</li>
+<strong>Ürün gereksinimleri:</strong> Yazılımın çalışma zamanındaki gereksinimleri. Sistemin ne kadar hızlı çalışması, ihtiyaç duyacağı disk ve maksimum bellek kullanımı bu gereksinimlere örnektir.</li>
   <li>
-<strong>Organizasyonel gereksinimler:</strong> Müşteri ve gelistiricinin organizasyonunda yer alan politika ve prosedürlerden kaynaklanan geniş gereksinimlerdir. Programlama dili, geliştirme ortamı, süreç standartları, yazılımın işletim ortamını vs gibi çevresel gereksinimler bunlara örnektir.</li>
+<strong>Organizasyonel gereksinimler:</strong> Müşteri ve geliştiricinin organizasyonunda yer alan politika ve prosedürlerden kaynaklanan geniş gereksinimlerdir. Programlama dili, geliştirme ortamı, süreç standartları, yazılımın işletim ortamı gibi çevresel gereksinimler bunlara örnektir.</li>
   <li>
-<strong>Dış gereksinimler:</strong> Yukarıda sayılan ilk iki gereksinim tipi dışında kalan dış kaynaklı gereksinimlerdir. Sistemin yasalara uygunluğu ve kullanıcılar tarafından kabulü için uyulması gereken etik gereksinimler dış gereksinimin olarak örneklendirilebilir.</li>
+<strong>Dış gereksinimler:</strong> Yukarıda sayılan ilk iki gereksinim tipi dışında kalan dış kaynaklı gereksinimlerdir. Sistemin yasalara uygunluğu ve kullanıcılar tarafından kabulü için uyulması gereken etik gereksinimler dış gereksinimlere örnek olarak verilebilir.</li>
 </ol>
 
-<p>Fonksiyonel olmayan gereksinimlerin genellikle yuvarlak bir dille yazılır. Bu durum onların test ve ürün kabul süreçlerini zorlaştırır. Fonksiyonel olmayan gereksinimler, fonksiyonel olan gereksinimler gibi net bir ifade ile yazılmalı, test edilebilir olmalıdır. Kabul kriterleri olabildiğince nicel metriklerle tanımlanmalıdır.</p>
+<h3 id="ölçülebilir-olmalı">Ölçülebilir olmalı</h3>
+
+<p>Fonksiyonel olmayan gereksinimler genellikle yuvarlak bir dille yazılır. Bu durum onların test ve ürün kabul süreçlerini zorlaştırır. “Sistem kullanıcı dostu olmalıdır” ya da “sistem hızlı çalışmalıdır” gibi ifadeler birer niyet beyanıdır, gereksinim değildir. Fonksiyonel olmayan gereksinimler de fonksiyonel gereksinimler gibi net bir ifadeyle yazılmalı ve test edilebilir olmalıdır. Kabul kriterleri olabildiğince nicel metriklerle tanımlanmalıdır.</p>
+
+<p>Aşağıdaki tabloda bazı fonksiyonel olmayan özelliklerin nasıl ölçülebilir hale getirilebileceği gösterilmiştir.</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Özellik</th>
+      <th>Ölçü (metrik)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Hız</td>
+      <td>Saniyede işlenen işlem sayısı, kullanıcı/olay yanıt süresi, ekran tazeleme süresi</td>
+    </tr>
+    <tr>
+      <td>Büyüklük</td>
+      <td>MB cinsinden bellek/depolama, ROM çipi sayısı</td>
+    </tr>
+    <tr>
+      <td>Kullanım kolaylığı</td>
+      <td>Eğitim süresi, yardım ekranı sayısı</td>
+    </tr>
+    <tr>
+      <td>Güvenilirlik</td>
+      <td>Ortalama arızasız çalışma süresi (MTTF), kullanılamama olasılığı, erişilebilirlik oranı</td>
+    </tr>
+    <tr>
+      <td>Dayanıklılık</td>
+      <td>Arıza sonrası yeniden başlama süresi, hataya yol açan olayların yüzdesi</td>
+    </tr>
+    <tr>
+      <td>Taşınabilirlik</td>
+      <td>Hedefe bağımlı ifadelerin yüzdesi, desteklenen hedef sistem sayısı</td>
+    </tr>
+  </tbody>
+</table>
 
 <h2 id="fonksiyonel-olmayan-gereksinim-örnekleri">Fonksiyonel olmayan gereksinim örnekleri</h2>
 
 <p>Aşağıda bazı fonksiyonel olmayan gereksinim türleri ve onlara örnekler bulabilirsiniz.</p>
 
 <ul>
-  <li>Hız
-    <ul>
-      <li>Hızlı cevap verme (Responsiveness) ,</li>
-    </ul>
-  </li>
-  <li>Büyüklük
-    <ul>
-      <li>Depolama alanı ihtiyacı</li>
-    </ul>
-  </li>
-  <li>Kullanım kolaylığı
-    <ul>
-      <li>Yeni kullanıcının sistemi öğrenme süresi</li>
-    </ul>
-  </li>
-  <li>Güvenilirlik (Stabilite)
-    <ul>
-      <li>Yazılımın son 24 saat içerisinde çalışabilir olduğun süre</li>
-    </ul>
-  </li>
-  <li>Dayanıklılık
-    <ul>
-      <li>Hatalara karşı nasıl tepki veriyor.</li>
-      <li>Hata sonrası tekrar başlama süreci</li>
-    </ul>
-  </li>
-  <li>Bakım yapılabilirlik (maintainability)
-    <ul>
-      <li>Dokümantasyon</li>
-      <li>Teknik borç</li>
-      <li>Clean architecture</li>
-    </ul>
-  </li>
-  <li>Taşınabilirlik
-    <ul>
-      <li>Hangi platformlara(İşletim sistem, İşlemci) ve teknolojilere(Dil, Framework) bağımlı.</li>
-    </ul>
-  </li>
-  <li>Performans
-    <ul>
-      <li>Kaç kişiye eş zamanlı hizmet verebiliyor.</li>
-    </ul>
-  </li>
-  <li>Verimlilik
-    <ul>
-      <li>Yazılımın sistem kaynaklarını kullanma oranı</li>
-    </ul>
-  </li>
-  <li>Güvenlik
-    <ul>
-      <li>Sistemin hack saldırılara karşı dayanıklılığı</li>
-      <li>Kullanıcı verilerinin şifrelenmesi</li>
-      <li>Kişisel verilerin korunması</li>
-      <li>Kullanici mahremiyetinin sağlanmasi</li>
-    </ul>
-  </li>
-  <li>Karşılıklı uyum içinde çalışma (interoperability)
-    <ul>
-      <li>Sistemin uyumlu olduğu donanımla</li>
-      <li>Etkileşimde olduğu yazılım sistemleri</li>
-    </ul>
-  </li>
+  <li>
+<strong>Hız</strong> — Hızlı cevap verme (responsiveness), saniyede işlenebilen işlem sayısı.</li>
+  <li>
+<strong>Büyüklük</strong> — Depolama alanı ve bellek ihtiyacı.</li>
+  <li>
+<strong>Kullanım kolaylığı</strong> — Yeni kullanıcının sistemi öğrenme süresi.</li>
+  <li>
+<strong>Güvenilirlik (stabilite)</strong> — Yazılımın belirli bir zaman aralığında kesintisiz çalışabilme süresi.</li>
+  <li>
+<strong>Dayanıklılık</strong> — Hatalara karşı nasıl tepki verdiği ve hata sonrası tekrar başlama süreci.</li>
+  <li>
+<strong>Bakım yapılabilirlik (maintainability)</strong> — Dokümantasyon, teknik borç, temiz mimari (clean architecture).</li>
+  <li>
+<strong>Taşınabilirlik</strong> — Hangi platformlara (işletim sistemi, işlemci) ve teknolojilere (dil, framework) bağımlı olduğu.</li>
+  <li>
+<strong>Performans</strong> — Aynı anda kaç kullanıcıya hizmet verebildiği.</li>
+  <li>
+<strong>Verimlilik</strong> — Yazılımın sistem kaynaklarını kullanma oranı.</li>
+  <li>
+<strong>Güvenlik</strong> — Sistemin saldırılara karşı dayanıklılığı, kullanıcı verilerinin şifrelenmesi, kişisel verilerin korunması ve kullanıcı mahremiyetinin sağlanması.</li>
+  <li>
+<strong>Birlikte çalışabilirlik (interoperability)</strong> — Sistemin uyumlu olduğu donanım ve etkileşimde olduğu yazılım sistemleri.</li>
 </ul>
+
+<h2 id="fonksiyonel-ve-fonksiyonel-olmayan-gereksinimlerin-karşılaştırılması">Fonksiyonel ve fonksiyonel olmayan gereksinimlerin karşılaştırılması</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th>Fonksiyonel gereksinimler</th>
+      <th>Fonksiyonel olmayan gereksinimler</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Neyi tanımlar</td>
+      <td>Sistemin <em>ne yapması</em> gerektiğini</td>
+      <td>Sistemin işini <em>nasıl</em> yapması gerektiğini</td>
+    </tr>
+    <tr>
+      <td>Kapsam</td>
+      <td>Genellikle tek tek özellikler/bileşenler</td>
+      <td>Çoğunlukla sistemin tamamı</td>
+    </tr>
+    <tr>
+      <td>Örnek</td>
+      <td>“Kullanıcı ISBN’e göre arama yapabilmeli”</td>
+      <td>“Arama sonucu 1 saniye içinde dönmeli”</td>
+    </tr>
+    <tr>
+      <td>Test edilebilirlik</td>
+      <td>Görece kolay</td>
+      <td>Nicel metrik tanımlanmazsa zor</td>
+    </tr>
+    <tr>
+      <td>Karşılanmadığında</td>
+      <td>İlgili özellik çalışmaz</td>
+      <td>Tüm sistem kullanılamaz/kabul edilemez hale gelebilir</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Özetle başarılı bir yazılım, yalnızca beklenen işlevleri yerine getirmekle kalmaz; bunları kabul edilebilir hız, güvenilirlik ve güvenlik seviyelerinde yapar. Fonksiyonel ve fonksiyonel olmayan gereksinimleri en baştan birlikte, net ve ölçülebilir biçimde tanımlamak; projenin ilerleyen aşamalarında ortaya çıkacak maliyetli sürprizlerin önüne geçer.</p>
 
           </div>
         </div>
