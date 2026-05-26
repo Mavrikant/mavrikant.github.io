@@ -42,10 +42,11 @@
 
 ## Seçildi / Devam Eden
 
-- **Linker Script Anatomisi: ARM Bare-Metal için Bir `.ld` Dosyası Satır Satır** —
+- **Linker Script Anatomisi: Zynq-7000 Bare-Metal için Bir `.ld` Dosyası Satır Satır** —
   dal: `post/2026-05-26-linker-script-anatomisi-arm-bare-metal`,
   dosya: `_posts/2026-05-26-linker-script-anatomisi-arm-bare-metal.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: toolchain/build.
+  durum: PR #90 açıldı; insan geri bildirimi ile Zynq-7000 (Cortex-A9 + OCM + DDR3 + QSPI)
+  referansıyla yeniden yazıldı — Renode yazısının doğal devamı. alan: toolchain/build.
 
 ## Reddedildi (bu çalıştırma)
 
@@ -107,6 +108,16 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
   security, C/compiler, C/standard, embedded/numeric) ile çakışmıyor. Yazı,
   toolchain/build perspektifinden bare-metal startup zincirini açıklıyor —
   Renode yazısı simülasyon, bu yazı bağlama; konu örtüşmesi yok.
+- **İnsan geri bildirimi (PR #90 üzerinde):** ilk taslak STM32F4/Cortex-M4
+  üzerinden yazılmıştı. Geri bildirim: Renode yazısının doğal devamı olacak
+  şekilde Zynq-7000 (Cortex-A9 + OCM + DDR3 + QSPI) referans alınsın; CCM
+  yerine OCM anlatılsın. Yazı tamamen Zynq-7000'e uyarlandı: vector table
+  Cortex-A9 (VBAR, 8 instruction entry, AAPCS 16-byte stack alignment, CPU
+  mode başına ayrı SP), bellek bölgeleri `ps7_ddr_0` / `ps7_ocm_low_0` /
+  `ps7_ocm_high_0` / `ps7_qspi_linear`, OCM_CFG remap mekaniği, AMP çift
+  çekirdek DDR bölme, VMA/LMA örneği olarak `.ocm_data` (DDR'da LMA, OCM'de
+  VMA). Yazı 3000 → 3839 kelimeye çıktı (hedef üst sınırı 3500'ün biraz
+  üstünde; Zynq mimari detayı bunu hak ediyor).
 - Yayın kapısı durumu: son yayın 2026-05-21 (bandpass-sampling), bu çalıştırma
   2026-05-26. Aradan 5 gün geçti — `min_yayin_araligi_gun = 2` fazlasıyla
   sağlanıyor. Bu çalıştırmada yeni PR açıldı.
