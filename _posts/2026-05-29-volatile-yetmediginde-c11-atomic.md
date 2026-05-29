@@ -39,8 +39,9 @@ shareability domain seçimine bağlı maliyetini inceleyeceğiz.
 ## Bir Olay Yeri: Kaybolan Artırımlar
 
 Aşağıdaki kod parçası, internette bulunan onlarca Zynq "tutorial"in özüdür.
-Zynq-7000 PS tarafında, TTC0 (Triple Timer Counter) Cortex-A9 #0'a kesme üretir;
-buna karşılık ana iş döngüsü Cortex-A9 #1'de koşmaktadır:
+Zynq-7000 PS tarafında AMP modunu varsayalım: iki çekirdek aynı OCM bloğunu
+paylaşıyor; TTC0 (Triple Timer Counter) Cortex-A9 #0'a kesme üretir; ana iş
+döngüsü Cortex-A9 #1'de koşmaktadır:
 
 ```c
 volatile uint32_t pulse_count;          /* OCM içinde paylaşılan */
@@ -183,9 +184,8 @@ void a_inc(void) {
 }
 ```
 
-Üretilen kod (aynı bayraklarla, `seq_cst` yerine `relaxed` seçilmesine rağmen
-SMP'de derleyici varsayılan olarak inner-shareable koruma da serpiştirir;
-relaxed örneğinde sadece RMW döngüsü görülür):
+Üretilen kod (aynı bayraklarla, `memory_order_relaxed` ile — yani derleyici
+yalnızca atomicity sağlamak zorunda, sıralama bariyeri eklememeli):
 
 ```text
 a_inc:
@@ -387,25 +387,6 @@ spin_lock implementasyonu da aynı kalıp üzerinedir.
 
 ---
 
-## Zynq-7000 Senaryoları İçin Karar Matrisi
-
-| Senaryo | Atomicity | Derleyici bariyeri | CPU bariyeri | Doğru araç |
-|---|---|---|---|---|
-| `volatile uint8_t` bayrağı, CPU0 ISR yazar, CPU0 main okur | `uint8_t` tek `STRB`, OK | OK | Aynı CPU: gereksiz | `_Atomic` yine daha güvenli (kod yarın CPU1'e taşınabilir) |
-| `pulse_count++`, CPU0 ISR + CPU0 main, aynı çekirdek | LDREX/STREX local monitor | Var | Gereksiz | `atomic_fetch_add_explicit(..., relaxed)` |
-| `pulse_count++`, CPU0 ISR + CPU1 main (SMP) | LDREX/STREX + SCU snoop şart | Şart | `DMB ISH` şart | `atomic_fetch_add_explicit(..., seq_cst)` |
-| Üretici-tüketici buffer, CPU0 → CPU1, OCM/DDR (cacheable, inner-shareable) | flag için OK | Şart | `DMB ISH` çifti | `release/acquire` çifti |
-| PS → PL DMA, GP/HP port (non-coherent) | Yazı OK | Şart | `DSB SY` + L1/L2 clean şart | `Xil_DCacheFlushRange()` + `__DSB()` + `volatile` register |
-| PS → PL DMA, ACP üzerinden (coherent) | Yazı OK | Şart | Cache clean **gereksiz**; `DMB SY` yine de | `volatile` register; ACP master 64-byte burst |
-| PL → PS DMA, GP/HP port | DMA bitince L1/L2 invalidate şart | Şart | `DSB SY` invalidate öncesi | `Xil_DCacheInvalidateRange()` + bariyer |
-| Bellek-eşlenikli register (UART, GPIO, TTC) | Genelde tek talimat | Şart | Strongly-ordered sayfada otomatik | `volatile` (atomic değil, **donanım yan etkisi**) |
-
-Tek satıra indirgersek: **Kayıt (register) erişiminde `volatile`; paylaşılan
-veri erişiminde `_Atomic`; PL ile DMA paylaşımında cache maintenance + DSB
-veya ACP.** Bu üç kavram aynı isim değildir, aynı mekanizma hiç değildir.
-
----
-
 ## Zynq-7000'in Üç Koherans Bölgesi
 
 Zynq-7000'i diğer ARM SoC'lardan ayıran şey, PS ile PL arasında üç farklı
@@ -449,23 +430,29 @@ girer. Yanlış sayfa attribute (örn. "Strongly Ordered" veya "Device") veya
 non-shareable cacheable sayfa, snoop'un dışında kalır. Bu durumda `_Atomic`
 hatasız derlenir, LDREX/STREX talimatları üretilir, ama çekirdekler arasında
 hiçbir koherans yoktur — her biri kendi L1'ine yazar, diğeri yanlış değeri
-okur. Xilinx'in `xil_mmu` BSP'si DDR'ı varsayılan olarak doğru işaretler; ama
-özel `Xil_SetTlbAttributes()` çağrıları yapan kod bunu kolayca bozar.
+okur. Xilinx standalone BSP'nin `translation_table.S` dosyası DDR'ı varsayılan
+olarak Normal, Cacheable, Shareable işaretler; ama runtime'da
+`Xil_SetTlbAttributes()` çağırarak attribute değiştiren kod bu garantiyi kolayca
+bozar.
 
 **2. ACP (Accelerator Coherency Port) — koherent PL→PS yolu.** ACP, PL'deki
 bir DMA master'ın isteklerini SCU'ya bağlar. ACP üzerinden PL'nin yaptığı
 yazı L1/L2 üzerinde snoop edilir ve CPU'lar manuel cache invalidate çağırmadan
 güncel veriyi okur. ACP'nin verimli çalışması için iki kısıt vardır:
 
-- AxCACHE/AxPROT sinyalleri "cacheable + bufferable" işaretlenmelidir
-  (Xilinx tipik olarak `0b1111` önerir).
-- Transfer büyüklüğü tercihen tam bir L1 cacheline (64 byte) olmalıdır; küçük
-  transferler SCU'da kuyruk oluşturur ve performansı düşürür.
+- AxCACHE sinyali write-back, write-allocate okunabilir/yazılabilir
+  (`0b1111`) olarak işaretlenmeli; AxPROT non-secure data (genelde `0b010`)
+  olmalıdır. Bu kombinasyon, PL master'ın işleminin SCU tarafından koherent
+  kabul edilmesini sağlar.
+- Transfer büyüklüğü tercihen tam bir L1/L2 cacheline (Zynq-7000'in Cortex-A9
+  ve PL310 yapılandırmasında **32 byte**) hizalı olmalıdır; küçük veya
+  hizasız transferler SCU'da read-modify-write doğurur ve performansı düşürür.
 
-ACP'nin pratik faydası, **ARM üzerinde son derece pahalı olan cache
-flush/invalidate çağrılarını tamamen ortadan kaldırmasıdır.** Linux'ta
-`Xil_DCacheFlushRange()` 4 KB için bile çift haneli mikrosaniye alırken, ACP
-yolu transferi cache'in içine sokar.
+ACP'nin pratik faydası, **ARM üzerinde pahalı olan cache flush/invalidate
+çağrılarını tamamen ortadan kaldırmasıdır.** Bare-metal BSP'de
+`Xil_DCacheFlushRange()` büyük tampon başına mikrosaniye mertebesi
+gecikme ekler — ACP yolu bu adımı tamamen atlar ve transferi cache'in içine
+sokar.
 
 **3. HP/GP portları — non-coherent PL→PS yolu.** HP (High Performance) ve GP
 (General Purpose) AXI portları DDR'a doğrudan erişir; SCU bypass olur. Burada
@@ -487,6 +474,28 @@ Sonuç pratiktir: Zynq-7000'de bir PL IP'sini tasarlarken **ACP'yi tercih
 edebiliyorsanız edin** — yazılım tarafı çok daha basitleşir. Edemiyorsanız
 cache maintenance + bariyer disiplininize kanıtlanabilir biçimde uyun;
 "unutmadık herhalde" iyi bir mühendislik argümanı değildir.
+
+---
+
+## Zynq-7000 Senaryoları İçin Karar Matrisi
+
+Üç koherans bölgesini ele aldıktan sonra, tipik senaryoları tek bir tabloda
+özetleyebiliriz:
+
+| Senaryo | Atomicity | Derleyici bariyeri | CPU bariyeri | Doğru araç |
+|---|---|---|---|---|
+| `volatile uint8_t` bayrağı, CPU0 ISR yazar, CPU0 main okur | `uint8_t` tek `STRB`, OK | OK | Aynı CPU: gereksiz | `_Atomic` yine daha güvenli (kod yarın CPU1'e taşınabilir) |
+| `pulse_count++`, CPU0 ISR + CPU0 main, aynı çekirdek | LDREX/STREX local monitor | Var | Gereksiz | `atomic_fetch_add_explicit(..., relaxed)` |
+| `pulse_count++`, CPU0 ISR + CPU1 main (SMP) | LDREX/STREX + SCU snoop şart | Şart | `DMB ISH` şart | `atomic_fetch_add_explicit(..., seq_cst)` |
+| Üretici-tüketici buffer, CPU0 → CPU1, OCM/DDR (cacheable, inner-shareable) | flag için OK | Şart | `DMB ISH` çifti | `release/acquire` çifti |
+| PS → PL DMA, GP/HP port (non-coherent) | Yazı OK | Şart | `DSB SY` + L1/L2 clean şart | `Xil_DCacheFlushRange()` + `__DSB()` + `volatile` register |
+| PS → PL DMA, ACP üzerinden (coherent) | Yazı OK | Şart | `DMB ISH` yeterli; cache clean **gereksiz** | `volatile` register; ACP master cacheline-hizalı burst |
+| PL → PS DMA, GP/HP port | DMA bitince L1/L2 invalidate şart | Şart | `DSB SY` invalidate öncesi | `Xil_DCacheInvalidateRange()` + bariyer |
+| Bellek-eşlenikli register (UART, GPIO, TTC) | Genelde tek talimat | Şart | Strongly-ordered sayfada otomatik | `volatile` (atomic değil, **donanım yan etkisi**) |
+
+Tek satıra indirgersek: **Kayıt (register) erişiminde `volatile`; paylaşılan
+veri erişiminde `_Atomic`; PL ile DMA paylaşımında cache maintenance + DSB
+veya ACP.** Bu üç kavram aynı isim değildir, aynı mekanizma hiç değildir.
 
 ---
 
@@ -526,19 +535,19 @@ cache maintenance + bariyer disiplininize kanıtlanabilir biçimde uyun;
 ```mermaid
 flowchart TD
     A[Paylaşılan veriye erişiyorum] --> B{Hedef nedir?}
-    B -- "PS register PL register UART/GPIO/TTC" --> C[volatile pointer kullan,<br/>strongly-ordered sayfa<br/>__DSB gerekirse]
-    B -- "PS RAM PS RAM iki CPU paylaşıyor" --> D{Tek okuma/yazma mı?}
-    B -- "PL DMA tampon" --> M{ACP kullanılıyor mu?}
-    D -- Evet --> E{Doğal hizalı native genişlik mi?}
-    E -- Evet --> F[_Atomic + relaxed<br/>SCU snoop devrede<br/>sayfa: Inner Shareable]
-    E -- Hayır --> G[_Atomic + uygun memory_order]
-    D -- Hayır RMW --> H[atomic_fetch_* kullan<br/>seq_cst varsayılan,<br/>kasıtlıysa relaxed]
+    B -- "PS/PL register (UART, GPIO, TTC)" --> C[volatile pointer<br/>strongly-ordered sayfa<br/>gerekirse __DSB]
+    B -- "PS RAM, iki CPU paylaşıyor" --> D{Tek okuma/yazma mı?}
+    B -- "PL DMA tampon" --> M{ACP yolu mu?}
+    D -- "Evet" --> E{Doğal hizalı, native genişlik mi?}
+    E -- "Evet" --> F[_Atomic + relaxed<br/>SCU snoop devrede<br/>sayfa Inner Shareable]
+    E -- "Hayır" --> G[_Atomic + uygun memory_order]
+    D -- "Hayır, RMW" --> H[atomic_fetch_* kullan]
     H --> I{Sıralama gerekiyor mu?}
-    I -- Sadece sayaç --> J[relaxed]
-    I -- Üretici-tüketici --> K[release/acquire çifti<br/>DMB ISH otomatik]
-    I -- Tam sıralama --> L[seq_cst — pahalı,<br/>gerçekten gerekli mi?]
-    M -- Evet --> N[ACP master<br/>cache flush GEREKMEZ<br/>64-byte burst tercih edin]
-    M -- Hayır HP/GP --> O[CPU→PL: Xil_DCacheFlushRange + DSB<br/>PL→CPU: Xil_DCacheInvalidateRange]
+    I -- "Sadece sayaç" --> J[relaxed]
+    I -- "Üretici-tüketici" --> K[release/acquire çifti<br/>DMB ISH otomatik]
+    I -- "Tam sıralama" --> L[seq_cst — pahalı,<br/>gerçekten gerekli mi?]
+    M -- "Evet, ACP" --> N[Cache flush GEREKMEZ<br/>cacheline hizalı burst<br/>32 byte]
+    M -- "Hayır, HP/GP" --> O[CPU→PL: Xil_DCacheFlushRange + DSB<br/>PL→CPU: Xil_DCacheInvalidateRange]
 ```
 
 Bu akış, "önce mimari, sonra araç" disiplinini dayatır. Zynq-7000'de doğru
