@@ -1,0 +1,9 @@
+{% if site.plausible_id and site.plausible_id != "YOUR_PLAUSIBLE_ID_HERE" %}
+<!-- Privacy-friendly analytics by Plausible -->
+<script defer src="https://plausible.io/js/pa-{{ site.plausible_id }}.js"></script>
+<script>
+  window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments) };
+  window.plausible.init = window.plausible.init || function (i) { window.plausible.o = i || {} };
+  plausible.init();
+</script>
+{% endif %}

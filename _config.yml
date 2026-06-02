@@ -37,6 +37,10 @@ google_analytics:   G-YDEV31NZ5J
 # Found in Sentry: Settings → Projects → <project> → Client Keys (DSN) → Loader Script
 sentry_loader_id:   d9df60c4bcc41adb14bb648db4013b52
 
+# Add your Plausible site snippet ID here to activate Plausible Analytics
+# Found in Plausible: Site Settings → General → Site Installation (the pa-<ID> in the script src)
+plausible_id:       BMAxUwrIK8Icg2HpLysj2
+
 # Build settings
 markdown:           kramdown
 paginate:           5
