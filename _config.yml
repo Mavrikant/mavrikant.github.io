@@ -43,7 +43,7 @@ plausible_id:       BMAxUwrIK8Icg2HpLysj2
 
 # Build settings
 markdown:           kramdown
-paginate:           5
+paginate:           10
 paginate_path:      "/posts/page:num/"
 plugins:
   - jekyll-feed
