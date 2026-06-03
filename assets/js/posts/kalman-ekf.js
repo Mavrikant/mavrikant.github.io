@@ -1,5 +1,7 @@
 /* Genişletilmiş Kalman Filtresi (EKF) — etkileşimli simülatör.
-   2B sabit-hız hedefi; orijindeki sensör menzil (r) ve açı (θ) ölçüyor.
+   Hedef, sensör çevresinde sürekli (menzili nefes alan) bir yörüngede döner;
+   filtre sabit-hız varsayar (manevra gecikmesi buradan). Orijindeki sensör
+   menzil (r) ve açı (θ) ölçüyor.
    Ölçüm h(x) = [hypot(px,py), atan2(py,px)] doğrusal-olmayan; her adımda
    Jacobian H_k değerlendirilir. Küçük sabit-boyutlu matris işlemleri elle.
    Saf Canvas 2D; harici kütüphane yok. JS ayrı dosyaya çıkarıldı. */
@@ -36,7 +38,8 @@
 
   var dt = 1.0;
   var F = [[1, 0, dt, 0], [0, 1, 0, dt], [0, 0, 1, 0], [0, 0, 0, 1]];
-  var STEP_EVERY = 6, MAXK = 80;
+  var STEP_EVERY = 6, WIN = 90;        // WIN: kayan iz penceresi (lineer simülatördeki gibi sürekli akış)
+  var RMID = 20, RAMP = 11;            // hedef menzili RMID±RAMP arasında yavaşça nefes alır (≈9..31 m)
 
   function randn() { var u = 0, v = 0; while (u === 0) u = Math.random(); while (v === 0) v = Math.random(); return Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v); }
   function rnd(v, d) { var p = Math.pow(10, d == null ? 2 : d); return Math.round(v * p) / p; }
@@ -57,13 +60,20 @@
   function Rmat() { var sr = +el.sr.value, sth = (+el.sth.value) * Math.PI / 180; return [[sr * sr, 0], [0, sth * sth]]; }
 
   var xt, xhat, P, truth, est, meas, k, sumSqErr, nErr;
+  var phi, rphase, orbitDir;           // yörünge durumu: açısal konum, menzil-nefes fazı, dönüş yönü
+  function orbitPos() {                 // sensör çevresinde, menzili nefes alan gerçek konum
+    var r = RMID + RAMP * Math.sin(rphase);
+    return [r * Math.cos(phi), r * Math.sin(phi)];
+  }
   var running = true, frame = 0;
 
   function reset() {
-    // gerçek hedef: orijinden uzakta, ekrana sığacak bir başlangıç (hafif rastgele)
-    var ang = 2.4 + (Math.random() - 0.5) * 0.5;
-    var rad = 27 + (Math.random() - 0.5) * 4;
-    xt = [rad * Math.cos(ang), rad * Math.sin(ang), 1.3 + Math.random() * 0.3, 0.2 + Math.random() * 0.3];
+    // gerçek hedef: sensör çevresinde sürekli bir yörüngeye otur (rastgele faz ve yön)
+    phi = Math.random() * 2 * Math.PI;
+    rphase = Math.random() * 2 * Math.PI;
+    orbitDir = Math.random() < 0.5 ? 1 : -1;
+    var p0 = orbitPos();
+    xt = [p0[0], p0[1], 0, 0];
     xhat = [xt[0] + 3 * randn(), xt[1] + 3 * randn(), 0, 0];
     P = [[16, 0, 0, 0], [0, 16, 0, 0], [0, 0, 9, 0], [0, 0, 0, 9]];
     truth = []; est = []; meas = []; k = 0; sumSqErr = 0; nErr = 0; frame = 0;
@@ -71,12 +81,14 @@
 
   function stepSim() {
     var Q = Qmat(), R = Rmat();
-    // --- gerçek dünya: sabit hız + yavaş dönüş ---
+    // --- gerçek dünya ölçümü (mevcut konumdan) ---
     var z = [h(xt)[0] + Math.sqrt(R[0][0]) * randn(), h(xt)[1] + Math.sqrt(R[1][1]) * randn()];
     truth.push([xt[0], xt[1]]); meas.push(z);
-    xt = matvec(F, xt);
-    var tr = (+el.turn.value) * Math.PI / 180, c = Math.cos(tr), s = Math.sin(tr);
-    var vx = xt[2], vy = xt[3]; xt[2] = c * vx - s * vy; xt[3] = s * vx + c * vy;   // hız vektörünü döndür
+    // gerçek dünyayı bir adım ilerlet: sensör çevresinde sürekli yörünge.
+    // "Dönüş hızı" slider'ı yörüngenin açısal hızıdır; menzil yavaşça nefes alır.
+    phi += orbitDir * (+el.turn.value) * Math.PI / 180;
+    rphase += 0.03;
+    var p = orbitPos(); xt[0] = p[0]; xt[1] = p[1];
 
     // --- EKF TAHMİN  (f doğrusal → F sabit) ---
     xhat = matvec(F, xhat);
@@ -98,7 +110,7 @@
     var e0 = xhat[0] - truth[truth.length - 1][0], e1 = xhat[1] - truth[truth.length - 1][1];
     sumSqErr += e0 * e0 + e1 * e1; nErr++;
     k++;
-    if (k >= MAXK || Math.hypot(xhat[0], xhat[1]) < 2) reset();
+    if (truth.length > WIN) { truth.shift(); est.shift(); meas.shift(); }   // kayan pencere → sürekli akış, sınırlı iz
   }
 
   function paint() {
@@ -110,14 +122,9 @@
     ctx.clearRect(0, 0, W, H);
     ctx.fillStyle = '#fcfcfd'; ctx.fillRect(0, 0, W, H);
 
-    // dünya sınırları (sensör + yörüngeler), eşit ölçek
-    var xs = [0], ys = [0], i;
-    for (i = 0; i < truth.length; i++) { xs.push(truth[i][0]); ys.push(truth[i][1]); }
-    for (i = 0; i < est.length; i++) { xs.push(est[i][0]); ys.push(est[i][1]); }
-    var minx = Math.min.apply(null, xs), maxx = Math.max.apply(null, xs);
-    var miny = Math.min.apply(null, ys), maxy = Math.max.apply(null, ys);
-    var cx = (minx + maxx) / 2, cy = (miny + maxy) / 2;
-    var wspan = Math.max(maxx - minx, maxy - miny, 10) * 1.25;
+    // sabit dünya görünümü: sensör (orijin) ortada; tüm yörünge + elips sığacak ölçek
+    var i, cx = 0, cy = 0;
+    var wspan = 2 * (RMID + RAMP) + 22;
     var sc = Math.min(W, H) / wspan;
     function w2s(px, py) { return [W / 2 + (px - cx) * sc, H / 2 - (py - cy) * sc]; }
 
