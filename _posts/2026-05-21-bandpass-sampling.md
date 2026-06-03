@@ -1,7 +1,7 @@
 ---
 title: "Bandpass Sampling: 1 GHz Sinyali 50 MHz Clock ile Örneklemek"
 subtitle: "Bandpass Sampling: How to Digitize a 1 GHz Signal with a 50 MHz Clock"
-background: "/img/posts/2.webp"
+background: "/img/posts/bandpass-sampling-cover.webp"
 date: '2026-05-21 09:00:00'
 layout: post
 lang: tr
