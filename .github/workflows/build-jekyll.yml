@@ -18,7 +18,10 @@ jobs:
       - uses: actions/checkout@v6
 
       - name: Install ImageMagick
-        run: sudo apt-get update && sudo apt-get install -y --no-install-recommends imagemagick
+        # `webp` (and dropping --no-install-recommends) pulls the libwebp-backed
+        # delegate so ImageMagick can read/write WebP — needed by both
+        # jekyll-favicon and the sm_thumbnails plugin.
+        run: sudo apt-get update && sudo apt-get install -y imagemagick webp
 
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1

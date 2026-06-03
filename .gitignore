@@ -1,4 +1,7 @@
 _site
+# Responsive card thumbnails are generated at build time by
+# _plugins/sm_thumbnails.rb — never commit them by hand.
+/img/posts/sm/
 .bundle
 .jekyll-cache
 .sass-cache
