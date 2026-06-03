@@ -1,7 +1,7 @@
 ---
 title: "Sistem Mühendisliği Nedir?"
 subtitle: "What Is Systems Engineering?"
-background: "/img/posts/4.webp"
+background: "/img/posts/sistem-muhendisligi-nedir-cover.webp"
 date: '2026-05-26 09:00:00'
 layout: post
 lang: tr

@@ -1,7 +1,7 @@
 ---
 title: "Renode ile Zynq7000 Simülasyonu"
 subtitle: "Zynq7000 Simulation with Renode"
-background: "/img/posts/5.webp"
+background: "/img/posts/renode-zynq7000-cover.webp"
 date: '2026-05-14 09:00:00'
 layout: post
 lang: tr

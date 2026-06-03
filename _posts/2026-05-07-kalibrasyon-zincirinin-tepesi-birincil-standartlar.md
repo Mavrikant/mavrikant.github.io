@@ -1,7 +1,7 @@
 ---
 title: "Saatçinin Saatini Kim Kalibre Eder? Kalibrasyon Zincirinin Tepesi"
 subtitle: "Who Calibrates the Calibrators? The Top of the Traceability Chain"
-background: "/img/posts/8.webp"
+background: "/img/posts/kalibrasyon-zinciri-tepesi-cover.webp"
 date: '2026-05-07 09:00:00'
 layout: post
 lang: tr
