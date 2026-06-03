@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="/favicon.ico" rel="shortcut icon" sizes="36x36 24x24 16x16" type="image/x-icon">
+<link href="/favicon.png" rel="icon" sizes="196x196" type="image/png">
+<meta content="/mstile-icon-128x128.png" name="msapplication-TileImage">
+<meta content="transparent" name="msapplication-TileColor">
+<link href="/manifest.webmanifest" rel="manifest">
+<meta content="/browserconfig.xml" name="msapplication-config">
+<!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>Kalman Filtresi ve EKF: Gürültülü Veriden Gizli Durumu Kestirmek | M. Serdar Karaman</title>
+<meta name="generator" content="Jekyll v4.2.2">
+<meta property="og:title" content="Kalman Filtresi ve EKF: Gürültülü Veriden Gizli Durumu Kestirmek">
+<meta name="author" content="M. Serdar Karaman">
+<meta property="og:locale" content="tr_TR">
+<meta name="description" content="Telefonunuz masanın üzerinde dururken bile GPS noktası birkaç metre oraya buraya zıplar. Arabadaki ivmeölçer mükemmel veri verir ama integralini aldığınızda hata saniyeler içinde birikip sürüklenir (drift). Tek başına ne sensöre ne de modele güvenebilirsiniz — yine de haritadaki maviniz pürüzsüz, kararlı bir çizgi çizer. Bu sihrin arkasındaki makine çoğu zaman aynıdır: Kalman filtresi.">
+<meta name="twitter:description" property="og:description" content="Telefonunuz masanın üzerinde dururken bile GPS noktası birkaç metre oraya buraya zıplar. Arabadaki ivmeölçer mükemmel veri verir ama integralini aldığınızda hata saniyeler içinde birikip sürüklenir (drift). Tek başına ne sensöre ne de modele güvenebilirsiniz — yine de haritadaki maviniz pürüzsüz, kararlı bir çizgi çizer. Bu sihrin arkasındaki makine çoğu zaman aynıdır: Kalman filtresi.">
+<link rel="canonical" href="https://karaman.dev/2026/06/02/kalman-filtresi.html">
+<meta property="og:url" content="https://karaman.dev/2026/06/02/kalman-filtresi.html">
+<meta property="og:site_name" content="M. Serdar Karaman">
+<meta property="og:image" content="https://karaman.dev/img/og-default.webp">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-06-02T09:00:00+00:00">
+<meta property="article:modified_time" content="2026-06-02T09:00:00+00:00">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://karaman.dev/img/og-default.webp">
+<meta name="twitter:title" content="Kalman Filtresi ve EKF: Gürültülü Veriden Gizli Durumu Kestirmek">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"M. Serdar Karaman"},"dateModified":"2026-06-02T09:00:00+00:00","datePublished":"2026-06-02T09:00:00+00:00","description":"Telefonunuz masanın üzerinde dururken bile GPS noktası birkaç metre oraya buraya zıplar. Arabadaki ivmeölçer mükemmel veri verir ama integralini aldığınızda hata saniyeler içinde birikip sürüklenir (drift). Tek başına ne sensöre ne de modele güvenebilirsiniz — yine de haritadaki maviniz pürüzsüz, kararlı bir çizgi çizer. Bu sihrin arkasındaki makine çoğu zaman aynıdır: Kalman filtresi.","headline":"Kalman Filtresi ve EKF: Gürültülü Veriden Gizli Durumu Kestirmek","image":"https://karaman.dev/img/og-default.webp","mainEntityOfPage":{"@type":"WebPage","@id":"https://karaman.dev/2026/06/02/kalman-filtresi.html"},"url":"https://karaman.dev/2026/06/02/kalman-filtresi.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<!-- Sentry (errors + performance + replay) -->
+<script src="https://js.sentry-cdn.com/d9df60c4bcc41adb14bb648db4013b52.min.js" crossorigin="anonymous"></script>
+<script>
+  Sentry.onLoad(function () {
+    Sentry.init({
+      integrations: [
+        Sentry.browserTracingIntegration(),
+        Sentry.replayIntegration({
+          maskAllText: false,
+          blockAllMedia: false,
+        }),
+      ],
+      tracesSampleRate: 1.0,
+      replaysSessionSampleRate: 0.1,
+      replaysOnErrorSampleRate: 1.0,
+    });
+  });
+</script>
+
+
+
+<!-- Privacy-friendly analytics by Plausible -->
+<script defer src="https://plausible.io/js/pa-BMAxUwrIK8Icg2HpLysj2.js"></script>
+<script>
+  window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments) };
+  window.plausible.init = window.plausible.init || function (i) { window.plausible.o = i || {} };
+  plausible.init();
+</script>
+
+
+<script>
+  // No-flash dark mode: applies the saved theme before paint.
+  (function () {
+    try {
+      var stored = localStorage.getItem('theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = stored || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch (e) {}
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="/img/posts/9.webp" fetchpriority="high">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.12.0/mermaid.min.js" integrity="sha512-5TKaYvhenABhlGIKSxAWLFJBZCSQw7HTV7aL1dJcBokM/+3PNtfgJFlv8E6Us/B1VMlQ4u8sPzjudL9TEQ06ww==" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/assets/main.css">
+<link rel="alternate" type="application/rss+xml" title="M. Serdar Karaman" href="/feed.xml">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e1014" media="(prefers-color-scheme: dark)">
+<link rel="manifest" href="/manifest.json">
+<script>MathJax={"tex":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]},"svg":{"fontCache":"global"}}</script><script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script><script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body id="page-top">
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">M. Serdar Karaman</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Menüyü aç/kapat">
+      Menü
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Ana sayfa</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">Hakkımda</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Yazılar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contact">İletişim</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownProjects" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Projeler
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProjects">
+            <a class="dropdown-item" href="https://karaman.dev/games" target="_blank" rel="noopener">Oyunlar</a>
+            <a class="dropdown-item" href="https://karaman.dev/or-araclari" target="_blank" rel="noopener">OR Araçları</a>
+            <a class="dropdown-item" href="https://karaman.dev/numio/" target="_blank" rel="noopener">Numio</a>
+          </div>
+        </li>
+        <li class="nav-item d-flex align-items-center">
+          <button type="button" class="theme-toggle" aria-label="Tema değiştir" title="Tema değiştir">
+            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <!-- Page Header -->
+
+<header class="masthead" style="background-image: url('/img/posts/9.webp')">
+  
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Kalman Filtresi ve EKF: Gürültülü Veriden Gizli Durumu Kestirmek</h1>
+            
+            <h2 class="subheading">The Kalman Filter and EKF: Estimating Hidden State from Noisy Data</h2>
+            
+            <span class="meta">
+              <a href="/about">M. Serdar Karaman</a>
+              · 2 Haziran 2026 · <span class="reading-time" title="Estimated read time">
+  
+  45 dk okuma süresi</span>
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container" lang="tr">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+
+        <div class="post-shell">
+          <aside class="post-toc" aria-label="İçindekiler">
+  <h2 class="post-toc__title">İçindekiler</h2>
+  <nav id="post-toc-nav"></nav>
+</aside>
+
+          <div class="post-content">
+            <p>Telefonunuz masanın üzerinde dururken bile GPS noktası birkaç metre oraya buraya zıplar. Arabadaki ivmeölçer mükemmel veri verir ama integralini aldığınızda hata saniyeler içinde birikip sürüklenir (drift). Tek başına ne sensöre ne de modele güvenebilirsiniz — yine de haritadaki maviniz pürüzsüz, kararlı bir çizgi çizer. Bu sihrin arkasındaki makine çoğu zaman aynıdır: <strong>Kalman filtresi</strong>.</p>
+
+<p>Kalman filtresi, 1960’ta Rudolf Kálmán’ın ortaya koyduğundan beri uzay araçlarından telefonunuza, robotlardan finansal modellere kadar her yerde çalışan, gürültülü ölçümler ile kusurlu bir hareket modelini optimal şekilde <strong>harmanlayan</strong> özyinelemeli bir kestirimcidir. Bu yazıda filtreyi sıfırdan kuracağız: önce Gauss dağılımlarını birleştirme sezgisiyle, sonra doğrusal durum-uzay modeliyle, ardından doğrusal-olmayan dünyaya geçişi sağlayan <strong>Genişletilmiş Kalman Filtresi (EKF)</strong> ile. Yol boyunca hem NumPy ile tam çalışan Python kodları hem de tarayıcınızda canlı oynayabileceğiniz iki etkileşimli simülatör olacak.</p>
+
+<hr>
+
+<h2 id="problem-gizli-durumu-gürültünün-altından-çıkarmak">Problem: Gizli Durumu Gürültünün Altından Çıkarmak</h2>
+
+<p>Bir sistemin gerçekten bilmek istediğimiz büyüklüklerine <strong>durum</strong> (state) diyelim ve <code class="language-plaintext highlighter-rouge">x</code> ile gösterelim — bir cismin konumu ve hızı, bir uydunun yörünge parametreleri, bir bataryanın şarj seviyesi. Sorun şu ki durumu doğrudan göremeyiz. Elimizde sadece iki kusurlu bilgi kaynağı vardır:</p>
+
+<ol>
+  <li>
+<strong>Bir hareket modeli.</strong> Fizik bize “bir sonraki adımda durum kabaca şu olur” der. Ama model idealdir; rüzgâr, sürtünme, modellenmemiş ivmeler yüzünden gerçekten sapar ve bu sapma adım adım <strong>birikir</strong>.</li>
+  <li>
+<strong>Gürültülü ölçümler.</strong> Sensör bize durumla ilgili bir şey söyler (<code class="language-plaintext highlighter-rouge">z</code>), ama her okumanın üzerinde rastgele gürültü vardır. Üstelik sensör çoğu zaman durumun tamamını değil, bir fonksiyonunu ölçer (örneğin yalnızca konumu, hızı değil).</li>
+</ol>
+
+<p>Kalman filtresinin yaptığı tam olarak şudur: her adımda modelin tahminiyle yeni ölçümü, <strong>her birinin ne kadar güvenilir olduğunu hesaba katarak</strong> birleştirir. Kritik nokta, filtrenin yalnızca en iyi tahmini (<code class="language-plaintext highlighter-rouge">x̂</code>) değil, o tahmine <strong>ne kadar güvendiğini</strong> de (kovaryans matrisi <code class="language-plaintext highlighter-rouge">P</code>) taşımasıdır. Tüm zekâ bu ikinci büyüklükte saklıdır.</p>
+
+<p>Bir de güzel özelliği var: filtre <strong>özyinelemelidir</strong> (recursive). Tüm geçmiş ölçümleri saklamaz; her an yalnızca güncel <code class="language-plaintext highlighter-rouge">x̂</code> ve <code class="language-plaintext highlighter-rouge">P</code> değerlerini tutar, yeni ölçüm gelince bunları günceller. Bu yüzden gömülü bir mikrodenetleyicide, sabit hafızayla, gerçek zamanlı çalışabilir.</p>
+
+<hr>
+
+<h2 id="gauss-dağılımı-ve-i̇ki-bilgiyi-birleştirmek">Gauss Dağılımı ve İki Bilgiyi Birleştirmek</h2>
+
+<p>Kalman filtresinin kalbinde tek bir varsayım yatar: belirsizliği <strong>Gauss (normal) dağılımıyla</strong> temsil ederiz. Bir Gauss iki sayıyla tanımlanır: ortalama <code class="language-plaintext highlighter-rouge">μ</code> (“en iyi tahminim”) ve varyans <code class="language-plaintext highlighter-rouge">σ²</code> (“ne kadar eminim” — küçük varyans = sivri, emin; büyük varyans = yayvan, belirsiz).</p>
+
+<p>Şimdi sihirli kısım. Elimizde aynı büyüklük hakkında iki bağımsız Gauss bilgi olsun: biri modelin tahmini, diğeri ölçüm. Bu ikisini <strong>çarptığımızda</strong> ortaya çıkan şey yine bir Gauss’tur — ve bu yeni Gauss, her ikisinden de <strong>daha dardır</strong>, ortalaması da ikisinin “kesinliklerine göre ağırlıklı” ortasındadır:</p>
+
+<p>$$
+\mu = \mu_1 + \frac{\sigma_1^2}{\sigma_1^2 + \sigma_2^2}\,(\mu_2 - \mu_1), \qquad
+\sigma^2 = \sigma_1^2 - \frac{\sigma_1^4}{\sigma_1^2 + \sigma_2^2}
+$$</p>
+
+<figure>
+  <img src="/img/posts/gaussian-fusion.webp" alt="İki Gauss dağılımının çarpımı: posterior her ikisinden de dar" class="img-fluid rounded">
+  <figcaption><strong>Şekil 1.</strong> Model tahmini (mavi, μ=4, σ=1.6) ile ölçümü (kırmızı, μ=7, σ=1.0) birleştirince ortaya çıkan posterior (yeşil) <em>her ikisinden de dar</em> (σ=0.85) ve ortalaması ikisinin arasında (μ=6.16), daha emin olduğumuz ölçüme yakın. Kalman güncellemesinin tüm özü bu tek resimde.</figcaption>
+</figure>
+
+<p>İki şeye dikkat edin. Birincisi, ortalamanın kaydığı miktar <code class="language-plaintext highlighter-rouge">σ₁²/(σ₁²+σ₂²)</code> ağırlığıyla belirlenir — bu ifade tam olarak skaler <strong>Kalman kazancıdır</strong> (<code class="language-plaintext highlighter-rouge">K</code>). İkincisi, sonuçtaki varyans her iki girdiden de küçüktür: iki bağımsız bilgiyi birleştirmek belirsizliği <strong>azaltır</strong>, asla artırmaz. Güncelleme denklemini şöyle de yazabiliriz:</p>
+
+<p>$$
+\mu = \mu_1 + K\,(\mu_2 - \mu_1), \qquad K = \frac{\sigma_1^2}{\sigma_1^2 + \sigma_2^2}
+$$</p>
+
+<p>Bu, birazdan göreceğimiz tam Kalman güncellemesinin (<code class="language-plaintext highlighter-rouge">x̂ = x̂⁻ + K(z − x̂⁻)</code>) bire bir skaler hâlidir. Geriye kalan tek iş, bunu tek boyuttan matrislere taşımak.</p>
+
+<hr>
+
+<h2 id="doğrusal-durum-uzay-modeli">Doğrusal Durum-Uzay Modeli</h2>
+
+<p>Çok boyutlu durumda <code class="language-plaintext highlighter-rouge">μ</code> yerine durum vektörü <code class="language-plaintext highlighter-rouge">x</code>, <code class="language-plaintext highlighter-rouge">σ²</code> yerine <strong>kovaryans matrisi</strong> <code class="language-plaintext highlighter-rouge">P</code> geçer. Sistemi şu iki denklemle modelleriz:</p>
+
+<p>$$
+x_k = F\,x_{k-1} + B\,u_{k-1} + w_{k-1}, \qquad w_{k-1} \sim \mathcal{N}(0, Q)
+$$</p>
+
+<p>$$
+z_k = H\,x_k + v_k, \qquad v_k \sim \mathcal{N}(0, R)
+$$</p>
+
+<p>Terimleri tek tek tanıyalım:</p>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">F</code> — <strong>durum geçiş matrisi</strong>: bir adımda durumun fizikçe nasıl evrildiği.</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">B</code>, <code class="language-plaintext highlighter-rouge">u</code> — <strong>kontrol matrisi</strong> ve <strong>kontrol girdisi</strong>: dışarıdan uyguladığımız, bildiğimiz etkiler (örneğin gaz/fren). Kontrol yoksa bu terim düşer.</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">H</code> — <strong>ölçüm matrisi</strong>: durumun hangi bileşeninin, nasıl ölçüldüğü.</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">Q</code> — <strong>süreç gürültüsü kovaryansı</strong>: modele ne kadar güvenmediğimiz. Büyük <code class="language-plaintext highlighter-rouge">Q</code> = “modelim kaba, gerçek bundan sapabilir”.</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">R</code> — <strong>ölçüm gürültüsü kovaryansı</strong>: sensöre ne kadar güvenmediğimiz. Genelde sensörün datasheet’inden ya da kalibrasyondan bilinir.</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">P</code> — <strong>kestirim kovaryansı</strong>: filtrenin o anki tahminine olan güveni. Filtre bunu kendisi üretir ve günceller.</li>
+</ul>
+
+<p>Somut bir örnek kuralım: bir doğru üzerinde, yaklaşık sabit hızla giden bir cisim. Durumu konum ve hızdan oluşsun, <code class="language-plaintext highlighter-rouge">Δt</code> adım süresi olsun. Yalnızca konumu ölçebildiğimizi varsayalım. O zaman:</p>
+
+<p>$$
+x_k = \begin{bmatrix} p_k \\ \dot{p}_k \end{bmatrix}, \quad
+F = \begin{bmatrix} 1 &amp; \Delta t \\ 0 &amp; 1 \end{bmatrix}, \quad
+H = \begin{bmatrix} 1 &amp; 0 \end{bmatrix}
+$$</p>
+
+<p><code class="language-plaintext highlighter-rouge">F</code>‘in anlamı net: yeni konum = eski konum + hız·Δt; yeni hız = eski hız (sabit hız varsayımı). <code class="language-plaintext highlighter-rouge">H = [1, 0]</code> ise “ölçüm sadece konumu görür, hızı görmez” der. Hızı hiç ölçmediğimiz hâlde filtre onu konum ölçümlerinin zaman içindeki değişiminden <strong>çıkarsayacak</strong> — Kalman filtresinin en şık tarafı budur.</p>
+
+<p>Süreç gürültüsünü, modellenmemiş bir ivmeden gelir gibi düşünürüz (beyaz-gürültü ivme modeli):</p>
+
+<p>$$
+Q = q\begin{bmatrix} \tfrac{\Delta t^4}{4} &amp; \tfrac{\Delta t^3}{2} \[4pt] \tfrac{\Delta t^3}{2} &amp; \Delta t^2 \end{bmatrix}, \qquad
+R = \begin{bmatrix} \sigma_{\text{ölç}}^2 \end{bmatrix}
+$$</p>
+
+<p>Buradaki <code class="language-plaintext highlighter-rouge">q</code> skaler bir “süreç gürültüsü yoğunluğu”dur ve birazdan en kritik ayar düğmemiz olacak.</p>
+
+<hr>
+
+<h2 id="tahmin-adımı-predict">Tahmin Adımı (Predict)</h2>
+
+<p>Filtre iki adımlı bir danstır. İlk adım <strong>tahmin</strong>: mevcut durumu ve belirsizliği, modeli kullanarak bir adım ileri taşırız.</p>
+
+<p>$$
+\hat{x}<em>k^- = F\,\hat{x}</em>{k-1} + B\,u_{k-1}
+$$</p>
+
+<p>$$
+P_k^- = F\,P_{k-1}\,F^{\mathsf{T}} + Q
+$$</p>
+
+<p>Üstteki <code class="language-plaintext highlighter-rouge">−</code> işareti “henüz ölçümü görmeden, sadece modele dayalı a-priori tahmin” demektir. Birinci denklem sezgisel: durumu fizik kurallarıyla ileri sür. İkinci denklem daha derin: belirsizliği de ileri taşırız, ama <code class="language-plaintext highlighter-rouge">F P Fᵀ</code> ile dönüştürüp üzerine <code class="language-plaintext highlighter-rouge">+ Q</code> ekleriz. Bu <strong><code class="language-plaintext highlighter-rouge">+ Q</code></strong> çok önemli — tahmin adımı belirsizliği daima <strong>büyütür</strong>. Mantıklı: modele güvenerek geleceğe baktıkça emin olduğumuz şey azalır. Konum-hız örneğinde belirsizlik elipsi, hız yönünde uzar; çünkü hızdaki ufak bir hata, zamanla konumda büyük bir belirsizliğe dönüşür.</p>
+
+<hr>
+
+<h2 id="güncelleme-adımı-update">Güncelleme Adımı (Update)</h2>
+
+<p>İkinci adım <strong>güncelleme</strong>: yeni ölçüm gelince tahmini düzeltiriz. Burası Gauss çarpımının matris hâlidir.</p>
+
+<p>$$
+y_k = z_k - H\,\hat{x}_k^-
+$$</p>
+
+<p>$$
+S_k = H\,P_k^-\,H^{\mathsf{T}} + R
+$$</p>
+
+<p>$$
+K_k = P_k^-\,H^{\mathsf{T}}\,S_k^{-1}
+$$</p>
+
+<p>$$
+\hat{x}_k = \hat{x}_k^- + K_k\,y_k
+$$</p>
+
+<p>$$
+P_k = (I - K_k H)\,P_k^-
+$$</p>
+
+<p>Sırayla:</p>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">y</code> — <strong>yenilik</strong> (innovation): ölçüm bizi ne kadar şaşırttı? Beklediğimiz ölçüm (<code class="language-plaintext highlighter-rouge">H x̂⁻</code>) ile gerçek ölçüm (<code class="language-plaintext highlighter-rouge">z</code>) arasındaki fark. Yenilik küçükse model isabetli, büyükse ölçümde yeni bilgi var.</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">S</code> — yeniliğin kovaryansı: bu şaşkınlığın ne kadarı beklenen (gürültü + model belirsizliği).</li>
+  <li>
+<code class="language-plaintext highlighter-rouge">K</code> — <strong>Kalman kazancı</strong>: filtrenin kalbi. Yeniliğin ne kadarına güveneceğimizi belirleyen, hassasiyete göre ağırlıklı harman oranı. <code class="language-plaintext highlighter-rouge">K → 1</code> ise “sensöre güven, ölçümü kabul et”; <code class="language-plaintext highlighter-rouge">K → 0</code> ise “modele güven, ölçümü neredeyse yok say”.</li>
+  <li>Durum güncellemesi: a-priori tahmine, yeniliğin <code class="language-plaintext highlighter-rouge">K</code> katını ekle.</li>
+  <li>Kovaryans güncellemesi: tahmin belirsizliği <strong>azalır</strong> (yeni bilgi geldi).</li>
+</ul>
+
+<p>Pratikte son denklem yerine sayısal olarak daha kararlı olan <strong>Joseph formu</strong> tercih edilir; her durumda simetrik ve pozitif yarı-tanımlı bir <code class="language-plaintext highlighter-rouge">P</code> üretir:</p>
+
+<p>$$
+P_k = (I - K_k H)\,P_k^-\,(I - K_k H)^{\mathsf{T}} + K_k R\,K_k^{\mathsf{T}}
+$$</p>
+
+<p>Buna birazdan “Mühendislik Notları”nda döneceğiz.</p>
+
+<hr>
+
+<h2 id="tam-algoritma-i̇ki-adımın-dansı">Tam Algoritma: İki Adımın Dansı</h2>
+
+<p>Tüm filtre, bu iki adımın sonsuza dek tekrarından ibarettir:</p>
+
+<div class="mermaid">
+flowchart LR
+    INIT["Başlangıç<br>x₀ , P₀ (büyük)"] --&gt; PRED
+    subgraph TAHMIN["① TAHMİN (Predict)"]
+      PRED["x⁻ = F·x + B·u<br>P⁻ = F·P·Fᵀ + Q<br>(belirsizlik artar)"]
+    end
+    subgraph GUNC["② GÜNCELLEME (Update)"]
+      UPD["y = z − H·x⁻<br>K = P⁻·Hᵀ·S⁻¹<br>x = x⁻ + K·y<br>P = (I − K·H)·P⁻<br>(belirsizlik azalır)"]
+    end
+    PRED --&gt;|\"a priori tahmin\"| UPD
+    Z(["ölçüm z"]) --&gt; UPD
+    UPD --&gt;|\"a posteriori kestirim\"| PRED
+    UPD --&gt; OUT["çıktı: x , P"]
+    style INIT fill:#e8eef7,stroke:#4a6fa5,stroke-width:2px
+    style PRED fill:#cee0f3,stroke:#3a5f95,stroke-width:2px
+    style UPD fill:#bfd6f0,stroke:#3a5f95,stroke-width:2px
+    style Z fill:#fde0e0,stroke:#c0392b,stroke-width:2px
+    style OUT fill:#d5f0d5,stroke:#2e7d32,stroke-width:2px
+</div>
+
+<p>Başlangıçta <code class="language-plaintext highlighter-rouge">x̂₀</code> için bir tahmin (bilmiyorsak sıfır) ve <code class="language-plaintext highlighter-rouge">P₀</code> için <strong>büyük</strong> bir değer veririz — “başta hiçbir şey bilmiyorum” demenin yolu budur. İlk birkaç ölçümde filtre hızla kendine gelir; kötü bir başlangıcı çabucak unutur. Bu, Kalman filtresinin pratikteki en sevimli huylarından biridir.</p>
+
+<hr>
+
+<h2 id="elde-çalışan-1b-örnek">Elde Çalışan 1B Örnek</h2>
+
+<p>Soyut kalmasın; ilk iterasyonu elle yapalım. Konum-hız modelimizde <code class="language-plaintext highlighter-rouge">Δt = 1</code>, <code class="language-plaintext highlighter-rouge">σ_ölç = 2</code> (yani <code class="language-plaintext highlighter-rouge">R = 4</code>), <code class="language-plaintext highlighter-rouge">q = 0.01</code> olsun. Başlangıç: <code class="language-plaintext highlighter-rouge">x̂₀ = [0, 0]</code>, <code class="language-plaintext highlighter-rouge">P₀ = 500·I</code> (çok belirsiz).</p>
+
+<p><strong>Tahmin:</strong> <code class="language-plaintext highlighter-rouge">x̂⁻ = F·[0,0]ᵀ = [0, 0]</code>. Kovaryans için <code class="language-plaintext highlighter-rouge">P⁻ = F P₀ Fᵀ + Q</code>. Hesabı yapınca <code class="language-plaintext highlighter-rouge">P⁻[0,0] ≈ 1000</code> çıkar (belirsizlik tahminle daha da büyüdü).</p>
+
+<p><strong>İlk ölçüm geldi:</strong> diyelim <code class="language-plaintext highlighter-rouge">z₁ = 2.64</code>. O zaman:</p>
+
+<ul>
+  <li>Yenilik: <code class="language-plaintext highlighter-rouge">y = z₁ − x̂⁻[0] = 2.64 − 0 = 2.64</code>
+</li>
+  <li>Yenilik kovaryansı: <code class="language-plaintext highlighter-rouge">S = P⁻[0,0] + R = 1000 + 4 = 1004</code>
+</li>
+  <li>Kalman kazancı: <code class="language-plaintext highlighter-rouge">K = [P⁻[0,0], P⁻[0,1]]ᵀ / S = [0.996, 0.498]ᵀ</code>
+</li>
+  <li>Durum: <code class="language-plaintext highlighter-rouge">x̂ = x̂⁻ + K·y = [0.996·2.64, 0.498·2.64] = [2.63, 1.31]</code>
+</li>
+  <li>Kovaryans: <code class="language-plaintext highlighter-rouge">P[0,0] = (1 − 0.996)·1000 ≈ 4.0</code>
+</li>
+</ul>
+
+<p>İlk adımda <code class="language-plaintext highlighter-rouge">K ≈ 1</code> çıkması tesadüf değil: <code class="language-plaintext highlighter-rouge">P₀</code> kocaman olduğu için filtre “modelime hiç güvenmiyorum, ölçüm neredeyse aynen doğrudur” diyor ve ilk ölçümü olduğu gibi kabul ediyor. Konum varyansı 1000’den 4’e düştü; bir ölçümle ne kadar çok şey öğrendiğimize bakın. Adımlar ilerledikçe <code class="language-plaintext highlighter-rouge">K</code> küçülerek kararlı bir değere oturacak — filtre artık modeline de güvenmeye başlayacak.</p>
+
+<hr>
+
+<h2 id="numpy-ile-sıfırdan-lineer-kf">NumPy ile Sıfırdan Lineer KF</h2>
+
+<p>Teori güzel ama her zaman dediğim gibi, gözünüzle görmediğiniz hiçbir şeye güvenmeyin. Aşağıdaki kod modeli kurar, gerçek bir yörünge ile gürültülü ölçümler üretir ve filtreyi çalıştırır. Toplam 20 satırlık bir döngü.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="n">plt</span>
+
+<span class="n">dt</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">F</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span> <span class="n">dt</span><span class="p">],</span>
+              <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">]])</span>          <span class="c1"># sabit-hız geçiş matrisi
+</span><span class="n">H</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">]])</span>        <span class="c1"># yalnızca konumu ölçüyoruz
+</span><span class="n">q</span> <span class="o">=</span> <span class="mf">0.01</span>                          <span class="c1"># süreç gürültüsü yoğunluğu
+</span><span class="n">Q</span> <span class="o">=</span> <span class="n">q</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([[</span><span class="n">dt</span><span class="o">**</span><span class="mi">4</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="n">dt</span><span class="o">**</span><span class="mi">3</span><span class="o">/</span><span class="mi">2</span><span class="p">],</span>
+                  <span class="p">[</span><span class="n">dt</span><span class="o">**</span><span class="mi">3</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">dt</span><span class="o">**</span><span class="mi">2</span><span class="p">]])</span>
+<span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">4.0</span><span class="p">]])</span>             <span class="c1"># ölçüm gürültüsü (σ=2 → R=σ²=4)
+</span>
+<span class="c1"># 1) Gerçek yörünge + gürültülü ölçümler üret
+</span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">60</span>
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">])</span>          <span class="c1"># [konum, hız]
+</span><span class="n">truth</span><span class="p">,</span> <span class="n">meas</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+    <span class="n">x</span> <span class="o">=</span> <span class="n">F</span> <span class="o">@</span> <span class="n">x</span> <span class="o">+</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="n">rng</span><span class="p">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">q</span><span class="p">))])</span>
+    <span class="n">truth</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">x</span><span class="p">.</span><span class="n">copy</span><span class="p">())</span>
+    <span class="n">meas</span><span class="p">.</span><span class="n">append</span><span class="p">((</span><span class="n">H</span> <span class="o">@</span> <span class="n">x</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="o">+</span> <span class="n">rng</span><span class="p">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">2.0</span><span class="p">))</span>
+<span class="n">truth</span><span class="p">,</span> <span class="n">meas</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">truth</span><span class="p">),</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">meas</span><span class="p">)</span>
+
+<span class="c1"># 2) Kalman filtresini çalıştır
+</span><span class="n">xhat</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+<span class="n">P</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span> <span class="o">*</span> <span class="mf">500.0</span>             <span class="c1"># başlangıçta çok belirsiziz
+</span><span class="n">I</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span>
+<span class="n">est</span><span class="p">,</span> <span class="n">var_p</span><span class="p">,</span> <span class="n">gain</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[],</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+    <span class="c1"># --- TAHMİN ---
+</span>    <span class="n">xhat</span> <span class="o">=</span> <span class="n">F</span> <span class="o">@</span> <span class="n">xhat</span>
+    <span class="n">P</span> <span class="o">=</span> <span class="n">F</span> <span class="o">@</span> <span class="n">P</span> <span class="o">@</span> <span class="n">F</span><span class="p">.</span><span class="n">T</span> <span class="o">+</span> <span class="n">Q</span>
+    <span class="c1"># --- GÜNCELLEME ---
+</span>    <span class="n">y</span> <span class="o">=</span> <span class="n">meas</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">H</span> <span class="o">@</span> <span class="n">xhat</span>                  <span class="c1"># yenilik
+</span>    <span class="n">S</span> <span class="o">=</span> <span class="n">H</span> <span class="o">@</span> <span class="n">P</span> <span class="o">@</span> <span class="n">H</span><span class="p">.</span><span class="n">T</span> <span class="o">+</span> <span class="n">R</span>
+    <span class="n">K</span> <span class="o">=</span> <span class="n">P</span> <span class="o">@</span> <span class="n">H</span><span class="p">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">np</span><span class="p">.</span><span class="n">linalg</span><span class="p">.</span><span class="n">inv</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>          <span class="c1"># Kalman kazancı
+</span>    <span class="n">xhat</span> <span class="o">=</span> <span class="n">xhat</span> <span class="o">+</span> <span class="p">(</span><span class="n">K</span> <span class="o">@</span> <span class="n">y</span><span class="p">)</span>
+    <span class="n">P</span> <span class="o">=</span> <span class="p">(</span><span class="n">I</span> <span class="o">-</span> <span class="n">K</span> <span class="o">@</span> <span class="n">H</span><span class="p">)</span> <span class="o">@</span> <span class="n">P</span>
+    <span class="n">est</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">xhat</span><span class="p">.</span><span class="n">copy</span><span class="p">());</span> <span class="n">var_p</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">P</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]);</span> <span class="n">gain</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">K</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="n">est</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">est</span><span class="p">)</span>
+
+<span class="n">rmse_kf</span>  <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">mean</span><span class="p">((</span><span class="n">est</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">-</span> <span class="n">truth</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+<span class="n">rmse_raw</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">mean</span><span class="p">((</span><span class="n">meas</span> <span class="o">-</span> <span class="n">truth</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">))</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"KF RMSE=</span><span class="si">{</span><span class="n">rmse_kf</span><span class="si">:</span><span class="p">.</span><span class="mi">2</span><span class="n">f</span><span class="si">}</span><span class="s">   ham ölçüm RMSE=</span><span class="si">{</span><span class="n">rmse_raw</span><span class="si">:</span><span class="p">.</span><span class="mi">2</span><span class="n">f</span><span class="si">}</span><span class="s">"</span><span class="p">)</span>
+<span class="c1"># -&gt; KF RMSE=0.73   ham ölçüm RMSE=1.64
+</span></code></pre></div></div>
+
+<p>Sonuç çarpıcı: ham ölçümlerin gerçek konuma göre RMSE’si <strong>1.64</strong> iken, Kalman kestiriminin RMSE’si <strong>0.73</strong> — kabaca <strong>2.25 kat</strong> daha iyi. Hem de tek bir ekstra sensör eklemeden, yalnızca bir hareket modelini akıllıca kullanarak.</p>
+
+<figure>
+  <img src="/img/posts/kalman-1d-tracking.webp" alt="Lineer Kalman filtresiyle 1B konum takibi" class="img-fluid rounded">
+  <figcaption><strong>Şekil 2.</strong> Gerçek konum (yeşil), gürültülü ölçümler (kırmızı nokta) ve KF kestirimi (mavi), ±2σ güven bandıyla birlikte. Mavi çizgi kırmızı bulutun ortasından pürüzsüzce geçiyor; güven bandı ilk adımlarda geniş, sonra daralıyor.</figcaption>
+</figure>
+
+<p>Bir de filtrenin “kendine güveni” olan <code class="language-plaintext highlighter-rouge">P</code> ve kazanç <code class="language-plaintext highlighter-rouge">K</code>‘nin zaman içindeki davranışına bakalım:</p>
+
+<figure>
+  <img src="/img/posts/kalman-covariance-convergence.webp" alt="Kovaryans P ve Kalman kazancı K kararlı duruma oturuyor" class="img-fluid rounded">
+  <figcaption><strong>Şekil 3.</strong> Konum varyansı P[0,0] başlangıçtaki 500'den birkaç adımda ~1'e iner (logaritmik eksen). Kalman kazancı K[0] ise ~1.0'dan başlayıp ~0.27'ye oturur. Sabit `F`, `H`, `Q`, `R` için kazanç bir <strong>kararlı duruma</strong> yakınsar — bu, gömülü sistemlerde "sabit kazançlı Kalman filtresi" olarak önceden hesaplanabilir.</figcaption>
+</figure>
+
+<p><code class="language-plaintext highlighter-rouge">R</code> ve <code class="language-plaintext highlighter-rouge">q</code> değerleriyle oynayıp kodu yeniden çalıştırın: <code class="language-plaintext highlighter-rouge">R</code>‘yi büyütürseniz filtre ölçümlere daha az güvenir, kestirim pürüzsüzleşir ama yavaşlar. <code class="language-plaintext highlighter-rouge">q</code>‘yu büyütürseniz modele daha az güvenir, kestirim ölçümlerin peşinden koşar. Bu dengeyi en iyi, doğrudan elinizle hissederek anlarsınız — buyrun.</p>
+
+<hr>
+
+<h2 id="etkileşimli-simülatör-lineer-kalman-filtresi">Etkileşimli Simülatör: Lineer Kalman Filtresi</h2>
+
+<p>Aşağıdaki simülatör gerçek zamanlı çalışır. Üç düğme var: ölçüm gürültüsü <code class="language-plaintext highlighter-rouge">σ</code>, filtrenin <strong>varsaydığı</strong> süreç gürültüsü <code class="language-plaintext highlighter-rouge">q</code> ve cismin gerçek hızı. Gerçek dünya sabit (ama hafif manevra yapan) bir hızla ilerler; siz filtreyi nasıl ayarladığınıza göre sonucu izleyin.</p>
+
+<div class="card my-3" id="kf-demo">
+  <div class="card-header py-2"><strong>Lineer Kalman Filtresi Simülatörü</strong></div>
+  <div class="card-body">
+    <div class="form-row mb-2">
+      <div class="col-md-4 mb-2">
+        <label class="mb-0 small">Ölçüm gürültüsü σ = <b id="kf-v-R">2.0</b></label>
+        <input type="range" class="custom-range" id="kf-sl-R" min="0.2" max="8" value="2" step="0.1">
+      </div>
+      <div class="col-md-4 mb-2">
+        <label class="mb-0 small">Süreç gürültüsü q (filtre) = <b id="kf-v-Q">0.0100</b></label>
+        <input type="range" class="custom-range" id="kf-sl-Q" min="0.0001" max="1" value="0.01" step="0.0001">
+      </div>
+      <div class="col-md-4 mb-2">
+        <label class="mb-0 small">Gerçek hız = <b id="kf-v-V">1.0</b> br/adım</label>
+        <input type="range" class="custom-range" id="kf-sl-V" min="-2" max="2" value="1" step="0.1">
+      </div>
+    </div>
+    <div class="mb-2">
+      <button class="btn btn-sm btn-primary" id="kf-btn-play" type="button">⏸ Duraklat</button>
+      <button class="btn btn-sm btn-outline-secondary" id="kf-btn-reset" type="button">↻ Yeni gerçekleştirme</button>
+    </div>
+    <div id="kf-status" class="px-2 py-1 mb-2 rounded small" style="font-family:monospace;min-height:2.2em;background:#f1f5fb;"></div>
+    <canvas id="kf-canvas" style="width:100%;display:block;border-radius:4px;border:1px solid #dee2e6;"></canvas>
+    <p class="text-muted small mt-1 mb-0">σ'yı büyüt → kestirim pürüzsüzleşir ama gecikir. q'yu büyüt → kestirim her ölçümün peşinden koşar. q'yu çok küçültürsen filtre fazla kendine güvenir: ±2σ bandı incelir ama gerçek konum bandın dışına taşar (ıraksamanın habercisi).</p>
+  </div>
+</div>
+
+<script src="/assets/js/posts/kalman-linear.js"></script>
+
+<p>Birkaç deney önerisi: <code class="language-plaintext highlighter-rouge">q</code>‘yu en küçük değere çekin ve birkaç saniye izleyin — güven bandı kâğıt inceliğine düşerken gerçek (yeşil) çizginin bandın dışına kaçtığını göreceksiniz. Filtre kendine olduğundan fazla güveniyor; bu, gerçek sistemlerde <strong>ıraksamanın</strong> (divergence) klasik reçetesidir. Sonra <code class="language-plaintext highlighter-rouge">q</code>‘yu sonuna kadar açın: bu sefer kestirim her gürültülü noktanın peşine takılır, filtrenin tüm pürüzsüzleştirme faydası kaybolur. İyi ayar ikisinin arasındadır.</p>
+
+<hr>
+
+<h2 id="doğrusal-olmama-problemi-sensör-düz-konuşmaz">Doğrusal Olmama Problemi: Sensör Düz Konuşmaz</h2>
+
+<p>Şimdiye kadar her şey doğrusaldı: <code class="language-plaintext highlighter-rouge">x = F x</code> ve <code class="language-plaintext highlighter-rouge">z = H x</code>. Gerçek dünyaysa nadiren bu kadar kibardır. Çoğu sensör, durumun <strong>doğrusal-olmayan</strong> bir fonksiyonunu ölçer.</p>
+
+<p>Klasik örnek: orijine yerleştirilmiş bir sensör, hareketli bir cisme olan <strong>uzaklığı</strong> (menzil, <code class="language-plaintext highlighter-rouge">r</code>) ve <strong>açıyı</strong> (<code class="language-plaintext highlighter-rouge">θ</code>) ölçsün. Cismin konumu Kartezyen <code class="language-plaintext highlighter-rouge">(p_x, p_y)</code> ise, ölçüm şudur:</p>
+
+<p>$$
+h(x) = \begin{bmatrix} r \\ \theta \end{bmatrix}
+     = \begin{bmatrix} \sqrt{p_x^2 + p_y^2} \[4pt] \operatorname{atan2}(p_y, p_x) \end{bmatrix}
+$$</p>
+
+<p>İçindeki karekök ve <code class="language-plaintext highlighter-rouge">atan2</code> yüzünden bu fonksiyon durumda doğrusal değildir. İşte sorun: Kalman filtresinin tüm matematiği “Gauss içeri girer, Gauss dışarı çıkar” varsayımına dayanır. Ama bir Gauss dağılımını doğrusal-olmayan bir fonksiyondan geçirirseniz, çıkan şey <strong>artık Gauss değildir</strong> — çarpık, eğri büğrü bir dağılımdır. <code class="language-plaintext highlighter-rouge">H</code> matrisi diye bir şey de yoktur; <code class="language-plaintext highlighter-rouge">h(x)</code> bir matrisle yazılamaz. Klasik KF burada çalışmaz.</p>
+
+<p>(Aynı sorun ölçümde değil <strong>süreçte</strong> de olabilir: <code class="language-plaintext highlighter-rouge">x = f(x, u)</code> doğrusal-olmayan bir hareket modeli olabilir — dönen bir cisim, sürtünmeli bir sarkaç. Çözüm her iki durumda da aynıdır.)</p>
+
+<hr>
+
+<h2 id="ekfin-fikri-lineerizasyon-ve-jacobianlar">EKF’in Fikri: Lineerizasyon ve Jacobian’lar</h2>
+
+<p>Genişletilmiş Kalman Filtresi’nin (EKF) çözümü zarif ve pragmatiktir: <strong>doğrusal-olmayan fonksiyonu, içinde bulunduğumuz çalışma noktasının yakınında bir doğruyla (teğetle) değiştir.</strong> Yani her adımda, güncel tahmin <code class="language-plaintext highlighter-rouge">x̂</code> etrafında birinci-dereceden Taylor açılımı yaparız. Bu teğetin eğimi, fonksiyonun <strong>Jacobian matrisidir</strong>:</p>
+
+<p>$$
+F_k = \left.\frac{\partial f}{\partial x}\right|_{\hat{x}_{k-1},\,u_{k-1}}, \qquad
+H_k = \left.\frac{\partial h}{\partial x}\right|_{\hat{x}_k^-}
+$$</p>
+
+<p>Fikir basit ama güçlü: kovaryansı taşırken ve Kalman kazancını hesaplarken, sabit <code class="language-plaintext highlighter-rouge">F</code> ve <code class="language-plaintext highlighter-rouge">H</code> matrislerinin yerine bu <strong>her adımda yeniden hesaplanan</strong> Jacobian’ları kullanırız. Durumun kendisini taşırken ise gerçek doğrusal-olmayan <code class="language-plaintext highlighter-rouge">f</code> ve <code class="language-plaintext highlighter-rouge">h</code> fonksiyonlarını kullanmaya devam ederiz (teğeti değil, eğrinin kendisini).</p>
+
+<figure>
+  <img src="/img/posts/ekf-linearization.webp" alt="EKF doğrusallaştırma: eğri ve çalışma noktasındaki teğeti" class="img-fluid rounded">
+  <figcaption><strong>Şekil 4.</strong> EKF'in tek fikri: doğrusal-olmayan ölçüm fonksiyonunu (yeşil eğri) çalışma noktasındaki teğetiyle (mavi kesik çizgi — Jacobian) değiştirmek. Çalışma noktasına yakın bölgede teğet eğriye iyi uyar; uzaklaştıkça doğrusallaştırma hatası (kırmızı taralı bölge) büyür. EKF'in tüm güçlü ve zayıf yanları bu resimde gizli.</figcaption>
+</figure>
+
+<p>Bu yaklaşımın bedeli de aynı resimde: EKF artık <strong>optimal değildir</strong> ve doğrusallık varsayımı yalnızca çalışma noktasının yakınında geçerlidir. Tahmin gerçekten uzaksa veya fonksiyon çok bükülmüşse, teğet kötü bir yaklaşım olur ve filtre ıraksayabilir. Yine de pratikte EKF, on yıllardır navigasyon ve takip sistemlerinin bel kemiğidir; çünkü çoğu sistem, adım adım bakıldığında “yeterince doğrusal”dır.</p>
+
+<hr>
+
+<h2 id="range-bearing-jacobianını-elle-türetmek">Range-Bearing Jacobian’ını Elle Türetmek</h2>
+
+<p>EKF’i uygulamak demek, Jacobian’ı doğru türetmek demektir; gerisi neredeyse klasik KF’tir. Menzil-açı ölçümümüz için <code class="language-plaintext highlighter-rouge">H_k = ∂h/∂x</code> türevini eleman eleman alalım. Durumumuz <code class="language-plaintext highlighter-rouge">[p_x, p_y, v_x, v_y]</code> ve <code class="language-plaintext highlighter-rouge">r = √(p_x² + p_y²)</code>.</p>
+
+<p>Menzil satırı için:</p>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">∂r/∂p_x = p_x / r</code>,  <code class="language-plaintext highlighter-rouge">∂r/∂p_y = p_y / r</code>
+</li>
+</ul>
+
+<p>Açı satırı için (<code class="language-plaintext highlighter-rouge">θ = atan2(p_y, p_x)</code> türevinin standart sonucu):</p>
+
+<ul>
+  <li>
+<code class="language-plaintext highlighter-rouge">∂θ/∂p_x = −p_y / r²</code>,  <code class="language-plaintext highlighter-rouge">∂θ/∂p_y = p_x / r²</code>
+</li>
+</ul>
+
+<p>Hız bileşenlerine göre türevler sıfırdır, çünkü ölçüm hıza doğrudan bağlı değil. Hepsini bir matriste toplayınca:</p>
+
+<p>$$
+H_k = \frac{\partial h}{\partial x}
+= \begin{bmatrix}
+\dfrac{p_x}{r} &amp; \dfrac{p_y}{r} &amp; 0 &amp; 0 \[8pt]
+-\dfrac{p_y}{r^2} &amp; \dfrac{p_x}{r^2} &amp; 0 &amp; 0
+\end{bmatrix}
+$$</p>
+
+<p>El ile türetilen bir Jacobian, hata yapmaya en açık yerdir; bu yüzden onu daima <strong>sayısal türevle</strong> doğrulayın. <code class="language-plaintext highlighter-rouge">(h(x+ε) − h(x−ε)) / 2ε</code> merkezî farkı, analitik Jacobian’a çok yakın çıkmalıdır:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+<span class="k">def</span> <span class="nf">h</span><span class="p">(</span><span class="n">x</span><span class="p">):</span> <span class="k">return</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="p">.</span><span class="n">hypot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">np</span><span class="p">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])])</span>
+<span class="k">def</span> <span class="nf">H_jac</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+    <span class="n">px</span><span class="p">,</span> <span class="n">py</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span> <span class="n">r2</span> <span class="o">=</span> <span class="n">px</span><span class="o">*</span><span class="n">px</span> <span class="o">+</span> <span class="n">py</span><span class="o">*</span><span class="n">py</span><span class="p">;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">r2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([[</span> <span class="n">px</span><span class="o">/</span><span class="n">r</span><span class="p">,</span>   <span class="n">py</span><span class="o">/</span><span class="n">r</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                     <span class="p">[</span><span class="o">-</span><span class="n">py</span><span class="o">/</span><span class="n">r2</span><span class="p">,</span>  <span class="n">px</span><span class="o">/</span><span class="n">r2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+
+<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="mf">3.0</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="o">-</span><span class="mf">2.0</span><span class="p">])</span>          <span class="c1"># r = 5
+</span><span class="n">eps</span> <span class="o">=</span> <span class="mf">1e-6</span><span class="p">;</span> <span class="n">J_num</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">4</span><span class="p">):</span>
+    <span class="n">e</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span> <span class="n">e</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">eps</span>
+    <span class="n">J_num</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="n">h</span><span class="p">(</span><span class="n">x</span><span class="o">+</span><span class="n">e</span><span class="p">)</span> <span class="o">-</span> <span class="n">h</span><span class="p">(</span><span class="n">x</span><span class="o">-</span><span class="n">e</span><span class="p">))</span> <span class="o">/</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">eps</span><span class="p">)</span>
+
+<span class="k">print</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nb">max</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nb">abs</span><span class="p">(</span><span class="n">H_jac</span><span class="p">(</span><span class="n">x</span><span class="p">)</span> <span class="o">-</span> <span class="n">J_num</span><span class="p">)))</span>      <span class="c1"># -&gt; ~7e-9  (analitik = sayısal)
+</span><span class="k">print</span><span class="p">(</span><span class="n">H_jac</span><span class="p">(</span><span class="n">x</span><span class="p">))</span>   <span class="c1"># [[ 0.6 ,  0.8 , 0, 0], [-0.16,  0.12, 0, 0]]
+</span></code></pre></div></div>
+
+<p>Maksimum fark <code class="language-plaintext highlighter-rouge">~10⁻⁹</code> mertebesinde; Jacobian’ımız doğru. (<code class="language-plaintext highlighter-rouge">p_x=3, p_y=4</code> için <code class="language-plaintext highlighter-rouge">r=5</code>; <code class="language-plaintext highlighter-rouge">3/5=0.6</code>, <code class="language-plaintext highlighter-rouge">4/5=0.8</code>, <code class="language-plaintext highlighter-rouge">−4/25=−0.16</code>, <code class="language-plaintext highlighter-rouge">3/25=0.12</code> — elle de doğrulayabilirsiniz.)</p>
+
+<hr>
+
+<h2 id="ekf-algoritması">EKF Algoritması</h2>
+
+<p>EKF döngüsü, klasik KF’ten yalnızca iki yerde ayrılır. Önce ölçüm modelimizin sabit <code class="language-plaintext highlighter-rouge">F</code> matrisini (bu örnekte hareket doğrusal: 2B sabit hız) ve <code class="language-plaintext highlighter-rouge">Q</code>‘yu kuralım:</p>
+
+<p>$$
+F = \begin{bmatrix} 1&amp;0&amp;\Delta t&amp;0 \\ 0&amp;1&amp;0&amp;\Delta t \\ 0&amp;0&amp;1&amp;0 \\ 0&amp;0&amp;0&amp;1 \end{bmatrix}, \qquad
+Q = G\,\sigma_a^2\,G^{\mathsf{T}},\quad
+G = \begin{bmatrix} \tfrac{\Delta t^2}{2}&amp;0 \[2pt] 0&amp;\tfrac{\Delta t^2}{2} \[2pt] \Delta t&amp;0 \[2pt] 0&amp;\Delta t \end{bmatrix}
+$$</p>
+
+<p>EKF adımları:</p>
+
+<p>$$
+\hat{x}<em>k^- = f(\hat{x}</em>{k-1}, u_{k-1}), \qquad P_k^- = F_k\,P_{k-1}\,F_k^{\mathsf{T}} + Q
+$$</p>
+
+<p>$$
+y_k = z_k - h(\hat{x}_k^-), \qquad S_k = H_k\,P_k^-\,H_k^{\mathsf{T}} + R
+$$</p>
+
+<p>$$
+K_k = P_k^-\,H_k^{\mathsf{T}}\,S_k^{-1}, \quad
+\hat{x}_k = \hat{x}_k^- + K_k\,y_k, \quad
+P_k = (I - K_k H_k)\,P_k^-
+$$</p>
+
+<p>İki kritik fark:</p>
+
+<ol>
+  <li>
+<strong>Ortalama gerçek fonksiyonla, kovaryans Jacobian’la taşınır.</strong> Yeniliği <code class="language-plaintext highlighter-rouge">z − H x̂⁻</code> değil, <code class="language-plaintext highlighter-rouge">z − h(x̂⁻)</code> ile hesaplarız; ama <code class="language-plaintext highlighter-rouge">S</code>, <code class="language-plaintext highlighter-rouge">K</code>, <code class="language-plaintext highlighter-rouge">P</code> denklemlerinde <code class="language-plaintext highlighter-rouge">H</code> yerine <code class="language-plaintext highlighter-rouge">H_k</code> Jacobian’ı kullanırız.</li>
+  <li>
+<strong>Açı farkını sarmak (wrapping).</strong> <code class="language-plaintext highlighter-rouge">atan2</code> değerleri <code class="language-plaintext highlighter-rouge">[−π, π]</code> aralığındadır. <code class="language-plaintext highlighter-rouge">179°</code> beklerken <code class="language-plaintext highlighter-rouge">−179°</code> ölçerseniz, ham fark <code class="language-plaintext highlighter-rouge">−358°</code> çıkar; oysa gerçek fark sadece <code class="language-plaintext highlighter-rouge">+2°</code>‘dir. Bu yüzden açı yeniliğini daima <code class="language-plaintext highlighter-rouge">[−π, π]</code> aralığına sararız:</li>
+</ol>
+
+<p>$$
+y_\theta \leftarrow \big((y_\theta + \pi)\bmod 2\pi\big) - \pi
+$$</p>
+
+<p>Bu küçük detayı atlamak, takip sistemlerinin açı sıçramalarında neden aniden çıldırdığının bir numaralı sebebidir. Aşağıdaki diyagram iki filtrenin yapısal farkını özetliyor:</p>
+
+<div class="mermaid">
+flowchart TB
+    subgraph KF["Lineer Kalman Filtresi"]
+      direction TB
+      K1["Model: x = F·x + B·u<br>(doğrusal)"]
+      K2["Ölçüm: z = H·x<br>(doğrusal)"]
+      K3["Kovaryans: F ve H<br>sabit matrisler"]
+      K1 --&gt; K2 --&gt; K3
+    end
+    subgraph EKF["Genişletilmiş KF (EKF)"]
+      direction TB
+      E1["Model: x = f(x, u)<br>(doğrusal-olmayabilir)"]
+      E2["Ölçüm: z = h(x)<br>(doğrusal-olmayan)"]
+      E3["Kovaryans: her adımda<br>Jacobian Fₖ = ∂f/∂x , Hₖ = ∂h/∂x"]
+      E1 --&gt; E2 --&gt; E3
+    end
+    KF -. "aynı 2 adımlı döngü;<br>tek fark: lineerizasyon" .-&gt; EKF
+    style KF fill:#e8f0fb,stroke:#3a5f95,stroke-width:2px
+    style EKF fill:#fbf0e8,stroke:#a05a2c,stroke-width:2px
+    style K3 fill:#cee0f3,stroke:#3a5f95
+    style E3 fill:#f5dcc3,stroke:#a05a2c
+</div>
+
+<hr>
+
+<h2 id="numpy-ile-sıfırdan-ekf-range-bearing-takibi">NumPy ile Sıfırdan EKF: Range-Bearing Takibi</h2>
+
+<p>Hepsini bir araya getirelim. Aşağıdaki kod, sabit hızla giden (ama yavaşça dönen) bir hedefi, orijindeki menzil-açı sensörüyle takip eder. Klasik KF kodumuzdan tek farkı, <code class="language-plaintext highlighter-rouge">h</code> fonksiyonu, <code class="language-plaintext highlighter-rouge">H_jac</code> Jacobian’ı ve açı sarması.</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="n">np</span>
+
+<span class="n">dt</span> <span class="o">=</span> <span class="mf">1.0</span>
+<span class="n">F</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">dt</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="n">dt</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mf">1.0</span><span class="p">]])</span>   <span class="c1"># 2B sabit hız
+</span><span class="n">G</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([[</span><span class="n">dt</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="n">dt</span><span class="o">**</span><span class="mi">2</span><span class="o">/</span><span class="mi">2</span><span class="p">],[</span><span class="n">dt</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="n">dt</span><span class="p">]])</span>
+<span class="n">Q</span> <span class="o">=</span> <span class="n">G</span> <span class="o">@</span> <span class="p">(</span><span class="mf">0.02</span><span class="o">*</span><span class="n">np</span><span class="p">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">2</span><span class="p">))</span> <span class="o">@</span> <span class="n">G</span><span class="p">.</span><span class="n">T</span>
+<span class="n">sr</span><span class="p">,</span> <span class="n">sth</span> <span class="o">=</span> <span class="mf">0.5</span><span class="p">,</span> <span class="n">np</span><span class="p">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="mf">1.0</span><span class="p">)</span>               <span class="c1"># menzil (m) ve açı (rad) gürültüsü
+</span><span class="n">R</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">diag</span><span class="p">([</span><span class="n">sr</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">sth</span><span class="o">**</span><span class="mi">2</span><span class="p">])</span>
+
+<span class="k">def</span> <span class="nf">h</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>                                     <span class="c1"># doğrusal-olmayan ölçüm
+</span>    <span class="k">return</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="n">np</span><span class="p">.</span><span class="n">hypot</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span> <span class="n">np</span><span class="p">.</span><span class="n">arctan2</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">])])</span>
+
+<span class="k">def</span> <span class="nf">H_jac</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>                                 <span class="c1"># ölçüm Jacobian'ı (2x4)
+</span>    <span class="n">px</span><span class="p">,</span> <span class="n">py</span> <span class="o">=</span> <span class="n">x</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">r2</span> <span class="o">=</span> <span class="n">px</span><span class="o">*</span><span class="n">px</span> <span class="o">+</span> <span class="n">py</span><span class="o">*</span><span class="n">py</span><span class="p">;</span> <span class="n">r</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">r2</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([[</span> <span class="n">px</span><span class="o">/</span><span class="n">r</span><span class="p">,</span>   <span class="n">py</span><span class="o">/</span><span class="n">r</span><span class="p">,</span>  <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],</span>
+                     <span class="p">[</span><span class="o">-</span><span class="n">py</span><span class="o">/</span><span class="n">r2</span><span class="p">,</span>  <span class="n">px</span><span class="o">/</span><span class="n">r2</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]])</span>
+
+<span class="k">def</span> <span class="nf">wrap</span><span class="p">(</span><span class="n">a</span><span class="p">):</span>                                  <span class="c1"># açıyı [-π, π] aralığına sar
+</span>    <span class="k">return</span> <span class="p">(</span><span class="n">a</span> <span class="o">+</span> <span class="n">np</span><span class="p">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">%</span> <span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="p">.</span><span class="n">pi</span><span class="p">)</span> <span class="o">-</span> <span class="n">np</span><span class="p">.</span><span class="n">pi</span>
+
+<span class="c1"># Gerçek hedef: sabit hız + yavaş dönüş; sensör orijinde
+</span><span class="n">rng</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">default_rng</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="n">N</span> <span class="o">=</span> <span class="mi">55</span>
+<span class="n">xt</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">26.0</span><span class="p">,</span> <span class="mf">9.0</span><span class="p">,</span> <span class="mf">1.4</span><span class="p">,</span> <span class="mf">0.25</span><span class="p">])</span>
+<span class="n">c</span><span class="p">,</span> <span class="n">s</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">cos</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="mf">2.2</span><span class="p">)),</span> <span class="n">np</span><span class="p">.</span><span class="n">sin</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">deg2rad</span><span class="p">(</span><span class="mf">2.2</span><span class="p">))</span>
+<span class="n">truth</span><span class="p">,</span> <span class="n">meas</span> <span class="o">=</span> <span class="p">[],</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+    <span class="n">truth</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">xt</span><span class="p">.</span><span class="n">copy</span><span class="p">())</span>
+    <span class="n">meas</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">h</span><span class="p">(</span><span class="n">xt</span><span class="p">)</span> <span class="o">+</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="n">rng</span><span class="p">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sr</span><span class="p">),</span> <span class="n">rng</span><span class="p">.</span><span class="n">normal</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">sth</span><span class="p">)]))</span>
+    <span class="n">xt</span> <span class="o">=</span> <span class="n">F</span> <span class="o">@</span> <span class="n">xt</span>
+    <span class="n">xt</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([[</span><span class="n">c</span><span class="p">,</span> <span class="o">-</span><span class="n">s</span><span class="p">],</span> <span class="p">[</span><span class="n">s</span><span class="p">,</span> <span class="n">c</span><span class="p">]])</span> <span class="o">@</span> <span class="n">xt</span><span class="p">[</span><span class="mi">2</span><span class="p">:]</span>      <span class="c1"># hız vektörünü döndür
+</span><span class="n">truth</span><span class="p">,</span> <span class="n">meas</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">truth</span><span class="p">),</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">meas</span><span class="p">)</span>
+
+<span class="c1"># EKF döngüsü
+</span><span class="n">xhat</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([</span><span class="o">-</span><span class="mf">24.0</span><span class="p">,</span> <span class="mf">12.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">])</span>
+<span class="n">P</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">diag</span><span class="p">([</span><span class="mf">16.</span><span class="p">,</span> <span class="mf">16.</span><span class="p">,</span> <span class="mf">9.</span><span class="p">,</span> <span class="mf">9.</span><span class="p">])</span>
+<span class="n">I</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">eye</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span> <span class="n">est</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">N</span><span class="p">):</span>
+    <span class="c1"># --- TAHMİN (f doğrusal → F sabit) ---
+</span>    <span class="n">xhat</span> <span class="o">=</span> <span class="n">F</span> <span class="o">@</span> <span class="n">xhat</span>
+    <span class="n">P</span> <span class="o">=</span> <span class="n">F</span> <span class="o">@</span> <span class="n">P</span> <span class="o">@</span> <span class="n">F</span><span class="p">.</span><span class="n">T</span> <span class="o">+</span> <span class="n">Q</span>
+    <span class="c1"># --- GÜNCELLEME (h doğrusal-olmayan → Jacobian) ---
+</span>    <span class="n">Hk</span> <span class="o">=</span> <span class="n">H_jac</span><span class="p">(</span><span class="n">xhat</span><span class="p">)</span>
+    <span class="n">y</span> <span class="o">=</span> <span class="n">meas</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">-</span> <span class="n">h</span><span class="p">(</span><span class="n">xhat</span><span class="p">);</span> <span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">=</span> <span class="n">wrap</span><span class="p">(</span><span class="n">y</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>    <span class="c1"># açı farkını sar!
+</span>    <span class="n">S</span> <span class="o">=</span> <span class="n">Hk</span> <span class="o">@</span> <span class="n">P</span> <span class="o">@</span> <span class="n">Hk</span><span class="p">.</span><span class="n">T</span> <span class="o">+</span> <span class="n">R</span>
+    <span class="n">K</span> <span class="o">=</span> <span class="n">P</span> <span class="o">@</span> <span class="n">Hk</span><span class="p">.</span><span class="n">T</span> <span class="o">@</span> <span class="n">np</span><span class="p">.</span><span class="n">linalg</span><span class="p">.</span><span class="n">inv</span><span class="p">(</span><span class="n">S</span><span class="p">)</span>
+    <span class="n">xhat</span> <span class="o">=</span> <span class="n">xhat</span> <span class="o">+</span> <span class="n">K</span> <span class="o">@</span> <span class="n">y</span>
+    <span class="n">P</span> <span class="o">=</span> <span class="p">(</span><span class="n">I</span> <span class="o">-</span> <span class="n">K</span> <span class="o">@</span> <span class="n">Hk</span><span class="p">)</span> <span class="o">@</span> <span class="n">P</span>
+    <span class="n">est</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">xhat</span><span class="p">.</span><span class="n">copy</span><span class="p">())</span>
+<span class="n">est</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">(</span><span class="n">est</span><span class="p">)</span>
+
+<span class="n">rmse</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">((</span><span class="n">est</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">-</span> <span class="n">truth</span><span class="p">[:,</span> <span class="p">:</span><span class="mi">2</span><span class="p">])</span><span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)))</span>
+<span class="k">print</span><span class="p">(</span><span class="sa">f</span><span class="s">"EKF konum RMSE = </span><span class="si">{</span><span class="n">rmse</span><span class="si">:</span><span class="p">.</span><span class="mi">2</span><span class="n">f</span><span class="si">}</span><span class="s"> m"</span><span class="p">)</span>         <span class="c1"># -&gt; 0.56 m
+</span></code></pre></div></div>
+
+<p>Burada hareketin doğrusal olduğuna (<code class="language-plaintext highlighter-rouge">f</code> = sabit <code class="language-plaintext highlighter-rouge">F</code>) ama ölçümün doğrusal-olmadığına dikkat edin: tüm doğrusal-olmama <code class="language-plaintext highlighter-rouge">h</code> ve <code class="language-plaintext highlighter-rouge">H_k</code>‘de yaşıyor. Her adımda yeniden hesaplanan tek şey <code class="language-plaintext highlighter-rouge">Hk</code> Jacobian’ı. Sonuç: 1°’lik açı ve 0.5 m’lik menzil gürültüsüne rağmen konum RMSE’si <strong>0.56 m</strong> — sensörün ham gürültüsünün epey altında.</p>
+
+<figure>
+  <img src="/img/posts/ekf-trajectory.webp" alt="EKF ile menzil-açı sensöründen 2B hedef takibi" class="img-fluid rounded">
+  <figcaption><strong>Şekil 5.</strong> Orijindeki sensör (siyah elmas), gerçek yörünge (yeşil), menzil-açı ölçümlerinin xy'ye çevrilmiş hâli (kırmızı) ve EKF kestirimi (mavi). Seçili adımlardaki 2σ kovaryans elipsleri, filtrenin konum belirsizliğini gösterir; gürültülü kırmızı bulutun içinden mavi çizgi pürüzsüzce süzülüyor.</figcaption>
+</figure>
+
+<hr>
+
+<h2 id="etkileşimli-simülatör-genişletilmiş-kalman-filtresi">Etkileşimli Simülatör: Genişletilmiş Kalman Filtresi</h2>
+
+<p>Şimdi EKF’i canlı izleyelim. Bu sefer üstten bakışlı 2B bir görünüm var: orijinde sensör, dönen bir hedef ve EKF’in kovaryans elipsi. Menzil ve açı gürültüsünü, filtrenin süreç gürültüsünü ve hedefin dönüş hızını ayarlayabilirsiniz.</p>
+
+<div class="card my-3" id="ekf-demo">
+  <div class="card-header py-2"><strong>Genişletilmiş Kalman Filtresi (EKF) Simülatörü</strong></div>
+  <div class="card-body">
+    <div class="form-row mb-2">
+      <div class="col-md-3 mb-2">
+        <label class="mb-0 small">Menzil gürültüsü σ<sub>r</sub> = <b id="ekf-v-sr">0.50</b> m</label>
+        <input type="range" class="custom-range" id="ekf-sl-sr" min="0.05" max="3" value="0.5" step="0.05">
+      </div>
+      <div class="col-md-3 mb-2">
+        <label class="mb-0 small">Açı gürültüsü σ<sub>θ</sub> = <b id="ekf-v-sth">1.0</b>°</label>
+        <input type="range" class="custom-range" id="ekf-sl-sth" min="0.1" max="5" value="1" step="0.1">
+      </div>
+      <div class="col-md-3 mb-2">
+        <label class="mb-0 small">Süreç gürültüsü q = <b id="ekf-v-q">0.0100</b></label>
+        <input type="range" class="custom-range" id="ekf-sl-q" min="0.0001" max="0.5" value="0.01" step="0.0001">
+      </div>
+      <div class="col-md-3 mb-2">
+        <label class="mb-0 small">Dönüş hızı = <b id="ekf-v-turn">0.5</b>°/adım</label>
+        <input type="range" class="custom-range" id="ekf-sl-turn" min="0" max="3" value="0.5" step="0.1">
+      </div>
+    </div>
+    <div class="mb-2">
+      <button class="btn btn-sm btn-primary" id="ekf-btn-play" type="button">⏸ Duraklat</button>
+      <button class="btn btn-sm btn-outline-secondary" id="ekf-btn-reset" type="button">↻ Yeni gerçekleştirme</button>
+    </div>
+    <div id="ekf-status" class="px-2 py-1 mb-2 rounded small" style="font-family:monospace;min-height:2.2em;background:#f1f5fb;"></div>
+    <canvas id="ekf-canvas" style="width:100%;display:block;border-radius:4px;border:1px solid #dee2e6;"></canvas>
+    <p class="text-muted small mt-1 mb-0">Sensör orijinde. Hedef uzaktayken 2σ elipsi açı (teğet) yönünde şişer — uzakta küçük bir açı hatası büyük yanal hataya dönüşür. Hedef sensöre yaklaştıkça elips daralır: gözlemlenebilirliğin (observability) görünür hâli.</p>
+  </div>
+</div>
+
+<script src="/assets/js/posts/kalman-ekf.js"></script>
+
+<p>En öğretici deney: açı gürültüsünü (<code class="language-plaintext highlighter-rouge">σ_θ</code>) büyütün ve kovaryans elipsinin nasıl bir <strong>muz</strong> şeklini aldığını izleyin. Elips, sensöre olan doğrultuya <strong>dik</strong> (teğetsel) yönde uzar; çünkü uzak bir hedefte 1°’lik açı hatası, metrelerce yanal konum hatası demektir — oysa menzil yönündeki belirsizlik küçük kalır. Dönüş hızını artırırsanız, sabit-hız varsayan filtrenin manevra anlarında gerçek yörüngenin <strong>dışına savrularak</strong> geciktiğini görürsünüz; bu, model uyumsuzluğunun (model mismatch) doğrudan görsel kanıtıdır.</p>
+
+<hr>
+
+<h2 id="mühendislik-notları-q-r-ayarı-iraksama-ve-sayısal-kararlılık">Mühendislik Notları: Q, R Ayarı, Iraksama ve Sayısal Kararlılık</h2>
+
+<p>Filtreyi çalıştırmak kolay; <strong>doğru</strong> çalıştırmak ustalık ister. Sahaya çıkmadan önce kontrol listesi:</p>
+
+<ol>
+  <li>
+    <p><strong>Asıl mesele <code class="language-plaintext highlighter-rouge">Q/R</code> oranıdır.</strong> <code class="language-plaintext highlighter-rouge">R</code> çoğu zaman sensörün veri sayfasından ya da statik kalibrasyondan bilinir; gerçek ayar düğmesi <code class="language-plaintext highlighter-rouge">Q</code>‘dur. Mutlak değerlerden çok, <code class="language-plaintext highlighter-rouge">Q</code> ile <code class="language-plaintext highlighter-rouge">R</code> arasındaki <strong>oran</strong> filtrenin karakterini belirler: büyük <code class="language-plaintext highlighter-rouge">Q/R</code> → çevik ama gürültülü; küçük <code class="language-plaintext highlighter-rouge">Q/R</code> → pürüzsüz ama tembel ve manevrada geciken. Simülatörlerde bunu elinizle hissettiniz.</p>
+  </li>
+  <li>
+    <p><strong>Filtrenin tutarlılığını ölçün (NIS/NEES).</strong> Filtre yalnızca doğru tahmin etmemeli, belirsizliği hakkında da <strong>dürüst</strong> olmalı. Yenilik <code class="language-plaintext highlighter-rouge">y</code> ile kovaryansı <code class="language-plaintext highlighter-rouge">S</code> kullanılarak hesaplanan normalize yenilik karesi (NIS), istatistiksel olarak bir χ² dağılımına uymalıdır. Yenilikler <code class="language-plaintext highlighter-rouge">S</code>‘in öngördüğünden sürekli büyükse filtre fazla iyimserdir (<code class="language-plaintext highlighter-rouge">Q</code> veya <code class="language-plaintext highlighter-rouge">R</code> küçük); sürekli küçükse fazla karamsardır. NIS, “filtrem yalan söylüyor mu?” sorusunun nicel cevabıdır.</p>
+  </li>
+  <li>
+    <p><strong>Iraksamaya (divergence) karşı uyanık olun.</strong> En sinsi hata, <code class="language-plaintext highlighter-rouge">P</code>‘nin gerçek hatadan çok daha küçük olması — filtre kendine güvenir, gelen ölçümleri “aykırı” sanıp reddeder, gerçekten gitgide kopar. Sebepleri: çok küçük <code class="language-plaintext highlighter-rouge">Q</code>, modellenmemiş bir dinamik, ya da sayısal yuvarlama. Lineer simülatörde <code class="language-plaintext highlighter-rouge">q</code>‘yu dibe çekerek bunu birebir görebilirsiniz.</p>
+  </li>
+  <li>
+    <p><strong>Sayısal kararlılık için Joseph formunu kullanın.</strong> <code class="language-plaintext highlighter-rouge">P = (I − KH)P⁻</code> denklemi, kayan-nokta yuvarlamasıyla <code class="language-plaintext highlighter-rouge">P</code>‘yi asimetrik veya negatif-tanımlı yapabilir; bu da filtreyi çökertir. Joseph formu <code class="language-plaintext highlighter-rouge">P = (I−KH)P⁻(I−KH)ᵀ + KRKᵀ</code> her zaman simetrik ve pozitif yarı-tanımlı sonuç verir. Ek maliyet birkaç matris çarpımıdır; gömülü sistemlerde ucuz bir sigortadır. Her adımda <code class="language-plaintext highlighter-rouge">P</code>‘yi <code class="language-plaintext highlighter-rouge">(P + Pᵀ)/2</code> ile simetrikleştirmek de yaygın, ucuz bir önlemdir. (Kayan-nokta tuzakları üzerine ayrı bir yazı yazmıştım; Kalman filtresi bu tuzakların en çok ısırdığı yerlerden biridir.)</p>
+  </li>
+  <li>
+    <p><strong>Gözlemlenebilirliği (observability) sorgulayın.</strong> Yalnızca menzil ölçen bir sensör, hedefin açısal konumunu tek başına belirleyemez; takip ancak hedef hareket ettikçe ve geometri değiştikçe oturur. EKF simülatöründe elipsin yöne bağlı şişmesi tam da bunun resmidir. Durumunuzun ölçümlerinizden gerçekten <strong>çıkarılabilir</strong> olduğundan emin olun.</p>
+  </li>
+  <li>
+    <p><strong>EKF’e özgü tehlike: lineerizasyon hatası.</strong> Başlangıç tahmini gerçekten uzaksa ya da fonksiyon çok bükülmüşse, teğet kötü bir yaklaşım olur ve EKF ıraksar. Çok keskin doğrusal-olmamalıkta, türev almayan <strong>Unscented Kalman Filtresi (UKF)</strong> — dağılımı seçili “sigma noktalarıyla” temsil eder — genellikle daha sağlamdır ve Jacobian türetme derdini ortadan kaldırır. Dağılım çok-modlu (multimodal) veya gürültü Gauss’tan çok uzaksa, sıra <strong>parçacık filtresine</strong> (particle filter) gelir: dağılımı binlerce örnekle temsil eden, hesapça pahalı ama çok genel bir yöntem.</p>
+  </li>
+</ol>
+
+<hr>
+
+<h2 id="sonuç">Sonuç</h2>
+
+<p>Kalman filtresi, ilk bakışta matris denklemlerinden oluşan korkutucu bir reçete gibi görünür. Oysa altında yatan fikir tek bir cümleyle özetlenir: <strong>iki Gauss bilgiyi — modelin tahmini ile sensörün ölçümünü — her birinin belirsizliğine göre tartarak birleştir, sonra tekrarla.</strong> Tahmin adımı belirsizliği büyütür, güncelleme adımı küçültür; bu nefes alıp verme sonsuza dek sürer.</p>
+
+<p>EKF ise aynı makinenin doğrusal-olmayan dünyaya uzanmış hâlidir: her adımda fonksiyonları çalışma noktasında bir teğetle değiştirir, gerisini değiştirmez. Bu küçük numara, onu yarım asırdır navigasyondan robotiğe kadar her yerde çalışan bir iş atı yapmıştır — kusursuz değil, ama şaşırtıcı derecede dayanıklı.</p>
+
+<p>Tasarımınızın kaderini üç şey belirler: modelin (<code class="language-plaintext highlighter-rouge">F</code>, <code class="language-plaintext highlighter-rouge">H</code> ya da <code class="language-plaintext highlighter-rouge">f</code>, <code class="language-plaintext highlighter-rouge">h</code>) gerçeğe sadakati, <code class="language-plaintext highlighter-rouge">Q</code>‘nun ve <code class="language-plaintext highlighter-rouge">R</code>‘nin doğru ayarı. Bu üçünü yerine oturtursanız, gürültünün altından şaşırtıcı netlikte bir gerçek çıkarırsınız. Yanlış ayarlarsanız, filtre ya tembelce gerçeğin peşinden sürüklenir ya da kendine aşırı güvenip sessizce ıraksar. Her iki sonu da sahada görmek mümkün — ve artık ikisini de tanıyorsunuz.</p>
+
+<p>Devamı için iyi konular: durum boyutu büyüdüğünde <strong>kare-kök (square-root) filtreleri</strong> sayısal kararlılığı nasıl kurtarır; <strong>UKF</strong> sigma noktalarıyla Jacobian’a neden hiç ihtiyaç duymaz; ve birden çok hareket modelini paralel koşturan <strong>IMM</strong> (Interacting Multiple Model) manevra yapan hedeflerde neden EKF’i döver. Bunlar defterimde duruyor.</p>
+
+<hr>
+
+<p><strong>Kaynaklar:</strong></p>
+
+<ul>
+  <li>R. E. Kálmán — <a href="https://doi.org/10.1115/1.3662552">“A New Approach to Linear Filtering and Prediction Problems”</a>, Journal of Basic Engineering, Vol. 82, No. 1, 1960, pp. 35–45. (Her şeyin başladığı makale.)</li>
+  <li>Greg Welch, Gary Bishop — <a href="https://www.cs.unc.edu/~welch/kalman/"><em>An Introduction to the Kalman Filter</em></a>, UNC-Chapel Hill, TR 95-041. (Klasik, sade giriş.)</li>
+  <li>Sebastian Thrun, Wolfram Burgard, Dieter Fox — <em>Probabilistic Robotics</em> (MIT Press, 2005), Bölüm 3: “Gaussian Filters”. (KF ve EKF’in olasılıksal türetimi.)</li>
+  <li>Dan Simon — <em>Optimal State Estimation: Kalman, H∞, and Nonlinear Approaches</em> (Wiley, 2006). (Joseph formu, kare-kök filtreleri ve sayısal konular için referans.)</li>
+  <li>Yaakov Bar-Shalom, X.-Rong Li, Thiagalingam Kirubarajan — <em>Estimation with Applications to Tracking and Navigation</em> (Wiley, 2001). (Menzil-açı takibi, NIS/NEES tutarlılık testleri.)</li>
+  <li>S. J. Julier, J. K. Uhlmann — <a href="https://doi.org/10.1109/JPROC.2003.823141">“Unscented Filtering and Nonlinear Estimation”</a>, Proceedings of the IEEE, Vol. 92, No. 3, 2004. (EKF’in ötesi: UKF.)</li>
+  <li>Roger Labbe — <a href="https://github.com/rlabbe/Kalman-and-Bayesian-Filters-in-Python"><em>Kalman and Bayesian Filters in Python</em></a>. (Etkileşimli, kod-ağırlıklı ücretsiz kitap.)</li>
+</ul>
+
+          </div>
+        </div>
+
+        <nav class="post-nav" aria-label="Yazı navigasyonu">
+          
+          <a class="post-nav__item post-nav__item--prev" href="/2026/05/26/sistem-muhendisligi-nedir.html">
+            <span class="post-nav__direction">← Önceki yazı</span>
+            <span class="post-nav__title">Sistem Mühendisliği Nedir?</span>
+            <span class="post-nav__date">May 2026</span>
+          </a>
+          
+          
+        </nav>
+
+        <div class="clearfix" id="disqus_thread"></div>
+          <script>
+            (function () {
+              var loaded = false;
+              function loadDisqus() {
+                if (loaded) return;
+                loaded = true;
+                var d = document, s = d.createElement('script');
+                s.src = 'https://karaman-dev.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+              }
+              if ('IntersectionObserver' in window) {
+                var observer = new IntersectionObserver(function (entries) {
+                  if (entries[0].isIntersecting) {
+                    loadDisqus();
+                    observer.disconnect();
+                  }
+                }, { rootMargin: '200px' });
+                observer.observe(document.getElementById('disqus_thread'));
+              } else {
+                loadDisqus();
+              }
+            })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+
+<footer class="footer-modern">
+  <div class="footer-main">
+    <div class="container">
+      <div class="row">
+
+        <!-- About column -->
+        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+          <h5 class="footer-heading">M. Serdar Karaman</h5>
+          <p class="footer-description">Aviyonik yazılım, DO-178C ve emniyet kritik mühendislik üzerine sahadan notlar.</p>
+        </div>
+
+        <!-- Quick links column -->
+        <div class="col-lg-2 col-md-6 mb-4 mb-lg-0 offset-lg-1">
+          <h5 class="footer-heading">Bağlantılar</h5>
+          <ul class="footer-links">
+            <li><a href="/">Ana sayfa</a></li>
+            <li><a href="/hakkimda">Hakkımda</a></li>
+            <li><a href="/posts">Yazılar</a></li>
+            <li><a href="/contact">İletişim</a></li>
+          </ul>
+          <h5 class="footer-heading mt-3">Projeler</h5>
+          <ul class="footer-links">
+            <li><a href="https://karaman.dev/games" target="_blank" rel="noopener">Oyunlar</a></li>
+            <li><a href="https://karaman.dev/or-araclari" target="_blank" rel="noopener">OR Araçları</a></li>
+            <li><a href="https://karaman.dev/numio/" target="_blank" rel="noopener">Numio</a></li>
+          </ul>
+        </div>
+
+        <!-- Social column -->
+        <div class="col-lg-4 col-md-12 mb-0 offset-lg-1">
+          <h5 class="footer-heading">İletişim</h5>
+          <ul class="footer-social list-inline">
+            
+            <li class="list-inline-item">
+              <a href="mailto:%73%65%72%64%61%72@%6B%61%72%61%6D%61%6E.%64%65%76" aria-label="E-posta">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              </a>
+            </li>
+            
+            
+            <li class="list-inline-item">
+              <a href="https://github.com/Mavrikant" aria-label="GitHub" target="_blank" rel="noopener">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"></path></svg>
+              </a>
+            </li>
+            
+            
+            <li class="list-inline-item">
+              <a href="https://www.linkedin.com/in/mserdarkaraman" aria-label="LinkedIn" target="_blank" rel="noopener">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+              </a>
+            </li>
+            
+            
+            
+            
+            
+            <li class="list-inline-item">
+              <a href="https://www.youtube.com/channel/UCIlBH9QynIkHxX8uiY0UEMQ" aria-label="YouTube" target="_blank" rel="noopener">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20.06 12 20.06 12 20.06s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"></path><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"></polygon></svg>
+              </a>
+            </li>
+            
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6 text-center text-md-left">
+          <p class="copyright mb-0">© 2026 M. Serdar Karaman. Tüm hakları saklıdır.</p>
+        </div>
+        <div class="col-md-6 text-center text-md-right mt-2 mt-md-0">
+          <a href="#page-top" class="back-to-top" aria-label="Başa dön">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"></polyline></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- 
+<div id="bayram-splash" class="bayram-splash" data-theme="dark" role="dialog" aria-modal="true" aria-labelledby="bayram-splash-title" aria-describedby="bayram-splash-subtitle" hidden>
+  <div class="bayram-splash__backdrop" data-bayram-close="backdrop"></div>
+
+  <div class="bayram-splash__panel" role="document">
+    <button type="button" class="bayram-splash__close" aria-label="Kapat" data-bayram-close="button">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+        <path d="M3 3 L15 15 M15 3 L3 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/>
+      </svg>
+    </button>
+
+    <div class="bayram-splash__status" aria-hidden="true">
+      <div class="bayram-splash__status-left">
+        <span class="bayram-splash__pip"></span>
+        <span>karaman.dev</span>
+        <span class="bayram-splash__sep">/</span>
+        <span class="bayram-splash__status-dim">bayram</span>
+        <span class="bayram-splash__sep">/</span>
+        <span class="bayram-splash__status-faint">lang · tr / en</span>
+      </div>
+      <div class="bayram-splash__status-right">
+        <span class="bayram-splash__status-faint">REF · BAYRAM-2026</span>
+      </div>
+    </div>
+
+    <div class="bayram-splash__ticks" aria-hidden="true">
+      <span class="bayram-splash__tick bayram-splash__tick--tl"></span>
+      <span class="bayram-splash__tick bayram-splash__tick--tr"></span>
+      <span class="bayram-splash__tick bayram-splash__tick--bl"></span>
+      <span class="bayram-splash__tick bayram-splash__tick--br"></span>
+    </div>
+
+    <div class="bayram-splash__body">
+      <div class="bayram-splash__art" aria-hidden="true">
+        <svg viewBox="0 0 360 360" width="220" height="220" role="img" aria-label="Hilâl ve yıldız">
+          <defs>
+            <mask id="bayram-crescent-mask" maskUnits="userSpaceOnUse">
+              <rect x="0" y="0" width="360" height="360" fill="black"/>
+              <circle cx="170" cy="180" r="120" fill="white"/>
+              <circle class="bayram-splash__mask-inner" cx="208" cy="180" r="120" fill="black"/>
+            </mask>
+            <pattern id="bayram-pcb" width="22" height="22" patternUnits="userSpaceOnUse">
+              <circle cx="3" cy="3"  r="0.9" fill="rgba(8,22,30,0.55)"/>
+              <circle cx="19" cy="19" r="0.7" fill="rgba(8,22,30,0.4)"/>
+              <circle cx="19" cy="3"  r="0.5" fill="rgba(8,22,30,0.28)"/>
+              <circle cx="3"  cy="19" r="0.5" fill="rgba(8,22,30,0.28)"/>
+              <path d="M3 3 L3 11 L11 11 L11 3 M11 11 L19 11 L19 19 M3 19 L3 11"
+                    stroke="rgba(8,22,30,0.32)" stroke-width="0.4" fill="none"/>
+            </pattern>
+          </defs>
+
+          <g mask="url(#bayram-crescent-mask)">
+            <circle cx="170" cy="180" r="120" class="bayram-splash__crescent-fill"/>
+            <rect x="50" y="60" width="240" height="240" fill="url(#bayram-pcb)"/>
+
+            <g class="bayram-splash__net" stroke="rgba(8,22,30,0.55)" stroke-width="0.9" fill="none">
+              <line x1="86"  y1="129" x2="120" y2="106"/>
+              <line x1="86"  y1="129" x2="116" y2="139"/>
+              <line x1="86"  y1="129" x2="116" y2="180"/>
+              <line x1="79"  y1="174" x2="116" y2="139"/>
+              <line x1="79"  y1="174" x2="116" y2="180"/>
+              <line x1="79"  y1="174" x2="116" y2="220"/>
+              <line x1="86"  y1="228" x2="116" y2="180"/>
+              <line x1="86"  y1="228" x2="116" y2="220"/>
+              <line x1="86"  y1="228" x2="120" y2="252"/>
+              <line x1="120" y1="106" x2="151" y2="132"/>
+              <line x1="116" y1="139" x2="151" y2="132"/>
+              <line x1="116" y1="139" x2="148" y2="180"/>
+              <line x1="116" y1="180" x2="148" y2="180"/>
+              <line x1="116" y1="180" x2="151" y2="228"/>
+              <line x1="116" y1="220" x2="148" y2="180"/>
+              <line x1="116" y1="220" x2="151" y2="228"/>
+              <line x1="120" y1="252" x2="151" y2="228"/>
+            </g>
+            <g class="bayram-splash__nodes">
+              <circle cx="86"  cy="129" r="3"/>
+              <circle cx="79"  cy="174" r="3"/>
+              <circle cx="86"  cy="228" r="3"/>
+              <circle cx="120" cy="106" r="3"/>
+              <circle cx="116" cy="139" r="3"/>
+              <circle cx="116" cy="180" r="3"/>
+              <circle cx="116" cy="220" r="3"/>
+              <circle cx="120" cy="252" r="3"/>
+              <circle cx="151" cy="132" r="3"/>
+              <circle cx="148" cy="180" r="3"/>
+              <circle cx="151" cy="228" r="3"/>
+            </g>
+
+            <g class="bayram-splash__hex" font-family="'JetBrains Mono', monospace" fill="rgba(8,22,30,0.7)">
+              <text x="86"  y="100" font-size="10" letter-spacing="0.1em">0xAI</text>
+              <text x="100" y="270" font-size="8"  letter-spacing="0.15em">01010111</text>
+              <text x="70"  y="195" font-size="7"  letter-spacing="0.12em">v1.447</text>
+            </g>
+          </g>
+
+          <path class="bayram-splash__star"
+                d="M 280 168 L 290 188 L 312 191 L 296 207 L 300 229 L 280 219 L 260 229 L 264 207 L 248 191 L 270 188 Z"/>
+        </svg>
+      </div>
+
+      <p class="bayram-splash__eyebrow">01 / Tebrik · Kurban Bayramı · 1447 H</p>
+
+      <h2 id="bayram-splash-title" class="bayram-splash__title">
+        Kurban Bayramınız<br>mübarek olsun.
+      </h2>
+
+      <div class="bayram-splash__divider" aria-hidden="true"></div>
+
+      <p id="bayram-splash-subtitle" class="bayram-splash__subtitle">
+        <em>Eid al&#8209;Adha Mubarak</em>
+      </p>
+
+      <p class="bayram-splash__wish">
+        Sevdiklerinizle birlikte sağlık, huzur<br>ve nice güzelliklere.
+      </p>
+
+      <div class="bayram-splash__signature">
+        <span class="bayram-splash__sig-rule"></span>
+        <span class="bayram-splash__sig-name">karaman.dev</span>
+        <span class="bayram-splash__sig-rule"></span>
+      </div>
+    </div>
+  </div>
+</div>
+ -->
+  <script src="/assets/scripts.js"></script>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YDEV31NZ5J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YDEV31NZ5J');
+</script>
+
+
+</body>
+</html>
