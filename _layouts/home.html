@@ -35,7 +35,7 @@ layout: default
           {% assign card_image = post.background | default: '/img/posts/1.webp' %}
           {% assign card_image_sm = card_image | replace: '/img/posts/', '/img/posts/sm/' %}
           <article class="post-card">
-            <a class="post-card__media" href="{{ post.url | prepend: site.baseurl | replace: '//', '/' }}" aria-label="{{ post.title | escape }}">
+            <a class="post-card__media" href="{{ post.url | remove: '.html' | prepend: site.baseurl | replace: '//', '/' }}" aria-label="{{ post.title | escape }}">
               {% if card_image contains '/img/posts/' %}
               <img src="{{ card_image | prepend: site.baseurl | replace: '//', '/' }}"
                    srcset="{{ card_image_sm | prepend: site.baseurl | replace: '//', '/' }} 768w, {{ card_image | prepend: site.baseurl | replace: '//', '/' }} 1600w"
@@ -47,7 +47,7 @@ layout: default
             </a>
             <div class="post-card__body">
               <h2 class="post-card__title">
-                <a href="{{ post.url | prepend: site.baseurl | replace: '//', '/' }}">{{ post.title }}</a>
+                <a href="{{ post.url | remove: '.html' | prepend: site.baseurl | replace: '//', '/' }}">{{ post.title }}</a>
               </h2>
               <p class="post-card__subtitle">
                 {% if post.subtitle %}

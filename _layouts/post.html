@@ -40,14 +40,14 @@ layout: default
 
         <nav class="post-nav" aria-label="Yazı navigasyonu">
           {% if page.previous.url %}
-          <a class="post-nav__item post-nav__item--prev" href="{{ page.previous.url | prepend: site.baseurl | replace: '//', '/' }}">
+          <a class="post-nav__item post-nav__item--prev" href="{{ page.previous.url | remove: '.html' | prepend: site.baseurl | replace: '//', '/' }}">
             <span class="post-nav__direction">&larr; Önceki yazı</span>
             <span class="post-nav__title">{{ page.previous.title }}</span>
             <span class="post-nav__date">{% include tr-month.html date=page.previous.date %}</span>
           </a>
           {% endif %}
           {% if page.next.url %}
-          <a class="post-nav__item post-nav__item--next" href="{{ page.next.url | prepend: site.baseurl | replace: '//', '/' }}">
+          <a class="post-nav__item post-nav__item--next" href="{{ page.next.url | remove: '.html' | prepend: site.baseurl | replace: '//', '/' }}">
             <span class="post-nav__direction">Sonraki yazı &rarr;</span>
             <span class="post-nav__title">{{ page.next.title }}</span>
             <span class="post-nav__date">{% include tr-month.html date=page.next.date %}</span>
@@ -56,6 +56,12 @@ layout: default
         </nav>
 
         <div class="clearfix" id="disqus_thread"></div>
+          <script>
+            // Yorumları .html kanonik URL'sine sabitle; uzantısız adreste de aynı dizi yüklensin
+            var disqus_config = function () {
+              this.page.url = "{{ page.url | prepend: site.url }}";
+            };
+          </script>
           <script>
             (function () {
               var loaded = false;
