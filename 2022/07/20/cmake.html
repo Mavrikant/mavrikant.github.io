@@ -225,14 +225,14 @@ graph TD
 
         <nav class="post-nav" aria-label="Yazı navigasyonu">
           
-          <a class="post-nav__item post-nav__item--prev" href="/2022/07/11/fonksiyonel-olmayan-yazilim-gereksinimleri.html">
+          <a class="post-nav__item post-nav__item--prev" href="/2022/07/11/fonksiyonel-olmayan-yazilim-gereksinimleri">
             <span class="post-nav__direction">← Önceki yazı</span>
             <span class="post-nav__title">Fonksiyonel ve fonksiyonel olmayan yazılım gereksinimleri</span>
             <span class="post-nav__date">Tem 2022</span>
           </a>
           
           
-          <a class="post-nav__item post-nav__item--next" href="/2022/08/15/elektrik-kesintisinde-bilgisayarin-otomatik-tekrar-acilmasini-saglama.html">
+          <a class="post-nav__item post-nav__item--next" href="/2022/08/15/elektrik-kesintisinde-bilgisayarin-otomatik-tekrar-acilmasini-saglama">
             <span class="post-nav__direction">Sonraki yazı →</span>
             <span class="post-nav__title">Elektrik kesintisinde bilgisayarın otomatik tekrar açılmasını sağlama</span>
             <span class="post-nav__date">Ağu 2022</span>
@@ -241,6 +241,12 @@ graph TD
         </nav>
 
         <div class="clearfix" id="disqus_thread"></div>
+          <script>
+            // Yorumları .html kanonik URL'sine sabitle; uzantısız adreste de aynı dizi yüklensin
+            var disqus_config = function () {
+              this.page.url = "https://karaman.dev/2022/07/20/cmake.html";
+            };
+          </script>
           <script>
             (function () {
               var loaded = false;

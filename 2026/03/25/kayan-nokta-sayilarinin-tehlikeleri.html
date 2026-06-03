@@ -513,14 +513,14 @@
 
         <nav class="post-nav" aria-label="Yazı navigasyonu">
           
-          <a class="post-nav__item post-nav__item--prev" href="/2023/12/01/turkiyede-debugging-asamalari.html">
+          <a class="post-nav__item post-nav__item--prev" href="/2023/12/01/turkiyede-debugging-asamalari">
             <span class="post-nav__direction">← Önceki yazı</span>
             <span class="post-nav__title">Türkiye'de Debugging aşamaları</span>
             <span class="post-nav__date">Ara 2023</span>
           </a>
           
           
-          <a class="post-nav__item post-nav__item--next" href="/2026/03/25/versiyon-kontrol-sistemleri-git-svn-clearcase.html">
+          <a class="post-nav__item post-nav__item--next" href="/2026/03/25/versiyon-kontrol-sistemleri-git-svn-clearcase">
             <span class="post-nav__direction">Sonraki yazı →</span>
             <span class="post-nav__title">Versiyon Kontrol Sistemleri: Git vs SVN vs ClearCase</span>
             <span class="post-nav__date">Mar 2026</span>
@@ -529,6 +529,12 @@
         </nav>
 
         <div class="clearfix" id="disqus_thread"></div>
+          <script>
+            // Yorumları .html kanonik URL'sine sabitle; uzantısız adreste de aynı dizi yüklensin
+            var disqus_config = function () {
+              this.page.url = "https://karaman.dev/2026/03/25/kayan-nokta-sayilarinin-tehlikeleri.html";
+            };
+          </script>
           <script>
             (function () {
               var loaded = false;
