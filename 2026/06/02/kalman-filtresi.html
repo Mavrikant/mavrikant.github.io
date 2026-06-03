@@ -276,7 +276,7 @@ $$</p>
 <p>Filtre iki adımlı bir danstır. İlk adım <strong>tahmin</strong>: mevcut durumu ve belirsizliği, modeli kullanarak bir adım ileri taşırız.</p>
 
 <p>$$
-\hat{x}<em>k^- = F\,\hat{x}</em>{k-1} + B\,u_{k-1}
+\hat{x}_k^- = F\,\hat{x}_{k-1} + B\,u_{k-1}
 $$</p>
 
 <p>$$
@@ -347,9 +347,9 @@ flowchart LR
     subgraph GUNC["② GÜNCELLEME (Update)"]
       UPD["y = z − H·x⁻<br>K = P⁻·Hᵀ·S⁻¹<br>x = x⁻ + K·y<br>P = (I − K·H)·P⁻<br>(belirsizlik azalır)"]
     end
-    PRED --&gt;|\"a priori tahmin\"| UPD
+    PRED --&gt;|a priori tahmin| UPD
     Z(["ölçüm z"]) --&gt; UPD
-    UPD --&gt;|\"a posteriori kestirim\"| PRED
+    UPD --&gt;|a posteriori kestirim| PRED
     UPD --&gt; OUT["çıktı: x , P"]
     style INIT fill:#e8eef7,stroke:#4a6fa5,stroke-width:2px
     style PRED fill:#cee0f3,stroke:#3a5f95,stroke-width:2px
@@ -596,7 +596,7 @@ $$</p>
 <p>EKF adımları:</p>
 
 <p>$$
-\hat{x}<em>k^- = f(\hat{x}</em>{k-1}, u_{k-1}), \qquad P_k^- = F_k\,P_{k-1}\,F_k^{\mathsf{T}} + Q
+\hat{x}_k^- = f(\hat{x}_{k-1}, u_{k-1}), \qquad P_k^- = F_k\,P_{k-1}\,F_k^{\mathsf{T}} + Q
 $$</p>
 
 <p>$$

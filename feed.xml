@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="tr"><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://karaman.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://karaman.dev/" rel="alternate" type="text/html" hreflang="tr" /><updated>2026-06-03T10:37:42+00:00</updated><id>https://karaman.dev/feed.xml</id><title type="html">M. Serdar Karaman</title><subtitle>Aviyonik yazılım, DO-178C ve emniyet kritik mühendislik üzerine sahadan notlar.</subtitle><author><name>M. Serdar Karaman</name></author><entry xml:lang="tr"><title type="html">Kalman Filtresi ve EKF: Gürültülü Veriden Gizli Durumu Kestirmek</title><link href="https://karaman.dev/2026/06/02/kalman-filtresi.html" rel="alternate" type="text/html" title="Kalman Filtresi ve EKF: Gürültülü Veriden Gizli Durumu Kestirmek" /><published>2026-06-02T09:00:00+00:00</published><updated>2026-06-02T09:00:00+00:00</updated><id>https://karaman.dev/2026/06/02/kalman-filtresi</id><content type="html" xml:base="https://karaman.dev/2026/06/02/kalman-filtresi.html"><![CDATA[<p>Telefonunuz masanın üzerinde dururken bile GPS noktası birkaç metre oraya buraya zıplar. Arabadaki ivmeölçer mükemmel veri verir ama integralini aldığınızda hata saniyeler içinde birikip sürüklenir (drift). Tek başına ne sensöre ne de modele güvenebilirsiniz — yine de haritadaki maviniz pürüzsüz, kararlı bir çizgi çizer. Bu sihrin arkasındaki makine çoğu zaman aynıdır: <strong>Kalman filtresi</strong>.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="tr"><generator uri="https://jekyllrb.com/" version="4.2.2">Jekyll</generator><link href="https://karaman.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://karaman.dev/" rel="alternate" type="text/html" hreflang="tr" /><updated>2026-06-03T11:47:29+00:00</updated><id>https://karaman.dev/feed.xml</id><title type="html">M. Serdar Karaman</title><subtitle>Aviyonik yazılım, DO-178C ve emniyet kritik mühendislik üzerine sahadan notlar.</subtitle><author><name>M. Serdar Karaman</name></author><entry xml:lang="tr"><title type="html">Kalman Filtresi ve EKF: Gürültülü Veriden Gizli Durumu Kestirmek</title><link href="https://karaman.dev/2026/06/02/kalman-filtresi.html" rel="alternate" type="text/html" title="Kalman Filtresi ve EKF: Gürültülü Veriden Gizli Durumu Kestirmek" /><published>2026-06-02T09:00:00+00:00</published><updated>2026-06-02T09:00:00+00:00</updated><id>https://karaman.dev/2026/06/02/kalman-filtresi</id><content type="html" xml:base="https://karaman.dev/2026/06/02/kalman-filtresi.html"><![CDATA[<p>Telefonunuz masanın üzerinde dururken bile GPS noktası birkaç metre oraya buraya zıplar. Arabadaki ivmeölçer mükemmel veri verir ama integralini aldığınızda hata saniyeler içinde birikip sürüklenir (drift). Tek başına ne sensöre ne de modele güvenebilirsiniz — yine de haritadaki maviniz pürüzsüz, kararlı bir çizgi çizer. Bu sihrin arkasındaki makine çoğu zaman aynıdır: <strong>Kalman filtresi</strong>.</p>
 
 <p>Kalman filtresi, 1960’ta Rudolf Kálmán’ın ortaya koyduğundan beri uzay araçlarından telefonunuza, robotlardan finansal modellere kadar her yerde çalışan, gürültülü ölçümler ile kusurlu bir hareket modelini optimal şekilde <strong>harmanlayan</strong> özyinelemeli bir kestirimcidir. Bu yazıda filtreyi sıfırdan kuracağız: önce Gauss dağılımlarını birleştirme sezgisiyle, sonra doğrusal durum-uzay modeliyle, ardından doğrusal-olmayan dünyaya geçişi sağlayan <strong>Genişletilmiş Kalman Filtresi (EKF)</strong> ile. Yol boyunca hem NumPy ile tam çalışan Python kodları hem de tarayıcınızda canlı oynayabileceğiniz iki etkileşimli simülatör olacak.</p>
 
@@ -94,7 +94,7 @@ $$</p>
 <p>Filtre iki adımlı bir danstır. İlk adım <strong>tahmin</strong>: mevcut durumu ve belirsizliği, modeli kullanarak bir adım ileri taşırız.</p>
 
 <p>$$
-\hat{x}<em>k^- = F\,\hat{x}</em>{k-1} + B\,u_{k-1}
+\hat{x}_k^- = F\,\hat{x}_{k-1} + B\,u_{k-1}
 $$</p>
 
 <p>$$
@@ -162,9 +162,9 @@ flowchart LR
     subgraph GUNC["② GÜNCELLEME (Update)"]
       UPD["y = z − H·x⁻<br />K = P⁻·Hᵀ·S⁻¹<br />x = x⁻ + K·y<br />P = (I − K·H)·P⁻<br />(belirsizlik azalır)"]
     end
-    PRED --&gt;|\"a priori tahmin\"| UPD
+    PRED --&gt;|a priori tahmin| UPD
     Z(["ölçüm z"]) --&gt; UPD
-    UPD --&gt;|\"a posteriori kestirim\"| PRED
+    UPD --&gt;|a posteriori kestirim| PRED
     UPD --&gt; OUT["çıktı: x , P"]
     style INIT fill:#e8eef7,stroke:#4a6fa5,stroke-width:2px
     style PRED fill:#cee0f3,stroke:#3a5f95,stroke-width:2px
@@ -402,7 +402,7 @@ $$</p>
 <p>EKF adımları:</p>
 
 <p>$$
-\hat{x}<em>k^- = f(\hat{x}</em>{k-1}, u_{k-1}), \qquad P_k^- = F_k\,P_{k-1}\,F_k^{\mathsf{T}} + Q
+\hat{x}_k^- = f(\hat{x}_{k-1}, u_{k-1}), \qquad P_k^- = F_k\,P_{k-1}\,F_k^{\mathsf{T}} + Q
 $$</p>
 
 <p>$$
