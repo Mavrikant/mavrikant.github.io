@@ -18,7 +18,7 @@ Kalman filtresi, 1960'ta Rudolf Kálmán'ın ortaya koyduğundan beri uzay araç
 
 Bir sistemin gerçekten bilmek istediğimiz büyüklüklerine **durum** (state) diyelim ve `x` ile gösterelim — bir cismin konumu ve hızı, bir uydunun yörünge parametreleri, bir bataryanın şarj seviyesi. Sorun şu ki durumu doğrudan göremeyiz. Elimizde sadece iki kusurlu bilgi kaynağı vardır:
 
-1. **Bir hareket modeli.** Fizik bize "bir sonraki adımda durum kabaca şu olur" der. Ama model idealdir; rüzgâr, sürtünme, modellenmemiş ivmeler yüzünden gerçeğden sapar ve bu sapma adım adım **birikir**.
+1. **Bir hareket modeli.** Fizik bize "bir sonraki adımda durum kabaca şu olur" der. Ama model idealdir; rüzgâr, sürtünme, modellenmemiş ivmeler yüzünden gerçekten sapar ve bu sapma adım adım **birikir**.
 2. **Gürültülü ölçümler.** Sensör bize durumla ilgili bir şey söyler (`z`), ama her okumanın üzerinde rastgele gürültü vardır. Üstelik sensör çoğu zaman durumun tamamını değil, bir fonksiyonunu ölçer (örneğin yalnızca konumu, hızı değil).
 
 Kalman filtresinin yaptığı tam olarak şudur: her adımda modelin tahminiyle yeni ölçümü, **her birinin ne kadar güvenilir olduğunu hesaba katarak** birleştirir. Kritik nokta, filtrenin yalnızca en iyi tahmini (`x̂`) değil, o tahmine **ne kadar güvendiğini** de (kovaryans matrisi `P`) taşımasıdır. Tüm zekâ bu ikinci büyüklükte saklıdır.
