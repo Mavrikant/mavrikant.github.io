@@ -100,7 +100,7 @@ Buradaki `q` skaler bir "süreç gürültüsü yoğunluğu"dur ve birazdan en kr
 Filtre iki adımlı bir danstır. İlk adım **tahmin**: mevcut durumu ve belirsizliği, modeli kullanarak bir adım ileri taşırız.
 
 $$
-\hat{x}_k^- = F\,\hat{x}_{k-1} + B\,u_{k-1}
+\hat{x}\_k^- = F\,\hat{x}\_{k-1} + B\,u_{k-1}
 $$
 
 $$
@@ -166,9 +166,9 @@ flowchart LR
     subgraph GUNC["② GÜNCELLEME (Update)"]
       UPD["y = z − H·x⁻<br/>K = P⁻·Hᵀ·S⁻¹<br/>x = x⁻ + K·y<br/>P = (I − K·H)·P⁻<br/>(belirsizlik azalır)"]
     end
-    PRED -->|"a priori tahmin"| UPD
+    PRED -->|a priori tahmin| UPD
     Z(["ölçüm z"]) --> UPD
-    UPD -->|"a posteriori kestirim"| PRED
+    UPD -->|a posteriori kestirim| PRED
     UPD --> OUT["çıktı: x , P"]
     style INIT fill:#e8eef7,stroke:#4a6fa5,stroke-width:2px
     style PRED fill:#cee0f3,stroke:#3a5f95,stroke-width:2px
@@ -402,7 +402,7 @@ $$
 EKF adımları:
 
 $$
-\hat{x}_k^- = f(\hat{x}_{k-1}, u_{k-1}), \qquad P_k^- = F_k\,P_{k-1}\,F_k^{\mathsf{T}} + Q
+\hat{x}\_k^- = f(\hat{x}\_{k-1}, u_{k-1}), \qquad P_k^- = F_k\,P_{k-1}\,F_k^{\mathsf{T}} + Q
 $$
 
 $$
