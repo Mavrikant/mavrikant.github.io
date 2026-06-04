@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<!-- Content Security Policy: defense-in-depth against supply-chain script
+     injection (e.g. the polyfill.io attack). script-src is an explicit
+     allowlist of the CDNs this site actually uses, so any unlisted external
+     script (such as polyfill.io) is blocked by the browser. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://cdn.plot.ly https://plausible.io https://js.sentry-cdn.com https://browser.sentry-cdn.com https://*.disqus.com https://*.disquscdn.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://*.disquscdn.com; font-src 'self' data: https://fonts.gstatic.com https://cdn.jsdelivr.net https://*.disquscdn.com; img-src 'self' data: https:; connect-src 'self' https://plausible.io https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.sentry.io https://*.disqus.com https://*.disquscdn.com; frame-src 'self' https://disqus.com https://*.disqus.com https://www.youtube.com https://www.youtube-nocookie.com; worker-src 'self' blob:; manifest-src 'self'; form-action 'self' https://formspree.io">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="/favicon.ico" rel="shortcut icon" sizes="36x36 24x24 16x16" type="image/x-icon">
+<link href="/favicon.png" rel="icon" sizes="196x196" type="image/png">
+<meta content="/mstile-icon-128x128.png" name="msapplication-TileImage">
+<meta content="transparent" name="msapplication-TileColor">
+<link href="/manifest.webmanifest" rel="manifest">
+<meta content="/browserconfig.xml" name="msapplication-config">
+<!-- Begin Jekyll SEO tag v2.9.0 -->
+<title>Coupling’i Dengelemek: Yazılım Tasarımında Bağımlılığı Yönetmek | M. Serdar Karaman</title>
+<meta name="generator" content="Jekyll v4.2.2">
+<meta property="og:title" content="Coupling’i Dengelemek: Yazılım Tasarımında Bağımlılığı Yönetmek">
+<meta name="author" content="M. Serdar Karaman">
+<meta property="og:locale" content="tr_TR">
+<meta name="description" content="Bir satırlık bir değişiklik yaptınız: bir alanın adını userId‘den accountId‘ye çevirdiniz. Derleyici hata vermeye başladı. Bir dosyayı düzelttiniz, üç dosya daha kırmızı yandı. Onları da düzelttiniz; bu kez testler patladı. Yarım saat sonra “küçücük” değişikliğiniz on iki dosyaya, iki servise ve bir veritabanı şemasına dokunmuştu. Tanıdık geldi mi?">
+<meta name="twitter:description" property="og:description" content="Bir satırlık bir değişiklik yaptınız: bir alanın adını userId‘den accountId‘ye çevirdiniz. Derleyici hata vermeye başladı. Bir dosyayı düzelttiniz, üç dosya daha kırmızı yandı. Onları da düzelttiniz; bu kez testler patladı. Yarım saat sonra “küçücük” değişikliğiniz on iki dosyaya, iki servise ve bir veritabanı şemasına dokunmuştu. Tanıdık geldi mi?">
+<link rel="canonical" href="https://karaman.dev/2026/06/04/coupling-dengesi.html">
+<meta property="og:url" content="https://karaman.dev/2026/06/04/coupling-dengesi.html">
+<meta property="og:site_name" content="M. Serdar Karaman">
+<meta property="og:image" content="https://karaman.dev/img/og-default.webp">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-06-04T09:00:00+00:00">
+<meta property="article:modified_time" content="2026-06-04T09:00:00+00:00">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://karaman.dev/img/og-default.webp">
+<meta name="twitter:title" content="Coupling’i Dengelemek: Yazılım Tasarımında Bağımlılığı Yönetmek">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"M. Serdar Karaman"},"dateModified":"2026-06-04T09:00:00+00:00","datePublished":"2026-06-04T09:00:00+00:00","description":"Bir satırlık bir değişiklik yaptınız: bir alanın adını userId‘den accountId‘ye çevirdiniz. Derleyici hata vermeye başladı. Bir dosyayı düzelttiniz, üç dosya daha kırmızı yandı. Onları da düzelttiniz; bu kez testler patladı. Yarım saat sonra “küçücük” değişikliğiniz on iki dosyaya, iki servise ve bir veritabanı şemasına dokunmuştu. Tanıdık geldi mi?","headline":"Coupling’i Dengelemek: Yazılım Tasarımında Bağımlılığı Yönetmek","image":"https://karaman.dev/img/og-default.webp","mainEntityOfPage":{"@type":"WebPage","@id":"https://karaman.dev/2026/06/04/coupling-dengesi.html"},"url":"https://karaman.dev/2026/06/04/coupling-dengesi.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<!-- Sentry (errors + performance + replay) -->
+<script src="https://js.sentry-cdn.com/d9df60c4bcc41adb14bb648db4013b52.min.js" crossorigin="anonymous"></script>
+<script>
+  Sentry.onLoad(function () {
+    Sentry.init({
+      integrations: [
+        Sentry.browserTracingIntegration(),
+        Sentry.replayIntegration({
+          maskAllText: false,
+          blockAllMedia: false,
+        }),
+      ],
+      tracesSampleRate: 1.0,
+      replaysSessionSampleRate: 0.1,
+      replaysOnErrorSampleRate: 1.0,
+    });
+  });
+</script>
+
+
+
+<!-- Privacy-friendly analytics by Plausible -->
+<script defer src="https://plausible.io/js/pa-BMAxUwrIK8Icg2HpLysj2.js"></script>
+<script>
+  window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments) };
+  window.plausible.init = window.plausible.init || function (i) { window.plausible.o = i || {} };
+  plausible.init();
+</script>
+
+
+<script>
+  // No-flash dark mode: applies the saved theme before paint.
+  (function () {
+    try {
+      var stored = localStorage.getItem('theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = stored || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch (e) {}
+  })();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<link rel="preload" as="image" href="/img/posts/coupling-dengesi-cover.webp" fetchpriority="high">
+<script async src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.12.0/mermaid.min.js" integrity="sha512-5TKaYvhenABhlGIKSxAWLFJBZCSQw7HTV7aL1dJcBokM/+3PNtfgJFlv8E6Us/B1VMlQ4u8sPzjudL9TEQ06ww==" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="/assets/main.css">
+<link rel="alternate" type="application/rss+xml" title="M. Serdar Karaman" href="/feed.xml">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e1014" media="(prefers-color-scheme: dark)">
+<link rel="manifest" href="/manifest.json">
+</head>
+<body id="page-top">
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">M. Serdar Karaman</a>
+    <button class="navbar-toggler navbar-toggler-right" type="button" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Menüyü aç/kapat">
+      Menü
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Ana sayfa</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">Hakkımda</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Yazılar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contact">İletişim</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownProjects" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Projeler
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProjects">
+            <a class="dropdown-item" href="https://karaman.dev/games" target="_blank" rel="noopener">Oyunlar</a>
+            <a class="dropdown-item" href="https://karaman.dev/or-araclari" target="_blank" rel="noopener">OR Araçları</a>
+            <a class="dropdown-item" href="https://karaman.dev/numio/" target="_blank" rel="noopener">Numio</a>
+          </div>
+        </li>
+        <li class="nav-item d-flex align-items-center">
+          <button type="button" class="theme-toggle" aria-label="Tema değiştir" title="Tema değiştir">
+            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+            <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+          </button>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <!-- Page Header -->
+
+<header class="masthead" style="background-image: url('/img/posts/coupling-dengesi-cover.webp')">
+  
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>Coupling'i Dengelemek: Yazılım Tasarımında Bağımlılığı Yönetmek</h1>
+            
+            <h2 class="subheading">Balancing Coupling in Software Design</h2>
+            
+            <span class="meta">
+              <a href="/about">M. Serdar Karaman</a>
+              · 4 Haziran 2026 · <span class="reading-time" title="Estimated read time">
+  
+  21 dk okuma süresi</span>
+
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container" lang="tr">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+
+        <div class="post-shell">
+          <aside class="post-toc" aria-label="İçindekiler">
+  <h2 class="post-toc__title">İçindekiler</h2>
+  <nav id="post-toc-nav"></nav>
+</aside>
+
+          <div class="post-content">
+            <p>Bir satırlık bir değişiklik yaptınız: bir alanın adını <code class="language-plaintext highlighter-rouge">userId</code>‘den <code class="language-plaintext highlighter-rouge">accountId</code>‘ye çevirdiniz. Derleyici hata vermeye başladı. Bir dosyayı düzelttiniz, üç dosya daha kırmızı yandı. Onları da düzelttiniz; bu kez testler patladı. Yarım saat sonra “küçücük” değişikliğiniz on iki dosyaya, iki servise ve bir veritabanı şemasına dokunmuştu. Tanıdık geldi mi?</p>
+
+<p>Çoğumuz bu acıya bir isim veririz: <strong>coupling</strong> (bağlaşım). Ve hemen ardından bir reçete yazarız: “Demek ki daha az coupling lazım, her şeyi birbirinden ayıralım (<em>decouple</em> edelim).” Ekip bu uğurda kodu mikroservislere böler — ve birkaç ay sonra, ağ üzerinden birbirine eskisinden de sıkı bağlı, ama bu kez hata ayıklaması çok daha zor bir sisteme uyanır.</p>
+
+<p>Sorun coupling’in <em>kötü</em> olması değil; sorun onu yanlış anlamamız. Vlad Khononov’un 2024 tarihli kitabı <strong><em>Balancing Coupling in Software Design</em></strong> tam da bunu söylüyor: coupling, yok edilecek bir kusur değil, <strong>dengelenecek bir tasarım niteliğidir</strong>. Bu yazıda önce coupling’in ne olduğunu ve neden ondan tamamen kurtulamayacağımızı göreceğiz; sonra Khononov’un onu ölçmek için sunduğu üç boyutlu modeli inceleyeceğiz; ve son olarak bu fikrin en uca taşındığı yere, aviyonik yazılımın <strong>DO‑178C</strong> standardına bakacağız — orada coupling’i analiz etmek bir tercih değil, bir sertifikasyon şartıdır.</p>
+
+<hr>
+
+<h2 id="coupling-nedir-ve-neden-ondan-tamamen-kurtulamayız">Coupling Nedir? (Ve Neden Ondan Tamamen Kurtulamayız?)</h2>
+
+<p>En yalın tanımıyla coupling, iki bileşen arasındaki bağımlılıktır: <em>birindeki değişikliğin diğerinde de değişiklik gerektirme ihtimali.</em> İki modül birbirine ne kadar sıkı bağlıysa, birlikte değişme olasılıkları da o kadar yüksektir.</p>
+
+<p>Khononov bu bağımlılığın özünde iki şeyin yattığını söyler: <strong>paylaşılan bilgi</strong> (<em>shared knowledge</em>) ve <strong>paylaşılan yaşam döngüsü</strong> (<em>shared lifecycle</em>). Bir bileşen, diğeri hakkında ne kadar çok şey “bilmek” zorundaysa — onun veri yapısını, kurallarını, iç işleyişini — o kadar bağlıdır. Ve o bilgi değiştiğinde, ona bağlı her yerin de değişmesi gerekir.</p>
+
+<p>Burada kritik bir nokta var: coupling yalnızca yazılıma özgü değildir. Aynı ilişki bir organizasyonda (bir departmanın kararı diğerini etkiler), bir makinede (bir dişlinin dönüşü diğerini sürer), hatta bir takımda da vardır. Coupling, <em>birbiriyle etkileşen parçalardan oluşan her sistemin</em> doğal bir özelliğidir.</p>
+
+<p>Peki neden ondan tamamen kurtulamayız? Çünkü <strong>sıfır coupling’e sahip bir sistem, aslında bir sistem değildir.</strong> Birbiriyle hiç konuşmayan, hiçbir bilgi paylaşmayan bileşenler bir bütün oluşturmaz; yalnızca yan yana duran, birbirinden habersiz parçalar yığını olur. Bir sistemin değeri — uçağın uçması, uygulamanın iş görmesi — tam da parçaların <em>birlikte</em> çalışmasından, yani onları birbirine bağlayan ilişkilerden doğar. Daha önce <a href="/2026/05/26/sistem-muhendisligi-nedir.html">Sistem Mühendisliği Nedir?</a> yazısında değindiğimiz <strong>beliren özellikler</strong> (<em>emergent properties</em>) işte bu bağlardan ortaya çıkar.</p>
+
+<p>Coupling, sistemi bir arada tutan tutkaldır. Tutkalsız sistem dağılır; ama her yeri tutkala bulanmış sistem de kıpırdayamaz. O yüzden doğru soru “coupling’den nasıl kurtulurum?” değildir. Doğru soru şudur: <strong>Ne tür, ne kadar ve nerede?</strong></p>
+
+<hr>
+
+<h2 id="decoupling-her-zaman-i̇yidir-efsanesi">“Decoupling Her Zaman İyidir” Efsanesi</h2>
+
+<p>Yazılım kültüründe neredeyse bir slogan vardır: “sıkı bağ değil, gevşek bağ” (<em>loose coupling</em>). Bu öğüt iyi niyetlidir ama yarım kalmıştır; çünkü madalyonun iki yüzü vardır.</p>
+
+<p>Bir uçta <strong>aşırı coupling</strong> bulunur: her şeyin her şeye bağlı olduğu, tek bir değişikliğin sistemin yarısını tetiklediği, kimsenin elini sürmeye cesaret edemediği “büyük çamur topu” (<em>big ball of mud</em>). Bunu hepimiz biliriz.</p>
+
+<p>Diğer uçta ise daha sinsi bir tehlike vardır: <strong>aşırı decoupling</strong>. Bağımlılıktan kaçmak uğruna araya gereksiz katmanlar, soyutlamalar ve dolaylılıklar (<em>indirection</em>) koyarsınız. Tek bir akışı anlamak için yedi dosya ile üç arayüz arasında zıplamak gerekir. En meşhur örneği, gerçekte birbirine sıkı sıkıya bağlı bileşenleri ayrı servislere bölüp aralarına bir de ağ koyan <strong>dağıtık çamur topu</strong> (<em>distributed big ball of mud</em>) — yani yanlış kurgulanmış mikroservislerdir. Bağımlılık ortadan kalkmamıştır; yalnızca görünmez olmuş, üstüne bir de ağ gecikmesi ve dağıtık hata ayıklama derdi eklenmiştir.</p>
+
+<p>Khononov bunu <strong>arızi karmaşıklık</strong> (<em>accidental complexity</em>) ile açıklar: problemin kendisinden değil, onu çözmek için yaptığımız kötü tasarım tercihlerinden doğan karmaşıklık. Hem aşırı coupling hem de aşırı decoupling arızi karmaşıklık üretir. Demek ki iyi tasarım bir uçta değil, <strong>dengededir</strong>. Geriye tek soru kalıyor: Bu dengeyi nasıl bulacağız? İşte Khononov’un asıl katkısı burada başlıyor.</p>
+
+<hr>
+
+<h2 id="couplingi-ölçmek-khononovun-üç-boyutu">Coupling’i Ölçmek: Khononov’un Üç Boyutu</h2>
+
+<p>Khononov’un en güçlü fikri, coupling’i tek bir “az/çok” ölçeğine sıkıştırmayı bırakıp onu <strong>üç ayrı boyutta</strong> ele almaktır. Bir bağlantının iyi mi kötü mü olduğunu bu üç boyut birlikte belirler:</p>
+
+<ol>
+  <li>
+<strong>Entegrasyon gücü</strong> — ne kadar bilgi paylaşılıyor?</li>
+  <li>
+<strong>Mesafe</strong> — bileşenler birbirine ne kadar uzak?</li>
+  <li>
+<strong>Oynaklık</strong> — ne sıklıkta değişiyor?</li>
+</ol>
+
+<p>Bunları tek tek görelim.</p>
+
+<h3 id="1-entegrasyon-gücü-integration-strength">1. Entegrasyon Gücü (Integration Strength)</h3>
+
+<p>Entegrasyon gücü, iki bileşenin birbiriyle <em>ne tür ve ne kadar</em> bilgi paylaştığını anlatır. Khononov bunu, en güçlüden (en çok bilgi paylaşan, en kırılgan) en zayıfa (en az bilgi paylaşan, en sağlam) doğru dört seviyeye ayırır:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Seviye</th>
+      <th>Ne paylaşılır?</th>
+      <th>Sonuç</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+<strong>İçe nüfuz eden</strong> (<em>intrusive</em>)</td>
+      <td>Başka bir bileşenin <em>iç</em> detayları: private alanları, veritabanı tabloları, gizli varsayımları</td>
+      <td>En kırılgan ve en örtük. Karşı taraf habersizce her an değişebilir</td>
+    </tr>
+    <tr>
+      <td>
+<strong>Fonksiyonel</strong> (<em>functional</em>)</td>
+      <td>Ortak bir iş kuralı / fonksiyonel gereksinim</td>
+      <td>Kural değişince bağlı tüm bileşenler birlikte değişmek zorunda</td>
+    </tr>
+    <tr>
+      <td>
+<strong>Model</strong> (<em>model</em>)</td>
+      <td>Ortak bir alan (<em>domain</em>) modeli</td>
+      <td>Model evrildikçe onu paylaşan herkes etkilenir</td>
+    </tr>
+    <tr>
+      <td>
+<strong>Sözleşme</strong> (<em>contract</em>)</td>
+      <td>Yalnızca açıkça yayımlanmış bir arayüz/sözleşme</td>
+      <td>En zayıf ve en sağlam. İç detaylar gizlenir; sözleşme sabit kaldıkça taraflar bağımsız değişir</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="mermaid">
+flowchart LR
+    A["İçe nüfuz eden<br>intrusive"] --&gt; B["Fonksiyonel<br>functional"] --&gt; C["Model<br>model"] --&gt; D["Sözleşme<br>contract"]
+    style A fill:#f6c1c1,stroke:#c0392b,stroke-width:2px
+    style B fill:#f6d8c1,stroke:#cb6b2b,stroke-width:2px
+    style C fill:#f6edc1,stroke:#b39a2b,stroke-width:2px
+    style D fill:#cfe8cf,stroke:#2e7d32,stroke-width:2px
+</div>
+
+<p>Soldan sağa gidildikçe paylaşılan bilgi azalır, sağlamlık artar. En tepedeki <em>içe nüfuz eden</em> bağlaşım, bir bileşenin başka bir bileşenin kapağını açıp içine elini sokmasıdır — örneğin onun veritabanı tablosunu doğrudan okumak. En alttaki <em>sözleşme</em> bağlaşımı ise kapıdaki posta kutusundan konuşmaktır: arkada ne olduğunu bilmezsiniz, yalnızca sözleşmeye güvenirsiniz.</p>
+
+<p>Aradaki farkı küçük bir örnekle görelim:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># KIRILGAN — içe nüfuz eden bağlaşım (intrusive)
+# Sipariş modülü, Kullanıcı modülünün VERİTABANI TABLOSUNU doğrudan okuyor.
+# "users" tablosunun yapısı değişirse sipariş modülü de kırılır.
+</span><span class="k">def</span> <span class="nf">siparis_indirimi</span><span class="p">(</span><span class="n">kullanici_id</span><span class="p">):</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="n">db</span><span class="p">.</span><span class="n">query</span><span class="p">(</span><span class="s">"SELECT loyalty_tier FROM users WHERE id = ?"</span><span class="p">,</span> <span class="n">kullanici_id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mf">0.20</span> <span class="k">if</span> <span class="n">row</span><span class="p">.</span><span class="n">loyalty_tier</span> <span class="o">==</span> <span class="s">"GOLD"</span> <span class="k">else</span> <span class="mf">0.0</span>
+</code></pre></div></div>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># SAĞLAM — sözleşme bağlaşımı (contract)
+# Sipariş modülü, Kullanıcı modülünün YAYIMLADIĞI arayüzü çağırıyor.
+# Kullanıcı modülü içeride ne yaparsa yapsın, sözleşme sabit kaldıkça sağlam kalır.
+</span><span class="k">def</span> <span class="nf">siparis_indirimi</span><span class="p">(</span><span class="n">kullanici_id</span><span class="p">):</span>
+    <span class="n">seviye</span> <span class="o">=</span> <span class="n">kullanici_servisi</span><span class="p">.</span><span class="n">sadakat_seviyesi</span><span class="p">(</span><span class="n">kullanici_id</span><span class="p">)</span>   <span class="c1"># sözleşme
+</span>    <span class="k">return</span> <span class="n">INDIRIM_TABLOSU</span><span class="p">[</span><span class="n">seviye</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>İki kod da aynı işi yapıyor. Ama ilki, Kullanıcı modülünün veritabanı şemasına <em>gizlice</em> bağımlı; ikincisi yalnızca yayımlanmış bir sözleşmeye. Birincisinde <code class="language-plaintext highlighter-rouge">users</code> tablosuna eklenen masum bir değişiklik sipariş modülünü çökertebilir; ikincisinde Kullanıcı modülü içini baştan yazsa bile, <code class="language-plaintext highlighter-rouge">sadakat_seviyesi</code> sözleşmesi durduğu sürece sipariş modülü habersizdir.</p>
+
+<p>Bu dört seviyelik fikir gökten zembille inmedi. Khononov burada, yazılım tasarımının köklerindeki iki klasik fikri — Larry Constantine’in 1970’lerdeki coupling türlerini ve Meilir Page‑Jones’un connascence kavramını — tek bir ölçekte birleştirir. (Birazdan bu soy ağacına döneceğiz.)</p>
+
+<h3 id="2-mesafe-distance">2. Mesafe (Distance)</h3>
+
+<p>İkinci boyut, coupling’in <em>mekânsal</em> ölçüsüdür: birbirine bağlı iki bileşen fiziksel ve örgütsel olarak ne kadar uzakta? Yakından uzağa doğru bir yelpaze düşünün:</p>
+
+<blockquote>
+  <p>aynı metot içi → aynı sınıf → aynı modül → aynı namespace → ayrı servis → ayrı sistem → ayrı ekip/şirket</p>
+</blockquote>
+
+<p>Mesafe neden önemli? Çünkü zincirleme bir değişiklik gerektiğinde, <strong>o değişikliği hayata geçirmenin maliyeti mesafeyle birlikte artar.</strong> Aynı sınıftaki iki metodu birlikte değiştirmek dakikalar sürer. Ama iki bağımlı bileşen, ayrı ekiplerin sahip olduğu ayrı servislerdeyse, aynı değişiklik artık toplantılar, sürüm planları, API versiyonlama ve ekipler arası koordinasyon demektir. Khononov buna <strong>sahiplik mesafesi</strong> (<em>ownership distance</em>) der: bilgi ne kadar uzun yol kat ederse, onu değiştirmenin koordinasyon yükü o kadar büyür.</p>
+
+<h3 id="3-oynaklık-volatility">3. Oynaklık (Volatility)</h3>
+
+<p>Üçüncü boyut zamansaldır: bu bileşen ne sıklıkta değişiyor? Çünkü coupling’in bedeli ancak <strong>değişiklik olduğunda</strong> ödenir. Hiç değişmeyen bir bileşene sımsıkı bağlı olmak neredeyse bedavadır — bağ asla “tetiklenmez”. Ama sürekli evrilen, oynak bir bileşene aynı sıkılıkta bağlı olmak, her değişiklikte zincirleme acı demektir.</p>
+
+<p>Bir kodun ne kadar oynak olduğunu kestirmek için Khononov, Alan Güdümlü Tasarım’ın (<em>Domain-Driven Design</em>) alt‑alan (<em>subdomain</em>) sınıflamasından yararlanır: işin kalbindeki, rekabet avantajı yaratan <strong>çekirdek</strong> (<em>core</em>) alanlar en sık değişir; <strong>destekleyici</strong> (<em>supporting</em>) ve hazır çözülebilen <strong>genel</strong> (<em>generic</em>) alanlar daha durağandır. Khononov’un çarpıcı sözüyle: <strong><em>oynaklık, modülerliği opsiyonel kılar.</em></strong> Kararlı koda sıkıca bağlanmak başlı başına bir sorun değildir; çünkü o bağ pratikte hiç sınanmaz.</p>
+
+<hr>
+
+<h2 id="üçünü-birleştirmek-denge-formülü">Üçünü Birleştirmek: Denge Formülü</h2>
+
+<p>Asıl güzellik, bu üç boyut bir araya geldiğinde ortaya çıkar. Khononov tüm kitabın özünü tek bir mantıksal ifadeye sığdırır:</p>
+
+<blockquote>
+  <p><strong>denge = (güç XOR mesafe) VEYA DEĞİL(oynaklık)</strong></p>
+</blockquote>
+
+<p>Korkutucu görünebilir ama söylediği şey son derece sezgiseldir. <code class="language-plaintext highlighter-rouge">XOR</code> (özel veya), “ikisinden <em>yalnızca biri</em>” demektir. Yani sağlıklı bir tasarımda güç ile mesafe <strong>birbirine zıt</strong> olmalıdır:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th> </th>
+      <th><strong>Yakın mesafe</strong></th>
+      <th><strong>Uzak mesafe</strong></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>Güçlü bağ</strong></td>
+      <td>✅ İyi — birlikte değişenleri yan yana tut</td>
+      <td>❌ <strong>Küresel karmaşıklık</strong>
+</td>
+    </tr>
+    <tr>
+      <td><strong>Zayıf bağ</strong></td>
+      <td>⚠️ <strong>Yerel karmaşıklık</strong>
+</td>
+      <td>✅ İyi — modüler, bağımsız evrilir</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Köşeleri okuyalım:</p>
+
+<ul>
+  <li>
+<strong>Güçlü + yakın = iyi.</strong> Çok bilgi paylaşan iki şey aynı yerde durursa, onları birlikte değiştirmek kolaydır. Sıkı bağ burada sorun değil.</li>
+  <li>
+<strong>Zayıf + uzak = iyi.</strong> Az bilgi paylaşan şeyleri ayrı servislere/modüllere dağıtmak modülerliktir; her biri kendi başına yaşar.</li>
+  <li>
+<strong>Güçlü + uzak = felaket.</strong> Çok şey paylaşan ama birbirinden uzak bileşenler <strong>küresel karmaşıklık</strong> üretir; bir bilgi parçası sistemin bir ucundan diğerine yolculuk eder. Buna bir de oynaklık eklenince ortaya o meşhur <strong>dağıtık çamur topu</strong> çıkar.</li>
+  <li>
+<strong>Zayıf + yakın = israf.</strong> Birbiriyle alakasız şeyleri aynı sınıfa tıkıştırmak gereksiz <strong>yerel karmaşıklık</strong> yaratır.</li>
+</ul>
+
+<p>Peki <code class="language-plaintext highlighter-rouge">VEYA DEĞİL(oynaklık)</code> kısmı? O da şunu söyler: bir bileşen <strong>kararlıysa (oynak değilse)</strong>, yukarıdaki dengesizliğe katlanabilirsiniz — çünkü o bağ zaten hiç sınanmayacaktır. Modülerlik bedava değildir; ödediğiniz “modülerlik vergisini” yalnızca sık değişen yerlerde ödemeye değer.</p>
+
+<p>Bu modeli pratiğe dökmek üç basit sezgisel kurala iner:</p>
+
+<ul>
+  <li>
+<strong>Çok bilgi paylaşıyorlarsa, yakın tut.</strong> (Güçlü bağı kısa mesafeyle dengele.)</li>
+  <li>
+<strong>Uzaktalarsa, paylaşılan bilgiyi azalt.</strong> (Mikroservis sınırını ancak gerçek bir sözleşmeyle geç.)</li>
+  <li>
+<strong>Kararlıysa, modülerlik zahmetine girme.</strong> (Oynak olmayan yere mühendislik gücü harcama.)</li>
+</ul>
+
+<p>Dikkat edin: bu, “küçük ve dağıtık her zaman daha basittir” diyen popüler mikroservis söylemine doğrudan bir itirazdır. Bileşenleri küçültüp uzaklaştırmak, aralarındaki bilgi paylaşımı (güç) hâlâ yüksekse, sistemi <em>basitleştirmez</em>; tam tersine küresel karmaşıklığı artırır.</p>
+
+<hr>
+
+<h2 id="kısa-bir-tarih-constantineden-connascencea">Kısa Bir Tarih: Constantine’den Connascence’a</h2>
+
+<p>Coupling, yazılım mühendisliğinin en eski kavramlarından biridir; Khononov’un modeli de bu birikimin üzerine kuruludur.</p>
+
+<ul>
+  <li>
+<strong>Larry Constantine (1970’ler).</strong> <em>Yapısal Tasarım</em> (<em>Structured Design</em>) çalışmasında coupling’i ilk kez sistematik biçimde sınıflandırdı. En güçlüden (en kötü) en zayıfa (en iyi) doğru türleri şöyleydi: <em>içerik</em> (<em>content</em>), <em>ortak</em> (<em>common</em>), <em>dış</em> (<em>external</em>), <em>kontrol</em> (<em>control</em>), <em>damga</em> (<em>stamp</em>) ve <em>veri</em> (<em>data</em>) bağlaşımı. Bu sınıflama on yıllar boyunca — ve birazdan göreceğimiz gibi DO‑178C dâhil — sahada referans oldu.</li>
+  <li>
+<strong>Meilir Page‑Jones (1990’lar).</strong> <em>Connascence</em> kavramıyla coupling’i ölçülebilir hâle getirdi. İki bileşen, biri değişince diğeri de değişmek zorundaysa “connascent”tir. Page‑Jones bağı üç eksende değerlendirdi: <strong>güç</strong> (değiştirmek ne kadar zor), <strong>yerellik</strong> (bileşenler ne kadar yakın) ve <strong>derece</strong> (kaç bileşeni etkiliyor) — Khononov’un güç ve mesafe boyutlarının doğrudan atası.</li>
+  <li>
+<strong>David Parnas.</strong> <em>Bilgi gizleme</em> (<em>information hiding</em>) ilkesiyle modüllerin birbirinden iç kararları değil yalnızca <em>sözleşmeyi</em> bilmesi gerektiğini savundu — yani “sözleşme bağlaşımı”nın felsefi temelini attı.</li>
+</ul>
+
+<p>Khononov’un katkısı, bu dağınık mirası tek bir tutarlı çerçevede — entegrasyon gücü, mesafe, oynaklık — toplamasıdır. Ve buradan güvenlik‑kritik dünyaya zarif bir köprü uzanır: DO‑178C’nin coupling diline doğrudan Constantine’in terimleriyle, <strong>veri bağlaşımı</strong> ve <strong>kontrol bağlaşımı</strong> ile gireriz.</p>
+
+<hr>
+
+<h2 id="güvenlikkritik-dünyada-coupling-do178c">Güvenlik‑Kritik Dünyada Coupling: DO‑178C</h2>
+
+<p>Şimdiye kadar coupling’i bir tasarım <em>tercihi</em> olarak konuştuk: iyi mühendis dengeyi gözetir, kötüsü gözetmez. Peki ya yanlış dengenin bedeli bir insanın canıysa?</p>
+
+<p>Uçak yazılımının geliştirildiği dünyada coupling artık bir üslup meselesi değildir; <strong>kanıtlanması zorunlu bir sertifikasyon şartıdır.</strong> Sivil havacılıkta uçuş yazılımı, RTCA ve EUROCAE’nin ortaklaşa hazırladığı <strong>DO‑178C</strong> standardına (Avrupa’daki adıyla <em>ED‑12C</em>) göre geliştirilir ve denetlenir. Bu, daha önce <a href="/2026/04/05/misra-c-2025-ile-neler-degisti.html">MISRA C</a> yazısında değindiğimiz türden emniyet‑kritik bir disiplindir — ama bir adım öteye geçip doğrudan bileşenler <em>arasındaki</em> bağları hedef alır.</p>
+
+<p>DO‑178C, Constantine’den miras aldığı iki terimi resmî olarak tanımlar:</p>
+
+<blockquote>
+  <p><strong>Veri bağlaşımı (<em>data coupling</em>):</strong> Bir bileşenin, münhasıran kendi kontrolünde olmayan veriye bağımlılığı.</p>
+</blockquote>
+
+<blockquote>
+  <p><strong>Kontrol bağlaşımı (<em>control coupling</em>):</strong> Bir bileşenin, başka bir bileşenin yürütülmesini (ne zaman, hangi koşulda çalışacağını) etkileme biçimi veya derecesi.</p>
+</blockquote>
+
+<p>Standart, bu bağların yalnızca <em>var olduğunu</em> kabul etmekle yetinmez; doğrulama sürecinin bir <strong>objektifi</strong> olarak (DO‑178C’nin meşhur <em>Tablo A‑7</em>‘sinde) şunu talep eder: <strong>Gereksinim temelli testlerin, bileşenler arasındaki veri ve kontrol bağımlılıklarını gerçekten <em>çalıştırdığını</em> kanıtlayın.</strong> Burada DO‑178C, selefi DO‑178B’den ayrılır: eskiden bağları yalnızca <em>tanımlamak</em> yeterken, DO‑178C onların testlerle <em>uygulandığını</em> göstermeyi ister.</p>
+
+<p>Bu gereklilik her yazılım için aynı değildir. DO‑178C, olası bir arızanın yol açacağı sonucun ağırlığına göre beş <strong>tasarım güvence seviyesi</strong> (<em>Design Assurance Level</em>, DAL) tanımlar:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>DAL</th>
+      <th>Arıza sonucu</th>
+      <th>Coupling analizi</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><strong>A</strong></td>
+      <td>Felaketle sonuçlanan (uçak kaybı)</td>
+      <td>Gerekli — <em>bağımsızlıkla</em>
+</td>
+    </tr>
+    <tr>
+      <td><strong>B</strong></td>
+      <td>Tehlikeli</td>
+      <td>Gerekli — <em>bağımsızlıkla</em>
+</td>
+    </tr>
+    <tr>
+      <td><strong>C</strong></td>
+      <td>Büyük</td>
+      <td>Gerekli</td>
+    </tr>
+    <tr>
+      <td><strong>D</strong></td>
+      <td>Küçük</td>
+      <td>Gerekmez</td>
+    </tr>
+    <tr>
+      <td><strong>E</strong></td>
+      <td>Emniyete etkisiz</td>
+      <td>Gerekmez</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>En kritik A ve B seviyelerinde, coupling analizinin geliştiriciden <strong>bağımsız</strong> bir gözle doğrulanması şarttır. (Daha önce <a href="/2022/07/11/fonksiyonel-olmayan-yazilim-gereksinimleri.html">Fonksiyonel Olmayan Yazılım Gereksinimleri</a> yazısında bir aviyonik projenin DAL A gereksinimlerine kısaca değinmiştik.)</p>
+
+<p>Peki bu analiz tam olarak ne yapar? Burada güzel bir tamamlayıcılık vardır. Klasik <strong>yapısal kapsama</strong> ölçütleri — deyim (<em>statement</em>), karar (<em>decision</em>) ve modern uçakların A seviyesinde istediği <strong>MC/DC</strong> (<em>Modified Condition/Decision Coverage</em>) — bir bileşenin <em>içindeki</em> tüm kod yollarının test edildiğini gösterir. Ama bir bileşen tek başına kusursuz olabilir ve yine de başka bir bileşenle <em>birleştiğinde</em> patlayabilir. Veri ve kontrol bağlaşım analizi tam bu boşluğu kapatır: bileşenlerin <em>arasındaki</em> etkileşimleri hedefler — yani <a href="/2022/04/29/yazilim-sistem-muhendisligi.html">yazılım sistem mühendisliğinde</a> V modelinin sağ kolundaki entegrasyon ve doğrulama adımlarının ta kendisidir.</p>
+
+<div class="mermaid">
+flowchart LR
+    subgraph A["Bileşen A"]
+      AI["iç mantık"]
+    end
+    subgraph B["Bileşen B"]
+      BI["iç mantık"]
+    end
+    A ==&gt;|\"kontrol bağlaşımı: çağrı / dönüş\"| B
+    A -. "veri bağlaşımı: paylaşılan veri" .-&gt; B
+    style AI fill:#e8eef7,stroke:#4a6fa5,stroke-width:2px
+    style BI fill:#e8eef7,stroke:#4a6fa5,stroke-width:2px
+</div>
+
+<p>Yapısal kapsama kutuların <em>içini</em> test eder; veri ve kontrol bağlaşım analizi ise kutular <em>arasındaki okları</em> test eder. Pratikte ölçüm iki ayrı şekilde yapılır: <strong>kontrol bağlaşımı</strong> için çağrı‑çiftleri (<em>call‑pair</em>) ve dönüşlerin kapsanması — yani bileşenler arası her çağrının en az bir testte gerçekten yürütülmüş olması; <strong>veri bağlaşımı</strong> için ise “yaz‑oku” (<em>set‑use</em> / <em>define‑use</em>) çiftlerinin kapsanması — yani bir bileşenin yazdığı her verinin, onu okuyan bileşen tarafından bir testte gerçekten kullanılmış olması.</p>
+
+<p>Bütün bu titizliğin sebebi tek bir kavramdır: <strong>birleşim tehlikesi</strong> (<em>composition hazard</em>). Havacılık tarihi, tek tek doğru çalışan bileşenlerin birleştiğinde — beklenmedik bir veri paylaşımı, dokümante edilmemiş bir yan etki ya da yanlış sırada tetiklenen bir çağrı yüzünden — başarısız olabildiğini acı tecrübelerle öğrendi. Hatalar çoğu zaman bileşenlerin <em>içinde</em> değil, <strong>aralarındaki arayüzlerde</strong> yaşar. DO‑178C, bu arayüzlerin görünür kılınmasını ve test edilmesini <em>zorunlu</em> tutarak riski kökünden hedefler.</p>
+
+<hr>
+
+<h2 id="i̇ki-dünya-tek-ders">İki Dünya, Tek Ders</h2>
+
+<p>İlk bakışta bir tasarım kitabıyla bir havacılık standardı uzak akrabalar gibi görünür. Oysa ikisi aynı gerçeğin iki yüzüdür.</p>
+
+<p>Khononov bize bir <strong>akıl yürütme çerçevesi</strong> verir: coupling’i üç boyutta düşün, dengeyi bilinçli kur, nereye ne kadar bağ koyacağına <em>karar ver</em>. DO‑178C ise bir <strong>doğrulama disiplini</strong> dayatır: bağları belgele, görünür kıl ve testlerle <em>çalıştığını kanıtla</em>. Biri “nasıl tasarlamalı”, diğeri “nasıl ispatlamalı” sorusunu yanıtlar.</p>
+
+<p>Ama ikisinin de altında yatan içgörü aynıdır: <strong>risk, bileşenlerin içinde değil, aralarındaki bağlarda ve paylaşılan bilgide yoğunlaşır.</strong> İster Khononov’un entegrasyon gücü merdiveni olsun, ister DO‑178C’nin veri/kontrol bağlaşımı ayrımı — ikisi de aynı şeyi söyler: coupling’i örtük bırakma; onu açık, bilinçli ve mümkünse test edilebilir kıl.</p>
+
+<p>Aradaki tek fark <strong>bahsin büyüklüğüdür</strong>. Bir CRUD uygulamasında yanlış kurulmuş bir bağ, en kötü ihtimalle bir gece yarısı acil yamasıdır. Bir uçuş kontrol bilgisayarında aynı hata, can demektir. Bu yüzden havacılık, iyi mühendisin her yerde <em>gönüllü</em> yapması gerekeni <em>zorunlu</em> kılar. Disiplin aynıdır; yalnızca hata payı farklıdır.</p>
+
+<p>Khononov’un üç boyutuyla DO‑178C’nin iki bağlaşım türü arasında hoş bir yankı da vardır: kontrol bağlaşımı, “bir bileşen diğerinin <em>ne zaman</em> çalışacağını etkiliyor” demektir; veri bağlaşımı ise “bir bileşen diğerinin <em>neyi gördüğünü</em> etkiliyor”. Paylaşılan kontrol akışı ve paylaşılan veri — coupling dediğimiz şeyin en temel iki biçimi, ister bir mikroservis mimarisinde ister bir uçuş bilgisayarında olsun.</p>
+
+<hr>
+
+<h2 id="sonuç">Sonuç</h2>
+
+<p>Coupling’i yıllarca yanlış sevdik: ondan kaçmaya, onu yok etmeye çalıştık. Oysa coupling, sistemi sistem yapan şeydir; mesele onu <em>yok etmek</em> değil, <strong>dengelemektir</strong>.</p>
+
+<p>Khononov’un bıraktığı pratik miras birkaç cümleye sığar:</p>
+
+<ul>
+  <li>Coupling kaçınılmaz ve gereklidir; hedef sıfır bağ değil, <strong>doğru bağdır</strong>.</li>
+  <li>Her bağı üç boyutta tart: <strong>güç</strong> (ne kadar bilgi paylaşılıyor), <strong>mesafe</strong> (ne kadar uzak), <strong>oynaklık</strong> (ne sıklıkta değişiyor).</li>
+  <li>Dengeyi kur: <em>güçlü bağları yakın tut, uzaktakileri sözleşmeyle gevşet, kararlı yerlere modülerlik vergisi ödeme.</em>
+</li>
+  <li>Ve en önemlisi: coupling’i <strong>örtük bırakma</strong>. Onu görünür, bilinçli ve — bahis büyükse — test edilebilir kıl.</li>
+</ul>
+
+<p>Havacılık bu son ilkeyi bir standarda yazıp imza zorunluluğu getirdi. Geri kalanımız için ise bu, henüz yazılmamış ama her iyi tasarımın içinde yaşayan bir sözleşmedir. İster bir mobil uygulama yazın, ister bir uçuş kontrol sistemi: er ya da geç, sistemin kaderini bileşenlerin tek tek kalitesi değil, <strong>aralarındaki bağların dengesi</strong> belirleyecektir.</p>
+
+<hr>
+
+<p><strong>Kaynaklar:</strong></p>
+
+<ul>
+  <li>Vlad Khononov — <a href="https://www.informit.com/store/balancing-coupling-in-software-design-universal-design-9780137353538"><em>Balancing Coupling in Software Design</em></a> (Addison‑Wesley, 2024).</li>
+  <li>
+<a href="https://coupling.dev/">coupling.dev</a> — kitabın kavramlarını derleyen tamamlayıcı kaynak.</li>
+  <li>Meilir Page‑Jones — <em>What Every Programmer Should Know About Object-Oriented Design</em> (1995). Ayrıca <a href="https://en.wikipedia.org/wiki/Connascence">Connascence (Wikipedia)</a>.</li>
+  <li>Edward Yourdon, Larry Constantine — <em>Structured Design</em> (Prentice Hall, 1979).</li>
+  <li>RTCA/EUROCAE — DO‑178C / ED‑12C, <em>Software Considerations in Airborne Systems and Equipment Certification</em> (2011). Genel bakış: <a href="https://en.wikipedia.org/wiki/DO-178C">DO‑178C (Wikipedia)</a>.</li>
+  <li>Rapita Systems — <a href="https://www.rapitasystems.com/dccc">Data Coupling &amp; Control Coupling for DO‑178C</a>.</li>
+  <li>LDRA — <a href="https://ldra.com/capabilities/data-couplingcontrol-coupling/">Data Coupling and Control Coupling (DCCC) analysis</a>.</li>
+  <li>FAA — <a href="https://www.faa.gov/regulations_policies/advisory_circulars/index.cfm/go/document.information/documentID/1032046">AC 20‑115D, Airborne Software Development Assurance</a>.</li>
+</ul>
+
+          </div>
+        </div>
+
+        <nav class="post-nav" aria-label="Yazı navigasyonu">
+          
+          <a class="post-nav__item post-nav__item--prev" href="/2026/06/02/kalman-filtresi">
+            <span class="post-nav__direction">← Önceki yazı</span>
+            <span class="post-nav__title">Kalman Filtresi ve EKF: Gürültülü Veriden Gizli Durumu Kestirmek</span>
+            <span class="post-nav__date">Haz 2026</span>
+          </a>
+          
+          
+        </nav>
+
+        <div class="clearfix" id="disqus_thread"></div>
+          <script>
+            // Yorumları .html kanonik URL'sine sabitle; uzantısız adreste de aynı dizi yüklensin
+            var disqus_config = function () {
+              this.page.url = "https://karaman.dev/2026/06/04/coupling-dengesi.html";
+            };
+          </script>
+          <script>
+            (function () {
+              var loaded = false;
+              function loadDisqus() {
+                if (loaded) return;
+                loaded = true;
+                var d = document, s = d.createElement('script');
+                s.src = 'https://karaman-dev.disqus.com/embed.js';
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+              }
+              if ('IntersectionObserver' in window) {
+                var observer = new IntersectionObserver(function (entries) {
+                  if (entries[0].isIntersecting) {
+                    loadDisqus();
+                    observer.disconnect();
+                  }
+                }, { rootMargin: '200px' });
+                observer.observe(document.getElementById('disqus_thread'));
+              } else {
+                loadDisqus();
+              }
+            })();
+          </script>
+          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
+</noscript>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+
+<footer class="footer-modern">
+  <div class="footer-main">
+    <div class="container">
+      <div class="row">
+
+        <!-- About column -->
+        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+          <h5 class="footer-heading">M. Serdar Karaman</h5>
+          <p class="footer-description">Aviyonik yazılım, DO-178C ve emniyet kritik mühendislik üzerine sahadan notlar.</p>
+        </div>
+
+        <!-- Quick links column -->
+        <div class="col-lg-2 col-md-6 mb-4 mb-lg-0 offset-lg-1">
+          <h5 class="footer-heading">Bağlantılar</h5>
+          <ul class="footer-links">
+            <li><a href="/">Ana sayfa</a></li>
+            <li><a href="/hakkimda">Hakkımda</a></li>
+            <li><a href="/posts">Yazılar</a></li>
+            <li><a href="/contact">İletişim</a></li>
+          </ul>
+          <h5 class="footer-heading mt-3">Projeler</h5>
+          <ul class="footer-links">
+            <li><a href="https://karaman.dev/games" target="_blank" rel="noopener">Oyunlar</a></li>
+            <li><a href="https://karaman.dev/or-araclari" target="_blank" rel="noopener">OR Araçları</a></li>
+            <li><a href="https://karaman.dev/numio/" target="_blank" rel="noopener">Numio</a></li>
+          </ul>
+        </div>
+
+        <!-- Social column -->
+        <div class="col-lg-4 col-md-12 mb-0 offset-lg-1">
+          <h5 class="footer-heading">İletişim</h5>
+          <ul class="footer-social list-inline">
+            
+            <li class="list-inline-item">
+              <a href="mailto:%73%65%72%64%61%72@%6B%61%72%61%6D%61%6E.%64%65%76" aria-label="E-posta">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              </a>
+            </li>
+            
+            
+            <li class="list-inline-item">
+              <a href="https://github.com/Mavrikant" aria-label="GitHub" target="_blank" rel="noopener">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"></path></svg>
+              </a>
+            </li>
+            
+            
+            <li class="list-inline-item">
+              <a href="https://www.linkedin.com/in/mserdarkaraman" aria-label="LinkedIn" target="_blank" rel="noopener">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+              </a>
+            </li>
+            
+            
+            
+            
+            
+            <li class="list-inline-item">
+              <a href="https://www.youtube.com/channel/UCIlBH9QynIkHxX8uiY0UEMQ" aria-label="YouTube" target="_blank" rel="noopener">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20.06 12 20.06 12 20.06s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"></path><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"></polygon></svg>
+              </a>
+            </li>
+            
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-md-6 text-center text-md-left">
+          <p class="copyright mb-0">© 2026 M. Serdar Karaman. Tüm hakları saklıdır.</p>
+        </div>
+        <div class="col-md-6 text-center text-md-right mt-2 mt-md-0">
+          <a href="#page-top" class="back-to-top" aria-label="Başa dön">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"></polyline></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- 
+<div id="bayram-splash" class="bayram-splash" data-theme="dark" role="dialog" aria-modal="true" aria-labelledby="bayram-splash-title" aria-describedby="bayram-splash-subtitle" hidden>
+  <div class="bayram-splash__backdrop" data-bayram-close="backdrop"></div>
+
+  <div class="bayram-splash__panel" role="document">
+    <button type="button" class="bayram-splash__close" aria-label="Kapat" data-bayram-close="button">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+        <path d="M3 3 L15 15 M15 3 L3 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/>
+      </svg>
+    </button>
+
+    <div class="bayram-splash__status" aria-hidden="true">
+      <div class="bayram-splash__status-left">
+        <span class="bayram-splash__pip"></span>
+        <span>karaman.dev</span>
+        <span class="bayram-splash__sep">/</span>
+        <span class="bayram-splash__status-dim">bayram</span>
+        <span class="bayram-splash__sep">/</span>
+        <span class="bayram-splash__status-faint">lang · tr / en</span>
+      </div>
+      <div class="bayram-splash__status-right">
+        <span class="bayram-splash__status-faint">REF · BAYRAM-2026</span>
+      </div>
+    </div>
+
+    <div class="bayram-splash__ticks" aria-hidden="true">
+      <span class="bayram-splash__tick bayram-splash__tick--tl"></span>
+      <span class="bayram-splash__tick bayram-splash__tick--tr"></span>
+      <span class="bayram-splash__tick bayram-splash__tick--bl"></span>
+      <span class="bayram-splash__tick bayram-splash__tick--br"></span>
+    </div>
+
+    <div class="bayram-splash__body">
+      <div class="bayram-splash__art" aria-hidden="true">
+        <svg viewBox="0 0 360 360" width="220" height="220" role="img" aria-label="Hilâl ve yıldız">
+          <defs>
+            <mask id="bayram-crescent-mask" maskUnits="userSpaceOnUse">
+              <rect x="0" y="0" width="360" height="360" fill="black"/>
+              <circle cx="170" cy="180" r="120" fill="white"/>
+              <circle class="bayram-splash__mask-inner" cx="208" cy="180" r="120" fill="black"/>
+            </mask>
+            <pattern id="bayram-pcb" width="22" height="22" patternUnits="userSpaceOnUse">
+              <circle cx="3" cy="3"  r="0.9" fill="rgba(8,22,30,0.55)"/>
+              <circle cx="19" cy="19" r="0.7" fill="rgba(8,22,30,0.4)"/>
+              <circle cx="19" cy="3"  r="0.5" fill="rgba(8,22,30,0.28)"/>
+              <circle cx="3"  cy="19" r="0.5" fill="rgba(8,22,30,0.28)"/>
+              <path d="M3 3 L3 11 L11 11 L11 3 M11 11 L19 11 L19 19 M3 19 L3 11"
+                    stroke="rgba(8,22,30,0.32)" stroke-width="0.4" fill="none"/>
+            </pattern>
+          </defs>
+
+          <g mask="url(#bayram-crescent-mask)">
+            <circle cx="170" cy="180" r="120" class="bayram-splash__crescent-fill"/>
+            <rect x="50" y="60" width="240" height="240" fill="url(#bayram-pcb)"/>
+
+            <g class="bayram-splash__net" stroke="rgba(8,22,30,0.55)" stroke-width="0.9" fill="none">
+              <line x1="86"  y1="129" x2="120" y2="106"/>
+              <line x1="86"  y1="129" x2="116" y2="139"/>
+              <line x1="86"  y1="129" x2="116" y2="180"/>
+              <line x1="79"  y1="174" x2="116" y2="139"/>
+              <line x1="79"  y1="174" x2="116" y2="180"/>
+              <line x1="79"  y1="174" x2="116" y2="220"/>
+              <line x1="86"  y1="228" x2="116" y2="180"/>
+              <line x1="86"  y1="228" x2="116" y2="220"/>
+              <line x1="86"  y1="228" x2="120" y2="252"/>
+              <line x1="120" y1="106" x2="151" y2="132"/>
+              <line x1="116" y1="139" x2="151" y2="132"/>
+              <line x1="116" y1="139" x2="148" y2="180"/>
+              <line x1="116" y1="180" x2="148" y2="180"/>
+              <line x1="116" y1="180" x2="151" y2="228"/>
+              <line x1="116" y1="220" x2="148" y2="180"/>
+              <line x1="116" y1="220" x2="151" y2="228"/>
+              <line x1="120" y1="252" x2="151" y2="228"/>
+            </g>
+            <g class="bayram-splash__nodes">
+              <circle cx="86"  cy="129" r="3"/>
+              <circle cx="79"  cy="174" r="3"/>
+              <circle cx="86"  cy="228" r="3"/>
+              <circle cx="120" cy="106" r="3"/>
+              <circle cx="116" cy="139" r="3"/>
+              <circle cx="116" cy="180" r="3"/>
+              <circle cx="116" cy="220" r="3"/>
+              <circle cx="120" cy="252" r="3"/>
+              <circle cx="151" cy="132" r="3"/>
+              <circle cx="148" cy="180" r="3"/>
+              <circle cx="151" cy="228" r="3"/>
+            </g>
+
+            <g class="bayram-splash__hex" font-family="'JetBrains Mono', monospace" fill="rgba(8,22,30,0.7)">
+              <text x="86"  y="100" font-size="10" letter-spacing="0.1em">0xAI</text>
+              <text x="100" y="270" font-size="8"  letter-spacing="0.15em">01010111</text>
+              <text x="70"  y="195" font-size="7"  letter-spacing="0.12em">v1.447</text>
+            </g>
+          </g>
+
+          <path class="bayram-splash__star"
+                d="M 280 168 L 290 188 L 312 191 L 296 207 L 300 229 L 280 219 L 260 229 L 264 207 L 248 191 L 270 188 Z"/>
+        </svg>
+      </div>
+
+      <p class="bayram-splash__eyebrow">01 / Tebrik · Kurban Bayramı · 1447 H</p>
+
+      <h2 id="bayram-splash-title" class="bayram-splash__title">
+        Kurban Bayramınız<br>mübarek olsun.
+      </h2>
+
+      <div class="bayram-splash__divider" aria-hidden="true"></div>
+
+      <p id="bayram-splash-subtitle" class="bayram-splash__subtitle">
+        <em>Eid al&#8209;Adha Mubarak</em>
+      </p>
+
+      <p class="bayram-splash__wish">
+        Sevdiklerinizle birlikte sağlık, huzur<br>ve nice güzelliklere.
+      </p>
+
+      <div class="bayram-splash__signature">
+        <span class="bayram-splash__sig-rule"></span>
+        <span class="bayram-splash__sig-name">karaman.dev</span>
+        <span class="bayram-splash__sig-rule"></span>
+      </div>
+    </div>
+  </div>
+</div>
+ -->
+  <script src="/assets/scripts.js"></script>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YDEV31NZ5J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YDEV31NZ5J');
+</script>
+
+
+</body>
+</html>
