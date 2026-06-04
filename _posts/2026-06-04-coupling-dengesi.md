@@ -2,7 +2,7 @@
 title: "Coupling'i Dengelemek: Yazılım Tasarımında Bağımlılığı Yönetmek"
 subtitle: "Balancing Coupling in Software Design"
 background: "/img/posts/coupling-dengesi-cover.webp"
-date: '2026-06-09 09:00:00'
+date: '2026-06-04 09:00:00'
 layout: post
 lang: tr
 mermaid: true
