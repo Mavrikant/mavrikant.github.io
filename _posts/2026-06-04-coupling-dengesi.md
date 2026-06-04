@@ -194,7 +194,7 @@ flowchart LR
     subgraph B["Bileşen B"]
       BI["iç mantık"]
     end
-    A ==>|"kontrol bağlaşımı: çağrı / dönüş"| B
+    A == "kontrol bağlaşımı: çağrı / dönüş" ==> B
     A -. "veri bağlaşımı: paylaşılan veri" .-> B
     style AI fill:#e8eef7,stroke:#4a6fa5,stroke-width:2px
     style BI fill:#e8eef7,stroke:#4a6fa5,stroke-width:2px
