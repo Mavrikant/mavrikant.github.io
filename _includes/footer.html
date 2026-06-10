@@ -21,6 +21,7 @@
             <li><a href="{{ "/tags" | relative_url }}">Etiketler</a></li>
             <li><a href="{{ "/archive" | relative_url }}">Arşiv</a></li>
             <li><a href="{{ "/contact" | relative_url }}">İletişim</a></li>
+            <li><a href="{{ "/feed.xml" | relative_url }}">RSS</a></li>
           </ul>
           <h5 class="footer-heading mt-3">Projeler</h5>
           <ul class="footer-links">
@@ -83,6 +84,11 @@
               </a>
             </li>
             {% endif %}
+            <li class="list-inline-item">
+              <a href="{{ "/feed.xml" | relative_url }}" aria-label="RSS beslemesi">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
+              </a>
+            </li>
           </ul>
         </div>
 

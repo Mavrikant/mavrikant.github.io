@@ -46,6 +46,9 @@ layout: default
           </div>
         </div>
 
+        {% include post-share.html %}
+        {% include post-cta.html %}
+
         <nav class="post-nav" aria-label="Yazı navigasyonu">
           {% if page.previous.url %}
           <a class="post-nav__item post-nav__item--prev" href="{{ page.previous.url | remove: '.html' | prepend: site.baseurl | replace: '//', '/' }}">

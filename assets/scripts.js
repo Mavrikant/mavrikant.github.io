@@ -454,6 +454,121 @@
     });
   }
 
+  // ---------------------------------------------------------------------------
+  // Share: copy-link button on post pages
+  // ---------------------------------------------------------------------------
+  function initShareCopy() {
+    document.querySelectorAll('.share-copy').forEach(function (btn) {
+      var feedback = btn.querySelector('.share-copy__feedback');
+
+      btn.addEventListener('click', function () {
+        var url = btn.getAttribute('data-share-url') || window.location.href;
+        var done = function () {
+          btn.classList.add('is-copied');
+          if (feedback) feedback.textContent = 'Kopyalandı';
+          setTimeout(function () {
+            btn.classList.remove('is-copied');
+            if (feedback) feedback.textContent = '';
+          }, 1800);
+        };
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(url).then(done).catch(function () {
+            fallbackCopy(url, done);
+          });
+        } else {
+          fallbackCopy(url, done);
+        }
+      });
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // Lightbox: click-to-zoom for post images (delegated, markup-agnostic)
+  // ---------------------------------------------------------------------------
+  function initLightbox() {
+    var content = document.querySelector('.post-content');
+    if (!content) return;
+
+    var overlay = null;
+    var lastFocus = null;
+
+    function eligible(img) {
+      return img && img.tagName === 'IMG' && !img.closest('a') && !img.closest('.mermaid');
+    }
+
+    // Zoom affordance on eligible images
+    content.querySelectorAll('img').forEach(function (img) {
+      if (eligible(img)) img.classList.add('is-zoomable');
+    });
+
+    function buildOverlay() {
+      overlay = document.createElement('div');
+      overlay.className = 'lightbox';
+      overlay.setAttribute('role', 'dialog');
+      overlay.setAttribute('aria-modal', 'true');
+      overlay.setAttribute('aria-label', 'Görsel büyütme');
+      overlay.hidden = true;
+
+      var img = document.createElement('img');
+      img.className = 'lightbox__img';
+      img.alt = '';
+
+      var caption = document.createElement('p');
+      caption.className = 'lightbox__caption';
+
+      var closeBtn = document.createElement('button');
+      closeBtn.type = 'button';
+      closeBtn.className = 'lightbox__close';
+      closeBtn.setAttribute('aria-label', 'Kapat');
+      closeBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+
+      overlay.appendChild(closeBtn);
+      overlay.appendChild(img);
+      overlay.appendChild(caption);
+      document.body.appendChild(overlay);
+
+      overlay.addEventListener('click', close);
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && overlay.classList.contains('is-open')) close();
+      });
+    }
+
+    function open(sourceImg) {
+      lastFocus = document.activeElement;
+      if (!overlay) buildOverlay();
+
+      var img = overlay.querySelector('.lightbox__img');
+      var caption = overlay.querySelector('.lightbox__caption');
+      img.src = sourceImg.currentSrc || sourceImg.src;
+      caption.textContent = sourceImg.alt || '';
+      caption.hidden = !sourceImg.alt;
+
+      overlay.hidden = false;
+      void overlay.offsetWidth;
+      overlay.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+      overlay.querySelector('.lightbox__close').focus();
+    }
+
+    function close() {
+      overlay.classList.remove('is-open');
+      document.body.style.overflow = '';
+      var onEnd = function () {
+        overlay.hidden = true;
+        overlay.removeEventListener('transitionend', onEnd);
+      };
+      overlay.addEventListener('transitionend', onEnd);
+      setTimeout(function () { overlay.hidden = true; }, 400);
+      if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+    }
+
+    content.addEventListener('click', function (e) {
+      var img = e.target.closest('img');
+      if (eligible(img)) open(img);
+    });
+  }
+
   function ready(fn) {
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', fn);
@@ -526,5 +641,7 @@
     initReadingProgress();
     initScrollReveal();
     initSearch();
+    initShareCopy();
+    initLightbox();
   });
 })();
