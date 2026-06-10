@@ -1,0 +1,279 @@
+[
+
+  {
+    "title": "Coupling'i Dengelemek: Yazılım Tasarımında Bağımlılığı Yönetmek",
+    "subtitle": "Balancing Coupling in Software Design",
+    "url": "/2026/06/04/coupling-dengesi",
+    "date": "2026-06-04",
+    "date_display": "4 Haziran 2026",
+    "tags": ["yazilim-tasarimi","yazilim-muhendisligi"],
+    "tag_names": ["Yazılım Tasarımı", "Yazılım Mühendisliği"],
+    "excerpt": "Bir satırlık bir değişiklik yaptınız: bir alanın adını userId‘den accountId‘ye çevirdiniz. Derleyici hata vermeye başladı. Bir dosyayı düzelttiniz, üç dosya daha kırmızı yandı. Onları da düzelttiniz; bu kez testler patladı. Yarım saat sonra “küçücük” değişikliğiniz on iki dosyaya, iki servise...",
+    "content": "Bir satırlık bir değişiklik yaptınız: bir alanın adını userId‘den accountId‘ye çevirdiniz. Derleyici hata vermeye başladı. Bir dosyayı düzelttiniz, üç dosya daha kırmızı yandı. Onları da düzelttiniz; bu kez testler patladı. Yarım saat sonra “küçücük” değişikliğiniz on iki dosyaya, iki servise ve bir veritabanı şemasına dokunmuştu. Tanıdık geldi mi? Çoğumuz bu acıya bir isim veririz: coupling (bağlaşım). Ve hemen ardından bir reçete yazarız: “Demek ki daha az coupling lazım, her şeyi birbirinden ayıralım (decouple edelim).” Ekip bu uğurda kodu mikroservislere böler — ve birkaç ay sonra, ağ üzerinden birbirine eskisinden de sıkı bağlı, ama bu kez hata ayıklaması çok daha zor bir sisteme uyanır. Sorun coupling’in kötü olması değil; sorun onu yanlış anlamamız. Vlad Khononov’un 2024 tarihli kitabı Balancing Coupling in Software Design tam da bunu söylüyor: coupling, yok edilecek bir kusur değil, dengelenecek bir tasarım niteliğidir. Bu yazıda önce coupling’in ne olduğunu ve neden ondan tamamen kurtulamayacağımızı göreceğiz; sonra Khononov’un onu ölçmek için sunduğu üç boyutlu modeli inceleyeceğiz; ve son olarak bu fikrin en uca taşındığı yere, aviyonik yazılımın DO‑178C standardına bakacağız — orada coupling’i analiz etmek bir tercih değil, bir sertifikasyon şartıdır. Coupling Nedir? (Ve Neden Ondan Tamamen Kurtulamayız?) En yalın tanımıyla coupling, iki bileşen arasındaki bağımlılıktır: birindeki değişikliğin diğerinde de değişiklik gerektirme ihtimali. İki modül birbirine ne kadar sıkı bağlıysa, birlikte değişme olasılıkları da o kadar yüksektir. Khononov bu bağımlılığın özünde iki şeyin yattığını söyler: paylaşılan bilgi (shared knowledge) ve paylaşılan yaşam döngüsü (shared lifecycle). Bir bileşen, diğeri hakkında ne kadar çok şey “bilmek” zorundaysa — onun veri..."
+  },
+
+  {
+    "title": "Kalman Filtresi ve EKF: Gürültülü Veriden Gizli Durumu Kestirmek",
+    "subtitle": "The Kalman Filter and EKF: Estimating Hidden State from Noisy Data",
+    "url": "/2026/06/02/kalman-filtresi",
+    "date": "2026-06-02",
+    "date_display": "2 Haziran 2026",
+    "tags": ["sinyal-isleme","aviyonik"],
+    "tag_names": ["Sinyal İşleme", "Aviyonik"],
+    "excerpt": "Telefonunuz masanın üzerinde dururken bile GPS noktası birkaç metre oraya buraya zıplar. Arabadaki ivmeölçer mükemmel veri verir ama integralini aldığınızda hata saniyeler içinde birikip sürüklenir (drift). Tek başına ne sensöre ne de modele güvenebilirsiniz — yine de haritadaki maviniz pürüzsüz,...",
+    "content": "Telefonunuz masanın üzerinde dururken bile GPS noktası birkaç metre oraya buraya zıplar. Arabadaki ivmeölçer mükemmel veri verir ama integralini aldığınızda hata saniyeler içinde birikip sürüklenir (drift). Tek başına ne sensöre ne de modele güvenebilirsiniz — yine de haritadaki maviniz pürüzsüz, kararlı bir çizgi çizer. Bu sihrin arkasındaki makine çoğu zaman aynıdır: Kalman filtresi. Kalman filtresi, 1960’ta Rudolf Kálmán’ın ortaya koyduğundan beri uzay araçlarından telefonunuza, robotlardan finansal modellere kadar her yerde çalışan, gürültülü ölçümler ile kusurlu bir hareket modelini optimal şekilde harmanlayan özyinelemeli bir kestirimcidir. Bu yazıda filtreyi sıfırdan kuracağız: önce Gauss dağılımlarını birleştirme sezgisiyle, sonra doğrusal durum-uzay modeliyle, ardından doğrusal-olmayan dünyaya geçişi sağlayan Genişletilmiş Kalman Filtresi (EKF) ile. Yol boyunca hem NumPy ile tam çalışan Python kodları hem de tarayıcınızda canlı oynayabileceğiniz iki etkileşimli simülatör olacak. Problem: Gizli Durumu Gürültünün Altından Çıkarmak Bir sistemin gerçekten bilmek istediğimiz büyüklüklerine durum (state) diyelim ve x ile gösterelim — bir cismin konumu ve hızı, bir uydunun yörünge parametreleri, bir bataryanın şarj seviyesi. Sorun şu ki durumu doğrudan göremeyiz. Elimizde sadece iki kusurlu bilgi kaynağı vardır: Bir hareket modeli. Fizik bize “bir sonraki adımda durum kabaca şu olur” der. Ama model idealdir; rüzgâr, sürtünme, modellenmemiş ivmeler yüzünden gerçekten sapar ve bu sapma adım adım birikir. Gürültülü ölçümler. Sensör bize durumla ilgili bir şey söyler (z), ama her okumanın üzerinde rastgele gürültü vardır. Üstelik sensör çoğu zaman durumun tamamını değil, bir fonksiyonunu ölçer (örneğin yalnızca konumu, hızı değil). Kalman filtresinin yaptığı tam olarak şudur: her adımda modelin tahminiyle yeni ölçümü, her birinin ne kadar güvenilir..."
+  },
+
+  {
+    "title": "Sistem Mühendisliği Nedir?",
+    "subtitle": "What Is Systems Engineering?",
+    "url": "/2026/05/26/sistem-muhendisligi-nedir",
+    "date": "2026-05-26",
+    "date_display": "26 Mayıs 2026",
+    "tags": ["sistem-muhendisligi","aviyonik"],
+    "tag_names": ["Sistem Mühendisliği", "Aviyonik"],
+    "excerpt": "Modern bir yolcu uçağında milyonlarca parça, onlarca farklı mühendislik disiplini ve binlerce gereksinim bir arada bulunur. Aerodinamikçi kanadı, yazılımcı uçuş kontrol bilgisayarını, elektronik mühendisi aviyonik veri yolunu, malzeme mühendisi gövde alaşımını tasarlar. Hiçbiri tek başına diğerinin işini bilmek zorunda değildir....",
+    "content": "Modern bir yolcu uçağında milyonlarca parça, onlarca farklı mühendislik disiplini ve binlerce gereksinim bir arada bulunur. Aerodinamikçi kanadı, yazılımcı uçuş kontrol bilgisayarını, elektronik mühendisi aviyonik veri yolunu, malzeme mühendisi gövde alaşımını tasarlar. Hiçbiri tek başına diğerinin işini bilmek zorunda değildir. Peki bütün bu parçaların birlikte güvenli bir şekilde uçan tek bir uçak oluşturduğundan kim emin olur? İşte bu sorunun cevabı sistem mühendisliğidir. Sistem mühendisi, tek tek parçaları tasarlayan kişi değil; parçaların oluşturduğu bütünün doğru çalışmasından sorumlu olan kişidir. Daha önce Yazılım Sistem Mühendisliği yazısında bu disiplinin yazılıma özel halini ele almıştık. Bu yazıda ise konuya bir adım geri çekilip sistem mühendisliğinin genel resmine bakacağız: ne olduğuna, neden gerekli olduğuna, yaşam döngüsünün nasıl yönetildiğine ve hangi standartların bu işi disipline ettiğine. Önce “Sistem” Nedir? Sistem mühendisliğini anlamak için önce sistem kelimesinin mühendislikteki anlamını netleştirmek gerekir. Sistem; ortak bir amaca hizmet etmek üzere bir araya gelmiş, birbiriyle etkileşen parçaların oluşturduğu bütündür. Bu parçalar yalnızca donanım değildir; donanım, yazılım, insanlar, prosedürler, veri ve tesisler birlikte bir sistemi oluşturabilir. Sistemin en kritik özelliği, parçaların toplamından fazlası olmasıdır. Bir sistemin sergilediği ama hiçbir bileşeninde tek başına bulunmayan özelliklere beliren özellikler (emergent properties) denir: Bir uçağın “uçabilmesi” hiçbir tek parçasının özelliği değildir; parçaların doğru birleşiminden doğar. Bir sistemin “emniyetli” veya “güvenli” olması, bütünsel bir niteliktir; tek bir vidaya bakarak ölçülemez. Tam tersi de geçerlidir: Her bileşeni ayrı ayrı kusursuz çalışan bir sistem, arayüzlerdeki uyumsuzluk yüzünden bütün olarak başarısız olabilir. İşte sistem mühendisliği tam da bu bütünsel ve beliren özelliklerle ilgilenir. Tek tek bileşenlerin mükemmelliği değil, onların..."
+  },
+
+  {
+    "title": "Bandpass Sampling: 1 GHz Sinyali 50 MHz Clock ile Örneklemek",
+    "subtitle": "Bandpass Sampling: How to Digitize a 1 GHz Signal with a 50 MHz Clock",
+    "url": "/2026/05/21/bandpass-sampling",
+    "date": "2026-05-21",
+    "date_display": "21 Mayıs 2026",
+    "tags": ["sinyal-isleme","aviyonik"],
+    "tag_names": ["Sinyal İşleme", "Aviyonik"],
+    "excerpt": "Mühendislik mülakatlarında klasik bir soru vardır: “1090 MHz’deki ADS-B sinyalini sayısal olarak yakalamak istiyorsun. Hangi hızda ADC kullanırsın?”",
+    "content": "Mühendislik mülakatlarında klasik bir soru vardır: “1090 MHz’deki ADS-B sinyalini sayısal olarak yakalamak istiyorsun. Hangi hızda ADC kullanırsın?” Nyquist–Shannon teoremini hatırlayan herkes refleksle cevaplar: “En az 2.18 GSPS.” Mantıklı görünür: en yüksek frekansın iki katı. Cevap teknik olarak yanlış olmasa da, gerçek hayatta hiçbir ADS-B alıcısı 2 GSPS’lik bir ADC ile çalışmaz. Tipik bir donanım 1090 MHz’i önce bir mixer ile düşük bir IF’e indirir; yeterince temiz bir clock ve geniş analog bantlı bir ADC varsa bu adımı tamamen atlayıp 1090 MHz’in komşuluğundaki 2 MHz civarındaki dar bandı doğrudan 50 MSPS hatta daha yavaş clock ile örneklemek de mümkündür — ve hiçbir şey kaybolmaz. Burada işin sırrı bandpass sampling (veya IF sampling, undersampling) denilen, klasik örnekleme teoreminin az bilinen kuzenidir. Bu yazıda teoremin geometrisine, izinli/yasak örnekleme oranlarının nasıl ortaya çıktığına, spektral ters çevrilme tuzağına ve modern ADC’lerin neden GHz mertebesinde analog bant genişliği ilan ettiğine inip somut bir Python örneğiyle her şeyi yerine oturtacağız. Şekil 1. 70 MHz IF sinyali (67.5 + 72.5 MHz iki ton, mavi) ve 31.25 MSPS örnekleme noktaları (kırmızı). Örnekler arasındaki boşluk T = 32 ns; sinyalin kendi periyodu ise yaklaşık 14 ns — klasik Nyquist açısından yetersiz ama bandpass sampling açısından mükemmel. Nyquist’in Saklı Varsayımı Genel anlamıyla Nyquist–Shannon teoremi şunu söyler: bir sinyalin en yüksek frekans bileşeninin en az iki katı hızla örneklersen, bilgiyi kaybetmeden geri çevirebilirsin. Bu formülasyondaki gizli varsayım, sinyalin baseband (taban bant) olduğudur — yani spektrumun [0, f_max] aralığında yaşadığını kabul eder. Oysa modern bir RF alıcısının önündeki sinyaller hiç de böyle..."
+  },
+
+  {
+    "title": "Renode ile Zynq7000 Simülasyonu",
+    "subtitle": "Zynq7000 Simulation with Renode",
+    "url": "/2026/05/14/renode-ile-zynq7000-simulasyonu",
+    "date": "2026-05-14",
+    "date_display": "14 Mayıs 2026",
+    "tags": ["gomulu-sistemler","araclar"],
+    "tag_names": ["Gömülü Sistemler", "Araçlar"],
+    "excerpt": "Gömülü sistem geliştirmenin en yorucu yanlarından biri donanımın kendisidir. FPGA bitstream’leri saatler süren sentez işlemleri gerektirir, geliştirme kartları ekipler arasında paylaşılır, JTAG bağlantıları kopar, sahada hata ayıklamak ise çoğu zaman pratik değildir. Sürekli entegrasyon (CI) altyapısına fiziksel kart bağlamak ayrı...",
+    "content": "Gömülü sistem geliştirmenin en yorucu yanlarından biri donanımın kendisidir. FPGA bitstream’leri saatler süren sentez işlemleri gerektirir, geliştirme kartları ekipler arasında paylaşılır, JTAG bağlantıları kopar, sahada hata ayıklamak ise çoğu zaman pratik değildir. Sürekli entegrasyon (CI) altyapısına fiziksel kart bağlamak ayrı bir mühendislik problemidir. İşte bu noktada Renode devreye giriyor. Bu yazıda, Xilinx (artık AMD) Zynq7000 SoC ailesinin Renode üzerinde nasıl simüle edildiğine, donanım çevre birimleri ile FPGA tarafının nasıl modellendiğine ve bu yaklaşımın hangi avantajları getirdiğine bakacağız. Renode Nedir? Renode, Antmicro tarafından geliştirilen ve MIT lisansı ile dağıtılan açık kaynak bir tam-SoC emülatörüdür. QEMU’nun aksine yalnızca CPU emülasyonuna odaklanmaz; çevre birimlerini, sensörleri, ağ arayüzlerini, kablosuz iletişim modüllerini ve hatta birden fazla cihazın aynı anda çalıştığı sistemleri tek bir simülasyon ortamında ele alır. Renode’un öne çıkan özellikleri: Geniş platform desteği: 100’den fazla SoC ve geliştirme kartı (ARM Cortex-M/A, RISC-V, x86, PowerPC) Python ile genişletilebilirlik: Yeni bir çevre birimi, birkaç satırlık bir Python betiği ile eklenebilir Deterministik yürütme: Aynı senaryo her çalıştırıldığında tıpatıp aynı sonucu üretir Robot Framework entegrasyonu: Test otomasyonu doğrudan desteklenir Yerleşik GDB sunucusu: Hata ayıklama için ek araç gerekmez Renode’un QEMU’dan en belirgin farkı, sistem entegrasyon testlerine odaklı tasarlanmış olmasıdır. UART çıktısını yakalamak, GPIO durumunu değiştirmek, sensörden değer “enjekte etmek” ya da ağ trafiğini iki sanal cihaz arasında köprülemek gibi işlemler Renode’da birinci sınıf vatandaş muamelesi görür. Zynq7000 Mimarisine Kısa Bir Bakış Zynq7000, tek bir silikon üzerinde iki dünyayı birleştirir: PS (Processing System): Çift çekirdekli ARM Cortex-A9 (1 GHz’e kadar, parça hızına göre), NEON SIMD birimi, donanımsal FPU, L1/L2..."
+  },
+
+  {
+    "title": "Saatçinin Saatini Kim Kalibre Eder? Kalibrasyon Zincirinin Tepesi",
+    "subtitle": "Who Calibrates the Calibrators? The Top of the Traceability Chain",
+    "url": "/2026/05/07/kalibrasyon-zincirinin-tepesi-birincil-standartlar",
+    "date": "2026-05-07",
+    "date_display": "7 Mayıs 2026",
+    "tags": ["metroloji"],
+    "tag_names": ["Metroloji"],
+    "excerpt": "",
+    "content": "Akreditasyon denetimi sabahı. Denetçi elinde bir kalem, masanızdaki Keysight 34465A multimetreyi gösteriyor. — “Bu cihazı neyle kalibre ediyorsunuz?” — “Yan rafta duran Fluke 5720A kalibratörle.” — “Peki Fluke 5720A neyle kalibre edildi?” — “Geçen yıl TÜBİTAK UME’ye gönderdik.” — “Peki UME neyle kalibre etti?” Kısa bir sessizlik. Cevabı tahmin ediyorsunuz ama ifadeyi bulamıyorsunuz: daha iyi bir kalibratörle. Peki o kalibratör neyle? Daha iyisiyle. Sonra? Sonsuza mı gidiyor bu zincir? Bir önceki yazıda bir cihazın belirsizliğinin nasıl hesaplandığını adım adım gördük. Belirsizlik bütçesinin son satırında “kalibrasyon belgesi (UME, k=2)” diye bir kaynak vardı; o satıra bir sayı yazıp geçtik. Bu yazıda o satırın arkasını açacağız. Kalibrasyon belgesindeki belirsizlik nereden geliyor? UME bu sayıyı nasıl üretiyor? Ve zincirin en tepesindeki cihazlar — ki onlar bu sektörün gerçekten en hassas ölçüm aletleri — nasıl doğrulanıyorlar? Cevap, mühendislikten yavaş yavaş fiziğe doğru kayıyor. Zincirin tepesinde başka bir cihaz yok. Doğa yasaları var. İzlenebilirlik Piramidi Önceki yazıda izlenebilirlik zincirini lineer bir akış olarak çizmiştik: SI → UME → akredite lab → cihaz. Aslında bu akış bir piramidin yan kesiti. Tepede bir avuç birincil standart var; tabanda dünyadaki milyonlarca ölçüm cihazı. flowchart TB SI[\"Seviye 0 &nbsp; SI Birim Tanımları7 doğa sabiti — h, c, e, k, N_A, Δν_Cs, K_cdbelirsizlik: tanım gereği sıfır\"] PRI[\"Seviye 1 &nbsp; Birincil StandartlarNMI'ler — UME, NIST, PTB, NPL, BIPMSezyum fıskiyesi, Kibble terazisi, Josephson, kuantum Hallbelirsizlik: 10⁻⁹ – 10⁻¹⁶\"] REF[\"Seviye 2 &nbsp; İkincil / Transfer StandartlarAkredite kalibrasyon laboratuvarları, TÜRKAKFluke 732C, ESI SR104, Agilent 3458Abelirsizlik: 10⁻⁷ – 10⁻⁸\"] WORK[\"Seviye 3 &nbsp; Çalışma StandartlarıSanayinin lab..."
+  },
+
+  {
+    "title": "Ölçtüğünüz Sayı Ne Kadar Doğru? Ölçüm Belirsizliği için Bir Rehber",
+    "subtitle": "How Accurate Is Your Measurement? A Guide to Measurement Uncertainty",
+    "url": "/2026/05/06/olcum-belirsizligi-gum-annex-f-ncsli-rp-12",
+    "date": "2026-05-06",
+    "date_display": "6 Mayıs 2026",
+    "tags": ["metroloji"],
+    "tag_names": ["Metroloji"],
+    "excerpt": "",
+    "content": "Test laboratuvarındaki ilk gününüz. Önünüzdeki multimetre 24,98 V gösteriyor. Test belgesi diyor ki: cihazın çıkışı 24 V ± 1 V olmalı. Yan masadaki kıdemli mühendis formun üstüne büyük harflerle “GEÇTİ” yazıyor. Doğru değer 24,98 V. Sınırın çok içinde. Tamam. Ama dur. O ekrandaki 24,98 sayısı ne kadar gerçeği yansıtıyor? Multimetre dün kalibre edildi. Kabloların kendi direnci var. Oda sıcaklığı sabah 21 °C iken öğleden sonra 25 °C oldu. Bakır konnektörlerde küçük gerilimler oluşuyor. Bunların hepsi, ekrandaki sayının yanına bir hata payı ekliyor. Eğer bu pay 5 mV ise sorun yok. Ama ya 1,5 V ise? O zaman cihaz gerçekte 23,5 V ya da 26,5 V çıkış veriyor olabilir. Sınırın dışında, yani aslında geçmemiş. İşte bu hata payına ölçüm belirsizliği diyoruz. Bu yazının amacı, belirsizliği nasıl hesapladığınızı sıfırdan anlatmak. İki uluslararası kılavuza dayanacağız. Birincisi GUM (Türkçe açılımıyla “Ölçüm Belirsizliğinin İfadesi Kılavuzu”), uluslararası referans. İkincisi NCSLI RP-12, ABD kalibrasyon mühendislerinin yazdığı pratik el kitabı. Üç gerçek örnek üzerinden hesabı tamamlayacağız: bir voltmetre, bir sıcaklık sensörü, bir basınç sensörü. Sonra aviyonik UUT üreticisi bir şirketin neden farklı bir disiplinle çalışması gerektiğini somut bir VOR/ILS alıcısı örneği üzerinden inceleyeceğiz. Sayılar gerçek, formüller gerçek; dil olabildiğince sade. Bu Belgeler Nereden Çıktı? Ölçüm belirsizliği bilimi yaklaşık 50 yıllık. Aşağıdaki zaman çizelgesi ana adımları gösteriyor. flowchart TB A[\"1977 &nbsp; CIPM, BIPM'e talimat verdiOrtak bir dile geçilmesi sağlanmalı\"] B[\"1980 &nbsp; INC-1 kararıTip A ve Tip B kavramları ilk kez\"] C[\"1993 &nbsp; İlk GUM yayınıISO + IEC + OIML + BIPM ortak imza\"] D[\"1995 &nbsp; İlk NCSLI RP-12 yayımlandı\"]..."
+  },
+
+  {
+    "title": "Yöneylem Araştırması Yöntemleri: Kesin ve Metasezgisel Yaklaşımlar",
+    "subtitle": "Operational Research Methods: Exact and Metaheuristic Approaches",
+    "url": "/2026/04/14/operasyonel-arastirma-yontemleri",
+    "date": "2026-04-14",
+    "date_display": "14 Nisan 2026",
+    "tags": ["yoneylem-arastirmasi"],
+    "tag_names": ["Yöneylem Araştırması"],
+    "excerpt": "Gündelik hayatın ve iş süreçlerinin pek çok problemi yüzeyde sezgisel bir karar gibi görünse de aslında birer optimizasyon problemidir. Hangi ürünü ne kadar üreteceğiz? Sınırlı kamyon filosuyla siparişleri hangi rotada dağıtacağız? Bir çantaya ağırlık ve değer kısıtları altında hangi eşyaları...",
+    "content": "Gündelik hayatın ve iş süreçlerinin pek çok problemi yüzeyde sezgisel bir karar gibi görünse de aslında birer optimizasyon problemidir. Hangi ürünü ne kadar üreteceğiz? Sınırlı kamyon filosuyla siparişleri hangi rotada dağıtacağız? Bir çantaya ağırlık ve değer kısıtları altında hangi eşyaları koyacağız? Bir hastanede hemşire nöbet çizelgesini nasıl yapacağız? Bu soruların ortak paydası şudur: sınırlı kaynakları sınırlı kısıtlar altında bir amaca göre en iyileyecek şekilde dağıtmak. İşte Yöneylem Araştırması (İngilizce Operational Research veya Operations Research, kısaca OR), bu sorunları sistematik biçimde çözmek için geliştirilmiş disiplinin adıdır. Bu yazıda OR’un iki büyük yöntem ailesini — kesin (exact) yöntemler ve metasezgisel (metaheuristic) yöntemler — tanımları ve klasik örnekleriyle inceleyeceğiz. Linear Programming (LP), Integer Programming (IP), Binary Integer Programming (BIP), Mixed-Integer Programming (MIP) ve Dynamic Programming (DP) kesin yöntemleri oluşturur. Genetic Algorithm (GA), Simulated Annealing (SA), Tabu Search (TS) ve Ant Colony Optimization (ACO) ise problem çok büyüdüğünde devreye giren metasezgisel ailenin temsilcileridir. Sonunda iki dünyayı birleştiren matheuristic yaklaşıma ve “hangi problem hangi yöntemi ister?” sorusuna pratik bir çerçeve sunacağız. Kısa Bir Tarihçe: OR Nasıl Doğdu? Yöneylem araştırmasının kökleri İkinci Dünya Savaşı’na uzanır. 1940 Ağustos’unda, Britanya Hava Savaşı’nın tam ortasında, fizikçi Patrick Blackett İngiliz ordusunun Anti-Aircraft Command’ı için bir bilim insanları grubu kurdu. Bu grup — tarihe “Blackett’s Circus” (Blackett’ın Sirki) olarak geçti — anti-uçak toplarının düşman bombardımanlarını düşürme oranını iyileştirmek için mekanik hesaplama sistemlerini analiz etti. Sonuç çarpıcıydı: bir düşman uçağını düşürmek için gereken ortalama mermi sayısı, Britanya Hava Savaşı’nın başlangıcındaki 20.000’den 1941’de 4.000’e indirildi. 1941’de Blackett RAF Coastal Command’a geçti ve burada..."
+  },
+
+  {
+    "title": "MISRA C:2025 ile Neler Değişti?",
+    "subtitle": "What Changed with MISRA C:2025?",
+    "url": "/2026/04/05/misra-c-2025-ile-neler-degisti",
+    "date": "2026-04-05",
+    "date_display": "5 Nisan 2026",
+    "tags": ["c-cpp","emniyet-kritik"],
+    "tag_names": ["C/C++", "Emniyet Kritik"],
+    "excerpt": "Emniyet kritik yazılım geliştirme dünyasında MISRA C kuralları, onlarca yıldır en temel referans kaynaklarından biri olma özelliğini koruyor. Otomotivden havacılığa, medikal cihazlardan demiryolu sistemlerine kadar geniş bir yelpazede kullanılan bu kılavuz, Mart 2025’te yeni bir sürümle güncellendi: MISRA C:2025.",
+    "content": "Emniyet kritik yazılım geliştirme dünyasında MISRA C kuralları, onlarca yıldır en temel referans kaynaklarından biri olma özelliğini koruyor. Otomotivden havacılığa, medikal cihazlardan demiryolu sistemlerine kadar geniş bir yelpazede kullanılan bu kılavuz, Mart 2025’te yeni bir sürümle güncellendi: MISRA C:2025. Bu yazıda MISRA C:2012’den (ve 2023 düzeltme paketi olan MISRA C:2023’ten) bu yana nelerin değiştiğini, yeni eklenen kuralları, kaldırılan ve devre dışı bırakılan kuralları, kod örnekleriyle detaylı şekilde inceleyeceğiz. Kısa Bir Tarihçe Sürüm Yıl C Standardı Desteği Kural Sayısı MISRA C:1998 1998 C90 127 MISRA C:2004 2004 C90 141 MISRA C:2012 2013 C90, C99 159 (143 kural + 16 direktif) MISRA C:2023 2023 C90, C99, C11/C18 221 (200 kural + 21 direktif) **MISRA C:2025** **2025** **C90, C99, C11/C18** **225 (201 kural + 22 direktif + 2 silinen)** MISRA C:2025, devrimsel bir değişiklik yerine evrimsel bir iyileştirme sunuyor. MISRA C:2023’ün getirdiği çoklu iş parçacığı (multithreading) ve atomik tip desteğinin üzerine, 4 yeni kural, 2 silinen kural, 1 devre dışı bırakılan kural ve 69 diğer düzenleme ile toplam 79 değişiklik içeriyor. Yeni Kurallar MISRA C:2025 ile birlikte 4 yeni kural eklendi. Her birini örneklerle inceleyelim. Kural 8.18 — Başlık Dosyalarında Belirsiz Tanımlara (Tentative Definition) İzin Verilmez Sınıflandırma: Required (Zorunlu) C dilinde, bir değişken herhangi bir ilk değer (initializer) olmadan ve extern anahtar kelimesi kullanılmadan tanımlanırsa, bu bir belirsiz tanım (tentative definition) olarak kabul edilir. Eğer bu tanım bir başlık dosyasında yer alırsa ve bu dosya birden fazla derleme biriminde (#include ile) dahil edilirse, bağlayıcı (linker) hataları veya beklenmeyen davranışlar ortaya çıkabilir. /* config.h..."
+  },
+
+  {
+    "title": "Versiyon Kontrol Sistemleri: Git vs SVN vs ClearCase",
+    "subtitle": "",
+    "url": "/2026/03/25/versiyon-kontrol-sistemleri-git-svn-clearcase",
+    "date": "2026-03-25",
+    "date_display": "25 Mart 2026",
+    "tags": ["araclar","yazilim-muhendisligi"],
+    "tag_names": ["Araçlar", "Yazılım Mühendisliği"],
+    "excerpt": "Yazılım geliştirmenin vazgeçilmez parçası olan versiyon kontrol sistemleri (VCS), kod değişikliklerini takip eder, ekip çalışmasını koordine eder ve geçmişe dönük izlenebilirlik sağlar. Bu yazıda en yaygın üç sistemi — Git, SVN (Subversion) ve ClearCase — mimari, özellik ve kullanım kolaylığı...",
+    "content": "Yazılım geliştirmenin vazgeçilmez parçası olan versiyon kontrol sistemleri (VCS), kod değişikliklerini takip eder, ekip çalışmasını koordine eder ve geçmişe dönük izlenebilirlik sağlar. Bu yazıda en yaygın üç sistemi — Git, SVN (Subversion) ve ClearCase — mimari, özellik ve kullanım kolaylığı açısından karşılaştıracağız. Mimari: Merkezi mi, Dağıtık mı? Üç sistem arasındaki en temel fark mimaridir. graph TD subgraph Git - Dağıtık GR\\[Uzak Repo] &lt;--&gt;|push/pull| GL1\\[Geliştirici A - Yerel Repo] GR &lt;--&gt;|push/pull| GL2\\[Geliştirici B - Yerel Repo] GR &lt;--&gt;|push/pull| GL3\\[Geliştirici C - Yerel Repo] end graph TD subgraph SVN / ClearCase - Merkezi CR\\[Merkezi Sunucu] --&gt;|checkout| CL1\\[Geliştirici A] CR --&gt;|checkout| CL2\\[Geliştirici B] CL1 --&gt;|commit| CR CL2 --&gt;|commit| CR end Özellik Git SVN ClearCase Mimari Dağıtık Merkezi Merkezi Yerel commit Evet Hayır Hayır Çevrimdışı çalışma Tam Kısıtlı Hayır Tam geçmiş yerel Evet Hayır Hayır Git 2005 yılında Linux çekirdeği geliştirmesi için Linus Torvalds tarafından yazılan Git, günümüzde dünyada en çok kullanılan VCS’dir. Temel Kavramlar Çalışma Dizini → git add → Staging (Index) → git commit → Yerel Repo ↕ git push/pull Uzak Repo Güçlü Yönleri Dallanma (branching) ucuzdur: Yeni bir dal oluşturmak milisaniyeler alır; dal esasen bir işaretçidir. Çevrimdışı çalışma: Tüm geçmiş yerel diskinizdedir; sunucuya erişim olmadan commit, diff ve log işlemleri yapılabilir. Hız: Tüm işlemler (diff, log, blame) yerel olduğundan çok hızlıdır. Esnek iş akışları: GitFlow, trunk-based, forking — her ekibe uygun bir model mevcuttur. Sık Kullanılan Komutlar git init # Yeni repo başlat git clone &lt;url&gt; # Uzak repoyu klonla git checkout -b feature/x # Yeni dal oluştur ve geç git..."
+  },
+
+  {
+    "title": "Kayan Nokta Sayılarının Tehlikeleri",
+    "subtitle": "",
+    "url": "/2026/03/25/kayan-nokta-sayilarinin-tehlikeleri",
+    "date": "2026-03-25",
+    "date_display": "25 Mart 2026",
+    "tags": ["c-cpp","emniyet-kritik"],
+    "tag_names": ["C/C++", "Emniyet Kritik"],
+    "excerpt": "Yazılım geliştirirken float ve double türlerini sıklıkla kullanırız. Ancak kayan nokta sayıları, görünürde masum olan birçok tuzak barındırır. Bu yazıda, IEEE 754 standardının getirdiği sınırlamalar ve bu sınırlamaların nasıl beklenmedik hatalara yol açabileceği üzerinde duracağız.",
+    "content": "Yazılım geliştirirken float ve double türlerini sıklıkla kullanırız. Ancak kayan nokta sayıları, görünürde masum olan birçok tuzak barındırır. Bu yazıda, IEEE 754 standardının getirdiği sınırlamalar ve bu sınırlamaların nasıl beklenmedik hatalara yol açabileceği üzerinde duracağız. IEEE 754 ve Özel Değerler Modern bilgisayarlar kayan nokta sayılarını IEEE 754 standardına göre temsil eder. Bu standart yalnızca gerçek sayıları değil, bir dizi özel değeri de tanımlar: Değer Açıklama +INF Pozitif sonsuz -INF Negatif sonsuz +NaN Sayı Değil (Not a Number) - pozitif -NaN Sayı Değil (Not a Number) - negatif Bu değerler nasıl oluşur? #include &lt;stdio.h&gt; #include &lt;math.h&gt; int main() { float pos_inf = 1.0f / 0.0f; // +INF float neg_inf = -1.0f / 0.0f; // -INF float nan_val = 0.0f / 0.0f; // NaN printf(\"1/0 = %f\\n\", pos_inf); // inf printf(\"-1/0 = %f\\n\", neg_inf); // -inf printf(\"0/0 = %f\\n\", nan_val); // -nan veya nan return 0; } NaN Yayılımı (NaN Propagation) NaN değerinin en sinsi özelliği, bulaşıcı olmasıdır. NaN içeren herhangi bir aritmetik işlemin sonucu da NaN olur: float a = 0.0f / 0.0f; // NaN float b = a + 5.0f; // NaN float c = a * 0.0f; // NaN (Sıfırla çarpmak bile kurtarmaz!) float d = a - a; // NaN (Kendimi kendimden çıkarsam sıfır kalmaz!) printf(\"%f %f %f %f\\n\", a, b, c, d); // nan nan nan nan veya -nan -nan -nan -nan Bu durum, hesaplama zincirinin herhangi bir noktasında oluşan bir NaN’ın tüm sonuçları sessizce bozmasına yol açar. Hata mesajı yoktur, program çökmez; sadece anlamsız çıktılar üretilir...."
+  },
+
+  {
+    "title": "Türkiye'de Debugging aşamaları",
+    "subtitle": "",
+    "url": "/2023/12/01/turkiyede-debugging-asamalari",
+    "date": "2023-12-01",
+    "date_display": "1 Aralık 2023",
+    "tags": ["mizah"],
+    "tag_names": ["Mizah"],
+    "excerpt": "Türkiye’deki yazılım geliştirme süreçlerinde debugging (hata ayıklama) aşamaları, genellikle evrensel yazılım geliştirme uygulamalarına benzer şekilde işler. İşte bu sürecin tipik adımları:",
+    "content": "Türkiye’deki yazılım geliştirme süreçlerinde debugging (hata ayıklama) aşamaları, genellikle evrensel yazılım geliştirme uygulamalarına benzer şekilde işler. İşte bu sürecin tipik adımları: Önce Kahve, Sonra Kod: Bir hata keşfettiğinizde, önce bir Türk kahvesi molası verin. Kahvenin falında hata çözümünü arayın. Kim bilir, belki kahvenin falında çözümü bulabilirsiniz! “Bu Ne Biçim Kod Ya!” Söylemi: Herhangi bir hata bulunduğunda, geleneksel “Bu ne biçim kod ya!” yakınmasını yapın. Bu, hatanın ciddiyetini vurgulamak için önemlidir. Hata İsmi Koyarken Yaratıcı Ol: Hataya “Gizemli Gariban” veya “Aniden Açılan Pencere” gibi ilginç isimler verin. Hatayla kişisel bir bağ kurun. Futbol Formasıyla Debugging: Türk futbol takımlarından birinin formasını giyerek hata ayıklama yapın. Takımınızın şansı, hatayı bulmanıza yardımcı olabilir. Lastik Ördekle Danışma: Hata hakkında bir lastik ördek (veya herhangi bir cansız nesne) ile ayrıntılı bir konuşma yapın. Bu, gerçek bir yöntem olan “lastik ördek hata ayıklama” olarak bilinir, burada sorunu yüksek sesle açıklamak aniden içgörülere yol açabilir. Kodları Tarihçi Gibi İncele: Hata kökenini bulmak için kodlara Osmanlı tarihçisi titizliğiyle göz atın. Çay Molası Şart: Hata ayıklama sırasında bol bol çay molası verin. Çay, her Türk yazılım mühendisinin vazgeçilmez enerji kaynağıdır. “Bunu Kim Yazmış?” Diye Sor: Hatanın kaynağını bulmaya çalışırken, “Bunu kim yazmış?” diye sorarak, efsanevi bir Türk yazılım mühendisi mitini yaratın. Donanımı Suçla: Tüm çareler tükendiğinde, donanımı suçlayın. Muhtemelen yorgundur, ya da belki de sizi sevmiyordur. Macera Günlüğü Tut: Hata avı maceranızı bir günlükte tutun. Bu günlük, gelecek nesillere ilham kaynağı olabilir. Zaferi Dönerle Kutla: Hatayı çözdüğünüzde, dönerle kutlama yapın. Eğer hata çözülmezse, moral olsun diye yine döner yiyin. Unutmayın,..."
+  },
+
+  {
+    "title": "Merge Files with FFmpeg",
+    "subtitle": "",
+    "url": "/2023/03/12/merge-files-with-ffmeg",
+    "date": "2023-03-12",
+    "date_display": "12 Mart 2023",
+    "tags": ["ipuclari","araclar"],
+    "tag_names": ["İpuçları", "Araçlar"],
+    "excerpt": "Write your files list into file_list.txt file /mnt/d/Videos/video_part1.mp4 file /mnt/d/Videos/video_part2.mp4 file /mnt/d/Videos/video_part3.mp4",
+    "content": "Write your files list into file_list.txt file /mnt/d/Videos/video_part1.mp4 file /mnt/d/Videos/video_part2.mp4 file /mnt/d/Videos/video_part3.mp4 Call following command in bash. ffmpeg -safe 0 -f concat -i file_list.txt -c copy video_merged.mp4"
+  },
+
+  {
+    "title": "Recursively Delete a Specific Folder",
+    "subtitle": "",
+    "url": "/2022/09/11/recursively-delete-a-specific-folder",
+    "date": "2022-09-11",
+    "date_display": "11 Eylül 2022",
+    "tags": ["ipuclari","araclar"],
+    "tag_names": ["İpuçları", "Araçlar"],
+    "excerpt": "Following powershell script can be used for deleting all Debug folders inside of your project space.",
+    "content": "Following powershell script can be used for deleting all Debug folders inside of your project space. Write-Output \"Removing Debug folders\" ; Get-ChildItem . -include Debug -Recurse | ForEach-Object ($_) { Write-Host \"Removed: \" -nonewline; Write-Output $_.FullName ; Remove-Item $_.FullName -Force -Recurse }"
+  },
+
+  {
+    "title": "Elektrik kesintisinde bilgisayarın otomatik tekrar açılmasını sağlama",
+    "subtitle": "",
+    "url": "/2022/08/15/elektrik-kesintisinde-bilgisayarin-otomatik-tekrar-acilmasini-saglama",
+    "date": "2022-08-15",
+    "date_display": "15 Ağustos 2022",
+    "tags": ["ipuclari","araclar"],
+    "tag_names": ["İpuçları", "Araçlar"],
+    "excerpt": "Bu yöntem DELL OptiPlex kasalar için anlatilmistir. BIOS ayarları diğer markalarda da benzer olmakla beraber bir miktar farklılık gösterebilir.",
+    "content": "Bu yöntem DELL OptiPlex kasalar için anlatilmistir. BIOS ayarları diğer markalarda da benzer olmakla beraber bir miktar farklılık gösterebilir. Bilgisayar kapatılır Bilgisayar tekrar açılırken F2 tusu ile BIOS ayarlarına girilir. Sol menuden Power Management altındaki AC Recovery başlıgına tıklanır. Sağ taraftan Power On ya da istegimize gore Last Power State seçilir. Power Off: Elektrik kesilip gelirse veya güç kablosunu çıkarıp taksanız bile sistem kapalı kalmaya devam edecektir. Power On: Sistem kapalıyken bile elektrik kesilip gelirse veya güç kablosunu çıkarıp taksanız, sisteme otomatik olarak elektrik verilecek ve çalışmaya başlayacaktır. Last Power State: Eğer sisteminiz açıkken elektrik gidip gelirse ve güç kablosunu çıkarıp takarsanız, sistem tekrar açılacaktır. Ama sistem kapalıyken elektrik gidip gelirse veya güç kablosunu çıkarıp takarsanız sisteme elektrik verilmeyecektir; yani sistem otomatik açılmayacaktır. Sağ alttaki Apply butonuna tıklanır. Save as Custom User Settings checkbox’u işaretlenir. OK butonuna tıklanır. Sağ alttaki Exit butonuna tıklayarak BIOS’tan çıkılır."
+  },
+
+  {
+    "title": "CMake",
+    "subtitle": "",
+    "url": "/2022/07/20/cmake",
+    "date": "2022-07-20",
+    "date_display": "20 Temmuz 2022",
+    "tags": ["c-cpp","araclar"],
+    "tag_names": ["C/C++", "Araçlar"],
+    "excerpt": "C ve C++ projeleriniz için platform ve derleyici bağımsız derleme komutları üreten bir otomasyon yazılımıdır. CMake bulunduğunuz platformda yüklü derleyici ve kütüphaneleri tarayıp sizin için en uygun araçları seçer.",
+    "content": "C ve C++ projeleriniz için platform ve derleyici bağımsız derleme komutları üreten bir otomasyon yazılımıdır. CMake bulunduğunuz platformda yüklü derleyici ve kütüphaneleri tarayıp sizin için en uygun araçları seçer. graph TD A[Source Code] --&gt;B(CMakeList.txt) B --&gt; C{CMake} C --&gt; G[Visual Studio files] C --&gt; E[Makefiles] C --&gt; F[XCode files] G --&gt;|msbuild| H\\[Windows App] E --&gt;|make| I\\[Linux App] F --&gt;|xcodebuild| J\\[MacOs App] Basit bir CMakeList.txt dosyasi cmake_minimum_required(VERSION 3.5) # Gereklı minimum CMake sürümünü. Her cmake dosyasında bulunması gerekir. project( TicTacToe VERSION \"0.2.1\" LANGUAGES CXX ) # Proje ismi ve sürümünü belirtir. set(CMAKE_CXX_STANDARD 20) # C++ standardını belirtir. Örneğin: 98, 11, 14, 17, 20, 23 set(PROJECT_SOURCES main.cpp widget.cpp widget.h mainwindow.ui mainwindow.cpp mainwindow.h ) # Proje içinde kullanılan kaynak kodların listesini # PROJECT_SOURCES degişkeni olarak tanımlar. add_executable(TicTacToe ${PROJECT_SOURCES} ) # PROJECT_SOURCES kullanılarak çalıştırılabilir dosya üretir. # Windows için .exe uzantısı eklenir. Video eğitim serisi"
+  },
+
+  {
+    "title": "Fonksiyonel ve fonksiyonel olmayan yazılım gereksinimleri",
+    "subtitle": "Functional and Non-functional Requirements in Software Engineering",
+    "url": "/2022/07/11/fonksiyonel-olmayan-yazilim-gereksinimleri",
+    "date": "2022-07-11",
+    "date_display": "11 Temmuz 2022",
+    "tags": ["gereksinim-muhendisligi","yazilim-muhendisligi"],
+    "tag_names": ["Gereksinim Mühendisliği", "Yazılım Mühendisliği"],
+    "excerpt": "Yazılım gereksinimleri, bir sistemin ne yapması gerektiğini ve hangi kısıtlar altında çalışacağını tanımlar. Gereksinimler genellikle iki ana başlık altında sınıflandırılır: fonksiyonel gereksinimler ve fonksiyonel olmayan gereksinimler. Fonksiyonel gereksinimler sistemin ne yapması gerektiğini anlatırken, fonksiyonel olmayan gereksinimler sistemin bu işi nasıl...",
+    "content": "Yazılım gereksinimleri, bir sistemin ne yapması gerektiğini ve hangi kısıtlar altında çalışacağını tanımlar. Gereksinimler genellikle iki ana başlık altında sınıflandırılır: fonksiyonel gereksinimler ve fonksiyonel olmayan gereksinimler. Fonksiyonel gereksinimler sistemin ne yapması gerektiğini anlatırken, fonksiyonel olmayan gereksinimler sistemin bu işi nasıl (ne kadar hızlı, ne kadar güvenli, ne kadar güvenilir) yapması gerektiğini belirler. Bu ayrım her zaman keskin değildir; çoğu zaman iç içe geçerler. Örneğin “kullanıcı verileri şifrelenmelidir” şeklindeki fonksiyonel olmayan bir güvenlik gereksinimi, “sistem AES-256 ile şifreleme yapmalıdır” gibi yeni fonksiyonel gereksinimler doğurabilir. Yine de gereksinimleri bu iki grupta düşünmek hem analizi hem de testi kolaylaştırır. graph LR R[Yazılım Gereksinimleri] --&gt; F[Fonksiyonel Gereksinimler] R --&gt; NF[Fonksiyonel Olmayan Gereksinimler] F --&gt; F1[Sistemin sunduğu servisler] F --&gt; F2[Girdilere verilen tepkiler] F --&gt; F3[Belirli durumlardaki davranışlar] NF --&gt; P[Ürün gereksinimleri] NF --&gt; O[Organizasyonel gereksinimler] NF --&gt; E[Dış gereksinimler] Fonksiyonel gereksinimler Fonksiyonel gereksinimler; sistemin sağlaması gereken servisleri, belirli girdilere nasıl tepki vereceğini ve belirli durumlarda nasıl davranacağını tanımlayan ifadelerdir. Bazı durumlarda sistemin ne yapmaması gerektiğini de belirtebilirler. Örnek olarak bir kütüphane yönetim sistemi düşünelim: Kullanıcı; kitap adına, yazara veya ISBN numarasına göre arama yapabilmelidir. Sistem, ödünç verilen her kitap için son iade tarihini otomatik olarak hesaplamalıdır. İade tarihi geçen kullanıcılara her gün e-posta hatırlatması gönderilmelidir. Yalnızca yönetici rolündeki kullanıcılar katalogdan kitap silebilmelidir. Fonksiyonel gereksinimler yazılırken iki temel özelliğe dikkat edilmelidir: Eksiksizlik (completeness): Kullanıcının ihtiyaç duyduğu tüm servisler tanımlanmış olmalıdır. Tutarlılık (consistency): Gereksinimler birbiriyle çelişmemeli, aynı konuda farklı yerlerde birbirini tutmayan tanımlar bulunmamalıdır. Büyük ve karmaşık sistemlerde bu iki özelliği aynı anda sağlamak pratikte çok..."
+  },
+
+  {
+    "title": "Gereksinimler ve Test: Yedi Eksik Bağlantı Efsanesi",
+    "subtitle": "",
+    "url": "/2022/05/08/gereksinimler-ve-test-yedi-eksik-baglanti-efsanesi",
+    "date": "2022-05-08",
+    "date_display": "8 Mayıs 2022",
+    "tags": ["gereksinim-muhendisligi","test"],
+    "tag_names": ["Gereksinim Mühendisliği", "Test"],
+    "excerpt": "Test uzmanı Dorothy Graham, test gereksinimlerine test uzmanları dahil olursa çok fazla zaman ve para tasarrufu sağlayabileceğinizi iddia ediyor. Gereksinimler bazı tutarlı kalite kriterlerine sahipse, test uzmanları soru sorabilir ve sorunları biz onları koda dönüştürmeden önce bulabilir. –Suzanne Robertson",
+    "content": "Test uzmanı Dorothy Graham, test gereksinimlerine test uzmanları dahil olursa çok fazla zaman ve para tasarrufu sağlayabileceğinizi iddia ediyor. Gereksinimler bazı tutarlı kalite kriterlerine sahipse, test uzmanları soru sorabilir ve sorunları biz onları koda dönüştürmeden önce bulabilir. –Suzanne Robertson Test ve gereksinim mühendisliği arasındaki güçlü bağlantı her iki tarafa da fayda sağlayabilir, ancak çoğu zaman bu bağlantı eksiktir. Bu yazı eksik halkanın ardındaki en yaygın yedi efsaneyi veya yanlış kanıyı inceliyor. EFSANE 1: Başlangıçta Gereksinimler, Sonda Test “Henüz test hakkında düşünmemize gerek yok. Sadece gereksinimlere odaklanalım.” Bu tutum, projenin sonunda zor zamanlar geçirileceğini garanti eder. Tabii ki, iyi gereksinimlerin elde edilmesi önemlidir, ancak test sırasında test uzmanlarını dahil etmek gereksinim analizi, iyi gereksinimleri sağlamanın en iyi yollarından biridir. V-Modele göre genellikle sistem ve kullanıcı kabul testleri için gereksinim analizi sırasında, test tasarlamak için işlemlere başlandığı anda test tasarım faaliyetlerini gerçekleştiremezsiniz. Özellikle test kullanıcıları için yaygın bir sorun, geç değişikliklerin gereksinimler üzerindeki etkisidir. Diyelim ki sistem testinin son haftalarındasınız ve kullanıcı kabul testlerinin iki hafta içinde çalışmaya başlaması planlanıyor. Aniden kullanıcılarınız, “Bu arada, sistemin bunu farklı şekilde yapmasını istiyoruz” diyor ve bu davranış şekli sistemi yapan kurumu veya kişiyi zor durumda bırakıyor. Test tasarımı eylemi sitemin gerçekte yapılması gerekenleri vurgular. Eğer, testler erkenden tasarlasaydı sorunlar sisteme yerleşmeden önlenebilirdi. Kullanıcıları hem gereksinimlere hem de testlere dahil etmek çok önemlidir. Burada ki örneğe göre, bir arabayı almadan önce onu kullanırız ve test sürüşüne çıkarız. Böylece, arabayı almadan önce hataları tespit edebilir ve zarardan kaçınabiliriz. Araba örneğinde olduğu gibi kullanıcılarda “Siz daha bilgili olduğunuz..."
+  },
+
+  {
+    "title": "Yazılım Proje Yönetimini Pratikleri:  Başarı ve Başarısızlık",
+    "subtitle": "",
+    "url": "/2022/05/03/yazilim-proje-yonetimini-pratikleri-basari-ve-basarisizlik",
+    "date": "2022-05-03",
+    "date_display": "3 Mayıs 2022",
+    "tags": ["proje-yonetimi","yazilim-muhendisligi"],
+    "tag_names": ["Proje Yönetimi", "Yazılım Mühendisliği"],
+    "excerpt": "1995-2004 yılları arasındaki yaklaşık 250 büyük yazılım projesinin incelenmesi ilginç benzerlikleri gösterdi. Maliyet ve çizelge tahminlerini başarıyla gerçekleştiren büyük projeleri geç kalan, bütçeyi aşan veya tamamlanmadan iptal edilen projelerle karşılaştırırken, altı ortak sorun gözlemlendi: zayıf proje planlaması, yetersiz maliyet tahmini,...",
+    "content": "1995-2004 yılları arasındaki yaklaşık 250 büyük yazılım projesinin incelenmesi ilginç benzerlikleri gösterdi. Maliyet ve çizelge tahminlerini başarıyla gerçekleştiren büyük projeleri geç kalan, bütçeyi aşan veya tamamlanmadan iptal edilen projelerle karşılaştırırken, altı ortak sorun gözlemlendi: zayıf proje planlaması, yetersiz maliyet tahmini, zayıf ölçümler, zayıf kilometre taşı takibi, zayıf değişim kontrolü ve düşük kalite kontrol. Buna karşılık, başarılı yazılım projeleri bu alanların altısında ortalamanın üzerinde olma eğilimindedir. Bu altı sorun alanının belki de en ilginç yanı, hepsinin teknik personelden çok proje yönetimiyle ilişkili olmasıdır. İki çalışma hipotezi ortaya çıktı: Yetersiz kalite kontrolü, maliyet ve zaman aşımına en büyük katkıyı sağlar Yetersiz proje yönetimi, yetersiz kalite kontrolünün en olası nedenidir. Araştırma dahilindeki 250 projeden; 25 tanesi planlanan zamanda ve bütçe ile bitti, 50 tanesi plananan zamandan sonra bütçeyi %35 aşarak sonuçlandı, 175 tanesi büyük gecikmeler ve bütçe aşımı ile sonuçlandı ya da hiç tamamlanamadı. Başarılı ve Başarısız Proje Planlaması Proje planlaması ifadesi, iş kırılım yapılarının oluşturulmasını ve ardından görevlerin zaman içinde ekip üyelerine dağıtılmasını kapsar. Proje planlaması, Gantt çizelgeleri, PERT çizelgeleri veya benzerleri dahil olmak üzere çeşitli zaman çizelgelerinin ve kritik yolların oluşturulmasını içerir. 2004 yıllarında büyük yazılım projeleri için başarılı planlama şunları içerir: Artemis Views veya Microsoft Project gibi otomatik planlama araçlarını kullanma. Eksiksiz iş kırılım yapılarının geliştirilmesi. Proje geliştirme faaliyetlerinin kritik yol analizinin yapılması. Proje süresince personel alımını ve işten ayrılmayı dikkate almak. Taşeronları ve uluslararası ekipleri dikkate almak. Gereksinimlerin toplanması ve analizi için zamanında düzeltme. Değişen gereksinimlerin üstesinden gelmek için zamanında düzeltme. Eksiksiz bir kalite kontrol faaliyetleri paketi için zamanında..."
+  },
+
+  {
+    "title": "Use Case Tuzakları",
+    "subtitle": "Use Case Kullanan Gerçek Projelerde Karşılaşılan En Önemli 10 Sorun",
+    "url": "/2022/05/01/use-case-tuzaklari",
+    "date": "2022-05-01",
+    "date_display": "1 Mayıs 2022",
+    "tags": ["gereksinim-muhendisligi","yazilim-muhendisligi"],
+    "tag_names": ["Gereksinim Mühendisliği", "Yazılım Mühendisliği"],
+    "excerpt": "Use case analizi yazılım projelerinde oldukça yaygın olarak kullanılan, pratik, erişilebilir ve basit bir formattır. Fakat basit olmasının da zorlukları vardır. Bu makale de use case kullanırken karşılaşılan 10 problemden bahsedilmiştir.",
+    "content": "Use case analizi yazılım projelerinde oldukça yaygın olarak kullanılan, pratik, erişilebilir ve basit bir formattır. Fakat basit olmasının da zorlukları vardır. Bu makale de use case kullanırken karşılaşılan 10 problemden bahsedilmiştir. Son birkaç yılda, bir dizi projenin “use case kullanarak” ilk denemelerini yaptıkları görüldü. Bu projeler, use case analizini çeşitli şekillerde kullanmıştır. Örneğin; sistem gereksinimlerinin bir parçası olarak, bir analiz tekniği olarak sistem gereksinimlerini daha açıklayıcı hale getirmek için, kullanıcı gereksinimlerini ortaya çıkarmak için. Proje ekipleri “use case” e başlarken küçük çapta sorunlarla karşılaştı fakat daha büyük projelerde de aynı sorunlarla karşılaşıldı. Bunlar; tanımsız veya birbiriyle uyuşmayan sistem sınırları, use case modelinin karmaşıklığı, use case belirtiminde yaşanan anlaşmazlıklar, uzun ve ayrıntılı projelerde zor ve asla tamamlanamayan vakalardır. Bu yazıda örneklerin daha iyi anlaşılması için “Beyzbol Bilet Sipariş Sistemi” kullanılmış ve örneklendirilmiştir. En çok Karşılaşılan 10 Sorun Problem 1 - Sistem sınırı tanımsız veya tutarsız olabilir. Belirti: Kullanım durumları tutarsız sistem kapsamında açıklanmıştır. Aktörleri belirlemeden önce sistem kapsamını belirlememiz gerekir. Öncelikle anlamamız gereken; bu bir bilgisayar sitemi mi?, bir başvuru sistemi mi? ya da tam bir ticari işletme mi? bunları belirlememiz gerekir. Bir sistem için uyumlu olmayan diğeri için uyumlu olabilir. Örneğin; “kiosk müşteri” bilet satın almak için bilgisayar sistemini kullanabilir. Aynı zamanda “kiosk müşteri” telefonla müşteri temsilcisini arayıp “telefon müşterisi” de olabilir. Çözüm: Kapsam hakkında açık olun ve sistem sınırını buna göre etiketleyin. Yani burada üçüncü bir kullanıcı olarak “telefon müşterisi” ni ayrı tutmaya gerek yoktur. “Kiosk müşteri” ikisi de olabilir. Şunu ayırt etmek gerekiyor ki telefon kullanıcısı bilet satın..."
+  },
+
+  {
+    "title": "Yazılım Sistem Mühendisliği",
+    "subtitle": "",
+    "url": "/2022/04/29/yazilim-sistem-muhendisligi",
+    "date": "2022-04-29",
+    "date_display": "29 Nisan 2022",
+    "tags": ["sistem-muhendisligi","yazilim-muhendisligi"],
+    "tag_names": ["Sistem Mühendisliği", "Yazılım Mühendisliği"],
+    "excerpt": "Yazılım projeleri gün geçtikçe daha büyük ve daha komplex hale geliyorlar. Bilgisayar donanımlarındaki performans artışı yazılımlar üzerindeki büyüklük ve komplekslik limitini baskılama ihtiyacını ortadan kaldırdı. Donanımlar geliştikçe üzerinde çalışan yazımlarla yeni özellikler eklendi. Microsoft Word gibi bir yazılım eskiden diskete...",
+    "content": "Yazılım projeleri gün geçtikçe daha büyük ve daha komplex hale geliyorlar. Bilgisayar donanımlarındaki performans artışı yazılımlar üzerindeki büyüklük ve komplekslik limitini baskılama ihtiyacını ortadan kaldırdı. Donanımlar geliştikçe üzerinde çalışan yazımlarla yeni özellikler eklendi. Microsoft Word gibi bir yazılım eskiden diskete sığarken şimdi CD ile dağıtılıyor. Büyük yazılım projeleri tahmin edilen zamanda ve bütçe ile bitirilemiyor ya da müşterinin ihtiyaçlarını tamamen karşılayamıyor. Bu fenomen yazılım krizi olarak biliniyor. Bu krize karşılık yazılım geliştiricileri yeni yöntemler geliştirdi. Sadece proje içerisinde kullanılan kaynakları, sağlanan isterleri, tamamlanan testleri takip etmek proje hakkında sağlıklı bir bilgi vermiyor. Bunlar dışında teknik sürecin ve onun ürününün de takip edilmesi şart. Sistem mühendisliği bunu için gerekli araçları sağlıyor. Sistem mühendisliği prensiplerinin yazılım geliştirme alanına uygulanmasına yazılım sistem mühendisliği diyoruz. Sistem ve sistem mühendisliği Sistem ortak bir amaca hizmet eden parçaların bütünüdür. Bilgisayar sistemleri için bu parçalar; donanım, yazılım, insanlar, tesisler, ve süreçlerdir. Sistem mühendisliği, bir ihtiyacı karşılayan en iyi çözümün bilimsel, mühendislik, ve yönetim becerileri ile bulunmasıdır. Sistem mühendisliğin 5 aşaması vardır: Problem tanımı Çözüm analizi Süreç planlanması Süreç kontrolü Ürün değerlendirme Yazılım sistem mühendisliği nedir Yazılım sistem mühendisliği terimi 1980 lere kadar gidiyor ve ilk olarak Winston W. Royce’un bunu kullandığı düşünülüyor. Yazılım sistem mühendisi, sistemin teknik yönetiminden ve son ürünün doğrulanmasından sorumludur. Yazılım sistem mühendisi, yazılım geliştiricilerin aksine kod yazmaz, proje ile ilgili dökümanları üretir. Yazılım sistem mühendisliği faaliyeti sistem isterleri yazılım ve donanım şeklinde parçalara bölündükten sonra başlar. Yazılım sistem mühendisliği ve Yazılım mühendisliği Hem Yazılım sistem mühendisliği hem de Yazılım mühendisliği, teknik ve yönetimsel..."
+  },
+
+  {
+    "title": "Tümleşik Gereksinim Yönetimi",
+    "subtitle": "Integrated Requirements Engineering",
+    "url": "/2022/04/28/tumlesik-gereksinim-yonetimi",
+    "date": "2022-04-28",
+    "date_display": "28 Nisan 2022",
+    "tags": ["gereksinim-muhendisligi","yazilim-muhendisligi"],
+    "tag_names": ["Gereksinim Mühendisliği", "Yazılım Mühendisliği"],
+    "excerpt": "Users don’t know what they want until you show it to them..",
+    "content": "Users don’t know what they want until you show it to them.. Herhangi bir sistemi geliştirmeden önce, sistemin ne yapması gerektiğini ve kullanımının o sistem için ödeme yapacak olan kişilerin veya şirketlerin hedeflerini nasıl katkı sağlayacağını anlamalısınız. Bu, uygulama alanını (telekomünikasyon, demiryolları, bankacılık, oyunlar vs.) anlamayı; sistemin operasyonel kısıtlamaları; paydaşlar (sistemi veya sağladığı bilgileri doğrudan veya dolaylı olarak kullanan kişiler) tarafından ihtiyaç duyulan belirli işlevsellik; ve performans, güvenlik ve güvenilirlik gibi temel sistem özellikleri kapsar. Gereksinim mühendisliği, bu anlayışı geliştirmeye yardımcı olan ve sistem geliştirmede yer alan paydaşlar ve mühendisler için sistem özelliklerini belgeleyen bir dizi yapılandırılmış faaliyetlerin tümüne verilen isimdir. Temel Süreç Gereksinim mühendisliği süreci, geliştirilmekte olan uygulamanın türüne, dahil olan şirketlerin büyüklüğüne ve kültürüne ve kullanılan yazılım satın alma süreçlerine bağlı olarak büyük ölçüde değişir. Yenilikçi yazılım ürünleri geliştiren küçük şirketler için, gereksinim mühendisliği süreci beyin fırtınası oturumlarından oluşabilir ve ürün “gereksinimleri”, yazılımın yapması beklenen şeyin kısa bir vizyon ifadesi olabilir. Büyük askeri ve havacılık sistemleri için, sistem mühendisliği süreçlerinde normalde resmi bir gereksinim mühendisliği aşaması ve kapsamlı bir şekilde belgelenmiş sistem ve yazılım gereksinimleri vardır. Bütün gereksinim mühendisliği süreçlerini temel adımları: Ortaya Çıkarma: Sistemle ilgili bilgi kaynaklarını belirleyin ve bunlardan gereksinimleri keşfedin. Analiz: Gereksinimlerin birbirleri ile örtüşmelerini ve çatışmalarını anlayın. Doğrulama: Sistem paydaşlarına geri dönün ve gereksinimlerin gerçekten ihtiyaç duydukları şey olup olmadığını kontrol edin. Müzakere: Kaçınılmaz olarak, paydaşların görüşleri farklı olacaktır ve önerilen gereksinimler çatışabilir. Çakışan görüşleri uzlaştırmaya ve tutarlı bir gereksinimler dizisi oluşturmaya çalışın. Belgeler: Gereksinimleri paydaşlar ve yazılım geliştiriciler anlayabileceği bir şekilde yazın. Yönetim:..."
+  },
+
+  {
+    "title": "Hello world!",
+    "subtitle": "Merhaba Dunya!",
+    "url": "/1970/01/01/hello-world",
+    "date": "1970-01-01",
+    "date_display": "1 Ocak 1970",
+    "tags": ["genel"],
+    "tag_names": ["Genel"],
+    "excerpt": "Bu blog sitesini oluşturmamın tek nedeni bilginin paylaştıkça artmasına inanıyor olmam. Bu sitede, tecrübe sahibi olduğum, öğrenmeyi planladığım veya yeni öğrenmeye başladığım teknoloji, araç ve konulara ilişkin yazılar yazmayı planlıyorum. Bunun ile birlikte yazılım sektöründe çalışmayı planlayan yeni arkadaşlarımıza ve...",
+    "content": "Bu blog sitesini oluşturmamın tek nedeni bilginin paylaştıkça artmasına inanıyor olmam. Bu sitede, tecrübe sahibi olduğum, öğrenmeyi planladığım veya yeni öğrenmeye başladığım teknoloji, araç ve konulara ilişkin yazılar yazmayı planlıyorum. Bunun ile birlikte yazılım sektöründe çalışmayı planlayan yeni arkadaşlarımıza ve diğer meslektaşlarıma yardımcı olacağını düşündüğüm her türlü naçizane tecrübe ve önerilerimi de paylaşacağım. Günümüzde bilgi(!) inanılmaz derecede fazla. Her konuda güncelliği ve doğruluğu şüpheli bir çok bilgiye bir google araması ile ulaşabilirsiniz. Bu çöplükte doğru bilgiye ulaşmak ciddi bir çaba ve titiz bir araştırma gerektiriyor. Kendim uğraşarak edindiğim bu bilgileri hem sizler için hem de gelecekte tekrar bakmak amacıyla kendim için burada arşivlemek istiyorum. Şimdilik aşağıdaki konular çerçevesinde yazılar yayınlamayı planlıyorum: C ile yazılım geliştirme Modern C++ ile yazılım geliştirme Gömülü yazılım geliştirme Emniyet kritik yazılım geliştirme GNU/Linux komutları Qt framework’unu kullanma Basit oyun geliştirme Yazılım geliştirme araçları Kişisel gelişim Kitap ve makale özetleri Bana herhangi bir konuda ulaşabilir veya soru sorabilirsiniz, içerik konusunda da her türlü öneriye açığım."
+  }
+
+]

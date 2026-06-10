@@ -5,6 +5,7 @@
   function applyTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
     try { localStorage.setItem('theme', theme); } catch (e) {}
+    document.dispatchEvent(new CustomEvent('themechange', { detail: { theme: theme } }));
   }
 
   function initThemeToggle() {
@@ -297,6 +298,294 @@
     items.forEach(function (el) { observer.observe(el); });
   }
 
+  // ---------------------------------------------------------------------------
+  // Site search: overlay fed by /search.json, Turkish-folded substring match
+  // ---------------------------------------------------------------------------
+  function foldTr(text) {
+    return text
+      .toLocaleLowerCase('tr')
+      .replace(/ş/g, 's').replace(/ç/g, 'c').replace(/ğ/g, 'g')
+      .replace(/ı/g, 'i').replace(/ö/g, 'o').replace(/ü/g, 'u')
+      .replace(/î/g, 'i').replace(/â/g, 'a').replace(/û/g, 'u');
+  }
+
+  function initSearch() {
+    var modal = document.getElementById('search-modal');
+    var input = document.getElementById('search-input');
+    var resultsEl = document.getElementById('search-results');
+    var emptyEl = document.getElementById('search-empty');
+    if (!modal || !input || !resultsEl) return;
+
+    var index = null;
+    var loading = false;
+    var lastFocus = null;
+    var debounceTimer = null;
+
+    function loadIndex() {
+      if (index || loading) return;
+      loading = true;
+      fetch('/search.json')
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          index = data.map(function (post) {
+            return {
+              post: post,
+              title: foldTr(post.title),
+              tags: foldTr((post.tag_names || []).join(' ')),
+              body: foldTr([post.subtitle, post.excerpt, post.content].join(' '))
+            };
+          });
+          loading = false;
+          // Re-run the query typed while the index was downloading
+          if (input.value) render(input.value);
+        })
+        .catch(function () { loading = false; });
+    }
+
+    function open() {
+      lastFocus = document.activeElement;
+      modal.hidden = false;
+      void modal.offsetWidth;
+      modal.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+      input.focus();
+      loadIndex();
+    }
+
+    function close() {
+      modal.classList.remove('is-open');
+      document.body.style.overflow = '';
+      var onEnd = function () {
+        modal.hidden = true;
+        modal.removeEventListener('transitionend', onEnd);
+      };
+      modal.addEventListener('transitionend', onEnd);
+      setTimeout(function () { modal.hidden = true; }, 400);
+      if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+    }
+
+    function render(query) {
+      resultsEl.textContent = '';
+      emptyEl.hidden = true;
+      var q = foldTr(query.trim());
+      if (q.length < 2 || !index) return;
+
+      var scored = [];
+      index.forEach(function (entry) {
+        var score = 0;
+        if (entry.title.indexOf(q) !== -1) score += 3;
+        if (entry.tags.indexOf(q) !== -1) score += 2;
+        if (entry.body.indexOf(q) !== -1) score += 1;
+        if (score > 0) scored.push({ score: score, post: entry.post });
+      });
+      scored.sort(function (a, b) { return b.score - a.score; });
+
+      if (!scored.length) {
+        emptyEl.hidden = false;
+        return;
+      }
+
+      scored.slice(0, 8).forEach(function (item) {
+        var li = document.createElement('li');
+        var a = document.createElement('a');
+        a.href = item.post.url;
+        a.className = 'search-result';
+
+        var title = document.createElement('span');
+        title.className = 'search-result__title';
+        title.textContent = item.post.title;
+
+        var meta = document.createElement('span');
+        meta.className = 'search-result__meta';
+        meta.textContent = item.post.date_display +
+          ((item.post.tag_names || []).length ? ' · ' + item.post.tag_names.join(', ') : '');
+
+        a.appendChild(title);
+        a.appendChild(meta);
+        li.appendChild(a);
+        resultsEl.appendChild(li);
+      });
+    }
+
+    input.addEventListener('input', function () {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(function () { render(input.value); }, 120);
+    });
+
+    // Arrow keys move between the input and result links
+    modal.addEventListener('keydown', function (e) {
+      if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+      var links = resultsEl.querySelectorAll('a');
+      if (!links.length) return;
+      e.preventDefault();
+      var list = Array.prototype.slice.call(links);
+      var pos = list.indexOf(document.activeElement);
+      if (e.key === 'ArrowDown') {
+        (pos === -1 ? list[0] : list[Math.min(pos + 1, list.length - 1)]).focus();
+      } else if (pos <= 0) {
+        input.focus();
+      } else {
+        list[pos - 1].focus();
+      }
+    });
+
+    document.querySelectorAll('.search-toggle').forEach(function (btn) {
+      btn.addEventListener('click', open);
+    });
+
+    modal.addEventListener('click', function (e) {
+      if (e.target.closest('[data-search-close]')) close();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      var isOpen = modal.classList.contains('is-open');
+      if (e.key === 'Escape' && isOpen) {
+        close();
+        return;
+      }
+      var inField = /^(INPUT|TEXTAREA|SELECT)$/.test((document.activeElement || {}).tagName || '') ||
+        (document.activeElement && document.activeElement.isContentEditable);
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        isOpen ? close() : open();
+      } else if (e.key === '/' && !isOpen && !inField) {
+        e.preventDefault();
+        open();
+      }
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // Giscus: keep the embedded widget in sync with the site theme toggle
+  // ---------------------------------------------------------------------------
+  function initGiscusThemeSync() {
+    if (!document.getElementById('giscus-container')) return;
+
+    document.addEventListener('themechange', function (e) {
+      var frame = document.querySelector('iframe.giscus-frame');
+      if (!frame) return;
+      frame.contentWindow.postMessage(
+        { giscus: { setConfig: { theme: e.detail.theme } } },
+        'https://giscus.app'
+      );
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // Share: copy-link button on post pages
+  // ---------------------------------------------------------------------------
+  function initShareCopy() {
+    document.querySelectorAll('.share-copy').forEach(function (btn) {
+      var feedback = btn.querySelector('.share-copy__feedback');
+
+      btn.addEventListener('click', function () {
+        var url = btn.getAttribute('data-share-url') || window.location.href;
+        var done = function () {
+          btn.classList.add('is-copied');
+          if (feedback) feedback.textContent = 'Kopyalandı';
+          setTimeout(function () {
+            btn.classList.remove('is-copied');
+            if (feedback) feedback.textContent = '';
+          }, 1800);
+        };
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(url).then(done).catch(function () {
+            fallbackCopy(url, done);
+          });
+        } else {
+          fallbackCopy(url, done);
+        }
+      });
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // Lightbox: click-to-zoom for post images (delegated, markup-agnostic)
+  // ---------------------------------------------------------------------------
+  function initLightbox() {
+    var content = document.querySelector('.post-content');
+    if (!content) return;
+
+    var overlay = null;
+    var lastFocus = null;
+
+    function eligible(img) {
+      return img && img.tagName === 'IMG' && !img.closest('a') && !img.closest('.mermaid');
+    }
+
+    // Zoom affordance on eligible images
+    content.querySelectorAll('img').forEach(function (img) {
+      if (eligible(img)) img.classList.add('is-zoomable');
+    });
+
+    function buildOverlay() {
+      overlay = document.createElement('div');
+      overlay.className = 'lightbox';
+      overlay.setAttribute('role', 'dialog');
+      overlay.setAttribute('aria-modal', 'true');
+      overlay.setAttribute('aria-label', 'Görsel büyütme');
+      overlay.hidden = true;
+
+      var img = document.createElement('img');
+      img.className = 'lightbox__img';
+      img.alt = '';
+
+      var caption = document.createElement('p');
+      caption.className = 'lightbox__caption';
+
+      var closeBtn = document.createElement('button');
+      closeBtn.type = 'button';
+      closeBtn.className = 'lightbox__close';
+      closeBtn.setAttribute('aria-label', 'Kapat');
+      closeBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+
+      overlay.appendChild(closeBtn);
+      overlay.appendChild(img);
+      overlay.appendChild(caption);
+      document.body.appendChild(overlay);
+
+      overlay.addEventListener('click', close);
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && overlay.classList.contains('is-open')) close();
+      });
+    }
+
+    function open(sourceImg) {
+      lastFocus = document.activeElement;
+      if (!overlay) buildOverlay();
+
+      var img = overlay.querySelector('.lightbox__img');
+      var caption = overlay.querySelector('.lightbox__caption');
+      img.src = sourceImg.currentSrc || sourceImg.src;
+      caption.textContent = sourceImg.alt || '';
+      caption.hidden = !sourceImg.alt;
+
+      overlay.hidden = false;
+      void overlay.offsetWidth;
+      overlay.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+      overlay.querySelector('.lightbox__close').focus();
+    }
+
+    function close() {
+      overlay.classList.remove('is-open');
+      document.body.style.overflow = '';
+      var onEnd = function () {
+        overlay.hidden = true;
+        overlay.removeEventListener('transitionend', onEnd);
+      };
+      overlay.addEventListener('transitionend', onEnd);
+      setTimeout(function () { overlay.hidden = true; }, 400);
+      if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+    }
+
+    content.addEventListener('click', function (e) {
+      var img = e.target.closest('img');
+      if (eligible(img)) open(img);
+    });
+  }
+
   function ready(fn) {
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', fn);
@@ -368,5 +657,9 @@
     initBayramSplash();
     initReadingProgress();
     initScrollReveal();
+    initSearch();
+    initShareCopy();
+    initLightbox();
+    initGiscusThemeSync();
   });
 })();

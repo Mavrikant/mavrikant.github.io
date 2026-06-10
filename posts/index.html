@@ -7,7 +7,7 @@
      injection (e.g. the polyfill.io attack). script-src is an explicit
      allowlist of the CDNs this site actually uses, so any unlisted external
      script (such as polyfill.io) is blocked by the browser. -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://cdn.plot.ly https://plausible.io https://js.sentry-cdn.com https://browser.sentry-cdn.com https://*.disqus.com https://*.disquscdn.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://*.disquscdn.com; font-src 'self' data: https://fonts.gstatic.com https://cdn.jsdelivr.net https://*.disquscdn.com; img-src 'self' data: https:; connect-src 'self' https://plausible.io https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.sentry.io https://*.disqus.com https://*.disquscdn.com; frame-src 'self' https://disqus.com https://*.disqus.com https://www.youtube.com https://www.youtube-nocookie.com; worker-src 'self' blob:; manifest-src 'self'; form-action 'self' https://formspree.io">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://cdn.plot.ly https://plausible.io https://js.sentry-cdn.com https://browser.sentry-cdn.com https://*.disqus.com https://*.disquscdn.com https://giscus.app; style-src 'self' 'unsafe-inline' https://*.disquscdn.com; font-src 'self' data: https://cdn.jsdelivr.net https://*.disquscdn.com; img-src 'self' data: https:; connect-src 'self' https://plausible.io https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://*.analytics.google.com https://*.sentry.io https://*.disqus.com https://*.disquscdn.com; frame-src 'self' https://disqus.com https://*.disqus.com https://giscus.app https://www.youtube.com https://www.youtube-nocookie.com; worker-src 'self' blob:; manifest-src 'self'; form-action 'self' https://formspree.io">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="/favicon.ico" rel="shortcut icon" sizes="36x36 24x24 16x16" type="image/x-icon">
 <link href="/favicon.png" rel="icon" sizes="196x196" type="image/png">
@@ -78,9 +78,8 @@
     } catch (e) {}
   })();
 </script>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/fonts/inter-var-latin-ext.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/fonts/source-serif-4-var-latin-ext.woff2">
 <link rel="preload" as="image" href="/img/bg-post.webp" fetchpriority="high">
 
 <link rel="stylesheet" href="/assets/main.css">
@@ -123,6 +122,9 @@
           </div>
         </li>
         <li class="nav-item d-flex align-items-center">
+          <button type="button" class="search-toggle" aria-label="Ara" title="Ara (Ctrl+K)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          </button>
           <button type="button" class="theme-toggle" aria-label="Tema değiştir" title="Tema değiştir">
             <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
             <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
@@ -132,6 +134,23 @@
     </div>
   </div>
 </nav>
+
+  <!-- Site içi arama — içerik /search.json'dan ilk açılışta yüklenir -->
+<div id="search-modal" class="search-modal" hidden>
+  <div class="search-modal__backdrop" data-search-close></div>
+  <div class="search-modal__panel" role="dialog" aria-modal="true" aria-label="Site içi arama">
+    <div class="search-modal__bar">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input id="search-input" type="search" placeholder="Yazılarda ara…" autocomplete="off" aria-label="Arama sorgusu">
+      <button type="button" class="search-modal__close" data-search-close aria-label="Aramayı kapat">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+    <ul id="search-results" class="search-modal__results" role="listbox" aria-label="Arama sonuçları"></ul>
+    <p id="search-empty" class="search-modal__empty" hidden>Sonuç bulunamadı.</p>
+    <p class="search-modal__hint"><kbd>Esc</kbd> kapatır · <kbd>Ctrl</kbd>+<kbd>K</kbd> açar</p>
+  </div>
+</div>
 
   <!-- Page Header -->
 
@@ -181,6 +200,7 @@
   
   21 dk okuma süresi</span>
 </span>
+        <a class="tag-chip" href="/tags/#yazilim-tasarimi">Yazılım Tasarımı</a><a class="tag-chip" href="/tags/#yazilim-muhendisligi">Yazılım Mühendisliği</a>
       </div>
     </div>
   </article>
@@ -210,6 +230,7 @@
   
   45 dk okuma süresi</span>
 </span>
+        <a class="tag-chip" href="/tags/#sinyal-isleme">Sinyal İşleme</a><a class="tag-chip" href="/tags/#aviyonik">Aviyonik</a>
       </div>
     </div>
   </article>
@@ -239,6 +260,7 @@
   
   12 dk okuma süresi</span>
 </span>
+        <a class="tag-chip" href="/tags/#sistem-muhendisligi">Sistem Mühendisliği</a><a class="tag-chip" href="/tags/#aviyonik">Aviyonik</a>
       </div>
     </div>
   </article>
@@ -268,6 +290,7 @@
   
   27 dk okuma süresi</span>
 </span>
+        <a class="tag-chip" href="/tags/#sinyal-isleme">Sinyal İşleme</a><a class="tag-chip" href="/tags/#aviyonik">Aviyonik</a>
       </div>
     </div>
   </article>
@@ -297,6 +320,7 @@
   
   36 dk okuma süresi</span>
 </span>
+        <a class="tag-chip" href="/tags/#gomulu-sistemler">Gömülü Sistemler</a><a class="tag-chip" href="/tags/#araclar">Araçlar</a>
       </div>
     </div>
   </article>
@@ -326,6 +350,7 @@
   
   41 dk okuma süresi</span>
 </span>
+        <a class="tag-chip" href="/tags/#metroloji">Metroloji</a>
       </div>
     </div>
   </article>
@@ -355,6 +380,7 @@
   
   58 dk okuma süresi</span>
 </span>
+        <a class="tag-chip" href="/tags/#metroloji">Metroloji</a>
       </div>
     </div>
   </article>
@@ -384,6 +410,7 @@
   
   44 dk okuma süresi</span>
 </span>
+        <a class="tag-chip" href="/tags/#yoneylem-arastirmasi">Yöneylem Araştırması</a>
       </div>
     </div>
   </article>
@@ -413,6 +440,7 @@
   
   21 dk okuma süresi</span>
 </span>
+        <a class="tag-chip" href="/tags/#c-cpp">C/C++</a><a class="tag-chip" href="/tags/#emniyet-kritik">Emniyet Kritik</a>
       </div>
     </div>
   </article>
@@ -442,6 +470,7 @@
   
   9 dk okuma süresi</span>
 </span>
+        <a class="tag-chip" href="/tags/#araclar">Araçlar</a><a class="tag-chip" href="/tags/#yazilim-muhendisligi">Yazılım Mühendisliği</a>
       </div>
     </div>
   </article>
@@ -451,15 +480,40 @@
 <!-- Pager -->
 
 
-<div class="pager-row">
-  <span></span>
-
-  <span class="pager-status">Sayfa 1 / 3</span>
+<nav class="pager-row pager-row--numbered" aria-label="Sayfalama">
+  
+  <span class="pager-num pager-num--arrow is-disabled" aria-hidden="true">←</span>
+  
 
   
-  <a class="btn btn-primary" href="/posts/page2/">Eski yazılar →</a>
   
-</div>
+  
+  
+  <span class="pager-num is-current" aria-current="page">1</span>
+  
+  
+  
+  
+  
+  
+  
+  <a class="pager-num" href="/posts/page2/">2</a>
+  
+  
+  
+  
+  
+  
+  
+  <a class="pager-num" href="/posts/page3/">3</a>
+  
+  
+  
+
+  
+  <a class="pager-num pager-num--arrow" href="/posts/page2/" aria-label="Eski yazılar">→</a>
+  
+</nav>
 
 
 
@@ -488,7 +542,10 @@
             <li><a href="/">Ana sayfa</a></li>
             <li><a href="/hakkimda">Hakkımda</a></li>
             <li><a href="/posts">Yazılar</a></li>
+            <li><a href="/tags">Etiketler</a></li>
+            <li><a href="/archive">Arşiv</a></li>
             <li><a href="/contact">İletişim</a></li>
+            <li><a href="/feed.xml">RSS</a></li>
           </ul>
           <h5 class="footer-heading mt-3">Projeler</h5>
           <ul class="footer-links">
@@ -533,6 +590,11 @@
               </a>
             </li>
             
+            <li class="list-inline-item">
+              <a href="/feed.xml" aria-label="RSS beslemesi">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
+              </a>
+            </li>
           </ul>
         </div>
 
