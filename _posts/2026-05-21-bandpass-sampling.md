@@ -138,8 +138,10 @@ Bir tasarım kuralı olarak: **f_H < analog BW / 2** koşulu sağlanmadan o ADC 
 
 ADC analog bant genişliği yeterli olsa bile, yüksek IF'te sinyali sınırlandıran başka bir parametre ortaya çıkar: **clock jitter'ı**, yani aperture jitter. Tipik formülü şudur:
 
+<!-- Formüllerde }_{ kalıbından kaçının: kramdown kelime sınırına denk gelen
+     alt çizgi çiftini <em> olarak eşleştirip MathJax'ten önce TeX'i bozuyor. -->
 $$
-\text{SNR}_{\text{jitter}} = -20 \log_{10}(2\pi \cdot f_{\text{in}} \cdot \sigma_t)
+\mathrm{SNR_{jitter}} = -20 \log_{10}(2\pi \cdot f_{\text{in}} \cdot \sigma_t)
 $$
 
 Burada f_in **analog giriş** frekansıdır (örnekleme hızı değil!) ve σ_t clock kaynağının RMS jitter değeridir. Formülde gizli olan korkutucu gerçek şudur: SNR, sinyal frekansıyla doğrudan azalır. Baseband'de problem olmayan jitter, 1 GHz IF'te uygulamayı imkânsız hale getirebilir.
