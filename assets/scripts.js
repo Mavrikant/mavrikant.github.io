@@ -297,6 +297,163 @@
     items.forEach(function (el) { observer.observe(el); });
   }
 
+  // ---------------------------------------------------------------------------
+  // Site search: overlay fed by /search.json, Turkish-folded substring match
+  // ---------------------------------------------------------------------------
+  function foldTr(text) {
+    return text
+      .toLocaleLowerCase('tr')
+      .replace(/ş/g, 's').replace(/ç/g, 'c').replace(/ğ/g, 'g')
+      .replace(/ı/g, 'i').replace(/ö/g, 'o').replace(/ü/g, 'u')
+      .replace(/î/g, 'i').replace(/â/g, 'a').replace(/û/g, 'u');
+  }
+
+  function initSearch() {
+    var modal = document.getElementById('search-modal');
+    var input = document.getElementById('search-input');
+    var resultsEl = document.getElementById('search-results');
+    var emptyEl = document.getElementById('search-empty');
+    if (!modal || !input || !resultsEl) return;
+
+    var index = null;
+    var loading = false;
+    var lastFocus = null;
+    var debounceTimer = null;
+
+    function loadIndex() {
+      if (index || loading) return;
+      loading = true;
+      fetch('/search.json')
+        .then(function (r) { return r.json(); })
+        .then(function (data) {
+          index = data.map(function (post) {
+            return {
+              post: post,
+              title: foldTr(post.title),
+              tags: foldTr((post.tag_names || []).join(' ')),
+              body: foldTr([post.subtitle, post.excerpt, post.content].join(' '))
+            };
+          });
+          loading = false;
+          // Re-run the query typed while the index was downloading
+          if (input.value) render(input.value);
+        })
+        .catch(function () { loading = false; });
+    }
+
+    function open() {
+      lastFocus = document.activeElement;
+      modal.hidden = false;
+      void modal.offsetWidth;
+      modal.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+      input.focus();
+      loadIndex();
+    }
+
+    function close() {
+      modal.classList.remove('is-open');
+      document.body.style.overflow = '';
+      var onEnd = function () {
+        modal.hidden = true;
+        modal.removeEventListener('transitionend', onEnd);
+      };
+      modal.addEventListener('transitionend', onEnd);
+      setTimeout(function () { modal.hidden = true; }, 400);
+      if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+    }
+
+    function render(query) {
+      resultsEl.textContent = '';
+      emptyEl.hidden = true;
+      var q = foldTr(query.trim());
+      if (q.length < 2 || !index) return;
+
+      var scored = [];
+      index.forEach(function (entry) {
+        var score = 0;
+        if (entry.title.indexOf(q) !== -1) score += 3;
+        if (entry.tags.indexOf(q) !== -1) score += 2;
+        if (entry.body.indexOf(q) !== -1) score += 1;
+        if (score > 0) scored.push({ score: score, post: entry.post });
+      });
+      scored.sort(function (a, b) { return b.score - a.score; });
+
+      if (!scored.length) {
+        emptyEl.hidden = false;
+        return;
+      }
+
+      scored.slice(0, 8).forEach(function (item) {
+        var li = document.createElement('li');
+        var a = document.createElement('a');
+        a.href = item.post.url;
+        a.className = 'search-result';
+
+        var title = document.createElement('span');
+        title.className = 'search-result__title';
+        title.textContent = item.post.title;
+
+        var meta = document.createElement('span');
+        meta.className = 'search-result__meta';
+        meta.textContent = item.post.date_display +
+          ((item.post.tag_names || []).length ? ' · ' + item.post.tag_names.join(', ') : '');
+
+        a.appendChild(title);
+        a.appendChild(meta);
+        li.appendChild(a);
+        resultsEl.appendChild(li);
+      });
+    }
+
+    input.addEventListener('input', function () {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(function () { render(input.value); }, 120);
+    });
+
+    // Arrow keys move between the input and result links
+    modal.addEventListener('keydown', function (e) {
+      if (e.key !== 'ArrowDown' && e.key !== 'ArrowUp') return;
+      var links = resultsEl.querySelectorAll('a');
+      if (!links.length) return;
+      e.preventDefault();
+      var list = Array.prototype.slice.call(links);
+      var pos = list.indexOf(document.activeElement);
+      if (e.key === 'ArrowDown') {
+        (pos === -1 ? list[0] : list[Math.min(pos + 1, list.length - 1)]).focus();
+      } else if (pos <= 0) {
+        input.focus();
+      } else {
+        list[pos - 1].focus();
+      }
+    });
+
+    document.querySelectorAll('.search-toggle').forEach(function (btn) {
+      btn.addEventListener('click', open);
+    });
+
+    modal.addEventListener('click', function (e) {
+      if (e.target.closest('[data-search-close]')) close();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      var isOpen = modal.classList.contains('is-open');
+      if (e.key === 'Escape' && isOpen) {
+        close();
+        return;
+      }
+      var inField = /^(INPUT|TEXTAREA|SELECT)$/.test((document.activeElement || {}).tagName || '') ||
+        (document.activeElement && document.activeElement.isContentEditable);
+      if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault();
+        isOpen ? close() : open();
+      } else if (e.key === '/' && !isOpen && !inField) {
+        e.preventDefault();
+        open();
+      }
+    });
+  }
+
   function ready(fn) {
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', fn);
@@ -368,5 +525,6 @@
     initBayramSplash();
     initReadingProgress();
     initScrollReveal();
+    initSearch();
   });
 })();
