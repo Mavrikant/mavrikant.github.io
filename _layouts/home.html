@@ -34,18 +34,21 @@ layout: default
           {% for post in site.posts limit : 5 %}
           {% assign card_image = post.background | default: '/img/posts/1.webp' %}
           {% assign card_image_sm = card_image | replace: '/img/posts/', '/img/posts/sm/' %}
-          <article class="post-card">
+          <article class="post-card{% if forloop.first %} post-card--featured{% endif %}">
             <a class="post-card__media" href="{{ post.url | remove: '.html' | prepend: site.baseurl | replace: '//', '/' }}" aria-label="{{ post.title | escape }}">
               {% if card_image contains '/img/posts/' %}
               <img src="{{ card_image | prepend: site.baseurl | replace: '//', '/' }}"
                    srcset="{{ card_image_sm | prepend: site.baseurl | replace: '//', '/' }} 768w, {{ card_image | prepend: site.baseurl | replace: '//', '/' }} 1600w"
-                   sizes="(max-width: 640px) 100vw, 220px"
+                   sizes="{% if forloop.first %}(max-width: 991px) 100vw, 760px{% else %}(max-width: 640px) 100vw, 220px{% endif %}"
                    alt="" loading="lazy" width="1600" height="1067" decoding="async">
               {% else %}
               <img src="{{ card_image | prepend: site.baseurl | replace: '//', '/' }}" alt="" loading="lazy" width="1600" height="1067" decoding="async">
               {% endif %}
             </a>
             <div class="post-card__body">
+              {% if forloop.first %}
+              <span class="post-card__badge">Son yazı</span>
+              {% endif %}
               <h2 class="post-card__title">
                 <a href="{{ post.url | remove: '.html' | prepend: site.baseurl | replace: '//', '/' }}">{{ post.title }}</a>
               </h2>

@@ -10,6 +10,8 @@
   --color-accent: #0085A1;
   --color-accent-hover: #00a3c4;
   --color-accent-contrast: #ffffff;
+  --color-accent-soft: rgba(0, 133, 161, 0.08);
+  --color-accent-soft-border: rgba(0, 133, 161, 0.25);
 
   // Surfaces
   --color-bg: #ffffff;
@@ -86,6 +88,8 @@
 
   --color-accent: #4ec9d6;
   --color-accent-hover: #7bdbe6;
+  --color-accent-soft: rgba(78, 201, 214, 0.1);
+  --color-accent-soft-border: rgba(78, 201, 214, 0.3);
 
   --color-overlay-dark: #0b0d12;
   --color-overlay-darker: #060709;
@@ -221,6 +225,28 @@ body > .container,
     text-transform: uppercase;
   }
 
+  // Current-page indicator: short accent rule under the active link
+  .navbar-nav > li.nav-item > a.active {
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      left: 1rem;
+      right: 1rem;
+      bottom: 0.35em;
+      height: 2px;
+      background-color: var(--color-accent);
+      border-radius: 2px;
+    }
+
+    @media only screen and (max-width: 991.98px) {
+      color: var(--color-accent);
+
+      &::after { display: none; }
+    }
+  }
+
   @media only screen and (min-width: 992px) {
     &.is-fixed {
       background-color: var(--color-glass-bg);
@@ -296,6 +322,29 @@ body > .container,
       color: var(--color-accent);
       border-color: var(--color-accent);
     }
+  }
+}
+
+// =============================================================================
+// Reading progress bar (post pages)
+// =============================================================================
+.reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  z-index: 1100; // above Bootstrap's fixed navbar (1030)
+  pointer-events: none;
+  background: transparent;
+
+  &__bar {
+    height: 100%;
+    width: 100%;
+    transform: scaleX(0);
+    transform-origin: left;
+    background: linear-gradient(90deg, var(--color-accent), var(--color-accent-hover));
+    will-change: transform;
   }
 }
 
@@ -485,9 +534,79 @@ header.masthead {
   }
 }
 
+// Featured variant — latest post gets a full-width editorial card with the
+// image on top and a larger title.
+.post-card--featured {
+  grid-template-columns: 1fr;
+  gap: 0;
+
+  .post-card__media img {
+    min-height: 200px;
+    max-height: 340px;
+    aspect-ratio: 21 / 9;
+  }
+
+  .post-card__body {
+    padding: 1.5rem 1.75rem 1.6rem;
+    align-items: flex-start;
+  }
+
+  .post-card__title {
+    font-size: clamp(1.5rem, 3vw, 1.9rem);
+  }
+
+  .post-card__subtitle {
+    font-size: 1.08rem;
+  }
+
+  @media (max-width: 640px) {
+    .post-card__media img { aspect-ratio: auto; }
+    .post-card__body { padding: 1.25rem 1.4rem 1.5rem; }
+  }
+}
+
+.post-card__badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  align-self: flex-start;
+  margin-bottom: 0.7rem;
+  padding: 0.22rem 0.65rem;
+  font-family: var(--font-sans);
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-accent);
+  background-color: var(--color-accent-soft);
+  border: 1px solid var(--color-accent-soft-border);
+  border-radius: 999px;
+}
+
 // Hide the legacy <hr> separators when using the new card layout
 .post-list + .clearfix hr,
 .post-card + hr { display: none; }
+
+// =============================================================================
+// Scroll reveal — cards fade/rise in as they enter the viewport.
+// The hidden state only applies once JS adds `reveal-ready` to <html>, so
+// content stays visible without JS. Uses an animation (not a transition) so
+// the card's own hover transform keeps working afterwards.
+// =============================================================================
+@keyframes reveal-rise {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+html.reveal-ready {
+  .post-card:not(.is-revealed) {
+    opacity: 0;
+  }
+
+  .post-card.is-revealed {
+    animation: reveal-rise 0.55s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+  }
+}
 
 // =============================================================================
 // Buttons (themed)
@@ -521,6 +640,14 @@ header.masthead {
   margin-top: 2rem;
 
   &--end { justify-content: flex-end; }
+}
+
+.pager-status {
+  font-family: var(--font-sans);
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text-subtle);
+  letter-spacing: 0.04em;
 }
 
 // =============================================================================
