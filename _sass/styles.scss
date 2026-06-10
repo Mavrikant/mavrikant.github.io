@@ -338,6 +338,54 @@ body > .container,
   }
 }
 
+// Navbar controls (search + theme) — collapse menüsünün dışında, mobilde de
+// her zaman görünür. Mobilde marka ile MENÜ butonu arasına sağa yaslanır;
+// masaüstünde nav bağlantılarından sonra en sağda durur.
+.navbar-controls {
+  display: flex;
+  align-items: center;
+  margin-left: auto;
+  margin-right: 0.5rem;
+  flex-shrink: 0;
+
+  @media only screen and (min-width: 992px) {
+    order: 10;
+    margin-left: 0;
+    margin-right: 0;
+  }
+}
+
+// Mobilde marka + kontroller + MENÜ tek satıra sığsın: marka daralıp
+// taşarsa üç nokta ile kesilir, butonlar kompakt, çok dar ekranda MENÜ
+// etiketi gizlenip yalnız hamburger ikonu kalır.
+@media only screen and (max-width: 991.98px) {
+  #mainNav .navbar-brand {
+    font-size: 1rem;
+    max-width: calc(100vw - 200px);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-right: 0.25rem;
+  }
+
+  .navbar-controls {
+    margin-right: 0.25rem;
+
+    .theme-toggle,
+    .search-toggle {
+      width: 32px;
+      height: 32px;
+      margin-left: 0.3rem;
+    }
+  }
+}
+
+@media only screen and (max-width: 575.98px) {
+  #mainNav .navbar-brand { max-width: calc(100vw - 150px); }
+  #mainNav .navbar-toggler { padding: 9px 10px; }
+  #mainNav .navbar-toggler__label { display: none; }
+}
+
 // Theme toggle + search buttons (shared navbar icon-button chrome)
 .theme-toggle,
 .search-toggle {
