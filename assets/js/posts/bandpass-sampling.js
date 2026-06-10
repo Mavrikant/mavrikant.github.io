@@ -40,7 +40,7 @@
         ' &nbsp;|&nbsp; Alias bandı: ['+rnd(aL)+', '+rnd(aH)+'] MHz';
     } else {
       el.st.style.background='#f8d7da';el.st.style.color='#721c24';
-      el.st.innerHTML='YASAK BÖLGE &mdash; sinyal iki Nyquist zone sınırını aşıyor; alias\'lar çakışıyor';
+      el.st.innerHTML='YASAK BÖLGE &mdash; bant bir Nyquist zone sınırının üzerine oturuyor; iki zone\'un alias\'ları çakışıyor';
     }
     paint(fL,fH,fs,n,aL,aH,inv);
   }
@@ -150,7 +150,6 @@
     panel(x1,0,analogMax,fL,fH,'Analog spektrum','#1565c0',null);
 
     if(n!==null){
-      var maxZone=Math.ceil(analogMax/(fs/2));
       panel(x2,0,fs/2,aL,aH,'Zone 1 alias (n = '+n+')',inv?'#6a1b9a':'#2e7d32',{zones:1,inv:inv});
     } else {
       forbidPanel(x2);
