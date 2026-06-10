@@ -155,7 +155,7 @@
               <a href="/about">M. Serdar Karaman</a>
               · 21 Mayıs 2026 · <span class="reading-time" title="Estimated read time">
   
-  26 dk okuma süresi</span>
+  27 dk okuma süresi</span>
 
             </span>
           </div>
@@ -413,8 +413,10 @@ $$</p>
 
 <p>ADC analog bant genişliği yeterli olsa bile, yüksek IF’te sinyali sınırlandıran başka bir parametre ortaya çıkar: <strong>clock jitter’ı</strong>, yani aperture jitter. Tipik formülü şudur:</p>
 
+<!-- Formüllerde }_{ kalıbından kaçının: kramdown kelime sınırına denk gelen
+     alt çizgi çiftini <em> olarak eşleştirip MathJax'ten önce TeX'i bozuyor. -->
 <p>$$
-\text{SNR}<em>{\text{jitter}} = -20 \log</em>{10}(2\pi \cdot f_{\text{in}} \cdot \sigma_t)
+\mathrm{SNR_{jitter}} = -20 \log_{10}(2\pi \cdot f_{\text{in}} \cdot \sigma_t)
 $$</p>
 
 <p>Burada f_in <strong>analog giriş</strong> frekansıdır (örnekleme hızı değil!) ve σ_t clock kaynağının RMS jitter değeridir. Formülde gizli olan korkutucu gerçek şudur: SNR, sinyal frekansıyla doğrudan azalır. Baseband’de problem olmayan jitter, 1 GHz IF’te uygulamayı imkânsız hale getirebilir.</p>
