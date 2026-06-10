@@ -2,6 +2,9 @@
 layout: default
 ---
 
+<!-- Reading progress (filled by assets/scripts.js) -->
+<div class="reading-progress" aria-hidden="true"><div class="reading-progress__bar"></div></div>
+
 <!-- Page Header -->
 {% if page.background %}
 <header class="masthead" style="background-image: url('{{ page.background | prepend: site.baseurl | replace: '//', '/' }}')">

@@ -9,16 +9,16 @@
     <div class="collapse navbar-collapse" id="navbarResponsive">
       <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-          <a class="nav-link" href="{{"/" | relative_url }}">Ana sayfa</a>
+          <a class="nav-link{% if page.url == '/' or page.url == '/index.html' %} active{% endif %}" {% if page.url == '/' or page.url == '/index.html' %}aria-current="page"{% endif %} href="{{"/" | relative_url }}">Ana sayfa</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{"/about" | relative_url }}">Hakkımda</a>
+          <a class="nav-link{% if page.url == '/about/' or page.url == '/hakkimda/' %} active{% endif %}" {% if page.url == '/about/' or page.url == '/hakkimda/' %}aria-current="page"{% endif %} href="{{"/about" | relative_url }}">Hakkımda</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{ "/posts" | relative_url }}">Yazılar</a>
+          <a class="nav-link{% if page.url contains '/posts' %} active{% endif %}" {% if page.url contains '/posts' %}aria-current="page"{% endif %} href="{{ "/posts" | relative_url }}">Yazılar</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{"/contact" | relative_url }}">İletişim</a>
+          <a class="nav-link{% if page.url == '/contact.html' or page.url == '/contact/' %} active{% endif %}" {% if page.url == '/contact.html' or page.url == '/contact/' %}aria-current="page"{% endif %} href="{{"/contact" | relative_url }}">İletişim</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownProjects" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

@@ -238,6 +238,65 @@
     document.addEventListener('click', closeAllDropdowns);
   }
 
+  // ---------------------------------------------------------------------------
+  // Reading progress bar (post pages): fills as the reader scrolls the page
+  // ---------------------------------------------------------------------------
+  function initReadingProgress() {
+    var bar = document.querySelector('.reading-progress__bar');
+    if (!bar) return;
+
+    var ticking = false;
+    function update() {
+      ticking = false;
+      var doc = document.documentElement;
+      var max = doc.scrollHeight - window.innerHeight;
+      var progress = max > 0 ? window.scrollY / max : 0;
+      bar.style.transform = 'scaleX(' + Math.min(Math.max(progress, 0), 1) + ')';
+    }
+
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(update);
+      }
+    }, { passive: true });
+    window.addEventListener('resize', update);
+    // Re-sync when lazy-loaded content (e.g. Disqus) changes the page height
+    if ('ResizeObserver' in window) {
+      new ResizeObserver(function () { update(); }).observe(document.body);
+    }
+    update();
+  }
+
+  // ---------------------------------------------------------------------------
+  // Scroll reveal: post cards rise in as they enter the viewport.
+  // Without JS (or with reduced motion) the `reveal-ready` class is never
+  // added, so cards stay fully visible.
+  // ---------------------------------------------------------------------------
+  function initScrollReveal() {
+    if (!('IntersectionObserver' in window)) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+    var items = document.querySelectorAll('.post-card');
+    if (!items.length) return;
+
+    document.documentElement.classList.add('reveal-ready');
+
+    var observer = new IntersectionObserver(function (entries) {
+      var delay = 0;
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) return;
+        var el = entry.target;
+        observer.unobserve(el);
+        // Stagger items revealed in the same batch (e.g. initial viewport)
+        setTimeout(function () { el.classList.add('is-revealed'); }, delay);
+        delay += 70;
+      });
+    }, { rootMargin: '0px 0px -6% 0px', threshold: 0.05 });
+
+    items.forEach(function (el) { observer.observe(el); });
+  }
+
   function ready(fn) {
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', fn);
@@ -307,5 +366,7 @@
     initNavbarToggle();
     initNavbarDropdowns();
     initBayramSplash();
+    initReadingProgress();
+    initScrollReveal();
   });
 })();
