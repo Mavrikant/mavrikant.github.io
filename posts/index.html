@@ -44,16 +44,34 @@ lang: tr
 <!-- Pager -->
 {% if paginator.total_pages > 1 %}
 
-<div class="pager-row">
+<nav class="pager-row pager-row--numbered" aria-label="Sayfalama">
   {% if paginator.previous_page %}
-  <a class="btn btn-primary" href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}">&larr; Yeni yazılar</a>
-  {% else %}<span></span>{% endif %}
+  <a class="pager-num pager-num--arrow" href="{{ paginator.previous_page_path | prepend: site.baseurl | replace: '//', '/' }}" aria-label="Yeni yazılar">&larr;</a>
+  {% else %}
+  <span class="pager-num pager-num--arrow is-disabled" aria-hidden="true">&larr;</span>
+  {% endif %}
 
-  <span class="pager-status">Sayfa {{ paginator.page }} / {{ paginator.total_pages }}</span>
+  {% for p in (1..paginator.total_pages) %}
+  {% assign window = paginator.page | minus: p | abs %}
+  {% if p == 1 or p == paginator.total_pages or window <= 1 %}
+  {% if p == paginator.page %}
+  <span class="pager-num is-current" aria-current="page">{{ p }}</span>
+  {% elsif p == 1 %}
+  <a class="pager-num" href="{{ '/posts/' | relative_url }}">1</a>
+  {% else %}
+  {% assign page_path = site.paginate_path | replace: ':num', p %}
+  <a class="pager-num" href="{{ page_path | relative_url }}">{{ p }}</a>
+  {% endif %}
+  {% elsif window == 2 %}
+  <span class="pager-ellipsis" aria-hidden="true">…</span>
+  {% endif %}
+  {% endfor %}
 
   {% if paginator.next_page %}
-  <a class="btn btn-primary" href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}">Eski yazılar &rarr;</a>
-  {% else %}<span></span>{% endif %}
-</div>
+  <a class="pager-num pager-num--arrow" href="{{ paginator.next_page_path | prepend: site.baseurl | replace: '//', '/' }}" aria-label="Eski yazılar">&rarr;</a>
+  {% else %}
+  <span class="pager-num pager-num--arrow is-disabled" aria-hidden="true">&rarr;</span>
+  {% endif %}
+</nav>
 
 {% endif %}
