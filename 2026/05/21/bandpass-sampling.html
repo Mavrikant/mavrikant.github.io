@@ -83,7 +83,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600&amp;family=JetBrains+Mono:wght@400;500;700&amp;display=swap" rel="stylesheet">
 <link rel="preload" as="image" href="/img/posts/bandpass-sampling-cover.webp" fetchpriority="high">
-<script async src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.12.0/mermaid.min.js" integrity="sha512-5TKaYvhenABhlGIKSxAWLFJBZCSQw7HTV7aL1dJcBokM/+3PNtfgJFlv8E6Us/B1VMlQ4u8sPzjudL9TEQ06ww==" crossorigin="anonymous"></script>
+
 <link rel="stylesheet" href="/assets/main.css">
 <link rel="alternate" type="application/rss+xml" title="M. Serdar Karaman" href="/feed.xml">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
@@ -155,7 +155,7 @@
               <a href="/about">M. Serdar Karaman</a>
               · 21 Mayıs 2026 · <span class="reading-time" title="Estimated read time">
   
-  25 dk okuma süresi</span>
+  26 dk okuma süresi</span>
 
             </span>
           </div>
@@ -177,7 +177,7 @@
           <div class="post-content">
             <p>Mühendislik mülakatlarında klasik bir soru vardır: <em>“1090 MHz’deki ADS-B sinyalini sayısal olarak yakalamak istiyorsun. Hangi hızda ADC kullanırsın?”</em></p>
 
-<p>Nyquist–Shannon teoremini hatırlayan herkes refleksle cevaplar: <em>“En az 2.18 GSPS.”</em> Mantıklı görünür: en yüksek frekansın iki katı. Cevap teknik olarak yanlış olmasa da, gerçek hayatta hiçbir ADS-B alıcısı 2 GSPS’lik bir ADC ile çalışmaz. Tipik bir donanım, 1090 MHz’in komşuluğundaki <strong>2 MHz</strong> civarındaki dar bandı 50 MSPS hatta daha yavaş clock ile örnekler — ve hiçbir şey kaybolmaz.</p>
+<p>Nyquist–Shannon teoremini hatırlayan herkes refleksle cevaplar: <em>“En az 2.18 GSPS.”</em> Mantıklı görünür: en yüksek frekansın iki katı. Cevap teknik olarak yanlış olmasa da, gerçek hayatta hiçbir ADS-B alıcısı 2 GSPS’lik bir ADC ile çalışmaz. Tipik bir donanım 1090 MHz’i önce bir mixer ile düşük bir IF’e indirir; yeterince temiz bir clock ve geniş analog bantlı bir ADC varsa bu adımı tamamen atlayıp 1090 MHz’in komşuluğundaki <strong>2 MHz</strong> civarındaki dar bandı doğrudan 50 MSPS hatta daha yavaş clock ile örneklemek de mümkündür — ve hiçbir şey kaybolmaz.</p>
 
 <p>Burada işin sırrı <strong>bandpass sampling</strong> (veya <em>IF sampling</em>, <em>undersampling</em>) denilen, klasik örnekleme teoreminin az bilinen kuzenidir. Bu yazıda teoremin geometrisine, izinli/yasak örnekleme oranlarının nasıl ortaya çıktığına, spektral ters çevrilme tuzağına ve modern ADC’lerin neden GHz mertebesinde analog bant genişliği ilan ettiğine inip somut bir Python örneğiyle her şeyi yerine oturtacağız.</p>
 
@@ -293,10 +293,10 @@ $$</p>
   <li>
 <strong>n büyüdükçe izinli aralık daralır.</strong> n = 7’de pencere yalnızca 240 kHz genişliktedir. Clock kaynağınızın drift’i, anti-alias filtresinin roll-off bölgesi, sıcaklık değişimi — hepsi bu dar yarığa sığmak zorundadır. Pratikte n = 7 ile bir tasarım yapmak intihardır.</li>
   <li>
-<strong>Tek tek hıza inerken bir kazanım var.</strong> 75 MSPS yerine 31 MSPS’de çalışan bir ADC seçmek, hem güç tüketimini hem dijital arka uçtaki örnek hızını yarıdan fazla düşürür. Cortex-M tabanlı bir alıcıda bu ciddi bir mimari kazançtır.</li>
+<strong>Daha düşük hızlara inerken ciddi bir kazanım var.</strong> 75 MSPS yerine 31 MSPS’de çalışan bir ADC seçmek, hem güç tüketimini hem dijital arka uçtaki örnek hızını yarıdan fazla düşürür. Cortex-M tabanlı bir alıcıda bu ciddi bir mimari kazançtır.</li>
 </ol>
 
-<p>İyi bir tasarımcı aralığın <strong>ortasında</strong> durur. n = 3 için 50–65 MSPS aralığının ortası ~57 MSPS’dir; clockla 5 MSPS sapsa bile hâlâ izinli bölgenin içindedir.</p>
+<p>İyi bir tasarımcı aralığın <strong>ortasında</strong> durur. n = 3 için 50–65 MSPS aralığının ortası ~57.5 MSPS’tir; clock’la 5 MSPS sapsa bile hâlâ izinli bölgenin içindedir.</p>
 
 <hr>
 
@@ -315,7 +315,7 @@ $$</p>
 <strong>Sol ucu</strong> noktada (kamanın tepesi) f_s = 2·B’dir — teorik alt sınır.</li>
 </ul>
 
-<p>Yasak bölgeler, kamalar arasındaki üçgen “boşluklar”dır ve geometrik olarak 2B’nin tamsayı katlarında biriker. Bu yüzden “f_s’i 2B’ye çok yakın seçme” sezgisi vardır: tepe noktasının yakınında çalışan bir tasarım için clock drift’inin minik bir parçası dahi sistemi yasak bölgeye sürüklemeye yeter.</p>
+<p>Yasak bölgeler, kamalar arasındaki üçgen “boşluklar”dır. Bir zone sınırının (m·f_s/2) bandın içine düştüğü her f_s yasaktır; bu da f_s ekseninde <code class="language-plaintext highlighter-rouge">[2·f_L/m, 2·f_H/m]</code> aralıklarına — yani kabaca 2·f_c/m noktalarının etrafına — denk gelir. f_s teorik alt sınır 2B’ye yaklaştıkça kamalar daralır ve yasak bölgeler sıklaşır. Bu yüzden “f_s’i 2B’ye çok yakın seçme” sezgisi vardır: tepe noktasının yakınında çalışan bir tasarım için clock drift’inin minik bir parçası dahi sistemi yasak bölgeye sürüklemeye yeter.</p>
 
 <p>Yine de wedge diyagramı sadece bir gözlem aracıdır. Saha tasarımının değişmez kuralı şudur: <strong>bir kamanın iç noktasında dur, kenardan uzak kal.</strong> Vaughan’ın 1991 makalesi bu hassasiyet analizini ayrı bir bölümle ele alır.</p>
 
@@ -328,7 +328,7 @@ $$</p>
 
 <h2 id="spectral-inversion-çift-n-hayatınızı-berbat-eder">Spectral Inversion: Çift n Hayatınızı Berbat Eder</h2>
 
-<p>Bandpass sampling’in en sinsi tuzağı <strong>spektral inversiyon</strong>dur. Sinyalin Nyquist bölgesinin parite’sine bağlı olarak baseband’e indiğinde <strong>ters çevrilmiş</strong> olabilir.</p>
+<p>Bandpass sampling’in en sinsi tuzağı <strong>spektral inversiyon</strong>dur. Sinyalin Nyquist bölgesinin paritesine bağlı olarak baseband’e indiğinde <strong>ters çevrilmiş</strong> olabilir.</p>
 
 <p>Lyons’un <em>Understanding Digital Signal Processing</em> kitabındaki konvansiyonu kullanırsak:</p>
 
@@ -336,7 +336,7 @@ $$</p>
   <li>
 <strong>n tek</strong> → spektrum yukarı doğru (“upright”), orijinaliyle aynı yönde.</li>
   <li>
-<strong>n çift</strong> → spektrum <strong>ters çevrilmiş</strong> (mirror about f_s/4 in zone 1).</li>
+<strong>n çift</strong> → spektrum <strong>ters çevrilmiş</strong> (zone 1’de f_s/4 etrafında aynalanmış).</li>
 </ul>
 
 <table>
@@ -417,7 +417,7 @@ $$</p>
 \text{SNR}<em>{\text{jitter}} = -20 \log</em>{10}(2\pi \cdot f_{\text{in}} \cdot \sigma_t)
 $$</p>
 
-<p>Burada f_in <strong>analog giriş</strong> frekansıdır (örnekleme hızı değil!) ve σ_t clock kaynağının RMS jitter değeridir. Formülde gizli olan korkutucu gerçek şudur: SNR, sinyal frekansıyla doğrudan azalır. Baseband’de problem değil olan jitter, 1 GHz IF’te uygulamayı imkânsız hale getirebilir.</p>
+<p>Burada f_in <strong>analog giriş</strong> frekansıdır (örnekleme hızı değil!) ve σ_t clock kaynağının RMS jitter değeridir. Formülde gizli olan korkutucu gerçek şudur: SNR, sinyal frekansıyla doğrudan azalır. Baseband’de problem olmayan jitter, 1 GHz IF’te uygulamayı imkânsız hale getirebilir.</p>
 
 <p>Somut bir hesap: σ_t = 100 fs (modern bir VCXO için iyi bir değer), f_in = 1 GHz:</p>
 
@@ -425,7 +425,7 @@ $$</p>
 \text{SNR} = -20 \log_{10}(2\pi \cdot 10^9 \cdot 10^{-13}) \approx 64 \text{ dB}
 $$</p>
 
-<p>64 dB SNR, etkin bit sayısı (ENOB) cinsinden yaklaşık 10.3 bit’e karşılık gelir. Yani 16-bit’lik LTC2208’i 1 GHz’de örneklerseniz, bitlerinizin <strong>3 ila 5 tanesini clock kaynağına kurban etmiş</strong> olursunuz. ADC’nin ilan ettiği 78 dB SNR’ı görmek için çok daha düşük IF’te kalmanız ya da çok daha temiz bir clock (örneğin 10 fs sınıfı bir SAW veya kristal osilatör) kullanmanız gerekir.</p>
+<p>64 dB SNR, etkin bit sayısı (ENOB) cinsinden yaklaşık 10.3 bit’e karşılık gelir. Yani 78 dB SNR (≈12.6 ENOB) ilan eden LTC2208’i 1 GHz’de örneklerseniz, jitter tavanı yüzünden <strong>2 etkin bitten fazlasını clock kaynağına kurban etmiş</strong> olursunuz — 16-bit’lik nominal çözünürlüğe göre kayıp 5 bit’i aşar. ADC’nin ilan ettiği 78 dB SNR’ı görmek için çok daha düşük IF’te kalmanız ya da çok daha temiz bir clock (örneğin 10 fs sınıfı bir SAW veya kristal osilatör) kullanmanız gerekir.</p>
 
 <p>Bu yüzden bandpass sampling tasarımlarında clock kaynağı, alıcının LO’su kadar — bazen daha fazla — özen ister. Phase noise spektrumunun, sinyal yakınında −150 dBc/Hz’in altına inebilmesi tipik bir hedeftir.</p>
 
@@ -443,7 +443,7 @@ $$</p>
   <li>Diğer <strong>tüm</strong> Nyquist bölgelerine düşen sinyali ve gürültüyü bastırmak — özellikle DC’den f_L’e kadar olan geniş bant ve f_H’in üstündeki ADC analog BW’sine kadar olan bant.</li>
 </ul>
 
-<p>Bunu sağlamak ciddi bir RF filtre tasarımı işidir. SAW (Surface Acoustic Wave) filtreleri, cavity filtreleri ya da seramik filtreler kullanılır. Pasif L-C ile yapmak istediğinizde, gereken yan-bant bastırma seviyesi (60–80 dB) ve dar bant (B/f_c = 1% civarı) yüksek-Q kapasitörler ve hassas frekans cevabı ister.</p>
+<p>Bunu sağlamak ciddi bir RF filtre tasarımı işidir. SAW (Surface Acoustic Wave) filtreleri, cavity filtreleri ya da seramik filtreler kullanılır. Pasif L-C ile yapmak istediğinizde, gereken yan-bant bastırma seviyesi (60–80 dB) ve gerçek RF uygulamalarındaki dar göreli bant (örneğin 1090 MHz’de 2 MHz, yani B/f_c ≈ %0.2; bu yazıdaki 70 MHz / 10 MHz örneği didaktik olarak geniş tutulmuştur) yüksek-Q kapasitörler ve hassas frekans cevabı ister.</p>
 
 <p>İkinci ve daha önemli nokta: filtre sinyali geçirirken bantlardaki <strong>gürültüyü de geçirir</strong>. Bandpass sampling’de gürültü integration aralığı <code class="language-plaintext highlighter-rouge">f_s/2</code> ile sınırlı değildir — ADC’nin analog BW’sine kadardır. Yani filtreyi geçen 600 MHz’lik geniş bir bant gürültüsü, sinyalle birlikte zone 1’e alias’lanır. Bu, Vaughan’ın 1991 makalesinin önemli bir sonucudur ve sıklıkla göz ardı edilir.</p>
 
@@ -500,7 +500,9 @@ $$</p>
   <figcaption><strong>Şekil 3.</strong> <em>Sol:</em> 70 MHz IF sinyalinin orijinal analog spektrumu — tonlar 67.5 MHz ve 72.5 MHz'de. <em>Sağ:</em> 31.25 MSPS örnekleme sonrası zone 1'deki alias spektrumu — aynı tonlar 5 MHz ve 10 MHz'e inmiş, spektrum düz (n = 5 tek). Bilgi kayıpsız: tonlar arasındaki frekans farkı (5 MHz) ve göreli konumları korunuyor.</figcaption>
 </figure>
 
-<p>Şimdi denemeye değer bir alıştırma: <code class="language-plaintext highlighter-rouge">step = 30</code> yapın — bu, f_s = 33.33 MSPS demektir ve n = 5 için izinli aralığın (32.5 MSPS) dışındadır. Sinyalin alt kenarı zone 4’e, üst kenarı zone 5’e düşer; baseband’e farklı parite ile aliase oldukları için zone 1’deki spektrum bozulur ve iki tonun konumu artık <code class="language-plaintext highlighter-rouge">f − shift</code> formülüyle doğru çıkmaz. Yasak bölgenin gözlemlenebilir kanıtı budur.</p>
+<p>Şimdi denemeye değer bir alıştırma: <code class="language-plaintext highlighter-rouge">step = 29</code> yapın — bu, f_s ≈ 34.48 MSPS demektir ve 65–75 MHz bandı için hiçbir n çalışmaz (n = 5’in tavanı 32.5, n = 4’ün tabanı 37.5 MSPS). Zone 4/5 sınırı (4·f_s/2 ≈ 68.97 MHz) iki tonun tam arasından geçer: 67.5 MHz tonu zone 4’ten (çift → ters), 72.5 MHz tonu zone 5’ten (tek → düz) alias’lanır. Tonlar 1.47 ve 3.53 MHz’e iner; aralarındaki 5 MHz’lik fark korunamaz ve <code class="language-plaintext highlighter-rouge">f − shift</code> formülü alt ton için yanlış sonuç verir. Yasak bölgenin gözlemlenebilir kanıtı budur.</p>
+
+<p>İnce bir nokta: <code class="language-plaintext highlighter-rouge">step = 30</code> (33.33 MSPS) da nominal 65–75 MHz bandı için yasak olmasına rağmen bu demoda spektrumu <em>bozmaz</em> — zone 4/5 sınırı 66.67 MHz, iki tonun da altında kaldığından ikisi de zone 5’te kalır ve tonlar temiz biçimde 0.83 ile 5.83 MHz’e iner. Yasak bölge tanımı sinyal bandının <em>tamamına</em> bakar; iki ayrık tondan oluşan demo sinyalimiz o bandı doldurmadığı için, zone sınırı tonların arasına denk gelmedikçe kaza olmaz. Gerçek bir modüle sinyal bandın tamamını doldurur ve aynı f_s’te geri dönülmez biçimde bozulurdu.</p>
 
 <hr>
 
@@ -547,7 +549,7 @@ $$</p>
   <li>
 <strong>Wedge’in tepe noktasından kaç.</strong> Pratik bir kural: izinli aralığın ortasına denk gelen n’i seç. Eğer ortası çok dar bir kamaya düşüyorsa daha küçük n’e geç.</li>
   <li>
-<strong>Clockun phase noise’unu RF mühendisliği gibi düşün.</strong> σ_t = 1 ps’lik bir clock, baseband alıcısında lüks; 1 GHz IF’te facia.</li>
+<strong>Clock’un phase noise’unu RF mühendisliği gibi düşün.</strong> σ_t = 1 ps’lik bir clock, baseband alıcısında lüks; 1 GHz IF’te facia.</li>
   <li>
 <strong>Anti-alias filtresini erken seç.</strong> SAW filtresinin sipariş süresi haftalar olabilir. Sistem mimarisinde yeri belirlenmeden FPGA yazılımına geçmek riskli.</li>
   <li>
