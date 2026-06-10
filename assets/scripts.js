@@ -5,6 +5,7 @@
   function applyTheme(theme) {
     document.documentElement.setAttribute('data-theme', theme);
     try { localStorage.setItem('theme', theme); } catch (e) {}
+    document.dispatchEvent(new CustomEvent('themechange', { detail: { theme: theme } }));
   }
 
   function initThemeToggle() {
@@ -455,6 +456,22 @@
   }
 
   // ---------------------------------------------------------------------------
+  // Giscus: keep the embedded widget in sync with the site theme toggle
+  // ---------------------------------------------------------------------------
+  function initGiscusThemeSync() {
+    if (!document.getElementById('giscus-container')) return;
+
+    document.addEventListener('themechange', function (e) {
+      var frame = document.querySelector('iframe.giscus-frame');
+      if (!frame) return;
+      frame.contentWindow.postMessage(
+        { giscus: { setConfig: { theme: e.detail.theme } } },
+        'https://giscus.app'
+      );
+    });
+  }
+
+  // ---------------------------------------------------------------------------
   // Share: copy-link button on post pages
   // ---------------------------------------------------------------------------
   function initShareCopy() {
@@ -643,5 +660,6 @@
     initSearch();
     initShareCopy();
     initLightbox();
+    initGiscusThemeSync();
   });
 })();

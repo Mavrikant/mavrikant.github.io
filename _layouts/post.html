@@ -68,6 +68,9 @@ layout: default
 
         {% include related-posts.html %}
 
+        {% if site.giscus.repo_id != "" %}
+        {% include comments-giscus.html %}
+        {% else %}
         <div class="clearfix" id="disqus_thread"></div>
           <script>
             // Yorumları .html kanonik URL'sine sabitle; uzantısız adreste de aynı dizi yüklensin
@@ -100,6 +103,7 @@ layout: default
             })();
           </script>
           <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        {% endif %}
       </div>
     </div>
   </div>
