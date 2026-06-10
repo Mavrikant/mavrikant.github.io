@@ -5,6 +5,7 @@ background: "/img/posts/bandpass-sampling-cover.webp"
 date: '2026-05-21 09:00:00'
 layout: post
 lang: tr
+tags: [sinyal-isleme, aviyonik]
 ---
 
 Mühendislik mülakatlarında klasik bir soru vardır: *"1090 MHz'deki ADS-B sinyalini sayısal olarak yakalamak istiyorsun. Hangi hızda ADC kullanırsın?"*

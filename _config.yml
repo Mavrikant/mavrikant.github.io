@@ -30,6 +30,17 @@ instagram_username:
 linkedin_username: mserdarkaraman
 youtube_username: UCIlBH9QynIkHxX8uiY0UEMQ
 
+# Giscus (GitHub Discussions tabanlı yorumlar) — repo_id ve category_id
+# doldurulana kadar Disqus kullanılmaya devam eder. Değerler için:
+# 1) Repoda Discussions'ı aç, 2) "Blog Comments" kategorisi oluştur
+# (Announcements türü), 3) giscus app'i kur (github.com/apps/giscus),
+# 4) giscus.app'ten repo_id / category_id değerlerini kopyala.
+giscus:
+  repo:        mavrikant/mavrikant.github.io
+  repo_id:     ""
+  category:    Blog Comments
+  category_id: ""
+
 # Add your google-analytics ID here to activate google analytics
 google_analytics:   G-YDEV31NZ5J
 

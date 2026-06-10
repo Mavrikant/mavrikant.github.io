@@ -5,6 +5,7 @@ background: "/img/posts/7.webp"
 date: '2026-04-05 09:00:00'
 layout: post
 lang: tr
+tags: [c-cpp, emniyet-kritik]
 ---
 
 Emniyet kritik yazılım geliştirme dünyasında MISRA C kuralları, onlarca yıldır en temel referans kaynaklarından biri olma özelliğini koruyor. Otomotivden havacılığa, medikal cihazlardan demiryolu sistemlerine kadar geniş bir yelpazede kullanılan bu kılavuz, Mart 2025'te yeni bir sürümle güncellendi: **MISRA C:2025**.

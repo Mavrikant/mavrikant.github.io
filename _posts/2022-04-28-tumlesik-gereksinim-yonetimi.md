@@ -5,6 +5,7 @@ background: "/img/posts/babilonia.webp"
 date: '2022-04-28 15:00:13 -0400'
 layout: post
 lang: tr
+tags: [gereksinim-muhendisligi, yazilim-muhendisligi]
 ---
 
 <span class="caption text-muted">Users don't know what they want until you show it to them..</span>

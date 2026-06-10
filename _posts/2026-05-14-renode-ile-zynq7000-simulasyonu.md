@@ -6,6 +6,7 @@ date: '2026-05-14 09:00:00'
 layout: post
 lang: tr
 mermaid: true
+tags: [gomulu-sistemler, araclar]
 ---
 
 Gömülü sistem geliştirmenin en yorucu yanlarından biri donanımın kendisidir. FPGA bitstream'leri saatler süren sentez işlemleri gerektirir, geliştirme kartları ekipler arasında paylaşılır, JTAG bağlantıları kopar, sahada hata ayıklamak ise çoğu zaman pratik değildir. Sürekli entegrasyon (CI) altyapısına fiziksel kart bağlamak ayrı bir mühendislik problemidir.

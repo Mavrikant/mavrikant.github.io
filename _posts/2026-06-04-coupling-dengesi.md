@@ -6,6 +6,7 @@ date: '2026-06-04 09:00:00'
 layout: post
 lang: tr
 mermaid: true
+tags: [yazilim-tasarimi, yazilim-muhendisligi]
 ---
 
 Bir satırlık bir değişiklik yaptınız: bir alanın adını `userId`'den `accountId`'ye çevirdiniz. Derleyici hata vermeye başladı. Bir dosyayı düzelttiniz, üç dosya daha kırmızı yandı. Onları da düzelttiniz; bu kez testler patladı. Yarım saat sonra "küçücük" değişikliğiniz on iki dosyaya, iki servise ve bir veritabanı şemasına dokunmuştu. Tanıdık geldi mi?

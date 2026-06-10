@@ -4,6 +4,7 @@ background: "/img/posts/7.webp"
 date: '2022-05-08 10:44:09'
 layout: post
 lang: tr
+tags: [gereksinim-muhendisligi, test]
 ---
 
 > Test uzmanı Dorothy Graham, test gereksinimlerine test uzmanları dahil olursa çok fazla zaman ve para tasarrufu sağlayabileceğinizi iddia ediyor. Gereksinimler bazı tutarlı kalite kriterlerine sahipse, test uzmanları soru sorabilir ve sorunları biz onları koda dönüştürmeden önce bulabilir. –Suzanne Robertson

@@ -6,6 +6,7 @@ date: '2026-05-06 09:00:00'
 layout: post
 lang: tr
 mermaid: true
+tags: [metroloji]
 ---
 
 <script src="https://cdn.plot.ly/plotly-basic-2.27.0.min.js"></script>

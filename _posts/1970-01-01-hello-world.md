@@ -5,6 +5,7 @@ background: "/img/me-animated.webp"
 date: '1970-01-01 00:00:00'
 layout: post
 lang: tr
+tags: [genel]
 ---
 Bu blog sitesini oluşturmamın tek nedeni bilginin paylaştıkça artmasına inanıyor olmam.
  

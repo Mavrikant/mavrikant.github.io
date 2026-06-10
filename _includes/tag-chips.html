@@ -1,0 +1,9 @@
+{%- comment -%}
+  Etiket çipleri. Parametreler:
+    tags  — slug listesi (ör. post.tags)
+    limit — en fazla kaç çip gösterileceği (opsiyonel)
+{%- endcomment -%}
+{%- assign chip_limit = include.limit | default: 99 -%}
+{%- for tag in include.tags limit: chip_limit -%}
+<a class="tag-chip" href="{{ '/tags/' | relative_url }}#{{ tag }}">{{ site.data.tags[tag].name | default: tag }}</a>
+{%- endfor -%}

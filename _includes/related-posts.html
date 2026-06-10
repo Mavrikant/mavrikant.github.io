@@ -1,0 +1,60 @@
+{%- comment -%}
+  İlgili yazılar: önce ≥2, sonra ≥1 ortak etiketli yazılar; üçe
+  tamamlanamazsa en yeni yazılarla doldurulur.
+{%- endcomment -%}
+{%- assign related = "" | split: "" -%}
+{%- for post in site.posts -%}
+  {%- if related.size >= 3 %}{% break %}{% endif -%}
+  {%- if post.url == page.url %}{% continue %}{% endif -%}
+  {%- assign shared = 0 -%}
+  {%- for tag in post.tags -%}
+    {%- if page.tags contains tag %}{% assign shared = shared | plus: 1 %}{% endif -%}
+  {%- endfor -%}
+  {%- if shared >= 2 %}{% assign related = related | push: post %}{% endif -%}
+{%- endfor -%}
+{%- for post in site.posts -%}
+  {%- if related.size >= 3 %}{% break %}{% endif -%}
+  {%- if post.url == page.url %}{% continue %}{% endif -%}
+  {%- assign already = false -%}
+  {%- for r in related -%}
+    {%- if r.url == post.url %}{% assign already = true %}{% break %}{% endif -%}
+  {%- endfor -%}
+  {%- if already %}{% continue %}{% endif -%}
+  {%- assign shared = 0 -%}
+  {%- for tag in post.tags -%}
+    {%- if page.tags contains tag %}{% assign shared = shared | plus: 1 %}{% endif -%}
+  {%- endfor -%}
+  {%- if shared >= 1 %}{% assign related = related | push: post %}{% endif -%}
+{%- endfor -%}
+{%- for post in site.posts -%}
+  {%- if related.size >= 3 %}{% break %}{% endif -%}
+  {%- if post.url == page.url %}{% continue %}{% endif -%}
+  {%- assign already = false -%}
+  {%- for r in related -%}
+    {%- if r.url == post.url %}{% assign already = true %}{% break %}{% endif -%}
+  {%- endfor -%}
+  {%- unless already %}{% assign related = related | push: post %}{% endunless -%}
+{%- endfor -%}
+{%- if related.size > 0 -%}
+<section class="related-posts" aria-label="İlgili yazılar">
+  <h2 class="related-posts__title">Bunları da okuyun</h2>
+  <div class="related-posts__grid">
+    {%- for post in related -%}
+    {%- assign card_image = post.background | default: '/img/posts/1.webp' -%}
+    {%- assign card_image_sm = card_image | replace: '/img/posts/', '/img/posts/sm/' -%}
+    <a class="related-card" href="{{ post.url | remove: '.html' | prepend: site.baseurl | replace: '//', '/' }}">
+      {% if card_image contains '/img/posts/' %}
+      <img src="{{ card_image | prepend: site.baseurl | replace: '//', '/' }}"
+           srcset="{{ card_image_sm | prepend: site.baseurl | replace: '//', '/' }} 768w, {{ card_image | prepend: site.baseurl | replace: '//', '/' }} 1600w"
+           sizes="(max-width: 640px) 100vw, 240px"
+           alt="" loading="lazy" width="1600" height="1067" decoding="async">
+      {% else %}
+      <img src="{{ card_image | prepend: site.baseurl | replace: '//', '/' }}" alt="" loading="lazy" width="1600" height="1067" decoding="async">
+      {% endif %}
+      <span class="related-card__title">{{ post.title }}</span>
+      <span class="related-card__date">{% include tr-month.html date=post.date format="long" %}</span>
+    </a>
+    {%- endfor -%}
+  </div>
+</section>
+{%- endif -%}

@@ -24,6 +24,11 @@ layout: default
               <a href="{{ "/about" | relative_url }}">{% if page.author %}{{ page.author }}{% else %}{{ site.author }}{% endif %}</a>
               &middot; {% include tr-month.html date=page.date format="long" %} &middot; {% include read_time.html content=page.content %}
             </span>
+            {% if page.tags.size > 0 %}
+            <div class="post-heading__tags">
+              {% include tag-chips.html tags=page.tags %}
+            </div>
+            {% endif %}
           </div>
         </div>
       </div>
@@ -40,6 +45,9 @@ layout: default
             {{ content }}
           </div>
         </div>
+
+        {% include post-share.html %}
+        {% include post-cta.html %}
 
         <nav class="post-nav" aria-label="Yazı navigasyonu">
           {% if page.previous.url %}
@@ -58,6 +66,11 @@ layout: default
           {% endif %}
         </nav>
 
+        {% include related-posts.html %}
+
+        {% if site.giscus.repo_id != "" %}
+        {% include comments-giscus.html %}
+        {% else %}
         <div class="clearfix" id="disqus_thread"></div>
           <script>
             // Yorumları .html kanonik URL'sine sabitle; uzantısız adreste de aynı dizi yüklensin
@@ -90,6 +103,7 @@ layout: default
             })();
           </script>
           <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+        {% endif %}
       </div>
     </div>
   </div>
