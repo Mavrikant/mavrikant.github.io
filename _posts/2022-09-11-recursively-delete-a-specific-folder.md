@@ -4,6 +4,7 @@ background: "/img/posts/8.webp"
 date: '2022-09-11 12:00:00'
 layout: post
 lang: en
+tags: [ipuclari, araclar]
 ---
 
 Following powershell script can be used for deleting all Debug folders inside of your project space.

@@ -4,6 +4,7 @@ background: "/img/posts/soft-sys-eng-page-header.webp"
 date: '2022-04-29 22:00:00'
 layout: post
 lang: tr
+tags: [sistem-muhendisligi, yazilim-muhendisligi]
 ---
 
 Yazılım projeleri gün geçtikçe daha büyük ve daha komplex hale geliyorlar. Bilgisayar donanımlarındaki performans artışı yazılımlar üzerindeki büyüklük ve komplekslik limitini baskılama ihtiyacını ortadan kaldırdı.   Donanımlar geliştikçe üzerinde çalışan yazımlarla yeni özellikler eklendi. Microsoft Word gibi bir yazılım eskiden diskete sığarken şimdi CD ile dağıtılıyor. 

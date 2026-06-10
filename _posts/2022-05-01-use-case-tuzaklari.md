@@ -5,6 +5,7 @@ background: "/img/posts/use-case-tuzak.webp"
 date: '2022-05-01 10:51:46'
 layout: post
 lang: tr
+tags: [gereksinim-muhendisligi, yazilim-muhendisligi]
 ---
 
 Use case analizi yazılım projelerinde oldukça yaygın olarak kullanılan, pratik, erişilebilir ve basit bir formattır. Fakat basit olmasının da zorlukları vardır. Bu makale de use case kullanırken karşılaşılan 10 problemden bahsedilmiştir.

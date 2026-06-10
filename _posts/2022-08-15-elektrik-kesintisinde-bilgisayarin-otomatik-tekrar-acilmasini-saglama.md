@@ -4,6 +4,7 @@ background: "/img/posts/3.webp"
 date: '2022-08-15 12:00:00'
 layout: post
 lang: tr
+tags: [ipuclari, araclar]
 ---
 
 Bu yöntem DELL OptiPlex kasalar için anlatilmistir. BIOS ayarları diğer markalarda da benzer olmakla beraber bir miktar farklılık gösterebilir. 

@@ -6,6 +6,7 @@ date: '2026-06-02 09:00:00'
 layout: post
 lang: tr
 mermaid: true
+tags: [sinyal-isleme, aviyonik]
 ---
 
 Telefonunuz masanın üzerinde dururken bile GPS noktası birkaç metre oraya buraya zıplar. Arabadaki ivmeölçer mükemmel veri verir ama integralini aldığınızda hata saniyeler içinde birikip sürüklenir (drift). Tek başına ne sensöre ne de modele güvenebilirsiniz — yine de haritadaki maviniz pürüzsüz, kararlı bir çizgi çizer. Bu sihrin arkasındaki makine çoğu zaman aynıdır: **Kalman filtresi**.

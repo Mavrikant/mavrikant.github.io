@@ -6,6 +6,7 @@ date: '2026-05-21 09:00:00'
 layout: post
 lang: tr
 mermaid: true
+tags: [sinyal-isleme, aviyonik]
 ---
 
 Mühendislik mülakatlarında klasik bir soru vardır: *"1090 MHz'deki ADS-B sinyalini sayısal olarak yakalamak istiyorsun. Hangi hızda ADC kullanırsın?"*

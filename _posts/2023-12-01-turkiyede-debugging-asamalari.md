@@ -4,6 +4,7 @@ background: "/img/posts/debugging.webp"
 date: '2023-12-01 08:00:00'
 layout: post
 lang: tr
+tags: [mizah]
 ---
 
 Türkiye'deki yazılım geliştirme süreçlerinde debugging (hata ayıklama) aşamaları, genellikle evrensel yazılım geliştirme uygulamalarına benzer şekilde işler. İşte bu sürecin tipik adımları:

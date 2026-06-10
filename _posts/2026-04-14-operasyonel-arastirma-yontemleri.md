@@ -6,6 +6,7 @@ date: '2026-04-14 09:00:00'
 layout: post
 lang: tr
 mermaid: true
+tags: [yoneylem-arastirmasi]
 ---
 
 Gündelik hayatın ve iş süreçlerinin pek çok problemi yüzeyde sezgisel bir karar gibi görünse de aslında birer **optimizasyon** problemidir. Hangi ürünü ne kadar üreteceğiz? Sınırlı kamyon filosuyla siparişleri hangi rotada dağıtacağız? Bir çantaya ağırlık ve değer kısıtları altında hangi eşyaları koyacağız? Bir hastanede hemşire nöbet çizelgesini nasıl yapacağız? Bu soruların ortak paydası şudur: **sınırlı kaynakları sınırlı kısıtlar altında bir amaca göre en iyileyecek şekilde dağıtmak.**

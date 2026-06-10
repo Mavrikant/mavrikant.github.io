@@ -4,6 +4,7 @@ background: "/img/posts/6.webp"
 date: '2026-03-25 09:00:00'
 layout: post
 lang: tr
+tags: [c-cpp, emniyet-kritik]
 ---
 
 Yazılım geliştirirken `float` ve `double` türlerini sıklıkla kullanırız. Ancak kayan nokta sayıları, görünürde masum olan birçok tuzak barındırır. Bu yazıda, IEEE 754 standardının getirdiği sınırlamalar ve bu sınırlamaların nasıl beklenmedik hatalara yol açabileceği üzerinde duracağız.

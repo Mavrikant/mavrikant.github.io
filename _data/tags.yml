@@ -1,0 +1,43 @@
+# Etiket sözlüğü — anahtarlar ASCII slug (front matter'daki `tags:` değerleri),
+# `name` görünen Türkçe ad. `featured: true` olanlar ana sayfa hero'sunda çip
+# olarak listelenir.
+yazilim-muhendisligi:
+  name: "Yazılım Mühendisliği"
+gereksinim-muhendisligi:
+  name: "Gereksinim Mühendisliği"
+sistem-muhendisligi:
+  name: "Sistem Mühendisliği"
+  featured: true
+emniyet-kritik:
+  name: "Emniyet Kritik"
+  featured: true
+c-cpp:
+  name: "C/C++"
+  featured: true
+gomulu-sistemler:
+  name: "Gömülü Sistemler"
+aviyonik:
+  name: "Aviyonik"
+  featured: true
+sinyal-isleme:
+  name: "Sinyal İşleme"
+  featured: true
+metroloji:
+  name: "Metroloji"
+  featured: true
+yoneylem-arastirmasi:
+  name: "Yöneylem Araştırması"
+yazilim-tasarimi:
+  name: "Yazılım Tasarımı"
+proje-yonetimi:
+  name: "Proje Yönetimi"
+test:
+  name: "Test"
+araclar:
+  name: "Araçlar"
+ipuclari:
+  name: "İpuçları"
+mizah:
+  name: "Mizah"
+genel:
+  name: "Genel"

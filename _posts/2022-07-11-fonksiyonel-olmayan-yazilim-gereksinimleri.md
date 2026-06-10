@@ -5,6 +5,7 @@ background: "/img/posts/8.webp"
 date: '2022-07-11 15:59:34'
 layout: post
 lang: tr
+tags: [gereksinim-muhendisligi, yazilim-muhendisligi]
 ---
 
 Yazılım gereksinimleri, bir sistemin ne yapması gerektiğini ve hangi kısıtlar altında çalışacağını tanımlar. Gereksinimler genellikle iki ana başlık altında sınıflandırılır: **fonksiyonel gereksinimler** ve **fonksiyonel olmayan gereksinimler**. Fonksiyonel gereksinimler sistemin *ne yapması* gerektiğini anlatırken, fonksiyonel olmayan gereksinimler sistemin bu işi *nasıl* (ne kadar hızlı, ne kadar güvenli, ne kadar güvenilir) yapması gerektiğini belirler.

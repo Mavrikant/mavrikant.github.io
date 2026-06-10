@@ -6,6 +6,7 @@ date: '2026-05-26 09:00:00'
 layout: post
 lang: tr
 mermaid: true
+tags: [sistem-muhendisligi, aviyonik]
 ---
 
 Modern bir yolcu uçağında milyonlarca parça, onlarca farklı mühendislik disiplini ve binlerce gereksinim bir arada bulunur. Aerodinamikçi kanadı, yazılımcı uçuş kontrol bilgisayarını, elektronik mühendisi aviyonik veri yolunu, malzeme mühendisi gövde alaşımını tasarlar. Hiçbiri tek başına diğerinin işini bilmek zorunda değildir. Peki bütün bu parçaların *birlikte* güvenli bir şekilde uçan tek bir uçak oluşturduğundan kim emin olur?
