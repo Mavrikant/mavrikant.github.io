@@ -24,6 +24,11 @@ layout: default
               <a href="{{ "/about" | relative_url }}">{% if page.author %}{{ page.author }}{% else %}{{ site.author }}{% endif %}</a>
               &middot; {% include tr-month.html date=page.date format="long" %} &middot; {% include read_time.html content=page.content %}
             </span>
+            {% if page.tags.size > 0 %}
+            <div class="post-heading__tags">
+              {% include tag-chips.html tags=page.tags %}
+            </div>
+            {% endif %}
           </div>
         </div>
       </div>
@@ -57,6 +62,8 @@ layout: default
           </a>
           {% endif %}
         </nav>
+
+        {% include related-posts.html %}
 
         <div class="clearfix" id="disqus_thread"></div>
           <script>

@@ -1,0 +1,25 @@
+---
+layout: page
+title: Arşiv
+subtitle: Tüm yazılar, yıla göre
+background: '/img/bg-post.webp'
+lang: tr
+permalink: /archive/
+---
+
+{% assign by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
+
+{% for group in by_year %}
+{% if group.name == "1970" %}{% continue %}{% endif %}
+<section class="tag-section" id="y{{ group.name }}">
+  <h2 class="tag-section__title">{{ group.name }} <span class="tag-section__count">({{ group.items | size }})</span></h2>
+  <ul class="archive-list">
+    {% for post in group.items %}
+    <li>
+      <a href="{{ post.url | remove: '.html' | prepend: site.baseurl | replace: '//', '/' }}">{{ post.title }}</a>
+      <span class="archive-list__date">{% include tr-month.html date=post.date %}</span>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endfor %}

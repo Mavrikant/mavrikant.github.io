@@ -12,11 +12,19 @@ layout: default
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
-          <div class="page-heading">
+          <div class="page-heading hero-intro">
+            <img class="hero-intro__avatar" src="{{ '/img/me-animated.webp' | relative_url }}" alt="M. Serdar Karaman" width="112" height="112" loading="eager" fetchpriority="high">
             <h1>{{ site.title }}</h1>
             {% if site.description %}
             <span class="subheading">{{ site.description }}</span>
             {% endif %}
+            <div class="hero-intro__topics">
+              {% for pair in site.data.tags %}
+              {% if pair[1].featured %}
+              <a class="tag-chip tag-chip--hero" href="{{ '/tags/' | relative_url }}#{{ pair[0] }}">{{ pair[1].name }}</a>
+              {% endif %}
+              {% endfor %}
+            </div>
           </div>
         </div>
       </div>
@@ -62,6 +70,7 @@ layout: default
               <div class="post-card__meta">
                 <span class="meta-chip">{% include icon-calendar.html %}{% include tr-month.html date=post.date format="long" %}</span>
                 <span class="meta-chip">{% include icon-clock.html %}{% include read_time.html content=post.content %}</span>
+                {% include tag-chips.html tags=post.tags limit=2 %}
               </div>
             </div>
           </article>

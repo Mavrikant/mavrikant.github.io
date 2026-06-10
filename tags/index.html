@@ -1,0 +1,30 @@
+---
+layout: page
+title: Etiketler
+subtitle: Yazıları konuya göre keşfedin
+background: '/img/bg-post.webp'
+lang: tr
+permalink: /tags/
+---
+
+{% assign sorted_tags = site.tags | sort %}
+
+<div class="tag-cloud">
+  {% for pair in sorted_tags %}
+  <a class="tag-chip" href="#{{ pair[0] }}">{{ site.data.tags[pair[0]].name | default: pair[0] }} <span class="tag-chip__count">{{ pair[1] | size }}</span></a>
+  {% endfor %}
+</div>
+
+{% for pair in sorted_tags %}
+<section class="tag-section" id="{{ pair[0] }}">
+  <h2 class="tag-section__title">{{ site.data.tags[pair[0]].name | default: pair[0] }} <span class="tag-section__count">({{ pair[1] | size }})</span></h2>
+  <ul class="archive-list">
+    {% for post in pair[1] %}
+    <li>
+      <a href="{{ post.url | remove: '.html' | prepend: site.baseurl | replace: '//', '/' }}">{{ post.title }}</a>
+      <span class="archive-list__date">{% include tr-month.html date=post.date %}</span>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endfor %}

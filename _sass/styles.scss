@@ -588,6 +588,230 @@ header.masthead {
 .post-card + hr { display: none; }
 
 // =============================================================================
+// Tag chips — accent-tinted pills linking to /tags/#<slug>
+// =============================================================================
+.tag-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.6rem;
+  font-family: var(--font-sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  line-height: 1.4;
+  color: var(--color-accent);
+  background-color: var(--color-accent-soft);
+  border: 1px solid var(--color-accent-soft-border);
+  border-radius: 999px;
+  text-decoration: none;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+
+  &:hover,
+  &:focus {
+    color: var(--color-accent-contrast);
+    background-color: var(--color-accent);
+    border-color: var(--color-accent);
+    text-decoration: none;
+  }
+}
+
+.tag-chip__count {
+  font-size: 0.7rem;
+  font-weight: 700;
+  opacity: 0.75;
+}
+
+.tag-cloud {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin: 0 0 2.5rem;
+}
+
+// Tag/arşiv sayfası bölümleri
+.tag-section {
+  margin-bottom: 2.5rem;
+
+  &__title {
+    font-size: 1.35rem;
+    margin-top: 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--color-border);
+    scroll-margin-top: 96px;
+  }
+
+  &__count {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--color-text-subtle);
+  }
+}
+
+.archive-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-family: var(--font-sans);
+
+  li {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 0.55rem 0;
+    border-bottom: 1px dashed var(--color-border);
+
+    &:last-child { border-bottom: none; }
+  }
+
+  a {
+    color: var(--color-text);
+    text-decoration: none;
+    font-weight: 500;
+
+    &:hover { color: var(--color-accent); }
+  }
+
+  &__date {
+    flex-shrink: 0;
+    font-size: 0.8rem;
+    color: var(--color-text-subtle);
+    white-space: nowrap;
+  }
+}
+
+// Post başlığı altındaki etiketler (koyu hero üzerinde)
+.post-heading__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  margin-top: 0.9rem;
+
+  .tag-chip {
+    color: var(--color-on-dark);
+    background-color: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.25);
+
+    &:hover,
+    &:focus {
+      color: var(--color-accent-contrast);
+      background-color: var(--color-accent);
+      border-color: var(--color-accent);
+    }
+  }
+}
+
+// =============================================================================
+// Homepage hero intro — avatar + topic chips on the masthead
+// =============================================================================
+.hero-intro {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+
+  &__avatar {
+    width: 112px;
+    height: 112px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid rgba(255, 255, 255, 0.55);
+    box-shadow: var(--shadow-md);
+    margin-bottom: 1.4rem;
+  }
+
+  &__topics {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    margin-top: 1.6rem;
+  }
+
+  .tag-chip--hero {
+    font-size: 0.82rem;
+    padding: 0.3rem 0.8rem;
+    color: var(--color-on-dark);
+    background-color: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.28);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+
+    &:hover,
+    &:focus {
+      color: var(--color-accent-contrast);
+      background-color: var(--color-accent);
+      border-color: var(--color-accent);
+    }
+  }
+}
+
+// =============================================================================
+// Related posts — compact 3-card grid at the end of articles
+// =============================================================================
+.related-posts {
+  margin: 0 0 2.5rem;
+
+  &__title {
+    font-size: 1.3rem;
+    margin: 0 0 1.2rem;
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+  }
+}
+
+.related-card {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  text-decoration: none;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+
+  &:hover,
+  &:focus {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-md);
+    border-color: var(--color-accent);
+    text-decoration: none;
+
+    .related-card__title { color: var(--color-accent); }
+  }
+
+  img {
+    width: 100%;
+    height: 120px;
+    object-fit: cover;
+    display: block;
+  }
+
+  &__title {
+    font-family: var(--font-sans);
+    font-size: 0.95rem;
+    font-weight: 600;
+    line-height: 1.35;
+    color: var(--color-heading);
+    padding: 0.8rem 0.9rem 0.25rem;
+    transition: color 0.2s ease;
+  }
+
+  &__date {
+    font-family: var(--font-sans);
+    font-size: 0.76rem;
+    color: var(--color-text-subtle);
+    padding: 0 0.9rem 0.9rem;
+    margin-top: auto;
+  }
+}
+
+// =============================================================================
 // Scroll reveal — cards fade/rise in as they enter the viewport.
 // The hidden state only applies once JS adds `reveal-ready` to <html>, so
 // content stays visible without JS. Uses an animation (not a transition) so

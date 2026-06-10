@@ -34,6 +34,7 @@ lang: tr
       <div class="post-card__meta">
         <span class="meta-chip">{% include icon-calendar.html %}{% include tr-month.html date=post.date format="long" %}</span>
         <span class="meta-chip">{% include icon-clock.html %}{% include read_time.html content=post.content %}</span>
+        {% include tag-chips.html tags=post.tags limit=2 %}
       </div>
     </div>
   </article>
