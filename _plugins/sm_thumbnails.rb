@@ -66,9 +66,12 @@ module SmThumbnails
     def copy_file(dest_path)
       cmd = SmThumbnails.magick_command
       ok = system(
-        cmd, @source_image,
-        "-resize", "#{WIDTH}x>", # cap width at WIDTH, never enlarge
-        "-strip",                # drop metadata
+        cmd, "#{@source_image}[0]", # first frame only: animated WebP backgrounds
+                                    # can't be re-encoded as a resized animation by
+                                    # IM6 (WriteAnimatedWEBPImage fails), and the
+                                    # card thumbnail only needs a still image
+        "-resize", "#{WIDTH}x>",    # cap width at WIDTH, never enlarge
+        "-strip",                   # drop metadata
         "-quality", QUALITY.to_s,
         dest_path
       )
