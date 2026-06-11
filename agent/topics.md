@@ -22,11 +22,14 @@
 - [x] Ölçüm Belirsizliği (GUM Annex F + NCSLI RP-12) — 2026-05-06 — alan: metroloji
 - [x] Kalibrasyon Zincirinin Tepesi (Birincil Standartlar) — 2026-05-07 — alan: metroloji
 - [x] Renode ile Zynq7000 Simülasyonu — 2026-05-14 — alan: gömülü/SoC
+- [x] Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek — 2026-05-21 — alan: RF/DSP
 
 ## Açık PR'lar (insan inceleme bekleniyor)
 
 | PR # | Başlık | Dal | Açılış | Alan |
 |------|--------|-----|--------|------|
+| [#89](https://github.com/mavrikant/mavrikant.github.io/pull/89) | Watchdog Timer Tasarım Desenleri | post/2026-05-24-watchdog-tasarim-desenleri | 2026-05-24 | güvenilirlik |
+| [#88](https://github.com/mavrikant/mavrikant.github.io/pull/88) | WCET Analizi: Statik mi, Ölçüm mü, Hibrit mi? | post/2026-05-23-wcet-analizi-statik-olcum-hibrit | 2026-05-23 | gerçek zamanlı |
 | [#79](https://github.com/mavrikant/mavrikant.github.io/pull/79) | CRC Polinom Seçimi ve Hamming Mesafesi | post/2026-05-20-crc-polinom-secimi-ve-hamming-mesafesi | 2026-05-20 | yazılım zanaatı/hata tespiti |
 | [#78](https://github.com/mavrikant/mavrikant.github.io/pull/78) | VOR Nasıl Çalışır? 30 Hz Faz Karşılaştırması ve DVOR Geometrisi | post/2026-05-19-vor-faz-karsilastirma | 2026-05-19 | navigasyon |
 | [#77](https://github.com/mavrikant/mavrikant.github.io/pull/77) | MC/DC Kapsama — DO-178C DAL A | post/2026-05-18-mcdc-kapsama-do-178c-dal-a | 2026-05-17 | sertifikasyon |
@@ -39,14 +42,15 @@
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- **Linker Script Anatomisi: Zynq-7000 Bare-Metal için Bir `.ld` Dosyası Satır Satır** —
+  dal: `post/2026-05-26-linker-script-anatomisi-arm-bare-metal`,
+  dosya: `_posts/2026-05-26-linker-script-anatomisi-arm-bare-metal.md`,
+  durum: PR #90 açıldı; insan geri bildirimi ile Zynq-7000 (Cortex-A9 + OCM + DDR3 + QSPI)
+  referansıyla yeniden yazıldı — Renode yazısının doğal devamı. alan: toolchain/build.
 
 ## Reddedildi (bu çalıştırma)
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- _(bu çalıştırmada konu reddedilmedi; linker script havuzdan seçildi.)_
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 
@@ -57,26 +61,14 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 
 - [ ] **ARM Cortex-A reset vektöründen `main()`'e: gerçekten ne oluyor?** —
       alan: gömülü/SoC — Renode yazısının doğal devamı, somut deney imkânı
-- [ ] **MC/DC kapsama: DO-178C DAL A'da neden modified condition/decision şart?** —
-      alan: sertifikasyon — gerçek karar tablosu örneği, decision/condition farkı
-- [ ] **CRC vs checksum: neden CRC-32 değil de CRC-32C / CRC-16-CCITT seçilir?** —
-      alan: yazılım zanaatı — polinom seçimi, hata tespit gücü, bit-hata analizi
-- [ ] **WCET analizi: statik analiz vs ölçüm tabanlı yaklaşımlar, cache etkileri** —
-      alan: gerçek zamanlı — somut örnek (örn. Cortex-R5 üzerinde basit görev)
 - [ ] **IQ örnekleme ve karmaşık sinyaller: gerçek SDR'ye giriş** —
       alan: RF/SDR — neden negatif frekans, neden 2 kanal
 - [ ] **GIC (Generic Interrupt Controller): SGI/PPI/SPI farkları ve önceliklendirme** —
       alan: ARM — kesme yönlendirme, multicore'da CPU affinity
 - [ ] **Cache coherency ve MESI: ARM'da CCI/CMN ne yapar, neden yazılım perde
       (barrier) gerekir?** — alan: ARM — pratik race condition örneği
-- [ ] **Linker script anatomisi: ARM bare-metal için bir `.ld` dosyası satır satır** —
-      alan: gömülü — kendi linker script'i yazma rehberi
-- [ ] **Watchdog tasarım desenleri: tek vs çoklu görev watchdog, deadman switch,
-      windowed watchdog** — alan: güvenilirlik — gerçek tasarım kararları
 - [ ] **`volatile`'ın doğru kullanımı: nerede yetmez, neden `_Atomic` gerekir?** —
       alan: C/eşzamanlılık — derleyici çıktı analizi
-- [ ] **VOR'un çalışma prensibi: 30 Hz referans + değişken faz nasıl yön verir?** —
-      alan: navigasyon — faz farkı matematiği + sinyal şeması
 - [ ] **ILS anatomisi: localizer 90/150 Hz DDM ve glide slope** —
       alan: navigasyon — modülasyon derinliği farkı + örnek hesap
 - [ ] **Kalman filtresi tuzakları: numerik stabilite, gözlemlenebilirlik, tuning** —
@@ -108,21 +100,35 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - [ ] DO-254 donanım sertifikasyonu (yazarın uzmanlığı ağırlıklı yazılım tarafında)
 - [ ] İzlenebilirlik matrisi (klasik konu, derinlik çıkarmak zor)
 
-## Notlar (bu çalıştırma — 2026-05-21)
+## Notlar (bu çalıştırma — 2026-05-26)
 
-- **Bandpass Sampling** seçildi (alan: RF/DSP). Önceki çalıştırmaların ardından
-  açılan PR'lar son üç alt-alanı (sertifikasyon #77, navigasyon #78, yazılım
-  zanaatı/CRC #79) işaretlemişti; bu yazı **bu üç alandan da** son yayınlanan 3
-  posttan da (Renode gömülü/SoC, kalibrasyon ×2) farklı bir alan getiriyor.
-- Yayın kapısı durumu: Bölüm 4 yalnızca "yayın PR ile olmalı" kuralı koyar; backlog
-  büyüklüğüne dair sert bir sınır yoktur. Açık 7 PR olmasına rağmen son yayınlanan
-  yazıdan (Renode, 2026-05-14) bu yana 7 gün geçti — `min_yayin_araligi_gun = 2`
-  şartı fazlasıyla sağlanmış durumda. Bu çalıştırmada yeni PR açıldı.
-- Bandpass sampling konusunun "neden Türkçe içerikte zor bulunuyor" yanıtı:
-  matematik (Vaughan 1991), datasheet okuma (analog input BW), saat phase noise
-  ve filtre tasarımı disiplinlerinin kesişiminde bulunuyor; Türkçe kaynaklar
-  genellikle yalnızca tek bir cepheden ele almış oluyor (genelde Lyons özet
-  çevirisi). Sentez ve somut sayısal örnek boşluğu büyük.
-- Açık PR'lar konusunda inceleme önceliği yorumu (gözlem): #50 ve #51 hâlâ uzun
-  süredir bekliyor; #50 eski yazıyı genişletiyor, #51 ise yayındaki MISRA C:2025
-  ile büyük olasılıkla çakışıyor. İnceleyen kişinin dikkatine.
+- **Linker Script Anatomisi** seçildi (alan: toolchain/build). Son 3 yayınlanan
+  yazı (RF/DSP, gömülü/SoC, metroloji) ve tüm açık PR alt-alanları
+  (navigation, sertifikasyon, software-craft, real-time, reliability,
+  security, C/compiler, C/standard, embedded/numeric) ile çakışmıyor. Yazı,
+  toolchain/build perspektifinden bare-metal startup zincirini açıklıyor —
+  Renode yazısı simülasyon, bu yazı bağlama; konu örtüşmesi yok.
+- **İnsan geri bildirimi (PR #90 üzerinde):** ilk taslak STM32F4/Cortex-M4
+  üzerinden yazılmıştı. Geri bildirim: Renode yazısının doğal devamı olacak
+  şekilde Zynq-7000 (Cortex-A9 + OCM + DDR3 + QSPI) referans alınsın; CCM
+  yerine OCM anlatılsın. Yazı tamamen Zynq-7000'e uyarlandı: vector table
+  Cortex-A9 (VBAR, 8 instruction entry, AAPCS 16-byte stack alignment, CPU
+  mode başına ayrı SP), bellek bölgeleri `ps7_ddr_0` / `ps7_ocm_low_0` /
+  `ps7_ocm_high_0` / `ps7_qspi_linear`, OCM_CFG remap mekaniği, AMP çift
+  çekirdek DDR bölme, VMA/LMA örneği olarak `.ocm_data` (DDR'da LMA, OCM'de
+  VMA). Yazı 3000 → 3839 kelimeye çıktı (hedef üst sınırı 3500'ün biraz
+  üstünde; Zynq mimari detayı bunu hak ediyor).
+- Yayın kapısı durumu: son yayın 2026-05-21 (bandpass-sampling), bu çalıştırma
+  2026-05-26. Aradan 5 gün geçti — `min_yayin_araligi_gun = 2` fazlasıyla
+  sağlanıyor. Bu çalıştırmada yeni PR açıldı.
+- **"Neden Türkçe içerikte zor bulunuyor"** yanıtı: GNU LD manuel referans-
+  kılavuz tarzı ve İngilizce; ARM Cortex-M startup akışı + ELF + VMA/LMA
+  ayrımının üçünü birlikte sentezleyen Türkçe kaynak nadir. CMSIS şablon
+  `.ld` dosyaları satır-satır yorumlanmamış. Bu yazı boşluğu kapatır.
+- Derinlik öğesi: gerçek bir Cortex-M4 (.ld) iskeleti satır satır + `.map`
+  dosyası dökümü + `arm-none-eabi-objdump -h` çıktısının analizi (bellek/
+  assembly incelemesi — Bölüm 7).
+- Açık PR'lar konusunda inceleme önceliği yorumu (gözlem değişmedi): #50 ve
+  #51 hâlâ uzun süredir bekliyor; #50 eski yazıyı genişletiyor, #51 ise
+  yayındaki MISRA C:2025 ile büyük olasılıkla çakışıyor. Bu çalıştırmada
+  ayrıca #88 (WCET) ve #89 (watchdog) tabloya eklendi.
