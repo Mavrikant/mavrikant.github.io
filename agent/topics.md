@@ -22,11 +22,13 @@
 - [x] Ölçüm Belirsizliği (GUM Annex F + NCSLI RP-12) — 2026-05-06 — alan: metroloji
 - [x] Kalibrasyon Zincirinin Tepesi (Birincil Standartlar) — 2026-05-07 — alan: metroloji
 - [x] Renode ile Zynq7000 Simülasyonu — 2026-05-14 — alan: gömülü/SoC
+- [x] Bandpass Sampling: 1 GHz Sinyali 50 MHz Clock ile Örneklemek — 2026-05-21 — alan: RF/DSP
 
 ## Açık PR'lar (insan inceleme bekleniyor)
 
 | PR # | Başlık | Dal | Açılış | Alan |
 |------|--------|-----|--------|------|
+| [#88](https://github.com/mavrikant/mavrikant.github.io/pull/88) | WCET Analizi: Statik mi, Ölçüm mü, Hibrit mi? | post/2026-05-23-wcet-analizi-statik-olcum-hibrit | 2026-05-23 | gerçek zamanlı/timing |
 | [#79](https://github.com/mavrikant/mavrikant.github.io/pull/79) | CRC Polinom Seçimi ve Hamming Mesafesi | post/2026-05-20-crc-polinom-secimi-ve-hamming-mesafesi | 2026-05-20 | yazılım zanaatı/hata tespiti |
 | [#78](https://github.com/mavrikant/mavrikant.github.io/pull/78) | VOR Nasıl Çalışır? 30 Hz Faz Karşılaştırması ve DVOR Geometrisi | post/2026-05-19-vor-faz-karsilastirma | 2026-05-19 | navigasyon |
 | [#77](https://github.com/mavrikant/mavrikant.github.io/pull/77) | MC/DC Kapsama — DO-178C DAL A | post/2026-05-18-mcdc-kapsama-do-178c-dal-a | 2026-05-17 | sertifikasyon |
@@ -39,14 +41,17 @@
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- **Watchdog Timer Tasarım Desenleri: Tek-Stage Yanılgısından Rendezvous Pattern'e** —
+  dal: `post/2026-05-24-watchdog-tasarim-desenleri`,
+  dosya: `_posts/2026-05-24-watchdog-tasarim-desenleri.md`,
+  durum: PR açılacak (bu çalıştırma) — alan: güvenilirlik / emniyet kritik desen.
 
 ## Reddedildi (bu çalıştırma)
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- WCET analizi — neden: PR #88 ile 2026-05-23'te zaten açılmış (anlamsal çakışma).
+- VOR / ILS / Kalman — neden: navigasyon alanı PR #78 (VOR) ile yakın çakışıyor.
+- IQ örnekleme / Sabit nokta (Q15/Q31) — neden: RF/DSP son yayınla (Bandpass) yakın.
+- MC/DC, CRC — neden: PR #77 ve #79 ile aynı konu.
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 
@@ -71,8 +76,6 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
       (barrier) gerekir?** — alan: ARM — pratik race condition örneği
 - [ ] **Linker script anatomisi: ARM bare-metal için bir `.ld` dosyası satır satır** —
       alan: gömülü — kendi linker script'i yazma rehberi
-- [ ] **Watchdog tasarım desenleri: tek vs çoklu görev watchdog, deadman switch,
-      windowed watchdog** — alan: güvenilirlik — gerçek tasarım kararları
 - [ ] **`volatile`'ın doğru kullanımı: nerede yetmez, neden `_Atomic` gerekir?** —
       alan: C/eşzamanlılık — derleyici çıktı analizi
 - [ ] **VOR'un çalışma prensibi: 30 Hz referans + değişken faz nasıl yön verir?** —
@@ -126,3 +129,31 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - Açık PR'lar konusunda inceleme önceliği yorumu (gözlem): #50 ve #51 hâlâ uzun
   süredir bekliyor; #50 eski yazıyı genişletiyor, #51 ise yayındaki MISRA C:2025
   ile büyük olasılıkla çakışıyor. İnceleyen kişinin dikkatine.
+
+## Notlar (bu çalıştırma — 2026-05-24)
+
+- **Watchdog Timer Tasarım Desenleri** seçildi (alan: güvenilirlik / emniyet kritik
+  embedded desen). Son üç yayınlanmış yazı (Bandpass RF/DSP, Renode gömülü/SoC,
+  kalibrasyon metroloji) ve sekiz açık PR'ın hepsinden farklı bir alt-alan. Açık
+  PR #88 (WCET) en yakın komşu olabilir ama farklı objektif: WCET = timing
+  bound'u nasıl türetirsin; Watchdog = bound aşılırsa runtime'da nasıl tespit
+  edersin. Farklı disiplinler, çakışma yok.
+- "Bu konuyu bulmak neden zor" yanıtı: Türkçe içerik genellikle "STM32 IWDG nasıl
+  açılır" howto'su seviyesinde kalıyor; rendezvous pattern (Ganssle), windowed
+  WDT'nin neden ASIL-D'de zorunlu olduğu, external safety companion'lar
+  (TLF35584, FS65xx) ve question-answer watchdog gibi katmanlar Türkçe'de hemen
+  hiç sentez edilmemiş. Ayrıca Toyota Bookout v. Toyota davası ve Barr Group'un
+  bulguları gibi gerçek başarısızlık vakaları Türkçe içeriklerde son derece
+  sınırlı yer buluyor.
+- Derinlik öğeleri: (1) failure mode analizi (Toyota tek-stage refresh,
+  ISR-içinde besleme), (2) somut kod örneği (FreeRTOS rendezvous pattern,
+  `__atomic_*` ile flag yönetimi), (3) mimari karşılaştırma tablosu (STM32
+  RCC->CSR, NXP RCM->SRS, Nordic RESETREAS, ESP32 RTC_CNTL_RESET_CAUSE),
+  (4) standart yorumu (DO-178C §6.3.4.f, ISO 26262-5 diagnostic coverage, IEC
+  61508-2 Annex A, AUTOSAR WdgM Supervised Entity üçlüsü).
+- Yayın kapısı durumu: Son yayın 2026-05-21 (Bandpass), bugün 2026-05-24 → 3 gün
+  geçti, `min_yayin_araligi_gun = 2` sağlanıyor. Backlog 8 açık PR'a çıkıyor
+  ancak Bölüm 4 backlog'a tavan koymuyor; standart prosedüre devam edildi.
+- Açık PR'lar inceleme önceliği gözlemi: #50 ve #51 hâlâ açık ve süre uzadıkça
+  rebase yükü birikiyor; #51 yayındaki MISRA C:2025 ile çakışıyor olabilir.
+  İnceleyen kişinin dikkatine. PR #88 (WCET) en taze açık PR, henüz bir gün.
