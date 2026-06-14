@@ -330,7 +330,7 @@
       }
     }, { passive: true });
     window.addEventListener('resize', update);
-    // Re-sync when lazy-loaded content (e.g. Disqus) changes the page height
+    // Re-sync when lazy-loaded content (e.g. giscus comments) changes the page height
     if ('ResizeObserver' in window) {
       new ResizeObserver(function () { update(); }).observe(document.body);
     }
