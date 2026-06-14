@@ -1,0 +1,17 @@
+# Kategori sözlüğü — anahtarlar ASCII slug (front matter'daki `categories:` değerleri),
+# `name` görünen Türkçe ad.
+yazilim:
+  name: "Yazılım"
+  description: "Yazılım mühendisliği, programlama ve tasarım"
+aviyonik:
+  name: "Aviyonik"
+  description: "Aviyonik, sinyal işleme ve gömülü sistemler"
+muhendislik:
+  name: "Mühendislik"
+  description: "Sistem mühendisliği, metroloji ve yöneylem araştırması"
+araclar:
+  name: "Araçlar & İpuçları"
+  description: "Geliştirme araçları ve pratik ipuçları"
+genel:
+  name: "Genel"
+  description: "Genel konular"

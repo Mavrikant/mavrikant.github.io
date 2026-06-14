@@ -6,6 +6,7 @@ date: '2026-06-04 09:00:00'
 layout: post
 lang: tr
 mermaid: true
+categories: [yazilim]
 tags: [yazilim-tasarimi, yazilim-muhendisligi]
 ---
 

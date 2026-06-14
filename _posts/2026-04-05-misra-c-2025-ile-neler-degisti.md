@@ -5,6 +5,7 @@ background: "/img/posts/7.webp"
 date: '2026-04-05 09:00:00'
 layout: post
 lang: tr
+categories: [yazilim]
 tags: [c-cpp, emniyet-kritik]
 ---
 

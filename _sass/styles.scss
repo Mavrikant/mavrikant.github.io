@@ -753,6 +753,20 @@ header.masthead {
   opacity: 0.75;
 }
 
+.tag-chip--category {
+  color: var(--color-text-muted);
+  background-color: transparent;
+  border-color: var(--color-text-muted);
+  opacity: 0.8;
+
+  &:hover,
+  &:focus {
+    color: var(--color-text);
+    background-color: var(--color-border);
+    border-color: var(--color-text);
+  }
+}
+
 .tag-cloud {
   display: flex;
   flex-wrap: wrap;
@@ -776,6 +790,13 @@ header.masthead {
     font-size: 0.95rem;
     font-weight: 500;
     color: var(--color-text-subtle);
+  }
+
+  &__desc {
+    font-size: 0.9rem;
+    color: var(--color-text-muted);
+    margin-top: -0.25rem;
+    margin-bottom: 0.75rem;
   }
 }
 

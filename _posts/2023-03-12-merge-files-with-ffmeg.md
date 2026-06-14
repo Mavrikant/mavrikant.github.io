@@ -4,6 +4,7 @@ background: "/img/posts/7.webp"
 date: '2023-03-12 08:00:00'
 layout: post
 lang: en
+categories: [araclar]
 tags: [ipuclari, araclar]
 ---
 

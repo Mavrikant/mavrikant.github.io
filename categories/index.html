@@ -1,0 +1,33 @@
+---
+layout: page
+title: Kategoriler
+subtitle: Yazıları kategoriye göre keşfedin
+background: '/img/bg-post.webp'
+lang: tr
+permalink: /categories/
+---
+
+{% assign sorted_categories = site.categories | sort %}
+
+<div class="tag-cloud">
+  {% for pair in sorted_categories %}
+  <a class="tag-chip" href="#{{ pair[0] }}">{{ site.data.categories[pair[0]].name | default: pair[0] }} <span class="tag-chip__count">{{ pair[1] | size }}</span></a>
+  {% endfor %}
+</div>
+
+{% for pair in sorted_categories %}
+<section class="tag-section" id="{{ pair[0] }}">
+  <h2 class="tag-section__title">{{ site.data.categories[pair[0]].name | default: pair[0] }} <span class="tag-section__count">({{ pair[1] | size }})</span></h2>
+  {% if site.data.categories[pair[0]].description %}
+  <p class="tag-section__desc">{{ site.data.categories[pair[0]].description }}</p>
+  {% endif %}
+  <ul class="archive-list">
+    {% for post in pair[1] %}
+    <li>
+      <a href="{{ post.url | remove: '.html' | prepend: site.baseurl | replace: '//', '/' }}">{{ post.title }}</a>
+      <span class="archive-list__date">{% include tr-month.html date=post.date %}</span>
+    </li>
+    {% endfor %}
+  </ul>
+</section>
+{% endfor %}

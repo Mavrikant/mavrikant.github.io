@@ -4,6 +4,7 @@ background: "/img/posts/debugging.webp"
 date: '2023-12-01 08:00:00'
 layout: post
 lang: tr
+categories: [genel]
 tags: [mizah]
 ---
 

@@ -6,6 +6,7 @@ date: '2026-05-26 09:00:00'
 layout: post
 lang: tr
 mermaid: true
+categories: [muhendislik]
 tags: [sistem-muhendisligi, aviyonik]
 ---
 
