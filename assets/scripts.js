@@ -184,6 +184,74 @@
   }
 
   // ---------------------------------------------------------------------------
+  // Heading anchors: hover-revealed deep links on article headings (h2-h4).
+  // Reuses any id already assigned by the TOC builder; assigns one otherwise so
+  // every section is directly linkable.
+  // ---------------------------------------------------------------------------
+  var ANCHOR_ICON = '<svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>';
+
+  function initHeadingAnchors() {
+    var content = document.querySelector('.post-content');
+    if (!content) return;
+
+    var headings = content.querySelectorAll('h2, h3, h4');
+    var usedIds = {};
+
+    headings.forEach(function (h) {
+      if (!h.id) {
+        var base = slugify(h.textContent || '') || 'section';
+        var id = base;
+        var i = 2;
+        while (usedIds[id] || document.getElementById(id)) {
+          id = base + '-' + i++;
+        }
+        h.id = id;
+      }
+      usedIds[h.id] = true;
+
+      if (h.querySelector('.heading-anchor')) return;
+
+      var a = document.createElement('a');
+      a.className = 'heading-anchor';
+      a.href = '#' + h.id;
+      a.setAttribute('aria-label', 'Bu bölüme bağlantı');
+      a.innerHTML = ANCHOR_ICON;
+      h.appendChild(a);
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // Scroll-to-top: floating button revealed after the first viewport of scroll.
+  // ---------------------------------------------------------------------------
+  function initScrollTop() {
+    var btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'scroll-top';
+    btn.setAttribute('aria-label', 'Başa dön');
+    btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="18 15 12 9 6 15"/></svg>';
+    document.body.appendChild(btn);
+
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    btn.addEventListener('click', function () {
+      window.scrollTo({ top: 0, behavior: reduce ? 'auto' : 'smooth' });
+    });
+
+    var ticking = false;
+    function update() {
+      ticking = false;
+      btn.classList.toggle('is-visible', window.scrollY > window.innerHeight * 0.8);
+    }
+
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(update);
+      }
+    }, { passive: true });
+    update();
+  }
+
+  // ---------------------------------------------------------------------------
   // Mobile navbar: toggle .show on the responsive collapse target.
   // Replaces the Bootstrap 4 jQuery collapse handler so we can drop tooltip
   // initialization without losing the menu toggle.
@@ -652,6 +720,8 @@
     initThemeToggle();
     initCodeEnhancements();
     initPostToc();
+    initHeadingAnchors();
+    initScrollTop();
     initNavbarToggle();
     initNavbarDropdowns();
     initBayramSplash();
