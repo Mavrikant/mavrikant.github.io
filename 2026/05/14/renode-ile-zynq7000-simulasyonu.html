@@ -17,7 +17,7 @@
 <meta content="/browserconfig.xml" name="msapplication-config">
 <!-- Begin Jekyll SEO tag v2.9.0 -->
 <title>Renode ile Zynq7000 Simülasyonu | M. Serdar Karaman</title>
-<meta name="generator" content="Jekyll v4.2.2">
+<meta name="generator" content="Jekyll v4.4.1">
 <meta property="og:title" content="Renode ile Zynq7000 Simülasyonu">
 <meta name="author" content="M. Serdar Karaman">
 <meta property="og:locale" content="tr_TR">
@@ -440,24 +440,24 @@ Sensor degeri: 42
 
 <p>Bu, <strong>otomatik testleri Python ile yazmanın</strong> en temiz yoludur. Pexpect ya da düz <code class="language-plaintext highlighter-rouge">socket</code>:</p>
 
-<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">socket</span>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="n">socket</span>
 
-<span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="p">.</span><span class="n">socket</span><span class="p">(</span><span class="n">socket</span><span class="p">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="p">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
-<span class="n">s</span><span class="p">.</span><span class="n">connect</span><span class="p">((</span><span class="s">"localhost"</span><span class="p">,</span> <span class="mi">3456</span><span class="p">))</span>
+<span class="n">s</span> <span class="o">=</span> <span class="n">socket</span><span class="p">.</span><span class="nf">socket</span><span class="p">(</span><span class="n">socket</span><span class="p">.</span><span class="n">AF_INET</span><span class="p">,</span> <span class="n">socket</span><span class="p">.</span><span class="n">SOCK_STREAM</span><span class="p">)</span>
+<span class="n">s</span><span class="p">.</span><span class="nf">connect</span><span class="p">((</span><span class="sh">"</span><span class="s">localhost</span><span class="sh">"</span><span class="p">,</span> <span class="mi">3456</span><span class="p">))</span>
 
 <span class="c1"># Boot tamamlanmasini bekle
-</span><span class="n">buf</span> <span class="o">=</span> <span class="sa">b</span><span class="s">""</span>
-<span class="k">while</span> <span class="sa">b</span><span class="s">"Boot tamamlandi"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">buf</span><span class="p">:</span>
-    <span class="n">buf</span> <span class="o">+=</span> <span class="n">s</span><span class="p">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">4096</span><span class="p">)</span>
+</span><span class="n">buf</span> <span class="o">=</span> <span class="sa">b</span><span class="sh">""</span>
+<span class="k">while</span> <span class="sa">b</span><span class="sh">"</span><span class="s">Boot tamamlandi</span><span class="sh">"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">buf</span><span class="p">:</span>
+    <span class="n">buf</span> <span class="o">+=</span> <span class="n">s</span><span class="p">.</span><span class="nf">recv</span><span class="p">(</span><span class="mi">4096</span><span class="p">)</span>
 
 <span class="c1"># Komut gonder, cevabi yakala
-</span><span class="n">s</span><span class="p">.</span><span class="n">sendall</span><span class="p">(</span><span class="sa">b</span><span class="s">"sensor read</span><span class="se">\n</span><span class="s">"</span><span class="p">)</span>
-<span class="n">buf</span> <span class="o">=</span> <span class="sa">b</span><span class="s">""</span>
-<span class="k">while</span> <span class="sa">b</span><span class="s">"</span><span class="se">\n</span><span class="s">"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">buf</span><span class="p">:</span>
-    <span class="n">buf</span> <span class="o">+=</span> <span class="n">s</span><span class="p">.</span><span class="n">recv</span><span class="p">(</span><span class="mi">4096</span><span class="p">)</span>
+</span><span class="n">s</span><span class="p">.</span><span class="nf">sendall</span><span class="p">(</span><span class="sa">b</span><span class="sh">"</span><span class="s">sensor read</span><span class="se">\n</span><span class="sh">"</span><span class="p">)</span>
+<span class="n">buf</span> <span class="o">=</span> <span class="sa">b</span><span class="sh">""</span>
+<span class="k">while</span> <span class="sa">b</span><span class="sh">"</span><span class="se">\n</span><span class="sh">"</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">buf</span><span class="p">:</span>
+    <span class="n">buf</span> <span class="o">+=</span> <span class="n">s</span><span class="p">.</span><span class="nf">recv</span><span class="p">(</span><span class="mi">4096</span><span class="p">)</span>
 
-<span class="k">print</span><span class="p">(</span><span class="s">"Firmware cevabi:"</span><span class="p">,</span> <span class="n">buf</span><span class="p">.</span><span class="n">decode</span><span class="p">().</span><span class="n">strip</span><span class="p">())</span>
-<span class="n">s</span><span class="p">.</span><span class="n">close</span><span class="p">()</span>
+<span class="nf">print</span><span class="p">(</span><span class="sh">"</span><span class="s">Firmware cevabi:</span><span class="sh">"</span><span class="p">,</span> <span class="n">buf</span><span class="p">.</span><span class="nf">decode</span><span class="p">().</span><span class="nf">strip</span><span class="p">())</span>
+<span class="n">s</span><span class="p">.</span><span class="nf">close</span><span class="p">()</span>
 </code></pre></div></div>
 
 <p>Birden fazla UART’ı aynı anda farklı portlardan dışa açabilirsiniz — örneğin debug UART’ı 3456, telemetri UART’ı 3457 portundan. Aynı simülasyona iki ayrı Python istemcisi, iki ayrı porttan bağlanır.</p>
@@ -698,9 +698,9 @@ Breakpoint 1, main () at main.c:42
     <span class="n">call_count</span> <span class="o">+=</span> <span class="mi">1</span>
     <span class="k">if</span> <span class="n">call_count</span> <span class="o">==</span> <span class="mi">17</span><span class="p">:</span>
         <span class="c1"># R0 (donus degeri) = 0xFFFFFFFF (hata)
-</span>        <span class="n">cpu</span><span class="p">.</span><span class="n">SetRegisterUnsafe</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mh">0xFFFFFFFF</span><span class="p">)</span>
+</span>        <span class="n">cpu</span><span class="p">.</span><span class="nc">SetRegisterUnsafe</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mh">0xFFFFFFFF</span><span class="p">)</span>
         <span class="c1"># Fonksiyonu erken sonlandir
-</span>        <span class="n">cpu</span><span class="p">.</span><span class="n">PC</span> <span class="o">=</span> <span class="n">cpu</span><span class="p">.</span><span class="n">GetRegisterUnsafe</span><span class="p">(</span><span class="mi">14</span><span class="p">).</span><span class="n">RawValue</span>  <span class="c1"># LR
+</span>        <span class="n">cpu</span><span class="p">.</span><span class="n">PC</span> <span class="o">=</span> <span class="n">cpu</span><span class="p">.</span><span class="nc">GetRegisterUnsafe</span><span class="p">(</span><span class="mi">14</span><span class="p">).</span><span class="n">RawValue</span>  <span class="c1"># LR
 </span></code></pre></div></div>
 
 <p>Bu betiği Renode’a yükleyip <code class="language-plaintext highlighter-rouge">spi_read</code> sembolüne bağlayın. Test, retry mantığını gerçekçi koşullar altında doğrular.</p>

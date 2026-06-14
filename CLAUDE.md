@@ -4,7 +4,7 @@ This file provides guidance for AI assistants (Claude Code and similar tools) wo
 
 ## Project Overview
 
-This is the personal blog of **M. Serdar Karaman**, hosted at <https://karaman.dev>. It is a static site built with **Jekyll 4.2** using the **Start Bootstrap Clean Blog** theme. The blog covers software engineering, programming (C, C++, Qt, Python), Linux, avionics, and related topics. Most posts are written in Turkish (`lang: tr`).
+This is the personal blog of **M. Serdar Karaman**, hosted at <https://karaman.dev>. It is a static site built with **Jekyll 4.4** using the **Start Bootstrap Clean Blog** theme. The blog covers software engineering, programming (C, C++, Qt, Python), Linux, avionics, and related topics. Most posts are written in Turkish (`lang: tr`).
 
 - **Live site:** <https://karaman.dev>
 - **Source branch:** `master` (GitHub Actions deploys to `gh-pages`)
@@ -58,7 +58,7 @@ This is the personal blog of **M. Serdar Karaman**, hosted at <https://karaman.d
 
 ## Tech Stack
 
-- **Static site generator:** Jekyll `~> 4.2.0`
+- **Static site generator:** Jekyll `~> 4.4`
 - **Theme:** [Start Bootstrap Clean Blog Jekyll](https://startbootstrap.com/themes/clean-blog-jekyll/) (forked/vendored)
 - **Markdown:** kramdown
 - **Sass:** compressed output
@@ -103,7 +103,7 @@ Output goes to `_site/` (gitignored).
 
 Deployment is automated via GitHub Actions:
 
-- `.github/workflows/build-jekyll.yml` — on push to `master`, uses `jeffreytse/jekyll-deploy-action@v0.6.0` to build and publish to the `gh-pages` branch. Ruby 3.2.0 and a compatible Bundler `~>2.5.0` are used. ImageMagick is installed as a pre-build dependency.
+- `.github/workflows/build-jekyll.yml` — on push to `master`, builds with `ruby/setup-ruby@v1` (Ruby 3.4, Bundler cached) and publishes to the `gh-pages` branch via `peaceiris/actions-gh-pages@v4`. ImageMagick (with the WebP delegate) is installed as a pre-build dependency.
 
 Other workflows:
 

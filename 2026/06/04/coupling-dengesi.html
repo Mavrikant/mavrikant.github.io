@@ -17,7 +17,7 @@
 <meta content="/browserconfig.xml" name="msapplication-config">
 <!-- Begin Jekyll SEO tag v2.9.0 -->
 <title>Coupling’i Dengelemek: Yazılım Tasarımında Bağımlılığı Yönetmek | M. Serdar Karaman</title>
-<meta name="generator" content="Jekyll v4.2.2">
+<meta name="generator" content="Jekyll v4.4.1">
 <meta property="og:title" content="Coupling’i Dengelemek: Yazılım Tasarımında Bağımlılığı Yönetmek">
 <meta name="author" content="M. Serdar Karaman">
 <meta property="og:locale" content="tr_TR">
@@ -313,15 +313,15 @@ flowchart LR
 # Sipariş modülü, Kullanıcı modülünün VERİTABANI TABLOSUNU doğrudan okuyor.
 # "users" tablosunun yapısı değişirse sipariş modülü de kırılır.
 </span><span class="k">def</span> <span class="nf">siparis_indirimi</span><span class="p">(</span><span class="n">kullanici_id</span><span class="p">):</span>
-    <span class="n">row</span> <span class="o">=</span> <span class="n">db</span><span class="p">.</span><span class="n">query</span><span class="p">(</span><span class="s">"SELECT loyalty_tier FROM users WHERE id = ?"</span><span class="p">,</span> <span class="n">kullanici_id</span><span class="p">)</span>
-    <span class="k">return</span> <span class="mf">0.20</span> <span class="k">if</span> <span class="n">row</span><span class="p">.</span><span class="n">loyalty_tier</span> <span class="o">==</span> <span class="s">"GOLD"</span> <span class="k">else</span> <span class="mf">0.0</span>
+    <span class="n">row</span> <span class="o">=</span> <span class="n">db</span><span class="p">.</span><span class="nf">query</span><span class="p">(</span><span class="sh">"</span><span class="s">SELECT loyalty_tier FROM users WHERE id = ?</span><span class="sh">"</span><span class="p">,</span> <span class="n">kullanici_id</span><span class="p">)</span>
+    <span class="k">return</span> <span class="mf">0.20</span> <span class="k">if</span> <span class="n">row</span><span class="p">.</span><span class="n">loyalty_tier</span> <span class="o">==</span> <span class="sh">"</span><span class="s">GOLD</span><span class="sh">"</span> <span class="k">else</span> <span class="mf">0.0</span>
 </code></pre></div></div>
 
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># SAĞLAM — sözleşme bağlaşımı (contract)
 # Sipariş modülü, Kullanıcı modülünün YAYIMLADIĞI arayüzü çağırıyor.
 # Kullanıcı modülü içeride ne yaparsa yapsın, sözleşme sabit kaldıkça sağlam kalır.
 </span><span class="k">def</span> <span class="nf">siparis_indirimi</span><span class="p">(</span><span class="n">kullanici_id</span><span class="p">):</span>
-    <span class="n">seviye</span> <span class="o">=</span> <span class="n">kullanici_servisi</span><span class="p">.</span><span class="n">sadakat_seviyesi</span><span class="p">(</span><span class="n">kullanici_id</span><span class="p">)</span>   <span class="c1"># sözleşme
+    <span class="n">seviye</span> <span class="o">=</span> <span class="n">kullanici_servisi</span><span class="p">.</span><span class="nf">sadakat_seviyesi</span><span class="p">(</span><span class="n">kullanici_id</span><span class="p">)</span>   <span class="c1"># sözleşme
 </span>    <span class="k">return</span> <span class="n">INDIRIM_TABLOSU</span><span class="p">[</span><span class="n">seviye</span><span class="p">]</span>
 </code></pre></div></div>
 
