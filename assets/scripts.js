@@ -694,7 +694,9 @@
       if (!window.mermaid) return;
       nodes.forEach(function (n) {
         n.removeAttribute('data-processed');
-        n.innerHTML = n.getAttribute('data-mermaid-src');
+        // Diagram source is plain text (Mermaid reads textContent); assigning
+        // via textContent avoids reinterpreting it as HTML.
+        n.textContent = n.getAttribute('data-mermaid-src');
       });
       window.mermaid.initialize({ startOnLoad: false, theme: currentTheme() });
       try { window.mermaid.run({ nodes: nodes }); } catch (e) {}
