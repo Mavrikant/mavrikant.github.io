@@ -1565,24 +1565,6 @@ article {
       font-size: 0.82rem;
       margin: 0;
     }
-
-    .back-to-top {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 34px;
-      height: 34px;
-      border-radius: 50%;
-      background-color: var(--color-accent);
-      color: var(--color-accent-contrast);
-      text-decoration: none;
-      transition: background-color 0.25s ease, transform 0.25s ease;
-
-      &:hover {
-        background-color: var(--color-accent-hover);
-        transform: translateY(-3px);
-      }
-    }
   }
 }
 
@@ -2521,7 +2503,6 @@ article {
   .search-modal,
   .lightbox,
   .copy-code-btn,
-  .back-to-top,
   .scroll-top,
   .heading-anchor,
   .post-heading__tags,
