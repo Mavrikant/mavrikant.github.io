@@ -153,6 +153,22 @@
 
     nav.appendChild(ul);
 
+    // Collapsible toggle (small screens — sidebar is always open on >=1280px)
+    var toggle = toc.querySelector('.post-toc__toggle');
+    if (toggle) {
+      toggle.addEventListener('click', function () {
+        var open = toc.classList.toggle('is-open');
+        toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      });
+      // Collapse after following a link on small screens
+      nav.addEventListener('click', function (e) {
+        if (e.target.closest('a') && window.matchMedia('(max-width: 1279.98px)').matches) {
+          toc.classList.remove('is-open');
+          toggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+    }
+
     // Scroll spy
     if (!('IntersectionObserver' in window)) return;
 
@@ -654,6 +670,69 @@
     });
   }
 
+  // ---------------------------------------------------------------------------
+  // Mermaid: load on demand and render with the active theme. Loading mermaid
+  // ourselves (instead of letting it auto-start from <head>) lets us pick the
+  // dark/light theme before the first render and re-render on theme changes.
+  // ---------------------------------------------------------------------------
+  function initMermaid() {
+    var nodes = Array.prototype.slice.call(document.querySelectorAll('.mermaid'));
+    if (!nodes.length) return;
+
+    // Stash each diagram's source before mermaid replaces it with an SVG.
+    nodes.forEach(function (n) {
+      if (!n.hasAttribute('data-mermaid-src')) {
+        n.setAttribute('data-mermaid-src', n.textContent.trim());
+      }
+    });
+
+    function currentTheme() {
+      return document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'default';
+    }
+
+    function render() {
+      if (!window.mermaid) return;
+      nodes.forEach(function (n) {
+        n.removeAttribute('data-processed');
+        n.innerHTML = n.getAttribute('data-mermaid-src');
+      });
+      window.mermaid.initialize({ startOnLoad: false, theme: currentTheme() });
+      try { window.mermaid.run({ nodes: nodes }); } catch (e) {}
+    }
+
+    var loaded = false;
+    function load() {
+      if (loaded) return;
+      loaded = true;
+      var s = document.createElement('script');
+      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.12.0/mermaid.min.js';
+      s.integrity = 'sha512-5TKaYvhenABhlGIKSxAWLFJBZCSQw7HTV7aL1dJcBokM/+3PNtfgJFlv8E6Us/B1VMlQ4u8sPzjudL9TEQ06ww==';
+      s.crossOrigin = 'anonymous';
+      s.onload = render;
+      document.head.appendChild(s);
+    }
+
+    load();
+    document.addEventListener('themechange', function () {
+      if (window.mermaid) render();
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // Plotly: charts are authored with light backgrounds. In dark mode, keep the
+  // hand-tuned light figure but frame it so it reads as a deliberate figure
+  // rather than a glaring untreated block. Re-fit on theme change so Plotly
+  // recomputes the responsive size after the framing margin shifts.
+  // ---------------------------------------------------------------------------
+  function initPlotlyTheme() {
+    if (!window.Plotly) return;
+    document.addEventListener('themechange', function () {
+      document.querySelectorAll('.js-plotly-plot').forEach(function (gd) {
+        try { window.Plotly.Plots.resize(gd); } catch (e) {}
+      });
+    });
+  }
+
   function ready(fn) {
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', fn);
@@ -731,5 +810,7 @@
     initShareCopy();
     initLightbox();
     initGiscusThemeSync();
+    initMermaid();
+    initPlotlyTheme();
   });
 })();
