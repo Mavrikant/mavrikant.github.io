@@ -5,6 +5,7 @@ background: "/img/posts/babilonia.webp"
 date: '2022-04-28 15:00:13 -0400'
 layout: post
 lang: tr
+categories: [yazilim]
 tags: [gereksinim-muhendisligi, yazilim-muhendisligi]
 ---
 

@@ -4,6 +4,7 @@ background: "/img/posts/soft-sys-eng-page-header.webp"
 date: '2022-04-29 22:00:00'
 layout: post
 lang: tr
+categories: [yazilim]
 tags: [sistem-muhendisligi, yazilim-muhendisligi]
 ---
 

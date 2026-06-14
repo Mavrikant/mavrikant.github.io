@@ -53,6 +53,7 @@ sentry_loader_id:   d9df60c4bcc41adb14bb648db4013b52
 plausible_id:       BMAxUwrIK8Icg2HpLysj2
 
 # Build settings
+permalink:          /:year/:month/:day/:title:output_ext
 markdown:           kramdown
 paginate:           10
 paginate_path:      "/posts/page:num/"

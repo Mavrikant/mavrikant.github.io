@@ -4,6 +4,7 @@ background: "/img/posts/1.webp"
 date: '2022-05-03 20:08:36'
 layout: post
 lang: tr
+categories: [yazilim]
 tags: [proje-yonetimi, yazilim-muhendisligi]
 ---
 

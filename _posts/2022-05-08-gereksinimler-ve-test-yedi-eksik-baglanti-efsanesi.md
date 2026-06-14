@@ -4,6 +4,7 @@ background: "/img/posts/7.webp"
 date: '2022-05-08 10:44:09'
 layout: post
 lang: tr
+categories: [yazilim]
 tags: [gereksinim-muhendisligi, test]
 ---
 

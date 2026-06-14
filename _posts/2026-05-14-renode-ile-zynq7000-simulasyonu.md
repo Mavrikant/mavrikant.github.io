@@ -6,6 +6,7 @@ date: '2026-05-14 09:00:00'
 layout: post
 lang: tr
 mermaid: true
+categories: [aviyonik]
 tags: [gomulu-sistemler, araclar]
 ---
 

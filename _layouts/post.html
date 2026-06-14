@@ -24,7 +24,14 @@ layout: default
               <a href="{{ "/about" | relative_url }}">{% if page.author %}{{ page.author }}{% else %}{{ site.author }}{% endif %}</a>
               &middot; {% include tr-month.html date=page.date format="long" %} &middot; {% include read_time.html content=page.content %}
             </span>
-            {% if page.tags.size > 0 %}
+            {% if page.categories.size > 0 %}
+            <div class="post-heading__tags">
+              {% for cat in page.categories %}
+              <a class="tag-chip tag-chip--category" href="{{ '/categories/' | relative_url }}#{{ cat }}">{{ site.data.categories[cat].name | default: cat }}</a>
+              {% endfor %}
+              {% include tag-chips.html tags=page.tags %}
+            </div>
+            {% elsif page.tags.size > 0 %}
             <div class="post-heading__tags">
               {% include tag-chips.html tags=page.tags %}
             </div>

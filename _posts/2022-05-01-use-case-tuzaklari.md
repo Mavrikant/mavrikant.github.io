@@ -5,6 +5,7 @@ background: "/img/posts/use-case-tuzak.webp"
 date: '2022-05-01 10:51:46'
 layout: post
 lang: tr
+categories: [yazilim]
 tags: [gereksinim-muhendisligi, yazilim-muhendisligi]
 ---
 

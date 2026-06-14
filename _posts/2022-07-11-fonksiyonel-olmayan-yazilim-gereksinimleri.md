@@ -5,6 +5,7 @@ background: "/img/posts/8.webp"
 date: '2022-07-11 15:59:34'
 layout: post
 lang: tr
+categories: [yazilim]
 tags: [gereksinim-muhendisligi, yazilim-muhendisligi]
 ---
 

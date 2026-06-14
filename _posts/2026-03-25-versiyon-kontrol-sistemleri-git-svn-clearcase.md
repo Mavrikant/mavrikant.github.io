@@ -5,6 +5,7 @@ date: '2026-03-25 12:00:00'
 layout: post
 lang: tr
 mermaid: true
+categories: [araclar]
 tags: [araclar, yazilim-muhendisligi]
 ---
 
