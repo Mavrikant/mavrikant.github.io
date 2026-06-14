@@ -7,7 +7,7 @@
      injection (e.g. the polyfill.io attack). script-src is an explicit
      allowlist of the CDNs this site actually uses, so any unlisted external
      script (such as polyfill.io) is blocked by the browser. -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://cdn.plot.ly https://plausible.io https://js.sentry-cdn.com https://browser.sentry-cdn.com https://*.disqus.com https://*.disquscdn.com https://giscus.app; style-src 'self' 'unsafe-inline' https://*.disquscdn.com; font-src 'self' data: https://cdn.jsdelivr.net https://*.disquscdn.com; img-src 'self' data: https:; connect-src 'self' https://plausible.io https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://www.google.com https://*.sentry.io https://*.disqus.com https://*.disquscdn.com; frame-src 'self' https://disqus.com https://*.disqus.com https://giscus.app https://www.youtube.com https://www.youtube-nocookie.com; worker-src 'self' blob:; manifest-src 'self'; form-action 'self' https://formspree.io">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://cdn.plot.ly https://plausible.io https://js.sentry-cdn.com https://browser.sentry-cdn.com https://giscus.app; style-src 'self' 'unsafe-inline' https://giscus.app; font-src 'self' data: https://cdn.jsdelivr.net; img-src 'self' data: https:; connect-src 'self' https://plausible.io https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://www.google.com https://*.sentry.io; frame-src 'self' https://giscus.app https://www.youtube.com https://www.youtube-nocookie.com; worker-src 'self' blob:; manifest-src 'self'; form-action 'self' https://formspree.io">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="/favicon.ico" rel="shortcut icon" sizes="36x36 24x24 16x16" type="image/x-icon">
 <link href="/favicon.png" rel="icon" sizes="196x196" type="image/png">
@@ -476,41 +476,48 @@ graph LR
 </div>
 </section>
 
-        
-        <div class="clearfix" id="disqus_thread"></div>
-          <script>
-            // Yorumları .html kanonik URL'sine sabitle; uzantısız adreste de aynı dizi yüklensin
-            var disqus_config = function () {
-              this.page.url = "https://karaman.dev/2022/07/11/fonksiyonel-olmayan-yazilim-gereksinimleri.html";
-            };
-          </script>
-          <script>
-            (function () {
-              var loaded = false;
-              function loadDisqus() {
-                if (loaded) return;
-                loaded = true;
-                var d = document, s = d.createElement('script');
-                s.src = 'https://karaman-dev.disqus.com/embed.js';
-                s.setAttribute('data-timestamp', +new Date());
-                (d.head || d.body).appendChild(s);
-              }
-              if ('IntersectionObserver' in window) {
-                var observer = new IntersectionObserver(function (entries) {
-                  if (entries[0].isIntersecting) {
-                    loadDisqus();
-                    observer.disconnect();
-                  }
-                }, { rootMargin: '200px' });
-                observer.observe(document.getElementById('disqus_thread'));
-              } else {
-                loadDisqus();
-              }
-            })();
-          </script>
-          <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a>
-</noscript>
-        
+        <div id="giscus-container" class="giscus-container"></div>
+<script>
+  (function () {
+    var loaded = false;
+    function loadGiscus() {
+      if (loaded) return;
+      loaded = true;
+      var s = document.createElement('script');
+      s.src = 'https://giscus.app/client.js';
+      s.async = true;
+      s.crossOrigin = 'anonymous';
+      s.setAttribute('data-repo', 'mavrikant/mavrikant.github.io');
+      s.setAttribute('data-repo-id', 'R_kgDOGsFIYQ');
+      s.setAttribute('data-category', 'Blog Comments');
+      s.setAttribute('data-category-id', 'DIC_kwDOGsFIYc4C_JXl');
+      // Yorumları .html kanonik URL'sine sabitle; uzantısız adreste de aynı dizi yüklensin
+      s.setAttribute('data-mapping', 'specific');
+      s.setAttribute('data-term', 'https://karaman.dev/2022/07/11/fonksiyonel-olmayan-yazilim-gereksinimleri.html');
+      s.setAttribute('data-strict', '0');
+      s.setAttribute('data-reactions-enabled', '1');
+      s.setAttribute('data-emit-metadata', '0');
+      s.setAttribute('data-input-position', 'bottom');
+      s.setAttribute('data-theme', document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light');
+      s.setAttribute('data-lang', 'tr');
+      s.setAttribute('data-loading', 'lazy');
+      document.getElementById('giscus-container').appendChild(s);
+    }
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) {
+          loadGiscus();
+          observer.disconnect();
+        }
+      }, { rootMargin: '200px' });
+      observer.observe(document.getElementById('giscus-container'));
+    } else {
+      loadGiscus();
+    }
+  })();
+</script>
+<noscript>Yorumları görüntülemek için JavaScript'i etkinleştirin (<a href="https://giscus.app" rel="noopener">giscus</a>).</noscript>
+
       </div>
     </div>
   </div>
