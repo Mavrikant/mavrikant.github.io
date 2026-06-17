@@ -39,14 +39,15 @@
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- **Cortex-A Boot: Reset Vektöründen `main()`'e Gerçekten Ne Oluyor?** —
+  dal: `post/2026-06-17-cortex-a-boot-reset-vektorunden-main-e`,
+  dosya: `_posts/2026-06-17-cortex-a-boot-reset-vektorunden-main-e.md`,
+  durum: PR açılacak (bu çalıştırma) — alan: gömülü/SoC. Renode yazısının
+  doğal devamı, ARMv7-A CP15 registerları + Xilinx boot.S + Renode trace tablosu.
 
 ## Reddedildi (bu çalıştırma)
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- _(bu çalıştırmada konu reddedilmedi; havuzdaki yüksek öncelikli adaylardan biri seçildi.)_
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 
@@ -55,8 +56,8 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 
 ### Yüksek öncelikli (kalıcı değer + Türkçe boşluk)
 
-- [ ] **ARM Cortex-A reset vektöründen `main()`'e: gerçekten ne oluyor?** —
-      alan: gömülü/SoC — Renode yazısının doğal devamı, somut deney imkânı
+- [x] **ARM Cortex-A reset vektöründen `main()`'e: gerçekten ne oluyor?** —
+      alan: gömülü/SoC — 2026-06-17 çalıştırmasında seçildi; PR açıldı.
 - [ ] **MC/DC kapsama: DO-178C DAL A'da neden modified condition/decision şart?** —
       alan: sertifikasyon — gerçek karar tablosu örneği, decision/condition farkı
 - [ ] **CRC vs checksum: neden CRC-32 değil de CRC-32C / CRC-16-CCITT seçilir?** —
@@ -107,6 +108,29 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - [ ] ECSS uzay yazılım standartları ailesi (geniş, alt-konulara bölünmeli)
 - [ ] DO-254 donanım sertifikasyonu (yazarın uzmanlığı ağırlıklı yazılım tarafında)
 - [ ] İzlenebilirlik matrisi (klasik konu, derinlik çıkarmak zor)
+
+## Notlar (bu çalıştırma — 2026-06-17)
+
+- **Cortex-A Boot Süreci** seçildi (alan: gömülü/SoC). Son 3 yayın
+  (coupling-dengesi → yazılım mimarisi, kalman-filtresi → navigasyon,
+  sistem-muhendisligi-nedir → sistem) bu alt-alanın dışındaydı; alan rotasyonu
+  kuralı sağlandı. Konu fikir havuzunda "yüksek öncelikli" olarak duruyordu;
+  açık PR'larla çakışma yok (en yakın olan #135 MPU vs MMU farklı bir konu).
+- "Neden Türkçe içerikte zor bulunuyor?" yanıtı: vendor dokümantasyonu
+  (ARM ARM + Cortex-A9 TRM + Xilinx UG585 + embeddedsw boot.S + newlib crt0)
+  dağınık; her parça farklı bir kaynakta. Sentez ve somut Renode trace
+  birleştirilmiş bir Türkçe yazıya rastlamadım. Yaygın yanılgılar (FPEXC unutma,
+  ISB eksikliği, D-cache invalidate atlama) var ve bug imzaları olarak işlendi.
+- Derinlik öğesi (Bölüm 7): standart yorumu (ARMv7-A ARM bölüm referansları,
+  Cortex-A9 TRM r4p1, UG585) + simülasyon (Renode trace tablosu) +
+  assembly inceleme. Üç farklı kanıt türü taşıyor.
+- Yayın kapısı durumu: son yayın 2026-06-04 coupling-dengesi (13 gün önce).
+  `min_yayin_araligi_gun = 2` şartı fazlasıyla sağlandı. Açık PR yığını
+  20+ kişiye dayandı; insan inceleyiciyi sıkmamak adına bu çalıştırma sonrası
+  bir süre yeni PR açmamayı düşünmek gerekebilir (gelecek çalıştırma kararı).
+- Açık PR'lar konusunda inceleme önceliği yorumu (gözlem): #50, #51, #54
+  hâlâ uzun süredir bekliyor; #51 yayında olan MISRA C:2025 ile çakışıyor
+  olabilir. Bu liste her çalıştırmada büyüyor — inceleyen kişinin dikkatine.
 
 ## Notlar (bu çalıştırma — 2026-05-21)
 
