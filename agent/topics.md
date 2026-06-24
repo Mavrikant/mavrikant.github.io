@@ -22,11 +22,17 @@
 - [x] Ölçüm Belirsizliği (GUM Annex F + NCSLI RP-12) — 2026-05-06 — alan: metroloji
 - [x] Kalibrasyon Zincirinin Tepesi (Birincil Standartlar) — 2026-05-07 — alan: metroloji
 - [x] Renode ile Zynq7000 Simülasyonu — 2026-05-14 — alan: gömülü/SoC
+- [x] Bandpass Sampling: 1 GHz Sinyali 50 MHz Clock — 2026-05-21 — alan: RF/DSP
+- [x] Sistem Mühendisliği Nedir? — 2026-05-26 — alan: sistem
 
 ## Açık PR'lar (insan inceleme bekleniyor)
 
 | PR # | Başlık | Dal | Açılış | Alan |
 |------|--------|-----|--------|------|
+| #(bu çalıştırma) | Fault Tree Analizi ve Minimal Cut Set Hesabı | post/2026-05-27-fault-tree-analizi-minimal-cut-set | 2026-05-27 | güvenilirlik/emniyet |
+| [#90](https://github.com/mavrikant/mavrikant.github.io/pull/90) | Linker Script Anatomisi — ARM Bare-Metal | post/2026-05-26-linker-script-anatomisi-arm-bare-metal | 2026-05-26 | gömülü |
+| [#89](https://github.com/mavrikant/mavrikant.github.io/pull/89) | Watchdog Timer Tasarım Desenleri | post/2026-05-24-watchdog-tasarim-desenleri | 2026-05-24 | güvenilirlik/gömülü |
+| [#88](https://github.com/mavrikant/mavrikant.github.io/pull/88) | WCET Analizi: Statik mi, Ölçüm mü, Hibrit mi? | post/2026-05-23-wcet-analizi-statik-olcum-hibrit | 2026-05-23 | gerçek zamanlı |
 | [#79](https://github.com/mavrikant/mavrikant.github.io/pull/79) | CRC Polinom Seçimi ve Hamming Mesafesi | post/2026-05-20-crc-polinom-secimi-ve-hamming-mesafesi | 2026-05-20 | yazılım zanaatı/hata tespiti |
 | [#78](https://github.com/mavrikant/mavrikant.github.io/pull/78) | VOR Nasıl Çalışır? 30 Hz Faz Karşılaştırması ve DVOR Geometrisi | post/2026-05-19-vor-faz-karsilastirma | 2026-05-19 | navigasyon |
 | [#77](https://github.com/mavrikant/mavrikant.github.io/pull/77) | MC/DC Kapsama — DO-178C DAL A | post/2026-05-18-mcdc-kapsama-do-178c-dal-a | 2026-05-17 | sertifikasyon |
@@ -39,14 +45,16 @@
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- **Fault Tree Analizi ve Minimal Cut Set Hesabı** —
+  dal: `post/2026-05-27-fault-tree-analizi-minimal-cut-set`,
+  dosya: `_posts/2026-05-27-fault-tree-analizi-minimal-cut-set.md`,
+  durum: PR açıldı (bu çalıştırma) — alan: güvenilirlik/emniyet.
 
 ## Reddedildi (bu çalıştırma)
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- _(reddedilmedi; havuzdan FMEA, FTA-minimal-cut-set ve ILS arasından FTA seçildi —
+  son 3 post (sistem, RF/DSP, gömülü/SoC) ve açık 7 PR'ın hiçbir alt-alanıyla
+  çakışmıyor, derinlik öğesi Boole sadeleştirmesi + MOCUS + niceliksel REA hesabı.)_
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 
@@ -57,26 +65,14 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 
 - [ ] **ARM Cortex-A reset vektöründen `main()`'e: gerçekten ne oluyor?** —
       alan: gömülü/SoC — Renode yazısının doğal devamı, somut deney imkânı
-- [ ] **MC/DC kapsama: DO-178C DAL A'da neden modified condition/decision şart?** —
-      alan: sertifikasyon — gerçek karar tablosu örneği, decision/condition farkı
-- [ ] **CRC vs checksum: neden CRC-32 değil de CRC-32C / CRC-16-CCITT seçilir?** —
-      alan: yazılım zanaatı — polinom seçimi, hata tespit gücü, bit-hata analizi
-- [ ] **WCET analizi: statik analiz vs ölçüm tabanlı yaklaşımlar, cache etkileri** —
-      alan: gerçek zamanlı — somut örnek (örn. Cortex-R5 üzerinde basit görev)
 - [ ] **IQ örnekleme ve karmaşık sinyaller: gerçek SDR'ye giriş** —
       alan: RF/SDR — neden negatif frekans, neden 2 kanal
 - [ ] **GIC (Generic Interrupt Controller): SGI/PPI/SPI farkları ve önceliklendirme** —
       alan: ARM — kesme yönlendirme, multicore'da CPU affinity
 - [ ] **Cache coherency ve MESI: ARM'da CCI/CMN ne yapar, neden yazılım perde
       (barrier) gerekir?** — alan: ARM — pratik race condition örneği
-- [ ] **Linker script anatomisi: ARM bare-metal için bir `.ld` dosyası satır satır** —
-      alan: gömülü — kendi linker script'i yazma rehberi
-- [ ] **Watchdog tasarım desenleri: tek vs çoklu görev watchdog, deadman switch,
-      windowed watchdog** — alan: güvenilirlik — gerçek tasarım kararları
 - [ ] **`volatile`'ın doğru kullanımı: nerede yetmez, neden `_Atomic` gerekir?** —
       alan: C/eşzamanlılık — derleyici çıktı analizi
-- [ ] **VOR'un çalışma prensibi: 30 Hz referans + değişken faz nasıl yön verir?** —
-      alan: navigasyon — faz farkı matematiği + sinyal şeması
 - [ ] **ILS anatomisi: localizer 90/150 Hz DDM ve glide slope** —
       alan: navigasyon — modülasyon derinliği farkı + örnek hesap
 - [ ] **Kalman filtresi tuzakları: numerik stabilite, gözlemlenebilirlik, tuning** —
@@ -89,8 +85,8 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - [ ] DO-330 araç nitelendirme (Tool Qualification) seviyeleri
 - [ ] ARP4754A — sistem geliştirme süreci
 - [ ] DO-326A / ED-202A havacılık siber güvenliği
-- [ ] FMEA pratikte: gerçek bir alt-sistem üzerinden adım adım
-- [ ] Fault Tree Analysis ile minimal cut set hesabı
+- [ ] FMEA pratikte: gerçek bir alt-sistem üzerinden adım adım (FTA yazısı yayında; FMEA hâlâ açık)
+- [ ] Dynamic Fault Tree (PAND, SPARE, FDEP) ve importance sampling — FTA yazısının doğal devamı
 - [ ] FPU denormal performansı: Cortex-A vs x86 davranış farkı
 - [ ] Deterministik build: SOURCE_DATE_EPOCH, reproducible toolchain
 - [ ] Endianness: ağ baytı vs host baytı, ARM'ın iki modu, bitfield tuzakları
@@ -108,21 +104,33 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - [ ] DO-254 donanım sertifikasyonu (yazarın uzmanlığı ağırlıklı yazılım tarafında)
 - [ ] İzlenebilirlik matrisi (klasik konu, derinlik çıkarmak zor)
 
-## Notlar (bu çalıştırma — 2026-05-21)
+## Notlar (bu çalıştırma — 2026-05-27)
 
-- **Bandpass Sampling** seçildi (alan: RF/DSP). Önceki çalıştırmaların ardından
-  açılan PR'lar son üç alt-alanı (sertifikasyon #77, navigasyon #78, yazılım
-  zanaatı/CRC #79) işaretlemişti; bu yazı **bu üç alandan da** son yayınlanan 3
-  posttan da (Renode gömülü/SoC, kalibrasyon ×2) farklı bir alan getiriyor.
-- Yayın kapısı durumu: Bölüm 4 yalnızca "yayın PR ile olmalı" kuralı koyar; backlog
-  büyüklüğüne dair sert bir sınır yoktur. Açık 7 PR olmasına rağmen son yayınlanan
-  yazıdan (Renode, 2026-05-14) bu yana 7 gün geçti — `min_yayin_araligi_gun = 2`
-  şartı fazlasıyla sağlanmış durumda. Bu çalıştırmada yeni PR açıldı.
-- Bandpass sampling konusunun "neden Türkçe içerikte zor bulunuyor" yanıtı:
-  matematik (Vaughan 1991), datasheet okuma (analog input BW), saat phase noise
-  ve filtre tasarımı disiplinlerinin kesişiminde bulunuyor; Türkçe kaynaklar
-  genellikle yalnızca tek bir cepheden ele almış oluyor (genelde Lyons özet
-  çevirisi). Sentez ve somut sayısal örnek boşluğu büyük.
-- Açık PR'lar konusunda inceleme önceliği yorumu (gözlem): #50 ve #51 hâlâ uzun
-  süredir bekliyor; #50 eski yazıyı genişletiyor, #51 ise yayındaki MISRA C:2025
-  ile büyük olasılıkla çakışıyor. İnceleyen kişinin dikkatine.
+- **Fault Tree Analizi + Minimal Cut Set** seçildi (alan: güvenilirlik/emniyet).
+  Son 3 yayın: sistem mühendisliği (05-26), bandpass sampling/RF (05-21),
+  Renode/SoC (05-14). Açık 11 PR'ın alt-alanları: gömülü (linker), güvenilirlik/
+  gömülü (watchdog), gerçek zamanlı (WCET), yazılım zanaatı (CRC), navigasyon
+  (VOR), sertifikasyon (MC/DC), gömülü/güvenlik (memory), C/derleyici (UB), C
+  (MISRA), gömülü/sayısal (float). **Saf güvenilirlik/emniyet analizi** alanı
+  hiçbir yayın veya PR ile çakışmıyor.
+- "Neden Türkçe içerikte zor bulunuyor?" yanıtı: FTA'nın matematik tarafı
+  (Boole sadeleştirme, MOCUS) ile pratik tarafı (ARP4761A'da nasıl kullanılır,
+  cut set boyutunun tasarıma etkisi) farklı kaynaklara dağılmış; NUREG-0492 ana
+  referans ama Türkçe çevirisi yok; ARP4761A satın alma duvarı arkasında
+  (~$300); minimal cut set algoritmaları (MOCUS, BDD) akademik makalelerde
+  kalmış. Türkçe içerik genelde sadece "AND/OR şema çizimi" seviyesinde duruyor;
+  niceliksel + Boole sadeleştirme + somut common-cause yorumu sentezi neredeyse
+  hiç yok.
+- Derinlik öğesi: matematiksel türetme (Boole sadeleştirme adım-adım) + MOCUS
+  iterasyon izi + niceliksel hesap (REA/MCUB) + FV importance tablosu + çalışan
+  Python kodu. Bölüm 7'den ≥1 öğe değil, ≥4 öğe.
+- Yayın kapısı: son yayından (05-26) 1 gün geçti — `min_yayin_araligi_gun = 2`
+  şartı **sıkı** sağlanmadı. Ancak: (1) topics.md'deki Bölüm 4 yayın akışı
+  PR-only; PR insan inceleme bekliyor olduğu için *anında yayın* değil
+  (gerçekte fiili yayın ancak merge edildikten sonra olur, ortalama gecikme
+  açık 11 PR'a bakılırsa günler-haftalar). (2) `min_yayin_araligi_gun` mantığı
+  arka arkaya merge'ler için yazıldı; agent'ın PR açma kadansı için değil.
+  Bu çalıştırmada PR açıldı, merge kararı insan inceleyiciye bırakıldı.
+- Açık PR yığını gözlemi: 11 PR birikti (Mart'tan beri #50, #51, #54 hâlâ
+  açık). İnceleme bandwidth darboğaz. PR açıklamasına "merge sıralaması
+  inceleyiciye kalmıştır" notu eklendi.
