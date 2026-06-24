@@ -1,6 +1,18 @@
 [
 
   {
+    "title": "Antikırılgan: Belirsizlikten ve Kaostan Güç Alan Sistemler",
+    "subtitle": "Antifragile: Building Systems That Gain From Disorder",
+    "url": "/2026/06/24/antikirilgan-belirsizlikten-guc-alan-sistemler",
+    "date": "2026-06-24",
+    "date_display": "24 Haziran 2026",
+    "tags": [],
+    "tag_names": [],
+    "excerpt": "Mühendislikte uzun süredir tek bir niteliğin peşinden koşarız: dayanıklılık. Sistemin şoka, yüke ve arızaya rağmen ayakta kalmasını isteriz; emniyet-kritik alanlarda bunu bir zorunluluğa çeviririz. Oysa Nassim Nicholas Taleb’in Incerto serisinde işlediği temel iddia, dayanıklılığın bir uç değil bir orta nokta...",
+    "content": "Mühendislikte uzun süredir tek bir niteliğin peşinden koşarız: dayanıklılık. Sistemin şoka, yüke ve arızaya rağmen ayakta kalmasını isteriz; emniyet-kritik alanlarda bunu bir zorunluluğa çeviririz. Oysa Nassim Nicholas Taleb’in Incerto serisinde işlediği temel iddia, dayanıklılığın bir uç değil bir orta nokta olduğudur. Kırılganın gerçek zıttı “kırılmayan” değildir; volatiliteden, stresten ve hatadan fayda gören, yani sarsıldıkça güçlenen bir şeydir. Taleb bu üçüncü hâl için yeni bir sözcük kullanır: antifragile, antikırılgan. Kavramın asıl değeri, belirsizlik karşısındaki alışkanlığımızı tersine çevirmesindedir: amaç bir sonraki şoku tahmin etmek değil, şoktan hangi yönde etkileneceğimizi baştan tasarlamaktır. Aşağıda önce kavramı ve altındaki asimetriyi tanımlıyor, ardından yazılımdan ürüne ve topluluğa kadar farklı sistemlere uygulanışını ele alıyoruz. Antikırılganlık Nedir? Üçlü Yelpaze Taleb bu noktayı bir kargo örneğiyle somutlaştırır. Bir kutunun üstünde KIRILIR yazar; karşıtı çoğu kişiye göre “dayanıklı”dır. Oysa dayanıklı kutunun üstünde hiçbir şey yazmaz, çünkü nasıl savrulduğu onu ilgilendirmez. Asıl karşıt uç, üstünde “lütfen hırpalayın” yazabilecek, sarsıldıkça içindeki daha iyi duruma gelen kutudur. Dilde böyle bir kelime yoktu; Taleb bu boşluğu “antikırılgan” ile doldurdu. Buradan üçlü bir yelpaze çıkar. Her şeyi volatiliteye — yani belirsizliğe, strese, rastgeleliğe, şoka — verdiği tepkiye göre üçe ayırabiliriz:   Volatiliteye tepkisi Maskotu Örnek **Kırılgan** Zarar görür, bozulur Demokles’in Kılıcı İnce kristal kadeh, aşırı optimize edilmiş tedarik zinciri **Dayanıklı (Robust)** Kayıtsız kalır, aynı kalır Anka Kuşu Granit kaya, yedekli sunucu **Antikırılgan** Beslenir, güçlenir Hydra Bağışıklık sistemi, evrim, kas flowchart LR V([\"Volatilite / Şok / Stres\"]) --&gt; F[\"KIRILGANzarar görür\"] V --&gt; R[\"DAYANIKLIaynı kalır\"] V --&gt; A[\"ANTIKIRILGANgüçlenir\"] style V fill:#fde0e0,stroke:#c0392b,stroke-width:2px style F fill:#f5cccc,stroke:#c0392b,stroke-width:2px style R fill:#e8eef7,stroke:#4a6fa5,stroke-width:2px..."
+  },
+
+  {
     "title": "Coupling'i Dengelemek: Yazılım Tasarımında Bağımlılığı Yönetmek",
     "subtitle": "Balancing Coupling in Software Design",
     "url": "/2026/06/04/coupling-dengesi",
