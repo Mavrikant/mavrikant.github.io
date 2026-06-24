@@ -22,11 +22,19 @@
 - [x] Ölçüm Belirsizliği (GUM Annex F + NCSLI RP-12) — 2026-05-06 — alan: metroloji
 - [x] Kalibrasyon Zincirinin Tepesi (Birincil Standartlar) — 2026-05-07 — alan: metroloji
 - [x] Renode ile Zynq7000 Simülasyonu — 2026-05-14 — alan: gömülü/SoC
+- [x] Bandpass Sampling: 1 GHz Sinyali 50 MHz Clock ile Örneklemek — 2026-05-21 — alan: RF/DSP
+- [x] Sistem Mühendisliği Nedir? — 2026-05-26 — alan: sistem
 
 ## Açık PR'lar (insan inceleme bekleniyor)
 
 | PR # | Başlık | Dal | Açılış | Alan |
 |------|--------|-----|--------|------|
+| [#99](https://github.com/mavrikant/mavrikant.github.io/pull/99) | Dört Aşamalı Veri Analitiği — Mühendislikte Tanımlayıcıdan Kuralcıya | post/2026-05-30-dort-asamali-veri-analitigi-muhendislik | 2026-05-30 | analitik/mühendislik |
+| [#98](https://github.com/mavrikant/mavrikant.github.io/pull/98) | WCET Analizi — Statik, Ölçüm, Cache | post/2026-05-28-wcet-analizi-statik-olcum-cache | 2026-05-28 | gerçek zamanlı |
+| [#96](https://github.com/mavrikant/mavrikant.github.io/pull/96) | Fault Tree Analizi ve Minimal Cut Set | post/2026-05-27-fault-tree-analizi-minimal-cut-set | 2026-05-27 | güvenilirlik |
+| [#90](https://github.com/mavrikant/mavrikant.github.io/pull/90) | Linker Script Anatomisi — ARM Bare-Metal `.ld` | post/2026-05-26-linker-script-anatomisi-arm-bare-metal | 2026-05-26 | gömülü |
+| [#89](https://github.com/mavrikant/mavrikant.github.io/pull/89) | Watchdog Timer Tasarım Desenleri | post/2026-05-24-watchdog-tasarim-desenleri | 2026-05-24 | güvenilirlik |
+| [#88](https://github.com/mavrikant/mavrikant.github.io/pull/88) | WCET Analizi: Statik mi, Ölçüm mü, Hibrit mi? | post/2026-05-23-wcet-analizi-statik-olcum-hibrit | 2026-05-23 | gerçek zamanlı (⚠ #98 ile çakışıyor) |
 | [#79](https://github.com/mavrikant/mavrikant.github.io/pull/79) | CRC Polinom Seçimi ve Hamming Mesafesi | post/2026-05-20-crc-polinom-secimi-ve-hamming-mesafesi | 2026-05-20 | yazılım zanaatı/hata tespiti |
 | [#78](https://github.com/mavrikant/mavrikant.github.io/pull/78) | VOR Nasıl Çalışır? 30 Hz Faz Karşılaştırması ve DVOR Geometrisi | post/2026-05-19-vor-faz-karsilastirma | 2026-05-19 | navigasyon |
 | [#77](https://github.com/mavrikant/mavrikant.github.io/pull/77) | MC/DC Kapsama — DO-178C DAL A | post/2026-05-18-mcdc-kapsama-do-178c-dal-a | 2026-05-17 | sertifikasyon |
@@ -35,18 +43,21 @@
 | [#51](https://github.com/mavrikant/mavrikant.github.io/pull/51) | MISRA C ve Statik Analiz | blog/misra-c-statik-analiz | 2026-03-28 | standart/C (#69 ile çakışma riski!) |
 | [#50](https://github.com/mavrikant/mavrikant.github.io/pull/50) | Float Denormalize FTZ/DAZ (eski yazı genişletme) | claude/float-denormalize-ftz-daz | 2026-03-26 | gömülü/sayısal |
 
-> **Not:** PR #51 "MISRA C ve Statik Analiz", zaten yayında olan #69 "MISRA C:2025 ile Neler Değişti?" ile konu olarak çakışıyor olabilir. İnceleyen kişinin dikkatine.
+> **Not:** PR #51 "MISRA C ve Statik Analiz", zaten yayında olan #69 "MISRA C:2025 ile Neler Değişti?" ile konu olarak çakışıyor olabilir. Ayrıca PR #88 ve #98 her ikisi de WCET analizi konusunda — biri tercih edilip diğeri kapatılmalı.
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- **`volatile` Yetmediğinde: C11 `_Atomic` ve Bellek Bariyerleri** —
+  dal: `post/2026-05-29-volatile-yetmediginde-c11-atomic`,
+  dosya: `_posts/2026-05-29-volatile-yetmediginde-c11-atomic.md`,
+  durum: PR açılacak (bu çalıştırma) — alan: C/eşzamanlılık + ARM.
 
 ## Reddedildi (bu çalıştırma)
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- WCET, Watchdog, Linker script, Fault Tree → zaten açık PR'da (#88/#98, #89, #90, #96)
+- CRC polinom, VOR, MC/DC, bellek güvenliği, UB, MISRA-statik, FTZ/DAZ → zaten açık PR'da
+- IQ örnekleme → alan rotasyonu (son 3 yazıdan biri RF/DSP idi — bandpass sampling)
+- Cortex-A boot, GIC, Cache MESI → alan rotasyonu (Renode yazısı gömülü/SoC idi); ayrıca seçilen `_Atomic` konusu mimari bariyerlerde bunlarla zaten kısmen örtüşüyor
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 
@@ -73,8 +84,8 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
       alan: gömülü — kendi linker script'i yazma rehberi
 - [ ] **Watchdog tasarım desenleri: tek vs çoklu görev watchdog, deadman switch,
       windowed watchdog** — alan: güvenilirlik — gerçek tasarım kararları
-- [ ] **`volatile`'ın doğru kullanımı: nerede yetmez, neden `_Atomic` gerekir?** —
-      alan: C/eşzamanlılık — derleyici çıktı analizi
+- [x] **`volatile`'ın doğru kullanımı: nerede yetmez, neden `_Atomic` gerekir?** —
+      → 2026-05-29 yazısı seçildi
 - [ ] **VOR'un çalışma prensibi: 30 Hz referans + değişken faz nasıl yön verir?** —
       alan: navigasyon — faz farkı matematiği + sinyal şeması
 - [ ] **ILS anatomisi: localizer 90/150 Hz DDM ve glide slope** —
