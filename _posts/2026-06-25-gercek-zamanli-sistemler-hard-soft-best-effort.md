@@ -2,7 +2,7 @@
 title: "Gerçek Zamanlı Sistemler: Hızlı Değil, Zamanında"
 subtitle: "Hard, Firm, Soft and Best-Effort Real-Time Systems"
 background: "/img/posts/2.webp"
-date: '2026-06-24 09:00:00'
+date: '2026-06-25 09:00:00'
 layout: post
 lang: tr
 mermaid: true
