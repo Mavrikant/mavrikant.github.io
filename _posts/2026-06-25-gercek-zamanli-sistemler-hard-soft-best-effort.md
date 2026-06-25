@@ -1,6 +1,6 @@
 ---
 title: "Gerçek Zamanlı Sistemler: Hızlı Değil, Zamanında"
-subtitle: "Hard, Firm, Soft and Best-Effort Real-Time Systems"
+subtitle: "Hard, Firm, Soft and Non-Real-Time Systems"
 background: "/img/posts/2.webp"
 date: '2026-06-25 09:00:00'
 layout: post
@@ -12,15 +12,15 @@ tags: [gercek-zamanli-sistemler, gomulu-sistemler, aviyonik]
 
 Akşam dizi izlerken görüntü yarım saniye donar, sonra kendine gelir. Sinir olursunuz, geçer. Aynı yarım saniye, bir kaza anında hava yastığını ateşleyecek sinyalin gecikmesi olduğunda ise ortada sinir değil, bir trajedi vardır.
 
-İki olayda da sistem geç kaldı; ama birinde bedeli bir homurtu, diğerinde bir hayat. Gerçek zamanlı sistemler kavramı tam da bu farkın üzerine kuruludur. Yaygın sanının aksine mesele "ne kadar hızlı" değil, "ne zaman" sorusudur: bir sonucun doğru olması yetmez, zamanında da gelmesi gerekir. Geç gelen doğru cevap çoğu zaman yanlış cevaptır.
+İki olayda da sistem geç kaldı; ama birinde bedeli bir homurtu, diğerinde bir hayat. Gerçek zamanlı sistemler kavramı tam da bu farkın üzerine kuruludur. İşin teknik tanımı da bunu söyler: gerçek zamanlılık, bir sistemin **her bağımsız işlevi için tanımlanmış zaman kısıtına uyabilme kabiliyetidir.** Bir fonksiyonu doğru yerine getirmek kadar, onu istenen zaman çerçevesinde yerine getirmek de gerekir; gerçek zamanlılık bu ikincisini dert edinir. Geç gelen doğru cevap çoğu zaman yanlış cevaptır.
 
 ---
 
 ## Gerçek Zamanlı, Hızlı Demek Değil
 
-Önce en sık yapılan hatayı dağıtalım. Saniyede milyarlarca işlem yapan bir sunucu gerçek zamanlı olmayabilir; saniyede yüz işlem yapan ufak bir mikrodenetleyici kusursuz biçimde gerçek zamanlı olabilir. Fark hızda değil, **determinizmde** (öngörülebilirlik): bir işin ortalama ne kadar sürdüğü değil, en kötü ihtimalle ne kadar süreceğinin garanti altında olması.
+Önce en sık yapılan hatayı dağıtalım: gerçek zamanlı sistem; hızlı, çok hızlı, inanılmaz hızlı sistem demek **değildir.** Saniyede milyarlarca işlem yapan bir sunucu gerçek zamanlı olmayabilir; saniyede yüz işlem yapan ufak bir mikrodenetleyici kusursuz biçimde gerçek zamanlı olabilir.
 
-Bir işlem çoğu zaman 1 ms'de bitip nadiren 100 ms'ye çıkıyorsa, ortalaması ne kadar iyi olursa olsun o sistem güvenilmezdir. Çünkü sizi vuran şey ortalama değil, o ender görülen en kötü andır.
+Fark hızda değil, **determinizmde** (öngörülebilirlik). Bir durum ve giriş kümesine karşı sistemin doğru yanıtı doğru zaman çerçevesi içinde üretmesi ne kadar öngörülebilirse, sistem o kadar deterministiktir. Buradaki anahtar, ortalama değil **en kötü durumdur:** bir işlem çoğu zaman 1 ms'de bitip nadiren 100 ms'ye çıkıyorsa, ortalaması ne kadar iyi olursa olsun o sistem güvenilmezdir. Çünkü sizi vuran şey ortalama değil, o ender görülen en kötü andır.
 
 Üç kavram işin sözlüğünü oluşturur:
 
@@ -28,61 +28,65 @@ Bir işlem çoğu zaman 1 ms'de bitip nadiren 100 ms'ye çıkıyorsa, ortalamas�
 - **Gecikme** (*latency*): Bir olay ile sistemin ona verdiği yanıt arasındaki süre.
 - **Seğirme** (*jitter*): Bu gecikmenin ölçümden ölçüme ne kadar oynadığı. Her döngüde tam 10 ms'de yanıt veren bir sistem iyidir; bazen 8 bazen 14 ms diyen sistem kötüdür. Kontrol döngülerinde seğirme çoğu zaman ham hızdan daha kıymetlidir.
 
+Bir sistem bu öngörülebilirliği ne kadar çok talep ediyorsa, aşağıdaki sınıflandırmada o kadar katı uca düşer.
+
 ---
 
-## Spektrum: Hard, Firm, Soft, Best-Effort, None
+## Sınıflar: Mutlak, Katı, Esnek, Gerçek Zamanlı Olmayan
 
-Sistemleri sınıflandıran soru tektir: deadline kaçarsa sonucun değerine ne olur? Kiminde değer uçuruma düşer, kiminde sıfırlanır, kiminde yavaşça erir, kiminde de deadline diye keskin bir çizgi zaten yoktur. Beş sınıf bu cevaba göre dizilir.
+Sınıfları birbirinden ayıran soru tektir: bir yanıt tanımlı zamandan **sonra** gelirse ne olur? Cevap, hem sistemin gerçek zamanlılık sınıfını hem de ondan beklenen determinizm seviyesini belirler.
 
 <div class="mermaid">
 flowchart LR
-    A["Hard<br/>kaçarsa felaket"] --> B["Firm<br/>geç = değersiz"] --> C["Soft<br/>geç = değer kaybı"] --> D["Best-effort<br/>garanti yok"] --> E["None<br/>zaman önemsiz"]
+    A["Mutlak / Hard<br/>geç yanıt kabul edilemez"] --> B["Katı / Firm<br/>geç yanıt faydasız"] --> C["Esnek / Soft<br/>geç yanıt değer kaybeder"] --> D["Gerçek Zamanlı Olmayan<br/>zaman kısıtı yok"]
     style A fill:#f6c1c1,stroke:#c0392b,stroke-width:2px
     style B fill:#f6d8c1,stroke:#cb6b2b,stroke-width:2px
     style C fill:#f6edc1,stroke:#b39a2b,stroke-width:2px
-    style D fill:#d9e8f5,stroke:#3d6fa5,stroke-width:2px
-    style E fill:#cfe8cf,stroke:#2e7d32,stroke-width:2px
+    style D fill:#cfe8cf,stroke:#2e7d32,stroke-width:2px
 </div>
 
-Soldan sağa zaman kısıtının sertliği azalır.
+Soldan sağa zaman kısıtının sertliği azalır; ters yönde, sağdan sola talep edilen **determinizm seviyesi** artar. En yüksek öngörülebilirlik en solda, mutlak uçta gerekir.
 
-### Hard (Katı)
+### Mutlak (Hard) Gerçek Zamanlı
 
-En tavizsiz uç. Tek bir deadline kaçırmak bile sistemi tümden başarısız kılar ve sonuç çoğu zaman felakettir: maddi hasar, yaralanma, ölüm. Uçağın uçuş kontrol bilgisayarı, otomobilin hava yastığı ve ABS denetleyicisi, bir kalp pili, nükleer santralin acil kapatma sistemi... Bu sistemlerin doğruluğu "ne hesapladığına" değil, "tam olarak ne zaman hesapladığına" bağlıdır. Hava yastığı milisaniyeler içinde açılmazsa hiç açılmamış sayılır.
+En tavizsiz uç. Yanıtların hep tanımlı zamandan önce gelmesi gerekir; herhangi bir yanıtın geç gelmesi kabul edilemez ve bütün sistemi başarısız kılar. Burada "geç gelen doğru yanıt" yalnızca yararsız değil, tehlikelidir. En yüksek determinizm bu uçta talep edilir.
 
-### Firm (Sıkı)
+Tipik örnekler: otomotiv güvenlik sistemleri (ABS, hava yastığı, ESP), yaşam destek amaçlı tıbbi cihazlar (kalp pili, solunum destek sistemleri) ve insansız hava aracı (İHA) otopilotu. Hava yastığı milisaniyeler içinde açılmazsa hiç açılmamış sayılır.
 
-Bir adım gevşemiştir. Deadline kaçarsa sonuç değersizdir; atılır, kullanılmaz. Ama bu sistemi yıkmaz. Hard'dan farkı, gecikmiş sonucun bedelinin sıfır olması, negatif olmaması. Üretim hattında doğru anı kaçıran robot kolunun çıkardığı parça ıskartaya gider; üzücüdür ama fabrika patlamaz. Zamanı geçmiş bir borsa emri ya da geç kalmış bir video karesi de öyledir: en doğrusu onu hiç kullanmamaktır. Firm sistemler ara sıra deadline kaçırmaya tahammül eder, yeter ki bu sık olmasın.
+### Katı (Firm) Gerçek Zamanlı
 
-### Soft (Esnek)
+Bir adım gevşemiştir. Yanıt yalnızca nadiren tanımlı zamandan sonra gelebilir. Geç gelen yanıt artık faydasızdır, atılır; ama bu sistemi yıkmaz, etkisi hizmet kalitesinin düşmesidir. Mutlak uçtan farkı, gecikmiş yanıtın bedelinin sıfır olması, negatif olmamasıdır.
 
-Burada deadline keskin bir uçurum değil, yumuşak bir yokuştur. Sonuç geç gelse de hâlâ işe yarar, sadece geciktikçe değeri azalır. Hedef, deadline'a "her zaman" değil "çoğunlukla" uymaktır. Video ve ses akışı, VoIP, çevrimiçi oyunlar, bir uygulamanın arayüz tepkiselliği... Bir butona bastığınızda 100 yerine 150 ms'de yanıt almak rahatsız edicidir ama yıkıcı değildir.
+Tipik örnekler: insansız kara aracı otopilotu, insansız seri üretim tezgâhları ve robotik otomasyon. Aynı otopilotun havada mutlak, karada katı olması anlamlıdır: karadaki araç durdurulabilir, geç gelen bir komutun bedeli genellikle ölümcül değildir.
 
-### Best-Effort (Elden Geldiğince)
+### Esnek (Soft) Gerçek Zamanlı
 
-Artık katı bir deadline garantisi yoktur. Sistem elinden gelenin en iyisini yapar: kaynağı verimli paylaştırır, ortalama tepkiselliği ve verimi (*throughput*) yüksek tutmaya çalışır, ama hiçbir tek isteğin belirli bir süre içinde biteceğine söz vermez. İnternetin teslim modeli (*best-effort delivery*) tam böyledir. Bir web sunucusunun istekleri karşılaması veya genel amaçlı bir işletim sisteminin süreçleri zamanlaması da aynı kategoridedir: hedef "adil ve hızlı", ama "garantili" değil.
+Burada deadline keskin bir uçurum değil, yumuşak bir yokuştur. Yanıtların gecikmesi daha sık görülür; geç gelen yanıt hâlâ işe yarar, ama tanımlı zamandan uzaklaştıkça faydası azalır. Etkisi yine hizmet kalitesinin düşmesidir.
 
-### None (Gerçek Zamanlı Olmayan)
+Tipik örnekler: sesli/görüntülü bilgi ve eğlence akış sistemleri (TV, radyo, video oyunları), iletişim sistemleri (telefon, telekonferans, görüntülü görüşme) ve konfora dönük ev otomasyonu. Bir görüntülü görüşmede karenin biraz geç gelmesi rahatsız edicidir ama yıkıcı değildir.
 
-En gevşek uç. Zamanlama, doğruluğun bir parçası bile değildir. İş ne zaman biterse bitsin sonuç aynı ölçüde geçerlidir. Gece çalışan toplu yedeklemeler, ay sonu raporları, çevrimdışı veri analizleri, bir derleyicinin kodu derlemesi... Bunların mühendislik anlamında bir deadline'ı yoktur.
+### Gerçek Zamanlı Olmayan (Non Real-time)
+
+En gevşek uç. Yanıtlar için tanımlı bir zaman yoktur; yanıt ne zaman gelirse gelsin faydalıdır ve sistemin hizmet kalitesi yanıt sürelerinden etkilenmez.
+
+Tipik örnekler: ödeme sistemleri (POS cihazları), endüstriyel otomasyon izleme sistemleri ve yığın (*batch*) işlem sistemleri (rapor/veri/kayıt üretimi, çevrimdışı sinyal analizi). Bunların mühendislik anlamında bir deadline'ı yoktur.
 
 ### Hepsi Bir Arada
 
-| Sınıf | Deadline kaçarsa | Tipik örnek |
+| Sınıf | Geç yanıt gelirse | Tipik örnek |
 |---|---|---|
-| **Hard** | Felaket; sonuç zararlı | Uçuş kontrol, hava yastığı, kalp pili, ABS |
-| **Firm** | Sonuç değersiz (ama zararsız), atılır | Üretim adımı, geç video karesi |
-| **Soft** | Değer kademeli azalır | Video/ses akışı, VoIP, oyun, arayüz |
-| **Best-effort** | Garanti yok; "elinden geleni yap" | Web sunucusu, internet paket teslimi, genel OS zamanlama |
-| **None** | Önemli değil | Gece yedekleme, çevrimdışı rapor, derleme |
+| **Mutlak (Hard)** | Kabul edilemez; bütün sistem başarısız olur | ABS, hava yastığı, ESP; kalp pili, solunum desteği; İHA otopilotu |
+| **Katı (Firm)** | Yanıt faydasız olur (atılır); hizmet kalitesi düşer | İnsansız kara aracı otopilotu; robotik üretim ve otomasyon |
+| **Esnek (Soft)** | Yanıtın faydası geciktikçe azalır; hizmet kalitesi düşer | TV/radyo/video akışı, oyunlar; telefon, telekonferans; ev otomasyonu |
+| **Gerçek Zamanlı Olmayan** | Önemsiz; zaman kısıtı tanımlı değil | POS/ödeme; endüstriyel izleme; yığın raporlama, sinyal analizi |
 
-Dikkat: bu sınıflar koca bir cihazı değil, tek tek **görevleri** etiketler. Bir akıllı telefonun içinde aynı anda hard (modem zamanlaması), soft (video oynatma) ve none (arka planda fotoğraf yedekleme) görevleri yaşar. Doğru soru "bu sistem hangi sınıf?" değil, "bu *görevin* deadline'ı kaçarsa ne olur?"dur.
+Önemli bir nokta: bu sınıflar koca bir cihazı bütün olarak değil, sistemin her **bağımsız işlevini** ayrı ayrı etiketler. Aynı İHA'nın içinde uçuş kontrolü mutlak (hard), telemetri akışı esnek (soft), uçuş sonrası kayıt indirme ise gerçek zamanlı olmayan bir işlev olabilir. Doğru soru "bu sistem hangi sınıf?" değil, "bu *işlevin* zaman kısıtı kaçarsa ne olur?"dur.
 
 ---
 
 ## Garantiyi Nasıl Veriyoruz?
 
-Madem hız değil, bir sistemi gerçek zamanlı yapan ne? Tek kelimeyle **garanti**: en kötü senaryoda bile deadline'a uyacağını önceden kanıtlayabilmek. Bu birkaç araca dayanır.
+Madem hız değil, bir işlevi gerçek zamanlı yapan ne? Tek kelimeyle **garanti**: en kötü senaryoda bile zaman kısıtına uyacağını önceden kanıtlayabilmek. Bu birkaç araca dayanır.
 
 **WCET** (en kötü durum yürütme süresi, *worst-case execution time*). Mühendis ortalamayla değil bu en kötü değerle çalışır; çünkü garanti ancak en kötü duruma göre verilebilir. Bu yüzden önbellek (*cache*) ve dallanma tahmini gibi "ortalamayı iyileştiren ama en kötü durumu öngörülemez kılan" mekanizmalar gerçek zamanlı tasarımda göze batar. Performans burada [fonksiyonel olmayan bir gereksinim]({% post_url 2022-07-11-fonksiyonel-olmayan-yazilim-gereksinimleri %}) değil, doğruluğun ayrılmaz bir parçasıdır.
 
@@ -102,15 +106,15 @@ Pathfinder'ın hatırlattığı şey şu: gerçek zamanlı sistemlerde hatalar �
 
 ## Tek Eksen Değil
 
-Hard/firm/soft ayrımı sistemleri tek bir eksende dizer: deadline kaçarsa ne olur? Oysa gerçek zamanlı sistemler başka eksenlerde de ayrışır. Görevler saatin yönettiği önceden belirli bir çizelgeye göre mi tetikleniyor (zaman-tetiklemeli, *time-triggered*), yoksa dış olaylar geldikçe mi (olay-tetiklemeli)? Güvenlik-kritik tasarım, öngörülebilirlik uğruna çoğu zaman ilkini seçer. Garanti tek bir bilgisayarda mı kalıyor, yoksa ağ üzerinden mi taşınıyor? Sıradan Ethernet best-effort olduğundan, otomotivde CAN ve FlexRay, aviyonikte AFDX/ARINC 664, yeni sistemlerde TSN gibi gerçek zamanlı ağlar bu yükü üstlenir. Bir de modern eğilim: farklı kritiklikteki görevleri aynı donanımda koşturmak (*mixed-criticality*). Aviyonikte bunun çözümü ARINC 653'ün getirdiği zaman ve uzay bölümlemesidir; önemsiz bir görevdeki hata, hayati komşusuna sıçrayamasın diye. Bu, [emniyet-kritik yazılım]({% post_url 2026-04-05-misra-c-2025-ile-neler-degisti %}) disiplininin gerçek zamanlılıkla buluştuğu noktadır.
+Mutlak/katı/esnek ayrımı sistemleri tek bir eksende dizer: zaman kısıtı kaçarsa ne olur? Oysa gerçek zamanlı sistemler başka eksenlerde de ayrışır. Görevler saatin yönettiği önceden belirli bir çizelgeye göre mi tetikleniyor (zaman-tetiklemeli, *time-triggered*), yoksa dış olaylar geldikçe mi (olay-tetiklemeli)? Güvenlik-kritik tasarım, öngörülebilirlik uğruna çoğu zaman ilkini seçer. Garanti tek bir bilgisayarda mı kalıyor, yoksa ağ üzerinden mi taşınıyor? Sıradan Ethernet "elinden geldiğince" (*best-effort*) çalıştığından, yani her paketi taşır ama zamanında teslimi garanti etmediğinden, otomotivde CAN ve FlexRay, aviyonikte AFDX/ARINC 664, yeni sistemlerde TSN gibi gerçek zamanlı ağlar bu yükü üstlenir. Bir de modern eğilim: farklı kritiklikteki işlevleri aynı donanımda koşturmak (*mixed-criticality*). Aviyonikte bunun çözümü ARINC 653'ün getirdiği zaman ve uzay bölümlemesidir; önemsiz bir işlevdeki hata, hayati komşusuna sıçrayamasın diye. Bu, [emniyet-kritik yazılım]({% post_url 2026-04-05-misra-c-2025-ile-neler-degisti %}) disiplininin gerçek zamanlılıkla buluştuğu noktadır.
 
 ---
 
 ## Sonuç
 
-İyi mühendis bir görevle karşılaştığında "bunu ne kadar hızlı yaparım?" diye değil, önce şunu sorar: bunun bir deadline'ı var mı, kaçırırsam ne olur? Felaket mi (hard), çöpe gidecek bir sonuç mu (firm), azalan bir değer mi (soft), yoksa hiçbir şey mi (none)? Cevap; işletim sistemini, zamanlamayı, ağı ve gereken titizliği belirler.
+İyi mühendis bir işlevle karşılaştığında "bunu ne kadar hızlı yaparım?" diye değil, önce şunu sorar: bunun tanımlı bir zaman kısıtı var mı, kaçırırsam ne olur? Felaket mi (mutlak/hard), faydasız bir yanıt mı (katı/firm), geciktikçe azalan bir fayda mı (esnek/soft), yoksa hiçbir şey mi (gerçek zamanlı olmayan)? Cevap; işletim sistemini, zamanlamayı, ağı ve gereken titizliği belirler.
 
-Bir uyarı da yerinde olur: günlük dilde "real-time analytics", "canlı pano", "anlık bildirim" diye geçen şeylerin neredeyse tamamı, bu mühendislik anlamıyla soft veya best-effort'tur; birkaç saniyelik gecikme kimseyi incitmez. Gerçek bir hard sistemde ise milisaniyeler sayılır ve deadline kaçırmanın bedeli ölçülebilir bir felakettir. Sonuçta gerçek zamanlılığı belirleyen şey, sistemin iyi günlerde ne kadar hızlı olduğu değil, en kötü gününde bile sözünü tutacağına dair verebildiği garantidir.
+Bir uyarı da yerinde olur: günlük dilde "real-time analytics", "canlı pano", "anlık bildirim" diye geçen şeylerin neredeyse tamamı, bu mühendislik anlamıyla en fazla esnek (soft) düzeydedir; birkaç saniyelik gecikme kimseyi incitmez. Gerçek bir mutlak (hard) sistemde ise milisaniyeler sayılır ve zaman kısıtını kaçırmanın bedeli ölçülebilir bir felakettir. Sonuçta gerçek zamanlılığı belirleyen şey, sistemin iyi günlerde ne kadar hızlı olduğu değil, en kötü gününde bile sözünü tutacağına dair verebildiği garantidir.
 
 ---
 
