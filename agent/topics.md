@@ -22,6 +22,11 @@
 - [x] Ölçüm Belirsizliği (GUM Annex F + NCSLI RP-12) — 2026-05-06 — alan: metroloji
 - [x] Kalibrasyon Zincirinin Tepesi (Birincil Standartlar) — 2026-05-07 — alan: metroloji
 - [x] Renode ile Zynq7000 Simülasyonu — 2026-05-14 — alan: gömülü/SoC
+- [x] Bandpass Sampling: 1 GHz Sinyali 50 MHz Clock ile Örneklemek — 2026-05-21 — alan: RF/DSP
+- [x] Sistem Mühendisliği Nedir? — 2026-05-26 — alan: sistem
+- [x] Kalman Filtresi — 2026-06-02 — alan: navigasyon/füzyon
+- [x] Coupling'i Dengelemek — 2026-06-04 — alan: yazılım mimarisi
+- [x] Antikırılgan: Belirsizlikten Güç Alan Sistemler — 2026-06-24 — alan: sistem/felsefe
 
 ## Açık PR'lar (insan inceleme bekleniyor)
 
@@ -39,14 +44,16 @@
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- **volatile Yetmediğinde: Kesme, DMA ve Multicore'da Bellek Sıralaması** —
+  dal: `post/2026-07-05-volatile-yetmediginde`,
+  dosya: `_posts/2026-07-05-volatile-yetmediginde.md`,
+  durum: PR açılıyor (2026-07-05 çalıştırması) — alan: C/gömülü/eşzamanlılık.
 
 ## Reddedildi (bu çalıştırma)
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- _(bu çalıştırmada aday havuzdan konu doğrudan seçildi; reddedilen olmadı.
+  Havuzdaki "`volatile`'ın doğru kullanımı" adayı, "`volatile` Yetmediğinde"
+  şeklinde daha güçlü bir açıyla genişletildi.)_
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 
@@ -73,8 +80,8 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
       alan: gömülü — kendi linker script'i yazma rehberi
 - [ ] **Watchdog tasarım desenleri: tek vs çoklu görev watchdog, deadman switch,
       windowed watchdog** — alan: güvenilirlik — gerçek tasarım kararları
-- [ ] **`volatile`'ın doğru kullanımı: nerede yetmez, neden `_Atomic` gerekir?** —
-      alan: C/eşzamanlılık — derleyici çıktı analizi
+- [x] ~~**`volatile`'ın doğru kullanımı: nerede yetmez, neden `_Atomic` gerekir?**~~ →
+      2026-07-05 çalıştırmasında yayına alındı (bkz. Seçildi bölümü).
 - [ ] **VOR'un çalışma prensibi: 30 Hz referans + değişken faz nasıl yön verir?** —
       alan: navigasyon — faz farkı matematiği + sinyal şeması
 - [ ] **ILS anatomisi: localizer 90/150 Hz DDM ve glide slope** —
@@ -108,7 +115,30 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - [ ] DO-254 donanım sertifikasyonu (yazarın uzmanlığı ağırlıklı yazılım tarafında)
 - [ ] İzlenebilirlik matrisi (klasik konu, derinlik çıkarmak zor)
 
-## Notlar (bu çalıştırma — 2026-05-21)
+## Notlar (bu çalıştırma — 2026-07-05)
+
+- **volatile Yetmediğinde** seçildi (alan: C/gömülü/eşzamanlılık). Son üç yayın
+  farklı alt-alanlardaydı: sistem/felsefe (antikırılgan, 2026-06-24), yazılım
+  mimarisi (coupling, 2026-06-04), navigasyon (kalman, 2026-06-02). C/eşzamanlılık
+  bunlarla örtüşmüyor; sertifikasyon (MC/DC PR #77) ve MISRA C:2025 (yayında) ile
+  konu düzeyinde çakışma yok — MC/DC test kapsamıyla, MISRA ise yeni sürümdeki
+  kural değişiklikleriyle ilgilenirken bu yazı doğrudan `volatile` semantiği ve
+  C11 bellek modeliyle ilgileniyor.
+- Yayın kapısı durumu: `min_yayin_araligi_gun = 2` şartı fazlasıyla sağlandı;
+  son yayın (2026-06-24 antikırılgan) üzerinden 11 gün geçti.
+- "Neden Türkçe içerikte zor bulunuyor" yanıtı: `volatile` üzerine yüzeysel Türkçe
+  yazılar var ("değişkenin değişebileceğini derleyiciye söyler" seviyesi). Ama
+  atomiklik ↔ bariyer ↔ cache maintenance ayrımını yapan, ARM Cortex-A assembly
+  çıktısı gösteren, `_Atomic` ile yan yana karşılaştırma yapan Türkçe içerik
+  pratikte yok. İngilizce'de bile bilgi dağınık: Boehm (2005) makalesinde, CERT
+  CON02-C'de, ARM Cortex-A Programmer's Guide'da (den0013) ve LWN'in
+  Torvalds/McKenney tartışmalarında ayrı ayrı yaşıyor. Sentez boşluğu büyük.
+- Derinlik öğesi (Bölüm 7): **assembly-level compiler output karşılaştırması** —
+  `volatile`, `_Atomic + relaxed`, `+ release`, `+ seq_cst` için Cortex-A9 GCC
+  çıktısı yan yana. `relaxed`'in `volatile` ile bit-bit aynı kod ürettiğini, ama
+  `release`'in `DMB ISH` eklediğini somut olarak gösteriyor.
+
+## Notlar (önceki çalıştırma — 2026-05-21)
 
 - **Bandpass Sampling** seçildi (alan: RF/DSP). Önceki çalıştırmaların ardından
   açılan PR'lar son üç alt-alanı (sertifikasyon #77, navigasyon #78, yazılım
