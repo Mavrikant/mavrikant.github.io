@@ -22,6 +22,11 @@
 - [x] Ölçüm Belirsizliği (GUM Annex F + NCSLI RP-12) — 2026-05-06 — alan: metroloji
 - [x] Kalibrasyon Zincirinin Tepesi (Birincil Standartlar) — 2026-05-07 — alan: metroloji
 - [x] Renode ile Zynq7000 Simülasyonu — 2026-05-14 — alan: gömülü/SoC
+- [x] Bandpass Sampling — 2026-05-21 — alan: RF/DSP
+- [x] Sistem Mühendisliği Nedir? — 2026-05-26 — alan: sistem
+- [x] Kalman Filtresi ve EKF — 2026-06-02 — alan: navigasyon/füzyon
+- [x] Coupling Dengesi ve DO-178C — 2026-06-04 — alan: sertifikasyon/mimari
+- [x] Antikırılgan: Belirsizlikten Güç Alan Sistemler — 2026-06-24 — alan: sistem/felsefe
 
 ## Açık PR'lar (insan inceleme bekleniyor)
 
@@ -39,14 +44,16 @@
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- **MIL-STD-1553B Anatomisi: Manchester Kodlama, RT Zamanlaması ve Sessiz Bug'lar** —
+  dal: `post/2026-08-18-mil-std-1553b-anatomisi`,
+  dosya: `_posts/2026-08-19-mil-std-1553b-anatomisi-manchester-rt-timing.md`,
+  durum: PR açılacak (bu çalıştırma) — alan: aviyonik/veri bus.
+  neden az bulunuyor: MIL-STD-1553B ana metni paralıdır (~100 USD), askeri kökenlidir, Türkçe teknik kaynak neredeyse yoktur; standart Notice 2 illegal command davranışı gibi kritik detayları uygulayana bırakır ve bu belirsizlikler sahada saatler yiyen bug'lara yol açar.
 
 ## Reddedildi (bu çalıştırma)
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- **SEU / ECC / Bellek Scrubbing** — açık PR olarak zaten var (bkz. #146'ya karşılık gelen aday PR); duplicate riski.
+- **Cortex-A Boot süreci, GIC, Linker Script, MPU vs MMU, Watchdog, Endianness, ILS, Lockstep, RAIM, AFDX, malloc/TLSF, WCET, ARINC 653, DMA/Cache, DO-330, DO-326A, Sabit Nokta, Fault Tree** — tümü açık PR'larda; şu an insan inceleme sırasında.
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 
