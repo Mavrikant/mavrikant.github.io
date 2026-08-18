@@ -30,25 +30,83 @@
 
 ## Açık PR'lar (insan inceleme bekleniyor)
 
-| PR # | Başlık | Dal | Açılış | Alan |
-|------|--------|-----|--------|------|
-| [#79](https://github.com/mavrikant/mavrikant.github.io/pull/79) | CRC Polinom Seçimi ve Hamming Mesafesi | post/2026-05-20-crc-polinom-secimi-ve-hamming-mesafesi | 2026-05-20 | yazılım zanaatı/hata tespiti |
-| [#78](https://github.com/mavrikant/mavrikant.github.io/pull/78) | VOR Nasıl Çalışır? 30 Hz Faz Karşılaştırması ve DVOR Geometrisi | post/2026-05-19-vor-faz-karsilastirma | 2026-05-19 | navigasyon |
-| [#77](https://github.com/mavrikant/mavrikant.github.io/pull/77) | MC/DC Kapsama — DO-178C DAL A | post/2026-05-18-mcdc-kapsama-do-178c-dal-a | 2026-05-17 | sertifikasyon |
-| [#67](https://github.com/mavrikant/mavrikant.github.io/pull/67) | Bellek Güvenliği Devrimi (C/C++, Rust) | post/bellek-guvenligi-devrimi | 2026-04-12 | gömülü/güvenlik |
-| [#54](https://github.com/mavrikant/mavrikant.github.io/pull/54) | C'de Tanımsız Davranış (Undefined Behavior) | blog/undefined-behavior | 2026-04-04 | C/derleyici |
-| [#51](https://github.com/mavrikant/mavrikant.github.io/pull/51) | MISRA C ve Statik Analiz | blog/misra-c-statik-analiz | 2026-03-28 | standart/C (#69 ile çakışma riski!) |
-| [#50](https://github.com/mavrikant/mavrikant.github.io/pull/50) | Float Denormalize FTZ/DAZ (eski yazı genişletme) | claude/float-denormalize-ftz-daz | 2026-03-26 | gömülü/sayısal |
+> **2026-08-19'da `gh pr list` ile senkronize edildi.** Önceki hâli çok eskiydi (#50–79
+> arası gösteriyordu); o yüzden bu ajan çalıştırmasında konu seçimi için deftere
+> güvenilemedi ve doğrudan `gh` sorgulandı. **Her çalıştırmada bu tabloyu yeniden üret.**
 
-> **Not:** PR #51 "MISRA C ve Statik Analiz", zaten yayında olan #69 "MISRA C:2025 ile Neler Değişti?" ile konu olarak çakışıyor olabilir. İnceleyen kişinin dikkatine.
+**Açık PR sayısı: 40+.** Birikmiş durumda; yeni konu seçerken bu listeyi mutlaka tara.
+
+### ⚠️ Tespit edilen mükerrer kümeler (insan dikkatine)
+
+Aynı konuda birden fazla PR açılmış. Büyük olasılıkla tek bir yazıya indirilmeli:
+
+- **`volatile` / C11 `_Atomic` — ALTI ayrı PR:** #100, #134, #155, #156, #157, #159.
+- **WCET — iki PR:** #164 ve daha eski bir WCET PR'ı.
+- **Watchdog — iki PR:** #161 ve daha eski bir watchdog PR'ı.
+- **Kalman — #103** yayındaki 2026-06-02 Kalman yazısıyla örtüşebilir.
+- **MISRA — #51** yayındaki MISRA C:2025 yazısıyla örtüşebilir.
+
+### Açık PR listesi (yeniden üretmek için: `gh pr list --state open --limit 60`)
+
+| PR # | Başlık | Alan |
+|------|--------|------|
+| #173 | MIL-STD-1553B Anatomisi (bu çalıştırma) | aviyonik/veri bus |
+| #172 | CAST-32A → AC 20-193 multicore interference | sertifikasyon/multicore |
+| #171 | Aviyonik `malloc` — DO-178C/DO-332, TLSF | gömülü/bellek |
+| #170 | I/Q Örnekleme ve Analitik Sinyal | RF/DSP |
+| #169 | Rate Monotonic — Liu-Layland → RTA | gerçek zamanlı |
+| #168 | DO-178C Data/Control Coupling | sertifikasyon |
+| #167 | RAIM — GPS integrity monitoring | navigasyon |
+| #166 | C bit-field'ları wire format değildir | C/protokol |
+| #165 | AFDX (ARINC 664 P7) anatomisi | aviyonik/veri bus |
+| #164 | WCET — cache, ölçüm kuyruğu | gerçek zamanlı |
+| #163 | Abstract Interpretation — interval domain | statik analiz |
+| #162 | ARINC 653 bölümleme anatomisi | aviyonik RTOS |
+| #161 | Watchdog tasarım desenleri | güvenilirlik |
+| #160 | Deterministik derleme | araçlar/sertifikasyon |
+| #159, #157, #156, #155, #134, #100 | `volatile` / `_Atomic` (**mükerrer küme**) | C/eşzamanlılık |
+| #158 | DO-330 araç nitelendirmesi (TQL) | sertifikasyon |
+| #151 | `setjmp`/`longjmp` DAL A'da neden yasak | C/sertifikasyon |
+| #150 | Worst-case stack analizi | gömülü |
+| #149 | Gerçek zamanlı sistemler | gerçek zamanlı |
+| #147 | Derleyici optimizasyonlarını elle yazmak | gömülü/derleyici |
+| #146 | Object Code Coverage — DO-178C §6.4.4.2.b | sertifikasyon |
+| #145 | Cortex-A boot — reset vektöründen `main()`'e | gömülü/SoC |
+| #135 | MPU vs MMU | ARM |
+| #129 | Allan Deviation — IMU karakterizasyonu | navigasyon/metroloji |
+| #124 | SEU, SECDED ECC, bellek scrubbing | güvenilirlik |
+| #122 | Endianness'in üç katmanı (BE-8/BE-32, 1553/429) | C/protokol |
+| #121 | Lockstep CPU (Cortex-R5 DCLS) | donanım/emniyet |
+| #120 | Priority inversion — Mars Pathfinder | gerçek zamanlı |
+| #119 | DMA ve cache — Zynq-7000 | gömülü/SoC |
+| #118 | DO-326A / ED-202A siber güvenlik | sertifikasyon |
+| #114 | Sabit nokta Q15 FIR — Cortex-M0 | DSP/gömülü |
+| #103 | Kalman sessiz iraksama — Joseph form | navigasyon |
+| #102 | ILS anatomisi | navigasyon |
+| #101 | ARM GIC | ARM |
+| #79 | CRC polinom seçimi | hata tespiti |
+| #78 | VOR faz karşılaştırması | navigasyon |
+| #77 | MC/DC kapsama | sertifikasyon |
+| #67 | Bellek güvenliği (C/C++, Rust) | gömülü/güvenlik |
+| #54 | C'de undefined behavior | C/derleyici |
+| #51 | MISRA C ve statik analiz (**#69 ile çakışabilir**) | standart/C |
+| #50 | Float denormalize FTZ/DAZ | gömülü/sayısal |
+| #154 | chore: ledger sync (yazı değil) | — |
 
 ## Seçildi / Devam Eden
 
 - **MIL-STD-1553B Anatomisi: Manchester Kodlama, RT Zamanlaması ve Sessiz Bug'lar** —
   dal: `post/2026-08-18-mil-std-1553b-anatomisi`,
   dosya: `_posts/2026-08-19-mil-std-1553b-anatomisi-manchester-rt-timing.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: aviyonik/veri bus.
-  neden az bulunuyor: MIL-STD-1553B ana metni paralıdır (~100 USD), askeri kökenlidir, Türkçe teknik kaynak neredeyse yoktur; standart Notice 2 illegal command davranışı gibi kritik detayları uygulayana bırakır ve bu belirsizlikler sahada saatler yiyen bug'lara yol açar.
+  durum: **PR #173 açıldı** (2026-08-19) — alan: aviyonik/veri bus.
+  neden az bulunuyor: erişim değil (DoD sürümü ASSIST'te ücretsiz ve public-release —
+  ilk taslaktaki "paralı" iddiası yanlıştı, düzeltildi); asıl boşluk standardı *okumak*
+  ile *uygulamak* arasındaki bilginin hiçbir yerde toplu olmaması + Türkçe kaynak yokluğu.
+
+  **Bilinen kısmi örtüşme:** PR #122 (Endianness'in üç katmanı) 1553 word yapısını ve
+  Manchester II'yi kendi 3. bölümünde açıklıyor. Odak farklı (o yazı bit sıralaması,
+  bu yazı protokol anatomisi + zamanlama + hata modları), ama ikisi de yayınlanacaksa
+  1553 word yapısının iki kez anlatılmaması için biri diğerine referans vermeli.
 
 ## Reddedildi (bu çalıştırma)
 
