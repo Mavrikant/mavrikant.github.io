@@ -47,12 +47,17 @@ watchdog 2 PR). Yeni konu seçmeden önce **mutlaka** açık PR başlıkları ta
 
 ## Seçildi / Devam Eden
 
-- **Güç Kesildiğinde Flash'ta Ne Kalır? Atomik Kayıt Tasarımı ve Hata Enjeksiyonu** —
+- **Zynq-7000 ve S25FL512S: Güç Kesildiğinde QSPI Flash'ta Ne Kalır?** —
   dal: `post/2026-08-20-guc-kesintisinde-flash-atomik-kayit`,
-  dosya: `_posts/2026-08-20-guc-kesintisinde-flash-atomik-kayit.md`,
-  araştırma: `agent/research/2026-08-20-guc-kesintisinde-flash-atomik-kayit.md`,
-  deney kodu: `agent/research/flashsim.c`,
-  durum: PR açıldı (2026-08-20) — alan: gömülü/güvenilirlik.
+  dosya: `_posts/2026-08-20-zynq7000-s25fl512s-guc-kesintisi-atomik-kayit.md`,
+  araştırma: `agent/research/2026-08-20-zynq7000-s25fl512s-guc-kesintisi.md`,
+  deney kodu: `agent/research/qspisim.c`,
+  durum: PR #175 açık (2026-08-20) — alan: gömülü/güvenilirlik.
+
+  > Not: yazı ilk sürümde STM32 dahili flash üzerine kuruluydu; blog sahibinin isteğiyle
+  > tamamen Zynq-7000 + S25FL512S QSPI NOR üzerine yeniden yazıldı. Donanım semantiği
+  > esaslı biçimde farklı olduğu için analiz ve deney modeli baştan kuruldu (ECC birimi
+  > 16 bayt, ikinci programlama sessizce EDC'yi kapatıyor; 256 kB sektör, 520 ms silme).
 
 ## Reddedildi (2026-08-20 çalıştırması)
 
@@ -128,14 +133,17 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 ## Notlar (bu çalıştırma — 2026-08-20)
 
 - Defter 2026-05-21'den beri güncellenmemişti; yayın listesi ve PR durumu senkronlandı.
-- Seçilen konu: **gömülü flash'ta güç-kesintisine dayanıklı kalıcı kayıt**. 24 yayın ve
-  50 açık PR tarandı; konu hiçbiriyle çakışmıyor. Son 3 yayının alt-alanlarından farklı.
-- Derinlik öğesi: **deney** — 428 satırlık flash modeli üzerinde tüketici güç kesintisi
-  enjeksiyonu; 6 tasarım varyantı × 84 senaryo, 3 farklı yapılandırmada tekrarlandı.
-- Koşum, yazarın başlangıç hipotezini (kayıt sıralaması doğruluğu etkiler) **çürüttü**;
-  bu, yazıda gizlenmeyip açıkça aktarıldı ve gerçek etki (ECC maruziyeti 22 → 12) ölçüldü.
-- Yayın kapısı: son yayın 2026-06-24, arada 57 gün var; `min_yayin_araligi_gun = 2`
-  fazlasıyla sağlandı. `bundle exec jekyll build` yerelde başarılı.
+- Seçilen konu: **Zynq-7000 + S25FL512S QSPI NOR'da güç-kesintisine dayanıklı kalıcı kayıt**.
+  24 yayın ve 50 açık PR tarandı; çakışma yok. Son 3 yayının alt-alanlarından farklı.
+- Derinlik öğesi: **deney** — S25FL512S semantiğini uygulayan model üzerinde tüketici güç
+  kesintisi enjeksiyonu; 6 tasarım varyantı × 123 senaryo, 3 yapılandırmada tekrarlandı.
+- Koşum bir hipotezi **çürüttü**: kurtarmada ECCRD doğrulaması yapmayan tasarım (B3), tam
+  tasarımdan ayırt edilemedi. Sebep yazıya işlendi; ECCRD'nin asıl değeri yaşlanma
+  taramasında olduğu sonucuna varıldı.
+- Model iki kez düzeltildi (B2'nin çakışan bayt aralıkları, B4'ün eskime kategorisi) ve
+  marjinallik yargısı tasarımın kendi raporundan **yer gerçeğine** çevrildi.
+- Yayın kapısı: son yayın 2026-06-24; `min_yayin_araligi_gun = 2` fazlasıyla sağlandı.
+  `bundle exec jekyll build` yerelde başarılı.
 - Fikir havuzundaki maddelerin çoğu artık açık PR'larla tutulu; `[~]` ile işaretlendi.
-  Havuzun yenilenmesi gerekiyor — bir sonraki çalıştırmanın ilk işi bu olmalı.
+  Havuzun yenilenmesi bir sonraki çalıştırmanın ilk işi olmalı.
 
