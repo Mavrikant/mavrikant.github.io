@@ -137,11 +137,17 @@ Toplam hazırlık sürem **altı ay** oldu. Yoğun bir tempoyla değil, haftada 
 
 *INCOSE Systems Engineering Handbook, 5. baskı — sınavın tek resmî kaynağı. Kapak görseli INCOSE ve Wiley'e aittir.*
 
-**İngilizce SE Handbook v5'i baştan sona iki kez okudum.** Bu, hazırlığın belkemiğiydi ve iki okumanın amacı da farklıydı.
+**İngilizce SE Handbook v5'i baştan sona iki kez okudum.** Bu, hazırlığın belkemiğiydi; ama iki okuma birbirinin tekrarı değildi.
 
-Birinci okuma "araziyi tanıma" okumasıydı: not almadan, altını çizmeden, anlamadığım yerlerde takılmadan. Amaç kitabın yapısını içselleştirmekti — hangi süreç hangi bölümde, teknik süreçlerle teknik yönetim süreçleri nerede ayrışıyor, ekler ne içeriyor. Bu okuma bittiğinde tek bir soruyu doğru cevaplayacak durumda değildim ama kitabın haritası kafamda oluşmuştu.
+Birinci okuma baştan sona detaylıydı: satır satır ilerledim ve önemli gördüğüm her yerin altını çizdim. Hızlı bir tarama ya da "önce bir göz gezdireyim" turu değildi; kitabı ilk seferde ciddiye alarak okudum.
 
-İkinci okuma çalışma okumasıydı: her sürecin **girdilerini, aktivitelerini ve çıktılarını** ayrı ayrı not ederek ilerledim. Sınavın en çok ödüllendirdiği bilgi türü bu. "Şu sürecin çıktısı hangisidir?" tipi sorular, kitabı okumuş ama sistematik not almamış adayları rahatlıkla eliyor.
+![Altı çizilerek okunmuş bir Handbook sayfası](/img/posts/incose-handbook-notlarim.webp){:style="display:block; margin-left:auto; margin-right:auto" .img-fluid}
+
+*Başucu kitabımdan bir sayfa.*
+
+İkinci okuma ise daha da detaylıydı. Amacı bilgiyi tazelemek değil, özümsemekti: ilk turda altını çizdiğim cümlelerin neden önemli olduğunu, süreçlerin birbirini nasıl beslediğini ve aynı kavramın farklı bölümlerde nasıl tekrar karşıma çıktığını görmeye çalıştım. Handbook'un cümlelerini tanımakla kavramı gerçekten anlamak arasındaki farkı asıl bu ikinci turda kapattım.
+
+Bu ikinci turda özellikle dikkat edilmesi gereken bir yapı var: her sürecin **girdileri, aktiviteleri ve çıktıları**. Sınavın en çok ödüllendirdiği bilgi türü bu; "şu sürecin çıktısı hangisidir?" tipi sorular, kitabı okumuş ama süreçleri bu üçlü üzerinden düşünmemiş adayları rahatlıkla eliyor.
 
 ### Türkçe dördüncü baskının yeri
 
@@ -233,7 +239,7 @@ Burada yaygın bir yanlış beklenti var, ben de sürece girene kadar öyle san�
 Başvuruyu gönderdikten hemen sonra INCOSE Sertifikasyon Ofisi'nden bir "sonraki adımlar" e-postası geliyor ve süreç şöyle işliyor:
 
 1. **Tarama.** Önce Sertifikasyon Ofisi başvuru formunuzun şartlara uygun olup olmadığını kontrol ediyor. Bu onay gelmeden referans adımına geçmiyorsunuz.
-2. **Referanslar.** Form uygun bulunduktan sonra her referansınıza iki şey gönderiyorsunuz: **Form 1'inizin bir kopyası** ve **dijital referans mektubunun (Form 4b) bağlantısı**. Form 1'in kopyası şart, çünkü referans sizin hangi dönemde hangi alanda ne beyan ettiğinizi görmeden mektubu dolduramıyor. Referans mektubu doldurulup gönderildiğinde INCOSE'a otomatik olarak ulaşıyor; arada sizin bir şey iletmeniz gerekmiyor.
+2. **Referanslar.** Form uygun bulunduktan sonra her referansınıza iki şey gönderiyorsunuz: doldurduğunuz [**Form 1**](https://www.incose.org/wp-content/uploads/2026/07/CSEP_HowToApply_2026.pdf) formunun bir kopyası ve **dijital referans mektubunun** ([Form 4b](https://forms.office.com/pages/responsepage.aspx?id=k6cjNVAORka4CyXYO9fylpdnShHiChFNk4sYt-8URhFUN1RNUE5NSDdKTlRVSkNZVFdYRkwyOVlPSC4u&route=shorturl)) bağlantısı. Form 1'in kopyası şart, çünkü referans sizin hangi dönemde hangi alanda ne beyan ettiğinizi görmeden mektubu dolduramıyor. Referans mektubu doldurulup gönderildiğinde INCOSE'a otomatik olarak ulaşıyor; arada sizin bir şey iletmeniz gerekmiyor. Formun kendi uyarısına göre doldurulması yaklaşık **30 dakika** sürüyor — referansınızdan isteyeceğiniz şeyin büyüklüğünü bilin ve ona da baştan söyleyin.
 
 Bu akış, referanslara önceden haber vermeyi sadece nezaket olmaktan çıkarıp sürecin hızını belirleyen faktör hâline getiriyor. Onlara ne göndereceğinizi ve ne kadar zaman alacağını baştan anlatın; formun linki elinize geçtiğinde aynı gün dağıtabilecek durumda olun. Başvurumun üç buçuk haftada sonuçlanmasının en büyük sebebi, referanslarımın mektupları hızla doldurmasıydı.
 
@@ -292,7 +298,7 @@ Süreci baştan yaşamış biri olarak, sırayla uygulanabilecek somut öneriler
 
 1. **Önce uygunluğunuzu kontrol edin.** 60 ayı ve üç alanda 12'şer ayı bugünkü deneyiminizle karşılayabiliyor musunuz? Karşılayamıyorsanız ASEP ile başlayın; ASEP'ten sonra beş yıl içinde CSEP'e geçerken sınavı tekrar vermeniz gerekmiyor.
 2. **Referanslarınızı sınavdan önce belirleyin ve sayıyı asgaride tutmayın.** Kimin hangi dönemi doğrulayabileceğini bilmek, deneyim tablosunu nasıl dolduracağınızı da belirler; ben son üç iş yerimden sekiz referans verdim. Uygun bir referans bulamıyorsanız, bunu sınav ücretini ödemeden önce öğrenmek istersiniz.
-3. **Handbook'u iki kez okuyun.** Birincisi harita için, ikincisi süreç girdi-çıktıları için. Tek okumayla geçenler var ama emniyet payı bırakmak daha iyi.
+3. **Handbook'u iki kez okuyun.** Birincisi altını çizerek, ikincisi özümsemek için. Tek okumayla geçenler var ama emniyet payı bırakmak daha iyi.
 4. **Notlarınızı süreç bazında tutun.** Her süreç için amaç, girdiler, aktiviteler, çıktılar. Sınavın ödüllendirdiği yapı bu.
 5. **Beşinci baskıya çalışın.** 15 Mart 2025'ten beri sınav tamamen v5 tabanlı. Türkçe çeviri v4'e ait; destekleyici kaynak olarak faydalı, ana kaynak olarak riskli.
 6. **Pratik soruları teşhis aracı olarak kullanın.** Puanınızı değil, hangi bölümlerde hata yaptığınızı takip edin.
@@ -321,13 +327,15 @@ Aynı yolu yürüyecek olanlara kolaylıklar dilerim. Süreçle ilgili sorusu ol
 - [Being a Reference — INCOSE](https://www.incose.org/certification/start-your-certification/being-a-reference/)
 - [Certification Pricing and Requirements — INCOSE](https://www.incose.org/certification/pricing-requirements/)
 - [Renewing Certification — INCOSE](https://www.incose.org/certification/maintaining-renewing-certification/renewing-certification/)
-- [CER-PROC-01: INCOSE SEP Certification Program Definition & Requirements](https://www.incose.org/wp-content/uploads/2026/01/CER-PROC-01_Certification-Program-Definition-and-Requirements_2026.pdf)
-- [Form 2 — CSEP Application Instructions](https://www.incose.org/wp-content/uploads/2026/01/form-2-instructions-for-completing-form-1-1.pdf)
-- [SEP Forms — INCOSE](https://www.incose.org/certification/becoming-certified/sep-forms) (Form 1 başvuru formu, Form 4b dijital referans mektubu)
-- [How to: Earn Professional Development Units (PDUs)](https://www.incose.org/docs/default-source/certification/howtoearnpdus.pdf)
+- [Certification FAQs — INCOSE](https://www.incose.org/certification/certification-faqs/)
+- [How to Apply for CSEP, 2026](https://www.incose.org/wp-content/uploads/2026/07/CSEP_HowToApply_2026.pdf) — başvurunun adım adım anlatımı
+- [Form 2 — CSEP Application Instructions](https://www.incose.org/wp-content/uploads/2026/01/form-2-instructions-for-completing-form-1-1.pdf) — Form 1'in nasıl doldurulacağı ve deneyim alanlarının tanımları
+- [FORM 4B: Reference for CSEP/ESEP](https://forms.office.com/pages/responsepage.aspx?id=k6cjNVAORka4CyXYO9fylpdnShHiChFNk4sYt-8URhFUN1RNUE5NSDdKTlRVSkNZVFdYRkwyOVlPSC4u&route=shorturl) — referansların dolduracağı dijital mektup
+- [How to Register for an Exam, online ve kâğıt](https://www.incose.org/wp-content/uploads/2026/08/EXAM_HowToRegister_Online-and-Paper.pdf)
+- [How to Renew or Reinstate a SEP, 2026](https://www.incose.org/wp-content/uploads/2026/07/SEP_HowToReneworReinstate_2026.pdf)
 - INCOSE, *Systems Engineering Handbook*, 5. baskı, Wiley — sınavın tek resmî kaynağı
 - INCOSE, *Sistem Mühendisliği El Kitabı*, dördüncü versiyon, Savunma Sanayii Akademi Yayınları — Türkçe çeviri
-- [SSB Akademi — INCOSE CSEP Sertifikasyon Sınavına Hazırlık Eğitimi](https://www.ssa.gov.tr/egitimler/28)
+- [Savunma Sanayii Akademi](https://www.ssa.gov.tr/) — CSEP hazırlık eğitimi ve Türkiye'deki kâğıt sınav oturumu
 - [INCOSE TR](https://tr.linkedin.com/company/incosetr)
 
 ### Pratik soru setleri (Udemy)
