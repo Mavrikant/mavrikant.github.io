@@ -22,31 +22,48 @@
 - [x] Ölçüm Belirsizliği (GUM Annex F + NCSLI RP-12) — 2026-05-06 — alan: metroloji
 - [x] Kalibrasyon Zincirinin Tepesi (Birincil Standartlar) — 2026-05-07 — alan: metroloji
 - [x] Renode ile Zynq7000 Simülasyonu — 2026-05-14 — alan: gömülü/SoC
+- [x] Bandpass Sampling — 2026-05-21 — alan: RF/DSP
+- [x] Sistem Mühendisliği Nedir? — 2026-05-26 — alan: sistem
+- [x] Kalman Filtresi ve EKF — 2026-06-02 — alan: navigasyon/füzyon
+- [x] Coupling'i Dengelemek — 2026-06-04 — alan: yazılım tasarımı
+- [x] Antikırılgan: Belirsizlikten Güç Alan Sistemler — 2026-06-24 — alan: sistem/mühendislik felsefesi
 
 ## Açık PR'lar (insan inceleme bekleniyor)
 
-| PR # | Başlık | Dal | Açılış | Alan |
-|------|--------|-----|--------|------|
-| [#79](https://github.com/mavrikant/mavrikant.github.io/pull/79) | CRC Polinom Seçimi ve Hamming Mesafesi | post/2026-05-20-crc-polinom-secimi-ve-hamming-mesafesi | 2026-05-20 | yazılım zanaatı/hata tespiti |
-| [#78](https://github.com/mavrikant/mavrikant.github.io/pull/78) | VOR Nasıl Çalışır? 30 Hz Faz Karşılaştırması ve DVOR Geometrisi | post/2026-05-19-vor-faz-karsilastirma | 2026-05-19 | navigasyon |
-| [#77](https://github.com/mavrikant/mavrikant.github.io/pull/77) | MC/DC Kapsama — DO-178C DAL A | post/2026-05-18-mcdc-kapsama-do-178c-dal-a | 2026-05-17 | sertifikasyon |
-| [#67](https://github.com/mavrikant/mavrikant.github.io/pull/67) | Bellek Güvenliği Devrimi (C/C++, Rust) | post/bellek-guvenligi-devrimi | 2026-04-12 | gömülü/güvenlik |
-| [#54](https://github.com/mavrikant/mavrikant.github.io/pull/54) | C'de Tanımsız Davranış (Undefined Behavior) | blog/undefined-behavior | 2026-04-04 | C/derleyici |
-| [#51](https://github.com/mavrikant/mavrikant.github.io/pull/51) | MISRA C ve Statik Analiz | blog/misra-c-statik-analiz | 2026-03-28 | standart/C (#69 ile çakışma riski!) |
-| [#50](https://github.com/mavrikant/mavrikant.github.io/pull/50) | Float Denormalize FTZ/DAZ (eski yazı genişletme) | claude/float-denormalize-ftz-daz | 2026-03-26 | gömülü/sayısal |
+**2026-08-20 itibarıyla 50 açık PR var.** Tek tek listelemek defteri kullanışsız hale
+getiriyor; güncel liste için:
 
-> **Not:** PR #51 "MISRA C ve Statik Analiz", zaten yayında olan #69 "MISRA C:2025 ile Neler Değişti?" ile konu olarak çakışıyor olabilir. İnceleyen kişinin dikkatine.
+```bash
+gh pr list --repo mavrikant/mavrikant.github.io --state open --limit 100
+```
+
+Bu backlog konu seçimini doğrudan kısıtlıyor: aşağıdaki fikir havuzunun büyük bölümü
+artık açık bir PR tarafından tutuluyor (volatile/_Atomic tek başına 6 PR, WCET 3 PR,
+watchdog 2 PR). Yeni konu seçmeden önce **mutlaka** açık PR başlıkları taranmalı.
+
+> **İnceleyen kişinin dikkatine:** yinelenen PR kümeleri birleştirilmeye aday —
+> `volatile`/`_Atomic` (#100, #134, #155, #156, #157, #159), WCET (#88, #98, #164),
+> watchdog (#89, #161), MISRA (#51 ile yayındaki #69).
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- **Güç Kesildiğinde Flash'ta Ne Kalır? Atomik Kayıt Tasarımı ve Hata Enjeksiyonu** —
+  dal: `post/2026-08-20-guc-kesintisinde-flash-atomik-kayit`,
+  dosya: `_posts/2026-08-20-guc-kesintisinde-flash-atomik-kayit.md`,
+  araştırma: `agent/research/2026-08-20-guc-kesintisinde-flash-atomik-kayit.md`,
+  deney kodu: `agent/research/flashsim.c`,
+  durum: PR açıldı (2026-08-20) — alan: gömülü/güvenilirlik.
 
-## Reddedildi (bu çalıştırma)
+## Reddedildi (2026-08-20 çalıştırması)
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- **ARM Cortex-A boot / GIC / linker script / MPU-MMU / lockstep / endianness /
+  sabit nokta / DMA-cache / watchdog / WCET / volatile / DO-330 / FTA / SEU / ILS /
+  Kalman tuzakları** — tamamı ya yayında ya da açık bir PR tarafından tutuluyor.
+- **GPS hafta rollover ve leap second** — güçlü aday, ama alan olarak navigasyon;
+  yayındaki Kalman (2026-06-02) ve açık RAIM PR'ı (#167) ile yakınlık taşıyor.
+  Havuzda tutuldu.
+- **DO-178C dead code vs deactivated code** — güçlü aday, ama yapısal kapsama kümesinde
+  zaten 3 açık PR var (#77, #146, #168); doygunluk riski. Havuzda tutuldu.
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 
@@ -55,33 +72,33 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 
 ### Yüksek öncelikli (kalıcı değer + Türkçe boşluk)
 
-- [ ] **ARM Cortex-A reset vektöründen `main()`'e: gerçekten ne oluyor?** —
+- [~] (PR açık/yayında) **ARM Cortex-A reset vektöründen `main()`'e: gerçekten ne oluyor?** —
       alan: gömülü/SoC — Renode yazısının doğal devamı, somut deney imkânı
-- [ ] **MC/DC kapsama: DO-178C DAL A'da neden modified condition/decision şart?** —
+- [~] (PR açık/yayında) **MC/DC kapsama: DO-178C DAL A'da neden modified condition/decision şart?** —
       alan: sertifikasyon — gerçek karar tablosu örneği, decision/condition farkı
-- [ ] **CRC vs checksum: neden CRC-32 değil de CRC-32C / CRC-16-CCITT seçilir?** —
+- [~] (PR açık/yayında) **CRC vs checksum: neden CRC-32 değil de CRC-32C / CRC-16-CCITT seçilir?** —
       alan: yazılım zanaatı — polinom seçimi, hata tespit gücü, bit-hata analizi
-- [ ] **WCET analizi: statik analiz vs ölçüm tabanlı yaklaşımlar, cache etkileri** —
+- [~] (PR açık/yayında) **WCET analizi: statik analiz vs ölçüm tabanlı yaklaşımlar, cache etkileri** —
       alan: gerçek zamanlı — somut örnek (örn. Cortex-R5 üzerinde basit görev)
-- [ ] **IQ örnekleme ve karmaşık sinyaller: gerçek SDR'ye giriş** —
+- [~] (PR açık/yayında) **IQ örnekleme ve karmaşık sinyaller: gerçek SDR'ye giriş** —
       alan: RF/SDR — neden negatif frekans, neden 2 kanal
-- [ ] **GIC (Generic Interrupt Controller): SGI/PPI/SPI farkları ve önceliklendirme** —
+- [~] (PR açık/yayında) **GIC (Generic Interrupt Controller): SGI/PPI/SPI farkları ve önceliklendirme** —
       alan: ARM — kesme yönlendirme, multicore'da CPU affinity
-- [ ] **Cache coherency ve MESI: ARM'da CCI/CMN ne yapar, neden yazılım perde
+- [~] (PR açık/yayında) **Cache coherency ve MESI: ARM'da CCI/CMN ne yapar, neden yazılım perde
       (barrier) gerekir?** — alan: ARM — pratik race condition örneği
-- [ ] **Linker script anatomisi: ARM bare-metal için bir `.ld` dosyası satır satır** —
+- [~] (PR açık/yayında) **Linker script anatomisi: ARM bare-metal için bir `.ld` dosyası satır satır** —
       alan: gömülü — kendi linker script'i yazma rehberi
-- [ ] **Watchdog tasarım desenleri: tek vs çoklu görev watchdog, deadman switch,
+- [~] (PR açık/yayında) **Watchdog tasarım desenleri: tek vs çoklu görev watchdog, deadman switch,
       windowed watchdog** — alan: güvenilirlik — gerçek tasarım kararları
-- [ ] **`volatile`'ın doğru kullanımı: nerede yetmez, neden `_Atomic` gerekir?** —
+- [~] (PR açık/yayında) **`volatile`'ın doğru kullanımı: nerede yetmez, neden `_Atomic` gerekir?** —
       alan: C/eşzamanlılık — derleyici çıktı analizi
-- [ ] **VOR'un çalışma prensibi: 30 Hz referans + değişken faz nasıl yön verir?** —
+- [~] (PR açık/yayında) **VOR'un çalışma prensibi: 30 Hz referans + değişken faz nasıl yön verir?** —
       alan: navigasyon — faz farkı matematiği + sinyal şeması
-- [ ] **ILS anatomisi: localizer 90/150 Hz DDM ve glide slope** —
+- [~] (PR açık/yayında) **ILS anatomisi: localizer 90/150 Hz DDM ve glide slope** —
       alan: navigasyon — modülasyon derinliği farkı + örnek hesap
-- [ ] **Kalman filtresi tuzakları: numerik stabilite, gözlemlenebilirlik, tuning** —
+- [~] (PR açık/yayında) **Kalman filtresi tuzakları: numerik stabilite, gözlemlenebilirlik, tuning** —
       alan: navigasyon/füzyon — basit IMU örneği + Python kodu
-- [ ] **Sabit nokta (Q-format) aritmetik: Cortex-M0'da FPU yokken DSP nasıl yapılır?** —
+- [~] (PR açık/yayında) **Sabit nokta (Q-format) aritmetik: Cortex-M0'da FPU yokken DSP nasıl yapılır?** —
       alan: gömülü/DSP — Q15/Q31 örnekleri, overflow yönetimi
 
 ### Orta öncelikli (kovaya alındı)
@@ -108,21 +125,17 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - [ ] DO-254 donanım sertifikasyonu (yazarın uzmanlığı ağırlıklı yazılım tarafında)
 - [ ] İzlenebilirlik matrisi (klasik konu, derinlik çıkarmak zor)
 
-## Notlar (bu çalıştırma — 2026-05-21)
+## Notlar (bu çalıştırma — 2026-08-20)
 
-- **Bandpass Sampling** seçildi (alan: RF/DSP). Önceki çalıştırmaların ardından
-  açılan PR'lar son üç alt-alanı (sertifikasyon #77, navigasyon #78, yazılım
-  zanaatı/CRC #79) işaretlemişti; bu yazı **bu üç alandan da** son yayınlanan 3
-  posttan da (Renode gömülü/SoC, kalibrasyon ×2) farklı bir alan getiriyor.
-- Yayın kapısı durumu: Bölüm 4 yalnızca "yayın PR ile olmalı" kuralı koyar; backlog
-  büyüklüğüne dair sert bir sınır yoktur. Açık 7 PR olmasına rağmen son yayınlanan
-  yazıdan (Renode, 2026-05-14) bu yana 7 gün geçti — `min_yayin_araligi_gun = 2`
-  şartı fazlasıyla sağlanmış durumda. Bu çalıştırmada yeni PR açıldı.
-- Bandpass sampling konusunun "neden Türkçe içerikte zor bulunuyor" yanıtı:
-  matematik (Vaughan 1991), datasheet okuma (analog input BW), saat phase noise
-  ve filtre tasarımı disiplinlerinin kesişiminde bulunuyor; Türkçe kaynaklar
-  genellikle yalnızca tek bir cepheden ele almış oluyor (genelde Lyons özet
-  çevirisi). Sentez ve somut sayısal örnek boşluğu büyük.
-- Açık PR'lar konusunda inceleme önceliği yorumu (gözlem): #50 ve #51 hâlâ uzun
-  süredir bekliyor; #50 eski yazıyı genişletiyor, #51 ise yayındaki MISRA C:2025
-  ile büyük olasılıkla çakışıyor. İnceleyen kişinin dikkatine.
+- Defter 2026-05-21'den beri güncellenmemişti; yayın listesi ve PR durumu senkronlandı.
+- Seçilen konu: **gömülü flash'ta güç-kesintisine dayanıklı kalıcı kayıt**. 24 yayın ve
+  50 açık PR tarandı; konu hiçbiriyle çakışmıyor. Son 3 yayının alt-alanlarından farklı.
+- Derinlik öğesi: **deney** — 428 satırlık flash modeli üzerinde tüketici güç kesintisi
+  enjeksiyonu; 6 tasarım varyantı × 84 senaryo, 3 farklı yapılandırmada tekrarlandı.
+- Koşum, yazarın başlangıç hipotezini (kayıt sıralaması doğruluğu etkiler) **çürüttü**;
+  bu, yazıda gizlenmeyip açıkça aktarıldı ve gerçek etki (ECC maruziyeti 22 → 12) ölçüldü.
+- Yayın kapısı: son yayın 2026-06-24, arada 57 gün var; `min_yayin_araligi_gun = 2`
+  fazlasıyla sağlandı. `bundle exec jekyll build` yerelde başarılı.
+- Fikir havuzundaki maddelerin çoğu artık açık PR'larla tutulu; `[~]` ile işaretlendi.
+  Havuzun yenilenmesi gerekiyor — bir sonraki çalıştırmanın ilk işi bu olmalı.
+
