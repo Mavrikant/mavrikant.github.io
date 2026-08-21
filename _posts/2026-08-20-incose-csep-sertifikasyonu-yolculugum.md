@@ -178,6 +178,8 @@ Kullandığım setlerin bağlantıları yazının sonundaki [Kaynaklar](#kaynakl
 
 Sınavı geçtikten sonra elinizde bir "bilgi yeterliliği" var; sertifika değil. CSEP için asıl iş şimdi başlıyor.
 
+> **Not:** Bu bölüm, başvurumu yaptığım Temmuz–Ağustos 2026 dönemindeki akışı anlatıyor. Ağustos 2026'dan sonra INCOSE portalında bir sistem güncellemesi yapıldı ve Form 1'in doldurulma yöntemi değişti: benim başvurumda Form 1, indirilip bilgisayarda doldurulan ve sonra yüklenen bir **PDF dosyasıydı**; yeni sistemde form doğrudan **web sitesi üzerinden** dolduruluyor. Deneyim beyanının mantığı — altmış ay, üç alan, referans doğrulaması — aynı kalsa da adımların adları, sırası ve formların sunuluş biçimi bugün farklı olabilir. Süreci yürütürken INCOSE'un güncel [How to Apply for CSEP](https://www.incose.org/wp-content/uploads/2026/07/CSEP_HowToApply_2026.pdf) dokümanını esas alın; buradaki anlatıyı neyle karşılaşacağınızı öngörmek için kullanın.
+
 ### 60 ay ve üç alan kuralı
 
 CSEP, en az **60 ay doğrudan sistem mühendisliği deneyimi** ister. Ancak toplam süre tek başına yeterli değil; INCOSE aynı zamanda **derinlik ve genişlik** arar. Somut kural şu: deneyiminizin en az **üç farklı sistem mühendisliği alanında, her birinde en az 12 ay** olması gerekiyor.
