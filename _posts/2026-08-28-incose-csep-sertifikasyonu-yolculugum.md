@@ -280,6 +280,78 @@ Buradaki asıl mesele muhasebe disiplini: INCOSE bir **PDU kayıt defteri** tutm
 
 ---
 
+## Türkiye'de SEP Manzarası: Dizindeki 141 Kayıt
+
+Süreci bitirdikten sonra merak ettim: Türkiye'de benim gibi kaç kişi var? INCOSE'un herkese açık SEP dizini bu soruya kısmen cevap veriyor. 28 Ağustos 2026 tarihli anlık görüntüde Türkiye merkezli **141 kayıt** listeleniyor.
+
+Baştan bir uyarı: bu sayı bir **alt sınır**. Dizinde yalnızca listelenmeyi kabul eden sertifika sahipleri görünüyor, dolayısıyla gerçek sayı daha yüksek. Aşağıdaki oranları "Türkiye'deki tüm SEP sahipleri" değil, "dizinde görünenler" olarak okumak gerekiyor. Yine de eğilimleri görmek için fazlasıyla yeterli bir veri kümesi.
+
+### Sertifikalanma son üç yılda ivme kazandı
+
+En çarpıcı bulgu büyümenin şekli:
+
+<div class="mermaid">
+xychart-beta
+    title "Yıllara göre yeni SEP sertifikaları — 2026: Oca-Ağu"
+    x-axis ["2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026"]
+    y-axis 0 --> 36
+    bar [1, 1, 1, 1, 0, 0, 3, 17, 12, 3, 10, 27, 31, 34]
+</div>
+
+İlk yedi yılda (2013–2019) toplam **yedi** kişi sertifika almış; 2017 ve 2018'de hiç kimse yok. 2020'de birden 17 kişiye çıkıyor, 2022'de üçe düşüyor, sonra 2024'ten itibaren kalıcı biçimde yükseliyor. Grafiğin son sütunu yanıltmasın: 2026 yalnızca ocak–ağustos ayını kapsıyor ve **34 kişiyle 2025'in tamamını çoktan geçmiş** durumda.
+
+Kümülatif eğri, bunun bileşik etkisini daha net gösteriyor:
+
+<div class="mermaid">
+xychart-beta
+    title "Toplam SEP sertifikası sahibi, kümülatif — 2026: Oca-Ağu"
+    x-axis ["2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026"]
+    y-axis 0 --> 150
+    line [1, 2, 3, 4, 4, 4, 7, 24, 36, 39, 49, 76, 107, 141]
+</div>
+
+2019 sonunda Türkiye'de dizine kayıtlı yedi SEP sahibi vardı; bugün 141. Daha çarpıcısı, bu 141 kişinin **92'si (%65) son 32 ayda** sertifikalanmış. Kendi takvimimle söylersem: CSEP hedefini koyduğum 2025 başında dizinde 76 kişi vardı, yirmi ay sonra bu sayı neredeyse iki katına çıktı.
+
+Bu ivmenin sebebini veri söylemiyor. Yazı boyunca değindiğim iki şey — SSB Akademi'nin hazırlık eğitimi ve Türkiye'de yılda bir yapılan kâğıt sınav oturumu — sertifikaya erişimi kolaylaştıran etkenler; ancak bu veriyle bir neden-sonuç ilişkisi kurmak mümkün değil.
+
+### Sertifika, ağırlıklı olarak savunma ve havacılıkta
+
+İşvereni belirtilmiş 105 kaydın **82'si (%78) savunma ve havacılık** kurumlarında çalışıyor. Dağılım tek bir şirkette belirgin biçimde yoğunlaşıyor:
+
+| Kurum | Kişi | Pay |
+|---|---:|---:|
+| ASELSAN | 31 | %22,0 |
+| TÜBİTAK | 12 | %8,5 |
+| HAVELSAN | 9 | %6,4 |
+| Turkish Aerospace (TUSAŞ) | 9 | %6,4 |
+| ROKETSAN | 7 | %5,0 |
+| SSB | 4 | %2,8 |
+| TEI | 3 | %2,1 |
+| TOGG | 2 | %1,4 |
+| TRMOTOR | 2 | %1,4 |
+| Tek kişilik diğer kurumlar (26 ayrı kurum) | 26 | %18,4 |
+| Belirtilmemiş | 36 | %25,5 |
+
+ASELSAN tek başına tüm listenin beşte birinden fazlasını oluşturuyor. Kayıtların dörtte birinde işveren belirtilmediği için bu oranlar kesin değil, ama tablonun genel şekli tartışmasız.
+
+Savunma dışındaki kayıtlar da anlamlı bir azınlık oluşturuyor: TOGG, Ford Otosan, FEV ve TRMOTOR ile otomotiv; Rolls-Royce, RTX Rockwell Collins ve Thales ile uluslararası havacılık; Bosch ve Philips gibi sektör dışı sanayi kuruluşları da listede. Sertifikanın savunma sanayii dışında da karşılık bulmaya başladığını gösteriyor, ancak ağırlık merkezi hâlâ net.
+
+### ASEP, Türkiye'de yeni bir olgu
+
+Seviye dağılımı beklendiği gibi CSEP ağırlıklı: **121 CSEP (%85,8), 14 ASEP (%9,9), 6 ESEP (%4,3)**.
+
+İlginç olan ASEP'in zamanlaması. Dizindeki ilk ASEP kaydı **2023 tarihli**; öncesinde tek bir tane bile yok. 2024'te 5, 2025'te 4, 2026'nın ilk sekiz ayında 4 kişi ASEP almış. Yani deneyimi CSEP'in 60 ay şartını karşılamayan mühendislerin ASEP ile başlama stratejisi, Türkiye'de ancak son üç yılda yaygınlaşmış. Aşağıdaki öneri listesinin ilk maddesini yazarken aklımda olan yol bu — ve verinin gösterdiğine göre giderek daha çok kişi bu yolu tercih ediyor.
+
+ESEP tarafı ise hâlâ çok dar: altı kişi. Bu, yukarıdaki tabloda ESEP için belirtilen 20 yıllık deneyim ve liderlik şartı düşünüldüğünde beklenen bir sonuç. (Küçük bir teknik not: dizin, ESEP kayıtları için geçerlilik tarihi göstermiyor; bu bir dizin özelliği, sertifikanın süresiz olduğu anlamına gelmiyor.)
+
+### Bu tablodaki son satır
+
+Dizindeki en yeni CSEP kaydı bu yazıyı yazarken bana ait. Süreci tek başıma yaşadığım bir maraton gibi hatırlıyorum, ama veriye bakınca aynı anda onlarca kişinin aynı yoldan geçtiğini görüyorum. 2020'de sertifika alan 17 kişinin 14'ünün geçerlilik tarihi önümüzdeki bir yıl içinde doluyor — yani Türkiye'deki topluluk artık yalnızca büyümüyor, aynı zamanda ilk toplu yenileme dalgasını yaşıyor.
+
+> **Veri notu:** Sayılar INCOSE'un herkese açık SEP dizininden 28 Ağustos 2026'da alınan anlık görüntüye dayanıyor ve yalnızca dizinde listelenmeyi kabul eden, Türkiye merkezli kayıtları kapsıyor. Kurum adları, aynı kuruluşun farklı yazımları birleştirilerek gruplandı. Kişi adları bilinçli olarak paylaşılmadı.
+
+---
+
 ## Türkiye'de CSEP Kimin İşine Yarar?
 
 Gerçekçi olalım: CSEP, tek başına kapı açan sihirli bir anahtar değil. Değerinin en yüksek olduğu yerler oldukça belirli.
@@ -339,6 +411,7 @@ Aynı yolu yürüyecek olanlara kolaylıklar dilerim. Süreçle ilgili sorusu ol
 - INCOSE, *Sistem Mühendisliği El Kitabı*, dördüncü versiyon, Savunma Sanayii Akademi Yayınları — Türkçe çeviri
 - [Savunma Sanayii Akademi](https://www.ssa.gov.tr/) — CSEP hazırlık eğitimi ve Türkiye'deki kâğıt sınav oturumu
 - [INCOSE TR](https://tr.linkedin.com/company/incosetr)
+- INCOSE SEP sertifika dizini (herkese açık sertifika sahipleri listesi) — "Türkiye'de SEP Manzarası" bölümündeki sayıların kaynağı; 28 Ağustos 2026 anlık görüntüsü
 
 ### Pratik soru setleri (Udemy)
 
