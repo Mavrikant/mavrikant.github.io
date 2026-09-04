@@ -38,8 +38,11 @@ Uygulamada "biz de kullanıyoruz" cümlesi çok farklı şeyler anlatabilir. Ara
 
 <div class="mermaid">
 flowchart LR
-    S1["SEVİYE 1<br/>Denemek<br/><i>ayrılmış saat, demo ortam</i>"] --> S2["SEVİYE 2<br/>Günlük akışa almak<br/><i>gerçek veri, gerçek iş</i>"]
-    S2 --> S3["SEVİYE 3<br/>Kritik yola koymak<br/><i>bozulursa ekip durur</i>"]
+    S1["`**SEVİYE 1 — Denemek**
+    ayrılmış saat, demo ortam`"] --> S2["`**SEVİYE 2 — Günlük akışa almak**
+    gerçek veri, gerçek iş`"]
+    S2 --> S3["`**SEVİYE 3 — Kritik yola koymak**
+    bozulursa ekip durur`"]
     style S1 fill:#fde0e0,stroke:#c0392b,stroke-width:2px
     style S2 fill:#e8eef7,stroke:#4a6fa5,stroke-width:2px
     style S3 fill:#d5f0d5,stroke:#2e7d32,stroke-width:2px
