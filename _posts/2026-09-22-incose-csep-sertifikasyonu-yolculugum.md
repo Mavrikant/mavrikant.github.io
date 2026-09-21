@@ -1,7 +1,7 @@
 ---
 title: "INCOSE CSEP: Sınavdan Sertifikaya Bir Yol Haritası"
 subtitle: "My Road to INCOSE CSEP Certification"
-background: "/img/posts/2.webp"
+background: "/img/posts/incose-csep-sertifikasi.webp"
 date: '2026-09-22 00:05:00'
 layout: post
 lang: tr
