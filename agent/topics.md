@@ -39,14 +39,14 @@
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- **C Bit-Field'ları Wire Format Değildir — Endianness, Padding ve Derleyici-Bağımlı Bit Sıralaması** —
+  dal: `post/2026-07-22-c-bitfield-wire-format-endianness-tuzaklari`,
+  dosya: `_posts/2026-07-22-c-bitfield-wire-format-endianness-tuzaklari.md`,
+  durum: PR açıldı (2026-07-22) — alan: yazılım zanaatı / gömülü.
 
 ## Reddedildi (bu çalıştırma)
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- _(bu çalıştırmada konu reddedilmedi; bit-field / endianness tuzağı özgün ve doğrudan aviyonik pratik değeri olan bir konu olarak seçildi.)_
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 
@@ -108,7 +108,26 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - [ ] DO-254 donanım sertifikasyonu (yazarın uzmanlığı ağırlıklı yazılım tarafında)
 - [ ] İzlenebilirlik matrisi (klasik konu, derinlik çıkarmak zor)
 
-## Notlar (bu çalıştırma — 2026-05-21)
+## Notlar (bu çalıştırma — 2026-07-22)
+
+- **C bit-field / endianness** konusu seçildi (alan: yazılım zanaatı / gömülü). Son 3
+  yayınlanan yazı (Antikırılgan 2026-06-24, Coupling 2026-06-04, Kalman 2026-06-02)
+  farklı alanlarda; bu yazı yeni bir alt-alan getiriyor.
+- Yayın kapısı durumu: son yayın 2026-06-24 (Antikırılgan). Bugün 2026-07-22 → 28 gün
+  geçmiş. `min_yayin_araligi_gun = 2` fazlasıyla sağlanmış.
+- Backlog: 14+ açık PR var (2026-06-13'ten 2026-07-14'e kadar). `volatile` başlıklı
+  4 çakışan PR (#134, #155, #156, #157, #159) inceleyen kişinin dikkatine — biri
+  seçilip diğerleri kapatılabilir. Bu yazı hiçbiriyle çakışmıyor.
+- Konu novelty analizi: Türkçe kaynak boşluğu büyük. C standardının §6.7.2.1'ini
+  Türkçe olarak tartışan ve *ARM ABI + wire format + AArch64/SETEND geçişi*
+  cephelerini birleştiren mevcut bir yazı bulamadım. İngilizce'de bile konuyu
+  bütünsel ele alan tek kaynak (CERT EXP11-C + AAPCS + GCC internals) yok; parçalı.
+- **Ledger senkronizasyonu:** Yazılan post listesi güncel değildi. Bu commit'te
+  Bandpass Sampling → Antikırılgan arası yayınlanan 6 posttan hiçbiri "Yazıldı"
+  bölümüne alınmadı; bu bilinçli bir tercih — mevcut çalıştırma yayın odaklı,
+  ledger senkronizasyonu ayrı bir PR (#154, açık) tarafından zaten önerildi.
+
+## Notlar (önceki çalıştırma — 2026-05-21)
 
 - **Bandpass Sampling** seçildi (alan: RF/DSP). Önceki çalıştırmaların ardından
   açılan PR'lar son üç alt-alanı (sertifikasyon #77, navigasyon #78, yazılım
