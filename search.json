@@ -13,6 +13,18 @@
   },
 
   {
+    "title": "Dogfooding: Kendi Ürününü Kullanmak",
+    "subtitle": "Eating Your Own Dog Food",
+    "url": "/2026/09/04/dogfooding-kendi-urununu-kullanmak",
+    "date": "2026-09-04",
+    "date_display": "4 Eylül 2026",
+    "tags": ["urun-gelistirme","yazilim-muhendisligi","test"],
+    "tag_names": ["Ürün Geliştirme", "Yazılım Mühendisliği", "Test"],
+    "excerpt": "Bir ekip aylarca bir iç araç geliştirir, sürümü çıkarır, eğitim verir. Sonra aynı aracı ilk kez kendi işinde kullanmak zorunda kalır ve ilk yarım saatte hiçbir test planında yer almayan şeylerle karşılaşır. Kurulum, üç sayfalık bir Word dokümanını adım adım...",
+    "content": "Bir ekip aylarca bir iç araç geliştirir, sürümü çıkarır, eğitim verir. Sonra aynı aracı ilk kez kendi işinde kullanmak zorunda kalır ve ilk yarım saatte hiçbir test planında yer almayan şeylerle karşılaşır. Kurulum, üç sayfalık bir Word dokümanını adım adım takip etmeyi gerektirir. Günde otuz kez yapılan işlem dört tıklama uzaktadır. Hata mesajı sorunu anlatmaz, bir hata kodu gösterir. Bunların çoğu klasik anlamda hata sayılmaz; testler yeşildir. Ama araç kullanışsızdır ve bunu ölçen şey çoğu zaman yalnızca kullanan kişinin sabrıdır. Dogfooding genelde “kendi ürününü kullanmak” diye tanımlanır. Asıl fikir bundan geniştir: ürünün başarısını, onu geliştirenlerin de maruz kaldığı gerçek kullanım koşullarında ölçmek. Bu yazının tezi de buna dayanıyor: dogfooding’in değeri hata bulmasından çok, sorunu yaşayan kişiyle sorunu düzeltebilen kişi arasındaki geri bildirim zincirini kısaltmasındadır. Terim nereden geliyor İngilizcesi eating your own dog food, yani “kendi köpek mamanı yemek”. Kökeni genelde köpek maması reklamlarına dayandırılır; ayrıntılar tartışmalı ama fikir açık: sattığın şeye güveniyorsan önce sen tüketirsin. Yazılıma girişi daha net: 1988’de Microsoft’ta Paul Maritz, “Eating our own Dogfood” konu başlıklı bir e-postayla LAN Manager’ın şirket içinde daha çok kullanılmasını ister. Terim oradan sektöre yayılır. Fikrin kendisi terimden eskidir; geliştiriciler kendi geliştirme araçlarını hep kendi işlerinde de kullanmıştır. Dogfooding yapılabilen ürünlerde bu kullanım, güçlü bir gerçeklik testidir. Ama her ürün buna uygun değildir; buna aşağıda döneceğiz. Asıl mekanizma: geri bildirim zinciri Kullanıcının yaşadığı bir aksaklık, geliştiriciye genellikle uzun bir zincirin sonunda ulaşır ve her halkada bilgi kaybolur: flowchart TB subgraph B[\"Dogfooding ile\"] direction LR G2[Geliştirici] --&gt; S[Sorun] --&gt; G2 end subgraph A[\"Dogfooding..."
+  },
+
+  {
     "title": "Antikırılgan: Belirsizlikten ve Kaostan Güç Alan Sistemler",
     "subtitle": "Antifragile: Building Systems That Gain From Disorder",
     "url": "/2026/06/24/antikirilgan-belirsizlikten-guc-alan-sistemler",
