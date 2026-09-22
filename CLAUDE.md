@@ -29,7 +29,7 @@ This is the personal blog of **M. Serdar Karaman**, hosted at <https://karaman.d
 │   ├── page.html            # Static page layout
 │   └── post.html            # Blog post layout (includes Disqus)
 ├── _includes/               # Reusable partials
-│   ├── head.html            # <head> with SEO, fonts, Mermaid.js
+│   ├── head.html            # <head> with SEO, fonts
 │   ├── navbar.html
 │   ├── footer.html
 │   ├── scripts.html
@@ -63,7 +63,7 @@ This is the personal blog of **M. Serdar Karaman**, hosted at <https://karaman.d
 - **Markdown:** kramdown
 - **Sass:** compressed output
 - **Frontend:** Bootstrap 4.6, jQuery 3.6, Font Awesome 5.15, Google Fonts (Lora, Open Sans)
-- **Diagrams:** Mermaid.js 9.1.3 (loaded via CDN in `_includes/head.html`)
+- **Diagrams:** Mermaid.js 12.0.0 (loaded on demand from jsDelivr by `initMermaid()` in `assets/scripts.js`, classic dagre layout)
 - **Comments:** Disqus (shortname `karaman-dev`, embedded in `_layouts/post.html`)
 - **Analytics:** Google Analytics (`G-YDEV31NZ5J`)
 
@@ -144,7 +144,7 @@ Notes:
 - `background` should reference an image under `/img/posts/` (these are the hero header images).
 - `lang: tr` is used for Turkish posts and is passed through to the `<div class="container" lang="tr">` in `_layouts/post.html`. Use `lang: en` for English posts.
 - `date` is used for ordering, reading-time display, and pagination.
-- The post content body is plain Markdown (kramdown). Mermaid diagrams can be embedded via `<div class="mermaid">...</div>` blocks (Mermaid.js is loaded site-wide).
+- The post content body is plain Markdown (kramdown). Mermaid diagrams can be embedded via `<div class="mermaid">...</div>` blocks (Mermaid.js is loaded on demand on pages that contain them). Edge labels written as `-->|label|` are safe: `assets/scripts.js` strips the backslash escapes jekyll-spaceship adds to lines containing `|`.
 
 ### Images
 
