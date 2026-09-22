@@ -105,7 +105,7 @@ Buna karşılık bir kısıtı var: kâğıt oturumlar belirli tarihlerde açıl
 
 Burası yazının en çabuk eskiyen kısmı: oturumların sayısı ve tarihleri yıldan yıla değişiyor. Planınızı benim anlattığım ocak takvimine göre değil, **INCOSE TR ve SSB Akademi'nin güncel duyurularına** göre kurun.
 
-Bir de tekrar hakkı meselesi var: sınava istediğiniz sıklıkta giremiyorsunuz. INCOSE on iki aylık dönem içindeki deneme sayısını sınırlıyor ve her deneme için ücret yeniden ödeniyor; güncel sınırı kayıt sırasında teyit edin. Kâğıt oturumda kalırsanız ya bir sonraki oturumu bekliyor ya da online sınava geçiyorsunuz. Yani "girer bakarım, olmazsa tekrar girerim" teknik olarak mümkün; ama her deneme ayrı ücrete tabi olduğu için pahalı bir strateji.
+Bir de tekrar hakkı meselesi var: sınava istediğiniz sıklıkta giremiyorsunuz. INCOSE, on iki aylık dönem içinde [en fazla üç deneme](https://www.incose.org/certification/start-your-certification/taking-the-exam/) hakkı tanıyor ve her deneme için ücret yeniden ödeniyor. Kâğıt oturumda kalırsanız ya bir sonraki oturumu bekliyor ya da online sınava geçiyorsunuz. Yani "girer bakarım, olmazsa tekrar girerim" teknik olarak mümkün; ama her deneme ayrı ücrete tabi olduğu için pahalı bir strateji.
 
 ### Sınav günü nasıl işliyor?
 
@@ -230,11 +230,11 @@ Formu yazarken kullandığım pratik bir yöntem: her satır için "referansım 
 
 CSEP başvurusunda deneyiminizi doğrulayacak **referanslar** gerekiyor. Kuralları özetlemek gerekirse:
 
-- Referans, sistem mühendisliğine aşina olmalı — yani yaptığınız işin gerçekten sistem mühendisliği olduğunu değerlendirebilecek durumda olmalı.
+- Referans, [en az beş yıllık iş deneyimine sahip olmalı ve sistem mühendisliğine aşina olmalı](https://www.incose.org/certification/start-your-certification/being-a-reference/) — yani yaptığınız işin gerçekten sistem mühendisliği olduğunu değerlendirebilecek durumda olmalı. Referansın sistem mühendisi ya da INCOSE üyesi olması şart değil.
 - Referans, beyan ettiğiniz deneyim döneminde sizi tanıyor ve o işten haberdar olmalı. Sonradan tanışılmış bir kişi o dönemi doğrulayamaz.
 - Her referans, beyan ettiğiniz sürenin en az 12 ayını doğrudan doğrulayabilmeli; referansların toplamı ise nitelikli diplomaya sahip adaylar için beş yıllık deneyimi kapsamalı. Diploması alan dışında olanlarda bu eşik on yıla çıkıyor.
 - Kural olarak tek bir referans derinlik, genişlik ve süre şartının tamamını doğrulayabiliyorsa yeterli sayılabiliyor; pratikte başvurular çoğunlukla üç civarı referansla destekleniyor. Referansın sizinle akrabalık bağı olmaması gerekiyor.
-- **Benim açımdan en güçlü referanslar, ilgili dönemdeki yöneticilerim ve yaptığım işi doğrudan bilen kişiler oldu.** Deneyimi en somut biçimde onlar doğrulayabiliyordu.
+- **INCOSE, mevcut ve eski yöneticiler ile müşterileri ideal referans olarak tanımlıyor; astlarınız referans olamıyor.** Benim deneyimimde de en güçlü doğrulama, ilgili dönemdeki yöneticilerimden geldi.
 
 Ben asgari sayıyla yetinmedim: **çalıştığım son üç iş yerinden toplam sekiz referans** verdim. Bunun iki sebebi vardı. Birincisi kapsama: beyan ettiğim altmış aylık deneyim tek bir projeye ya da tek bir yöneticinin görüş alanına sığmıyordu; her dönemi ve her deneyim alanını o işi bizzat gören biriyle eşleştirmek istedim. İkincisi dayanıklılık: referansların formu doldurması gönüllülük esasına dayanıyor, araya izin, yoğunluk ya da unutma girebiliyor. Sekiz kişiden birkaçı gecikse bile dosyanın doğrulanmış deneyimi eksik kalmıyor.
 
@@ -282,7 +282,7 @@ CSEP üç yıl geçerli. Yenilemek için üç şey gerekiyor:
 - **100 USD** yenileme ücreti
 - **INCOSE üyeliği** — Ekim 2025'ten beri sertifikasyon için biçimsel bir zorunluluk değil; yine de ücretler üyeler lehine, Türkiye'de yıllık aidat 130 USD. Yenileme koşulları değişebildiği için başvuru anında INCOSE'un yenileme sayfasından teyit edin.
 
-PDU'lar yalnızca eğitim ve konferanslardan gelmiyor; sistem mühendisi olarak çalışmak, ekip liderliği yapmak, meslek örgütü ve şube etkinliklerine katılmak, makale yazmak ve gönüllü görevler almak da sayılıyor. Dönem içinde 120'nin üzerinde PDU biriktirirseniz bir kısmını sonraki döneme aktarabiliyorsunuz; devredilebilecek üst sınırı INCOSE'un güncel yenileme kılavuzundan teyit edin.
+PDU'lar yalnızca eğitim ve konferanslardan gelmiyor; sistem mühendisi olarak çalışmak, ekip liderliği yapmak, meslek örgütü ve şube etkinliklerine katılmak, makale yazmak ve gönüllü görevler almak da sayılıyor. Dönem içinde 120'nin üzerinde PDU biriktirirseniz [en fazla 30'unu](https://www.incose.org/certification/maintaining-renewing-certification/renewing-certification/) bir sonraki döneme aktarabiliyorsunuz.
 
 Buradaki asıl mesele muhasebe disiplini: INCOSE bir **PDU kayıt defteri** tutmanızı ve gerektiğinde belgeleyebilmenizi bekliyor. Üç yıl sonra geriye dönüp hatırlamaya çalışmak yerine, katıldığınız her etkinliği o gün kaydetmek çok daha kolay. Ben bu kaydı sertifikayı aldığım gün açtım.
 
