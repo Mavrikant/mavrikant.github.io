@@ -31,6 +31,8 @@ yazilim-tasarimi:
   name: "Yazılım Tasarımı"
 proje-yonetimi:
   name: "Proje Yönetimi"
+urun-gelistirme:
+  name: "Ürün Geliştirme"
 test:
   name: "Test"
 araclar:
