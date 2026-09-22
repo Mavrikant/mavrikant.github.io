@@ -1,4 +1,209 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="tr"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://karaman.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://karaman.dev/" rel="alternate" type="text/html" hreflang="tr" /><updated>2026-09-22T20:05:46+00:00</updated><id>https://karaman.dev/feed.xml</id><title type="html">M. Serdar Karaman</title><subtitle>Aviyonik yazılım, DO-178C ve emniyet kritik mühendislik üzerine sahadan notlar.</subtitle><author><name>M. Serdar Karaman</name></author><entry xml:lang="tr"><title type="html">Antikırılgan: Belirsizlikten ve Kaostan Güç Alan Sistemler</title><link href="https://karaman.dev/2026/06/24/antikirilgan-belirsizlikten-guc-alan-sistemler.html" rel="alternate" type="text/html" title="Antikırılgan: Belirsizlikten ve Kaostan Güç Alan Sistemler" /><published>2026-06-24T09:00:00+00:00</published><updated>2026-06-24T09:00:00+00:00</updated><id>https://karaman.dev/2026/06/24/antikirilgan-belirsizlikten-guc-alan-sistemler</id><content type="html" xml:base="https://karaman.dev/2026/06/24/antikirilgan-belirsizlikten-guc-alan-sistemler.html"><![CDATA[<p>Mühendislikte uzun süredir tek bir niteliğin peşinden koşarız: dayanıklılık. Sistemin şoka, yüke ve arızaya rağmen ayakta kalmasını isteriz; emniyet-kritik alanlarda bunu bir zorunluluğa çeviririz. Oysa Nassim Nicholas Taleb’in <em>Incerto</em> serisinde işlediği temel iddia, dayanıklılığın bir uç değil bir orta nokta olduğudur. Kırılganın gerçek zıttı “kırılmayan” değildir; volatiliteden, stresten ve hatadan fayda gören, yani sarsıldıkça güçlenen bir şeydir.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="tr"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://karaman.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://karaman.dev/" rel="alternate" type="text/html" hreflang="tr" /><updated>2026-09-22T20:10:08+00:00</updated><id>https://karaman.dev/feed.xml</id><title type="html">M. Serdar Karaman</title><subtitle>Aviyonik yazılım, DO-178C ve emniyet kritik mühendislik üzerine sahadan notlar.</subtitle><author><name>M. Serdar Karaman</name></author><entry xml:lang="tr"><title type="html">Analitiğin Dört Hâli: Descriptive, Diagnostic, Predictive, Prescriptive</title><link href="https://karaman.dev/2026/09/22/analitigin-dort-hali-descriptive-diagnostic-predictive-prescriptive.html" rel="alternate" type="text/html" title="Analitiğin Dört Hâli: Descriptive, Diagnostic, Predictive, Prescriptive" /><published>2026-09-22T09:00:00+00:00</published><updated>2026-09-22T09:00:00+00:00</updated><id>https://karaman.dev/2026/09/22/analitigin-dort-hali-descriptive-diagnostic-predictive-prescriptive</id><content type="html" xml:base="https://karaman.dev/2026/09/22/analitigin-dort-hali-descriptive-diagnostic-predictive-prescriptive.html"><![CDATA[<p>Çoğu ekibin veriyle ilişkisi aynı sahneyle başlar: bir gösterge paneli (<em>dashboard</em>) açılır, ekranda on beş grafik vardır, hepsi doğrudur, hiçbiri bir şey yaptırmaz; karar yine “bence” ile verilir. Sorun verinin azlığı değil, <strong>sorulan sorunun türünün farkında olmamaktır.</strong> “Ne oldu?”, “neden oldu?”, “ne olacak?” ve “ne yapmalıyız?” farklı yöntem ve farklı kanıt standardı isteyen dört ayrı sorudur. Bunlara sırasıyla <strong>descriptive</strong> (betimleyici), <strong>diagnostic</strong> (tanısal), <strong>predictive</strong> (öngörücü) ve <strong>prescriptive</strong> (kuralkoyucu) analitik denir.</p>
+
+<p>Sınıflandırmanın kökleri, Davenport ve Harris’in 2007 tarihli <em>Competing on Analytics</em> kitabına ve INFORMS’un 2010’da yayımladığı “The Analytics Journey” makalesindeki descriptive–predictive–prescriptive üçlüsüne dayanır. Bugün en yaygın olan dörtlü hâlini, araya diagnostic’i ekleyen Gartner’ın “analitik yükseliş modeli” (<em>Analytic Ascendancy Model</em>) yerleştirdi. Etiketler yeni olsa da en üst basamağın motoru, 1950’lerden beri gelişen yöneylem araştırmasıdır.</p>
+
+<p>Bu yazıda dört seviyeyi tek bir örnek üzerinden ele alacağız: sahada birkaç bin adedi çalışan bir elektronik birimin (LRU, <em>line-replaceable unit</em>) arıza verisi ve kapasitesi, stoğu ve bütçesi sınırlı bir bakım ekibi.</p>
+
+<hr />
+
+<h2 id="dört-seviyeye-kuşbakışı">Dört Seviyeye Kuşbakışı</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Seviye</th>
+      <th>Soru</th>
+      <th>Amaç</th>
+      <th>Örnekteki karşılığı</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>**Descriptive**</td>
+      <td>Ne oldu?</td>
+      <td>Geçmişi doğru özetlemek</td>
+      <td>Son üç ayda arıza oranı bin saatte 0,8’den 1,9’a çıktı</td>
+    </tr>
+    <tr>
+      <td>**Diagnostic**</td>
+      <td>Neden oldu?</td>
+      <td>Sebebi bulmak</td>
+      <td>Artış Parti 7’den geliyor; kök neden tedarikçisi değişen bir kondansatör</td>
+    </tr>
+    <tr>
+      <td>**Predictive**</td>
+      <td>Ne olacak?</td>
+      <td>Geleceği kestirmek</td>
+      <td>Parti 7’deki bir birimin önümüzdeki 500 saatte arızalanma olasılığı %30</td>
+    </tr>
+    <tr>
+      <td>**Prescriptive**</td>
+      <td>Ne yapmalıyız?</td>
+      <td>En uygun eylemi seçmek</td>
+      <td>Parti 7’deki 120 birimi kapasiteye göre sıraya koyup planlı bakımda değiştir</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Seviyeler bağımsız değildir: <strong>her biri bir öncekinin çıktısını girdi olarak kullanır.</strong> Kök nedeni bilinmeyen bir arızanın seyri güvenilir biçimde tahmin edilemez; riski bilinmeyen bir birim için doğru bakım kararı verilemez. Alınan eylemin sonucu da yeniden ölçülür ve zincir bir döngüye dönüşür:</p>
+
+<div class="mermaid">
+flowchart LR
+    V["Veri<br />(telemetri, servis kaydı, üretim)"] --&gt; D["Descriptive<br />ne oldu"]
+    D --&gt; G["Diagnostic<br />neden oldu"]
+    G --&gt; P["Predictive<br />ne olacak"]
+    P --&gt; R["Prescriptive<br />ne yapmalı"]
+    R --&gt; E["EYLEM"]
+    E -. "sonuç yeniden ölçülür" .-&gt; V
+    style V fill:#e8eef7,stroke:#4a6fa5,stroke-width:2px
+    style E fill:#d5f0d5,stroke:#2e7d32,stroke-width:2px
+</div>
+
+<hr />
+
+<h2 id="1-descriptive-analytics--ne-oldu">1. Descriptive Analytics — “Ne oldu?”</h2>
+
+<p>Betimleyici analitik ham veriyi toplamlar, oranlar, dağılımlar ve kırılımlarla özetler; sebep aramaz, tahmin yapmaz. Hesaplar basittir; zorluk <strong>tanımlardadır</strong>. “Arıza”, müşterinin geri gönderdiği her birim mi, yoksa laboratuvarda hatası doğrulananlar mı? (Geri dönen birimlerin ciddi bir kısmında hata bulunamaz; sektör buna <strong>NFF</strong>, <em>no fault found</em>, der.) Çalışma saati sayaçtan mı geliyor, tahminden mi? Bu sorular netleşmeden üretilen her sayı <em>garbage in, garbage out</em> kuralına tabidir.</p>
+
+<p>Tanımlar oturduktan sonra iki alışkanlık bu katmanı değerli kılar:</p>
+
+<ul>
+  <li><strong>Ortalamayla yetinmemek.</strong> Ortalama onarım süresi 3 gün olabilir; ama kuyrukta 40 gün bekleyen müşteriler varsa asıl hikâye oradadır. Yüzdelikler (p50, p90, p99) de raporlanmalıdır; <a href="/2026/05/06/olcum-belirsizligi-gum-annex-f-ncsli-rp-12.html">Ölçüm Belirsizliği</a> yazısındaki gibi, yanında değişkenliği olmayan bir sayı eksiktir.</li>
+  <li><strong>Gürültüyü sinyalden ayırmak.</strong> Kararlı bir süreçte de sayılar dalgalanır. Walter Shewhart’ın <strong>istatistiksel süreç kontrolü</strong> (<em>SPC</em>), kontrol sınırları içinde kalan hareketi olağan (<em>common cause</em>), sınırları aşanı özel nedenli (<em>special cause</em>) sayar. Örneğimizdeki 0,8’den 1,9’a sıçrama ikinci türdendir ve açıklanmayı hak eder.</li>
+</ul>
+
+<hr />
+
+<h2 id="2-diagnostic-analytics--neden-oldu">2. Diagnostic Analytics — “Neden oldu?”</h2>
+
+<p>Tanısal analitik bu olguyu açıklar. Başlıca araçları detaya inme ve dilimleme (<em>drill-down</em>), Pareto analizi, korelasyon ve hipotez testi, kök neden analizi (5 Neden, Ishikawa, hata ağacı) ve nedensel çıkarımdır (A/B testi, fark-içinde-fark). Örneğimizde zincir şöyle ilerler:</p>
+
+<div class="mermaid">
+flowchart TD
+    A["Gözlem: arıza oranı 0,8'den 1,9'a çıktı"] --&gt; B["Kırılım: hangi parti / sürüm / bölge?"]
+    B --&gt; C["Bulgu: artış Parti 7'de yoğunlaşıyor"]
+    C --&gt; D["Hipotez: partideki bileşen değişikliği"]
+    D --&gt; E["Doğrulama: laboratuvar testi + hata ağacı"]
+    E --&gt; F["Kök neden: tedarikçisi değişen kondansatör"]
+    style A fill:#e8eef7,stroke:#4a6fa5,stroke-width:2px
+    style F fill:#d5f0d5,stroke:#2e7d32,stroke-width:2px
+</div>
+
+<p>İki şeyin birlikte hareket etmesi, birinin diğerine sebep olduğu anlamına gelmez. Bu katmanın tuzakları buradan doğar:</p>
+
+<ul>
+  <li><strong>Karıştırıcı değişken:</strong> Yeni yazılım sürümlü birimler daha çok arızalanıyor görünebilir; ama sürüm önce en yoğun kullanılan birimlere yüklendiyse asıl neden kullanım yoğunluğudur.</li>
+  <li><strong>Hayatta kalan yanlılığı:</strong> Yalnızca geri dönen birimlere bakan, sahada sessizce çalışanları görmez. Wald’ın uçak zırhı örneğindeki gibi: üsse dönen uçaklardaki delikler, zırhın <em>gerekmediği</em> yerleri gösterir.</li>
+  <li><strong>Ortalamaya dönüş:</strong> Kötü bir aydan sonraki iyileşme, alınan önlemin değil istatistiğin eseri olabilir; bir önlemin etkisini kanıtlamak için kontrol grubu gerekir.</li>
+  <li><strong>Simpson paradoksu:</strong> Alt gruplarda geçerli bir ilişki, gruplar birleşince tersine dönebilir.</li>
+</ul>
+
+<p>Pratik kural: <strong>bir açıklamayı kabul etmeden önce onu çürütecek veriyi arayın.</strong> Kondansatör suçluysa, aynı kondansatörü kullanan başka partilerde de artış görülmelidir.</p>
+
+<hr />
+
+<h2 id="3-predictive-analytics--ne-olacak">3. Predictive Analytics — “Ne olacak?”</h2>
+
+<p>Öngörücü analitik, geçmişten öğrendiği örüntüyü geleceğe uzatır; çıktısı bir kehanet değil, <strong>bir olasılıktır</strong>. Araçları regresyon, sınıflandırma, zaman serisi modelleri, güvenilirlik mühendisliğinin temel aracı olan hayatta kalma analizi (Weibull, “küvet eğrisi”), makine öğrenmesi ve <a href="/2026/06/02/kalman-filtresi.html">Kalman Filtresi</a> gibi durum kestiricileridir.</p>
+
+<p>Örneğimizde diagnostic bulgusu modele doğrudan girer: parti bilgisi, sıcaklık çevrimi sayısı ve çalışma saatinden her birime bir risk skoru üretilir. Parti 7’deki bir birimin önümüzdeki 500 saatte arızalanma olasılığı %30, diğer partilerde %3’tür. Bu sayıya güvenebilmek için:</p>
+
+<ul>
+  <li><strong>Zamana göre doğrulayın.</strong> Rastgele eğitim/test ayrımı modele geleceği sızdırır (<em>data leakage</em>).</li>
+  <li><strong>Naif bir tahmini geçin.</strong> “Geçen ayın değeri” gibi bir taban çizgisini (<em>baseline</em>) geçemeyen modelin karmaşıklığı yalnızca maliyettir.</li>
+  <li><strong>Doğru metriği seçin.</strong> Birimlerin %2’si arızalanıyorsa “hiçbiri arızalanmaz” diyen model %98 doğrudur ve işe yaramaz; nadir olaylarda kesinliğe (<em>precision</em>) ve duyarlılığa (<em>recall</em>) bakılır.</li>
+  <li><strong>Kalibrasyonu kontrol edin.</strong> “%30 risk” denen birimlerin gerçekten yaklaşık %30’u arızalanmalıdır; tahmin bir maliyet hesabına girecekse bu şarttır.</li>
+  <li><strong>Belirsizliği gösterin.</strong> “48 arıza” ile “48 ± 20 arıza” farklı kararlar doğurur. <a href="/2026/06/24/antikirilgan-belirsizlikten-guc-alan-sistemler.html">Antikırılgan</a> yazısındaki bakışla: amaç geleceği tam bilmek değil, yanılma ihtimaline karşı doğru konumlanmaktır.</li>
+  <li><strong>Kaymayı izleyin</strong> (<em>drift</em>). Tedarikçi, kullanım ya da yazılım değiştiğinde model sessizce bozulur.</li>
+</ul>
+
+<hr />
+
+<h2 id="4-prescriptive-analytics--ne-yapmalıyız">4. Prescriptive Analytics — “Ne yapmalıyız?”</h2>
+
+<p>%30’luk risk “bakım yap” demez; yalnızca gidişat sürerse ne olacağını söyler. Kuralkoyucu analitik bu olasılığa maliyetleri, seçenekleri ve kısıtları ekleyip <strong>bir eylem seçer.</strong> Çoğu zaman amaç tahmini yanlış çıkarmaktır: arızayı önleyen bakım, modeli kâğıt üzerinde “yanıltır” ama tam olarak işini yapmasını sağlar.</p>
+
+<p>En yalın hâli seçenekleri karşılaştırmaktır. Parti 7’deki bir birimi planlı bakımda değiştirmek 1.000 €, sahada arızalanması (yedek parça, plansız yer süresi, sefer iptali) yaklaşık 12.000 € tutuyor:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Seçenek</th>
+      <th>Beklenen maliyet</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Birimi planlı bakımda şimdi değiştir</td>
+      <td>1.000 €</td>
+    </tr>
+    <tr>
+      <td>Ertele, arızalanırsa değiştir</td>
+      <td>0,30 × 12.000 € = 3.600 €</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Karar nettir: <strong>şimdi değiştir.</strong> Asıl zorluk, aynı kararı 120 birim için, haftada ancak 30 birime yeten atölye kapasitesi ve sınırlı kondansatör stoğu altında vermektir. Bu artık bir optimizasyon problemidir: her birim için “bu hafta bakıma alınsın mı?” kararı verilir, toplam beklenen maliyet (bakım maliyetleri artı bakıma alınmayanların arıza olasılığı × arıza maliyeti) en aza indirilir, kapasite ve stok kısıt olarak girer. Evet/hayır kararlarından oluşan bu yapı, <a href="/2026/04/14/operasyonel-arastirma-yontemleri.html">Yöneylem Araştırması Yöntemleri</a> yazısında ele aldığımız tam sayılı programlamadır.</p>
+
+<p>Optimizasyon tek araç değildir. Sistem analitik olarak modellenemeyecek kadar karmaşıksa simülasyon (Monte Carlo, kesikli olay), ardışık ve belirsiz kararlar için karar ağaçları kullanılır. Çoğu zaman “Parti 7 birimlerinde bakım aralığını 500 saatten 400 saate indir” gibi basit bir <strong>karar kuralı</strong> da yeterlidir ve uygulanması en kolay reçetedir.</p>
+
+<p>Bu katmanın en sık hatası, optimal ama uygulanamaz bir plan üretmektir. Kondansatörün tedarik süresi altı haftaysa ya da bir müşterinin sözleşmesi birimlerin sökülmesine izin vermiyorsa, bunları bilmeyen model sahada boşa düşer. İyi bir model çözücünün gücüyle değil, <strong>gerçek kısıtları içermesiyle</strong> iyidir. Tek bir cevap yerine senaryolar sunmak da (“kapasite haftada 10 birim artarsa maliyet şu kadar düşer”) kararı kolaylaştırır.</p>
+
+<p>Eylemin ardından döngü kapanır: arıza oranı yeniden 0,8’e inerse kök neden doğru bulunmuştur; inmezse diagnostic hipotez eksiktir. <a href="/2026/05/26/sistem-muhendisligi-nedir.html">Sistem Mühendisliği Nedir?</a> yazısındaki doğrulama fikrinin veri tarafındaki karşılığı budur: etkisi ölçülmeyen bir karar öğrenmeye dönüşmez.</p>
+
+<hr />
+
+<h2 id="sık-yapılan-hatalar">Sık Yapılan Hatalar</h2>
+
+<ul>
+  <li><strong>Merdiveni atlamak.</strong> Ekip “geçen ay kaç arıza oldu?” sorusunu tutarlı yanıtlayamazken makine öğrenmesi projesi başlatır; tanımları belirsiz veriyle eğitilen modele kimse güvenmez. Descriptive katman sıkıcıdır ama pazarlığa açık değildir.</li>
+  <li><strong>İşi yanlış adlandırmak.</strong> Üzerine eğilim çizgisi çizilmiş bir rapor “öngörücü analitik”, iyi kurulmuş bir optimizasyon modeli “yapay zekâ” diye sunulur. Yanlış ad, yanlış beklenti ve yanlış kabul kriteri üretir; bir işin hangi soruyu yanıtladığına bakmak, onu doğru adlandırmaya yeter.</li>
+  <li><strong>Ölçütü hedefe çevirmek.</strong> Goodhart yasasına göre hedef hâline gelen bir ölçüt, iyi bir ölçüt olmaktan çıkar. Arıza sayısı performans hedefine bağlanınca kayıtlar “kullanıcı hatası” diye sınıflanmaya başlar ve merdivenin temeli aşınır.</li>
+</ul>
+
+<hr />
+
+<h2 id="nereden-başlamalı">Nereden Başlamalı?</h2>
+
+<p>İşe merdivenin altından değil, <strong>iyileştirilmek istenen karardan geriye doğru</strong> başlanmalıdır. Soru “hangi seviyedeyiz?” değil, “bu kararı ne engelliyor?” sorusudur:</p>
+
+<div class="mermaid">
+flowchart TD
+    S["Hangi kararı<br />iyileştirmek istiyorum?"] --&gt; Q{"Kararı ne engelliyor?"}
+    Q -- "Ne olduğunu bilmiyoruz" --&gt; D["DESCRIPTIVE:<br />tanımları netleştir, ölçmeye başla"]
+    Q -- "Biliyoruz ama<br />sebebini bilmiyoruz" --&gt; G["DIAGNOSTIC:<br />kırılım + kök neden"]
+    Q -- "Sebebi biliyoruz,<br />seyri bilmiyoruz" --&gt; P["PREDICTIVE:<br />tahmin + belirsizlik"]
+    Q -- "Seyri biliyoruz,<br />seçenek çok" --&gt; R["PRESCRIPTIVE:<br />optimizasyon / karar kuralı"]
+    style S fill:#e8eef7,stroke:#4a6fa5,stroke-width:2px
+    style R fill:#d5f0d5,stroke:#2e7d32,stroke-width:2px
+</div>
+
+<ul>
+  <li><strong>Eylemi baştan tasarlayın.</strong> Bir grafiği kurmadan önce “bu sayı değişirse ne yapacağız?” sorusuna yazılı bir cevabınız olsun; yoksa o grafik dekordur.</li>
+  <li><strong>“Yeterince iyi” olunca ilerleyin.</strong> Tanımlar tutarlı ve veri kalitesinin sınırları biliniyorsa bir üst basamağa geçilebilir; kusursuzluk beklemek ilerlemeyi durdurur.</li>
+  <li><strong>Tepeye çıkmak zorunlu değildir.</strong> Bazı kararlar için iyi bir kontrol grafiği, en gelişmiş tahmin modelinden daha değerlidir.</li>
+</ul>
+
+<hr />
+
+<h2 id="sonuç">Sonuç</h2>
+
+<p>Dört seviye dört ayrı teknoloji değil, aynı döngünün dört sorusudur. Çerçevenin asıl değeri, ekibe ortak bir dil vermesidir. “Bir yapay zekâ projesi yapalım” bir şey ifade etmez; “önce artışın kaynağını bulacağız, sonra birimlere risk skoru üreteceğiz, en sonunda bakım planını kapasiteye göre optimize edeceğiz” ise her adımının ne zaman bittiği belli olan bir yol haritasıdır.</p>
+
+<hr />
+
+<p><strong>Kaynaklar:</strong></p>
+
+<ul>
+  <li>Thomas H. Davenport, Jeanne G. Harris — <em>Competing on Analytics: The New Science of Winning</em> (Harvard Business Review Press, 2007).</li>
+  <li>Irv Lustig, Brenda Dietrich, Christer Johnson, Christopher Dziekan — “The Analytics Journey”, <em>Analytics Magazine</em> (INFORMS), Kasım/Aralık 2010.</li>
+  <li>Gartner — <a href="https://www.gartner.com/en/information-technology/glossary/prescriptive-analytics">Gartner Glossary: Prescriptive Analytics</a>.</li>
+  <li>Walter A. Shewhart — <em>Economic Control of Quality of Manufactured Product</em> (1931). Ayrıca <a href="https://en.wikipedia.org/wiki/Statistical_process_control">Statistical process control (Wikipedia)</a>.</li>
+  <li>Judea Pearl, Dana Mackenzie — <em>The Book of Why: The New Science of Cause and Effect</em> (Basic Books, 2018).</li>
+  <li>Abraham Wald — <a href="https://en.wikipedia.org/wiki/Survivorship_bias">Survivorship bias (Wikipedia)</a>.</li>
+  <li>Charles Goodhart — <a href="https://en.wikipedia.org/wiki/Goodhart%27s_law">Goodhart’s law (Wikipedia)</a>.</li>
+</ul>]]></content><author><name>M. Serdar Karaman</name></author><category term="muhendislik" /><category term="veri-analitigi" /><category term="yoneylem-arastirmasi" /><summary type="html"><![CDATA[Çoğu ekibin veriyle ilişkisi aynı sahneyle başlar: bir gösterge paneli (dashboard) açılır, ekranda on beş grafik vardır, hepsi doğrudur, hiçbiri bir şey yaptırmaz; karar yine “bence” ile verilir. Sorun verinin azlığı değil, sorulan sorunun türünün farkında olmamaktır. “Ne oldu?”, “neden oldu?”, “ne olacak?” ve “ne yapmalıyız?” farklı yöntem ve farklı kanıt standardı isteyen dört ayrı sorudur. Bunlara sırasıyla descriptive (betimleyici), diagnostic (tanısal), predictive (öngörücü) ve prescriptive (kuralkoyucu) analitik denir.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://karaman.dev/img/og-default.webp" /><media:content medium="image" url="https://karaman.dev/img/og-default.webp" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry xml:lang="tr"><title type="html">Antikırılgan: Belirsizlikten ve Kaostan Güç Alan Sistemler</title><link href="https://karaman.dev/2026/06/24/antikirilgan-belirsizlikten-guc-alan-sistemler.html" rel="alternate" type="text/html" title="Antikırılgan: Belirsizlikten ve Kaostan Güç Alan Sistemler" /><published>2026-06-24T09:00:00+00:00</published><updated>2026-06-24T09:00:00+00:00</updated><id>https://karaman.dev/2026/06/24/antikirilgan-belirsizlikten-guc-alan-sistemler</id><content type="html" xml:base="https://karaman.dev/2026/06/24/antikirilgan-belirsizlikten-guc-alan-sistemler.html"><![CDATA[<p>Mühendislikte uzun süredir tek bir niteliğin peşinden koşarız: dayanıklılık. Sistemin şoka, yüke ve arızaya rağmen ayakta kalmasını isteriz; emniyet-kritik alanlarda bunu bir zorunluluğa çeviririz. Oysa Nassim Nicholas Taleb’in <em>Incerto</em> serisinde işlediği temel iddia, dayanıklılığın bir uç değil bir orta nokta olduğudur. Kırılganın gerçek zıttı “kırılmayan” değildir; volatiliteden, stresten ve hatadan fayda gören, yani sarsıldıkça güçlenen bir şeydir.</p>
 
 <p>Taleb bu üçüncü hâl için yeni bir sözcük kullanır: <em>antifragile</em>, antikırılgan. Kavramın asıl değeri, belirsizlik karşısındaki alışkanlığımızı tersine çevirmesindedir: amaç bir sonraki şoku tahmin etmek değil, şoktan hangi yönde etkileneceğimizi baştan tasarlamaktır. Aşağıda önce kavramı ve altındaki asimetriyi tanımlıyor, ardından yazılımdan ürüne ve topluluğa kadar farklı sistemlere uygulanışını ele alıyoruz.</p>
 
@@ -5339,483 +5544,4 @@ for iter = 1..N:
 
 <hr />
 
-<p><em>Daha fazla okuma için:</em> Richard Bellman’ın <em>Dynamic Programming</em> (1957), David Goldberg’in <em>Genetic Algorithms in Search, Optimization and Machine Learning</em> (1989) ve Marco Dorigo ile Thomas Stützle’nin <em>Ant Colony Optimization</em> (2004) kitapları alanın klasikleri arasındadır. Tarihsel arka plan için Patrick Blackett’ın savaş dönemi OR ekipleri ve George Dantzig’in doğrusal programlamayı geliştirdiği Pentagon yıllarına odaklanan INFORMS’un <em>History of O.R. Excellence</em> serisi güzel bir başlangıçtır.</p>]]></content><author><name>M. Serdar Karaman</name></author><category term="muhendislik" /><category term="yoneylem-arastirmasi" /><summary type="html"><![CDATA[Gündelik hayatın ve iş süreçlerinin pek çok problemi yüzeyde sezgisel bir karar gibi görünse de aslında birer optimizasyon problemidir. Hangi ürünü ne kadar üreteceğiz? Sınırlı kamyon filosuyla siparişleri hangi rotada dağıtacağız? Bir çantaya ağırlık ve değer kısıtları altında hangi eşyaları koyacağız? Bir hastanede hemşire nöbet çizelgesini nasıl yapacağız? Bu soruların ortak paydası şudur: sınırlı kaynakları sınırlı kısıtlar altında bir amaca göre en iyileyecek şekilde dağıtmak.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://karaman.dev/img/og-default.webp" /><media:content medium="image" url="https://karaman.dev/img/og-default.webp" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry xml:lang="tr"><title type="html">MISRA C:2025 ile Neler Değişti?</title><link href="https://karaman.dev/2026/04/05/misra-c-2025-ile-neler-degisti.html" rel="alternate" type="text/html" title="MISRA C:2025 ile Neler Değişti?" /><published>2026-04-05T09:00:00+00:00</published><updated>2026-04-05T09:00:00+00:00</updated><id>https://karaman.dev/2026/04/05/misra-c-2025-ile-neler-degisti</id><content type="html" xml:base="https://karaman.dev/2026/04/05/misra-c-2025-ile-neler-degisti.html"><![CDATA[<p>Emniyet kritik yazılım geliştirme dünyasında MISRA C kuralları, onlarca yıldır en temel referans kaynaklarından biri olma özelliğini koruyor. Otomotivden havacılığa, medikal cihazlardan demiryolu sistemlerine kadar geniş bir yelpazede kullanılan bu kılavuz, Mart 2025’te yeni bir sürümle güncellendi: <strong>MISRA C:2025</strong>.</p>
-
-<p>Bu yazıda MISRA C:2012’den (ve 2023 düzeltme paketi olan MISRA C:2023’ten) bu yana nelerin değiştiğini, yeni eklenen kuralları, kaldırılan ve devre dışı bırakılan kuralları, kod örnekleriyle detaylı şekilde inceleyeceğiz.</p>
-
-<hr />
-
-<h2 id="kısa-bir-tarihçe">Kısa Bir Tarihçe</h2>
-
-<table>
-  <thead>
-    <tr>
-      <th>Sürüm</th>
-      <th>Yıl</th>
-      <th>C Standardı Desteği</th>
-      <th>Kural Sayısı</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>MISRA C:1998</td>
-      <td>1998</td>
-      <td>C90</td>
-      <td>127</td>
-    </tr>
-    <tr>
-      <td>MISRA C:2004</td>
-      <td>2004</td>
-      <td>C90</td>
-      <td>141</td>
-    </tr>
-    <tr>
-      <td>MISRA C:2012</td>
-      <td>2013</td>
-      <td>C90, C99</td>
-      <td>159 (143 kural + 16 direktif)</td>
-    </tr>
-    <tr>
-      <td>MISRA C:2023</td>
-      <td>2023</td>
-      <td>C90, C99, C11/C18</td>
-      <td>221 (200 kural + 21 direktif)</td>
-    </tr>
-    <tr>
-      <td>**MISRA C:2025**</td>
-      <td>**2025**</td>
-      <td>**C90, C99, C11/C18**</td>
-      <td>**225 (201 kural + 22 direktif + 2 silinen)**</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>MISRA C:2025, devrimsel bir değişiklik yerine <strong>evrimsel bir iyileştirme</strong> sunuyor. MISRA C:2023’ün getirdiği çoklu iş parçacığı (multithreading) ve atomik tip desteğinin üzerine, 4 yeni kural, 2 silinen kural, 1 devre dışı bırakılan kural ve 69 diğer düzenleme ile toplam <strong>79 değişiklik</strong> içeriyor.</p>
-
-<hr />
-
-<h2 id="yeni-kurallar">Yeni Kurallar</h2>
-
-<p>MISRA C:2025 ile birlikte 4 yeni kural eklendi. Her birini örneklerle inceleyelim.</p>
-
-<h3 id="kural-818--başlık-dosyalarında-belirsiz-tanımlara-tentative-definition-i̇zin-verilmez">Kural 8.18 — Başlık Dosyalarında Belirsiz Tanımlara (Tentative Definition) İzin Verilmez</h3>
-
-<p><strong>Sınıflandırma:</strong> Required (Zorunlu)</p>
-
-<p>C dilinde, bir değişken herhangi bir ilk değer (initializer) olmadan ve <code class="language-plaintext highlighter-rouge">extern</code> anahtar kelimesi kullanılmadan tanımlanırsa, bu bir <strong>belirsiz tanım</strong> (tentative definition) olarak kabul edilir. Eğer bu tanım bir başlık dosyasında yer alırsa ve bu dosya birden fazla derleme biriminde (<code class="language-plaintext highlighter-rouge">#include</code> ile) dahil edilirse, bağlayıcı (linker) hataları veya beklenmeyen davranışlar ortaya çıkabilir.</p>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* config.h - başlık dosyası */</span>
-
-<span class="cm">/* Uyumsuz (Non-compliant): Belirsiz tanım */</span>
-<span class="kt">int32_t</span> <span class="n">global_counter</span><span class="p">;</span>
-
-<span class="cm">/* Uyumlu (Compliant): extern bildirimi */</span>
-<span class="k">extern</span> <span class="kt">int32_t</span> <span class="n">global_counter</span><span class="p">;</span>
-</code></pre></div></div>
-
-<p><strong>Neden önemli?</strong> Belirsiz tanımlar, hem tanımlama (definition) hem de bildirim (declaration) gibi davranır. Birden fazla <code class="language-plaintext highlighter-rouge">.c</code> dosyası aynı başlık dosyasını dahil ettiğinde, aynı değişkenin birden fazla kopyası oluşabilir:</p>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* modul_a.c */</span>
-<span class="cp">#include</span> <span class="cpf">"config.h"</span><span class="c1">   /* global_counter burada tanımlanır */</span><span class="cp">
-</span>
-<span class="cm">/* modul_b.c */</span>
-<span class="cp">#include</span> <span class="cpf">"config.h"</span><span class="c1">   /* global_counter burada da tanımlanır! */</span><span class="cp">
-</span>
-<span class="cm">/* Sonuç: Bağlayıcı hatası veya tanımsız davranış */</span>
-</code></pre></div></div>
-
-<p>Doğru yaklaşım, değişkeni yalnızca bir <code class="language-plaintext highlighter-rouge">.c</code> dosyasında tanımlamak ve başlık dosyasında <code class="language-plaintext highlighter-rouge">extern</code> ile bildirmektir:</p>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* config.h */</span>
-<span class="k">extern</span> <span class="kt">int32_t</span> <span class="n">global_counter</span><span class="p">;</span>  <span class="cm">/* Sadece bildirim */</span>
-
-<span class="cm">/* config.c */</span>
-<span class="cp">#include</span> <span class="cpf">"config.h"</span><span class="cp">
-</span><span class="kt">int32_t</span> <span class="n">global_counter</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>     <span class="cm">/* Gerçek tanım burada */</span>
-</code></pre></div></div>
-
-<hr />
-
-<h3 id="kural-819--kaynak-dosyalarında-harici-bildirim-yapılmamalıdır">Kural 8.19 — Kaynak Dosyalarında Harici Bildirim Yapılmamalıdır</h3>
-
-<p><strong>Sınıflandırma:</strong> Advisory (Tavsiye)</p>
-
-<p>Bu kural, <code class="language-plaintext highlighter-rouge">extern</code> bildirimlerinin <code class="language-plaintext highlighter-rouge">.c</code> dosyaları içinde değil, yalnızca başlık dosyalarında yapılması gerektiğini belirtir. Kaynak dosya içinde yapılan <code class="language-plaintext highlighter-rouge">extern</code> bildirimleri, gizli bağımlılıklar oluşturur ve kodun bakımını zorlaştırır.</p>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* Uyumsuz (Non-compliant): .c dosyasında extern bildirimi */</span>
-<span class="kt">void</span> <span class="nf">sensor_oku</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">extern</span> <span class="kt">int32_t</span> <span class="n">kalibrasyon_degeri</span><span class="p">;</span>  <span class="cm">/* Gizli bağımlılık! */</span>
-    <span class="kt">int32_t</span> <span class="n">sonuc</span> <span class="o">=</span> <span class="n">ham_deger</span> <span class="o">+</span> <span class="n">kalibrasyon_degeri</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* Uyumlu (Compliant): Başlık dosyasında bildirim */</span>
-
-<span class="cm">/* kalibrasyon.h */</span>
-<span class="k">extern</span> <span class="kt">int32_t</span> <span class="n">kalibrasyon_degeri</span><span class="p">;</span>
-
-<span class="cm">/* sensor.c */</span>
-<span class="cp">#include</span> <span class="cpf">"kalibrasyon.h"</span><span class="cp">
-</span><span class="kt">void</span> <span class="nf">sensor_oku</span><span class="p">(</span><span class="kt">void</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">int32_t</span> <span class="n">sonuc</span> <span class="o">=</span> <span class="n">ham_deger</span> <span class="o">+</span> <span class="n">kalibrasyon_degeri</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p><strong>Neden önemli?</strong> Bir fonksiyon gövdesi içindeki <code class="language-plaintext highlighter-rouge">extern</code> bildirimi, o değişkenin nereden geldiğini gizler. Kod incelemesi sırasında bağımlılıklar kolayca gözden kaçabilir. Başlık dosyası kullanıldığında ise bağımlılık açıkça görülür ve derleyici tip uyumsuzluklarını yakalayabilir.</p>
-
-<hr />
-
-<h3 id="kural-1111--i̇şaretçiler-dolaylı-olarak-null-ile-karşılaştırılmamalıdır">Kural 11.11 — İşaretçiler Dolaylı Olarak NULL ile Karşılaştırılmamalıdır</h3>
-
-<p><strong>Sınıflandırma:</strong> Advisory (Tavsiye)</p>
-
-<p>C dilinde bir işaretçi, <code class="language-plaintext highlighter-rouge">if</code> koşulunda doğrudan kullanıldığında dolaylı olarak boolean’a dönüştürülür. Bu, işaretçinin <code class="language-plaintext highlighter-rouge">NULL</code> olup olmadığını kontrol eder ama <strong>niyet belirsiz</strong> kalır. MISRA C:2025, işaretçi karşılaştırmalarının açık (explicit) yapılmasını tavsiye eder.</p>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kt">int32_t</span> <span class="o">*</span><span class="n">ptr</span> <span class="o">=</span> <span class="n">fonksiyon_cagir</span><span class="p">();</span>
-
-<span class="cm">/* Uyumsuz (Non-compliant): Dolaylı karşılaştırma */</span>
-<span class="k">if</span> <span class="p">(</span><span class="n">ptr</span><span class="p">)</span> <span class="p">{</span>
-    <span class="cm">/* ... */</span>
-<span class="p">}</span>
-
-<span class="cm">/* Uyumsuz (Non-compliant): Dolaylı karşılaştırma */</span>
-<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">ptr</span><span class="p">)</span> <span class="p">{</span>
-    <span class="cm">/* ... */</span>
-<span class="p">}</span>
-
-<span class="cm">/* Uyumsuz (Non-compliant): Dolaylı tür dönüşümü */</span>
-<span class="n">bool</span> <span class="n">gecerli</span> <span class="o">=</span> <span class="p">(</span><span class="n">bool</span><span class="p">)</span><span class="n">ptr</span><span class="p">;</span>
-
-<span class="cm">/* Uyumlu (Compliant): Açık karşılaştırma */</span>
-<span class="k">if</span> <span class="p">(</span><span class="n">ptr</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
-    <span class="cm">/* ... */</span>
-<span class="p">}</span>
-
-<span class="cm">/* Uyumlu (Compliant): Açık karşılaştırma */</span>
-<span class="k">if</span> <span class="p">(</span><span class="n">ptr</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
-    <span class="cm">/* ... */</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p><strong>Neden önemli?</strong> Açık karşılaştırma, kodun <strong>niyetini</strong> belgeliyor. <code class="language-plaintext highlighter-rouge">if (ptr)</code> yazdığınızda okuyucu, bunun bir boolean değer mi yoksa NULL kontrolü mü olduğunu anlamak için bağlamı incelemeye zorlanır. <code class="language-plaintext highlighter-rouge">if (ptr != NULL)</code> ise amacı doğrudan ifade eder. Bu kural, MISRA’nın <strong>temel tip modeli</strong> (essential type model) ile de uyumludur: işaretçiler boolean değildir.</p>
-
-<hr />
-
-<h3 id="kural-193--bir-union-elemanı-daha-önce-ayarlanmadıysa-okunamaz">Kural 19.3 — Bir Union Elemanı, Daha Önce Ayarlanmadıysa Okunamaz</h3>
-
-<p><strong>Sınıflandırma:</strong> Required (Zorunlu)</p>
-
-<p>Union’lar C dilinde bellekte aynı alanı paylaşan farklı türleri temsil eder. Bir eleman üzerinden yazıp farklı bir eleman üzerinden okumak <strong>tanımsız davranışa</strong> (undefined behavior) yol açabilir, çünkü bellek düzeni platforma bağlıdır.</p>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">union</span> <span class="n">veri</span> <span class="p">{</span>
-    <span class="kt">int32_t</span> <span class="n">tamsayi</span><span class="p">;</span>
-    <span class="kt">float</span>   <span class="n">ondalik</span><span class="p">;</span>
-<span class="p">};</span>
-
-<span class="k">union</span> <span class="n">veri</span> <span class="n">d</span><span class="p">;</span>
-
-<span class="cm">/* Uyumlu (Compliant): Yazılan eleman okunuyor */</span>
-<span class="n">d</span><span class="p">.</span><span class="n">tamsayi</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
-<span class="kt">int32_t</span> <span class="n">x</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">tamsayi</span><span class="p">;</span>      <span class="cm">/* OK: Aynı eleman */</span>
-
-<span class="cm">/* Uyumsuz (Non-compliant): Farklı eleman okunuyor */</span>
-<span class="n">d</span><span class="p">.</span><span class="n">tamsayi</span> <span class="o">=</span> <span class="mi">42</span><span class="p">;</span>
-<span class="kt">float</span> <span class="n">y</span> <span class="o">=</span> <span class="n">d</span><span class="p">.</span><span class="n">ondalik</span><span class="p">;</span>         <span class="cm">/* Tanımsız davranış! */</span>
-</code></pre></div></div>
-
-<p>Bu tür bir kullanım, özellikle <strong>type punning</strong> (tür hilesi) olarak bilinen teknikte karşımıza çıkar:</p>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* Tehlikeli: IEEE 754 bitlerini okuma girişimi */</span>
-<span class="k">union</span> <span class="p">{</span>
-    <span class="kt">float</span>   <span class="n">f</span><span class="p">;</span>
-    <span class="kt">uint32_t</span> <span class="n">u</span><span class="p">;</span>
-<span class="p">}</span> <span class="n">pun</span><span class="p">;</span>
-
-<span class="n">pun</span><span class="p">.</span><span class="n">f</span> <span class="o">=</span> <span class="mi">3</span><span class="p">.</span><span class="mi">14</span><span class="n">f</span><span class="p">;</span>
-<span class="kt">uint32_t</span> <span class="n">bits</span> <span class="o">=</span> <span class="n">pun</span><span class="p">.</span><span class="n">u</span><span class="p">;</span>  <span class="cm">/* Uyumsuz: Tanımsız davranış */</span>
-
-<span class="cm">/* Güvenli alternatif: memcpy kullanımı */</span>
-<span class="kt">float</span> <span class="n">f</span> <span class="o">=</span> <span class="mi">3</span><span class="p">.</span><span class="mi">14</span><span class="n">f</span><span class="p">;</span>
-<span class="kt">uint32_t</span> <span class="n">bits_guvenli</span><span class="p">;</span>
-<span class="n">memcpy</span><span class="p">(</span><span class="o">&amp;</span><span class="n">bits_guvenli</span><span class="p">,</span> <span class="o">&amp;</span><span class="n">f</span><span class="p">,</span> <span class="k">sizeof</span><span class="p">(</span><span class="n">bits_guvenli</span><span class="p">));</span>
-</code></pre></div></div>
-
-<p><strong>Neden önemli?</strong> Union üzerinden type punning, platformdan platforma farklı sonuçlar üretebilir (endianness, hizalama, padding). <code class="language-plaintext highlighter-rouge">memcpy</code> kullanımı hem taşınabilir hem de derleyici optimizasyonları açısından güvenlidir.</p>
-
-<hr />
-
-<h2 id="silinen-kurallar">Silinen Kurallar</h2>
-
-<p>MISRA C:2025 ile birlikte <strong>2 kural silinmiştir</strong>. Silinen kural numaraları gelecekte yeniden kullanılmayacaktır; bu, eski sürümlerle karışıklığı önlemek için alınmış bilinçli bir karardır.</p>
-
-<p>Silinen kurallardan biri <strong>Kural 21.2</strong>‘dir. Bu kuralın kapsadığı konular artık diğer kurallar tarafından karşılanmaktadır.</p>
-
-<hr />
-
-<h2 id="devre-dışı-bırakılan-kural-155--tek-çıkış-noktası">Devre Dışı Bırakılan Kural: 15.5 — Tek Çıkış Noktası</h2>
-
-<p>MISRA C:2025’in belki de en dikkat çekici değişikliği, uzun süredir tartışmalı olan <strong>Kural 15.5</strong>‘in (tek çıkış noktası — single point of exit) <strong>devre dışı bırakılmasıdır</strong> (disapplied).</p>
-
-<p>Bu kural, bir fonksiyonun yalnızca tek bir <code class="language-plaintext highlighter-rouge">return</code> ifadesi içermesi gerektiğini zorunlu kılıyordu:</p>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* Eski yaklaşım: Tek çıkış noktası (Kural 15.5'e uyumlu) */</span>
-<span class="kt">int32_t</span> <span class="nf">bul</span><span class="p">(</span><span class="k">const</span> <span class="kt">int32_t</span> <span class="o">*</span><span class="n">dizi</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">boyut</span><span class="p">,</span> <span class="kt">int32_t</span> <span class="n">hedef</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">int32_t</span> <span class="n">sonuc</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-
-    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0u</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">boyut</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">dizi</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">hedef</span><span class="p">)</span> <span class="p">{</span>
-            <span class="n">sonuc</span> <span class="o">=</span> <span class="p">(</span><span class="kt">int32_t</span><span class="p">)</span><span class="n">i</span><span class="p">;</span>
-            <span class="k">break</span><span class="p">;</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="k">return</span> <span class="n">sonuc</span><span class="p">;</span>  <span class="cm">/* Tek çıkış noktası */</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* Yeni yaklaşım: Erken dönüş artık kabul edilebilir */</span>
-<span class="kt">int32_t</span> <span class="nf">bul</span><span class="p">(</span><span class="k">const</span> <span class="kt">int32_t</span> <span class="o">*</span><span class="n">dizi</span><span class="p">,</span> <span class="kt">size_t</span> <span class="n">boyut</span><span class="p">,</span> <span class="kt">int32_t</span> <span class="n">hedef</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">for</span> <span class="p">(</span><span class="kt">size_t</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0u</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">boyut</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">dizi</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">==</span> <span class="n">hedef</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">return</span> <span class="p">(</span><span class="kt">int32_t</span><span class="p">)</span><span class="n">i</span><span class="p">;</span>  <span class="cm">/* Erken dönüş */</span>
-        <span class="p">}</span>
-    <span class="p">}</span>
-
-    <span class="k">return</span> <span class="o">-</span><span class="mi">1</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<p><strong>Neden devre dışı bırakıldı?</strong> Modern yazılım geliştirme pratiğinde, erken dönüşlerin kodun okunabilirliğini ve bakımını kolaylaştırdığı yaygın olarak kabul görmektedir. Tek çıkış noktası kuralı, özellikle hata kontrolü gereken fonksiyonlarda gereksiz iç içe geçmelere ve karmaşık kontrol akışlarına neden oluyordu:</p>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* Tek çıkış noktası ile karmaşık hata kontrolü */</span>
-<span class="kt">int32_t</span> <span class="nf">dosya_isle</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">yol</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">int32_t</span> <span class="n">sonuc</span> <span class="o">=</span> <span class="n">HATA_BILINMEYEN</span><span class="p">;</span>
-    <span class="kt">FILE</span> <span class="o">*</span><span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">yol</span><span class="p">,</span> <span class="s">"r"</span><span class="p">);</span>
-
-    <span class="k">if</span> <span class="p">(</span><span class="n">fp</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kt">char</span> <span class="o">*</span><span class="n">tampon</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">TAMPON_BOYUT</span><span class="p">);</span>
-        <span class="k">if</span> <span class="p">(</span><span class="n">tampon</span> <span class="o">!=</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
-            <span class="k">if</span> <span class="p">(</span><span class="n">fread</span><span class="p">(</span><span class="n">tampon</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">TAMPON_BOYUT</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0u</span><span class="p">)</span> <span class="p">{</span>
-                <span class="n">sonuc</span> <span class="o">=</span> <span class="n">veriyi_isle</span><span class="p">(</span><span class="n">tampon</span><span class="p">);</span>
-            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-                <span class="n">sonuc</span> <span class="o">=</span> <span class="n">HATA_OKUMA</span><span class="p">;</span>
-            <span class="p">}</span>
-            <span class="n">free</span><span class="p">(</span><span class="n">tampon</span><span class="p">);</span>
-        <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-            <span class="n">sonuc</span> <span class="o">=</span> <span class="n">HATA_BELLEK</span><span class="p">;</span>
-        <span class="p">}</span>
-        <span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="n">sonuc</span> <span class="o">=</span> <span class="n">HATA_DOSYA</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="k">return</span> <span class="n">sonuc</span><span class="p">;</span>  <span class="cm">/* Derin iç içe geçme! */</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* Erken dönüş ile aynı fonksiyon — çok daha okunabilir */</span>
-<span class="kt">int32_t</span> <span class="nf">dosya_isle</span><span class="p">(</span><span class="k">const</span> <span class="kt">char</span> <span class="o">*</span><span class="n">yol</span><span class="p">)</span> <span class="p">{</span>
-    <span class="kt">FILE</span> <span class="o">*</span><span class="n">fp</span> <span class="o">=</span> <span class="n">fopen</span><span class="p">(</span><span class="n">yol</span><span class="p">,</span> <span class="s">"r"</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">fp</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
-        <span class="k">return</span> <span class="n">HATA_DOSYA</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="kt">char</span> <span class="o">*</span><span class="n">tampon</span> <span class="o">=</span> <span class="n">malloc</span><span class="p">(</span><span class="n">TAMPON_BOYUT</span><span class="p">);</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">tampon</span> <span class="o">==</span> <span class="nb">NULL</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
-        <span class="k">return</span> <span class="n">HATA_BELLEK</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="kt">int32_t</span> <span class="n">sonuc</span><span class="p">;</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">fread</span><span class="p">(</span><span class="n">tampon</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">TAMPON_BOYUT</span><span class="p">,</span> <span class="n">fp</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">0u</span><span class="p">)</span> <span class="p">{</span>
-        <span class="n">sonuc</span> <span class="o">=</span> <span class="n">veriyi_isle</span><span class="p">(</span><span class="n">tampon</span><span class="p">);</span>
-    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-        <span class="n">sonuc</span> <span class="o">=</span> <span class="n">HATA_OKUMA</span><span class="p">;</span>
-    <span class="p">}</span>
-
-    <span class="n">free</span><span class="p">(</span><span class="n">tampon</span><span class="p">);</span>
-    <span class="n">fclose</span><span class="p">(</span><span class="n">fp</span><span class="p">);</span>
-    <span class="k">return</span> <span class="n">sonuc</span><span class="p">;</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<blockquote>
-  <p><strong>Dikkat:</strong> IEC 61508 ve ISO 26262 gibi fonksiyonel güvenlik standartları hâlâ tek çıkış noktası yaklaşımını talep edebilir. MISRA C:2025, bu kuralı silmek yerine <strong>devre dışı bırakarak</strong>, ihtiyaç halinde yeniden etkinleştirilebilir kılmıştır.</p>
-</blockquote>
-
-<hr />
-
-<h2 id="mevcut-kurallardaki-önemli-güncellemeler">Mevcut Kurallardaki Önemli Güncellemeler</h2>
-
-<h3 id="i̇şaretçi-dönüşüm-kuralları-113-114-116">İşaretçi Dönüşüm Kuralları: 11.3, 11.4, 11.6</h3>
-
-<p>Bu kurallar, <code class="language-plaintext highlighter-rouge">intptr_t</code> ve <code class="language-plaintext highlighter-rouge">uintptr_t</code> türlerini hesaba alacak şekilde güncellendi. Artık tamsayılar ile adreslerin tamsayı temsili arasında daha fazla dönüşüm imkanı sunuluyor:</p>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cp">#include</span> <span class="cpf">&lt;stdint.h&gt;</span><span class="cp">
-</span>
-<span class="kt">void</span> <span class="o">*</span><span class="n">ptr</span> <span class="o">=</span> <span class="n">get_address</span><span class="p">();</span>
-
-<span class="cm">/* MISRA C:2012'de sorunlu olabilirdi */</span>
-<span class="kt">uintptr_t</span> <span class="n">addr</span> <span class="o">=</span> <span class="p">(</span><span class="kt">uintptr_t</span><span class="p">)</span><span class="n">ptr</span><span class="p">;</span>
-
-<span class="cm">/* İşlem yap (örn: hizalama kontrolü) */</span>
-<span class="k">if</span> <span class="p">((</span><span class="n">addr</span> <span class="o">&amp;</span> <span class="mh">0x3u</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">0u</span><span class="p">)</span> <span class="p">{</span>
-    <span class="cm">/* Hizalanmamış adres */</span>
-<span class="p">}</span>
-
-<span class="cm">/* MISRA C:2025'te intptr_t ailesi ile dönüşüm açıkça destekleniyor */</span>
-<span class="n">ptr</span> <span class="o">=</span> <span class="p">(</span><span class="kt">void</span> <span class="o">*</span><span class="p">)</span><span class="n">addr</span><span class="p">;</span>
-</code></pre></div></div>
-
-<p>Bu değişiklik özellikle düşük seviyeli sistem programlama, <strong>işaretçi etiketleme</strong> (pointer tagging) ve donanım kayıt adresleriyle çalışma gibi senaryolarda önemlidir.</p>
-
-<h3 id="direktif-46--kayan-nokta-türleri-kapsam-dışı">Direktif 4.6 — Kayan Nokta Türleri Kapsam Dışı</h3>
-
-<p>Direktif 4.6, daha önce uygulama tanımlı (implementation-defined) davranışa sahip temel türlerin yerine boyut belirten türlerin (<code class="language-plaintext highlighter-rouge">int32_t</code>, <code class="language-plaintext highlighter-rouge">uint16_t</code> vb.) kullanılmasını öneriyordu. MISRA C:2025’te <strong>kayan nokta türleri bu direktifin kapsamından çıkarılmıştır</strong>. Bunun nedeni, <code class="language-plaintext highlighter-rouge">float</code> ve <code class="language-plaintext highlighter-rouge">double</code> türlerinin IEEE 754 ile zaten standartlaştırılmış olması ve boyut belirten kayan nokta alternatiflerinin yaygın olmamasıdır.</p>
-
-<h3 id="switch-case-yapısında-esneklik">Switch-Case Yapısında Esneklik</h3>
-
-<p>MISRA C:2025’te switch-case yapılarındaki kural güncellemeleriyle, bir case bloğu artık yalnızca <code class="language-plaintext highlighter-rouge">break</code> ile değil, <code class="language-plaintext highlighter-rouge">return</code>, <code class="language-plaintext highlighter-rouge">continue</code> veya <code class="language-plaintext highlighter-rouge">abort()</code> gibi ifadelerle de sonlandırılabilir. Bu, daha önce erişilemez kod (unreachable code) uyarılarına neden olan gereksiz <code class="language-plaintext highlighter-rouge">break</code> ifadelerini ortadan kaldırır:</p>
-
-<div class="language-c highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="cm">/* MISRA C:2012: break zorunlu, return sonrası break gereksiz */</span>
-<span class="k">switch</span> <span class="p">(</span><span class="n">komut</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">case</span> <span class="n">KOMUT_OKU</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">veri_oku</span><span class="p">();</span>
-        <span class="k">break</span><span class="p">;</span>           <span class="cm">/* Erişilemez kod uyarısı! */</span>
-    <span class="k">case</span> <span class="n">KOMUT_YAZ</span><span class="p">:</span>
-        <span class="n">veri_yaz</span><span class="p">();</span>
-        <span class="k">break</span><span class="p">;</span>
-    <span class="nl">default:</span>
-        <span class="n">abort</span><span class="p">();</span>
-        <span class="k">break</span><span class="p">;</span>           <span class="cm">/* Erişilemez kod uyarısı! */</span>
-<span class="p">}</span>
-
-<span class="cm">/* MISRA C:2025: return ve abort() yeterli */</span>
-<span class="k">switch</span> <span class="p">(</span><span class="n">komut</span><span class="p">)</span> <span class="p">{</span>
-    <span class="k">case</span> <span class="n">KOMUT_OKU</span><span class="p">:</span>
-        <span class="k">return</span> <span class="n">veri_oku</span><span class="p">();</span>   <span class="cm">/* break gerekmez */</span>
-    <span class="k">case</span> <span class="n">KOMUT_YAZ</span><span class="p">:</span>
-        <span class="n">veri_yaz</span><span class="p">();</span>
-        <span class="k">break</span><span class="p">;</span>
-    <span class="nl">default:</span>
-        <span class="n">abort</span><span class="p">();</span>             <span class="cm">/* break gerekmez */</span>
-<span class="p">}</span>
-</code></pre></div></div>
-
-<hr />
-
-<h2 id="temel-tip-modeli-essential-type-model-güncellemesi">Temel Tip Modeli (Essential Type Model) Güncellemesi</h2>
-
-<p>MISRA C’nin temel tip modeli, C dilinin örtük tür dönüşümlerinden kaynaklanan hataları önlemek için tasarlanmıştır. MISRA C:2025 ile bu modele yeni bir kategori eklendi: <strong>“essentially complex floating”</strong> (temel olarak karmaşık kayan nokta).</p>
-
-<p>C11 ile birlikte gelen <code class="language-plaintext highlighter-rouge">_Complex</code> türleri (örneğin <code class="language-plaintext highlighter-rouge">double _Complex</code>) artık temel tip modelinde kendi kategorilerine sahip. Bu, karmaşık sayı işlemlerinde tür dönüşüm kurallarının doğru uygulanmasını sağlıyor.</p>
-
-<p>Ayrıca yukarıda bahsedilen Kural 11.11, temel tip modelini işaretçi-boolean etkileşimlerine genişletiyor. İşaretçiler artık dolaylı olarak boolean gibi değerlendirilemez — bu, modelin kapsamını genişleten önemli bir adım.</p>
-
-<hr />
-
-<h2 id="misra-c2025-ve-rust-addendum-6">MISRA C:2025 ve Rust: Addendum 6</h2>
-
-<p>MISRA C:2025 ile birlikte yayınlanan <strong>Addendum 6 (ADD6)</strong>, dikkat çekici bir şekilde MISRA C kurallarının <strong>Rust</strong> programlama diline uygulanabilirliğini değerlendiriyor. Bu, emniyet kritik sistemlerde Rust’ın artan kullanımına MISRA’nın verdiği ilk resmi yanıttır.</p>
-
-<p>ADD6, MISRA C kurallarından hangilerinin Rust’ta doğal olarak karşılandığını (ownership sistemi, borrow checker sayesinde), hangilerinin alakasız olduğunu ve hangilerinin Rust’ta da dikkat gerektirdiğini haritalıyor. Bu, C’den Rust’a geçiş düşünen emniyet kritik projeler için değerli bir referans belgesi niteliğinde.</p>
-
-<hr />
-
-<h2 id="yapısal-değişiklikler">Yapısal Değişiklikler</h2>
-
-<p>MISRA C:2025, kural organizasyonunda da önemli yenilikler getirdi:</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Değişiklik Türü</th>
-      <th>Sayı</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Yeni kural</td>
-      <td>4</td>
-    </tr>
-    <tr>
-      <td>Yeniden numaralandırılan kural</td>
-      <td>3</td>
-    </tr>
-    <tr>
-      <td>Silinen kural</td>
-      <td>2</td>
-    </tr>
-    <tr>
-      <td>Devre dışı bırakılan kural</td>
-      <td>1</td>
-    </tr>
-    <tr>
-      <td>Normatif/teknik güncelleme</td>
-      <td>12</td>
-    </tr>
-    <tr>
-      <td>Bilgilendirici/editöryal güncelleme</td>
-      <td>57</td>
-    </tr>
-    <tr>
-      <td>**Toplam değişiklik**</td>
-      <td>**79**</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>Dikkat çeken yapısal yenilikler:</p>
-
-<ul>
-  <li><strong>“Silindi” ve “Devre dışı” kategorileri</strong> ilk kez tanımlandı. Bu, eski kural numaralarının yeniden kullanılmasını engelliyor ve sürümler arası geçişi kolaylaştırıyor.</li>
-  <li><strong>Bazı kurallar direktife, bazı direktifler kurala dönüştürüldü</strong> — daha doğru sınıflandırma için.</li>
-  <li><strong>3 kural</strong> daha uygun bölümlere taşındı.</li>
-  <li><strong>Sürekli yayın modeli</strong> (rolling release) benimsendi. Artık bağımsız düzeltme paketleri (amendment) yerine, güncellemeler doğrudan yeni sürüm numaralarıyla yayınlanacak.</li>
-</ul>
-
-<hr />
-
-<h2 id="misra-c2025e-geçiş-stratejisi">MISRA C:2025’e Geçiş Stratejisi</h2>
-
-<p>Halihazırda MISRA C:2012 veya MISRA C:2023 kullanan projeler için geçiş nispeten kolaydır:</p>
-
-<ol>
-  <li>
-    <p><strong>Statik analiz araçlarınızı güncelleyin.</strong> Perforce QAC, LDRA, Parasoft, Polyspace gibi büyük araç sağlayıcıları MISRA C:2025 desteğini eklemeye başlamıştır.</p>
-  </li>
-  <li>
-    <p><strong>Yeni kuralları değerlendirin.</strong> Özellikle Kural 8.18 ve 19.3 (Required) zorunlu olduğundan, mevcut kodunuzda ihlal olup olmadığını kontrol edin.</p>
-  </li>
-  <li>
-    <p><strong>Kural 15.5 politikanızı gözden geçirin.</strong> MISRA artık tek çıkış noktası gerektirmese de, projenizin bağlı olduğu fonksiyonel güvenlik standardı (IEC 61508, ISO 26262, DO-178C) bunu gerektiriyor olabilir.</p>
-  </li>
-  <li>
-    <p><strong><code class="language-plaintext highlighter-rouge">intptr_t</code> kullanımınızı gözden geçirin.</strong> Kural 11.3, 11.4 ve 11.6’daki değişiklikler, düşük seviyeli donanım erişimi olan kodlarda daha fazla esneklik sağlayabilir.</p>
-  </li>
-  <li>
-    <p><strong>Addendum 6’yı inceleyin.</strong> MISRA C:2025 ADD6, kuralların Rust programlama diline uygulanabilirlik eşlemesini içerir — özellikle C’den Rust’a geçiş düşünen projeler için değerlidir.</p>
-  </li>
-</ol>
-
-<hr />
-
-<h2 id="sonuç">Sonuç</h2>
-
-<p>MISRA C:2025, köklü bir devrim değil ama önemli bir evrim. Yeni kurallar gerçek dünya sorunlarını hedefliyor: başlık dosyalarındaki belirsiz tanımlar, gizli <code class="language-plaintext highlighter-rouge">extern</code> bağımlılıkları, dolaylı NULL karşılaştırmaları ve union’ların güvensiz kullanımı.</p>
-
-<p>Belki de en önemlisi, <strong>tek çıkış noktası kuralının devre dışı bırakılması</strong>, MISRA’nın modern yazılım geliştirme pratiklerine uyum sağlama iradesini gösteriyor.</p>
-
-<p>C dili, emniyet kritik sistemlerde hâlâ baskın konumda ve MISRA C bu dilde güvenli kod yazmak için en kapsamlı kılavuz olmaya devam ediyor. MISRA C:2025 ile birlikte gelen C23/C24 desteği hazırlığı da, bu kılavuzun geleceğe dönük yol haritasının net olduğunu gösteriyor.</p>
-
-<hr />
-
-<p><em>Kaynaklar:</em></p>
-<ul>
-  <li><em>MISRA C:2025, Motor Industry Software Reliability Association, Mart 2025</em></li>
-  <li><em><a href="https://www.perforce.com/blog/sca/misra-c-2025">Perforce — What Developers Need to Know About MISRA C:2025</a></em></li>
-  <li><em><a href="https://ldra.com/ldra-blog/misra-c-2025-the-whys-and-wherefores-of-whats-new/">LDRA — MISRA C 2025: The whys and wherefores of what’s new</a></em></li>
-  <li><em><a href="https://www.qt.io/quality-assurance/blog/misra-c-2025">Qt — MISRA C:2025: A closer look at some of the changes</a></em></li>
-  <li><em><a href="https://www.parasoft.com/blog/misra-c-2025-rust-challenges/">Parasoft — MISRA C 2025: Safer Embedded Code for AI and Rust</a></em></li>
-  <li><em><a href="https://www.sancsoft.com/resources/best-practices/misra-c2025-new-guidelines-for-critical-systems/">Sanctuary Software — MISRA C:2025 New Guidelines for Critical Systems</a></em></li>
-</ul>]]></content><author><name>M. Serdar Karaman</name></author><category term="yazilim" /><category term="c-cpp" /><category term="emniyet-kritik" /><summary type="html"><![CDATA[Emniyet kritik yazılım geliştirme dünyasında MISRA C kuralları, onlarca yıldır en temel referans kaynaklarından biri olma özelliğini koruyor. Otomotivden havacılığa, medikal cihazlardan demiryolu sistemlerine kadar geniş bir yelpazede kullanılan bu kılavuz, Mart 2025’te yeni bir sürümle güncellendi: MISRA C:2025.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://karaman.dev/img/og-default.webp" /><media:content medium="image" url="https://karaman.dev/img/og-default.webp" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>
+<p><em>Daha fazla okuma için:</em> Richard Bellman’ın <em>Dynamic Programming</em> (1957), David Goldberg’in <em>Genetic Algorithms in Search, Optimization and Machine Learning</em> (1989) ve Marco Dorigo ile Thomas Stützle’nin <em>Ant Colony Optimization</em> (2004) kitapları alanın klasikleri arasındadır. Tarihsel arka plan için Patrick Blackett’ın savaş dönemi OR ekipleri ve George Dantzig’in doğrusal programlamayı geliştirdiği Pentagon yıllarına odaklanan INFORMS’un <em>History of O.R. Excellence</em> serisi güzel bir başlangıçtır.</p>]]></content><author><name>M. Serdar Karaman</name></author><category term="muhendislik" /><category term="yoneylem-arastirmasi" /><summary type="html"><![CDATA[Gündelik hayatın ve iş süreçlerinin pek çok problemi yüzeyde sezgisel bir karar gibi görünse de aslında birer optimizasyon problemidir. Hangi ürünü ne kadar üreteceğiz? Sınırlı kamyon filosuyla siparişleri hangi rotada dağıtacağız? Bir çantaya ağırlık ve değer kısıtları altında hangi eşyaları koyacağız? Bir hastanede hemşire nöbet çizelgesini nasıl yapacağız? Bu soruların ortak paydası şudur: sınırlı kaynakları sınırlı kısıtlar altında bir amaca göre en iyileyecek şekilde dağıtmak.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://karaman.dev/img/og-default.webp" /><media:content medium="image" url="https://karaman.dev/img/og-default.webp" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>

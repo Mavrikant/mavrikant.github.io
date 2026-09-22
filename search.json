@@ -1,6 +1,18 @@
 [
 
   {
+    "title": "Analitiğin Dört Hâli: Descriptive, Diagnostic, Predictive, Prescriptive",
+    "subtitle": "The Four Types of Analytics: Descriptive, Diagnostic, Predictive and Prescriptive",
+    "url": "/2026/09/22/analitigin-dort-hali-descriptive-diagnostic-predictive-prescriptive",
+    "date": "2026-09-22",
+    "date_display": "22 Eylül 2026",
+    "tags": ["veri-analitigi","yoneylem-arastirmasi"],
+    "tag_names": ["veri-analitigi", "Yöneylem Araştırması"],
+    "excerpt": "Çoğu ekibin veriyle ilişkisi aynı sahneyle başlar: bir gösterge paneli (dashboard) açılır, ekranda on beş grafik vardır, hepsi doğrudur, hiçbiri bir şey yaptırmaz; karar yine “bence” ile verilir. Sorun verinin azlığı değil, sorulan sorunun türünün farkında olmamaktır. “Ne oldu?”, “neden...",
+    "content": "Çoğu ekibin veriyle ilişkisi aynı sahneyle başlar: bir gösterge paneli (dashboard) açılır, ekranda on beş grafik vardır, hepsi doğrudur, hiçbiri bir şey yaptırmaz; karar yine “bence” ile verilir. Sorun verinin azlığı değil, sorulan sorunun türünün farkında olmamaktır. “Ne oldu?”, “neden oldu?”, “ne olacak?” ve “ne yapmalıyız?” farklı yöntem ve farklı kanıt standardı isteyen dört ayrı sorudur. Bunlara sırasıyla descriptive (betimleyici), diagnostic (tanısal), predictive (öngörücü) ve prescriptive (kuralkoyucu) analitik denir. Sınıflandırmanın kökleri, Davenport ve Harris’in 2007 tarihli Competing on Analytics kitabına ve INFORMS’un 2010’da yayımladığı “The Analytics Journey” makalesindeki descriptive–predictive–prescriptive üçlüsüne dayanır. Bugün en yaygın olan dörtlü hâlini, araya diagnostic’i ekleyen Gartner’ın “analitik yükseliş modeli” (Analytic Ascendancy Model) yerleştirdi. Etiketler yeni olsa da en üst basamağın motoru, 1950’lerden beri gelişen yöneylem araştırmasıdır. Bu yazıda dört seviyeyi tek bir örnek üzerinden ele alacağız: sahada birkaç bin adedi çalışan bir elektronik birimin (LRU, line-replaceable unit) arıza verisi ve kapasitesi, stoğu ve bütçesi sınırlı bir bakım ekibi. Dört Seviyeye Kuşbakışı Seviye Soru Amaç Örnekteki karşılığı **Descriptive** Ne oldu? Geçmişi doğru özetlemek Son üç ayda arıza oranı bin saatte 0,8’den 1,9’a çıktı **Diagnostic** Neden oldu? Sebebi bulmak Artış Parti 7’den geliyor; kök neden tedarikçisi değişen bir kondansatör **Predictive** Ne olacak? Geleceği kestirmek Parti 7’deki bir birimin önümüzdeki 500 saatte arızalanma olasılığı %30 **Prescriptive** Ne yapmalıyız? En uygun eylemi seçmek Parti 7’deki 120 birimi kapasiteye göre sıraya koyup planlı bakımda değiştir Seviyeler bağımsız değildir: her biri bir öncekinin çıktısını girdi olarak kullanır. Kök nedeni bilinmeyen bir arızanın seyri güvenilir biçimde tahmin edilemez; riski bilinmeyen bir birim..."
+  },
+
+  {
     "title": "Antikırılgan: Belirsizlikten ve Kaostan Güç Alan Sistemler",
     "subtitle": "Antifragile: Building Systems That Gain From Disorder",
     "url": "/2026/06/24/antikirilgan-belirsizlikten-guc-alan-sistemler",
