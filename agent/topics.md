@@ -22,31 +22,48 @@
 - [x] Ölçüm Belirsizliği (GUM Annex F + NCSLI RP-12) — 2026-05-06 — alan: metroloji
 - [x] Kalibrasyon Zincirinin Tepesi (Birincil Standartlar) — 2026-05-07 — alan: metroloji
 - [x] Renode ile Zynq7000 Simülasyonu — 2026-05-14 — alan: gömülü/SoC
+- [x] Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek — 2026-05-21 — alan: RF/DSP
+- [x] Sistem Mühendisliği Nedir? — 2026-05-26 — alan: sistem
 
 ## Açık PR'lar (insan inceleme bekleniyor)
 
+> **Not:** Aşağıdaki tablo 2026-06-01 itibarıyla yenidendir. Önceki çalıştırmaların
+> ardından açılan #88–#102 arası PR'lar burada kayıtlıdır. İnceleme önceliği:
+> en eski PR'lar uzun süredir bekliyor (#50, #51, #54, #67) ve #51 yayındaki MISRA
+> C:2025 yazısıyla muhtemel çakışıyor.
+
 | PR # | Başlık | Dal | Açılış | Alan |
 |------|--------|-----|--------|------|
-| [#79](https://github.com/mavrikant/mavrikant.github.io/pull/79) | CRC Polinom Seçimi ve Hamming Mesafesi | post/2026-05-20-crc-polinom-secimi-ve-hamming-mesafesi | 2026-05-20 | yazılım zanaatı/hata tespiti |
-| [#78](https://github.com/mavrikant/mavrikant.github.io/pull/78) | VOR Nasıl Çalışır? 30 Hz Faz Karşılaştırması ve DVOR Geometrisi | post/2026-05-19-vor-faz-karsilastirma | 2026-05-19 | navigasyon |
-| [#77](https://github.com/mavrikant/mavrikant.github.io/pull/77) | MC/DC Kapsama — DO-178C DAL A | post/2026-05-18-mcdc-kapsama-do-178c-dal-a | 2026-05-17 | sertifikasyon |
+| [#102](https://github.com/mavrikant/mavrikant.github.io/pull/102) | ILS Anatomisi — Localizer 90/150 Hz DDM ve Glide Path Geometrisi | post/2026-05-31-ils-anatomi-localizer-glide-path | 2026-05-31 | navigasyon |
+| [#101](https://github.com/mavrikant/mavrikant.github.io/pull/101) | ARM GIC — Cortex-A Kesme Denetleyicisinin İçine Bakmak | post/2026-05-30-gic-cortex-a-kesme-denetleyicisi | 2026-05-30 | ARM |
+| [#100](https://github.com/mavrikant/mavrikant.github.io/pull/100) | `volatile` Yetmediğinde — C11 `_Atomic`, SCU ve Bellek Bariyerleri | post/2026-05-29-volatile-yetmediginde-c11-atomic | 2026-05-29 | C/eşzamanlılık |
+| [#99](https://github.com/mavrikant/mavrikant.github.io/pull/99) | Dört Aşamalı Veri Analitiği — Mühendislikte Tanımlayıcıdan Kuralcıya | post/2026-05-30-dort-asamali-veri-analitigi-muhendislik | 2026-05-28 | matematik/analiz |
+| [#98](https://github.com/mavrikant/mavrikant.github.io/pull/98) | WCET Analizi — Statik Yöntemler, Ölçüm Tabanlı Yaklaşımlar ve Cache | post/2026-05-28-wcet-analizi-statik-olcum-cache | 2026-05-28 | gerçek zamanlı |
+| [#96](https://github.com/mavrikant/mavrikant.github.io/pull/96) | Fault Tree Analizi ve Minimal Cut Set Hesabı | post/2026-05-27-fault-tree-analizi-minimal-cut-set | 2026-05-27 | güvenilirlik |
+| [#90](https://github.com/mavrikant/mavrikant.github.io/pull/90) | Linker Script Anatomisi — ARM Bare-Metal için Bir .ld Dosyası | post/2026-05-26-linker-script-anatomisi-arm-bare-metal | 2026-05-26 | gömülü |
+| [#89](https://github.com/mavrikant/mavrikant.github.io/pull/89) | Watchdog Timer Tasarım Desenleri | post/2026-05-24-watchdog-tasarim-desenleri | 2026-05-24 | güvenilirlik |
+| [#88](https://github.com/mavrikant/mavrikant.github.io/pull/88) | WCET Analizi: Statik mi, Ölçüm mü, Hibrit mi? | post/2026-05-23-wcet-analizi-statik-olcum-hibrit | 2026-05-23 | gerçek zamanlı (#98 ile çakışıyor) |
 | [#67](https://github.com/mavrikant/mavrikant.github.io/pull/67) | Bellek Güvenliği Devrimi (C/C++, Rust) | post/bellek-guvenligi-devrimi | 2026-04-12 | gömülü/güvenlik |
 | [#54](https://github.com/mavrikant/mavrikant.github.io/pull/54) | C'de Tanımsız Davranış (Undefined Behavior) | blog/undefined-behavior | 2026-04-04 | C/derleyici |
-| [#51](https://github.com/mavrikant/mavrikant.github.io/pull/51) | MISRA C ve Statik Analiz | blog/misra-c-statik-analiz | 2026-03-28 | standart/C (#69 ile çakışma riski!) |
+| [#51](https://github.com/mavrikant/mavrikant.github.io/pull/51) | MISRA C ve Statik Analiz | blog/misra-c-statik-analiz | 2026-03-28 | standart/C (yayındaki MISRA yazısı ile çakışma riski) |
 | [#50](https://github.com/mavrikant/mavrikant.github.io/pull/50) | Float Denormalize FTZ/DAZ (eski yazı genişletme) | claude/float-denormalize-ftz-daz | 2026-03-26 | gömülü/sayısal |
 
-> **Not:** PR #51 "MISRA C ve Statik Analiz", zaten yayında olan #69 "MISRA C:2025 ile Neler Değişti?" ile konu olarak çakışıyor olabilir. İnceleyen kişinin dikkatine.
+> **İnceleme dikkati:** #88 ve #98 ikisi de WCET konusunu işliyor — birinin merge,
+> diğerinin kapatılması gerekebilir. #51 ise yayındaki MISRA C:2025 yazısıyla
+> büyük olasılıkla içerik çakışması taşıyor.
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- **Kalman Filtresinin Sessiz İraksaması: Joseph Form, Gözlemlenebilirlik ve Tutarlılık Testleri** —
+  dal: `post/2026-06-01-kalman-filtresi-sessiz-iraksama-joseph-form`,
+  dosya: `_posts/2026-06-01-kalman-filtresi-sessiz-iraksama-joseph-form.md`,
+  durum: PR açılacak (bu çalıştırma) — alan: navigasyon/füzyon.
 
 ## Reddedildi (bu çalıştırma)
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- _(bu çalıştırmada konu reddedilmedi; havuzdan Kalman filtresi seçildi —
+  navigasyon/füzyon alanı bu listede ilk kez işleniyor ve son üç yayının
+  (sistem, RF/DSP, gömülü/SoC) alt-alanlarından farklı.)_
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 
@@ -57,32 +74,24 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 
 - [ ] **ARM Cortex-A reset vektöründen `main()`'e: gerçekten ne oluyor?** —
       alan: gömülü/SoC — Renode yazısının doğal devamı, somut deney imkânı
-- [ ] **MC/DC kapsama: DO-178C DAL A'da neden modified condition/decision şart?** —
-      alan: sertifikasyon — gerçek karar tablosu örneği, decision/condition farkı
-- [ ] **CRC vs checksum: neden CRC-32 değil de CRC-32C / CRC-16-CCITT seçilir?** —
-      alan: yazılım zanaatı — polinom seçimi, hata tespit gücü, bit-hata analizi
-- [ ] **WCET analizi: statik analiz vs ölçüm tabanlı yaklaşımlar, cache etkileri** —
-      alan: gerçek zamanlı — somut örnek (örn. Cortex-R5 üzerinde basit görev)
+- [~] ~~**MC/DC kapsama**~~ — PR #77 açık (alan: sertifikasyon)
+- [~] ~~**CRC vs checksum**~~ — PR #79 açık (alan: yazılım zanaatı)
+- [~] ~~**WCET analizi**~~ — PR #88 ve #98 açık (alan: gerçek zamanlı)
 - [ ] **IQ örnekleme ve karmaşık sinyaller: gerçek SDR'ye giriş** —
       alan: RF/SDR — neden negatif frekans, neden 2 kanal
-- [ ] **GIC (Generic Interrupt Controller): SGI/PPI/SPI farkları ve önceliklendirme** —
-      alan: ARM — kesme yönlendirme, multicore'da CPU affinity
+- [~] ~~**GIC (Generic Interrupt Controller)**~~ — PR #101 açık (alan: ARM)
 - [ ] **Cache coherency ve MESI: ARM'da CCI/CMN ne yapar, neden yazılım perde
       (barrier) gerekir?** — alan: ARM — pratik race condition örneği
-- [ ] **Linker script anatomisi: ARM bare-metal için bir `.ld` dosyası satır satır** —
-      alan: gömülü — kendi linker script'i yazma rehberi
-- [ ] **Watchdog tasarım desenleri: tek vs çoklu görev watchdog, deadman switch,
-      windowed watchdog** — alan: güvenilirlik — gerçek tasarım kararları
-- [ ] **`volatile`'ın doğru kullanımı: nerede yetmez, neden `_Atomic` gerekir?** —
-      alan: C/eşzamanlılık — derleyici çıktı analizi
-- [ ] **VOR'un çalışma prensibi: 30 Hz referans + değişken faz nasıl yön verir?** —
-      alan: navigasyon — faz farkı matematiği + sinyal şeması
-- [ ] **ILS anatomisi: localizer 90/150 Hz DDM ve glide slope** —
-      alan: navigasyon — modülasyon derinliği farkı + örnek hesap
-- [ ] **Kalman filtresi tuzakları: numerik stabilite, gözlemlenebilirlik, tuning** —
-      alan: navigasyon/füzyon — basit IMU örneği + Python kodu
+- [~] ~~**Linker script anatomisi**~~ — PR #90 açık (alan: gömülü)
+- [~] ~~**Watchdog tasarım desenleri**~~ — PR #89 açık (alan: güvenilirlik)
+- [~] ~~**`volatile`'ın doğru kullanımı**~~ — PR #100 açık (alan: C/eşzamanlılık)
+- [~] ~~**VOR'un çalışma prensibi**~~ — PR #78 açık (alan: navigasyon)
+- [~] ~~**ILS anatomisi**~~ — PR #102 açık (alan: navigasyon)
+- [~] ~~**Kalman filtresi tuzakları**~~ — bu çalıştırmada seçildi, PR açılıyor
+      (alan: navigasyon/füzyon)
 - [ ] **Sabit nokta (Q-format) aritmetik: Cortex-M0'da FPU yokken DSP nasıl yapılır?** —
       alan: gömülü/DSP — Q15/Q31 örnekleri, overflow yönetimi
+- [ ] **ARM Cortex-A reset vektöründen `main()`'e** — alan: gömülü/SoC (havuzda kaldı)
 
 ### Orta öncelikli (kovaya alındı)
 
@@ -108,21 +117,29 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - [ ] DO-254 donanım sertifikasyonu (yazarın uzmanlığı ağırlıklı yazılım tarafında)
 - [ ] İzlenebilirlik matrisi (klasik konu, derinlik çıkarmak zor)
 
-## Notlar (bu çalıştırma — 2026-05-21)
+## Notlar (bu çalıştırma — 2026-06-01)
 
-- **Bandpass Sampling** seçildi (alan: RF/DSP). Önceki çalıştırmaların ardından
-  açılan PR'lar son üç alt-alanı (sertifikasyon #77, navigasyon #78, yazılım
-  zanaatı/CRC #79) işaretlemişti; bu yazı **bu üç alandan da** son yayınlanan 3
-  posttan da (Renode gömülü/SoC, kalibrasyon ×2) farklı bir alan getiriyor.
-- Yayın kapısı durumu: Bölüm 4 yalnızca "yayın PR ile olmalı" kuralı koyar; backlog
-  büyüklüğüne dair sert bir sınır yoktur. Açık 7 PR olmasına rağmen son yayınlanan
-  yazıdan (Renode, 2026-05-14) bu yana 7 gün geçti — `min_yayin_araligi_gun = 2`
-  şartı fazlasıyla sağlanmış durumda. Bu çalıştırmada yeni PR açıldı.
-- Bandpass sampling konusunun "neden Türkçe içerikte zor bulunuyor" yanıtı:
-  matematik (Vaughan 1991), datasheet okuma (analog input BW), saat phase noise
-  ve filtre tasarımı disiplinlerinin kesişiminde bulunuyor; Türkçe kaynaklar
-  genellikle yalnızca tek bir cepheden ele almış oluyor (genelde Lyons özet
-  çevirisi). Sentez ve somut sayısal örnek boşluğu büyük.
-- Açık PR'lar konusunda inceleme önceliği yorumu (gözlem): #50 ve #51 hâlâ uzun
-  süredir bekliyor; #50 eski yazıyı genişletiyor, #51 ise yayındaki MISRA C:2025
-  ile büyük olasılıkla çakışıyor. İnceleyen kişinin dikkatine.
+- **Kalman Filtresinin Sessiz İraksaması** seçildi (alan: navigasyon/füzyon).
+  Bu alan ledger'da ilk kez yer alıyor. Son üç yayının alt-alanları
+  (sistem mühendisliği 2026-05-26, RF/DSP 2026-05-21, gömülü/SoC 2026-05-14)
+  ve son 12 açık PR'ın alt-alanlarından farklı: navigasyon PR'ları (#78, #102)
+  *sinyal yapısı* odaklı (VOR/ILS), bu yazı *füzyon filtre matematiği* odaklı —
+  konusal örtüşme yok.
+- "Neden Türkçe içerikte zor bulunuyor" yanıtı: Joseph form, sayısal
+  gözlemlenebilirlik kaybı ve NIS/NEES tutarlılık testleri, Bar-Shalom, Bierman
+  ve Maybeck gibi 1970–2000 dönemi referans kitaplarının içine dağılmış ileri
+  konulardır; Türkçe kaynaklarda Kalman filtresi neredeyse her zaman "yapı +
+  formül türetimi" düzeyinde kalır. Pratik *başarısızlık modları* ve *teşhis
+  yöntemleri* sentezini Türkçe yapan içerik yok denecek kadar az.
+- Derinlik öğesi: matematiksel türetme (Joseph form + simetri/PD kanıtı),
+  gözlemlenebilirlik matrisi koşul sayısı analizi, NIS/NEES chi-kare testleri.
+  Yazıda sembol uydurmadan literatürle birebir uyumlu notasyon kullanıldı;
+  IEEE 952/1554 standartları doğrulandı; Julier-Uhlmann 1997 UKF referansı doğru.
+- Yayın kapısı durumu: son yayın 2026-05-26 (sistem mühendisliği) — bugün
+  2026-06-01, 6 gün geçti. `min_yayin_araligi_gun = 2` şartı sağlandı.
+- Açık PR backlog (13 PR) büyüyor; ledger sözleşmesinde sert sınır yok, ama
+  inceleyenin önceliğine #50, #51, #54, #67 (en eski) ve #88/#98 (WCET
+  çakışması) düşmeli.
+- Bir önceki çalıştırma notu (2026-05-21) bandpass-sampling seçimini
+  belgelemişti; o yazı 2026-05-21'de yayına alınmış görünüyor — yukarıdaki
+  "Yazıldı" listesi güncellendi.
