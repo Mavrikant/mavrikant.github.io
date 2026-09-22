@@ -22,6 +22,35 @@
 - [x] Ölçüm Belirsizliği (GUM Annex F + NCSLI RP-12) — 2026-05-06 — alan: metroloji
 - [x] Kalibrasyon Zincirinin Tepesi (Birincil Standartlar) — 2026-05-07 — alan: metroloji
 - [x] Renode ile Zynq7000 Simülasyonu — 2026-05-14 — alan: gömülü/SoC
+- [x] Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek — 2026-05-21 — alan: RF/DSP
+- [x] Sistem Mühendisliği Nedir? — 2026-05-26 — alan: sistem
+- [x] Kalman Filtresi ve EKF — 2026-06-02 — alan: navigasyon/füzyon
+- [x] Coupling Dengesi — 2026-06-04 — alan: yazılım tasarımı
+- [x] Antikırılgan Sistemler (Taleb) — 2026-06-24 — alan: mühendislik felsefesi
+
+## Bu çalıştırmada açılan PR (2026-07-11)
+
+- **ARINC 653 Anatomisi: Aviyonik RTOS'ta Zaman-Uzay Bölümleme ve Sağlık İzleme** —
+  dal: `post/2026-07-11-arinc-653-bolumleme-anatomisi`,
+  dosya: `_posts/2026-07-11-arinc-653-bolumleme-anatomisi.md`,
+  durum: PR açıldı — alan: aviyonik/RTOS/sertifikasyon.
+
+  Novelty gerekçesi: Türkçe içerikte ARINC 653 üzerine derin bir kaynak
+  neredeyse yok; standart pahalı ve büyük ölçüde ticari RTOS satıcı
+  dokümantasyonundan öğreniliyor. Zaman/uzay bölümleme, APEX API, üç seviyeli
+  health monitoring ve çok çekirdek (CAST-32) engelleri tek yerde sentezleniyor.
+  Depth öğeleri: (1) 100 ms MTF üzerinde üç bölmeli çizelge tablosunun sayısal
+  kurulumu, (2) DAL C bölmesinde sayısal hata için üç seviyeli HM recovery
+  senaryosu, (3) minimal APEX-C sampling port örneği.
+
+  Alan rotasyonu kontrolü: son 3 yayın alt-alanları — mühendislik felsefesi
+  (Antikırılgan), yazılım tasarımı (Coupling), navigasyon/füzyon (Kalman).
+  Bu yazının alt-alanı (aviyonik/RTOS) hiçbiriyle örtüşmüyor.
+
+  Açık PR taraması: `arinc`, `653`, `partition`, `schedule.table`,
+  `health.monitor` anahtarları için 20+ açık PR başlığı taranıp örtüşme
+  bulunmadı; mevcut yayınlarda yalnızca tangential geçişler var (endianness
+  postu 1553/429'a değiniyor ama bölümlemeye değil).
 
 ## Açık PR'lar (insan inceleme bekleniyor)
 
@@ -39,14 +68,16 @@
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- _(bu çalıştırmadaki seçim yukarıdaki "Bu çalıştırmada açılan PR"
+  bölümünde. Bir önceki çalıştırmanın seçimi olan Bandpass Sampling
+  yayınlandı; kayıt "Yazıldı" listesine taşındı.)_
 
 ## Reddedildi (bu çalıştırma)
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- _(bu çalıştırmada konu reddedilmedi; ARINC 653 fikir havuzuna eklenmemişti
+  ama Bölüm 15 tohum listesindeki ilgili boşluğu tam kapatıyor: sertifikasyon
+  + RTOS + aviyonik kesişimi, açık PR ve mevcut yayınlarda yok, otoritenin
+  wheelhouse'unda.)_
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 
@@ -108,21 +139,26 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - [ ] DO-254 donanım sertifikasyonu (yazarın uzmanlığı ağırlıklı yazılım tarafında)
 - [ ] İzlenebilirlik matrisi (klasik konu, derinlik çıkarmak zor)
 
-## Notlar (bu çalıştırma — 2026-05-21)
+## Notlar (bu çalıştırma — 2026-07-11)
 
-- **Bandpass Sampling** seçildi (alan: RF/DSP). Önceki çalıştırmaların ardından
-  açılan PR'lar son üç alt-alanı (sertifikasyon #77, navigasyon #78, yazılım
-  zanaatı/CRC #79) işaretlemişti; bu yazı **bu üç alandan da** son yayınlanan 3
-  posttan da (Renode gömülü/SoC, kalibrasyon ×2) farklı bir alan getiriyor.
-- Yayın kapısı durumu: Bölüm 4 yalnızca "yayın PR ile olmalı" kuralı koyar; backlog
-  büyüklüğüne dair sert bir sınır yoktur. Açık 7 PR olmasına rağmen son yayınlanan
-  yazıdan (Renode, 2026-05-14) bu yana 7 gün geçti — `min_yayin_araligi_gun = 2`
-  şartı fazlasıyla sağlanmış durumda. Bu çalıştırmada yeni PR açıldı.
-- Bandpass sampling konusunun "neden Türkçe içerikte zor bulunuyor" yanıtı:
-  matematik (Vaughan 1991), datasheet okuma (analog input BW), saat phase noise
-  ve filtre tasarımı disiplinlerinin kesişiminde bulunuyor; Türkçe kaynaklar
-  genellikle yalnızca tek bir cepheden ele almış oluyor (genelde Lyons özet
-  çevirisi). Sentez ve somut sayısal örnek boşluğu büyük.
-- Açık PR'lar konusunda inceleme önceliği yorumu (gözlem): #50 ve #51 hâlâ uzun
-  süredir bekliyor; #50 eski yazıyı genişletiyor, #51 ise yayındaki MISRA C:2025
-  ile büyük olasılıkla çakışıyor. İnceleyen kişinin dikkatine.
+- **ARINC 653 Anatomisi** seçildi (alan: aviyonik/RTOS/sertifikasyon).
+  Fikir havuzunda açıkça listelenmemişti, ama Bölüm 15 tohum listesindeki
+  sertifikasyon + RTOS + aviyonik boşluğunu tam kapatıyor; yazarın uzmanlık
+  alanının tam ortasında.
+- Backlog durumu: 30+ açık PR var. Fikir havuzundaki yüksek öncelikli 14
+  adayın 12'si zaten açık PR olarak beklemekte (Cortex-A boot, MPU/MMU, GIC,
+  WCET, CRC, VOR, ILS, sabit nokta Q15, Kalman iraksama, priority inversion,
+  DMA/cache, endianness, lockstep, DO-326A, watchdog vs.). Bu çalıştırma
+  havuzun kapsamı dışına genişleyerek yeni bir "safe alt-alan" getirdi.
+- Son yayınlanan yazıdan (Antikırılgan, 2026-06-24) bu yana 17 gün geçti —
+  `min_yayin_araligi_gun = 2` şartı fazlasıyla sağlanıyor. Yayın kapısı
+  koşullarının üçü de (öz-denetim tam, aralık ≥ 2 gün, alan çakışması yok)
+  sağlandı; PR açıldı.
+- Novelty gerekçesi: ARINC 653 üzerine Türkçe içerik boşluğu ciddi. Standart
+  pahalı ve sertifikasyon dünyasının dışında yaygın değil; ticari OS satıcı
+  dokümantasyonları ana kaynak. Zaman/uzay bölümleme + APEX + HM + multi-core
+  interference tek bir yazıda sentezlenmiş bir Türkçe kaynak neredeyse hiç yok.
+- Backlog gözlemi: Açık PR sayısı 30'u geçti. Sırada 8 farklı `volatile/atomic`
+  taslağı, 3 `MC/DC`, 2 `WCET` gibi büyük olasılıkla birbirine örtüşen
+  öbekler var. İnceleyen kişinin dikkatine — bu yığında konsolidasyon /
+  seç-birleştir / kapat kararları hızla gerekli olacak.
