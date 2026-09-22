@@ -1,7 +1,7 @@
 ---
 title: "Analitiğin Dört Hâli: Descriptive, Diagnostic, Predictive, Prescriptive"
 subtitle: "The Four Types of Analytics: Descriptive, Diagnostic, Predictive and Prescriptive"
-background: "/img/posts/9.webp"
+background: "/img/posts/analitigin-dort-hali-cover.webp"
 date: '2026-09-22 09:00:00'
 layout: post
 lang: tr
