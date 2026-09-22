@@ -10,7 +10,7 @@ categories: [yazilim]
 tags: [urun-gelistirme, yazilim-muhendisligi, test]
 ---
 
-Bir ekip aylarca bir iç araç geliştirir, sürümü çıkarır, eğitim verir. Sonra aynı aracı ilk kez kendi işinde kullanmak zorunda kalır ve ilk yarım saatte hiçbir test planında yazmayan şeylerle karşılaşır. Kurulum, üç sayfalık bir Word dokümanını adım adım takip etmeyi gerektirir. Günde otuz kez yapılan işlem dört tıklama uzaktadır. Hata mesajı sorunu anlatmaz, bir hata kodu gösterir.
+Bir ekip aylarca bir iç araç geliştirir, sürümü çıkarır, eğitim verir. Sonra aynı aracı ilk kez kendi işinde kullanmak zorunda kalır ve ilk yarım saatte hiçbir test planında yer almayan şeylerle karşılaşır. Kurulum, üç sayfalık bir Word dokümanını adım adım takip etmeyi gerektirir. Günde otuz kez yapılan işlem dört tıklama uzaktadır. Hata mesajı sorunu anlatmaz, bir hata kodu gösterir.
 
 Bunların çoğu klasik anlamda hata sayılmaz; testler yeşildir. Ama araç kullanışsızdır ve bunu ölçen şey çoğu zaman yalnızca kullanan kişinin sabrıdır.
 
@@ -20,7 +20,7 @@ Bunların çoğu klasik anlamda hata sayılmaz; testler yeşildir. Ama araç kul
 
 İngilizcesi *eating your own dog food*, yani "kendi köpek mamanı yemek". Kökeni genelde köpek maması reklamlarına dayandırılır; ayrıntılar tartışmalı ama fikir açık: sattığın şeye güveniyorsan önce sen tüketirsin. Yazılıma girişi daha net: 1988'de Microsoft'ta Paul Maritz, "Eating our own Dogfood" konu başlıklı bir e-postayla LAN Manager'ın şirket içinde daha çok kullanılmasını ister. Terim oradan sektöre yayılır.
 
-Fikir terimden eskidir. Geliştiricilerin kendi geliştirme araçlarını kendi iş akışlarında kullanması da benzer bir geri besleme yaratır. Dogfooding yapılabilen ürünlerde bu, güçlü bir gerçeklik testidir. Ama her ürün buna uygun değildir; buna aşağıda döneceğiz.
+Fikrin kendisi terimden eskidir; geliştiriciler kendi geliştirme araçlarını hep kendi işlerinde de kullanmıştır. Dogfooding yapılabilen ürünlerde bu kullanım, güçlü bir gerçeklik testidir. Ama her ürün buna uygun değildir; buna aşağıda döneceğiz.
 
 ## Asıl mekanizma: geri bildirim zinciri
 
@@ -38,11 +38,11 @@ flowchart TB
     end
 </div>
 
-Kullanıcı aksaklığı çoğu zaman bildirmez. Bildirirse kelimelere döker, destek ekibi bunu bir kayda, ürün ekibi kaydı bir maddeye çevirir, madde de sıraya girer. Zincirin sonuna baştaki sinirin soluk bir kopyası ulaşır. Aksaklığı geliştiricinin kendisi yaşadığında bu çevirilerin hiçbiri gerekmez; sorun, onu çözebilecek kişinin zihninde ilk elden oluşur. Buradaki asıl kazanç yalnızca zinciri kısaltmak değil, geri bildirim gecikmesini (*feedback latency*) azaltmaktır: sorunun yaşanmasıyla onu düzeltebilecek kişiye ulaşması arasındaki süre günlerden saatlere, hatta dakikalara inebilir.
+Kullanıcı aksaklığı çoğu zaman bildirmez. Bildirirse kelimelere döker, destek ekibi bunu bir kayda, ürün ekibi kaydı bir maddeye çevirir, madde de sıraya girer. Zincirin sonuna baştaki sinirin soluk bir kopyası ulaşır. Aksaklığı geliştiricinin kendisi yaşadığında bu çevirilerin hiçbiri gerekmez; sorun, onu çözebilecek kişinin zihninde ilk elden oluşur. Zinciri kısaltmanın somut sonucu, geri bildirim gecikmesinin (*feedback latency*) azalmasıdır: sorunun yaşanmasıyla onu düzeltebilecek kişiye ulaşması arasındaki süre günlerden saatlere, hatta dakikalara inebilir.
 
-Yemek siparişi uygulaması geliştiren bir ekip, öğle yemeğini her gün kendi uygulamasından söylüyorsa, adresin her seferinde yeniden girilmesi ya da dünkü siparişi tek dokunuşla tekrarlamanın bir yolu olmaması en geç ikinci gün can sıkar ve düzeltilir. Aynı eksikliği yaşayan müşteri ise çoğu zaman şikâyet etmez; bir sonraki siparişini rakip uygulamadan verir ve ekip bunu ancak aylar sonra, düşen sipariş sayılarında fark edebilir.
+Yemek siparişi uygulaması geliştiren bir ekip, öğle yemeğini her gün kendi uygulamasından söylüyorsa, adresin her seferinde yeniden girilmesi ya da dünkü siparişi tek dokunuşla tekrarlamanın bir yolu olmaması en geç ikinci gün can sıkar ve düzeltme listesinin başına geçer. Aynı eksikliği yaşayan müşteri ise çoğu zaman şikâyet etmez; bir sonraki siparişini rakip uygulamadan verir ve ekip bunu ancak aylar sonra, düşen sipariş sayılarında fark edebilir.
 
-Zincir kısalınca örtük varsayımlar da erken ortaya çıkar: "sipariş tek kişiliktir", "adres tek satıra sığar", "hesap tek kartla ödenir". Ekip on kişilik öğle yemeğini tek siparişte toplayıp hesabı üç karta bölmeye çalıştığı ilk gün, üçü birden yanlışlanır. [Antikırılgan]({% post_url 2026-06-24-antikirilgan-belirsizlikten-guc-alan-sistemler %}) yazısında değindiğimiz küçük ve sürekli sarsıntıların değeri de buradan gelir: her biri, ürünün sahada toptan sarsılmasından ucuzdur.
+Zincir kısalınca örtük varsayımlar da erken ortaya çıkar: "sipariş tek kişiliktir", "hesap tek kartla ödenir". Ekip on kişilik öğle yemeğini tek siparişte toplayıp hesabı üç karta bölmeye çalıştığı ilk gün, ikisi birden yanlışlanır. [Antikırılgan]({% post_url 2026-06-24-antikirilgan-belirsizlikten-guc-alan-sistemler %}) yazısında değindiğimiz küçük ve sürekli sarsıntıların değeri de buradan gelir: her biri, ürünün sahada toptan sarsılmasından ucuzdur.
 
 ## Üç seviye: kontrollü, operasyonel, kritik bağımlılık
 
@@ -52,7 +52,7 @@ Zincir kısalınca örtük varsayımlar da erken ortaya çıkar: "sipariş tek k
 |---|---|---|
 | **Kontrollü** | Ürünü hazırlanmış bir ortamda denemek | Pek bir şey kaybetmez |
 | **Operasyonel** | Ürünü günlük işin içinde kullanmak | Zaman ve sabır |
-| **Kritik bağımlılık** | Ekibin işi ürüne bağımlı | İş akışının kendisini |
+| **Kritik bağımlılık** | İşi ürün olmadan yürütememek | İş akışının kendisini |
 
 Ekip içi bir mesajlaşma aracı üzerinden bakınca seviyeler şöyle ayrışır.
 
@@ -60,9 +60,9 @@ Ekip içi bir mesajlaşma aracı üzerinden bakınca seviyeler şöyle ayrışı
 
 **Operasyonel** seviyede ekip bütün yazışmasını bu araçtan yapar ve başka türden sorunlar çıkar: yüzlerce mesajın arasında arama yetersiz kalır, bildirimler ya fazla ya eksiktir, telefondan okunan mesaj bilgisayarda hâlâ okunmamış görünür. Bunları çoğu zaman ancak gün boyu aracın içinde yaşayan biri fark eder.
 
-**Kritik bağımlılık** seviyesinde ekibin işi araca bağımlıdır. Mesajlaşma aracı çöktüğünde ekip birbirine ulaşamıyorsa, kesintiyi ilk ve en ağır hisseden de onu yapan ekip olur. Güvenilirlik burada müşteriye verilen bir söz olmaktan çıkıp ekibin kendi derdine dönüşür.
+**Kritik bağımlılık** seviyesinde araç olmadan iş yürümez. Mesajlaşma aracı çöktüğünde ekip birbirine ulaşamıyorsa, kesintiyi ilk ve en ağır hisseden de onu yapan ekip olur. Güvenilirlik burada müşteriye verilen bir söz olmaktan çıkıp ekibin kendi derdine dönüşür.
 
-Bir uyarı gerekiyor: bu seviyeler bir hedef sıralaması değildir. Dogfooding'in yoğunluğu, ürünün ekip için ne kadar kritik olduğuyla aynı şey değildir; her gün kullanılan ama bozulduğunda işi durdurmayan bir araç da güçlü geri bildirim üretebilir. Geri bildirimin gücü, ürün iş akışının doğal bir parçası olduğunda artar. Henüz olgunlaşmamış bir aracı sırf dogfooding için ekibin kritik yoluna koymak ise riski ekibin kendisine taşır.
+Bir uyarı gerekiyor: bu seviyeler bir hedef sıralaması değildir. Bağımlılık arttıkça dogfooding daha iyi olmaz; kullanılabilirlik ve iş akışı geri bildiriminin çoğu zaten operasyonel seviyede gelir, kritik bağımlılık buna yalnızca güvenilirlik boyutunu ekler. Geri bildirimin gücü, ürün iş akışının doğal bir parçası olduğunda artar. Henüz olgunlaşmamış bir aracı sırf dogfooding için ekibin kritik yoluna koymak ise riski ekibin kendisine taşır.
 
 ## Dogfooding sizi nerede yanıltır
 
@@ -70,19 +70,19 @@ Tanımdaki kilit ifade "gerçek kullanım koşulları". Dogfooding, ekibin koşu
 
 En önemlisi bir paradokstur: **ürünü en iyi bilen kişi, ürünün kullanılabilirlik sorunlarını görmekte en çok zorlanan kişidir.** Geliştirici ürünün nasıl çalıştığını bilir, sınırlarını bilir, hata mesajlarını yorumlayabilir, geçici çözümleri ezbere bilir ve kendi yazdığı şeye karşı sabırlıdır. Yeni bir kullanıcıyı durduran şeylerin çoğu onu durdurmaz. Dogfooding bu yüzden gerçek kullanıcı deneyiminin yerine geçmez.
 
-Ortam da farklıdır. Ekip yemek uygulamasını son model telefonlarla, hızlı ofis internetinde kullanır; müşteri ise aynı uygulamayı eski bir telefonda, çekmeyen bir bağlantıyla açar.
+Ortam da farklıdır. Ekip yemek uygulamasını son model telefonlarla, hızlı ofis internetinde kullanır; müşteri ise aynı uygulamayı eski bir telefonda, çekmeyen bir bağlantıyla açar. Ekibin hiç fark etmediği bir yavaşlık, müşterinin her gün yaşadığı şey olabilir.
 
 Geçici çözümler de zamanla görünmez olur. "Takılırsa kapatıp aç" türünden alışkanlıklar birikir ve ekip şikâyet etmeyi bırakır; ta ki yeni katılan biri ilk gününde aynı sorunlara takılana kadar.
 
-Son olarak ekip, kullanıcı kitlesinin dar bir örneklemidir. Mühendislerden oluşan bir ekip, ürünü farklı yaş, deneyim ve teknoloji alışkanlıklarına sahip kullanıcıların gözünden göremez. Ekibe doğal gelen bir terim, bir kısayol ya da bir onay adımı, başka bir kullanıcı için ürünün en zor yeri olabilir.
+Son olarak ekip, kullanıcı kitlesinin dar bir örneklemidir. Mühendislerden oluşan bir ekip, ürünü farklı yaş, deneyim ve teknoloji alışkanlıklarına sahip kullanıcıların gözünden kolayca göremez. Ekibe doğal gelen bir terim, bir kısayol ya da bir onay adımı, başka bir kullanıcı için ürünün en zor yeri olabilir.
 
 ## Dogfooding, sistematik doğrulamanın yerine geçmez
 
-Dogfooding değerli bir geri bildirim kaynağıdır, ama kalite güvencenin ya da doğrulamanın yerini tutmaz:
+Dogfooding değerli bir geri bildirim kaynağıdır, ama kalite güvencesinin ya da doğrulamanın yerini tutmaz:
 
 | | Dogfooding | Sistematik doğrulama |
 |---|---|---|
-| Dayandığı şey | Gerçek kullanım | Planlı ve sistematik test |
+| Dayandığı şey | Gerçek kullanım | Planlı test, inceleme ve analiz |
 | Ürettiği | Geri bildirim | Kanıt |
 | Odak | Kullanılabilirlik, iş akışı | Gereksinimlere uygunluk |
 | Güçlü yanı | Hızlı geri bildirim, örtük varsayımları açığa çıkarma | Planlı kapsam, tekrarlanabilirlik |
@@ -96,18 +96,18 @@ Bir uçağın uçuş kontrol yazılımı veya bir kalp pili gibi ürünlerde, ü
 
 ## Ürünün etrafındaki sistem
 
-Ürünün kendisi kullanılamasa bile, onu üreten mühendislik sistemi her gün kullanılır. Burada dogfooding'i ürün sınırının dışına taşımak mümkün: mühendislik sisteminin kendisi de dogfood edilebilir. Bu sistemin kullanıcısı zaten ekibin kendisi olduğu için, sorun ile onu düzeltecek kişi arasındaki mesafe kısadır. Ürünü sahada kullanamayan ekipler için, örneğin emniyet açısından kritik sistemler geliştirenler için, dogfooding'in en gerçekçi biçimi de çoğu zaman budur:
+Ürünün kendisi kullanılamasa bile, onu üreten mühendislik sistemi her gün kullanılır. Burada dogfooding'i ürün sınırının dışına taşımak mümkün: mühendislik sisteminin kendisi de dogfood edilebilir. Bu sistemin kullanıcısı zaten ekibin kendisi olduğu için, sorun ile onu düzeltecek kişi arasındaki mesafe kısadır. Emniyet açısından kritik sistemler gibi ürünün sahada kullanılamadığı alanlarda dogfooding'in en gerçekçi biçimi de çoğu zaman budur:
 
 - **Araç:** Bir test çatısı yazdıysanız, kendi testlerinizi onunla koşun. Bir izlenebilirlik aracı yaptıysanız, kendi projenizin izlenebilirliğini onunla üretin.
 - **Süreç:** Bir kod gözden geçirme süreci tanımladıysanız, kendi değişikliklerinizi ilk o süreçten geçirin. Sürecin ağır geldiği yeri en önce siz hissedersiniz.
 - **Standart:** Bir kodlama standardı yazdıysanız, kendi kodunuz o standardı ihlal etmemeli. Kâğıtta makul görünen bir kural, maliyetini onunla yazılan ilk gerçek kodda gösterir.
-- **Belge:** Bir prosedür yazdıysanız, onu ilk kez prosedürü hiç bilmeyen biri uygulamalı. Girişteki üç sayfalık Word dokümanı bunun tipik örneğidir. Yazarı aracı sıfırdan kurmayı kendisi denediğinde, dokümandaki gereksiz adımlar ve eksik açıklamalar daha kolay görünür hâle gelirdi.
+- **Belge:** Bir prosedür yazdıysanız, onu bir kez de kendiniz, sıfırdan ve yalnızca belgeye bakarak uygulayın; mümkünse bir de onu hiç bilmeyen birine uygulatın. Girişteki üç sayfalık Word dokümanı bunun tipik örneğidir. Yazarı aracı sıfırdan kurmayı kendisi denediğinde, dokümandaki gereksiz adımlar ve eksik açıklamalar daha kolay görünür hâle gelirdi.
 
 ## Sonuç
 
-Dogfooding bir kalite güvence yöntemi değil, bir geri bildirim düzenidir. Kullanıcıyı temsil etmez ve bağımsız doğrulamanın yerine geçmez. Ama ürünü yapanları aksaklıkları kendi işlerinde yaşamaya zorlayarak geri bildirim gecikmesini azaltır ve raporların çoğu zaman yakalayamadığı küçük sürtünmeleri görünür kılar. Ürünün kendisi kullanılamadığında bile onu üreten araçlarda, süreçlerde ve belgelerde uygulanabilir.
+Dogfooding bir kalite güvence yöntemi değil, bir geri bildirim düzenidir. Kullanıcıyı temsil etmez ve bağımsız doğrulamanın yerine geçmez. Ama aksaklıkları ürünü yapanların kendi işine taşıyarak geri bildirim gecikmesini azaltır ve raporların çoğu zaman yakalayamadığı küçük sürtünmeleri görünür kılar. Ürünün kendisi kullanılamadığında bile onu üreten araçlarda, süreçlerde ve belgelerde uygulanabilir.
 
-Bütün bu sınırlara rağmen tek bir soru hep geçerliliğini korur. Kendi yazdığınız aracı kullanmak istemiyorsanız, bu da başlı başına bir bulgudur.
+Bütün bu sınırlara rağmen bir gözlem hep geçerliliğini korur: kendi yazdığınız aracı kullanmak istemiyorsanız, bu da başlı başına bir bulgudur.
 
 ## Kaynaklar
 
