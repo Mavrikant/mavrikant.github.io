@@ -10,9 +10,9 @@ categories: [muhendislik]
 tags: [sistem-muhendisligi, sertifikasyon, kariyer, incose]
 ---
 
-Altmış ay deneyim, en az üç farklı alanda on ikişer ay, sekiz referans mektubu, 100 soruluk bir sınav, 610 USD ve 1.000 TL. INCOSE **CSEP** (Certified Systems Engineering Professional) sertifikasyonu, kabaca bu sayıların hikâyesi.
+Altmış ay deneyim, en az üç farklı alanda on ikişer ay, referanslarca doğrulanmış bir deneyim dosyası ve 100 puanlanan soruluk bir sınav. INCOSE **CSEP** (Certified Systems Engineering Professional) sertifikasyonunun şartları kabaca bunlar. Benim dosyamda bunlara ek olarak sekiz referans vardı; cebimden çıkan da 610 USD ile 1.000 TL oldu.
 
-12 Ağustos 2026 Çarşamba günü başvurumun onaylandığı e-posta geldiğinde, bu sayıların her birini tek tek doldurmak bir buçuk yılımı almıştı: hedefi 2025'in ilk aylarında koymuş, altı ay hazırlanmış, sınava 10 Ocak 2026'da girmiştim. Süreç boyunca en çok zorlandığım şey de sınav olmadı; kendi deneyimimi başkasının doğrulayabileceği bir dille anlatmak oldu.
+12 Ağustos 2026 Çarşamba günü başvurumun onaylandığı e-posta geldiğinde, hedefi koyduğum günden bu yana yaklaşık on dokuz ay geçmişti: hedefi 2025'in ilk aylarında koymuş, altı ay hazırlanmış, sınava 10 Ocak 2026'da girmiştim. Süreç boyunca en çok zorlandığım şey de sınav olmadı; kendi deneyimimi başkasının doğrulayabileceği bir dille anlatmak oldu.
 
 Bu yazı hem o süreci baştan sona anlatıyor hem de aynı yolu yürümeyi düşünenler için pratik bir rehber olmayı amaçlıyor. Türkiye'den başvuran biri için özellikle merak edilen kısımlar var: Sınav nerede, nasıl ve kaça alınıyor? Başvuru formunda deneyim nasıl belgeleniyor? Referans kim olabilir? Süreç ne kadar sürüyor ve gerçekten değer mi?
 
@@ -22,7 +22,7 @@ Sistem mühendisliğinin ne olduğu, neden var olduğu ve yaşam döngüsünü n
 
 ## INCOSE ve SEP Programı
 
-**INCOSE** (International Council on Systems Engineering), 1990 yılında kurulmuş, sistem mühendisliğinin uluslararası meslek örgütüdür. Disiplinin bugünkü ortak sözlüğünü büyük ölçüde INCOSE'un yayınları belirler; en bilineni de düzenli olarak güncellenen **Systems Engineering Handbook**'tur. Handbook, ISO/IEC/IEEE 15288 yaşam döngüsü süreçlerini pratiğe tercüme eden bir referans kitaptır ve sertifikasyon programının da tek resmî bilgi kaynağıdır.
+**INCOSE** (International Council on Systems Engineering), 1990 yılında kurulmuş, sistem mühendisliğinin uluslararası meslek örgütüdür. INCOSE'un yayınları, sistem mühendisliği pratiğinde yaygın olarak kullanılan başvuru kaynakları arasında; en bilineni de düzenli olarak güncellenen **Systems Engineering Handbook**'tur. Handbook, ISO/IEC/IEEE 15288 ile uyumlu yaşam döngüsü süreçlerinin uygulanmasına yönelik kapsamlı bir rehberdir ve sertifikasyon programının tek resmî bilgi kaynağıdır.
 
 INCOSE'un **SEP** (Systems Engineering Professional) sertifikasyon programı üç kademeden oluşur:
 
@@ -30,11 +30,11 @@ INCOSE'un **SEP** (Systems Engineering Professional) sertifikasyon programı ü�
 |---|---|---|---|---|---|
 | **ASEP** — Associate SEP | Deneyim şartı yok | Gerekli | Gerekmez | 5 yıl | 180 USD |
 | **CSEP** — Certified SEP | En az 60 ay doğrudan SE deneyimi | Gerekli | Gerekli | 3 yıl | 350 USD |
-| **ESEP** — Expert SEP | 20 yıl ve üzeri SE deneyimi ve liderlik | Yazılı sınav yok; mülakat | Gerekli | 10 yıl | 630 USD |
+| **ESEP** — Expert SEP | Kariyerin ileri aşaması: uzun süreli SE deneyimi ve liderlik | Yazılı sınav yok; mülakat | Gerekli | 10 yıl | 630 USD |
 
 Bu üçlünün ortasındaki CSEP, programın omurgasıdır: hem *bildiğinizi* (sınavla) hem de *yaptığınızı* (belgelenmiş ve referanslarca doğrulanmış deneyimle) kanıtlamanızı ister. ASEP yeni mezunlar ve alana geçiş yapanlar için giriş kapısıdır; ESEP ise kariyerinin ileri aşamasındaki, alana yön vermiş kişiler içindir.
 
-CSEP'i diğer popüler mühendislik sertifikalarından ayıran şey de burada gizli. Pek çok sertifika bir eğitim programının sonundaki sınavdan ibarettir. CSEP'te sınav sürecin sadece yarısıdır; asıl elemeyi başvuru dosyasının insan eliyle değerlendirilmesi yapar.
+CSEP'te sınav sürecin yalnızca yarısı; asıl elemeyi başvuru dosyasının insan eliyle değerlendirilmesi yapıyor.
 
 ---
 
@@ -42,19 +42,19 @@ CSEP'i diğer popüler mühendislik sertifikalarından ayıran şey de burada gi
 
 Kariyerimin büyük bölümü **DO-178C DAL A** seviyesinde aviyonik yazılım geliştirerek geçti. Bu dünyada gereksinim yönetimi, izlenebilirlik, doğrulama ve konfigürasyon kontrolü zaten günlük işin parçası. Ancak bir süre sonra fark ettim ki bu pratikleri "aviyonik yazılımın kuralları" olarak öğrenmiştim; oysa bunların çoğu aslında sistem mühendisliğinin genel pratiklerinin belirli bir sektöre uyarlanmış hâliydi.
 
-Bu farkın pratik bir bedeli var. Sistem tarafındaki meslektaşlarınızla konuşurken aynı şeyleri kastedip farklı kelimeler kullanıyorsunuz; ya da daha kötüsü, aynı kelimeleri kullanıp farklı şeyler kastediyorsunuz. "Doğrulama" ile "geçerleme" arasındaki ayrım, "gereksinim" ile "tasarım kısıtı" arasındaki sınır, bir arayüz kontrol dokümanının kime ait olduğu... Bunlar akademik ayrımlar değil, proje geciktiren tartışmalar.
+Bu farkın pratik bir bedeli var. Sistem tarafındaki meslektaşlarınızla konuşurken aynı şeyleri kastedip farklı kelimeler kullanıyorsunuz; ya da daha kötüsü, aynı kelimeleri kullanıp farklı şeyler kastediyorsunuz. "Doğrulama" (*verification*) ile "geçerleme" (*validation*) arasındaki ayrım, "gereksinim" ile "tasarım kısıtı" arasındaki sınır, bir arayüz kontrol dokümanının kime ait olduğu... Bunlar akademik ayrımlar değil, proje geciktiren tartışmalar.
 
 CSEP'e yönelmemin üç sebebi vardı:
 
 1. **Ortak dil.** Handbook'u sistematik biçimde çalışmak, parça parça öğrendiğim pratikleri tek bir çerçeveye oturttu. Yazılım tarafından bakınca "süreç yükü" gibi görünen pek çok şeyin sistem tarafında nereye oturduğunu görmek, o yükü anlamlı kıldı.
-2. **Belgelenebilirlik.** Türkiye'nin savunma ve havacılık sektöründe sistem mühendisliği yetkinliği giderek daha fazla sözleşme ve şartname maddesine giriyor. CSEP, bu yetkinliğin uluslararası ölçekte en yaygın kabul gören ve bağımsız biçimde doğrulanmış belgesi.
-3. **Disiplinli okuma bahanesi.** Açık konuşmak gerekirse, bir sınav tarihi olmadan 368 sayfalık bir el kitabını baştan sona okumam pek olası değildi.
+2. **Belgelenebilirlik.** Türkiye'nin savunma ve havacılık sektöründe sistem mühendisliği yetkinliği giderek daha fazla sözleşme ve şartname maddesine giriyor. CSEP, bu yetkinliği uluslararası ölçekte tanınan ve bağımsız biçimde doğrulanmış bir belgeyle göstermenin yollarından biri.
+3. **Disiplinli okuma bahanesi.** Dürüst olmak gerekirse, bir sınav tarihi olmadan yüzlerce sayfalık bir el kitabını baştan sona okumam pek olası değildi.
 
 ---
 
 ## Sürecin Haritası
 
-Süreç iki adımdan oluşuyor ve **sıraları değişmiyor**: önce bilgi sınavını geçiyorsunuz, sonra başvuru dosyasını veriyorsunuz. Benim takvimim şöyle işledi:
+Süreç iki ana adımdan oluşuyor: bilgi sınavı ve başvuru dosyası. Ben önce sınava girip sonra başvurdum, ama bu sıra zorunlu değil — başvuru dosyasını sınavdan önce de açabiliyorsunuz. Benim takvimim şöyle işledi:
 
 <div class="mermaid">
 flowchart LR
@@ -85,25 +85,27 @@ Sınav ile başvuru arasında geçen altı ay tamamen benim tercihimdi ve bu ter
 
 INCOSE bilgi sınavı çoktan seçmeli bir sınavdır ve **tek kaynağı** SE Handbook'tur. Burada kritik bir tarih var: Ağustos 2023 ile 14 Mart 2025 arasında uygulanan "hibrit" sınav, dördüncü ve beşinci baskıların *ortak* içeriğinden soru soruyordu. **15 Mart 2025'ten itibaren sınav içeriğinin tamamı beşinci baskıdan geliyor.** Yani bugün hazırlananlar için dördüncü baskı artık birincil kaynak değil.
 
-Sınavda puanlanan soru sayısı 100'dür. Bazı oturumlarda bunlara ek olarak, ileride kullanılıp kullanılmayacağına karar verilmek üzere denenen ve puanlanmayan sorular da gelebiliyor. Süre tahsisi oturuma ve formata göre değişiyor; genel kural soru başına yaklaşık bir dakika. Benim girdiğim kâğıt oturumda toplam **100 çoktan seçmeli soru için 130 dakika** verildi; yani soru başına ortalama bir dakika yirmi saniye. Bu süre, soruları sakin okumak ve şüpheli bıraktıklarınıza sonradan dönmek için yeterli; yeter ki tek bir soruda beş dakika harcamayın.
+Sınavda puanlanan soru sayısı 100'dür. Bunlara ek olarak, ileride kullanılıp kullanılmayacağına karar verilmek üzere denenen ve puanlanmayan 20 ya da 50 soru gelebiliyor. INCOSE süreyi soru başına bir dakika olarak veriyor; beta sorular dâhil 120 soruluk standart bir oturum 120 dakika sürüyor. Benim girdiğim 10 Ocak 2026 tarihli Türkiye oturumunda **100 puanlanan soru için 130 dakika** verildi; yani soru başına yaklaşık bir dakika on sekiz saniye. Bunun genel kuraldan farklı olduğunu not edeyim: süre ve soru sayısı oturuma göre değişebiliyor, kendi davet e-postanızda yazan rakama bakın. Bu süre, soruları sakin okumak ve şüpheli bıraktıklarınıza sonradan dönmek için yeterli; yeter ki tek bir soruda beş dakika harcamayın.
 
-Geçme eşiği için INCOSE sabit bir yüzde ilan etmiyor. Yaygın olarak %70 civarı telaffuz edilse de resmî tutum şu: farklı soru setleri arasındaki zorluk farkı dengelenerek eşik ayarlanıyor, yani daha zor bir sette biraz daha düşük bir doğru sayısı da geçmeye yetebiliyor. Sorular Handbook'un öğrenme hedefleri arasında dengeli biçimde dağıtılır, yani "şu bölümü atlarım" gibi bir lüksünüz yok.
+Geçme eşiği için INCOSE sabit bir yüzde ilan etmiyor. Yaygın olarak %70 civarı telaffuz edilse de resmî tutum şu: farklı soru setleri arasındaki zorluk farkı dengelenerek eşik ayarlanıyor, yani daha zor bir sette biraz daha düşük bir doğru sayısı da geçmeye yetebiliyor. Sorular Handbook'un geneline yayılıyor, yani "şu bölümü atlarım" gibi bir lüksünüz yok.
 
 ### Türkiye'de sınava girmek
 
-INCOSE, sınavı iki formatta sunuyor: kendi bilgisayarınızdan, canlı uzaktan gözetmenli (**online proctored**) olarak ya da INCOSE onaylı bir gözetmenin denetiminde **kâğıt üzerinde**. Prometric test merkezlerinde sınav artık sunulmuyor.
+INCOSE, sınavı iki formatta sunuyor: kendi bilgisayarınızdan, canlı uzaktan gözetmenli (**online proctored**) olarak ya da INCOSE onaylı bir gözetmenin denetiminde **kâğıt üzerinde**. Benim hazırlandığım 2026 sürecinde Prometric test merkezi seçeneği bulunmuyordu.
 
 Başlangıçtaki planım online sınava daha erken bir tarihte girmekti. Sonra Türkiye'de düzenlenen kâğıt oturumun ücretinin **1.000 TL** olduğunu gördüm; INCOSE'un online sınav için aldığı 80 USD ile kıyaslandığında aradaki fark, birkaç ay beklemeye değecek kadar büyüktü. Bu yüzden hazırlığı biraz daha uzatıp kâğıt oturumu bekledim ve sınavı **10 Ocak 2026'da ODTÜ Teknokent'teki SSB Akademi binasında** aldım. Türkiye'de bu organizasyon INCOSE TR şubesi ve SSB Akademi eliyle yürüyor; SSB Akademi ayrıca CSEP sınavına hazırlık eğitimi de düzenliyor.
 
 Kâğıt formatının başka bir faydası daha var: ekran yerine kâğıt üzerinde okumak, uzun ve iç içe geçmiş şıkları taramayı kolaylaştırıyor; soruların üzerini işaretleyip geri dönebiliyorsunuz.
 
-Buna karşılık ciddi bir kısıtı var: **Türkiye'deki kâğıt sınav yılda bir kez, ocak ayında yapılıyor.** Online sınavın "hazır olduğumda girerim" esnekliğinin yerini, yılın başına sabitlenmiş tek bir tarih alıyor. Bunun hazırlık planı açısından üç sonucu var:
+Buna karşılık bir kısıtı var: kâğıt oturumlar belirli tarihlerde açılıyor, sizin hazır olduğunuz ana göre değil. **Ben sınava girdiğimde Türkiye'deki kâğıt oturum yılda bir kez, ocak ayında yapılıyordu.** Online sınavın "hazır olduğumda girerim" esnekliğinin yerini takvime sabitlenmiş tek bir tarih alıyordu. Bunun hazırlık planı açısından üç sonucu vardı:
 
 - Hazırlığınızın bitiş çizgisi sizin değil, takvimin belirlediği bir tarih. Ekim ayında hazır hâle gelseniz de ocağı bekliyorsunuz; kasımda geride kaldığınızı fark ederseniz erteleyecek yeriniz yok.
 - Oturumu kaçırırsanız bir sonraki fırsat bir yıl sonra. Araya iş seyahati, hastalık ya da proje teslimi girerse alternatifiniz online sınava dönmek oluyor.
-- Sınavı geçtikten sonraki on iki aylık başvuru penceresi de ocakta başlıyor. Yani başvuru ücretini bütçelemek için elinizde net bir takvim var: sınavı ocakta geçtiyseniz, bir sonraki ocaktan önce başvurmuş olmanız gerekiyor.
+- Sınavı geçtikten sonraki on iki aylık başvuru penceresi de sınav tarihinde başlıyor. Yani başvuru ücretini bütçelemek için elinizde net bir takvim oluyor: sınavı ocakta geçtiyseniz, bir sonraki ocaktan önce başvurmuş olmanız gerekiyor.
 
-Bir de tekrar hakkı meselesi var: sınava istediğiniz sıklıkta giremiyorsunuz. INCOSE, on iki aylık dönem içinde en fazla üç deneme hakkı tanıyor ve her deneme için ücret yeniden ödeniyor. Türkiye'deki kâğıt oturum yılda bir yapıldığı için pratikte bu sınırı zorlamanız da mümkün değil — kâğıt sınavda kalırsanız ya bir yıl bekliyor ya da online sınava geçiyorsunuz. Yani "girer bakarım, olmazsa tekrar girerim" stratejisi burada işlemiyor; ilk denemede hazır olmanız gerekiyor.
+Burası yazının en çabuk eskiyen kısmı: oturumların sayısı ve tarihleri yıldan yıla değişiyor. Planınızı benim anlattığım ocak takvimine göre değil, **INCOSE TR ve SSB Akademi'nin güncel duyurularına** göre kurun.
+
+Bir de tekrar hakkı meselesi var: sınava istediğiniz sıklıkta giremiyorsunuz. INCOSE on iki aylık dönem içindeki deneme sayısını sınırlıyor ve her deneme için ücret yeniden ödeniyor; güncel sınırı kayıt sırasında teyit edin. Kâğıt oturumda kalırsanız ya bir sonraki oturumu bekliyor ya da online sınava geçiyorsunuz. Yani "girer bakarım, olmazsa tekrar girerim" teknik olarak mümkün; ama her deneme ayrı ücrete tabi olduğu için pahalı bir strateji.
 
 ### Sınav günü nasıl işliyor?
 
@@ -121,7 +123,7 @@ Pratik ayrıntılar, sınav sabahı sürpriz yaşamamak için önemli:
 - **Sınav İngilizce yapılıyor ve yanınızda sözlük bulundurabiliyorsunuz.** Sözlük girişte kontrol ediliyor. Anadili İngilizce olmayan adaylar için bu ciddi bir rahatlama; ancak sözlüğe güvenip terminolojiyi Handbook'un kendi ifadeleriyle öğrenmemek işe yaramaz — sözlük "requirement" kelimesini çevirir, "measure of effectiveness" ile "measure of performance" arasındaki farkı anlatmaz.
 - **Kimlik ve sözlük dışında hiçbir doküman içeri alınmıyor.** Telefonunuz girişte teslim ediliyor.
 - **Kâğıt sınav olduğu için kurşun kalem ve silgiyi kendiniz götürüyorsunuz.** Basit ama unutulması sınav sabahı telaş yaratacak bir ayrıntı.
-- **Ulaşımı önceden planlayın.** Sınav ODTÜ Teknokent'teki TUSAŞ binalarında yapıldığı için, Teknokent araç kartı olmayanların plaka bilgilerini önceden organizasyona bildirip nizamiye kaydını yaptırması gerekiyor; aksi hâlde araçla giriş mümkün olmuyor. Bu tür yerleşke kuralları, davet e-postasında yazan ve gerçekten uyulması gereken maddeler.
+- **Ulaşımı önceden planlayın.** Sınav ODTÜ Teknokent'te yapıldığı için, Teknokent araç kartı olmayanların plaka bilgilerini önceden organizasyona bildirip nizamiye kaydını yaptırması gerekiyor; aksi hâlde araçla giriş mümkün olmuyor. Bu tür yerleşke kuralları, davet e-postasında yazan ve gerçekten uyulması gereken maddeler.
 - **Sonuçlar oturumun sonunda açıklanmıyor ve puan verilmiyor.** Sonuç, INCOSE tarafından e-posta ile iletiliyor; ne zaman geleceği INCOSE'un yoğunluğuna bağlı. E-postada yalnızca başarılı olup olmadığınız yazıyor — kaç doğru, kaç yanlış yaptığınız paylaşılmıyor. Yani geçme eşiğine ne kadar yaklaştığınızı hiçbir zaman öğrenmiyorsunuz. Bu da hazırlığı "sınırı zar zor geçecek kadar" değil, rahat bir payla planlamak için iyi bir sebep.
 - **Sonucun paylaşımı için rıza isteniyor.** INCOSE TR ekibi, sonucunuzun kendileriyle paylaşılabilmesi için bir rıza metni imzalatıyor; amaç, sınavı geçen adayları sertifikasyon sürecinin sonraki adımlarına yönlendirebilmek.
 
@@ -147,7 +149,7 @@ Birinci okuma baştan sona detaylıydı: satır satır ilerledim ve önemli gör
 
 İkinci okuma ise daha da detaylıydı. Amacı bilgiyi tazelemek değil, özümsemekti: ilk turda altını çizdiğim cümlelerin neden önemli olduğunu, süreçlerin birbirini nasıl beslediğini ve aynı kavramın farklı bölümlerde nasıl tekrar karşıma çıktığını görmeye çalıştım. Handbook'un cümlelerini tanımakla kavramı gerçekten anlamak arasındaki farkı asıl bu ikinci turda kapattım.
 
-Bu ikinci turda özellikle dikkat edilmesi gereken bir yapı var: her sürecin **girdileri, aktiviteleri ve çıktıları**. Sınavın en çok ödüllendirdiği bilgi türü bu; "şu sürecin çıktısı hangisidir?" tipi sorular, kitabı okumuş ama süreçleri bu üçlü üzerinden düşünmemiş adayları rahatlıkla eliyor.
+İkinci okumayı birinciden ayıran asıl şey yöntemdi: her süreci **girdileri, aktiviteleri ve çıktıları** üzerinden okudum. Benim hazırlığımda en yüksek getiriyi bu sağladı; "şu sürecin çıktısı hangisidir?" tipi sorular, kitabı okumuş ama süreçleri bu üçlü üzerinden düşünmemiş adayı rahatlıkla zorluyor.
 
 ### Türkçe dördüncü baskının yeri
 
@@ -170,7 +172,7 @@ Kullandığım setlerin bağlantıları yazının sonundaki [Kaynaklar](#kaynakl
 
 ### Sınavdan sonra: yüksek lisans
 
-İlginç bir yan etki: sınavı geçtikten sonra **sistem mühendisliği alanında ikinci bir yüksek lisansa başladım.** Altı aylık hazırlık, alanın ne kadar geniş olduğunu ve Handbook'un aslında ne kadar yüzeysel bir özet sunduğunu gösterdi. Sertifika bir bitiş çizgisi değil, hangi konularda daha derine inmek istediğimi netleştiren bir haritaydı.
+İlginç bir yan etki: sınavı geçtikten sonra **ikinci yüksek lisansım olarak sistem mühendisliğine başladım.** Altı aylık hazırlık, alanın ne kadar geniş olduğunu ve Handbook'un bir referans çerçevesi olduğunu, alanın kendisinin ise bunun çok ötesine geçtiğini gösterdi. Sınav bir bitiş çizgisi değil, hangi konularda daha derine inmek istediğimi netleştiren bir haritaydı.
 
 ---
 
@@ -178,7 +180,7 @@ Kullandığım setlerin bağlantıları yazının sonundaki [Kaynaklar](#kaynakl
 
 Sınavı geçtikten sonra elinizde bir "bilgi yeterliliği" var; sertifika değil. CSEP için asıl iş şimdi başlıyor.
 
-> **Not:** Bu bölüm, başvurumu yaptığım Temmuz–Ağustos 2026 dönemindeki akışı anlatıyor. Ağustos 2026'dan sonra INCOSE portalında bir sistem güncellemesi yapıldı ve Form 1'in doldurulma yöntemi değişti: benim başvurumda Form 1, indirilip bilgisayarda doldurulan ve sonra yüklenen bir **PDF dosyasıydı**; yeni sistemde form doğrudan **web sitesi üzerinden** dolduruluyor. Deneyim beyanının mantığı — altmış ay, üç alan, referans doğrulaması — aynı kalsa da adımların adları, sırası ve formların sunuluş biçimi bugün farklı olabilir. Süreci yürütürken INCOSE'un güncel [How to Apply for CSEP](https://www.incose.org/wp-content/uploads/2026/07/CSEP_HowToApply_2026.pdf) dokümanını esas alın; buradaki anlatıyı neyle karşılaşacağınızı öngörmek için kullanın.
+> **Not:** Bu bölüm, başvurumu yaptığım Temmuz–Ağustos 2026 dönemindeki akışı anlatıyor. Ağustos 2026'dan sonra INCOSE portalında bir sistem güncellemesi yapıldı ve Form 1'in doldurulma yöntemi değişti: benim başvurumda Form 1, indirilip bilgisayarda doldurulan ve sonra yüklenen bir **PDF dosyasıydı**; yeni sistemde form doğrudan **web sitesi üzerinden** dolduruluyor. Deneyim beyanının mantığı — altmış ay, üç alan, referans doğrulaması — aynı kalsa da adımların adları, sırası ve formların sunuluş biçimi bugün farklı olabilir. Süreci yürütürken INCOSE'un [CSEP başvuru sayfasını](https://www.incose.org/certification/start-your-certification/applying-for-csep/) esas alın; buradaki anlatıyı neyle karşılaşacağınızı öngörmek için kullanın.
 
 ### 60 ay ve üç alan kuralı
 
@@ -203,7 +205,7 @@ Başvuru formunda deneyim, önceden tanımlı **14 sistem mühendisliği alanın
 
 Bunlara ek olarak, hiçbirine oturmayan ama sistem mühendisliği olduğunu gerekçelendirebildiğiniz işler için bir de "Diğer" seçeneği var; ancak üç alan kuralı 14 tanımlı alan üzerinden değerlendiriliyor.
 
-Formu doldururken en çok zorlanılan nokta burası. Her ay yalnızca bir alana sayılabiliyor ve toplamların gerçek çalışma sürenizle tutarlı olması gerekiyor. Yani "aynı dönemde hem gereksinim yazdım hem entegrasyon yaptım" diyerek ayları iki kez sayamıyorsunuz; o dönemi bölmeniz gerekiyor.
+Formu doldururken en çok zorlanılan nokta burası. Deneyim, **tam zamana eşdeğer (FTE) ay** cinsinden beyan ediliyor: aynı takvim döneminde birden fazla alanda çalıştıysanız o dönemin eforunu alanlar arasında paylaştırıyorsunuz ve alanlara dağıttığınız toplam, o takvim döneminin uzunluğunu aşamıyor. Yani "aynı dönemde hem gereksinim yazdım hem entegrasyon yaptım" diyerek aynı ayları her iki alana da tam olarak yazamıyorsunuz; eforu bölüştürmeniz gerekiyor. Bu, toplam deneyimin takvimle tutarlı kalmasını sağlıyor.
 
 ### Aviyonik deneyimini SE alanlarına eşlemek
 
@@ -218,6 +220,8 @@ Benim gibi yazılım tarafından gelenler için asıl zihinsel egzersiz, yaptı�
 - DAL A seviyesinde emniyet analizlerine katkı, güvenilirlik ve güvenlik çalışmaları → **Özel mühendislik dalları**
 - Test otomasyonu altyapısının kurulması ve ekibin bu altyapıyla çalışacak biçimde yetkinleştirilmesi → **Kurumsal proje etkinleştirme faaliyetleri**
 
+Buradaki en büyük tuzağa dikkat: **DO-178C kapsamında yapılan her faaliyet otomatik olarak sistem mühendisliği deneyimi sayılmıyor.** Yukarıdaki eşleme, ilgili faaliyeti fiilen yürütmüş olmanız hâlinde geçerli. Örneğin DAL A seviyesinde bir projede çalışmış olmak tek başına Specialty Engineering deneyimi oluşturmuyor; emniyet, güvenilirlik ya da güvenlik analizini gerçekten siz yapmış olmalısınız. Aynı şekilde bir test altyapısı geliştirmiş olmak kendiliğinden kurumsal etkinleştirme faaliyeti değil; o altyapının kurumsal düzeyde bir yetkinliğe dönüşmesinde rol almış olmanız gerekiyor.
+
 Bu eşlemeyi yaparken abartmamak önemli. Değerlendirme komitesi, beyan ettiğiniz alanların referanslarınızın doğrulayabileceği türden olmasını bekliyor. Bir alanda 12 ayı zorlayarak doldurmaktansa, gerçekten güçlü olduğunuz üç alanı sağlam biçimde belgelemek daha iyi bir strateji.
 
 Formu yazarken kullandığım pratik bir yöntem: her satır için "referansım bu cümleyi okusa, gözünü kırpmadan onaylar mı?" diye sordum. Cevap tereddütlüyse cümleyi ya yumuşattım ya çıkardım.
@@ -226,32 +230,36 @@ Formu yazarken kullandığım pratik bir yöntem: her satır için "referansım 
 
 CSEP başvurusunda deneyiminizi doğrulayacak **referanslar** gerekiyor. Kuralları özetlemek gerekirse:
 
-- Referans, en az beş yıllık iş deneyimine sahip olmalı ve sistem mühendisliğine aşina olmalı — yani yaptığınız işin gerçekten sistem mühendisliği olduğunu değerlendirebilecek durumda olmalı.
+- Referans, sistem mühendisliğine aşina olmalı — yani yaptığınız işin gerçekten sistem mühendisliği olduğunu değerlendirebilecek durumda olmalı.
 - Referans, beyan ettiğiniz deneyim döneminde sizi tanıyor ve o işten haberdar olmalı. Sonradan tanışılmış bir kişi o dönemi doğrulayamaz.
 - Her referans, beyan ettiğiniz sürenin en az 12 ayını doğrudan doğrulayabilmeli; referansların toplamı ise nitelikli diplomaya sahip adaylar için beş yıllık deneyimi kapsamalı. Diploması alan dışında olanlarda bu eşik on yıla çıkıyor.
 - Kural olarak tek bir referans derinlik, genişlik ve süre şartının tamamını doğrulayabiliyorsa yeterli sayılabiliyor; pratikte başvurular çoğunlukla üç civarı referansla destekleniyor. Referansın sizinle akrabalık bağı olmaması gerekiyor.
-- **Mevcut ve eski yöneticiler ile müşteriler en değerli referanslardır.** Komite, yöneticiden gelen doğrulamaya iş arkadaşından gelene kıyasla daha fazla ağırlık veriyor.
+- **Benim açımdan en güçlü referanslar, ilgili dönemdeki yöneticilerim ve yaptığım işi doğrudan bilen kişiler oldu.** Deneyimi en somut biçimde onlar doğrulayabiliyordu.
 
 Ben asgari sayıyla yetinmedim: **çalıştığım son üç iş yerinden toplam sekiz referans** verdim. Bunun iki sebebi vardı. Birincisi kapsama: beyan ettiğim altmış aylık deneyim tek bir projeye ya da tek bir yöneticinin görüş alanına sığmıyordu; her dönemi ve her deneyim alanını o işi bizzat gören biriyle eşleştirmek istedim. İkincisi dayanıklılık: referansların formu doldurması gönüllülük esasına dayanıyor, araya izin, yoğunluk ya da unutma girebiliyor. Sekiz kişiden birkaçı gecikse bile dosyanın doğrulanmış deneyimi eksik kalmıyor.
 
-Burada yaygın bir yanlış beklenti var, ben de sürece girene kadar öyle sanıyordum: **referanslarınıza INCOSE ulaşmıyor, siz ulaşıyorsunuz.** Referans mektubu trafiğini başlatmak ve takip etmek tamamen adayın sorumluluğunda.
+Burada yaygın bir yanlış beklenti var, ben de sürece girene kadar öyle sanıyordum: **referans sürecini INCOSE değil, siz başlatıyorsunuz.** Form 4B'nin bağlantısını referanslarınıza siz iletiyorsunuz; onlar da formu doğrudan INCOSE'a gönderiyor. Yani trafiği başlatmak ve takip etmek tamamen adayın sorumluluğunda.
 
 ### Başvurudan sonra ne oluyor?
 
 Başvuruyu gönderdikten hemen sonra INCOSE Sertifikasyon Ofisi'nden bir "sonraki adımlar" e-postası geliyor ve süreç şöyle işliyor:
 
 1. **Tarama.** Önce Sertifikasyon Ofisi başvuru formunuzun şartlara uygun olup olmadığını kontrol ediyor. Bu onay gelmeden referans adımına geçmiyorsunuz.
-2. **Referanslar.** Form uygun bulunduktan sonra her referansınıza iki şey gönderiyorsunuz: doldurduğunuz [**Form 1**](https://www.incose.org/wp-content/uploads/2026/07/CSEP_HowToApply_2026.pdf) formunun bir kopyası ve **dijital referans mektubunun** ([Form 4b](https://forms.office.com/pages/responsepage.aspx?id=k6cjNVAORka4CyXYO9fylpdnShHiChFNk4sYt-8URhFUN1RNUE5NSDdKTlRVSkNZVFdYRkwyOVlPSC4u&route=shorturl)) bağlantısı. Form 1'in kopyası şart, çünkü referans sizin hangi dönemde hangi alanda ne beyan ettiğinizi görmeden mektubu dolduramıyor. Referans mektubu doldurulup gönderildiğinde INCOSE'a otomatik olarak ulaşıyor; arada sizin bir şey iletmeniz gerekmiyor. Formun kendi uyarısına göre doldurulması yaklaşık **30 dakika** sürüyor — referansınızdan isteyeceğiniz şeyin büyüklüğünü bilin ve ona da baştan söyleyin.
+2. **Referanslar.** Form uygun bulunduktan sonra her referansınıza iki şey gönderiyorsunuz: doldurduğunuz **Form 1**'in bir kopyası ve **dijital referans mektubunun** ([Form 4b](https://forms.office.com/pages/responsepage.aspx?id=k6cjNVAORka4CyXYO9fylpdnShHiChFNk4sYt-8URhFUN1RNUE5NSDdKTlRVSkNZVFdYRkwyOVlPSC4u&route=shorturl)) bağlantısı. Form 1'in kopyası şart, çünkü referans sizin hangi dönemde hangi alanda ne beyan ettiğinizi görmeden mektubu dolduramıyor. Referans mektubu doldurulup gönderildiğinde INCOSE'a otomatik olarak ulaşıyor; arada sizin bir şey iletmeniz gerekmiyor. Formun kendi uyarısına göre doldurulması yaklaşık **30 dakika** sürüyor — referansınızdan isteyeceğiniz şeyin büyüklüğünü bilin ve ona da baştan söyleyin.
+
+3. **Değerlendirme ve karar.** Referans mektupları tamamlandıktan sonra dosya değerlendiriliyor ve sonuç e-posta ile bildiriliyor.
 
 Bu akış, referanslara önceden haber vermeyi sadece nezaket olmaktan çıkarıp sürecin hızını belirleyen faktör hâline getiriyor. Onlara ne göndereceğinizi ve ne kadar zaman alacağını baştan anlatın; formun linki elinize geçtiğinde aynı gün dağıtabilecek durumda olun. Başvurumun üç buçuk haftada sonuçlanmasının en büyük sebebi, referanslarımın mektupları hızla doldurmasıydı.
 
 ### Ücret ve on iki ay kuralı
 
-Başvuru ücreti INCOSE üyeleri için **350 USD**. Buna sınav ücreti ve — sertifikayı almak ve sürdürmek için gereken — üyelik aidatı ekleniyor. Türkiye'den bakıldığında bu, azımsanacak bir tutar değil.
+Başvuru ücreti INCOSE üyeleri için **350 USD**, online sınav ücreti ise 80 USD. Buna üye olmayı seçerseniz yıllık aidat ekleniyor. Türkiye'den bakıldığında bu, azımsanacak bir tutar değil.
 
-**INCOSE üyeliğinde Türkiye'ye özel bir avantaj var:** INCOSE, bireysel üyelik ücretini ülkelerin satın alma gücüne göre kademelendiriyor. Türkiye "Regular PPP 2" kademesinde yer alıyor ve yıllık aidat **130 USD** — standart 175 USD'lik ücret yerine. Üyelik zaten hem indirimli başvuru ücreti hem de yenileme için gerekli olduğundan, sürece üye olarak başlamak her hâlükârda daha ucuz.
+Burada önemli bir güncelleme var: **INCOSE, Ekim 2025'ten itibaren üyeliği sertifikasyon için zorunlu olmaktan çıkardı.** Yani üye olmadan da başvurabiliyorsunuz. Ancak üye olmayanların ödediği başvuru ücreti belirgin biçimde yüksek; pratikte üyelik neredeyse her durumda daha ucuza geliyor.
 
-Ben 18 Mart 2025'te üye oldum ve 9 Mart 2026'da üyeliğimi yeniledim; yani sertifikasyon süreci boyunca iki yıllık aidat ödedim. Tüm sürecin bana maliyeti şöyle oldu:
+Üstelik **üyelik ücretinde Türkiye'ye özel bir avantaj var:** INCOSE, bireysel üyelik ücretini ülkelerin satın alma gücüne göre kademelendiriyor. Türkiye "Regular PPP 2" kademesinde yer alıyor ve yıllık aidat **130 USD** — standart 175 USD'lik ücret yerine. Ücret farkı göz önüne alındığında sürece üye olarak başlamak benim için açık ara daha ucuzdu.
+
+Ben 18 Mart 2025'te üye oldum ve 9 Mart 2026'da üyeliğimi yeniledim; yani sertifikasyon süreci boyunca iki yıllık aidat ödedim. **Benim seçtiğim yolun** maliyeti şöyle oldu — bu bir CSEP fiyat listesi değil, iki yıllık üyelik, başvuru ücreti ve Türkiye'deki kâğıt oturumdan oluşan kişisel toplamım:
 
 | Kalem | Tutar |
 |---|---|
@@ -272,23 +280,23 @@ CSEP üç yıl geçerli. Yenilemek için üç şey gerekiyor:
 
 - **120 PDU** (Professional Development Unit) — üç yıllık dönem boyunca kazanılmış olmalı
 - **100 USD** yenileme ücreti
-- Geçerli **INCOSE üyeliği** — Türkiye için yıllık 130 USD
+- **INCOSE üyeliği** — Ekim 2025'ten beri sertifikasyon için biçimsel bir zorunluluk değil; yine de ücretler üyeler lehine, Türkiye'de yıllık aidat 130 USD. Yenileme koşulları değişebildiği için başvuru anında INCOSE'un yenileme sayfasından teyit edin.
 
-PDU'lar yalnızca eğitim ve konferanslardan gelmiyor; sistem mühendisi olarak çalışmak, ekip liderliği yapmak, INCOSE üyeliğini sürdürmek, şube etkinliklerine katılmak, makale yazmak ve gönüllü görevler almak da sayılıyor. Bir dönemde 120'nin üzerinde PDU biriktirirseniz en fazla 30'unu bir sonraki döneme aktarabiliyorsunuz.
+PDU'lar yalnızca eğitim ve konferanslardan gelmiyor; sistem mühendisi olarak çalışmak, ekip liderliği yapmak, meslek örgütü ve şube etkinliklerine katılmak, makale yazmak ve gönüllü görevler almak da sayılıyor. Dönem içinde 120'nin üzerinde PDU biriktirirseniz bir kısmını sonraki döneme aktarabiliyorsunuz; devredilebilecek üst sınırı INCOSE'un güncel yenileme kılavuzundan teyit edin.
 
 Buradaki asıl mesele muhasebe disiplini: INCOSE bir **PDU kayıt defteri** tutmanızı ve gerektiğinde belgeleyebilmenizi bekliyor. Üç yıl sonra geriye dönüp hatırlamaya çalışmak yerine, katıldığınız her etkinliği o gün kaydetmek çok daha kolay. Ben bu kaydı sertifikayı aldığım gün açtım.
 
 ---
 
-## Türkiye'de SEP Manzarası: Geçerli 141 Sertifika
+## INCOSE Dizininin Gösterdiği Türkiye Manzarası
 
 Süreci bitirdikten sonra merak ettim: Türkiye'de benim gibi kaç kişi var? INCOSE'un herkese açık SEP dizini bu soruya kısmen cevap veriyor. 28 Ağustos 2026 tarihli anlık görüntüde Türkiye merkezli **141 kayıt** listeleniyor.
 
 ### Önce bu listenin ne olmadığını konuşalım
 
-Dizin, sertifika almış herkesi değil, **sertifikası o an geçerli olanları** gösteriyor. 141 kaydın hiçbiri "süresi dolmuş" durumda değil; 93'ü aktif, 42'sinin geçerliliği bir yıl içinde dolacak, 6 ESEP kaydı için ise dizin bitiş tarihi göstermiyor.
+Dizin, sertifika almış herkesi değil, **sertifikası o an geçerli olanları** gösteriyor. Süreli 135 kaydın 42'sinin geçerliliği önümüzdeki bir yıl içinde doluyor; 6 ESEP kaydı için ise dizin bitiş tarihi göstermiyor.
 
-Bunun sonucu, veriyi okurken sürekli akılda tutulması gereken bir çarpıklık. CSEP üç yılda bir, ASEP beş yılda bir yenilenmek zorunda. Yenilemeyen kişi listeden tamamen kayboluyor. Veride bunun izi açıkça görülüyor: kayıtların ilk sertifikalanma tarihiyle bitiş tarihi arasındaki fark 80 kişide üç yıl (hiç yenilememişler), 30 kişide altı yıl (bir kez yenilemişler), 11 kişide yedi yıl ve üzeri. Yani listedeki "2013" kaydı, 2013'ten beri sertifikasını dört kez yenilemiş bir kişi.
+Bunun sonucu, veriyi okurken sürekli akılda tutulması gereken bir çarpıklık. CSEP üç yılda bir, ASEP beş yılda bir yenilenmek zorunda. Yenilemeyen kişi listeden tamamen kayboluyor. Veride bunun izi açıkça görülüyor: **121 CSEP kaydının** 80'inde ilk sertifikalanma tarihiyle bitiş tarihi arasındaki fark üç yıl (hiç yenilememişler), 30'unda altı yıl (bir kez yenilemişler), 11'inde yedi yıl veya daha uzun. Yani listedeki "2013" kaydı, 2013'ten beri sertifikasını dört kez yenilemiş bir kişi.
 
 Pratik karşılığı şu: **eski yıllar olduğundan az görünüyor.** 2015'te sertifika alıp 2018'de yenilemeyen bir mühendis bu veride hiç yok. Dolayısıyla aşağıdaki grafik bir büyüme grafiği değil; bugün geçerli sertifikaların yaş dağılımı.
 
@@ -304,9 +312,9 @@ Soldaki çöküş, 2013–2019 arasında Türkiye'de kimsenin sertifika almadı�
 
 ### Yine de son üç yıl hakkında bir şey söylenebilir
 
-Grafiğin sağ tarafı bu çarpıklıktan **etkilenmiyor**, çünkü CSEP döngüsü üç yıl: 2024'te sertifika alan birinin ilk yenileme tarihi 2027, 2025'inki 2028. Bu kohortların henüz eleneceği bir eşik gelmedi, dolayısıyla sayıları gerçek giriş sayısına eşit.
+Grafiğin sağ tarafı bu çarpıklıktan **etkilenmiyor**, çünkü CSEP döngüsü üç yıl: 2024'te sertifika alan birinin ilk yenileme tarihi 2027, 2025'inki 2028. Bu kohortların henüz eleneceği bir yenileme eşiği gelmedi. Yani bu sayılar gerçek giriş sayısına eşit değil — dizin hâlâ yalnızca listelenmeyi kabul edenleri gösteriyor — ama en azından **yenilemeden kaynaklı aşınmadan etkilenmemiş** durumdalar. 2023 kohortu için bunu bile söyleyemeyiz: onların ilk yenileme tarihi 2026'ydı ve bir kısmı çoktan elenmiş olabilir.
 
-Bu yüzden yalnızca kendi aralarında karşılaştırılabilirler — ve karşılaştırma anlamlı: **2024'te 27, 2025'te 31, 2026'nın ilk sekiz ayında 34 kişi.** Son sütun sadece sekiz ayı kapsayıp 2025'in tamamını çoktan geçmiş durumda; bu tempo yıl sonuna kadar sürerse 2026 ellinin üzerinde kapanır. Sertifikalanmanın *şu anda* hızlandığını söyleyebiliriz; on yıllık bir büyüme eğrisi çizemeyiz.
+Bu yüzden yalnızca kendi aralarında karşılaştırılabilirler: **2024'te 27, 2025'te 31, 2026'nın ilk sekiz ayında 34 kayıt.** Son sütun yalnızca sekiz ayı kapsadığı hâlde 2025'in tamamını geçmiş durumda. Gözlenen sayılar son üç dönemde artıyor; ancak 2026 tamamlanmadığı için yıllık eğilimi bu veriyle kesinleştirmek doğru olmaz. On yıllık bir büyüme eğrisi ise hiç çizemeyiz.
 
 Bu ivmenin sebebini de veri söylemiyor. Yazı boyunca değindiğim iki şey — SSB Akademi'nin hazırlık eğitimi ve Türkiye'de yılda bir yapılan kâğıt sınav oturumu — sertifikaya erişimi kolaylaştıran etkenler; ancak bu veriyle bir neden-sonuç ilişkisi kurmak mümkün değil.
 
@@ -326,7 +334,9 @@ xychart-beta
 
 ### Sertifika, ağırlıklı olarak savunma ve havacılıkta
 
-Kurum dağılımı, yaş dağılımının aksine bu çarpıklıktan görece korunaklı: bugün geçerli sertifikaların kimlerde olduğunu doğrudan gösteriyor. İşvereni belirtilmiş 105 kaydın **82'si (%78) savunma ve havacılık** kurumlarında çalışıyor ve dağılım tek bir şirkette belirgin biçimde yoğunlaşıyor:
+Kurum dağılımı, yaş dağılımının aksine doğrudan bugünkü tabloyu gösteriyor. Yine de iki sınırı var: yenileme oranı işverene göre değişebilir (ücreti şirketin ödeyip ödememesi gibi) ve dizindeki işveren bilgisi kişinin kayıt anındaki işvereni olabilir.
+
+İşvereni belirtilmiş 105 kaydın **79'u (%75) savunma ve havacılık** kuruluşlarında. TÜBİTAK'ın 12 kaydını da eklerseniz oran %87'ye çıkıyor; TÜBİTAK'ı ayrı tuttum, çünkü SAGE ve BİLGEM savunma ağırlıklı olsa da kurumun geneli için aynı şeyi söylemek zor. Dağılım tek bir şirkette belirgin biçimde yoğunlaşıyor:
 
 | Kurum | Kişi | Pay |
 |---|---:|---:|
@@ -342,9 +352,11 @@ Kurum dağılımı, yaş dağılımının aksine bu çarpıklıktan görece koru
 | Tek kişilik diğer kurumlar (26 ayrı kurum) | 26 | %18,4 |
 | Belirtilmemiş | 36 | %25,5 |
 
-ASELSAN tek başına tüm listenin beşte birinden fazlasını oluşturuyor. Kayıtların dörtte birinde işveren belirtilmediği için bu oranlar kesin değil, ama tablonun genel şekli tartışmasız.
+ASELSAN tek başına tüm listenin beşte birinden fazlasını oluşturuyor. Kayıtların dörtte birinde işveren belirtilmediği için bu oranlar kesin değil; verinin gösterdiği genel dağılım bu.
 
-Savunma dışındaki kayıtlar da anlamlı bir azınlık oluşturuyor: TOGG, Ford Otosan, FEV ve TRMOTOR ile otomotiv; Rolls-Royce, RTX Rockwell Collins ve Thales ile uluslararası havacılık; Bosch ve Philips gibi sektör dışı sanayi kuruluşları da listede. Sertifikanın savunma sanayii dışında da karşılık bulmaya başladığını gösteriyor, ancak ağırlık merkezi hâlâ net.
+Savunma ve havacılık ağırlığı yalnızca yerli kuruluşlardan gelmiyor: Rolls-Royce, RTX Rockwell Collins, Thales, TRMOTOR ve TEI gibi havacılık ve motor şirketleri de bu grubun içinde.
+
+Grubun dışında kalan 14 kayıt ise otomotiv (TOGG, Ford Otosan, FEV), sanayi ve elektronik (Bosch, Philips), yazılım ve danışmanlık ile belgelendirme alanlarına dağılıyor. Yani dizinde savunma ve havacılık dışındaki sektörlerden kuruluşlar da görülüyor; ancak ağırlık merkezi net.
 
 ### Seviye dağılımı
 
@@ -356,7 +368,7 @@ ESEP tarafı ise hâlâ çok dar: altı kişi. Bu, yukarıdaki tabloda ESEP içi
 
 ### Bu listedeki son satır
 
-Dizindeki en yeni CSEP kaydı bu yazıyı yazarken bana ait. Süreci tek başıma yaşadığım bir maraton gibi hatırlıyorum, ama listeye bakınca aynı anda onlarca kişinin aynı yoldan geçtiğini görüyorum. Üç yıl sonra bu listede kalıp kalmayacağımı ise PDU defterimi ne kadar düzenli tuttuğum belirleyecek — ki bu da yazının başındaki tavsiyeye çıkıyor.
+Anlık görüntünün alındığı tarihte dizindeki en yeni CSEP kaydı bana aitti. Süreci tek başıma yaşadığım bir maraton gibi hatırlıyorum, ama listeye bakınca aynı anda onlarca kişinin aynı yoldan geçtiğini görüyorum. Üç yıl sonra bu listede kalıp kalmayacağımı ise PDU defterimi ne kadar düzenli tuttuğum belirleyecek — ki bu da yenileme bölümünde anlattığım meseleye çıkıyor.
 
 > **Veri notu:** Sayılar INCOSE'un herkese açık SEP dizininden 28 Ağustos 2026'da alınan anlık görüntüye dayanıyor. İki önemli sınırı var. Birincisi, dizinde yalnızca listelenmeyi kabul eden sertifika sahipleri görünüyor; gerçek sayı daha yüksek. İkincisi ve daha önemlisi, dizin yalnızca **geçerli** sertifikaları içeriyor: sertifikasını yenilemeyenler listeden düştüğü için eski yılların sayıları olduğundan az görünüyor. Bu nedenle yıl kırılımı bir büyüme serisi olarak değil, bugünkü kayıtların yaş dağılımı olarak okunmalıdır. Kurum adları, aynı kuruluşun farklı yazımları birleştirilerek gruplandı. Kişi adları bilinçli olarak paylaşılmadı.
 
@@ -366,11 +378,11 @@ Dizindeki en yeni CSEP kaydı bu yazıyı yazarken bana ait. Süreci tek başım
 
 Gerçekçi olalım: CSEP, tek başına kapı açan sihirli bir anahtar değil. Değerinin en yüksek olduğu yerler oldukça belirli.
 
-**Savunma ve havacılık sektörü.** SSB, TUSAŞ, ASELSAN, ROKETSAN, HAVELSAN, STM gibi kurum ve şirketlerin projelerinde sistem mühendisliği süreçleri sözleşme gereği. Bu ortamda CSEP, hem bireysel yetkinliğin hem de kurumsal olgunluk göstergesinin parçası hâline geliyor. SSB Akademi'nin hazırlık eğitimi düzenlemesi ve sınava ev sahipliği yapması da bu talebin göstergesi.
+**Savunma ve havacılık sektörü.** SSB, TUSAŞ, ASELSAN, ROKETSAN, HAVELSAN, STM gibi kurum ve şirketlerin projelerinde sistem mühendisliği süreçlerinin önemli bir rolü var. Bu ortamda CSEP, bireysel yetkinliğin gösterilmesinde işe yarayan bir belge. SSB Akademi'nin hazırlık eğitimi düzenlemesi ve sınava ev sahipliği yapması da bu ilgiyi gösteriyor.
 
-**Yazılımdan sisteme geçiş yapanlar.** Benim durumum tam olarak bu. Yazılım tarafında derinleşmiş bir mühendisin sistem tarafına adım atarken karşılaştığı en büyük engel, deneyimin "yazılım deneyimi" olarak okunması. CSEP, bu deneyimi sistem mühendisliğinin kendi diliyle ve bağımsız bir kurumun onayıyla ifade etmenin en temiz yolu.
+**Yazılımdan sisteme geçiş yapanlar.** Benim durumum tam olarak bu. Yazılım tarafında derinleşmiş bir mühendisin sistem tarafına adım atarken karşılaştığı en büyük engel, deneyimin "yazılım deneyimi" olarak okunması. Benim açımdan CSEP, bu deneyimi sistem mühendisliğinin kendi diliyle ve bağımsız bir kurumun onayıyla ifade etmenin işe yarayan bir yoluydu.
 
-**Uluslararası ortak projelerde çalışanlar.** Avrupa merkezli programlarda ve çok ortaklı konsorsiyumlarda CSEP tanınan bir referans. Yurt dışına ilerlemek isteyenler için, yerel deneyimi taşınabilir bir formata çeviriyor.
+**Uluslararası ortak projelerde çalışanlar.** Benim açımdan motivasyonlardan biri de yerel deneyimi uluslararası ölçekte taşınabilir bir formata çevirmesiydi; çok ortaklı programlarda ortak bir terminolojiye sahip olmak işi kolaylaştırıyor.
 
 Buna karşılık, tek bir üründe uzmanlaşmış ve sistem seviyesinde sorumluluk almayacak bir rolde çalışıyorsanız, sertifikanın getirisi harcanan zaman ve parayı karşılamayabilir. Bunu peşinen değerlendirmekte fayda var.
 
@@ -386,8 +398,8 @@ Süreci baştan yaşamış biri olarak, sırayla uygulanabilecek somut öneriler
 4. **Notlarınızı süreç bazında tutun.** Her süreç için amaç, girdiler, aktiviteler, çıktılar. Sınavın ödüllendirdiği yapı bu.
 5. **Beşinci baskıya çalışın.** 15 Mart 2025'ten beri sınav tamamen v5 tabanlı. Türkçe çeviri v4'e ait; destekleyici kaynak olarak faydalı, ana kaynak olarak riskli.
 6. **Pratik soruları teşhis aracı olarak kullanın.** Puanınızı değil, hangi bölümlerde hata yaptığınızı takip edin.
-7. **Takviminizi ocak ayına göre kurun.** Türkiye'deki kâğıt sınav yılda bir kez, ocakta yapılıyor; SSB Akademi ve INCOSE TR duyurularını izleyin. Maliyet avantajı ciddi ama esnekliği yok: kaçırırsanız bir yıl beklersiniz ya da online sınava dönersiniz. Tekrar hakkı da sınırlı — on iki aylık dönemde en fazla üç deneme, her biri ayrı ücretle. Kâğıt oturuma giderken sözlüğünüzü, kurşun kaleminizi ve silginizi yanınıza almayı, yerleşkeye araç girişi için plaka kaydını önceden yaptırmayı unutmayın.
-8. **Başvuru ücretini sınavdan önce bütçeleyin.** On iki aylık geçerlilik kuralı, erteleme lüksünüzü sınırlıyor. Üyeliğinizi de sürecin başında açın: Türkiye'nin PPP kademesi sayesinde yıllık aidat 175 USD yerine 130 USD ve üyelik zaten hem indirimli başvuru hem de yenileme için gerekli.
+7. **Kâğıt oturum takvimini erkenden öğrenin.** Türkiye'deki yüz yüze oturumların tarihleri INCOSE TR ve SSB Akademi duyurularıyla açıklanıyor ve yıldan yıla değişiyor; maliyet avantajı ciddi ama takvim esnek değil. Oturuma giderken sözlüğünüzü, kurşun kaleminizi ve silginizi yanınıza almayı, yerleşkeye araç girişi için plaka kaydını önceden yaptırmayı unutmayın.
+8. **Başvuru ücretini sınavdan önce bütçeleyin.** On iki aylık geçerlilik kuralı, erteleme lüksünüzü sınırlıyor. Üyeliğinizi de sürecin başında açmayı değerlendirin: üyelik Ekim 2025'ten beri zorunlu değil, ama ücret farkı büyük ve Türkiye'nin PPP kademesi sayesinde yıllık aidat 175 USD yerine 130 USD.
 9. **Deneyim beyanında dürüst ve ölçülü olun.** Referansınızın tereddütsüz onaylayacağı cümleler kurun.
 10. **PDU defterini ilk günden açın.** Üç yıl, geriye dönük hatırlamak için uzun bir süre.
 
