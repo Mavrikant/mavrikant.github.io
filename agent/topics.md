@@ -39,14 +39,16 @@
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- **Object Code Coverage: DAL A'da Derleyici Boşluğu ve Source-to-Object
+  İzlenebilirliği** —
+  dal: `post/2026-06-19-object-code-coverage-do-178c-dal-a`,
+  dosya: `_posts/2026-06-19-object-code-coverage-do-178c-dal-a.md`,
+  durum: PR açılacak (bu çalıştırma, 2026-06-19) — alan: sertifikasyon/DAL A.
 
 ## Reddedildi (bu çalıştırma)
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- _(bu çalıştırmada konu reddedilmedi; mevcut/PR'lı yazılarla çakışmayan, doğal bir
+  MC/DC (#77) tamamlayıcısı olduğu için object code coverage seçildi.)_
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 
@@ -108,21 +110,24 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - [ ] DO-254 donanım sertifikasyonu (yazarın uzmanlığı ağırlıklı yazılım tarafında)
 - [ ] İzlenebilirlik matrisi (klasik konu, derinlik çıkarmak zor)
 
-## Notlar (bu çalıştırma — 2026-05-21)
+## Notlar (bu çalıştırma — 2026-06-19)
 
-- **Bandpass Sampling** seçildi (alan: RF/DSP). Önceki çalıştırmaların ardından
-  açılan PR'lar son üç alt-alanı (sertifikasyon #77, navigasyon #78, yazılım
-  zanaatı/CRC #79) işaretlemişti; bu yazı **bu üç alandan da** son yayınlanan 3
-  posttan da (Renode gömülü/SoC, kalibrasyon ×2) farklı bir alan getiriyor.
-- Yayın kapısı durumu: Bölüm 4 yalnızca "yayın PR ile olmalı" kuralı koyar; backlog
-  büyüklüğüne dair sert bir sınır yoktur. Açık 7 PR olmasına rağmen son yayınlanan
-  yazıdan (Renode, 2026-05-14) bu yana 7 gün geçti — `min_yayin_araligi_gun = 2`
-  şartı fazlasıyla sağlanmış durumda. Bu çalıştırmada yeni PR açıldı.
-- Bandpass sampling konusunun "neden Türkçe içerikte zor bulunuyor" yanıtı:
-  matematik (Vaughan 1991), datasheet okuma (analog input BW), saat phase noise
-  ve filtre tasarımı disiplinlerinin kesişiminde bulunuyor; Türkçe kaynaklar
-  genellikle yalnızca tek bir cepheden ele almış oluyor (genelde Lyons özet
-  çevirisi). Sentez ve somut sayısal örnek boşluğu büyük.
-- Açık PR'lar konusunda inceleme önceliği yorumu (gözlem): #50 ve #51 hâlâ uzun
-  süredir bekliyor; #50 eski yazıyı genişletiyor, #51 ise yayındaki MISRA C:2025
-  ile büyük olasılıkla çakışıyor. İnceleyen kişinin dikkatine.
+- **Object Code Coverage (DAL A, §6.4.4.2.b)** seçildi (alan: sertifikasyon).
+  Son 4 açık PR ARM/gömülü ağırlıklıydı (#145 Cortex-A boot, #135 MPU/MMU,
+  #134 volatile/atomic, #129 Allan dev). Sertifikasyon alanına rotasyon mantıklı;
+  ayrıca MC/DC PR #77'nin doğal nesne-kodu tamamlayıcısı.
+- "Neden Türkçe içerikte zor bulunuyor" yanıtı: DO-178C §6.4.4.2.b yorumu +
+  CAST-12 + derleyici intrinsic'leri + ARM disassembly bilgisinin kesişiminde.
+  Türkçe kaynak yok denecek kadar az; mevcut olanlar genellikle CAST-12'ye
+  değinmeden geçen yüzeysel özetler.
+- Derinlik öğesi: **disassembly inceleme** (Bölüm 7 listesinde "bellek/assembly
+  incelemesi"). 4 somut C → ARM asm örneği (`switch` jump table, 64-bit
+  `__divdi64`, `memcpy` intrinsic, Ada range check).
+- Olgu doğrulamaları: §6.4.4.2.b ve A-7 hedef 9 (LDRA kaynakları teyit etti);
+  CAST-12 Aralık 2002 tarihi teyit edildi (Wikipedia + FAA); Brauer ve diğerleri
+  SAFECOMP 2015 makalesinin yazar listesi düzeltildi (ilk taslakta hatalıydı).
+- Yayın kapısı: Son yayınlanan yazıdan (Coupling Dengesi, 2026-06-04) bu yana
+  15 gün geçti; `min_yayin_araligi_gun = 2` fazlasıyla sağlanıyor. Backlog
+  büyük (28 açık PR) ama sert sınır yok; PR açıldı.
+- Açık PR backlog'u büyümeye devam ediyor (~28 PR). İnceleme öncelikleri
+  hâlâ insana ait — defter sadece gözlem kaydeder.
