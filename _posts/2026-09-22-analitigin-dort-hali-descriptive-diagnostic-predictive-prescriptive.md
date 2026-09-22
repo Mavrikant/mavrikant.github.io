@@ -26,7 +26,7 @@ Bu sınıflandırma tek bir makaleden doğmadı; birbirini besleyen birkaç kayn
 
 İkinci kaynak yöneylem araştırması dünyasıdır. 2010 yılının Kasım/Aralık sayısında INFORMS'un *Analytics Magazine* dergisinde yayımlanan **"The Analytics Journey"** makalesinde Irv Lustig, Brenda Dietrich, Christer Johnson ve Christopher Dziekan analitiği üç kategoriye ayırır: **descriptive**, **predictive** ve **prescriptive**. Bu üçlü ayrım, özellikle IBM ve INFORMS çevresinde hızla standart bir dil hâline geldi.
 
-Üçüncü kaynak **Gartner**'dır. Gartner'ın "analitik yükseliş modeli" (*Analytic Ascendancy Model*) olarak bilinen ve 2012 civarında yayılan şemasında dört seviye, yatay eksende zorluk, dikey eksende değer olacak şekilde çizilir; descriptive ile prescriptive arasına **diagnostic** eklenerek bugün en çok kullanılan dörtlü yapı ortaya çıkar. Şemanın altında iki soru vardır: *"Ne oldu?"*tan başlayıp *"Ne yapmalıyım?"*a uzanan bir eksende ilerlerken hem üretilen değer hem de gereken olgunluk artar.
+Üçüncü kaynak **Gartner**'dır. Gartner'ın "analitik yükseliş modeli" (*Analytic Ascendancy Model*) olarak bilinen ve 2012 civarında yayılan şemasında dört seviye, yatay eksende zorluk, dikey eksende değer olacak şekilde çizilir; descriptive ile prescriptive arasına **diagnostic** eklenerek bugün en çok kullanılan dörtlü yapı ortaya çıkar. Şemanın altında iki soru vardır: *"Ne oldu?"*tan başlayıp *"Ne yapmalıyız?"*a uzanan bir eksende ilerlerken hem üretilen değer hem de gereken olgunluk artar.
 
 Dördüncü olarak, bu dilin altında çok daha eski bir zemin yatar: 1950'lerden itibaren gelişen yöneylem araştırması ve karar teorisi. Daha önce [Yöneylem Araştırması Yöntemleri]({% post_url 2026-04-14-operasyonel-arastirma-yontemleri %}) yazısında ele aldığımız doğrusal programlama, dinamik programlama ve metasezgiseller, bugün "prescriptive analytics" etiketiyle pazarlanan şeyin motorudur. Yani en üst seviye yeni bir icat değil; yeni bir isimle ambalajlanmış, olgun bir disiplindir.
 
@@ -36,25 +36,36 @@ Bu tarihçenin pratik bir sonucu var: çerçeve akademik bir teoriden çok, **ka
 
 ## Dört Seviyeye Kuşbakışı
 
-Dört seviyeyi en kısa biçimde yanıtladıkları soruyla ayırt ederiz:
+Dört seviyeyi akılda tutmanın en kolay yolu, her birini tek bir soruya indirgemektir:
+
+| Analitik türü | Temel soru | Amaç | Örnek |
+|---|---|---|---|
+| **Descriptive** | Ne oldu? | Geçmişi anlamak | Geçen ay 1.250 arıza kaydı açıldı |
+| **Diagnostic** | Neden oldu? | Sebebi bulmak | Arızaların %60'ı sıcaklık artışıyla ilişkili |
+| **Predictive** | Ne olacak? | Geleceği kestirmek | Önümüzdeki ay 180 arıza bekleniyor |
+| **Prescriptive** | Ne yapmalıyız? | En uygun eylemi seçmek | Bakımı 500 saat yerine 400 saatte yap |
+
+Bu dördü bir merdiven gibi düşünülebilir. Her basamak bir alttakinin üzerine basar; yukarı çıktıkça hem üretilen değer hem de gereken olgunluk artar:
 
 <div class="mermaid">
-flowchart LR
+flowchart BT
     D["DESCRIPTIVE<br/>Ne oldu?"] --> G["DIAGNOSTIC<br/>Neden oldu?"]
     G --> P["PREDICTIVE<br/>Ne olacak?"]
-    P --> R["PRESCRIPTIVE<br/>Ne yapmalıyım?"]
+    P --> R["PRESCRIPTIVE<br/>Ne yapmalıyız?"]
     style D fill:#e8eef7,stroke:#4a6fa5,stroke-width:2px
     style G fill:#e8eef7,stroke:#4a6fa5,stroke-width:2px
     style P fill:#d5f0d5,stroke:#2e7d32,stroke-width:2px
     style R fill:#d5f0d5,stroke:#2e7d32,stroke-width:2px
 </div>
 
-| Seviye | Soru | Zaman ekseni | Tipik çıktı | Tipik yöntem |
-|---|---|---|---|---|
-| **Descriptive** | Ne oldu? | Geçmiş | Rapor, gösterge paneli, özet istatistik | Toplama, gruplama, görselleştirme, SPC |
-| **Diagnostic** | Neden oldu? | Geçmiş | Kök neden analizi, açıklama | Detaya inme, korelasyon, hipotez testi, nedensel çıkarım |
-| **Predictive** | Ne olacak? | Gelecek | Tahmin, olasılık, risk skoru | Regresyon, zaman serisi, sınıflandırma, makine öğrenmesi |
-| **Prescriptive** | Ne yapmalıyım? | Gelecek + karar | Eylem önerisi, plan, politika | Optimizasyon, simülasyon, karar kuralları, pekiştirmeli öğrenme |
+Aynı dörtlüyü zaman ekseni, çıktı ve yöntem tarafından açtığımızda tablo şöyle genişler:
+
+| Seviye | Zaman ekseni | Tipik çıktı | Tipik yöntem |
+|---|---|---|---|
+| **Descriptive** | Geçmiş | Rapor, gösterge paneli, özet istatistik | Toplama, gruplama, görselleştirme, SPC |
+| **Diagnostic** | Geçmiş | Kök neden analizi, açıklama | Detaya inme, korelasyon, hipotez testi, nedensel çıkarım |
+| **Predictive** | Gelecek | Tahmin, olasılık, risk skoru | Regresyon, zaman serisi, sınıflandırma, makine öğrenmesi |
+| **Prescriptive** | Gelecek + karar | Eylem önerisi, plan, politika | Optimizasyon, simülasyon, karar kuralları, pekiştirmeli öğrenme |
 
 Dikkat edilecek nokta şu: **her seviye bir öncekinin üzerine kurulur.** Nedenini bilmediğiniz bir şeyi güvenilir biçimde tahmin edemezsiniz; tahmin edemediğiniz bir şey için akıllı bir eylem öneremezsiniz. Merdivenin alt basamaklarını atlayıp doğrudan tepeye tırmanma girişimleri, veri projelerinin en yaygın başarısızlık sebebidir.
 
@@ -179,7 +190,7 @@ Bir tahmin modeli üretmek kolay, **güvenilebilir** bir tahmin modeli üretmek 
 
 ---
 
-## 4. Prescriptive Analytics — "Ne yapmalıyım?"
+## 4. Prescriptive Analytics — "Ne yapmalıyız?"
 
 Kuralkoyucu analitik, merdivenin en üst basamağıdır ve diğerlerinden yapısal olarak farklıdır: ilk üç seviye **dünyayı anlamaya** çalışır, bu seviye **dünyayı değiştirecek eylemi seçer**.
 
@@ -200,6 +211,15 @@ s.t.  Σ_i saat_i · x_i  ≤  kapasite
 
 Burada `p_i` predictive katmandan gelir: bakım yapılmazsa i biriminin arızalanma olasılığı. Yani **prescriptive katman, predictive katmanın çıktısını girdi olarak kullanır.** Bu bağımlılık zinciri, dört seviyenin neden sıralı olduğunu en iyi gösteren yerdir.
 
+En yalın hâliyle prescriptive analitik, seçenekleri beklenen maliyetleriyle yan yana koymaktır. Predictive katman "önümüzdeki 100 çalışma saatinde arıza olasılığı %73" dediğinde, karar tablosu şöyle kurulur:
+
+| Seçenek | Beklenen maliyet |
+|---|---|
+| Bakımı şimdi yap | 1.000 € |
+| Bakımı ertele | 3.800 € |
+
+Ertelemenin maliyeti, arıza olasılığı ile arızanın gerçekleşmesi hâlindeki maliyetin (yedek parça, plansız yer süresi, sefer iptali) çarpımından gelir. Karar nettir: **planlı bakımı şimdi yap.** Bu basit tablo bile prescriptive analitiktir; asıl zorluk, aynı kararı tek bir birim için değil, kısıtlı kapasite ve stok altında yüzlerce birim için aynı anda vermek gerektiğinde başlar — ve problem o noktada yukarıdaki gibi bir optimizasyon modeline dönüşür.
+
 Prescriptive analitiğin araç çantası:
 
 - **Matematiksel optimizasyon:** LP, MIP, kısıt programlama. Kısıtların sert ve amacın net olduğu durumlarda en güçlü araç.
@@ -215,6 +235,40 @@ Prescriptive katmanda en sık yapılan hata, matematiksel olarak optimal ama pra
 Bu yüzden iyi bir prescriptive model, **gerçek kısıtları modele koymakla** iyi olur; çözücünün gücüyle değil. Ve tek bir "optimal" cevap yerine birkaç senaryo sunmak, kararı veren insanın işini kolaylaştırır: "bütçeyi %20 artırırsanız beklenen arıza maliyeti şu kadar düşer" cümlesi, tek bir sayıdan çok daha kullanışlıdır. Bu, doğrusal programlamanın doğal olarak ürettiği **duyarlılık analizinin** neden bu kadar değerli olduğunu da açıklar.
 
 ---
+
+## Uçtan Uca İkinci Bir Örnek: Bir VOR/ILS Alıcısının Test Verisi
+
+Yukarıdaki örnek sahadan geliyordu. Aynı merdiven, henüz sahaya çıkmamış bir ürünün **test verisi** üzerinde de birebir çalışır. Aşağıdaki sayılar kurgusaldır, ama biçim tanıdıktır: bir VOR/ILS alıcısının entegrasyon ve kabul testlerinden biriken kayıtlar.
+
+**Descriptive — ne oldu?**
+
+> Son altı ayda alıcı üzerinde 12.450 test koşuldu; 340 test başarısız oldu. Başarısızlık oranı %2,73.
+
+Bu cümlede hiçbir açıklama yok; yalnızca doğru sayılmış bir geçmiş var. Yine de hafife alınmamalı: "test" ve "başarısızlık" tanımları netleşmeden bu oran karşılaştırılabilir bile değildir.
+
+**Diagnostic — neden oldu?**
+
+Kırılımlar arka arkaya gelir ve her biri kümeyi daraltır:
+
+1. 340 başarısızlığın 210'u tek bir donanım revizyonunda (Rev‑E) gerçekleşmiş.
+2. Rev‑E'deki başarısızlıklar özellikle 110–113 MHz bandında yoğunlaşıyor.
+3. Bu banttaki başarısızlıklar, RF ön ucun VOR/VDB paylaşımı ve CBIT geri döngü (*loopback*) davranışıyla ilişkili görünüyor.
+
+Üçüncü adımda artık elde test edilebilir bir hipotez vardır. Ama burada durup o vazgeçilmez soruyu sormak gerekir: bu gerçek bir yoğunlaşma mı, yoksa test matrisi Rev‑E'yi zaten o bantta daha sık mı zorluyor? Yanıtı bulmanın yolu, aynı test kümesini başka bir revizyonda koşturmaktır — yani hipotezi doğrulamak değil, **çürütmeye çalışmaktır.**
+
+**Predictive — ne olacak?**
+
+Sıcaklık, çalışma süresi ve RF güç seviyesi girdileriyle kurulan bir model, bir sonraki 100 çalışma saati için arıza olasılığını verir:
+
+> Arıza olasılığı = %73
+
+Dikkat: model hâlâ "bakım yap" demiyor. Yalnızca riskin yüksek olduğunu söylüyor. Bu ayrım, predictive ile prescriptive arasındaki sınırın tam olarak nerede olduğunu gösterir.
+
+**Prescriptive — ne yapmalıyız?**
+
+Model çıktısı maliyetlerle birleştirilir, alternatifler karşılaştırılır ve bir eylem önerilir: *planlı bakımı bir sonraki fırsatta gerçekleştir, bakım eşiğini 500 saatten 400 saate çek.* Kısıtlar (atölye kapasitesi, yedek parça tedarik süresi, uçuş programı) modele girdiğinde bu öneri tek bir cihaz kararı olmaktan çıkar, bir çizelgeleme problemine dönüşür.
+
+Aynı zincir bir uçak filosunun bakım planlaması için de kurulabilir: *geçen yıl 850 aviyonik arıza yaşandı* (descriptive) → *bunların %55'i belirli bir LRU ailesinde ve belirli sıcaklık aralıklarında yoğunlaştı* (diagnostic) → *mevcut koşullarda LRU‑123'ün önümüzdeki 200 uçuş saatinde arızalanma olasılığı %68* (predictive) → *arıza riskini ve bakım maliyetini birlikte en aza indirmek için LRU‑123'ü bir sonraki planlı bakımda değiştir* (prescriptive).
 
 ## Dört Seviye Aynı Anda: Bütünleşik Bir Bakış
 
@@ -233,6 +287,23 @@ flowchart LR
 </div>
 
 Bu döngü, [Sistem Mühendisliği Nedir?]({% post_url 2026-05-26-sistem-muhendisligi-nedir %}) yazısındaki doğrulama fikriyle aynı mantığı taşır: bir kararın etkisi ölçülmüyorsa, o karar öğrenmeye dönüşmez. Analitik olgunluğun gerçek işareti panelin güzelliği değil, **bu döngünün ne kadar hızlı döndüğüdür.**
+
+### Sistem Mühendisliği Açısından Ayrım
+
+Sistem mühendisliği tarafından bakıldığında dört seviye üç işleve indirgenebilir:
+
+- **Descriptive + Diagnostic** → sistemin *mevcut ve geçmiş davranışını* anlamak.
+- **Predictive** → sistemin *gelecekteki davranışını* öngörmek.
+- **Prescriptive** → sistem için *karar ve eylem* üretmek.
+
+Bu ayrım, kendi işinizi etiketlemek için pratik bir turnusol kâğıdıdır:
+
+- "Bir gösterge paneli hazırladım." → büyük ihtimalle **descriptive**.
+- "Arızanın kök nedenini buldum." → **diagnostic**.
+- "Bir sonraki arızayı tahmin ediyorum." → **predictive**.
+- "Hangi bakımın, hangi testin, hangi konfigürasyonun seçileceğini optimize ediyorum." → **prescriptive**.
+
+Etiketlemenin faydası hiyerarşi kurmak değil, beklentiyi hizalamaktır. Kendini "öngörücü analitik projesi" diye tanıtan pek çok çalışma, yakından bakıldığında üzerine bir eğilim çizgisi çizilmiş bir descriptive rapordur; kendini "yapay zekâ" diye tanıtan bazı çalışmalar ise aslında iyi kurulmuş bir optimizasyon modelidir. İkisinde de sorun yöntemin kendisi değil, adının yanlış konmasıdır: yanlış ad, yanlış beklenti ve yanlış kabul kriteri üretir.
 
 ---
 
@@ -278,7 +349,7 @@ Birkaç pratik kural:
 
 ## Sonuç
 
-Descriptive, diagnostic, predictive ve prescriptive analitik, aslında dört farklı teknoloji değil; **dört farklı sorunun adıdır.** Geçmişi betimlemek, geçmişi açıklamak, geleceği kestirmek ve geleceği şekillendirecek eylemi seçmek.
+Descriptive, diagnostic, predictive ve prescriptive analitik, birbirinden kopuk dört teknoloji değil; **dört farklı sorunun adıdır** ve pratikte çoğunlukla aynı analitik hattın art arda gelen seviyeleri olarak çalışırlar. Geçmişi betimlemek, geçmişi açıklamak, geleceği kestirmek ve geleceği şekillendirecek eylemi seçmek.
 
 Bu çerçevenin asıl faydası, bir ekibe ortak bir dil vermesidir. "Bir yapay zekâ projesi yapalım" cümlesi hiçbir şey ifade etmez; "elimizdeki arıza verisiyle önce kök nedeni bulmak, sonra risk skoru üretmek, en sonunda bakım planını optimize etmek istiyoruz" cümlesi ise bir yol haritasıdır — ve her adımının ne zaman tamamlandığı bellidir.
 
