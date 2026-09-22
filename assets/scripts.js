@@ -684,12 +684,19 @@
     // element; textContent alone would drop it and glue the two lines into one
     // ("DESCRIPTIVENe oldu?"). Put the literal tag back so Mermaid still sees
     // the line break it was written with.
+    //
+    // jekyll-spaceship's table processor also backslash-escapes `[ ( * $ " _`
+    // on every line that contains a `|`, including edge labels such as
+    // `A -->|push| B[Repo]`. Mermaid then reads `B\` as the node id, so a later
+    // plain `B` becomes a second, empty node. Strip those escapes back out.
     function sourceOf(n) {
       var clone = n.cloneNode(true);
       Array.prototype.forEach.call(clone.querySelectorAll('br'), function (br) {
         br.parentNode.replaceChild(document.createTextNode('<br/>'), br);
       });
-      return clone.textContent.trim();
+      return clone.textContent.trim().split('\n').map(function (line) {
+        return line.indexOf('|') === -1 ? line : line.replace(/\\([*$[("_])/g, '$1');
+      }).join('\n');
     }
 
     // Stash each diagram's source before mermaid replaces it with an SVG.
@@ -711,7 +718,17 @@
         // via textContent avoids reinterpreting it as HTML.
         n.textContent = n.getAttribute('data-mermaid-src');
       });
-      window.mermaid.initialize({ startOnLoad: false, theme: currentTheme() });
+      // Mermaid 12 switched flowcharts to the ELK layout and the "neo" look
+      // with narrow (120px) label wrapping, which turns the posts' multi-line
+      // nodes into tall, thin columns. Keep the classic dagre rendering the
+      // diagrams were written for.
+      window.mermaid.initialize({
+        startOnLoad: false,
+        theme: currentTheme(),
+        look: 'classic',
+        layout: 'dagre',
+        flowchart: { look: 'classic', layout: 'dagre', wrappingWidth: 200 }
+      });
       try { window.mermaid.run({ nodes: nodes }); } catch (e) {}
     }
 
@@ -720,8 +737,8 @@
       if (loaded) return;
       loaded = true;
       var s = document.createElement('script');
-      s.src = 'https://cdnjs.cloudflare.com/ajax/libs/mermaid/11.12.0/mermaid.min.js';
-      s.integrity = 'sha512-5TKaYvhenABhlGIKSxAWLFJBZCSQw7HTV7aL1dJcBokM/+3PNtfgJFlv8E6Us/B1VMlQ4u8sPzjudL9TEQ06ww==';
+      s.src = 'https://cdn.jsdelivr.net/npm/mermaid@12.0.0/dist/mermaid.min.js';
+      s.integrity = 'sha512-0uJL5EivCQYBDuqMMniV+WcmAuSDOwYmKZmMvr62gjH9drRRCnRJL2hu8Z/G99IV4MBL2icNYHE5xs1EXlFmjw==';
       s.crossOrigin = 'anonymous';
       s.onload = render;
       document.head.appendChild(s);
