@@ -22,6 +22,10 @@
 - [x] Ölçüm Belirsizliği (GUM Annex F + NCSLI RP-12) — 2026-05-06 — alan: metroloji
 - [x] Kalibrasyon Zincirinin Tepesi (Birincil Standartlar) — 2026-05-07 — alan: metroloji
 - [x] Renode ile Zynq7000 Simülasyonu — 2026-05-14 — alan: gömülü/SoC
+- [x] Bandpass Sampling: 1 GHz Sinyali 50 MHz Clock ile Örneklemek — 2026-05-21 — alan: RF/DSP
+- [x] Sistem Mühendisliği Nedir? — 2026-05-26 — alan: sistem
+- [x] Kalman Filtresi ve EKF — 2026-06-02 — alan: navigasyon/füzyon
+- [x] Coupling'i Dengelemek — 2026-06-04 — alan: yazılım mimarisi/DO-178C
 
 ## Açık PR'lar (insan inceleme bekleniyor)
 
@@ -39,14 +43,16 @@
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- **Yüksek İrtifada Sessiz Hata: SEU, SECDED ECC ve Bellek Scrubbing** —
+  dal: `post/2026-06-10-yuksek-irtifada-sessiz-hata-seu-secded-scrubbing`,
+  dosya: `_posts/2026-06-10-yuksek-irtifada-sessiz-hata-seu-secded-scrubbing.md`,
+  durum: PR açılıyor (2026-06-10) — alan: güvenilirlik/radyasyon.
 
 ## Reddedildi (bu çalıştırma)
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- _(bu çalıştırmada konu reddedilmedi; havuzdan SEU/ECC/scrubbing seçildi —
+  son 3 alt-alan (DO-178C, navigasyon, sistem) ile çakışmıyor, açık PR'lardaki
+  konularla da örtüşmüyor.)_
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 
@@ -108,21 +114,23 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - [ ] DO-254 donanım sertifikasyonu (yazarın uzmanlığı ağırlıklı yazılım tarafında)
 - [ ] İzlenebilirlik matrisi (klasik konu, derinlik çıkarmak zor)
 
-## Notlar (bu çalıştırma — 2026-05-21)
+## Notlar (bu çalıştırma — 2026-06-10)
 
-- **Bandpass Sampling** seçildi (alan: RF/DSP). Önceki çalıştırmaların ardından
-  açılan PR'lar son üç alt-alanı (sertifikasyon #77, navigasyon #78, yazılım
-  zanaatı/CRC #79) işaretlemişti; bu yazı **bu üç alandan da** son yayınlanan 3
-  posttan da (Renode gömülü/SoC, kalibrasyon ×2) farklı bir alan getiriyor.
-- Yayın kapısı durumu: Bölüm 4 yalnızca "yayın PR ile olmalı" kuralı koyar; backlog
-  büyüklüğüne dair sert bir sınır yoktur. Açık 7 PR olmasına rağmen son yayınlanan
-  yazıdan (Renode, 2026-05-14) bu yana 7 gün geçti — `min_yayin_araligi_gun = 2`
-  şartı fazlasıyla sağlanmış durumda. Bu çalıştırmada yeni PR açıldı.
-- Bandpass sampling konusunun "neden Türkçe içerikte zor bulunuyor" yanıtı:
-  matematik (Vaughan 1991), datasheet okuma (analog input BW), saat phase noise
-  ve filtre tasarımı disiplinlerinin kesişiminde bulunuyor; Türkçe kaynaklar
-  genellikle yalnızca tek bir cepheden ele almış oluyor (genelde Lyons özet
-  çevirisi). Sentez ve somut sayısal örnek boşluğu büyük.
-- Açık PR'lar konusunda inceleme önceliği yorumu (gözlem): #50 ve #51 hâlâ uzun
-  süredir bekliyor; #50 eski yazıyı genişletiyor, #51 ise yayındaki MISRA C:2025
-  ile büyük olasılıkla çakışıyor. İnceleyen kişinin dikkatine.
+- **SEU/SECDED/Scrubbing** seçildi (alan: güvenilirlik/radyasyon). Son 3 yayın
+  alt-alanı: DO-178C/coupling (06-04), navigasyon/Kalman (06-02), sistem
+  mühendisliği (05-26) — bu yazı dört alanı da kaçırıyor: fizik (atmosferik
+  nötron) + dijital tasarım (Hamming) + güvenilirlik matematiği (FIT/Poisson) +
+  aviyonik sertifikasyon (IEC 62396, DO-254).
+- Yayın kapısı: son yayın 2026-06-04 → 6 gün geçti, `min_yayin_araligi_gun=2` ✓.
+- "Neden Türkçe içerikte zor bulunuyor" yanıtı: dört disiplinin (fizik,
+  güvenilirlik, dijital tasarım, sertifikasyon) kesişimi; Türkçe kaynaklar
+  yüzeysel "ECC nedir" anlatımıyla sınırlı; scrubbing aralığı türetmesi ya da
+  MBU/proses-ölçeklendirme tartışması Türkçe literatürde yok; birincil kaynaklar
+  (JEDEC, IEC, NASA NEPP, Xilinx/Microchip app notes) dağınık ve İngilizce.
+- Açık PR backlog'u büyük (20+). İnceleme önceliği yorumu: #100 (`volatile`),
+  #101 (GIC), #119 (DMA cache), #121 (lockstep) tematik olarak bu yazıyla
+  tamamlayıcı — sırayla incelenirse "ARM aviyonik koruma" zinciri oluşur.
+- Doğrulanamayan "Schiff 2008" iddiası araştırmadan elendi; "300x irtifa
+  çarpanı" yerine 460x'in türetilmiş halini ve "300–500x" aralığı kullanıldı;
+  Curiosity için "kesin SEU" değil "kozmik ışınla tutarlı" denildi. Bu üçü
+  Eleştirmen fazının üzerinde durduğu noktalar.
