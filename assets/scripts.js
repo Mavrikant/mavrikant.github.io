@@ -679,23 +679,10 @@
     var nodes = Array.prototype.slice.call(document.querySelectorAll('.mermaid'));
     if (!nodes.length) return;
 
-    // Read a diagram's source out of the DOM. Post bodies write the source as
-    // raw HTML, so a `<br/>` inside a node label is parsed as a real <br>
-    // element; textContent alone would drop it and glue the two lines into one
-    // ("DESCRIPTIVENe oldu?"). Put the literal tag back so Mermaid still sees
-    // the line break it was written with.
-    function sourceOf(n) {
-      var clone = n.cloneNode(true);
-      Array.prototype.forEach.call(clone.querySelectorAll('br'), function (br) {
-        br.parentNode.replaceChild(document.createTextNode('<br/>'), br);
-      });
-      return clone.textContent.trim();
-    }
-
     // Stash each diagram's source before mermaid replaces it with an SVG.
     nodes.forEach(function (n) {
       if (!n.hasAttribute('data-mermaid-src')) {
-        n.setAttribute('data-mermaid-src', sourceOf(n));
+        n.setAttribute('data-mermaid-src', n.textContent.trim());
       }
     });
 
