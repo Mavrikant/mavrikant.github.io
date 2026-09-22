@@ -22,6 +22,10 @@
 - [x] Ölçüm Belirsizliği (GUM Annex F + NCSLI RP-12) — 2026-05-06 — alan: metroloji
 - [x] Kalibrasyon Zincirinin Tepesi (Birincil Standartlar) — 2026-05-07 — alan: metroloji
 - [x] Renode ile Zynq7000 Simülasyonu — 2026-05-14 — alan: gömülü/SoC
+- [x] Bandpass Sampling: 1 GHz Sinyali 50 MHz Clock ile Örneklemek — 2026-05-21 — alan: RF/DSP
+- [x] Sistem Mühendisliği Nedir — 2026-05-26 — alan: sistem
+- [x] Kalman Filtresi — 2026-06-02 — alan: navigasyon/füzyon
+- [x] Coupling'i Dengelemek — 2026-06-04 — alan: yazılım tasarım
 
 ## Açık PR'lar (insan inceleme bekleniyor)
 
@@ -39,14 +43,15 @@
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- **DMA ve Cache: ARM Cortex-A9 Üzerinde Sessizce Eskimiş Veri Hatasının Anatomisi** —
+  dal: `post/2026-06-07-dma-cache-cortex-a9-zynq7000`,
+  dosya: `_posts/2026-06-07-dma-cache-cortex-a9-zynq7000.md`,
+  durum: PR açılacak (bu çalıştırma — 2026-06-07) — alan: gömülü/SoC.
 
 ## Reddedildi (bu çalıştırma)
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- _(reddedilen konu yok; DMA + cache coherency Fikir Havuzundaki "DMA yarış
+  koşulları" başlığından doğal devam olarak seçildi.)_
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 
@@ -94,7 +99,6 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - [ ] FPU denormal performansı: Cortex-A vs x86 davranış farkı
 - [ ] Deterministik build: SOURCE_DATE_EPOCH, reproducible toolchain
 - [ ] Endianness: ağ baytı vs host baytı, ARM'ın iki modu, bitfield tuzakları
-- [ ] DMA yarış koşulları: ARM'da cache invalidation/clean stratejileri
 - [ ] Lockstep CPU mimarisi: TI Hercules / NXP MPC57xx örnekleri
 - [ ] MPU vs MMU: hangisi ne zaman, FreeRTOS-MPU örneği
 - [ ] Statik analiz neyi yakalar / kaçırır: somut C kodu üzerinden Coverity/Polyspace
@@ -108,21 +112,23 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - [ ] DO-254 donanım sertifikasyonu (yazarın uzmanlığı ağırlıklı yazılım tarafında)
 - [ ] İzlenebilirlik matrisi (klasik konu, derinlik çıkarmak zor)
 
-## Notlar (bu çalıştırma — 2026-05-21)
+## Notlar (bu çalıştırma — 2026-06-07)
 
-- **Bandpass Sampling** seçildi (alan: RF/DSP). Önceki çalıştırmaların ardından
-  açılan PR'lar son üç alt-alanı (sertifikasyon #77, navigasyon #78, yazılım
-  zanaatı/CRC #79) işaretlemişti; bu yazı **bu üç alandan da** son yayınlanan 3
-  posttan da (Renode gömülü/SoC, kalibrasyon ×2) farklı bir alan getiriyor.
-- Yayın kapısı durumu: Bölüm 4 yalnızca "yayın PR ile olmalı" kuralı koyar; backlog
-  büyüklüğüne dair sert bir sınır yoktur. Açık 7 PR olmasına rağmen son yayınlanan
-  yazıdan (Renode, 2026-05-14) bu yana 7 gün geçti — `min_yayin_araligi_gun = 2`
-  şartı fazlasıyla sağlanmış durumda. Bu çalıştırmada yeni PR açıldı.
-- Bandpass sampling konusunun "neden Türkçe içerikte zor bulunuyor" yanıtı:
-  matematik (Vaughan 1991), datasheet okuma (analog input BW), saat phase noise
-  ve filtre tasarımı disiplinlerinin kesişiminde bulunuyor; Türkçe kaynaklar
-  genellikle yalnızca tek bir cepheden ele almış oluyor (genelde Lyons özet
-  çevirisi). Sentez ve somut sayısal örnek boşluğu büyük.
-- Açık PR'lar konusunda inceleme önceliği yorumu (gözlem): #50 ve #51 hâlâ uzun
-  süredir bekliyor; #50 eski yazıyı genişletiyor, #51 ise yayındaki MISRA C:2025
-  ile büyük olasılıkla çakışıyor. İnceleyen kişinin dikkatine.
+- **DMA + Cache Coherency (Cortex-A9 / Zynq-7000)** seçildi (alan: gömülü/SoC).
+  Son üç yayın alanı: yazılım tasarımı (coupling, 2026-06-04), navigasyon
+  (Kalman, 2026-06-02), sistem mühendisliği (2026-05-26). Bu yazı bu üç alandan
+  da farklı; gömülü/SoC'de son yayın Renode (2026-05-14, 24 gün önce). Alan
+  rotasyonu sağlanıyor.
+- Açık PR #100 ("`volatile` Yetmediğinde — `_Atomic`, SCU, bellek bariyerleri")
+  CPU↔CPU senkronizasyonunu ele alıyor; bu yazı CPU↔DMA cephesindeki cache
+  coherency'yi ele alıyor. Ortak yön yalnızca DSB bariyeri ve Zynq-7000 zemini —
+  konular birbirinden bağımsız. PR açıklamasında bu ayrım not edildi.
+- "Bu konu Türkçe içerikte neden zor bulunur?" yanıtı: bilgi ARM ARM, Cortex-A9
+  TRM, PL310 TRM, Xilinx UG585, Linux kernel DMA-API dokümanı ve forum
+  cevapları arasında dağınık; ortak hatalar (partial-line, adjacent variable
+  corruption, L1/L2 ayrı bakım, ACP trade-off'u) hiçbir yerde tek sentezde
+  toplanmamış. Türkçe içerikte neredeyse hiç yok. PR açıklamasına eklendi.
+- Yayın kapısı durumu: son yayın 2026-06-04 (coupling) — 3 gün önce.
+  `min_yayin_araligi_gun = 2` ile uyumlu. PR açılıyor; merge insana ait.
+- Açık PR backlog'u büyük (17 PR civarı). Ajan kuralları gereği yine de yeni
+  konuyu hazır etti; backlog yönetimi insan inceleyicinin sorumluluğunda.
