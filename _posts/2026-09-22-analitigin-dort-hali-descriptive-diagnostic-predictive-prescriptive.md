@@ -62,22 +62,9 @@ flowchart BT
 
 Betimleyici analitik, ham veriyi anlaşılabilir bir özete dönüştürür. İşi **geçmişi doğru ve dürüst biçimde raporlamaktır**; hipotez kurmaz, sebep aramaz, gelecek hakkında iddiada bulunmaz. Araçları basittir ve tam da bu yüzden küçümsenir: toplamlar, oranlar, dağılımlar, zaman serisi grafikleri, gruplama ve kırılım tabloları.
 
-Örneğimizde bu katman şu soruları yanıtlar: Son 12 ayda kaç birim arızalandı? Bin çalışma saati başına arıza oranı ne? Arızalar üretim partisine, yazılım sürümüne ve bölgeye göre nasıl dağılıyor? Ortalama onarım süresi (MTTR) ve arızalar arası ortalama süre (MTBF) ne? Kodu genellikle böyle görünür:
+Örneğimizde bu katman şu soruları yanıtlar: Son 12 ayda kaç birim arızalandı? Bin çalışma saati başına arıza oranı ne? Arızalar üretim partisine, yazılım sürümüne ve bölgeye göre nasıl dağılıyor? Ortalama onarım süresi (MTTR) ve arızalar arası ortalama süre (MTBF) ne?
 
-```sql
-SELECT
-    date_trunc('month', failure_date) AS ay,
-    hw_batch,
-    sw_version,
-    COUNT(*)                          AS ariza_sayisi,
-    COUNT(*) * 1000.0 / SUM(op_hours) AS bin_saat_basina_ariza
-FROM field_failures
-WHERE failure_date >= now() - interval '12 months'
-GROUP BY 1, 2, 3
-ORDER BY 1;
-```
-
-Sorgu basit; zorluk **tanımlardadır**. "Arıza" ne demek: müşterinin geri gönderdiği her birim mi, yoksa laboratuvarda hatası doğrulananlar mı? Sektörde bunun ayrı bir adı bile vardır: **NFF** (*no fault found*); geri dönen birimlerin ciddi bir kısmında hiçbir hata bulunamaz. "Çalışma saati" sayaçtan mı geliyor, tahminden mi? Aynı birim iki kez arızalandıysa bu bir mi sayılır, iki mi? Bu sorular netleşmeden üretilen her sayı *garbage in, garbage out* kuralına tabidir.
+Bu soruların cevabı basit toplamlar ve kırılımlardır; asıl zorluk **tanımlardadır**. "Arıza" ne demek: müşterinin geri gönderdiği her birim mi, yoksa laboratuvarda hatası doğrulananlar mı? Sektörde bunun ayrı bir adı bile vardır: **NFF** (*no fault found*); geri dönen birimlerin ciddi bir kısmında hiçbir hata bulunamaz. "Çalışma saati" sayaçtan mı geliyor, tahminden mi? Aynı birim iki kez arızalandıysa bu bir mi sayılır, iki mi? Bu sorular netleşmeden üretilen her sayı *garbage in, garbage out* kuralına tabidir.
 
 Tanımlar oturduktan sonra iki alışkanlık descriptive katmanı gerçekten değerli kılar:
 
@@ -179,20 +166,11 @@ Karar nettir: **şimdi değiştir.** Bu basit tablo bile prescriptive analitikti
 
 Asıl zorluk, kararı tek bir birim için değil, kısıtlar altında yüzlerce birim için aynı anda vermek gerektiğinde başlar. Parti 7'de 120 birim var, ama atölyenin haftalık kapasitesi ancak 30 birime yetiyor ve yedek kondansatör stoğu sınırlı. Hangi birimler önce? Soru artık bir optimizasyon problemidir ve üç bileşeni vardır:
 
-1. **Karar değişkenleri:** Gerçekten kontrol edilebilen şeyler. Hangi birim hangi hafta bakıma alınacak?
-2. **Amaç fonksiyonu:** Neyi iyileştirmeye çalışıyoruz? Toplam beklenen maliyet mi, uçuşa elverişlilik oranı mı?
-3. **Kısıtlar:** Atölye kapasitesi, stok, bütçe, sözleşme yükümlülükleri.
+1. **Karar değişkenleri:** Gerçekten kontrol edilebilen şeyler. Burada her birim için tek bir evet/hayır kararı: bu hafta bakıma alınsın mı?
+2. **Amaç fonksiyonu:** İyileştirilmek istenen ölçüt. Burada toplam beklenen maliyet: bakıma alınan birimlerin bakım maliyeti ile alınmayanların beklenen arıza maliyetinin toplamı.
+3. **Kısıtlar:** Gerçek hayatın çözüme dayattığı sınırlar. Burada haftalık atölye saati ve kondansatör stoğu.
 
-Tek dönemlik en basit hâli şöyle yazılır:
-
-```text
-min   Σ_i ( bakım_maliyeti_i · x_i )  +  Σ_i ( ariza_maliyeti_i · p_i · (1 − x_i) )
-s.t.  Σ_i saat_i · x_i  ≤  haftalık_atölye_saati
-      Σ_i x_i           ≤  kondansatör_stoğu
-      x_i ∈ {0, 1}          (i birimi bu hafta bakıma alınıyor mu?)
-```
-
-Burada `p_i`, predictive katmanın i birimi için ürettiği arıza olasılığıdır. Merdivenin mantığı bu satırda somutlaşır: **prescriptive model, predictive modelin çıktısı olmadan kurulamaz.** Bu iskelet, [Yöneylem Araştırması Yöntemleri]({% post_url 2026-04-14-operasyonel-arastirma-yontemleri %}) yazısında ele aldığımız tam sayılı programlamanın ta kendisidir.
+Bir birimin beklenen arıza maliyeti, arıza olasılığı ile arıza maliyetinin çarpımıdır ve o olasılık predictive katmandan gelir. Merdivenin mantığı burada somutlaşır: **prescriptive model, predictive modelin çıktısı olmadan kurulamaz.** Kararların evet/hayır biçiminde olduğu bu yapı, [Yöneylem Araştırması Yöntemleri]({% post_url 2026-04-14-operasyonel-arastirma-yontemleri %}) yazısında ele aldığımız tam sayılı programlamanın ta kendisidir.
 
 Prescriptive analitiğin araç çantası bununla sınırlı değildir:
 
@@ -254,10 +232,10 @@ Bir ekip işe merdivenin altından değil, **iyileştirmek istediği karardan ge
 <div class="mermaid">
 flowchart TD
     S["Hangi kararı<br/>iyileştirmek istiyorum?"] --> Q{"Kararı ne engelliyor?"}
-    Q -->|"Ne olduğunu bilmiyoruz"| D["DESCRIPTIVE:<br/>tanımları netleştir, ölçmeye başla"]
-    Q -->|"Biliyoruz ama<br/>sebebini bilmiyoruz"| G["DIAGNOSTIC:<br/>kırılım + kök neden"]
-    Q -->|"Sebebi biliyoruz,<br/>seyri bilmiyoruz"| P["PREDICTIVE:<br/>tahmin + belirsizlik"]
-    Q -->|"Seyri biliyoruz,<br/>seçenek çok"| R["PRESCRIPTIVE:<br/>optimizasyon / karar kuralı"]
+    Q -- "Ne olduğunu bilmiyoruz" --> D["DESCRIPTIVE:<br/>tanımları netleştir, ölçmeye başla"]
+    Q -- "Biliyoruz ama<br/>sebebini bilmiyoruz" --> G["DIAGNOSTIC:<br/>kırılım + kök neden"]
+    Q -- "Sebebi biliyoruz,<br/>seyri bilmiyoruz" --> P["PREDICTIVE:<br/>tahmin + belirsizlik"]
+    Q -- "Seyri biliyoruz,<br/>seçenek çok" --> R["PRESCRIPTIVE:<br/>optimizasyon / karar kuralı"]
     style S fill:#e8eef7,stroke:#4a6fa5,stroke-width:2px
     style R fill:#d5f0d5,stroke:#2e7d32,stroke-width:2px
 </div>
