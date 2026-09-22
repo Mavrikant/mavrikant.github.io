@@ -316,7 +316,7 @@ Grafiğin sağ tarafı bu çarpıklıktan **etkilenmiyor**, çünkü CSEP döng�
 
 Bu yüzden yalnızca kendi aralarında karşılaştırılabilirler: **2024'te 27, 2025'te 31, 2026'nın ilk sekiz ayında 34 kayıt.** Son sütun yalnızca sekiz ayı kapsadığı hâlde 2025'in tamamını geçmiş durumda. Gözlenen sayılar son üç dönemde artıyor; ancak 2026 tamamlanmadığı için yıllık eğilimi bu veriyle kesinleştirmek doğru olmaz. On yıllık bir büyüme eğrisi ise hiç çizemeyiz.
 
-Bu ivmenin sebebini de veri söylemiyor. Yazı boyunca değindiğim iki şey — SSB Akademi'nin hazırlık eğitimi ve Türkiye'de yılda bir yapılan kâğıt sınav oturumu — sertifikaya erişimi kolaylaştıran etkenler; ancak bu veriyle bir neden-sonuç ilişkisi kurmak mümkün değil.
+Bu ivmenin sebebini de veri söylemiyor. Yazı boyunca değindiğim iki şey — SSB Akademi'nin hazırlık eğitimi ve Türkiye'de düzenlenen yüz yüze sınav oturumları — sertifikaya erişimi kolaylaştıran etkenler; ancak bu veriyle bir neden-sonuç ilişkisi kurmak mümkün değil.
 
 ### Önümüzdeki yılların yenileme takvimi
 
