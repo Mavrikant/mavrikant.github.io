@@ -22,6 +22,11 @@
 - [x] Ölçüm Belirsizliği (GUM Annex F + NCSLI RP-12) — 2026-05-06 — alan: metroloji
 - [x] Kalibrasyon Zincirinin Tepesi (Birincil Standartlar) — 2026-05-07 — alan: metroloji
 - [x] Renode ile Zynq7000 Simülasyonu — 2026-05-14 — alan: gömülü/SoC
+- [x] Bandpass Sampling — 2026-05-21 — alan: RF/DSP
+- [x] Sistem Mühendisliği Nedir — 2026-05-26 — alan: sistem
+- [x] Kalman Filtresi — 2026-06-02 — alan: navigasyon/füzyon
+- [x] Coupling'i Dengelemek — 2026-06-04 — alan: yazılım tasarımı
+- [x] Antikırılgan (Taleb) — 2026-06-24 — alan: sistem/felsefe
 
 ## Açık PR'lar (insan inceleme bekleniyor)
 
@@ -39,14 +44,14 @@
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- **DO-178C Data ve Control Coupling Analizi (Structural Coverage'ın yarısı)** —
+  dal: `post/2026-07-26-do-178c-data-control-coupling`,
+  dosya: `_posts/2026-07-26-do-178c-data-control-coupling-analizi.md`,
+  durum: PR açılıyor (bu çalıştırma) — alan: sertifikasyon / DO-178C.
 
 ## Reddedildi (bu çalıştırma)
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- _(bu çalıştırmada konu reddedilmedi; DCCC boşluğu tespit edilip seçildi.)_
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 
@@ -108,7 +113,26 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - [ ] DO-254 donanım sertifikasyonu (yazarın uzmanlığı ağırlıklı yazılım tarafında)
 - [ ] İzlenebilirlik matrisi (klasik konu, derinlik çıkarmak zor)
 
-## Notlar (bu çalıştırma — 2026-05-21)
+## Notlar (bu çalıştırma — 2026-07-26)
+
+- **DO-178C DCCC (Data Coupling / Control Coupling)** seçildi. Structural coverage'ın
+  Tablo A-7 obj 8'i; DAL A ve B'de independence şartıyla. Türkçe kaynak neredeyse yok;
+  var olan İngilizce içerik (Rapita, LDRA, CAST-19) dağınık ve genelde tanımlarla
+  sınırlı. Bu yazı üç modüllük somut bir C örneği üzerinden statik envanter +
+  dinamik exercise matrisini yürütüyor — bu somut derinlik öğesi.
+- Çakışma kontrolü: `_posts/2026-06-04-coupling-dengesi.md` **design** perspektifinden
+  coupling'i işliyor ve DCCC'ye tek paragrafta değinip Rapita/LDRA'ya işaret ediyor.
+  Bu yazı **sertifikasyon kanıtı** perspektifi; iki yazı birbirini tamamlıyor. Post
+  girişte cross-link verildi.
+- Açık PR'lar: #77 (MC/DC) 6.4.4.2.a-c objektifi; #146 (Object Code Coverage)
+  6.4.4.2.b; #158 (DO-330 tool qualification); #163 (Abstract Interpretation).
+  DCCC hiçbirisiyle çakışmıyor — 6.4.4.2.c'nin *ayrı* bir maddesi.
+- Yayın kapısı: son yayınlanan post 2026-06-24; bugün 2026-07-26 — 32 gün geçti,
+  `min_yayin_araligi_gun = 2` şartı fazlasıyla sağlanmış.
+- Backlog notu: 30+ açık PR merge bekliyor. Bu ajanın merge yetkisi yok
+  (Bölüm 4). Merge kararları insana ait; sadece yeni PR açıyor.
+
+## Notlar (2026-05-21)
 
 - **Bandpass Sampling** seçildi (alan: RF/DSP). Önceki çalıştırmaların ardından
   açılan PR'lar son üç alt-alanı (sertifikasyon #77, navigasyon #78, yazılım
