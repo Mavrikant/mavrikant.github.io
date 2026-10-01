@@ -22,6 +22,8 @@
 - [x] Ölçüm Belirsizliği (GUM Annex F + NCSLI RP-12) — 2026-05-06 — alan: metroloji
 - [x] Kalibrasyon Zincirinin Tepesi (Birincil Standartlar) — 2026-05-07 — alan: metroloji
 - [x] Renode ile Zynq7000 Simülasyonu — 2026-05-14 — alan: gömülü/SoC
+- [x] Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek — 2026-05-21 — alan: RF/DSP
+- [x] Sistem Mühendisliği Nedir — 2026-05-26 — alan: sistem
 
 ## Açık PR'lar (insan inceleme bekleniyor)
 
@@ -39,14 +41,15 @@
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- **WCET Analizi: Statik Yöntemler, Ölçüm Tabanlı Yaklaşımlar ve Cache'in Karanlık Tarafı** —
+  dal: `post/2026-05-28-wcet-analizi-statik-olcum-cache`,
+  dosya: `_posts/2026-05-28-wcet-analizi-statik-olcum-cache.md`,
+  araştırma: `agent/research/2026-05-28-wcet-analizi.md`,
+  durum: PR açıldı (bu çalıştırma) — alan: gerçek zamanlı / zamanlama analizi.
 
 ## Reddedildi (bu çalıştırma)
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- _(bu çalıştırmada konu reddedilmedi; WCET analizi havuzdan seçildi.)_
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 
@@ -61,8 +64,6 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
       alan: sertifikasyon — gerçek karar tablosu örneği, decision/condition farkı
 - [ ] **CRC vs checksum: neden CRC-32 değil de CRC-32C / CRC-16-CCITT seçilir?** —
       alan: yazılım zanaatı — polinom seçimi, hata tespit gücü, bit-hata analizi
-- [ ] **WCET analizi: statik analiz vs ölçüm tabanlı yaklaşımlar, cache etkileri** —
-      alan: gerçek zamanlı — somut örnek (örn. Cortex-R5 üzerinde basit görev)
 - [ ] **IQ örnekleme ve karmaşık sinyaller: gerçek SDR'ye giriş** —
       alan: RF/SDR — neden negatif frekans, neden 2 kanal
 - [ ] **GIC (Generic Interrupt Controller): SGI/PPI/SPI farkları ve önceliklendirme** —
@@ -108,21 +109,35 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - [ ] DO-254 donanım sertifikasyonu (yazarın uzmanlığı ağırlıklı yazılım tarafında)
 - [ ] İzlenebilirlik matrisi (klasik konu, derinlik çıkarmak zor)
 
-## Notlar (bu çalıştırma — 2026-05-21)
+## Notlar (bu çalıştırma — 2026-05-28)
 
-- **Bandpass Sampling** seçildi (alan: RF/DSP). Önceki çalıştırmaların ardından
-  açılan PR'lar son üç alt-alanı (sertifikasyon #77, navigasyon #78, yazılım
-  zanaatı/CRC #79) işaretlemişti; bu yazı **bu üç alandan da** son yayınlanan 3
-  posttan da (Renode gömülü/SoC, kalibrasyon ×2) farklı bir alan getiriyor.
-- Yayın kapısı durumu: Bölüm 4 yalnızca "yayın PR ile olmalı" kuralı koyar; backlog
-  büyüklüğüne dair sert bir sınır yoktur. Açık 7 PR olmasına rağmen son yayınlanan
-  yazıdan (Renode, 2026-05-14) bu yana 7 gün geçti — `min_yayin_araligi_gun = 2`
-  şartı fazlasıyla sağlanmış durumda. Bu çalıştırmada yeni PR açıldı.
-- Bandpass sampling konusunun "neden Türkçe içerikte zor bulunuyor" yanıtı:
-  matematik (Vaughan 1991), datasheet okuma (analog input BW), saat phase noise
-  ve filtre tasarımı disiplinlerinin kesişiminde bulunuyor; Türkçe kaynaklar
-  genellikle yalnızca tek bir cepheden ele almış oluyor (genelde Lyons özet
-  çevirisi). Sentez ve somut sayısal örnek boşluğu büyük.
-- Açık PR'lar konusunda inceleme önceliği yorumu (gözlem): #50 ve #51 hâlâ uzun
-  süredir bekliyor; #50 eski yazıyı genişletiyor, #51 ise yayındaki MISRA C:2025
-  ile büyük olasılıkla çakışıyor. İnceleyen kişinin dikkatine.
+- **WCET Analizi** seçildi (alan: gerçek zamanlı / zamanlama analizi). Son 3
+  yayın (sistem 5/26, RF/DSP 5/21, gömülü/SoC 5/14) ve açık PR alanlarından
+  farklı bir alan getiriyor. Bandpass sampling (PR #80) ve Sistem Mühendisliği
+  Nedir (PR #92/#95) son çalıştırmadan beri merge edildi; "Yazıldı" listesine
+  taşındı.
+- **Derinlik öğesi (Bölüm 7):** zamanlama analizi + somut IPET formülasyonu
+  (basic block düzeyinde ILP kurma) + Lundqvist–Stenström timing anomaly
+  counter-example + Ferdinand–Wilhelm must/may/persistence cache analizi.
+  Eleştirmen fazı: derinlik somut, sözde değil.
+- **"Neden Türkçe içerikte zor bulunuyor" (Bölüm 8):** WCET üç disiplinin
+  kesişiminde — mikromimarı (cache, pipeline), derleyici/CFG, ILP. Türkçe
+  içerikler tipik olarak "ölç ve marj koy" düzeyinde kalıyor; statik analizin
+  gerçek mekaniği (IPET, abstract interpretation, timing anomaly) Türkçe
+  olarak neredeyse hiç yazılmamış. İngilizce literatür Wilhelm 2008 etrafında
+  toplu ama akademik.
+- **Yayın kapısı:** Son yayınlanan yazıdan (Sistem Mühendisliği, 2026-05-26) bu
+  yana 2 gün geçti — `min_yayin_araligi_gun = 2` şartı tam sağlandı.
+- **Olgu doğrulama:** Wilhelm 2008 TECS, Li & Malik 1995 DAC, Lundqvist &
+  Stenström 1999 RTSS, Reineke vd. 2006 WCET workshop, Ferdinand & Wilhelm
+  1999 RTS Journal, DO-178C §6.3.4.f, aiT/RapiTime/OTAWA/Heptane URL'leri
+  `web_search` ile teyit edildi. Belirsiz iki teknik ayrıntı (Cortex-A72
+  L2 replacement policy ve Boeing 777 PFC cache off iddiası) Eleştirmen
+  fazında yumuşatıldı.
+- **Sonraki güçlü adaylar (alan rotasyonu için):** Watchdog tasarım desenleri
+  (güvenilirlik), Kalman filtresi tuzakları (navigasyon), GIC (ARM), Linker
+  script anatomisi (gömülü).
+- Açık PR'lar konusunda inceleme önceliği yorumu (önceki çalıştırmadan
+  taşındı): #50 ve #51 hâlâ uzun süredir bekliyor; #50 eski yazıyı
+  genişletiyor, #51 ise yayındaki MISRA C:2025 ile büyük olasılıkla
+  çakışıyor. İnceleyen kişinin dikkatine.
