@@ -8,6 +8,8 @@ lang:               tr
 locale:             tr_TR
 
 # jekyll-seo-tag — sosyal medya / OG defaults
+# Yazılarda bu görselin yerine kapak görseli (`background`) kullanılır;
+# bkz. _plugins/social_image.rb
 defaults:
   - scope:
       path: ""
