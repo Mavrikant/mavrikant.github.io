@@ -3,6 +3,11 @@ source "https://rubygems.org"
 gem "jekyll", "~> 4.4"
 gem "webrick"
 
+# Ruby 4.0 moved these out of the default gems; mini_magick (via
+# jekyll-favicon) and jekyll-spaceship still require them.
+gem "benchmark"
+gem "ostruct"
+
 group :jekyll_plugins do
   gem "jekyll-feed"
   gem "jekyll-paginate"
