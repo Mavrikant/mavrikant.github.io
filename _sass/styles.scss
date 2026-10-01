@@ -1718,6 +1718,19 @@ article {
     max-width: 100%;
     height: auto;
   }
+
+  // Mermaid's xychart palette is a very pale lavender that nearly disappears
+  // on the light theme's white plot area. Drive the series colour from the
+  // theme accent instead; CSS fill/stroke win over the presentation
+  // attributes Mermaid writes onto the generated shapes.
+  .plot [class^="bar-plot-"] rect {
+    fill: var(--color-accent);
+  }
+
+  .plot [class^="line-plot-"] path {
+    stroke: var(--color-accent);
+    stroke-width: 2.5;
+  }
 }
 
 @media (max-width: 640px) {
