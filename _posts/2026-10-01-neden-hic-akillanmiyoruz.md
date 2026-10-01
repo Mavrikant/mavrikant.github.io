@@ -100,13 +100,28 @@ Güçlü aksiyon, daha çok kural demek değildir. Her olaydan sonra bir onay ad
 
 ## Bir Ekip İçin Başlangıç
 
-- **Olay şablonundan "sorumlu kişi" alanını çıkarın.** Yerine "o an elde olan bilgi" ve "karar noktaları" alanlarını koyun.
+- **"Sorumlu kişi"yi çıkarın, "aksiyon sahibi"ni bırakın.** Olay şablonunda hatayı yapan kişiyi soran alanın yerine "o an elde olan bilgi" ve "karar noktaları" alanlarını koyun. Ama suçlamasız inceleme, sahipsiz aksiyon demek değildir: her aksiyonun, kapanana kadar takip edecek bir sahibi ve bir hedef tarihi olsun. Bu kişi çoğu zaman olayı yaşayan değil, ilgili süreci ya da sistemi yöneten kişidir.
 - **Her aksiyonun gücünü yazın.** Aksiyon listesinde her maddenin yanında zayıf, orta ya da güçlü yazsın. Yalnızca zayıf aksiyonlarla biten bir inceleme kapanmış sayılmasın.
 - **Aksiyonları normal işin içine koyun.** Olay aksiyonları ayrı bir belgede değil, ekibin iş takip sisteminde diğer işlerle birlikte yaşasın. "Tamamlandı" demek için kanıt isteyin: ilgili commit'in, testin ya da kontrolün bağlantısı.
 - **Tekrarı ayrı bir olay sayın.** Her incelemede "bu daha önce yaşandı mı?" diye sorun. Cevap evetse, inceleme yalnızca olayı değil, önceki incelemenin neden işe yaramadığını da konu alsın.
 - **Bildirmeyi ucuzlatın.** Kısa bir form, suçlamasız bir dil ve ramak kala olaylar için de aynı kanal yeterlidir. Bildirim sayısının artması kötü haber sayılmasın.
 - **Olay raporlarını ekip dışına açın.** Bir ekibin yaşadığı olay, aynı altyapıyı kullanan başka bir ekibin henüz yaşamadığı olaydır. Raporları kolay bulunur bir yerde ve herkesin okuyabileceği bir dille paylaşın.
 - **Eski olayları yeni projeye taşıyın.** Yeni bir projenin başlangıç toplantısına, benzer projelerin olay raporlarından seçilmiş kısa bir liste koyun. Kimse arşive gitmiyorsa, arşivi toplantıya getirin.
+
+---
+
+## Öğrendiğimizi Nasıl Anlarız?
+
+Bu önerilerin işe yarayıp yaramadığını birkaç basit sayı gösterir:
+
+| Metrik | Nasıl hesaplanır | Sağlıklı eğilim |
+|---|---|---|
+| **Tekrarlayan olay oranı** | Dönemdeki olaylardan kök nedeni daha önceki bir olayınkiyle aynı olanların yüzdesi. Her incelemede sorulan "bu daha önce yaşandı mı?" sorusunun cevaplarından çıkar. | Düşer |
+| **Aksiyon güç dağılımı** | Kapatılan aksiyonların yüzde kaçının zayıf, orta ya da güçlü olduğu. Aksiyonlara yazılan güç etiketlerinden çıkar. | Orta ve güçlü aksiyonların payı artar |
+| **Gecikmiş aksiyon oranı** | Açık aksiyonlardan hedef tarihini geçmiş olanların yüzdesi | Düşer |
+| **Ramak kala bildirim oranı** | Gerçekleşen her olaya karşılık gelen ramak kala bildirimi sayısı | Artar |
+
+Tek bir değerden çok eğilim önemlidir; çeyrekten çeyreğe bakmak yeterlidir. Bu sayılar ekibin kendine tuttuğu bir aynadır. Kişilere hedef olarak verildiklerinde aynı kök neden farklı kelimelerle yazılmaya, aksiyonlar da olduklarından güçlü etiketlenmeye başlar.
 
 ---
 
