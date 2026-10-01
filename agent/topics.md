@@ -22,11 +22,13 @@
 - [x] Ölçüm Belirsizliği (GUM Annex F + NCSLI RP-12) — 2026-05-06 — alan: metroloji
 - [x] Kalibrasyon Zincirinin Tepesi (Birincil Standartlar) — 2026-05-07 — alan: metroloji
 - [x] Renode ile Zynq7000 Simülasyonu — 2026-05-14 — alan: gömülü/SoC
+- [x] Bandpass Sampling: 1 GHz Sinyali 50 MHz Clock ile Örneklemek — 2026-05-21 — alan: RF/DSP
 
 ## Açık PR'lar (insan inceleme bekleniyor)
 
 | PR # | Başlık | Dal | Açılış | Alan |
 |------|--------|-----|--------|------|
+| [#88](https://github.com/mavrikant/mavrikant.github.io/pull/88) | WCET Analizi: Statik mi, Ölçüm mü, Hibrit mi? | post/2026-05-23-wcet-analizi-statik-olcum-hibrit | 2026-05-23 | gerçek zamanlı/timing |
 | [#79](https://github.com/mavrikant/mavrikant.github.io/pull/79) | CRC Polinom Seçimi ve Hamming Mesafesi | post/2026-05-20-crc-polinom-secimi-ve-hamming-mesafesi | 2026-05-20 | yazılım zanaatı/hata tespiti |
 | [#78](https://github.com/mavrikant/mavrikant.github.io/pull/78) | VOR Nasıl Çalışır? 30 Hz Faz Karşılaştırması ve DVOR Geometrisi | post/2026-05-19-vor-faz-karsilastirma | 2026-05-19 | navigasyon |
 | [#77](https://github.com/mavrikant/mavrikant.github.io/pull/77) | MC/DC Kapsama — DO-178C DAL A | post/2026-05-18-mcdc-kapsama-do-178c-dal-a | 2026-05-17 | sertifikasyon |
@@ -39,14 +41,14 @@
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- **WCET Analizi: Statik mi, Ölçüm mü, Hibrit mi?** —
+  dal: `post/2026-05-23-wcet-analizi-statik-olcum-hibrit`,
+  dosya: `_posts/2026-05-23-wcet-analizi-statik-olcum-hibrit.md`,
+  durum: PR açılacak (bu çalıştırma) — alan: gerçek zamanlı / timing analizi.
 
 ## Reddedildi (bu çalıştırma)
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- _(bu çalıştırmada konu reddedilmedi; WCET fikir havuzundan seçildi.)_
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 
@@ -61,8 +63,8 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
       alan: sertifikasyon — gerçek karar tablosu örneği, decision/condition farkı
 - [ ] **CRC vs checksum: neden CRC-32 değil de CRC-32C / CRC-16-CCITT seçilir?** —
       alan: yazılım zanaatı — polinom seçimi, hata tespit gücü, bit-hata analizi
-- [ ] **WCET analizi: statik analiz vs ölçüm tabanlı yaklaşımlar, cache etkileri** —
-      alan: gerçek zamanlı — somut örnek (örn. Cortex-R5 üzerinde basit görev)
+- ~~[ ] **WCET analizi: statik analiz vs ölçüm tabanlı yaklaşımlar, cache etkileri** —
+      alan: gerçek zamanlı~~ (seçildi: 2026-05-23)
 - [ ] **IQ örnekleme ve karmaşık sinyaller: gerçek SDR'ye giriş** —
       alan: RF/SDR — neden negatif frekans, neden 2 kanal
 - [ ] **GIC (Generic Interrupt Controller): SGI/PPI/SPI farkları ve önceliklendirme** —
@@ -108,21 +110,25 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - [ ] DO-254 donanım sertifikasyonu (yazarın uzmanlığı ağırlıklı yazılım tarafında)
 - [ ] İzlenebilirlik matrisi (klasik konu, derinlik çıkarmak zor)
 
-## Notlar (bu çalıştırma — 2026-05-21)
+## Notlar (bu çalıştırma — 2026-05-23)
 
-- **Bandpass Sampling** seçildi (alan: RF/DSP). Önceki çalıştırmaların ardından
-  açılan PR'lar son üç alt-alanı (sertifikasyon #77, navigasyon #78, yazılım
-  zanaatı/CRC #79) işaretlemişti; bu yazı **bu üç alandan da** son yayınlanan 3
-  posttan da (Renode gömülü/SoC, kalibrasyon ×2) farklı bir alan getiriyor.
-- Yayın kapısı durumu: Bölüm 4 yalnızca "yayın PR ile olmalı" kuralı koyar; backlog
-  büyüklüğüne dair sert bir sınır yoktur. Açık 7 PR olmasına rağmen son yayınlanan
-  yazıdan (Renode, 2026-05-14) bu yana 7 gün geçti — `min_yayin_araligi_gun = 2`
-  şartı fazlasıyla sağlanmış durumda. Bu çalıştırmada yeni PR açıldı.
-- Bandpass sampling konusunun "neden Türkçe içerikte zor bulunuyor" yanıtı:
-  matematik (Vaughan 1991), datasheet okuma (analog input BW), saat phase noise
-  ve filtre tasarımı disiplinlerinin kesişiminde bulunuyor; Türkçe kaynaklar
-  genellikle yalnızca tek bir cepheden ele almış oluyor (genelde Lyons özet
-  çevirisi). Sentez ve somut sayısal örnek boşluğu büyük.
-- Açık PR'lar konusunda inceleme önceliği yorumu (gözlem): #50 ve #51 hâlâ uzun
-  süredir bekliyor; #50 eski yazıyı genişletiyor, #51 ise yayındaki MISRA C:2025
-  ile büyük olasılıkla çakışıyor. İnceleyen kişinin dikkatine.
+- **WCET Analizi (Statik / Ölçüm / Hibrit)** seçildi (alan: gerçek zamanlı / timing
+  analizi). Son yayınlanan 3 yazıdan (bandpass RF/DSP, Renode gömülü/SoC, kalibrasyon
+  metroloji) ve son açılan PR alt-alanlarından (CRC/yazılım zanaatı #79, VOR/navigasyon
+  #78, MC/DC/sertifikasyon #77, bellek güvenliği #67, UB #54, FTZ/DAZ #50) farklı bir
+  alt-alan. MC/DC ile aynı DO-178C çerçevesini paylaşmasına rağmen tamamen farklı
+  objektif (6.3.4.f vs 6.4.4.c) — yapısal kapsama değil, kaynak kullanımı analizi.
+- Yayın kapısı durumu: son yayın 2026-05-21 (bandpass), bugün 2026-05-23 → 2 gün geçti,
+  `min_yayin_araligi_gun = 2` şartı **tam olarak** sağlanmış. Bu çalıştırmada yeni PR
+  açıldı.
+- WCET'in "neden Türkçe içerikte zor bulunuyor" yanıtı: alanın canonical referansı
+  Wilhelm 2008 ACM TECS makalesidir; sonrası dağınık akademik çalışma + üç ticari
+  toolun (aiT, RapiTime, LDRA) dokümantasyonu. Türkçe içerik tipik olarak yalnızca
+  "WCET nedir" tanım düzeyinde kalmış; timing anomaly (Lundqvist–Stenström 1999),
+  CRPD ve DO-178C 6.3.4.f bağlantısı pratikte hiç sentezlenmemiş.
+- Açık PR backlog'u büyümeye devam ediyor (8 açık PR + bu PR). #50 ve #51 hâlâ uzun
+  süredir bekliyor; inceleme öncelikleri konusunda önceki notlar geçerli.
+- Bir sonraki çalıştırma için doğal devam konuları: AMC 20-193 / multi-core
+  sertifikasyon; Cortex-R5 DCLS lockstep mimarisi; Liu-Layland'dan response time
+  analysis'e schedulability evrimi. Bu yazıda hepsi son bölümde "ileri okuma" olarak
+  sinyallendirildi.
