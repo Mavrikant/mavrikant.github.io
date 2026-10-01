@@ -22,6 +22,10 @@
 - [x] Ölçüm Belirsizliği (GUM Annex F + NCSLI RP-12) — 2026-05-06 — alan: metroloji
 - [x] Kalibrasyon Zincirinin Tepesi (Birincil Standartlar) — 2026-05-07 — alan: metroloji
 - [x] Renode ile Zynq7000 Simülasyonu — 2026-05-14 — alan: gömülü/SoC
+- [x] Bandpass Sampling — 2026-05-21 — alan: RF/DSP
+- [x] Sistem Mühendisliği Nedir? — 2026-05-26 — alan: sistem
+- [x] Kalman Filtresi — 2026-06-02 — alan: navigasyon/füzyon
+- [x] Coupling Dengesi — 2026-06-04 — alan: yazılım mimarisi
 
 ## Açık PR'lar (insan inceleme bekleniyor)
 
@@ -39,14 +43,16 @@
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- **Endianness'in Üç Katmanı: ARM'ın BE-8/BE-32 Tarihi, Bitfield Tuzakları ve 1553/429 Sürprizleri** —
+  dal: `post/2026-06-09-endianness-uc-katmani`,
+  dosya: `_posts/2026-06-09-endianness-uc-katmani-arm-bitfield-1553-429.md`,
+  durum: PR açılacak (bu çalıştırma) — alan: gömülü/protokol.
 
 ## Reddedildi (bu çalıştırma)
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- _(bu çalıştırmada konu reddedilmedi; "Endianness" orta-öncelik havuzundan yukarı çekildi —
+  son 3 yayın (Coupling/yazılım mimarisi, Kalman/navigasyon, Sistem Mühendisliği)
+  ile farklı alt-alan; açık PR'ların hiçbiri endianness'e dokunmuyor.)_
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 
@@ -93,7 +99,6 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - [ ] Fault Tree Analysis ile minimal cut set hesabı
 - [ ] FPU denormal performansı: Cortex-A vs x86 davranış farkı
 - [ ] Deterministik build: SOURCE_DATE_EPOCH, reproducible toolchain
-- [ ] Endianness: ağ baytı vs host baytı, ARM'ın iki modu, bitfield tuzakları
 - [ ] DMA yarış koşulları: ARM'da cache invalidation/clean stratejileri
 - [ ] Lockstep CPU mimarisi: TI Hercules / NXP MPC57xx örnekleri
 - [ ] MPU vs MMU: hangisi ne zaman, FreeRTOS-MPU örneği
@@ -108,7 +113,25 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - [ ] DO-254 donanım sertifikasyonu (yazarın uzmanlığı ağırlıklı yazılım tarafında)
 - [ ] İzlenebilirlik matrisi (klasik konu, derinlik çıkarmak zor)
 
-## Notlar (bu çalıştırma — 2026-05-21)
+## Notlar (bu çalıştırma — 2026-06-09)
+
+- **Endianness'in Üç Katmanı** seçildi (alan: gömülü/protokol). Orta öncelikli havuzdan
+  yukarı çekildi: son 3 yayın (Coupling/yazılım mimarisi, Kalman/navigasyon, Sistem
+  Mühendisliği) ile alt-alan rotasyonu sağlanıyor; açık 19 PR'ın hiçbiri endianness'e
+  dokunmuyor (en yakın olanlar bitfield/struct paketleme konusuna girmeden ARM/donanım
+  detayına giren #119 DMA-cache ve #100 volatile/atomic, ancak temas noktası yok).
+- "Bu konuyu bulmak neden zor" yanıtı: Türkçe içerik çoğunlukla "little vs big" girişi
+  düzeyinde kalıyor; ARM BE-8/BE-32 ayrımı, GCC bitfield endianness davranışı ve
+  ARINC-429 etiket bit-reverse'ünü sentezleyen Türkçe bir kaynak yok. Üç katmanı
+  (bellek byte sırası + bitfield paketleme + tel üstü bit sırası) birlikte ele alıp
+  sahadan üç bug kalıbıyla bağlayan bu yazı sentez açığını kapatıyor.
+- Yayın kapısı durumu: son yayınlanan yazıdan (Coupling, 2026-06-04) 5 gün geçti;
+  `min_yayin_araligi_gun = 2` şartı sağlandı. Yeni PR açıldı.
+- Açık PR sayısı 19'a çıktı — sürekli birikiyor. İnceleyenin dikkatine: en eskiler
+  (#50, #51, #54, #59, #67) Mart-Nisan 2026'dan beri bekliyor; #51 hâlâ yayındaki MISRA
+  C:2025 ile potansiyel çakışıyor.
+
+## Notlar (önceki — 2026-05-21)
 
 - **Bandpass Sampling** seçildi (alan: RF/DSP). Önceki çalıştırmaların ardından
   açılan PR'lar son üç alt-alanı (sertifikasyon #77, navigasyon #78, yazılım
