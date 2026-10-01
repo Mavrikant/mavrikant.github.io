@@ -12,55 +12,43 @@ tags: [yazilim-muhendisligi, emniyet-kritik, proje-yonetimi]
 
 Müşteri kabul testinin sabahı, test düzeneğini inceleyen müşteri temsilcisi RF sinyal üretecinin kalibrasyon etiketinde durur: kalibrasyonun süresi üç hafta önce dolmuş. Test ertelenir, cihaz acil kalibrasyona gönderilir ve son üç haftada bu cihazla alınan bütün ölçümlerin geçerliliği sorgulanmak zorunda kalınır. Olay sonrası toplantısında biri ortak klasörde eski bir belge bulur. İki yıl önce, başka bir proje, aynı sebep. Belgenin "Çıkarılan dersler" başlığı altında tek bir aksiyon var: "Kalibrasyon bitiş tarihleri takvime eklenecek." Aksiyonun durumu "tamamlandı". Takvim ise geçen yıl ekipten ayrılan bir arkadaşın takvimiymiş.
 
-O ekip iki yıl önce dersini çıkarmıştı: rapor yazılmış, aksiyon atanmış ve kapatılmıştı. Yine de aynı hata tekrarlandı.
-
-NATO'nun ders öğrenme sürecinde bu farkın bir adı var. Bir olaydan çıkan ders önce *tespit edilmiş ders* (*lesson identified*) olarak kaydedilir. *Öğrenilmiş ders* (*lesson learned*) sayılması için, onun için önerilen düzeltici eylemin onaylanıp uygulanması gerekir. Rapor yazmak ilk adımı tamamlar. İkinci adım, hikâyeyi hiç duymamış bir sonraki kişinin de farklı davranmasını sağlayan bir değişiklik ister.
+O ekip iki yıl önce dersini çıkarmıştı: rapor yazılmış, aksiyon atanmış ve kapatılmıştı. Yine de aynı hata tekrarlandı. NATO'nun ders öğrenme sürecinde bu farkın bir adı var: bir ders, onun için önerilen düzeltici eylem uygulanana kadar yalnızca bir *tespit edilmiş ders* (*lesson identified*) olarak kalır. *Öğrenilmiş ders* (*lesson learned*) sayılması için bir şeyin gerçekten değişmesi gerekir.
 
 ---
 
-## On Yedi Yıl Arayla
+## Ders Nerede Saklanıyor?
 
-Bu yalnızca küçük ekiplerin derdi değil. 1 Şubat 2003'te Columbia uzay mekiği atmosfere dönüşte parçalandı ve yedi astronot hayatını kaybetti. Kalkışta dış yakıt tankından kopan bir köpük parçası sol kanadın ön kenarına çarpmış, ısı koruma panellerinde bir delik açmıştı.
+Bir ders üç yerde saklanabilir: insanların hafızasında, bir belgede ya da sistemin kendisinde. Bu üç yer, bir bilgisayardaki saklama katmanlarına benzer:
 
-Kaza İnceleme Kurulu (CAIB), raporunun bir bölümünü 17 yıl önceki Challenger kazasıyla karşılaştırmaya ayırdı. Vardığı sonuç ağırdı: Challenger'dan sonra yapılan bütün değişikliklere rağmen, o kazaya yol açan kurumsal nedenler düzeltilmemişti. Kurula göre bu kalıcı ve sistemik kusurlar giderilmezse, bir sonraki kazanın da zemini hazırdı.
+- **Hafıza uçucudur.** "Daha dikkatli olunacak" ya da "ekibe duyuruldu" diye kapanan bir ders, onu bilen kişi ayrıldığında, unuttuğunda ya da yoğun bir haftaya girdiğinde kaybolur. Girişteki takvim hatırlatması bunun örneğidir.
+- **Belge kalıcıdır, ama kendiliğinden çalışmaz.** Rapor, prosedür ya da "çıkarılan dersler" arşivi yıllarca durur; işe yaraması için birinin onu doğru anda bulup okuması gerekir. Çoğu arşivin pek okunmamasının sebebi de budur.
+- **Sistem her seferinde çalışır.** Süresi dolmuş bir cihazla teste başlamayı reddeden test yazılımı, kalibrasyon tarihini kimsenin hatırlamasına ihtiyaç duymaz; ders, hikâyeyi hiç duymamış bir sonraki mühendis için de geçerlidir. [Kalite Güvence ve Kalite Kontrol]({% post_url 2026-10-01-kalite-guvence-ve-kalite-kontrol %}) yazısındaki sayaç taşması örneğinde de dersi kalıcı kılan, test ortamına ve kodlama standardına yapılan değişiklikti.
 
-Ders çıkarmayı engelleyen mekanizmalar, bir uzay ajansında da bir yazılım ekibinde de birbirine benzer.
+Kontrol listeleri ve otomatik uyarılar belge ile sistem arasında durur: işin içine girerler, ama atlanabilirler. Akıllanmamanın çoğu, derslerin ilk iki yerde kalıp sisteme hiç taşınamamasıdır.
 
 ---
 
-## Neden Öğrenemiyoruz?
+## Ders Neden Sisteme Taşınmıyor?
 
 ### Hata bir kişide bitiyor
 
-Bir olay incelemesinin en kolay cevabı "insan hatası"dır. Kalibrasyon tarihini kaçıran, yanlış komutu çalıştıran biri hep vardır. Cevap çoğu zaman doğrudur da, ama incelemeyi orada bitirir. Aksiyon "ilgili personel uyarıldı" ya da "daha dikkatli olunacak" olur; sistemde hiçbir şey değişmez ve aynı tuzak bir sonraki kişiyi bekler. CAIB da NASA'nın sorunlarının yalnızca emeklilikler, istifalar ya da görev değişiklikleriyle çözülemeyeceğini yazmıştı.
+Bir olay incelemesinin en kolay cevabı "insan hatası"dır. Kalibrasyon tarihini kaçıran, yanlış komutu çalıştıran biri hep vardır. Cevap çoğu zaman doğrudur da, ama incelemeyi orada bitirir ve dersi en uçucu yere, bir kişinin dikkatine yazar: "İlgili personel uyarıldı."
 
-Sidney Dekker'in insan hatası üzerine çalışmalarının çıkış noktası, hatanın sebep değil, sistemin derinlerindeki bir sorunun belirtisi olduğudur. Bu bakışta insan hatası, incelemenin vardığı sonuç değil, başladığı yerdir. Sorulması gereken, o kişinin o an elindeki bilgiyle bu kararı neden makul bulduğudur. Gece yarısı alarmla uyanan nöbetçi mühendis yanlış sunucuyu yeniden başlatır ve raporda "dikkatsizlik" yazar. Oysa iki sunucunun adı tek harfle ayrılıyordur ve izleme ekranı ikisini yan yana, aynı renkte gösteriyordur. Olay bittikten sonra her şey açık görünür; sonucu bilen birinin, bilmeyen birini yargılaması kolaydır. Psikolojide buna sonradan görme yanlılığı (*hindsight bias*) denir.
+Sidney Dekker'in insan hatası üzerine çalışmalarının çıkış noktası, insan hatasının incelemenin vardığı sonuç değil, başladığı yer olduğudur. Sorulması gereken, o kişinin o an elindeki bilgiyle bu kararı neden makul bulduğudur. Gece yarısı alarmla uyanan nöbetçi mühendis yanlış sunucuyu yeniden başlatır ve raporda "dikkatsizlik" yazar. Oysa iki sunucunun adı tek harfle ayrılıyordur ve izleme ekranı ikisini yan yana, aynı renkte gösteriyordur. Olay bittikten sonra her şey açık görünür; sonucu bilen birinin, bilmeyen birini yargılaması kolaydır.
 
 ### Hatayı söylemek pahalı
 
-Amy Edmondson 1990'larda iki hastanede ilaç uygulama hatalarını incelerken beklemediği bir sonuçla karşılaştı: daha iyi yönetilen, ekip içi ilişkileri daha güçlü servisler daha fazla hata kaydediyordu. Sebep, bu ekiplerin daha çok hata yapması değil, hatayı söylemekten çekinmemesiydi. Diğer servislerde de hatalar oluyordu ama sessizce düzeltiliyor, kayda geçmiyordu. Edmondson bu farkı sonraki çalışmalarında *psikolojik güvenlik* kavramıyla açıkladı.
+Amy Edmondson 1990'larda iki hastanede ilaç uygulama hatalarını incelerken beklemediği bir sonuçla karşılaştı: daha iyi yönetilen, ekip içi ilişkileri daha güçlü servisler daha fazla hata kaydediyordu. Bu ekipler daha çok hata yapmıyor, hatayı söylemekten çekinmiyordu. Diğer servislerde de hatalar oluyordu ama sessizce düzeltiliyor, kayda geçmiyordu.
 
-Mühendislik ekiplerinde de aynısı olur. "Sıfır olay" bir performans hedefine dönüştüğünde olaylar değil, olay kayıtları azalır. Küçük aksaklıklar el altından düzeltilir, ramak kala durumlar hiç konuşulmaz.
-
-Havacılık bu sorunu kurumsal olarak ele alan sektörlerin başında gelir. ICAO'nun kaza ve olay incelemesini düzenleyen Ek 13'üne göre incelemenin tek amacı yeni kaza ve olayları önlemektir; suç ya da sorumluluk paylaştırmak bu faaliyetin amacı değildir. ABD'de FAA ile NASA'nın 1976'dan beri birlikte yürüttüğü Havacılık Emniyeti Raporlama Sistemi (ASRS) de pilotların, kontrolörlerin ve bakım personelinin yaşadıkları olayları gizlilik içinde ve cezalandırılma korkusu olmadan bildirebildiği gönüllü bir sistemdir.
-
-Raporlama sistemi ne kadar iyi olursa olsun, bedelin bir kısmı içimizdedir. Sosyal psikologlar Carol Tavris ve Elliot Aronson, insanların hatalarını kabul etmek yerine geçmiş kararlarını haklı çıkarmaya ne kadar yatkın olduğunu bilişsel çelişki (*cognitive dissonance*) üzerinden anlatır: "yetkin biriyim" inancı ile "yanlış karar verdim" bilgisi yan yana durmakta zorlanır ve çoğu zaman feda edilen, bilgi olur. Bir kararı ne kadar uzun ve ne kadar açık savunmuşsak, ondan dönmek de o kadar zorlaşır.
+Mühendislik ekiplerinde de aynısı olur. "Sıfır olay" bir performans hedefine dönüştüğünde olaylar değil, olay kayıtları azalır; kayda geçmeyen bir olaydan da ders çıkmaz. Havacılık bunu kurala bağlamıştır: ICAO'nun Ek 13'üne göre kaza incelemesinin tek amacı yeni kazaları önlemektir, suç ya da sorumluluk paylaştırmak değildir. Pilotlar ve kontrolörler de yaşadıkları olayları NASA'nın yürüttüğü ASRS'ye gizlilik içinde ve cezalandırılma korkusu olmadan bildirebilir.
 
 ### Sapma normalleşiyor
 
-Columbia'yı düşüren köpük kopması yeni bir şey değildi. Önceki uçuşlarda defalarca görülmüş, zamanla uçuş emniyetini değil bakım işlerini ilgilendiren olağan bir sorun sayılmaya başlanmıştı; sorunsuz biten her uçuş, köpüğün tehlikesiz olduğunun bir kanıtı gibi okunuyordu. Challenger'da katı yakıtlı roket iticilerinin contalarındaki (O-ring) aşınma da aynı yoldan geçmişti: önce beklenmeyen bir bulgu, sonra kabul edilen bir risk, sonra olağan bir durum. Sosyolog Diane Vaughan buna **sapmanın normalleşmesi** (*normalization of deviance*) adını verir.
+1 Şubat 2003'te Columbia uzay mekiği atmosfere dönüşte parçalandı ve yedi astronot hayatını kaybetti. Kalkışta dış yakıt tankından kopan bir köpük parçası, sol kanadın ön kenarındaki ısı koruma panellerini delmişti. Köpük kopması yeni değildi: önceki uçuşlarda defalarca görülmüş ve sorunsuz biten her uçuş, köpüğün tehlikesiz olduğunun kanıtı gibi okunmuştu. Kaza İnceleme Kurulu (CAIB), 17 yıl önceki Challenger kazasına yol açan kurumsal nedenlerin aradaki bütün değişikliklere rağmen düzeltilmediği sonucuna vardı. Challenger'da contalardaki (O-ring) aşınma da aynı yoldan geçmişti: önce beklenmeyen bir bulgu, sonra kabul edilen bir risk, sonra olağan bir durum. Sosyolog Diane Vaughan buna **sapmanın normalleşmesi** (*normalization of deviance*) adını verir.
 
-Robin Dillon ve Catherine Tinsley'nin deneyleri, aynı eğilimin bireysel kararlarda da işlediğini gösterir: şans sayesinde kötü bitmeyen bir olay (*near miss*) uyarı olarak değil, sistemin sağlam olduğunun işareti olarak algılanır ve insanlar ardından daha riskli seçeneklere yönelir.
-
-Yazılım ekiplerinde bu süreç daha sessiz işler. Bir test ara sıra kırmızı olur, yeniden çalıştırınca geçer; birkaç hafta sonra herkes onu yeniden çalıştırmaya alışmıştır. Derleyici uyarıları önce on, sonra yüz, sonra bin olur. İzleme sistemindeki bir alarm her gece çalar ve susturulur. Her biri tek başına makul bir karardır, ama sonunda gerçek bir arızanın sinyali gürültünün içinde kaybolur.
+Yazılım ekiplerinde bu süreç daha sessiz işler. Bir test ara sıra kırmızı olur, yeniden çalıştırınca geçer; birkaç hafta sonra herkes onu yeniden çalıştırmaya alışmıştır. Derleyici uyarıları önce on, sonra yüz, sonra bin olur. İzleme sistemindeki bir alarm her gece çalar ve susturulur. Her biri tek başına makul bir karardır, ama sonunda gerçek bir arızanın sinyali gürültünün içinde kaybolur. Sisteme taşınmış dersler de bu yolla aşınabilir.
 
 Bir sapmanın normalleşip normalleşmediğini anlamak için şu soru yeterlidir: Bunu ilk gördüğümüzde ne yapardık? İlk kez kırmızı olan bir test için hata kaydı açılırdı. Bugün aynı test için kimse kayıt açmıyorsa, kabul eşiği kaymış demektir.
-
-### Ders belgede kalıyor
-
-Çoğu kurumun bir "çıkarılan dersler" arşivi vardır ve bu arşivler pek okunmaz. ABD Sayıştayı (GAO) 2002'de NASA'yı incelediğinde, ajansın program ve proje yöneticilerinin derslerini düzenli olarak toplamadığını ve paylaşmadığını, dolayısıyla derslerin sonraki görevlerde uygulandığından emin olamadığını raporladı.
-
-Daha temel bir sorun da var: belge hiçbir şeyi zorlamaz. Girişteki ekibin dersi bir takvim hatırlatmasında yaşıyordu ve hatırlatmanın sahibiyle birlikte gitti. Ekipler dağılır, insanlar ayrılır, klasörler taşınır. Bir dersin ayakta kalması için onu bilen birine ihtiyaç duymadan çalışan bir şeye dönüşmesi gerekir: bir teste, bir kontrole, bir tasarım kuralına. [Kalite Güvence ve Kalite Kontrol]({% post_url 2026-10-01-kalite-guvence-ve-kalite-kontrol %}) yazısındaki sayaç taşması örneğinde de dersi kalıcı kılan şey rapor değil, test ortamında ve kodlama standardında yapılan değişiklikti.
 
 ### Acil olan önemliyi yiyor
 
@@ -76,37 +64,39 @@ flowchart TD
     style K fill:#fdf1d8,stroke:#b7791f,stroke-width:2px
 </div>
 
-Olay sonrası aksiyon maddeleri bu döngünün ilk kurbanıdır. Toplantıda herkes hemfikirdir, maddeler yazılır, sahipleri atanır. Sonra sürüm takvimi bastırır ve maddeler hiçbir planlamaya giremez. Aksiyonlar reddedilmez; yalnızca her seferinde daha acil bir işin arkasında kalır.
+Olay aksiyonları bu döngünün ilk kurbanıdır: kimse onları reddetmez, yalnızca her seferinde daha acil bir işin arkasında kalırlar. Teslim tarihini belirleyen yönetim baskıyı sürdürdükçe, orta kademedeki bir ekibin döngüyü kendi başına kırması zordur. Yine de ekibin elinde üç kaldıraç vardır:
+
+- **Kapasiteyi bir kez pazarlık edin.** Her aksiyon için ayrı ayrı izin istemek yerine, her iterasyonun küçük ama sabit bir payını olay aksiyonlarına ayırmayı yönetimle bir kez kararlaştırın. Önemli olan payın büyüklüğü değil, her sprintte yeniden tartışılmamasıdır.
+- **Bedeli yönetimin diliyle yazın.** Girişteki olayın bedeli ertelenen kabul testi, tekrarlanan ölçümler ve müşteriye yazılan açıklamadır. Test yazılımına eklenecek kalibrasyon kontrolü ise birkaç günlük iştir. İki rakam yan yana konduğunda karar çoğu zaman kolaylaşır.
+- **Ertelemeyi açık bir karar hâline getirin.** Önceliklendirilmeyen bir aksiyon sessizce beklemez; "kabul edilen risk" olarak, erteleme kararını veren yöneticinin adıyla kapatılır. Böylece risk, teslim tarihini belirleyen seviyede sahiplenilir.
 
 ---
 
 ## Ders Nasıl Kalıcı Olur?
 
-Havacılığın en bilinen hikâyelerinden biri bu soruya iyi bir cevap verir. 30 Ekim 1935'te Boeing'in yeni bombardıman uçağı prototipi Model 299, ABD Ordu Hava Birliği'nin değerlendirme uçuşunda kalkıştan hemen sonra dikleşip düştü. Uçağı deneyimli test pilotu Binbaşı Ployer Hill kullanıyordu; Boeing'in baş test pilotu Leslie Tower da kokpitteydi. Sebep, kumanda yüzeylerini yerde sabitleyen kilidin açılmamış olmasıydı. Bundan çıkan ders "pilotlar daha dikkatli olsun" olmadı. Test pilotları taksi, kalkış ve iniş için kısa bir kontrol listesi hazırladı; uçağın pilot hafızasına bırakılamayacak kadar karmaşık olduğu kabul edildi.
+Bir aksiyonun ne kadar kalıcı olduğu, insan hafızasına ve dikkatine ne kadar az dayandığıyla ilgilidir. Sağlık sektöründe kök neden analizi için geliştirilen RCA² yaklaşımı da aksiyonları bu ölçüte göre sıralar: eğitim, uyarı ve yeni prosedür gibi insana dayanan aksiyonlar zayıf; kontrol listeleri orta; hatayı zorlayan ya da imkânsız kılan tasarım değişiklikleri güçlüdür. Girişteki olaya uygulanınca:
 
-Bir aksiyonun ne kadar kalıcı olduğu, insan hafızasına ve dikkatine ne kadar az dayandığıyla ilgilidir. Sağlık sektöründe kök neden analizleri için geliştirilen RCA² yaklaşımı bunu bir aksiyon hiyerarşisine dönüştürür: eğitim ve yeni prosedür gibi insana dayanan aksiyonlar zayıf, kontrol listesi gibi bilişsel yardımcılar orta, hatayı zorlayan ya da imkânsız kılan tasarım değişiklikleri (*forcing function*) güçlü sayılır. Yazılıma uyarlanınca tablo şöyle görünür:
-
-| Güç | Aksiyon türü | Girişteki kalibrasyon olayında |
+| Dersin yeri | Kalibrasyon olayında | Kalıcılığı |
 |---|---|---|
-| **Zayıf** | Eğitim, uyarı e-postası, yeni prosedür, "daha dikkatli olunacak" | "Kalibrasyon bitiş tarihleri takvime eklenecek." |
-| **Orta** | Kontrol listesi, şablon, otomatik izleme ve alarm | Test hazırlık kontrol listesinde "kalibrasyonlar geçerli mi?" maddesi; bitişe 60 gün kala envanter sisteminden gelen uyarı |
-| **Güçlü** | Otomasyon, süreci basitleştirmek, hatayı imkânsız kılan kontrol | Cihazın kalibrasyon durumunu envanterden okuyan ve süresi dolmuş cihazla teste başlamayan test yazılımı |
+| **Hafıza** | "Kalibrasyon tarihleri takvime eklenecek." | Kişiyle birlikte gider |
+| **Belge** | Kalibrasyon prosedürüne yeni bir madde | Okunursa işe yarar |
+| **Kontrol listesi, uyarı** | Test öncesi "kalibrasyonlar geçerli mi?" maddesi; bitişe 60 gün kala uyarı | İşin içindedir, ama atlanabilir |
+| **Sistem** | Süresi dolmuş cihazla teste başlamayan test yazılımı | Kimse hatırlamasa da çalışır |
 
-Zayıf aksiyonlar işe yaramaz değildir; tek başlarına bırakıldıklarında kalıcı olmazlar. RCA² bu yüzden her incelemenin en az bir orta ya da güçlü aksiyonla sonuçlanmasını önerir. Yazılımda güçlü aksiyonun en tanıdık örneği basittir: düzeltilen her hata, onu bir daha yakalayacak otomatik bir testle kapanır ve test kırıldığında değişiklik birleştirilemez.
+Bu tablo "daha çok kural koyun" demek değildir. İyi bir sistem kontrolü yeni bir onay adımı eklemez; insanların hatırlamak zorunda olduğu bir adımı ortadan kaldırır. Test yazılımı kalibrasyonu kendisi kontrol ettiğinde, takvimdeki hatırlatma da kontrol listesindeki madde de gereksizleşir. RCA² de süreci basitleştirmeyi güçlü aksiyonlar arasında sayar. Ama sistemin de bakımı vardır: yanlış alarm üreten bir kontrol bir süre sonra atlatılmaya başlanır ve sapmanın normalleşmesi kendi kurduğumuz bariyerden geri döner. Her otomatik kontrolün de bir sahibi olmalı, işe yaramayanlar düzenli olarak kaldırılmalıdır.
 
-Güçlü aksiyon, daha çok kural demek değildir. Her olaydan sonra bir onay adımı ya da yeni bir prosedür eklenen süreç zamanla ağırlaşır; insanlar kuralların etrafından dolaşmaya başlar ve sapmanın normalleşmesi başka bir kapıdan geri gelir. RCA² hiyerarşisinde süreci basitleştirmek de güçlü aksiyonlar arasında sayılır.
+Her ders bu kadar güçlü bir aksiyon gerektirmez. Bu yazıdaki örneklerin çoğu emniyet kritik dünyadan geliyor; bir web uygulamasında hızlı denemek, ölçmek ve gerekirse geri almak çoğu zaman doğru stratejidir. Ama "hızlı hata yap" ilkesi yeni hatalar içindir; aynı hatayı her çeyrekte yeniden yapmak hız değil, kayıptır. Bir ders için ne kadar güçlü bir aksiyon gerektiğini iki soru belirler: Hata tekrar ederse ne kaybederiz? Fark edip geri almak ne kadar sürer? Müşteri kabul testinden önce kalibrasyonu dolan bir cihazda iki cevap da ağırdır. Dahili bir panodaki yazım hatası için hafif bir aksiyon yeter.
 
 ---
 
 ## Bir Ekip İçin Başlangıç
 
-- **"Sorumlu kişi"yi çıkarın, "aksiyon sahibi"ni bırakın.** Olay şablonunda hatayı yapan kişiyi soran alanın yerine "o an elde olan bilgi" ve "karar noktaları" alanlarını koyun. Ama suçlamasız inceleme, sahipsiz aksiyon demek değildir: her aksiyonun, kapanana kadar takip edecek bir sahibi ve bir hedef tarihi olsun. Bu kişi çoğu zaman olayı yaşayan değil, ilgili süreci ya da sistemi yöneten kişidir.
-- **Her aksiyonun gücünü yazın.** Aksiyon listesinde her maddenin yanında zayıf, orta ya da güçlü yazsın. Yalnızca zayıf aksiyonlarla biten bir inceleme kapanmış sayılmasın.
-- **Aksiyonları normal işin içine koyun.** Olay aksiyonları ayrı bir belgede değil, ekibin iş takip sisteminde diğer işlerle birlikte yaşasın. "Tamamlandı" demek için kanıt isteyin: ilgili commit'in, testin ya da kontrolün bağlantısı.
-- **Tekrarı ayrı bir olay sayın.** Her incelemede "bu daha önce yaşandı mı?" diye sorun. Cevap evetse, inceleme yalnızca olayı değil, önceki incelemenin neden işe yaramadığını da konu alsın.
+- **"Sorumlu kişi"yi çıkarın, "aksiyon sahibi"ni bırakın.** Olay şablonunda hatayı yapan kişiyi soran alanın yerine "o an elde olan bilgi" ve "karar noktaları" alanlarını koyun. Suçlamasız inceleme, hesap sorulmayan inceleme demek değildir: geçmişteki hata için kimse suçlanmaz, ama her aksiyonun kapanana kadar takip edecek bir sahibi ve hedef tarihi olur. Bu kişi çoğu zaman olayı yaşayan değil, ilgili süreci ya da sistemi yöneten kişidir.
+- **Az ama güçlü aksiyon yazın.** Bir inceleme en fazla üç aksiyonla kapansın ve bunlardan en az biri orta ya da güçlü olsun; RCA² de her inceleme için en az bir orta ya da güçlü aksiyon önerir. On zayıf aksiyon, bir güçlü aksiyonun yerini tutmaz.
+- **Açık aksiyonlara tavan ve süre koyun.** Ekibin açık olay aksiyonu sayısına bir üst sınır belirleyin, örneğin on. Sınır doluyken yeni bir aksiyon ancak eskisi kapanarak ya da açıkça ertelenerek eklenebilir. Altmış gün içinde başlanmayan aksiyon kendiliğinden yönetime çıkar: ya önceliği yükselir ya da kabul edilen risk olarak kapanır.
+- **"Tamamlandı" için kanıt isteyin.** Bir aksiyon, ilgili değişikliğin, testin ya da kontrolün bağlantısı olmadan kapanmasın.
+- **Tekrarı ayrı bir olay sayın.** Her incelemede "bu daha önce yaşandı mı?" diye sorun. Cevap evetse, inceleme önceki incelemenin neden işe yaramadığını da konu alsın.
 - **Bildirmeyi ucuzlatın.** Kısa bir form, suçlamasız bir dil ve ramak kala olaylar için de aynı kanal yeterlidir. Bildirim sayısının artması kötü haber sayılmasın.
-- **Olay raporlarını ekip dışına açın.** Bir ekibin yaşadığı olay, aynı altyapıyı kullanan başka bir ekibin henüz yaşamadığı olaydır. Raporları kolay bulunur bir yerde ve herkesin okuyabileceği bir dille paylaşın.
-- **Eski olayları yeni projeye taşıyın.** Yeni bir projenin başlangıç toplantısına, benzer projelerin olay raporlarından seçilmiş kısa bir liste koyun. Kimse arşive gitmiyorsa, arşivi toplantıya getirin.
 
 ---
 
@@ -116,10 +106,10 @@ Bu önerilerin işe yarayıp yaramadığını birkaç basit sayı gösterir:
 
 | Metrik | Nasıl hesaplanır | Sağlıklı eğilim |
 |---|---|---|
-| **Tekrarlayan olay oranı** | Dönemdeki olaylardan kök nedeni daha önceki bir olayınkiyle aynı olanların yüzdesi. Her incelemede sorulan "bu daha önce yaşandı mı?" sorusunun cevaplarından çıkar. | Düşer |
-| **Aksiyon güç dağılımı** | Kapatılan aksiyonların yüzde kaçının zayıf, orta ya da güçlü olduğu. Aksiyonlara yazılan güç etiketlerinden çıkar. | Orta ve güçlü aksiyonların payı artar |
-| **Gecikmiş aksiyon oranı** | Açık aksiyonlardan hedef tarihini geçmiş olanların yüzdesi | Düşer |
-| **Ramak kala bildirim oranı** | Gerçekleşen her olaya karşılık gelen ramak kala bildirimi sayısı | Artar |
+| **Tekrarlayan olay oranı** | Kök nedeni daha önceki bir olayla aynı olan olayların yüzdesi | Düşer |
+| **Aksiyon güç dağılımı** | Kapanan aksiyonların zayıf, orta ve güçlü payları | Orta ve güçlünün payı artar |
+| **Gecikmiş aksiyon oranı** | Hedef tarihini geçmiş açık aksiyonların yüzdesi | Düşer |
+| **Ramak kala bildirim oranı** | Olay başına ramak kala bildirimi sayısı | Artar |
 
 Tek bir değerden çok eğilim önemlidir; çeyrekten çeyreğe bakmak yeterlidir. Bu sayılar ekibin kendine tuttuğu bir aynadır. Kişilere hedef olarak verildiklerinde aynı kök neden farklı kelimelerle yazılmaya, aksiyonlar da olduklarından güçlü etiketlenmeye başlar.
 
@@ -127,7 +117,7 @@ Tek bir değerden çok eğilim önemlidir; çeyrekten çeyreğe bakmak yeterlidi
 
 ## Sonuç
 
-Akıllanmamak çoğu zaman bir zekâ ya da dikkat sorunu değil. Ekipler hatalarını görür, tartışır ve çoğu zaman doğru dersi de bulur. Kaybolan şey, dersin rapordan sisteme geçtiği adımdır.
+Akıllanmamak çoğu zaman bir zekâ ya da dikkat sorunu değil. Ekipler hatalarını görür, tartışır ve çoğu zaman doğru dersi de bulur. Kaybolan şey, dersin hafızadan ve belgeden sisteme taşındığı adımdır.
 
 Girişteki ekip için doğru soru "kalibrasyonu kim kaçırdı?" değildi. Doğru soru, iki yıl önceki dersin neden bir kişinin takviminde yaşadığıydı. Test yazılımı kalibrasyon süresi dolmuş bir cihazla teste başlamayı reddetseydi, o takvime hiç gerek kalmazdı.
 
@@ -139,11 +129,8 @@ Girişteki ekip için doğru soru "kalibrasyonu kim kaçırdı?" değildi. Doğr
 - Diane Vaughan — *The Challenger Launch Decision: Risky Technology, Culture, and Deviance at NASA* (University of Chicago Press, 1996).
 - Sidney Dekker — *The Field Guide to Understanding 'Human Error'* (3. baskı, Ashgate, 2014).
 - Amy C. Edmondson — "Learning from Mistakes Is Easier Said Than Done", *Journal of Applied Behavioral Science* 32(1), 1996.
-- Carol Tavris, Elliot Aronson — *Mistakes Were Made (But Not by Me)* (Harcourt, 2007).
-- Robin L. Dillon, Catherine H. Tinsley — "How Near-Misses Influence Decision Making Under Risk: A Missed Opportunity for Learning", *Management Science* 54(8), 2008.
 - ICAO — *Annex 13: Aircraft Accident and Incident Investigation*, bölüm 3.1.
 - NASA — [Aviation Safety Reporting System (ASRS)](https://asrs.arc.nasa.gov/).
-- GAO — [*NASA: Better Mechanisms Needed for Sharing Lessons Learned*, GAO-02-195 (2002)](https://www.gao.gov/products/gao-02-195).
 - Nelson P. Repenning, John D. Sterman — "Nobody Ever Gets Credit for Fixing Problems that Never Happened", *California Management Review* 43(4), 2001.
 - National Patient Safety Foundation — *RCA²: Improving Root Cause Analyses and Actions to Prevent Harm* (2015).
 - NATO JALLC — *The NATO Lessons Learned Handbook* (3. baskı, 2016).
