@@ -6,8 +6,10 @@
 <!-- Content Security Policy: defense-in-depth against supply-chain script
      injection (e.g. the polyfill.io attack). script-src is an explicit
      allowlist of the CDNs this site actually uses, so any unlisted external
-     script (such as polyfill.io) is blocked by the browser. -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://cdn.plot.ly https://plausible.io https://js.sentry-cdn.com https://browser.sentry-cdn.com https://giscus.app; style-src 'self' 'unsafe-inline' https://giscus.app; font-src 'self' data: https://cdn.jsdelivr.net; img-src 'self' data: https:; connect-src 'self' https://plausible.io https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://www.google.com https://*.sentry.io; frame-src 'self' https://giscus.app https://www.youtube.com https://www.youtube-nocookie.com; worker-src 'self' blob:; manifest-src 'self'; form-action 'self' https://formspree.io">
+     script (such as polyfill.io) is blocked by the browser. connect-src
+     allows jsDelivr because MathJax 4's speech worker fetches its locale
+     maps (sre/mathmaps/*.json) from there for screen-reader output. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://cdn.plot.ly https://plausible.io https://js.sentry-cdn.com https://browser.sentry-cdn.com https://giscus.app; style-src 'self' 'unsafe-inline' https://giscus.app; font-src 'self' data: https://cdn.jsdelivr.net; img-src 'self' data: https:; connect-src 'self' https://cdn.jsdelivr.net https://plausible.io https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://www.google.com https://*.sentry.io; frame-src 'self' https://giscus.app https://www.youtube.com https://www.youtube-nocookie.com; worker-src 'self' blob:; manifest-src 'self'; form-action 'self' https://formspree.io">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="/favicon.ico" rel="shortcut icon" sizes="36x36 24x24 16x16" type="image/x-icon">
 <link href="/favicon.png" rel="icon" sizes="196x196" type="image/png">
@@ -207,7 +209,7 @@
 </aside>
 
           <div class="post-content">
-            <script src="https://cdn.plot.ly/plotly-basic-2.27.0.min.js"></script>
+            <script src="https://cdn.plot.ly/plotly-basic-4.1.1.min.js" integrity="sha512-orZ6OgVLrRp8vSfEJ9XXGswEzLgmW4nqH1ja1cWJRPqwAkyU0GcrM42aDvIcJjrK9EmGWyVZ3tpMmHXbCrrIaA==" crossorigin="anonymous"></script>
 
 <p>Akreditasyon denetimi sabahı. Denetçi elinde bir kalem, masanızdaki Keysight 34465A multimetreyi gösteriyor.</p>
 
@@ -497,8 +499,8 @@ flowchart TB
   }];
   var layout = {
     title: { text: 'Sezyum/optik atom saatlerinin doğruluğu (1955–2024)', font: { size: 14 } },
-    xaxis: { title: 'Yıl' },
-    yaxis: { title: 'Bağıl belirsizlik (log eksen)', type: 'log', autorange: true },
+    xaxis: { title: { text: 'Yıl' } },
+    yaxis: { title: { text: 'Bağıl belirsizlik (log eksen)' }, type: 'log', autorange: true },
     margin: { l: 80, r: 30, t: 50, b: 50 },
     plot_bgcolor: '#ffffff',
     paper_bgcolor: '#ffffff'
@@ -685,7 +687,7 @@ R_K = 25 812,807 45 Ω  (tam değer, h ve e tam olduğundan)
   }];
   var layout = {
     title: { text: '7 SI temel biriminin en iyi gerçekleme belirsizlikleri (bağıl, log eksen)', font: { size: 14 } },
-    xaxis: { title: 'Bağıl belirsizlik (log eksen)', type: 'log', autorange: true },
+    xaxis: { title: { text: 'Bağıl belirsizlik (log eksen)' }, type: 'log', autorange: true },
     yaxis: { autorange: 'reversed' },
     margin: { l: 280, r: 30, t: 50, b: 60 },
     plot_bgcolor: '#ffffff',
@@ -924,7 +926,7 @@ flowchart TB
   }];
   var layout = {
     title: { text: '10 V için Beklenen Belirsizlik (zincirin her seviyesinde)', font: { size: 14 } },
-    xaxis: { title: 'Genişletilmiş belirsizlik U (µV) — log eksen', type: 'log' },
+    xaxis: { title: { text: 'Genişletilmiş belirsizlik U (µV) — log eksen' }, type: 'log' },
     yaxis: { autorange: 'reversed' },
     margin: { l: 280, r: 30, t: 50, b: 60 },
     plot_bgcolor: '#ffffff',

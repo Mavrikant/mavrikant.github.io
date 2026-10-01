@@ -27,7 +27,7 @@ This is the personal blog of **M. Serdar Karaman**, hosted at <https://karaman.d
 │   ├── default.html         # Base layout (head/navbar/footer/scripts)
 │   ├── home.html            # Homepage layout
 │   ├── page.html            # Static page layout
-│   └── post.html            # Blog post layout (includes Disqus)
+│   └── post.html            # Blog post layout (includes giscus comments)
 ├── _includes/               # Reusable partials
 │   ├── head.html            # <head> with SEO, fonts
 │   ├── navbar.html
@@ -42,7 +42,7 @@ This is the personal blog of **M. Serdar Karaman**, hosted at <https://karaman.d
 │   ├── main.scss            # Sass entry point, compiled to main.css
 │   ├── codehighlights.css
 │   ├── scripts.js
-│   └── vendor/              # Bootstrap, jQuery, Font Awesome, etc.
+│   └── vendor/              # Bootstrap 4.6.2 SCSS + Clean Blog theme SCSS
 ├── img/
 │   ├── bg-*.webp             # Page header backgrounds
 │   ├── me-animated.gif
@@ -62,9 +62,11 @@ This is the personal blog of **M. Serdar Karaman**, hosted at <https://karaman.d
 - **Theme:** [Start Bootstrap Clean Blog Jekyll](https://startbootstrap.com/themes/clean-blog-jekyll/) (forked/vendored)
 - **Markdown:** kramdown
 - **Sass:** compressed output
-- **Frontend:** Bootstrap 4.6, jQuery 3.6, Font Awesome 5.15, Google Fonts (Lora, Open Sans)
+- **Frontend:** Bootstrap 4.6.2 (vendored SCSS only; no jQuery/Bootstrap JS — `assets/scripts.js` is vanilla JS), self-hosted fonts in `assets/fonts/` (Inter, Source Serif 4, JetBrains Mono)
 - **Diagrams:** Mermaid.js 12.0.0 (loaded on demand from jsDelivr by `initMermaid()` in `assets/scripts.js`, classic dagre layout)
-- **Comments:** Disqus (shortname `karaman-dev`, embedded in `_layouts/post.html`)
+- **Math:** MathJax 4 from jsDelivr, injected by `jekyll-spaceship` only on pages containing math (URL set under `jekyll-spaceship` in `_config.yml`)
+- **Charts:** Plotly.js 4.1.1 basic bundle from `cdn.plot.ly`, included per post with an SRI `integrity` hash (axis titles must use `title: { text: '…' }`; string titles were dropped in Plotly 3)
+- **Comments:** giscus (GitHub Discussions; `_includes/comments-giscus.html`, configured under `giscus:` in `_config.yml`)
 - **Analytics:** Google Analytics (`G-YDEV31NZ5J`)
 
 ### Jekyll plugins (from `_config.yml` / `Gemfile`)
@@ -103,7 +105,7 @@ Output goes to `_site/` (gitignored).
 
 Deployment is automated via GitHub Actions:
 
-- `.github/workflows/build-jekyll.yml` — on push to `master`, builds with `ruby/setup-ruby@v1` (Ruby 3.4, Bundler cached) and publishes to the `gh-pages` branch via `peaceiris/actions-gh-pages@v4`. ImageMagick (with the WebP delegate) is installed as a pre-build dependency.
+- `.github/workflows/build-jekyll.yml` — on push to `master`, builds with `ruby/setup-ruby@v1` (Ruby 4.0, Bundler cached) and publishes to the `gh-pages` branch via `peaceiris/actions-gh-pages@v4`. ImageMagick (with the WebP delegate) is installed as a pre-build dependency.
 
 Other workflows:
 
@@ -160,14 +162,15 @@ Notes:
 4. **Theme origin:** `package.json` and `jekyll-theme-clean-blog.gemspec` come from the upstream Start Bootstrap theme and are kept largely unchanged. Primary customization happens in `_includes/`, `_layouts/`, `_sass/styles.scss`, and `assets/main.scss`.
 5. **Styling:** Edit `_sass/styles.scss` (imported by `assets/main.scss`) rather than writing inline CSS. Sass `style: compressed` is configured in `_config.yml`.
 6. **Head customizations** (analytics tags, third-party scripts, fonts) go in `_includes/head.html` or `_includes/scripts.html`.
-7. **Disqus** is embedded directly in `_layouts/post.html` with the shortname `karaman-dev`.
+7. **Comments** use giscus, included from `_layouts/post.html` via `_includes/comments-giscus.html`.
 8. **URL structure:** `baseurl: "/"` and `url: "https://karaman.dev"`. Posts are served at `/YYYY/MM/DD/slug.html` (Jekyll default); the paginated index is at `/posts/page:num/`.
 
 ## Dependencies to Keep in Mind
 
-- **Ruby ~3.2** and **Bundler ~2.5** (matches the deploy action).
+- **Ruby 4.0** with the Bundler it ships (4.x) in CI; Ruby 3.3+ also builds locally. `benchmark` and `ostruct` are listed in the `Gemfile` because Ruby 4.0 no longer ships them as default gems (needed by `mini_magick`/`jekyll-favicon` and `jekyll-spaceship`).
 - **ImageMagick** is installed in CI by `pre_build_commands`; it may be needed locally if `jekyll-favicon` processes `favicon.jpg`.
-- External CDN-loaded assets (Mermaid, Font Awesome, Google Fonts) require outbound HTTP at build time only for remote references; the site itself loads them at runtime.
+- External CDN-loaded assets (Mermaid, MathJax, Plotly, giscus) are loaded by the browser at runtime, not at build time.
+- The Content-Security-Policy `<meta>` in `_includes/head.html` allowlists every external host. Update it whenever a CDN dependency is added or changed (e.g. MathJax 4's speech worker needs `https://cdn.jsdelivr.net` in `connect-src`).
 
 ## Common Tasks — Cheatsheet for AI Assistants
 

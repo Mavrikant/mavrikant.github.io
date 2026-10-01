@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="tr"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://karaman.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://karaman.dev/" rel="alternate" type="text/html" hreflang="tr" /><updated>2026-10-01T22:40:54+00:00</updated><id>https://karaman.dev/feed.xml</id><title type="html">M. Serdar Karaman</title><subtitle>Aviyonik yazılım, DO-178C ve emniyet kritik mühendislik üzerine sahadan notlar.</subtitle><author><name>M. Serdar Karaman</name></author><entry xml:lang="tr"><title type="html">INCOSE CSEP: Sınavdan Sertifikaya Bir Yol Haritası</title><link href="https://karaman.dev/2026/10/01/incose-csep-sertifikasyonu-yolculugum.html" rel="alternate" type="text/html" title="INCOSE CSEP: Sınavdan Sertifikaya Bir Yol Haritası" /><published>2026-10-01T22:21:00+00:00</published><updated>2026-10-01T22:21:00+00:00</updated><id>https://karaman.dev/2026/10/01/incose-csep-sertifikasyonu-yolculugum</id><content type="html" xml:base="https://karaman.dev/2026/10/01/incose-csep-sertifikasyonu-yolculugum.html"><![CDATA[<p>Altmış ay deneyim, en az üç farklı alanda on ikişer ay, referanslarca doğrulanmış bir deneyim dosyası ve 100 puanlanan soruluk bir sınav. INCOSE <strong>CSEP</strong> (Certified Systems Engineering Professional) sertifikasyonunun şartları kabaca bunlar. Benim dosyamda bunlara ek olarak sekiz referans vardı; cebimden çıkan da 610 USD ile 1.000 TL oldu.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="tr"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://karaman.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://karaman.dev/" rel="alternate" type="text/html" hreflang="tr" /><updated>2026-10-01T23:03:04+00:00</updated><id>https://karaman.dev/feed.xml</id><title type="html">M. Serdar Karaman</title><subtitle>Aviyonik yazılım, DO-178C ve emniyet kritik mühendislik üzerine sahadan notlar.</subtitle><author><name>M. Serdar Karaman</name></author><entry xml:lang="tr"><title type="html">INCOSE CSEP: Sınavdan Sertifikaya Bir Yol Haritası</title><link href="https://karaman.dev/2026/10/01/incose-csep-sertifikasyonu-yolculugum.html" rel="alternate" type="text/html" title="INCOSE CSEP: Sınavdan Sertifikaya Bir Yol Haritası" /><published>2026-10-01T22:21:00+00:00</published><updated>2026-10-01T22:21:00+00:00</updated><id>https://karaman.dev/2026/10/01/incose-csep-sertifikasyonu-yolculugum</id><content type="html" xml:base="https://karaman.dev/2026/10/01/incose-csep-sertifikasyonu-yolculugum.html"><![CDATA[<p>Altmış ay deneyim, en az üç farklı alanda on ikişer ay, referanslarca doğrulanmış bir deneyim dosyası ve 100 puanlanan soruluk bir sınav. INCOSE <strong>CSEP</strong> (Certified Systems Engineering Professional) sertifikasyonunun şartları kabaca bunlar. Benim dosyamda bunlara ek olarak sekiz referans vardı; cebimden çıkan da 610 USD ile 1.000 TL oldu.</p>
 
 <p>12 Ağustos 2026 Çarşamba günü başvurumun onaylandığı e-posta geldiğinde, hedefi koyduğum günden bu yana yaklaşık on dokuz ay geçmişti: hedefi 2025’in ilk aylarında koymuş, altı ay hazırlanmış, sınava 10 Ocak 2026’da girmiştim. Süreç boyunca en çok zorlandığım şey de sınav olmadı; kendi deneyimimi başkasının doğrulayabileceği bir dille anlatmak oldu.</p>
 
@@ -3538,7 +3538,7 @@ machine Resume
   <li><a href="https://antmicro.com/blog/2020/06/co-simulating-rtl-with-renode/">Antmicro — Verilator ile Renode co-simülasyon</a></li>
   <li><a href="https://www.amd.com/en/products/adaptive-socs-and-fpgas/soc/zynq-7000.html">AMD/Xilinx Zynq7000 SoC ailesi</a></li>
   <li><a href="https://renode.readthedocs.io/en/latest/introduction/testing.html">Renode Robot Framework rehberi</a></li>
-</ul>]]></content><author><name>M. Serdar Karaman</name></author><category term="aviyonik" /><category term="gomulu-sistemler" /><category term="araclar" /><summary type="html"><![CDATA[Gömülü sistem geliştirmenin en yorucu yanlarından biri donanımın kendisidir. FPGA bitstream’leri saatler süren sentez işlemleri gerektirir, geliştirme kartları ekipler arasında paylaşılır, JTAG bağlantıları kopar, sahada hata ayıklamak ise çoğu zaman pratik değildir. Sürekli entegrasyon (CI) altyapısına fiziksel kart bağlamak ayrı bir mühendislik problemidir.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://karaman.dev/img/posts/renode-zynq7000-cover.webp" /><media:content medium="image" url="https://karaman.dev/img/posts/renode-zynq7000-cover.webp" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry xml:lang="tr"><title type="html">Saatçinin Saatini Kim Kalibre Eder? Kalibrasyon Zincirinin Tepesi</title><link href="https://karaman.dev/2026/05/07/kalibrasyon-zincirinin-tepesi-birincil-standartlar.html" rel="alternate" type="text/html" title="Saatçinin Saatini Kim Kalibre Eder? Kalibrasyon Zincirinin Tepesi" /><published>2026-05-07T09:00:00+00:00</published><updated>2026-05-07T09:00:00+00:00</updated><id>https://karaman.dev/2026/05/07/kalibrasyon-zincirinin-tepesi-birincil-standartlar</id><content type="html" xml:base="https://karaman.dev/2026/05/07/kalibrasyon-zincirinin-tepesi-birincil-standartlar.html"><![CDATA[<script src="https://cdn.plot.ly/plotly-basic-2.27.0.min.js"></script>
+</ul>]]></content><author><name>M. Serdar Karaman</name></author><category term="aviyonik" /><category term="gomulu-sistemler" /><category term="araclar" /><summary type="html"><![CDATA[Gömülü sistem geliştirmenin en yorucu yanlarından biri donanımın kendisidir. FPGA bitstream’leri saatler süren sentez işlemleri gerektirir, geliştirme kartları ekipler arasında paylaşılır, JTAG bağlantıları kopar, sahada hata ayıklamak ise çoğu zaman pratik değildir. Sürekli entegrasyon (CI) altyapısına fiziksel kart bağlamak ayrı bir mühendislik problemidir.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://karaman.dev/img/posts/renode-zynq7000-cover.webp" /><media:content medium="image" url="https://karaman.dev/img/posts/renode-zynq7000-cover.webp" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry xml:lang="tr"><title type="html">Saatçinin Saatini Kim Kalibre Eder? Kalibrasyon Zincirinin Tepesi</title><link href="https://karaman.dev/2026/05/07/kalibrasyon-zincirinin-tepesi-birincil-standartlar.html" rel="alternate" type="text/html" title="Saatçinin Saatini Kim Kalibre Eder? Kalibrasyon Zincirinin Tepesi" /><published>2026-05-07T09:00:00+00:00</published><updated>2026-05-07T09:00:00+00:00</updated><id>https://karaman.dev/2026/05/07/kalibrasyon-zincirinin-tepesi-birincil-standartlar</id><content type="html" xml:base="https://karaman.dev/2026/05/07/kalibrasyon-zincirinin-tepesi-birincil-standartlar.html"><![CDATA[<script src="https://cdn.plot.ly/plotly-basic-4.1.1.min.js" integrity="sha512-orZ6OgVLrRp8vSfEJ9XXGswEzLgmW4nqH1ja1cWJRPqwAkyU0GcrM42aDvIcJjrK9EmGWyVZ3tpMmHXbCrrIaA==" crossorigin="anonymous"></script>
 
 <p>Akreditasyon denetimi sabahı. Denetçi elinde bir kalem, masanızdaki Keysight 34465A multimetreyi gösteriyor.</p>
 
@@ -3828,8 +3828,8 @@ flowchart TB
   }];
   var layout = {
     title: { text: 'Sezyum/optik atom saatlerinin doğruluğu (1955–2024)', font: { size: 14 } },
-    xaxis: { title: 'Yıl' },
-    yaxis: { title: 'Bağıl belirsizlik (log eksen)', type: 'log', autorange: true },
+    xaxis: { title: { text: 'Yıl' } },
+    yaxis: { title: { text: 'Bağıl belirsizlik (log eksen)' }, type: 'log', autorange: true },
     margin: { l: 80, r: 30, t: 50, b: 50 },
     plot_bgcolor: '#ffffff',
     paper_bgcolor: '#ffffff'
@@ -4016,7 +4016,7 @@ R_K = 25 812,807 45 Ω  (tam değer, h ve e tam olduğundan)
   }];
   var layout = {
     title: { text: '7 SI temel biriminin en iyi gerçekleme belirsizlikleri (bağıl, log eksen)', font: { size: 14 } },
-    xaxis: { title: 'Bağıl belirsizlik (log eksen)', type: 'log', autorange: true },
+    xaxis: { title: { text: 'Bağıl belirsizlik (log eksen)' }, type: 'log', autorange: true },
     yaxis: { autorange: 'reversed' },
     margin: { l: 280, r: 30, t: 50, b: 60 },
     plot_bgcolor: '#ffffff',
@@ -4255,7 +4255,7 @@ flowchart TB
   }];
   var layout = {
     title: { text: '10 V için Beklenen Belirsizlik (zincirin her seviyesinde)', font: { size: 14 } },
-    xaxis: { title: 'Genişletilmiş belirsizlik U (µV) — log eksen', type: 'log' },
+    xaxis: { title: { text: 'Genişletilmiş belirsizlik U (µV) — log eksen' }, type: 'log' },
     yaxis: { autorange: 'reversed' },
     margin: { l: 280, r: 30, t: 50, b: 60 },
     plot_bgcolor: '#ffffff',
