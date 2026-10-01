@@ -39,10 +39,14 @@
 
 ## Seçildi / Devam Eden
 
+- **RAIM: GPS Alıcısı Kendi Doğruluğunu Nasıl Denetler?** —
+  dal: `post/2026-07-25-raim-gps-integrity-monitoring`,
+  dosya: `_posts/2026-07-25-raim-gps-integrity-monitoring.md`,
+  durum: PR açılıyor (bu çalıştırma, 2026-07-25) — alan: navigasyon/integrity.
 - **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
   dal: `post/2026-05-21-bandpass-sampling`,
   dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+  durum: yayında (2026-05-21) — alan: RF/DSP.
 
 ## Reddedildi (bu çalıştırma)
 
@@ -108,7 +112,42 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - [ ] DO-254 donanım sertifikasyonu (yazarın uzmanlığı ağırlıklı yazılım tarafında)
 - [ ] İzlenebilirlik matrisi (klasik konu, derinlik çıkarmak zor)
 
-## Notlar (bu çalıştırma — 2026-05-21)
+## Notlar (bu çalıştırma — 2026-07-25)
+
+- **Konu: RAIM (Receiver Autonomous Integrity Monitoring)** seçildi. Alan: navigasyon
+  / GPS integrity. Son üç yayınlanan yazı (Antikırılgan 2026-06-24, Coupling 2026-06-04,
+  Kalman 2026-06-02) alanlarından farklı; navigasyon içeriği olarak Kalman/Bandpass'in
+  doğal tamamlayıcısı ama örtüşmez — Kalman *tahmin*, RAIM *tahmine güven*.
+- **Neden PR'ları taradım ve bir konu bulmakta zorluk çektim:** repoda şu an 40+ açık
+  yeni-yazı PR'ı var (VOR, ILS, GIC, MPU/MMU, Lockstep, SEU, DO-330, DO-326A, MC/DC,
+  Object Code Coverage, WCET ×2, ARINC 653, AFDX, DO-333 abstract interpretation, Watchdog
+  ×2, deterministik build, stack, setjmp, volatile/atomic ×6, Fault Tree, CRC, MISRA
+  static, UB, endianness/1553, bit-field, priority inversion Mars Pathfinder, DMA/cache,
+  linker script, Q-format, Allan variance, sabit nokta, Kalman iraksama, Cortex-A boot,
+  memory safety, veri analitiği, gerçek zamanlı). Klasik gömülü/aviyonik/sertifikasyon
+  konu evreninin büyük kısmı zaten backlog'da. RAIM bu 40+'ın hiçbiriyle çakışmıyor.
+- **"Bu konu neden Türkçede zor bulunuyor" yanıtı:** RAIM en iyi işlendiği kaynaklar
+  Parkinson-Axelrad (1988) ve Sturza (1988) makaleleri, RTCA DO-229 ödemeli MOPS ve
+  Kaplan/Hegarty & Misra/Enge gibi İngilizce ders kitapları. Türkçede matematiksel
+  türetme + somut sayısal örnek + sertifikasyon bağlantısını birlikte veren derli toplu
+  bir kaynak yok. GPS'in "supplemental → primary" sertifikasyon geçişinin arkasındaki
+  matematik olarak çok değerli ama yaygın değil.
+- **Derinlik öğesi:** Bölüm 7 kriterinden "deneysel doğrulama / analiz" — 5 uydulu
+  somut H matrisiyle bias-injection deneyinin *hesaplanmış* SSE, protection level ve
+  slope değerleri (Python/numpy ile doğrulandı; yazıya *gerçek* sayılar konuldu, ilk
+  taslakta yanlış tahminler vardı, eleştirmen fazında düzeltildi).
+- **Yayın kapısı durumu:** Son yayınlanan yazı 2026-06-24 (Antikırılgan). Bugün
+  2026-07-25 (31 gün sonra); `min_yayin_araligi_gun = 2` şartı fazlasıyla sağlanmış.
+  40+ açık PR olsa da bu PR-only teslim akışının dışında değil; yeni PR açmak
+  otonom ajan görevine uygun. İnsan-inceleme kararı insanın.
+- **Uyarı — konu defteri bu tarihte çok stale:** "Yazıldı" listesindeki en son
+  giriş 2026-05-14 Renode, oysa master'da yayında Antikırılgan (2026-06-24), Coupling
+  (2026-06-04), Kalman (2026-06-02), Sistem Mühendisliği (2026-05-26), Bandpass
+  (2026-05-21) da mevcut. Bir sonraki çalıştırmada ledger'ın full senkronu ("Yazıldı"
+  + "Açık PR'lar" listelerinin güncellenmesi) düşünülmeli — bu çalıştırma yalnızca
+  yeni post giriflerini ekledi.
+
+## Notlar (önceki çalıştırma — 2026-05-21)
 
 - **Bandpass Sampling** seçildi (alan: RF/DSP). Önceki çalıştırmaların ardından
   açılan PR'lar son üç alt-alanı (sertifikasyon #77, navigasyon #78, yazılım
