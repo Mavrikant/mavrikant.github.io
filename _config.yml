@@ -72,10 +72,11 @@ plugins:
 # compromised polyfill.io CDN (June 2024 supply-chain attack; see Qualys
 # advisory). The plugin's default `src` array hardcodes
 # https://polyfill.io/v3/polyfill.min.js, which it adds to the <head> of every
-# page containing math. MathJax 3 needs no polyfill on any currently supported
+# page containing math. MathJax 4 needs no polyfill on any currently supported
 # browser, so we keep only the jsDelivr-hosted MathJax bundle. The array fully
 # replaces the gem default, removing the polyfill.io <script> from the build.
+# (MathJax 4 dropped the `es5/` directory; the component sits at the root.)
 jekyll-spaceship:
   mathjax-processor:
     src:
-      - https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js
+      - https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js
