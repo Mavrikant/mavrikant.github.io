@@ -10,7 +10,7 @@ categories: [muhendislik]
 tags: [metroloji]
 ---
 
-<script src="https://cdn.plot.ly/plotly-basic-2.27.0.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-basic-4.1.1.min.js" integrity="sha512-orZ6OgVLrRp8vSfEJ9XXGswEzLgmW4nqH1ja1cWJRPqwAkyU0GcrM42aDvIcJjrK9EmGWyVZ3tpMmHXbCrrIaA==" crossorigin="anonymous"></script>
 
 Test laboratuvarındaki ilk gününüz. Önünüzdeki multimetre 24,98 V gösteriyor. Test belgesi diyor ki: cihazın çıkışı 24 V ± 1 V olmalı. Yan masadaki kıdemli mühendis formun üstüne büyük harflerle "GEÇTİ" yazıyor. Doğru değer 24,98 V. Sınırın çok içinde. Tamam.
 
@@ -433,7 +433,7 @@ Aşağıdaki grafikte, yedi belirsizlik kaynağının her birinin katkısını s
   }];
   var layout = {
     title: { text: 'Voltmetre Belirsizlik Bütçesi (varyans katkısı)', font: { size: 14 } },
-    xaxis: { title: 'Varyans katkısı (µV²)' },
+    xaxis: { title: { text: 'Varyans katkısı (µV²)' } },
     yaxis: { autorange: 'reversed' },
     margin: { l: 180, r: 30, t: 50, b: 50 },
     plot_bgcolor: '#ffffff',
@@ -515,7 +515,7 @@ Hangi bileşenler en çok katkı yapıyor? Bakalım:
   }];
   var layout = {
     title: { text: 'PT100 Belirsizlik Bütçesi (varyans katkısı)', font: { size: 14 } },
-    xaxis: { title: 'Varyans katkısı (°C²)' },
+    xaxis: { title: { text: 'Varyans katkısı (°C²)' } },
     yaxis: { autorange: 'reversed' },
     margin: { l: 200, r: 30, t: 50, b: 50 },
     plot_bgcolor: '#ffffff',
@@ -575,8 +575,8 @@ Soruyu şöyle çevirelim: ölçüm cihazı sensörü "geçti" diye işaretledi�
   ];
   var layout = {
     title:{text:'Ölçüm Dağılımı ve Yanlış Kabul Bölgesi', font:{size:14}},
-    xaxis:{title:'Ölçüm değeri (bar)', range:[0.05, 0.15], zeroline:false},
-    yaxis:{title:'Olasılık yoğunluğu', showticklabels:false, zeroline:false},
+    xaxis:{title:{text:'Ölçüm değeri (bar)'}, range:[0.05, 0.15], zeroline:false},
+    yaxis:{title:{text:'Olasılık yoğunluğu'}, showticklabels:false, zeroline:false},
     shapes:[
       {type:'line', x0:0.10, x1:0.10, y0:0, y1:maxY*1.05,
        line:{color:'#000', width:2, dash:'dash'}},
@@ -614,8 +614,8 @@ Aşağıdaki ikinci grafik, TUR'a göre yanlış kabul olasılığının nasıl 
   }];
   var layout = {
     title: { text: 'TUR ile Yanlış Kabul Olasılığının Değişimi', font: { size: 14 } },
-    xaxis: { title: 'TUR (Tolerans / Belirsizlik)' },
-    yaxis: { title: 'Yanlış kabul olasılığı (%)', type: 'log' },
+    xaxis: { title: { text: 'TUR (Tolerans / Belirsizlik)' } },
+    yaxis: { title: { text: 'Yanlış kabul olasılığı (%)' }, type: 'log' },
     shapes: [{
       type: 'line', x0: 4, x1: 4, y0: 0.05, y1: 30,
       line: { color: '#888', width: 2, dash: 'dash' }
@@ -708,7 +708,7 @@ Test laboratuvarında kabul/red kararı verirken belirsizlik üç farklı şekil
   var layout = {
     title:{text:'Üç Yaklaşım: Belirsizliği Toleransla Nasıl İlişkilendirmeli?', font:{size:14}},
     xaxis:{
-      title:'Ölçüm değeri',
+      title:{text:'Ölçüm değeri'},
       range:[-0.16, 0.16], zeroline:true, zerolinecolor:'#444', zerolinewidth:1,
       tickvals:[-T-U, -T, 0, T, T+U],
       ticktext:['−(T+U)', '−T', '0', '+T', '+(T+U)']

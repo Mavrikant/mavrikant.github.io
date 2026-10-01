@@ -10,7 +10,7 @@ categories: [muhendislik]
 tags: [metroloji]
 ---
 
-<script src="https://cdn.plot.ly/plotly-basic-2.27.0.min.js"></script>
+<script src="https://cdn.plot.ly/plotly-basic-4.1.1.min.js" integrity="sha512-orZ6OgVLrRp8vSfEJ9XXGswEzLgmW4nqH1ja1cWJRPqwAkyU0GcrM42aDvIcJjrK9EmGWyVZ3tpMmHXbCrrIaA==" crossorigin="anonymous"></script>
 
 Akreditasyon denetimi sabahı. Denetçi elinde bir kalem, masanızdaki Keysight 34465A multimetreyi gösteriyor.
 
@@ -214,8 +214,8 @@ Sezyum saatinin doğruluğu yetmiş yılda yaklaşık 10 milyar kat iyileşti �
   }];
   var layout = {
     title: { text: 'Sezyum/optik atom saatlerinin doğruluğu (1955–2024)', font: { size: 14 } },
-    xaxis: { title: 'Yıl' },
-    yaxis: { title: 'Bağıl belirsizlik (log eksen)', type: 'log', autorange: true },
+    xaxis: { title: { text: 'Yıl' } },
+    yaxis: { title: { text: 'Bağıl belirsizlik (log eksen)' }, type: 'log', autorange: true },
     margin: { l: 80, r: 30, t: 50, b: 50 },
     plot_bgcolor: '#ffffff',
     paper_bgcolor: '#ffffff'
@@ -364,7 +364,7 @@ Yedi SI temel biriminin en iyi gerçekleme belirsizlikleri arasında 15 mertebel
   }];
   var layout = {
     title: { text: '7 SI temel biriminin en iyi gerçekleme belirsizlikleri (bağıl, log eksen)', font: { size: 14 } },
-    xaxis: { title: 'Bağıl belirsizlik (log eksen)', type: 'log', autorange: true },
+    xaxis: { title: { text: 'Bağıl belirsizlik (log eksen)' }, type: 'log', autorange: true },
     yaxis: { autorange: 'reversed' },
     margin: { l: 280, r: 30, t: 50, b: 60 },
     plot_bgcolor: '#ffffff',
@@ -488,7 +488,7 @@ Her seviyede bağıl belirsizlik yaklaşık 10× kötüleşiyor. Bu pratik bir s
   }];
   var layout = {
     title: { text: '10 V için Beklenen Belirsizlik (zincirin her seviyesinde)', font: { size: 14 } },
-    xaxis: { title: 'Genişletilmiş belirsizlik U (µV) — log eksen', type: 'log' },
+    xaxis: { title: { text: 'Genişletilmiş belirsizlik U (µV) — log eksen' }, type: 'log' },
     yaxis: { autorange: 'reversed' },
     margin: { l: 280, r: 30, t: 50, b: 60 },
     plot_bgcolor: '#ffffff',
