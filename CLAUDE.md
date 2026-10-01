@@ -142,6 +142,7 @@ Notes:
 
 - `layout: post` is required.
 - `background` should reference an image under `/img/posts/` (these are the hero header images).
+- `background` is also the post's social share image (`og:image` / `twitter:image`, feed thumbnail): `_plugins/social_image.rb` copies it into `image` at build time. Add `image:` only to share a different picture than the hero.
 - `lang: tr` is used for Turkish posts and is passed through to the `<div class="container" lang="tr">` in `_layouts/post.html`. Use `lang: en` for English posts.
 - `date` is used for ordering, reading-time display, and pagination.
 - The post content body is plain Markdown (kramdown). Mermaid diagrams can be embedded via `<div class="mermaid">...</div>` blocks (Mermaid.js is loaded on demand on pages that contain them). Edge labels written as `-->|label|` are safe: `assets/scripts.js` strips the backslash escapes jekyll-spaceship adds to lines containing `|`.
