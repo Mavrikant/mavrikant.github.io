@@ -10,7 +10,7 @@ categories: [muhendislik]
 tags: [yazilim-muhendisligi, emniyet-kritik, proje-yonetimi]
 ---
 
-Gece yarısı üretimdeki bir servis durur. Sebep bir saat içinde bulunur: süresi dolmuş bir TLS sertifikası. Ertesi sabahki olay sonrası toplantısında biri ortak klasörde eski bir belge bulur. İki yıl önce, aynı servis, aynı sebep. Belgenin "Çıkarılan dersler" başlığı altında tek bir aksiyon var: "Sertifika bitiş tarihleri takvime eklenecek." Aksiyonun durumu "tamamlandı". Takvim ise geçen yıl ekipten ayrılan bir arkadaşın takvimiymiş.
+Müşteri kabul testinin sabahı, test düzeneğini inceleyen müşteri temsilcisi RF sinyal üretecinin kalibrasyon etiketinde durur: kalibrasyonun süresi üç hafta önce dolmuş. Test ertelenir, cihaz acil kalibrasyona gönderilir ve son üç haftada bu cihazla alınan bütün ölçümlerin geçerliliği sorgulanmak zorunda kalınır. Olay sonrası toplantısında biri ortak klasörde eski bir belge bulur. İki yıl önce, başka bir proje, aynı sebep. Belgenin "Çıkarılan dersler" başlığı altında tek bir aksiyon var: "Kalibrasyon bitiş tarihleri takvime eklenecek." Aksiyonun durumu "tamamlandı". Takvim ise geçen yıl ekipten ayrılan bir arkadaşın takvimiymiş.
 
 O ekip iki yıl önce dersini çıkarmıştı: rapor yazılmış, aksiyon atanmış ve kapatılmıştı. Yine de aynı hata tekrarlandı.
 
@@ -32,7 +32,7 @@ Ders çıkarmayı engelleyen mekanizmalar, bir uzay ajansında da bir yazılım 
 
 ### Hata bir kişide bitiyor
 
-Bir olay incelemesinin en kolay cevabı "insan hatası"dır. Sertifikayı yenilemeyi unutan, yanlış komutu çalıştıran biri hep vardır. Cevap çoğu zaman doğrudur da, ama incelemeyi orada bitirir. Aksiyon "ilgili personel uyarıldı" ya da "daha dikkatli olunacak" olur; sistemde hiçbir şey değişmez ve aynı tuzak bir sonraki kişiyi bekler. CAIB da NASA'nın sorunlarının yalnızca emeklilikler, istifalar ya da görev değişiklikleriyle çözülemeyeceğini yazmıştı.
+Bir olay incelemesinin en kolay cevabı "insan hatası"dır. Kalibrasyon tarihini kaçıran, yanlış komutu çalıştıran biri hep vardır. Cevap çoğu zaman doğrudur da, ama incelemeyi orada bitirir. Aksiyon "ilgili personel uyarıldı" ya da "daha dikkatli olunacak" olur; sistemde hiçbir şey değişmez ve aynı tuzak bir sonraki kişiyi bekler. CAIB da NASA'nın sorunlarının yalnızca emeklilikler, istifalar ya da görev değişiklikleriyle çözülemeyeceğini yazmıştı.
 
 Sidney Dekker'in insan hatası üzerine çalışmalarının çıkış noktası, hatanın sebep değil, sistemin derinlerindeki bir sorunun belirtisi olduğudur. Bu bakışta insan hatası, incelemenin vardığı sonuç değil, başladığı yerdir. Sorulması gereken, o kişinin o an elindeki bilgiyle bu kararı neden makul bulduğudur. Gece yarısı alarmla uyanan nöbetçi mühendis yanlış sunucuyu yeniden başlatır ve raporda "dikkatsizlik" yazar. Oysa iki sunucunun adı tek harfle ayrılıyordur ve izleme ekranı ikisini yan yana, aynı renkte gösteriyordur. Olay bittikten sonra her şey açık görünür; sonucu bilen birinin, bilmeyen birini yargılaması kolaydır. Psikolojide buna sonradan görme yanlılığı (*hindsight bias*) denir.
 
@@ -86,11 +86,11 @@ Havacılığın en bilinen hikâyelerinden biri bu soruya iyi bir cevap verir. 3
 
 Bir aksiyonun ne kadar kalıcı olduğu, insan hafızasına ve dikkatine ne kadar az dayandığıyla ilgilidir. Sağlık sektöründe kök neden analizleri için geliştirilen RCA² yaklaşımı bunu bir aksiyon hiyerarşisine dönüştürür: eğitim ve yeni prosedür gibi insana dayanan aksiyonlar zayıf, kontrol listesi gibi bilişsel yardımcılar orta, hatayı zorlayan ya da imkânsız kılan tasarım değişiklikleri (*forcing function*) güçlü sayılır. Yazılıma uyarlanınca tablo şöyle görünür:
 
-| Güç | Aksiyon türü | Girişteki sertifika olayında |
+| Güç | Aksiyon türü | Girişteki kalibrasyon olayında |
 |---|---|---|
-| **Zayıf** | Eğitim, uyarı e-postası, yeni prosedür, "daha dikkatli olunacak" | "Sertifika bitiş tarihleri takvime eklenecek." |
-| **Orta** | Kontrol listesi, şablon, otomatik izleme ve alarm | Bitişe 30 gün kala ekip kanalına düşen alarm |
-| **Güçlü** | Otomasyon, süreci basitleştirmek, hatayı imkânsız kılan kontrol | Otomatik yenileme; süresi yaklaşan sertifikayla dağıtımı durduran kontrol |
+| **Zayıf** | Eğitim, uyarı e-postası, yeni prosedür, "daha dikkatli olunacak" | "Kalibrasyon bitiş tarihleri takvime eklenecek." |
+| **Orta** | Kontrol listesi, şablon, otomatik izleme ve alarm | Test hazırlık kontrol listesinde "kalibrasyonlar geçerli mi?" maddesi; bitişe 60 gün kala envanter sisteminden gelen uyarı |
+| **Güçlü** | Otomasyon, süreci basitleştirmek, hatayı imkânsız kılan kontrol | Cihazın kalibrasyon durumunu envanterden okuyan ve süresi dolmuş cihazla teste başlamayan test yazılımı |
 
 Zayıf aksiyonlar işe yaramaz değildir; tek başlarına bırakıldıklarında kalıcı olmazlar. RCA² bu yüzden her incelemenin en az bir orta ya da güçlü aksiyonla sonuçlanmasını önerir. Yazılımda güçlü aksiyonun en tanıdık örneği basittir: düzeltilen her hata, onu bir daha yakalayacak otomatik bir testle kapanır ve test kırıldığında değişiklik birleştirilemez.
 
@@ -114,7 +114,7 @@ Güçlü aksiyon, daha çok kural demek değildir. Her olaydan sonra bir onay ad
 
 Akıllanmamak çoğu zaman bir zekâ ya da dikkat sorunu değil. Ekipler hatalarını görür, tartışır ve çoğu zaman doğru dersi de bulur. Kaybolan şey, dersin rapordan sisteme geçtiği adımdır.
 
-Girişteki ekip için doğru soru "sertifikayı kim unuttu?" değildi. Doğru soru, iki yıl önceki dersin neden bir kişinin takviminde yaşadığıydı. Sertifikalar otomatik yenilenseydi, o takvime hiç gerek kalmazdı.
+Girişteki ekip için doğru soru "kalibrasyonu kim kaçırdı?" değildi. Doğru soru, iki yıl önceki dersin neden bir kişinin takviminde yaşadığıydı. Test yazılımı kalibrasyon süresi dolmuş bir cihazla teste başlamayı reddetseydi, o takvime hiç gerek kalmazdı.
 
 ---
 
