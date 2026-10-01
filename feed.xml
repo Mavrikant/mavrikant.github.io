@@ -1,4 +1,632 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="tr"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://karaman.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://karaman.dev/" rel="alternate" type="text/html" hreflang="tr" /><updated>2026-09-22T21:31:04+00:00</updated><id>https://karaman.dev/feed.xml</id><title type="html">M. Serdar Karaman</title><subtitle>Aviyonik yazılım, DO-178C ve emniyet kritik mühendislik üzerine sahadan notlar.</subtitle><author><name>M. Serdar Karaman</name></author><entry xml:lang="tr"><title type="html">Analitiğin Dört Hâli: Descriptive, Diagnostic, Predictive, Prescriptive</title><link href="https://karaman.dev/2026/09/22/analitigin-dort-hali-descriptive-diagnostic-predictive-prescriptive.html" rel="alternate" type="text/html" title="Analitiğin Dört Hâli: Descriptive, Diagnostic, Predictive, Prescriptive" /><published>2026-09-22T09:00:00+00:00</published><updated>2026-09-22T09:00:00+00:00</updated><id>https://karaman.dev/2026/09/22/analitigin-dort-hali-descriptive-diagnostic-predictive-prescriptive</id><content type="html" xml:base="https://karaman.dev/2026/09/22/analitigin-dort-hali-descriptive-diagnostic-predictive-prescriptive.html"><![CDATA[<p>Çoğu ekibin veriyle ilişkisi aynı sahneyle başlar: bir gösterge paneli (<em>dashboard</em>) açılır, ekranda on beş grafik vardır, hepsi doğrudur, hiçbiri bir şey yaptırmaz; karar yine “bence” ile verilir. Sorun verinin azlığı değil, <strong>sorulan sorunun türünün farkında olmamaktır.</strong> “Ne oldu?”, “neden oldu?”, “ne olacak?” ve “ne yapmalıyız?” farklı yöntem ve farklı kanıt standardı isteyen dört ayrı sorudur. Bunlara sırasıyla <strong>descriptive</strong> (betimleyici), <strong>diagnostic</strong> (tanısal), <strong>predictive</strong> (öngörücü) ve <strong>prescriptive</strong> (kuralkoyucu) analitik denir.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="tr"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://karaman.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://karaman.dev/" rel="alternate" type="text/html" hreflang="tr" /><updated>2026-10-01T22:32:43+00:00</updated><id>https://karaman.dev/feed.xml</id><title type="html">M. Serdar Karaman</title><subtitle>Aviyonik yazılım, DO-178C ve emniyet kritik mühendislik üzerine sahadan notlar.</subtitle><author><name>M. Serdar Karaman</name></author><entry xml:lang="tr"><title type="html">INCOSE CSEP: Sınavdan Sertifikaya Bir Yol Haritası</title><link href="https://karaman.dev/2026/10/01/incose-csep-sertifikasyonu-yolculugum.html" rel="alternate" type="text/html" title="INCOSE CSEP: Sınavdan Sertifikaya Bir Yol Haritası" /><published>2026-10-01T22:21:00+00:00</published><updated>2026-10-01T22:21:00+00:00</updated><id>https://karaman.dev/2026/10/01/incose-csep-sertifikasyonu-yolculugum</id><content type="html" xml:base="https://karaman.dev/2026/10/01/incose-csep-sertifikasyonu-yolculugum.html"><![CDATA[<p>Altmış ay deneyim, en az üç farklı alanda on ikişer ay, referanslarca doğrulanmış bir deneyim dosyası ve 100 puanlanan soruluk bir sınav. INCOSE <strong>CSEP</strong> (Certified Systems Engineering Professional) sertifikasyonunun şartları kabaca bunlar. Benim dosyamda bunlara ek olarak sekiz referans vardı; cebimden çıkan da 610 USD ile 1.000 TL oldu.</p>
+
+<p>12 Ağustos 2026 Çarşamba günü başvurumun onaylandığı e-posta geldiğinde, hedefi koyduğum günden bu yana yaklaşık on dokuz ay geçmişti: hedefi 2025’in ilk aylarında koymuş, altı ay hazırlanmış, sınava 10 Ocak 2026’da girmiştim. Süreç boyunca en çok zorlandığım şey de sınav olmadı; kendi deneyimimi başkasının doğrulayabileceği bir dille anlatmak oldu.</p>
+
+<p>Bu yazı hem o süreci baştan sona anlatıyor hem de aynı yolu yürümeyi düşünenler için pratik bir rehber olmayı amaçlıyor. Türkiye’den başvuran biri için özellikle merak edilen kısımlar var: Sınav nerede, nasıl ve kaça alınıyor? Başvuru formunda deneyim nasıl belgeleniyor? Referans kim olabilir? Süreç ne kadar sürüyor ve gerçekten değer mi?</p>
+
+<p>Sistem mühendisliğinin ne olduğu, neden var olduğu ve yaşam döngüsünü nasıl yönettiği konusunu daha önce <a href="/2026/05/26/sistem-muhendisligi-nedir.html">Sistem Mühendisliği Nedir?</a> yazısında ele almıştım. Bu yazı onun devamı niteliğinde: disiplinin kendisinden çok, o disiplindeki yetkinliğin nasıl belgelendiğine odaklanıyor.</p>
+
+<hr />
+
+<h2 id="incose-ve-sep-programı">INCOSE ve SEP Programı</h2>
+
+<p><strong>INCOSE</strong> (International Council on Systems Engineering), 1990 yılında kurulmuş, sistem mühendisliğinin uluslararası meslek örgütüdür. INCOSE’un yayınları, sistem mühendisliği pratiğinde yaygın olarak kullanılan başvuru kaynakları arasında; en bilineni de düzenli olarak güncellenen <strong>Systems Engineering Handbook</strong>‘tur. Handbook, ISO/IEC/IEEE 15288 ile uyumlu yaşam döngüsü süreçlerinin uygulanmasına yönelik kapsamlı bir rehberdir ve sertifikasyon programının tek resmî bilgi kaynağıdır.</p>
+
+<p>INCOSE’un <strong>SEP</strong> (Systems Engineering Professional) sertifikasyon programı üç kademeden oluşur:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Kademe</th>
+      <th>Deneyim şartı</th>
+      <th>Bilgi sınavı</th>
+      <th>Referans</th>
+      <th>Geçerlilik</th>
+      <th>Başvuru ücreti (üye)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>**ASEP** — Associate SEP</td>
+      <td>Deneyim şartı yok</td>
+      <td>Gerekli</td>
+      <td>Gerekmez</td>
+      <td>5 yıl</td>
+      <td>180 USD</td>
+    </tr>
+    <tr>
+      <td>**CSEP** — Certified SEP</td>
+      <td>En az 60 ay doğrudan SE deneyimi</td>
+      <td>Gerekli</td>
+      <td>Gerekli</td>
+      <td>3 yıl</td>
+      <td>350 USD</td>
+    </tr>
+    <tr>
+      <td>**ESEP** — Expert SEP</td>
+      <td>Kariyerin ileri aşaması: uzun süreli SE deneyimi ve liderlik</td>
+      <td>Yazılı sınav yok; mülakat</td>
+      <td>Gerekli</td>
+      <td>10 yıl</td>
+      <td>630 USD</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Bu üçlünün ortasındaki CSEP, programın omurgasıdır: hem <em>bildiğinizi</em> (sınavla) hem de <em>yaptığınızı</em> (belgelenmiş ve referanslarca doğrulanmış deneyimle) kanıtlamanızı ister. ASEP yeni mezunlar ve alana geçiş yapanlar için giriş kapısıdır; ESEP ise kariyerinin ileri aşamasındaki, alana yön vermiş kişiler içindir.</p>
+
+<p>CSEP’te sınav sürecin yalnızca yarısı; asıl elemeyi başvuru dosyasının insan eliyle değerlendirilmesi yapıyor.</p>
+
+<hr />
+
+<h2 id="neden-csep">Neden CSEP?</h2>
+
+<p>Kariyerimin büyük bölümü <strong>DO-178C DAL A</strong> seviyesinde aviyonik yazılım geliştirerek geçti. Bu dünyada gereksinim yönetimi, izlenebilirlik, doğrulama ve konfigürasyon kontrolü zaten günlük işin parçası. Ancak bir süre sonra fark ettim ki bu pratikleri “aviyonik yazılımın kuralları” olarak öğrenmiştim; oysa bunların çoğu aslında sistem mühendisliğinin genel pratiklerinin belirli bir sektöre uyarlanmış hâliydi.</p>
+
+<p>Bu farkın pratik bir bedeli var. Sistem tarafındaki meslektaşlarınızla konuşurken aynı şeyleri kastedip farklı kelimeler kullanıyorsunuz; ya da daha kötüsü, aynı kelimeleri kullanıp farklı şeyler kastediyorsunuz. “Doğrulama” (<em>verification</em>) ile “geçerleme” (<em>validation</em>) arasındaki ayrım, “gereksinim” ile “tasarım kısıtı” arasındaki sınır, bir arayüz kontrol dokümanının kime ait olduğu… Bunlar akademik ayrımlar değil, proje geciktiren tartışmalar.</p>
+
+<p>CSEP’e yönelmemin üç sebebi vardı:</p>
+
+<ol>
+  <li><strong>Ortak dil.</strong> Handbook’u sistematik biçimde çalışmak, parça parça öğrendiğim pratikleri tek bir çerçeveye oturttu. Yazılım tarafından bakınca “süreç yükü” gibi görünen pek çok şeyin sistem tarafında nereye oturduğunu görmek, o yükü anlamlı kıldı.</li>
+  <li><strong>Belgelenebilirlik.</strong> Türkiye’nin savunma ve havacılık sektöründe sistem mühendisliği yetkinliği giderek daha fazla sözleşme ve şartname maddesine giriyor. CSEP, bu yetkinliği uluslararası ölçekte tanınan ve bağımsız biçimde doğrulanmış bir belgeyle göstermenin yollarından biri.</li>
+  <li><strong>Disiplinli okuma bahanesi.</strong> Dürüst olmak gerekirse, bir sınav tarihi olmadan yüzlerce sayfalık bir el kitabını baştan sona okumam pek olası değildi.</li>
+</ol>
+
+<hr />
+
+<h2 id="sürecin-haritası">Sürecin Haritası</h2>
+
+<p>Süreç iki ana adımdan oluşuyor: bilgi sınavı ve başvuru dosyası. Ben önce sınava girip sonra başvurdum, ama bu sıra zorunlu değil — başvuru dosyasını sınavdan önce de açabiliyorsunuz. Benim takvimim şöyle işledi:</p>
+
+<div class="mermaid">
+flowchart LR
+    M[2025 başı - Hedef ve INCOSE üyeliği] --&gt; A[Temmuz 2025 - Hazırlık başlangıcı]
+    A --&gt; B[10 Ocak 2026 - Bilgi sınavı]
+    B --&gt; C[19 Temmuz 2026 - CSEP başvurusu]
+    C --&gt; D[12 Ağustos 2026 - Onay]
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Tarih</th>
+      <th>Adım</th>
+      <th>Maliyet</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2025 başı</td>
+      <td>CSEP hedefinin konması</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>18 Mart 2025</td>
+      <td>INCOSE üyeliği — Regular PPP 2</td>
+      <td>130 USD</td>
+    </tr>
+    <tr>
+      <td>Temmuz 2025</td>
+      <td>Handbook v5 ile hazırlığa başlangıç</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>10 Ocak 2026</td>
+      <td>Bilgi sınavı, SSB Akademi / ODTÜ Teknokent</td>
+      <td>1.000 TL</td>
+    </tr>
+    <tr>
+      <td>9 Mart 2026</td>
+      <td>Üyelik yenileme</td>
+      <td>130 USD</td>
+    </tr>
+    <tr>
+      <td>Ocak–Temmuz 2026</td>
+      <td>Başvuru dosyasının hazırlanması ve ertelenmesi</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>19 Temmuz 2026</td>
+      <td>CSEP başvurusunun gönderilmesi</td>
+      <td>350 USD</td>
+    </tr>
+    <tr>
+      <td>12 Ağustos 2026</td>
+      <td>Başvurunun onaylanması</td>
+      <td>—</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Sınav ile başvuru arasında geçen altı ay tamamen benim tercihimdi ve bu tercihin arkasındaki sebebe aşağıda döneceğim. Başvurunun değerlendirilmesi ise beklediğimden hızlı, yaklaşık <strong>üç buçuk hafta</strong> sürdü.</p>
+
+<hr />
+
+<h2 id="birinci-adım-bilgi-sınavı">Birinci Adım: Bilgi Sınavı</h2>
+
+<h3 id="sınavın-kapsamı">Sınavın kapsamı</h3>
+
+<p>INCOSE bilgi sınavı çoktan seçmeli bir sınavdır ve <strong>tek kaynağı</strong> SE Handbook’tur. Burada kritik bir tarih var: Ağustos 2023 ile 14 Mart 2025 arasında uygulanan “hibrit” sınav, dördüncü ve beşinci baskıların <em>ortak</em> içeriğinden soru soruyordu. <strong>15 Mart 2025’ten itibaren sınav içeriğinin tamamı beşinci baskıdan geliyor.</strong> Yani bugün hazırlananlar için dördüncü baskı artık birincil kaynak değil.</p>
+
+<p>Sınavda puanlanan soru sayısı 100’dür. Bunlara ek olarak, ileride kullanılıp kullanılmayacağına karar verilmek üzere denenen ve puanlanmayan 20 ya da 50 soru gelebiliyor. INCOSE süreyi soru başına bir dakika olarak veriyor; beta sorular dâhil 120 soruluk standart bir oturum 120 dakika sürüyor. Benim girdiğim 10 Ocak 2026 tarihli Türkiye oturumunda <strong>100 puanlanan soru için 130 dakika</strong> verildi; yani soru başına yaklaşık bir dakika on sekiz saniye. Bunun genel kuraldan farklı olduğunu not edeyim: süre ve soru sayısı oturuma göre değişebiliyor, kendi davet e-postanızda yazan rakama bakın. Bu süre, soruları sakin okumak ve şüpheli bıraktıklarınıza sonradan dönmek için yeterli; yeter ki tek bir soruda beş dakika harcamayın.</p>
+
+<p>Geçme eşiği için INCOSE sabit bir yüzde ilan etmiyor. Yaygın olarak %70 civarı telaffuz edilse de resmî tutum şu: farklı soru setleri arasındaki zorluk farkı dengelenerek eşik ayarlanıyor, yani daha zor bir sette biraz daha düşük bir doğru sayısı da geçmeye yetebiliyor. Sorular Handbook’un geneline yayılıyor, yani “şu bölümü atlarım” gibi bir lüksünüz yok.</p>
+
+<h3 id="türkiyede-sınava-girmek">Türkiye’de sınava girmek</h3>
+
+<p>INCOSE, sınavı iki formatta sunuyor: kendi bilgisayarınızdan, canlı uzaktan gözetmenli (<strong>online proctored</strong>) olarak ya da INCOSE onaylı bir gözetmenin denetiminde <strong>kâğıt üzerinde</strong>. Benim hazırlandığım 2026 sürecinde Prometric test merkezi seçeneği bulunmuyordu.</p>
+
+<p>Başlangıçtaki planım online sınava daha erken bir tarihte girmekti. Sonra Türkiye’de düzenlenen kâğıt oturumun ücretinin <strong>1.000 TL</strong> olduğunu gördüm; INCOSE’un online sınav için aldığı 80 USD ile kıyaslandığında aradaki fark, birkaç ay beklemeye değecek kadar büyüktü. Bu yüzden hazırlığı biraz daha uzatıp kâğıt oturumu bekledim ve sınavı <strong>10 Ocak 2026’da ODTÜ Teknokent’teki SSB Akademi binasında</strong> aldım. Türkiye’de bu organizasyon INCOSE TR şubesi ve SSB Akademi eliyle yürüyor; SSB Akademi ayrıca CSEP sınavına hazırlık eğitimi de düzenliyor.</p>
+
+<p>Kâğıt formatının başka bir faydası daha var: ekran yerine kâğıt üzerinde okumak, uzun ve iç içe geçmiş şıkları taramayı kolaylaştırıyor; soruların üzerini işaretleyip geri dönebiliyorsunuz.</p>
+
+<p>Buna karşılık bir kısıtı var: kâğıt oturumlar belirli tarihlerde açılıyor, sizin hazır olduğunuz ana göre değil. <strong>Ben sınava girdiğimde Türkiye’deki kâğıt oturum yılda bir kez, ocak ayında yapılıyordu.</strong> Online sınavın “hazır olduğumda girerim” esnekliğinin yerini takvime sabitlenmiş tek bir tarih alıyordu. Bunun hazırlık planı açısından üç sonucu vardı:</p>
+
+<ul>
+  <li>Hazırlığınızın bitiş çizgisi sizin değil, takvimin belirlediği bir tarih. Ekim ayında hazır hâle gelseniz de ocağı bekliyorsunuz; kasımda geride kaldığınızı fark ederseniz erteleyecek yeriniz yok.</li>
+  <li>Oturumu kaçırırsanız bir sonraki fırsat bir yıl sonra. Araya iş seyahati, hastalık ya da proje teslimi girerse alternatifiniz online sınava dönmek oluyor.</li>
+  <li>Sınavı geçtikten sonraki on iki aylık başvuru penceresi de sınav tarihinde başlıyor. Yani başvuru ücretini bütçelemek için elinizde net bir takvim oluyor: sınavı ocakta geçtiyseniz, bir sonraki ocaktan önce başvurmuş olmanız gerekiyor.</li>
+</ul>
+
+<p>Burası yazının en çabuk eskiyen kısmı: oturumların sayısı ve tarihleri yıldan yıla değişiyor. Planınızı benim anlattığım ocak takvimine göre değil, <strong>INCOSE TR ve SSB Akademi’nin güncel duyurularına</strong> göre kurun.</p>
+
+<p>Bir de tekrar hakkı meselesi var: sınava istediğiniz sıklıkta giremiyorsunuz. INCOSE, on iki aylık dönem içinde <a href="https://www.incose.org/certification/start-your-certification/taking-the-exam/">en fazla üç deneme</a> hakkı tanıyor ve her deneme için ücret yeniden ödeniyor. Kâğıt oturumda kalırsanız ya bir sonraki oturumu bekliyor ya da online sınava geçiyorsunuz. Yani “girer bakarım, olmazsa tekrar girerim” teknik olarak mümkün; ama her deneme ayrı ücrete tabi olduğu için pahalı bir strateji.</p>
+
+<h3 id="sınav-günü-nasıl-işliyor">Sınav günü nasıl işliyor?</h3>
+
+<p>Kâğıt oturum, INCOSE prosedürleri gereği oldukça kurallı ilerliyor. Benim oturumumdaki düzen şöyleydi:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Saat</th>
+      <th>Ne oluyor</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>09.00</td>
+      <td>Binada olma sınırı; girişte kayıt ve cep telefonlarının kutulara bırakılması</td>
+    </tr>
+    <tr>
+      <td>09.10’a kadar</td>
+      <td>Numaralı oturma düzenine göre yerleşme, yoklama, kimlik ve sözlük kontrolü</td>
+    </tr>
+    <tr>
+      <td>09.10</td>
+      <td>INCOSE prosedürü gereği sınav bilgilendirme notunun okunması</td>
+    </tr>
+    <tr>
+      <td>09.30 – 11.40</td>
+      <td>Sınav — 100 soru, 130 dakika</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Pratik ayrıntılar, sınav sabahı sürpriz yaşamamak için önemli:</p>
+
+<ul>
+  <li><strong>Sınav İngilizce yapılıyor ve yanınızda sözlük bulundurabiliyorsunuz.</strong> Sözlük girişte kontrol ediliyor. Anadili İngilizce olmayan adaylar için bu ciddi bir rahatlama; ancak sözlüğe güvenip terminolojiyi Handbook’un kendi ifadeleriyle öğrenmemek işe yaramaz — sözlük “requirement” kelimesini çevirir, “measure of effectiveness” ile “measure of performance” arasındaki farkı anlatmaz.</li>
+  <li><strong>Kimlik ve sözlük dışında hiçbir doküman içeri alınmıyor.</strong> Telefonunuz girişte teslim ediliyor.</li>
+  <li><strong>Kâğıt sınav olduğu için kurşun kalem ve silgiyi kendiniz götürüyorsunuz.</strong> Basit ama unutulması sınav sabahı telaş yaratacak bir ayrıntı.</li>
+  <li><strong>Ulaşımı önceden planlayın.</strong> Sınav ODTÜ Teknokent’teki SSB Akademi binasında yapıldığı için, Teknokent araç kartı olmayanların plaka bilgilerini önceden organizasyona bildirip nizamiye kaydını yaptırması gerekiyor; aksi hâlde araçla giriş mümkün olmuyor. Bu tür yerleşke kuralları, davet e-postasında yazan ve gerçekten uyulması gereken maddeler.</li>
+  <li><strong>Sonuçlar oturumun sonunda açıklanmıyor ve puan verilmiyor.</strong> Sonuç, INCOSE tarafından e-posta ile iletiliyor; ne zaman geleceği INCOSE’un yoğunluğuna bağlı. E-postada yalnızca başarılı olup olmadığınız yazıyor — kaç doğru, kaç yanlış yaptığınız paylaşılmıyor. Yani geçme eşiğine ne kadar yaklaştığınızı hiçbir zaman öğrenmiyorsunuz. Bu da hazırlığı “sınırı zar zor geçecek kadar” değil, rahat bir payla planlamak için iyi bir sebep.</li>
+  <li><strong>Sonucun paylaşımı için rıza isteniyor.</strong> INCOSE TR ekibi, sonucunuzun kendileriyle paylaşılabilmesi için bir rıza metni imzalatıyor; amaç, sınavı geçen adayları sertifikasyon sürecinin sonraki adımlarına yönlendirebilmek.</li>
+</ul>
+
+<hr />
+
+<h2 id="nasıl-hazırlandım">Nasıl Hazırlandım?</h2>
+
+<p>Toplam hazırlık sürem <strong>altı ay</strong> oldu. Yoğun bir tempoyla değil, haftada birkaç akşam ve hafta sonlarının bir kısmıyla ilerleyen, düzenli ama sakin bir dönemdi. Kullandığım üç kaynak vardı.</p>
+
+<h3 id="handbooku-iki-kez-okumak">Handbook’u iki kez okumak</h3>
+
+<p><img src="/img/posts/incose-se-handbook-v5.webp" alt="INCOSE Systems Engineering Handbook, beşinci baskı" style="display:block; margin-left:auto; margin-right:auto; max-width:320px" class="img-fluid" /></p>
+
+<p><em>INCOSE Systems Engineering Handbook, 5. baskı — sınavın tek resmî kaynağı. Kapak görseli INCOSE ve Wiley’e aittir.</em></p>
+
+<p><strong>İngilizce SE Handbook v5’i baştan sona iki kez okudum.</strong> Bu, hazırlığın belkemiğiydi; ama iki okuma birbirinin tekrarı değildi.</p>
+
+<p>Birinci okuma baştan sona detaylıydı: satır satır ilerledim ve önemli gördüğüm her yerin altını çizdim. Hızlı bir tarama ya da “önce bir göz gezdireyim” turu değildi; kitabı ilk seferde ciddiye alarak okudum.</p>
+
+<p><img src="/img/posts/incose-handbook-notlarim.webp" alt="Altı çizilerek okunmuş bir Handbook sayfası" style="display:block; margin-left:auto; margin-right:auto" class="img-fluid" /></p>
+
+<p><em>Başucu kitabımdan bir sayfa.</em></p>
+
+<p>İkinci okuma ise daha da detaylıydı. Amacı bilgiyi tazelemek değil, özümsemekti: ilk turda altını çizdiğim cümlelerin neden önemli olduğunu, süreçlerin birbirini nasıl beslediğini ve aynı kavramın farklı bölümlerde nasıl tekrar karşıma çıktığını görmeye çalıştım. Handbook’un cümlelerini tanımakla kavramı gerçekten anlamak arasındaki farkı asıl bu ikinci turda kapattım.</p>
+
+<p>İkinci okumayı birinciden ayıran asıl şey yöntemdi: her süreci <strong>girdileri, aktiviteleri ve çıktıları</strong> üzerinden okudum. Benim hazırlığımda en yüksek getiriyi bu sağladı; “şu sürecin çıktısı hangisidir?” tipi sorular, kitabı okumuş ama süreçleri bu üçlü üzerinden düşünmemiş adayı rahatlıkla zorluyor.</p>
+
+<h3 id="türkçe-dördüncü-baskının-yeri">Türkçe dördüncü baskının yeri</h3>
+
+<p><img src="/img/posts/incose-se-el-kitabi-v4-tr.webp" alt="INCOSE Sistem Mühendisliği El Kitabı, dördüncü versiyon, Savunma Sanayii Akademi Yayınları" style="display:block; margin-left:auto; margin-right:auto; max-width:320px" class="img-fluid" /></p>
+
+<p><em>Sistem Mühendisliği El Kitabı’nın Türkçe çevirisi — dördüncü versiyon, Savunma Sanayii Akademi Yayınları.</em></p>
+
+<p>Handbook’un <strong>Türkçe çevirisi dördüncü baskıya ait</strong> ve Savunma Sanayii Akademi Yayınları tarafından <em>Sistem Mühendisliği El Kitabı — Sistem Ömür Devri Yönetimi ve Faaliyetleri için Kılavuz</em> adıyla yayımlanmış durumda. Ben onu da bir kez okudum. Bunun bana somut bir faydası oldu: kavramların Türkçe karşılıklarını görmek, günlük işte kullandığım terimlerle Handbook’un terminolojisi arasındaki köprüyü kurmamı sağladı. Aviyonik dünyasında “verification” ve “validation” gibi terimleri zaten İngilizce kullanıyoruz; ancak “enabling system”, “system of interest” veya “measures of effectiveness” gibi kavramların Türkçesini bir kez okumak, kavramın kendisini gerçekten anlayıp anlamadığımı test etmenin iyi bir yoluydu.</p>
+
+<p>Ancak burada net bir uyarı gerekiyor: <strong>Türkçe çeviri bir sınav kaynağı değildir.</strong> İki sebeple. Birincisi, sınav artık beşinci baskıdan soruluyor ve iki baskı arasında yapısal farklar var. İkincisi, sınav İngilizce ve şıklar sıklıkla Handbook’un tam ifadelerini kullanıyor; kavramı Türkçe bilmek, doğru İngilizce ifadeyi seçmenizi garanti etmiyor. Türkçe baskıyı destekleyici bir kaynak olarak görün, ana kaynak olarak değil.</p>
+
+<h3 id="soru-çözmenin-yeri">Soru çözmenin yeri</h3>
+
+<p>Üçüncü kaynağım Udemy üzerindeki pratik soru setleri oldu. Bu setlerin değeri bilgi öğretmelerinde değil, iki başka şeyde:</p>
+
+<ul>
+  <li><strong>Soru formatını tanımak.</strong> INCOSE soruları çoğu zaman “hangisi <em>en iyi</em> tanımlar” veya “hangisi <em>değildir</em>” biçiminde kurulur. Şıkların üçü makul görünür, biri Handbook’un tam ifadesidir. Bu kalıba alışmak, sınavda ciddi zaman kazandırıyor.</li>
+  <li><strong>Boşlukları tespit etmek.</strong> Yanlış cevapladığım her soruyu Handbook’ta ilgili bölüme geri dönerek işaretledim. Hazırlığın son ayında çalıştığım şey kitabın tamamı değil, bu işaretli bölümlerdi.</li>
+</ul>
+
+<p>Kullandığım setlerin bağlantıları yazının sonundaki <a href="#kaynaklar">Kaynaklar</a> bölümünde. Şunu da eklemek isterim: piyasadaki pratik soruların hiçbiri gerçek sınav sorularının birebir yansıması değil. Bazıları Handbook’un eski baskısına dayanıyor, bazılarının cevap anahtarları tartışmalı. Doğru cevap oranınızı bir hedef olarak görmeyin; zayıf bölümlerinizi bulmak için bir araç olarak kullanın.</p>
+
+<h3 id="sınavdan-sonra-yüksek-lisans">Sınavdan sonra: yüksek lisans</h3>
+
+<p>İlginç bir yan etki: sınavı geçtikten sonra <strong>ikinci yüksek lisansım olarak sistem mühendisliğine başladım.</strong> Altı aylık hazırlık, alanın ne kadar geniş olduğunu ve Handbook’un bir referans çerçevesi olduğunu, alanın kendisinin ise bunun çok ötesine geçtiğini gösterdi. Sınav bir bitiş çizgisi değil, hangi konularda daha derine inmek istediğimi netleştiren bir haritaydı.</p>
+
+<hr />
+
+<h2 id="i̇kinci-adım-başvuru">İkinci Adım: Başvuru</h2>
+
+<p>Sınavı geçtikten sonra elinizde bir “bilgi yeterliliği” var; sertifika değil. CSEP için asıl iş şimdi başlıyor.</p>
+
+<blockquote>
+  <p><strong>Not:</strong> Bu bölüm, başvurumu yaptığım Temmuz–Ağustos 2026 dönemindeki akışı anlatıyor. Ağustos 2026’dan sonra INCOSE portalında bir sistem güncellemesi yapıldı ve Form 1’in doldurulma yöntemi değişti: benim başvurumda Form 1, indirilip bilgisayarda doldurulan ve sonra yüklenen bir <strong>PDF dosyasıydı</strong>; yeni sistemde form doğrudan <strong>web sitesi üzerinden</strong> dolduruluyor. Deneyim beyanının mantığı — altmış ay, üç alan, referans doğrulaması — aynı kalsa da adımların adları, sırası ve formların sunuluş biçimi bugün farklı olabilir. Süreci yürütürken INCOSE’un <a href="https://www.incose.org/certification/start-your-certification/applying-for-csep/">CSEP başvuru sayfasını</a> esas alın; buradaki anlatıyı neyle karşılaşacağınızı öngörmek için kullanın.</p>
+</blockquote>
+
+<h3 id="60-ay-ve-üç-alan-kuralı">60 ay ve üç alan kuralı</h3>
+
+<p>CSEP, en az <strong>60 ay doğrudan sistem mühendisliği deneyimi</strong> ister. Ancak toplam süre tek başına yeterli değil; INCOSE aynı zamanda <strong>derinlik ve genişlik</strong> arar. Somut kural şu: deneyiminizin en az <strong>üç farklı sistem mühendisliği alanında, her birinde en az 12 ay</strong> olması gerekiyor.</p>
+
+<p>Başvuru formunda deneyim, önceden tanımlı <strong>14 sistem mühendisliği alanına</strong> dağıtılarak beyan ediliyor. Alanlar şunlar:</p>
+
+<ol>
+  <li>Gereksinim mühendisliği — <em>Requirements Engineering</em></li>
+  <li>Sistem ve karar analizi — <em>System and Decision Analysis</em></li>
+  <li>Mimari ve tasarım geliştirme — <em>Architecture/Design Development</em></li>
+  <li>Sistem entegrasyonu — <em>Systems Integration</em></li>
+  <li>Doğrulama ve geçerleme — <em>Verification and Validation</em></li>
+  <li>Sistem işletimi ve bakımı — <em>System Operation and Maintenance</em></li>
+  <li>Teknik planlama — <em>Technical Planning</em></li>
+  <li>Teknik izleme ve kontrol — <em>Technical Monitoring and Control</em></li>
+  <li>Tedarik ve temin — <em>Acquisition and Supply</em></li>
+  <li>Bilgi ve konfigürasyon yönetimi — <em>Information and Configuration Management</em></li>
+  <li>Risk ve fırsat yönetimi — <em>Risk and Opportunity Management</em></li>
+  <li>Yaşam döngüsü süreçlerinin tanımlanması ve yönetimi — <em>Lifecycle Process Definition and Management</em></li>
+  <li>Özel mühendislik dalları — <em>Specialty Engineering</em> (emniyet, güvenilirlik, güvenlik, insan faktörleri, yaşam döngüsü maliyeti ve benzerleri)</li>
+  <li>Kurumsal proje etkinleştirme faaliyetleri — <em>Organizational Project Enabling Activities</em></li>
+</ol>
+
+<p>Bunlara ek olarak, hiçbirine oturmayan ama sistem mühendisliği olduğunu gerekçelendirebildiğiniz işler için bir de “Diğer” seçeneği var; ancak üç alan kuralı 14 tanımlı alan üzerinden değerlendiriliyor.</p>
+
+<p>Formu doldururken en çok zorlanılan nokta burası. Deneyim, <strong>tam zamana eşdeğer (FTE) ay</strong> cinsinden beyan ediliyor: aynı takvim döneminde birden fazla alanda çalıştıysanız o dönemin eforunu alanlar arasında paylaştırıyorsunuz ve alanlara dağıttığınız toplam, o takvim döneminin uzunluğunu aşamıyor. Yani “aynı dönemde hem gereksinim yazdım hem entegrasyon yaptım” diyerek aynı ayları her iki alana da tam olarak yazamıyorsunuz; eforu bölüştürmeniz gerekiyor. Bu, toplam deneyimin takvimle tutarlı kalmasını sağlıyor.</p>
+
+<h3 id="aviyonik-deneyimini-se-alanlarına-eşlemek">Aviyonik deneyimini SE alanlarına eşlemek</h3>
+
+<p>Benim gibi yazılım tarafından gelenler için asıl zihinsel egzersiz, yaptığı işi INCOSE’un diline çevirmek. DO-178C dünyasında yapılan işlerin karşılıkları büyük ölçüde mevcut:</p>
+
+<ul>
+  <li>Üst seviye ve alt seviye yazılım gereksinimlerinin yazılması, gözden geçirilmesi ve izlenebilirliğin kurulması → <strong>Gereksinim mühendisliği</strong></li>
+  <li>Gereksinim tabanlı testler, yapısal kapsam analizi, test sonuçlarının yönetimi → <strong>Doğrulama ve geçerleme</strong></li>
+  <li>Donanım-yazılım entegrasyonu, arayüzlerin tanımlanması ve yönetimi → <strong>Sistem entegrasyonu</strong></li>
+  <li>DO-178C planlarının ve standartlarının yazılması, geliştirme süreçlerinin tanımlanması ve iyileştirilmesi → <strong>Yaşam döngüsü süreçlerinin tanımlanması ve yönetimi</strong></li>
+  <li>Konfigürasyon yönetimi, sürüm kontrolü, sertifikasyon verilerinin yönetimi → <strong>Bilgi ve konfigürasyon yönetimi</strong></li>
+  <li>Gözden geçirmeler, uygunluk denetimleri, ilerleme ve kalite ölçütlerinin takibi → <strong>Teknik izleme ve kontrol</strong></li>
+  <li>DAL A seviyesinde emniyet analizlerine katkı, güvenilirlik ve güvenlik çalışmaları → <strong>Özel mühendislik dalları</strong></li>
+  <li>Test otomasyonu altyapısının kurulması ve ekibin bu altyapıyla çalışacak biçimde yetkinleştirilmesi → <strong>Kurumsal proje etkinleştirme faaliyetleri</strong></li>
+</ul>
+
+<p>Buradaki en büyük tuzağa dikkat: <strong>DO-178C kapsamında yapılan her faaliyet otomatik olarak sistem mühendisliği deneyimi sayılmıyor.</strong> Yukarıdaki eşleme, ilgili faaliyeti fiilen yürütmüş olmanız hâlinde geçerli. Örneğin DAL A seviyesinde bir projede çalışmış olmak tek başına Specialty Engineering deneyimi oluşturmuyor; emniyet, güvenilirlik ya da güvenlik analizini gerçekten siz yapmış olmalısınız. Aynı şekilde bir test altyapısı geliştirmiş olmak kendiliğinden kurumsal etkinleştirme faaliyeti değil; o altyapının kurumsal düzeyde bir yetkinliğe dönüşmesinde rol almış olmanız gerekiyor.</p>
+
+<p>Bu eşlemeyi yaparken abartmamak önemli. Değerlendirme komitesi, beyan ettiğiniz alanların referanslarınızın doğrulayabileceği türden olmasını bekliyor. Bir alanda 12 ayı zorlayarak doldurmaktansa, gerçekten güçlü olduğunuz üç alanı sağlam biçimde belgelemek daha iyi bir strateji.</p>
+
+<p>Formu yazarken kullandığım pratik bir yöntem: her satır için “referansım bu cümleyi okusa, gözünü kırpmadan onaylar mı?” diye sordum. Cevap tereddütlüyse cümleyi ya yumuşattım ya çıkardım.</p>
+
+<h3 id="referanslar">Referanslar</h3>
+
+<p>CSEP başvurusunda deneyiminizi doğrulayacak <strong>referanslar</strong> gerekiyor. Kuralları özetlemek gerekirse:</p>
+
+<ul>
+  <li>Referans, <a href="https://www.incose.org/certification/start-your-certification/being-a-reference/">en az beş yıllık iş deneyimine sahip olmalı ve sistem mühendisliğine aşina olmalı</a> — yani yaptığınız işin gerçekten sistem mühendisliği olduğunu değerlendirebilecek durumda olmalı. Referansın sistem mühendisi ya da INCOSE üyesi olması şart değil.</li>
+  <li>Referans, beyan ettiğiniz deneyim döneminde sizi tanıyor ve o işten haberdar olmalı. Sonradan tanışılmış bir kişi o dönemi doğrulayamaz.</li>
+  <li>Her referans, beyan ettiğiniz sürenin en az 12 ayını doğrudan doğrulayabilmeli; referansların toplamı ise nitelikli diplomaya sahip adaylar için beş yıllık deneyimi kapsamalı. Diploması alan dışında olanlarda bu eşik on yıla çıkıyor.</li>
+  <li>Kural olarak tek bir referans derinlik, genişlik ve süre şartının tamamını doğrulayabiliyorsa yeterli sayılabiliyor; pratikte başvurular çoğunlukla üç civarı referansla destekleniyor. Referansın sizinle akrabalık bağı olmaması gerekiyor.</li>
+  <li><strong>INCOSE, mevcut ve eski yöneticiler ile müşterileri ideal referans olarak tanımlıyor; astlarınız referans olamıyor.</strong> Benim deneyimimde de en güçlü doğrulama, ilgili dönemdeki yöneticilerimden geldi.</li>
+</ul>
+
+<p>Ben asgari sayıyla yetinmedim: <strong>çalıştığım son üç iş yerinden toplam sekiz referans</strong> verdim. Bunun iki sebebi vardı. Birincisi kapsama: beyan ettiğim altmış aylık deneyim tek bir projeye ya da tek bir yöneticinin görüş alanına sığmıyordu; her dönemi ve her deneyim alanını o işi bizzat gören biriyle eşleştirmek istedim. İkincisi dayanıklılık: referansların formu doldurması gönüllülük esasına dayanıyor, araya izin, yoğunluk ya da unutma girebiliyor. Sekiz kişiden birkaçı gecikse bile dosyanın doğrulanmış deneyimi eksik kalmıyor.</p>
+
+<p>Burada yaygın bir yanlış beklenti var, ben de sürece girene kadar öyle sanıyordum: <strong>referans sürecini INCOSE değil, siz başlatıyorsunuz.</strong> Form 4B’nin bağlantısını referanslarınıza siz iletiyorsunuz; onlar da formu doğrudan INCOSE’a gönderiyor. Yani trafiği başlatmak ve takip etmek tamamen adayın sorumluluğunda.</p>
+
+<h3 id="başvurudan-sonra-ne-oluyor">Başvurudan sonra ne oluyor?</h3>
+
+<p>Başvuruyu gönderdikten hemen sonra INCOSE Sertifikasyon Ofisi’nden bir “sonraki adımlar” e-postası geliyor ve süreç şöyle işliyor:</p>
+
+<ol>
+  <li><strong>Tarama.</strong> Önce Sertifikasyon Ofisi başvuru formunuzun şartlara uygun olup olmadığını kontrol ediyor. Bu onay gelmeden referans adımına geçmiyorsunuz.</li>
+  <li>
+    <p><strong>Referanslar.</strong> Form uygun bulunduktan sonra her referansınıza iki şey gönderiyorsunuz: doldurduğunuz <strong>Form 1</strong>‘in bir kopyası ve <strong>dijital referans mektubunun</strong> (<a href="https://forms.office.com/pages/responsepage.aspx?id=k6cjNVAORka4CyXYO9fylpdnShHiChFNk4sYt-8URhFUN1RNUE5NSDdKTlRVSkNZVFdYRkwyOVlPSC4u&amp;route=shorturl">Form 4b</a>) bağlantısı. Form 1’in kopyası şart, çünkü referans sizin hangi dönemde hangi alanda ne beyan ettiğinizi görmeden mektubu dolduramıyor. Referans mektubu doldurulup gönderildiğinde INCOSE’a otomatik olarak ulaşıyor; arada sizin bir şey iletmeniz gerekmiyor. Formun kendi uyarısına göre doldurulması yaklaşık <strong>30 dakika</strong> sürüyor — referansınızdan isteyeceğiniz şeyin büyüklüğünü bilin ve ona da baştan söyleyin.</p>
+  </li>
+  <li><strong>Değerlendirme ve karar.</strong> Referans mektupları tamamlandıktan sonra dosya değerlendiriliyor ve sonuç e-posta ile bildiriliyor.</li>
+</ol>
+
+<p>Bu akış, referanslara önceden haber vermeyi sadece nezaket olmaktan çıkarıp sürecin hızını belirleyen faktör hâline getiriyor. Onlara ne göndereceğinizi ve ne kadar zaman alacağını baştan anlatın; formun linki elinize geçtiğinde aynı gün dağıtabilecek durumda olun. Başvurumun üç buçuk haftada sonuçlanmasının en büyük sebebi, referanslarımın mektupları hızla doldurmasıydı.</p>
+
+<h3 id="ücret-ve-on-iki-ay-kuralı">Ücret ve on iki ay kuralı</h3>
+
+<p>Başvuru ücreti INCOSE üyeleri için <strong>350 USD</strong>, online sınav ücreti ise 80 USD. Buna üye olmayı seçerseniz yıllık aidat ekleniyor. Türkiye’den bakıldığında bu, azımsanacak bir tutar değil.</p>
+
+<p>Burada önemli bir güncelleme var: <strong>INCOSE, Ekim 2025’ten itibaren üyeliği sertifikasyon için zorunlu olmaktan çıkardı.</strong> Yani üye olmadan da başvurabiliyorsunuz. Ancak üye olmayanların ödediği başvuru ücreti belirgin biçimde yüksek; pratikte üyelik neredeyse her durumda daha ucuza geliyor.</p>
+
+<p>Üstelik <strong>üyelik ücretinde Türkiye’ye özel bir avantaj var:</strong> INCOSE, bireysel üyelik ücretini ülkelerin satın alma gücüne göre kademelendiriyor. Türkiye “Regular PPP 2” kademesinde yer alıyor ve yıllık aidat <strong>130 USD</strong> — standart 175 USD’lik ücret yerine. Ücret farkı göz önüne alındığında sürece üye olarak başlamak benim için açık ara daha ucuzdu.</p>
+
+<p>Ben 18 Mart 2025’te üye oldum ve 9 Mart 2026’da üyeliğimi yeniledim; yani sertifikasyon süreci boyunca iki yıllık aidat ödedim. <strong>Benim seçtiğim yolun</strong> maliyeti şöyle oldu — bu bir CSEP fiyat listesi değil, iki yıllık üyelik, başvuru ücreti ve Türkiye’deki kâğıt oturumdan oluşan kişisel toplamım:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Kalem</th>
+      <th>Tutar</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>INCOSE üyeliği, 2 yıl — Regular PPP 2, 130 USD/yıl</td>
+      <td>260 USD</td>
+    </tr>
+    <tr>
+      <td>Bilgi sınavı — Türkiye’deki kâğıt oturum</td>
+      <td>1.000 TL</td>
+    </tr>
+    <tr>
+      <td>CSEP başvuru ücreti</td>
+      <td>350 USD</td>
+    </tr>
+    <tr>
+      <td>**Toplam**</td>
+      <td>**610 USD + 1.000 TL**</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Buna üç yıl sonraki yenileme için 100 USD’lik ücret ve o dönem boyunca devam edecek üyelik aidatı da eklenecek.</p>
+
+<p>Açık söyleyeyim: <strong>başvuruyu tam da bu ücret yüzünden aylarca erteledim.</strong> Sınavı ocak ayında geçmiştim ama başvuruyu ancak temmuzda gönderdim. Ertelemeye son veren şey şu oldu: sınav sonucunun geçerlilik süresi çoğu durumda <strong>on iki ay</strong>. Bu süre içinde başvurmazsanız sınava yeniden girmeniz gerekiyor. Pratik sonucu net: <strong>sınava, başvuru ücretini ödemeye hazır olduğunuzda girin.</strong></p>
+
+<hr />
+
+<h2 id="sertifika-sonrası-yenileme">Sertifika Sonrası: Yenileme</h2>
+
+<p>CSEP üç yıl geçerli. Yenilemek için üç şey gerekiyor:</p>
+
+<ul>
+  <li><strong>120 PDU</strong> (Professional Development Unit) — üç yıllık dönem boyunca kazanılmış olmalı</li>
+  <li><strong>100 USD</strong> yenileme ücreti</li>
+  <li><strong>INCOSE üyeliği</strong> — Ekim 2025’ten beri sertifikasyon için biçimsel bir zorunluluk değil; yine de ücretler üyeler lehine, Türkiye’de yıllık aidat 130 USD. Yenileme koşulları değişebildiği için başvuru anında INCOSE’un yenileme sayfasından teyit edin.</li>
+</ul>
+
+<p>PDU’lar yalnızca eğitim ve konferanslardan gelmiyor; sistem mühendisi olarak çalışmak, ekip liderliği yapmak, meslek örgütü ve şube etkinliklerine katılmak, makale yazmak ve gönüllü görevler almak da sayılıyor. Dönem içinde 120’nin üzerinde PDU biriktirirseniz <a href="https://www.incose.org/certification/maintaining-renewing-certification/renewing-certification/">en fazla 30’unu</a> bir sonraki döneme aktarabiliyorsunuz.</p>
+
+<p>Buradaki asıl mesele muhasebe disiplini: INCOSE bir <strong>PDU kayıt defteri</strong> tutmanızı ve gerektiğinde belgeleyebilmenizi bekliyor. Üç yıl sonra geriye dönüp hatırlamaya çalışmak yerine, katıldığınız her etkinliği o gün kaydetmek çok daha kolay. Ben bu kaydı sertifikayı aldığım gün açtım.</p>
+
+<hr />
+
+<h2 id="incose-dizininin-gösterdiği-türkiye-manzarası">INCOSE Dizininin Gösterdiği Türkiye Manzarası</h2>
+
+<p>Süreci bitirdikten sonra merak ettim: Türkiye’de benim gibi kaç kişi var? INCOSE’un herkese açık SEP dizini bu soruya kısmen cevap veriyor. 28 Ağustos 2026 tarihli anlık görüntüde Türkiye merkezli <strong>141 kayıt</strong> listeleniyor.</p>
+
+<h3 id="önce-bu-listenin-ne-olmadığını-konuşalım">Önce bu listenin ne olmadığını konuşalım</h3>
+
+<p>Dizin, sertifika almış herkesi değil, <strong>sertifikası o an geçerli olanları</strong> gösteriyor. Süreli 135 kaydın 42’sinin geçerliliği önümüzdeki bir yıl içinde doluyor; 6 ESEP kaydı için ise dizin bitiş tarihi göstermiyor.</p>
+
+<p>Bunun sonucu, veriyi okurken sürekli akılda tutulması gereken bir çarpıklık. CSEP üç yılda bir, ASEP beş yılda bir yenilenmek zorunda. Yenilemeyen kişi listeden tamamen kayboluyor. Veride bunun izi açıkça görülüyor: <strong>121 CSEP kaydının</strong> 80’inde ilk sertifikalanma tarihiyle bitiş tarihi arasındaki fark üç yıl (hiç yenilememişler), 30’unda altı yıl (bir kez yenilemişler), 11’inde yedi yıl veya daha uzun. Yani listedeki “2013” kaydı, 2013’ten beri sertifikasını dört kez yenilemiş bir kişi.</p>
+
+<p>Pratik karşılığı şu: <strong>eski yıllar olduğundan az görünüyor.</strong> 2015’te sertifika alıp 2018’de yenilemeyen bir mühendis bu veride hiç yok. Dolayısıyla aşağıdaki grafik bir büyüme grafiği değil; bugün geçerli sertifikaların yaş dağılımı.</p>
+
+<div class="mermaid">
+xychart-beta
+    title "Bugün geçerli sertifikaların ilk sertifikalanma yılı"
+    x-axis ["2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026"]
+    y-axis 0 --&gt; 36
+    bar [1, 1, 1, 1, 0, 0, 3, 17, 12, 3, 10, 27, 31, 34]
+</div>
+
+<p>Soldaki çöküş, 2013–2019 arasında Türkiye’de kimsenin sertifika almadığı anlamına gelmiyor; o yıllarda sertifika alanların çoğunun bugün geçerli bir sertifikası olmadığı anlamına geliyor. İki olguyu birbirinden ayıramıyoruz.</p>
+
+<h3 id="yine-de-son-üç-yıl-hakkında-bir-şey-söylenebilir">Yine de son üç yıl hakkında bir şey söylenebilir</h3>
+
+<p>Grafiğin sağ tarafı bu çarpıklıktan <strong>etkilenmiyor</strong>, çünkü CSEP döngüsü üç yıl: 2024’te sertifika alan birinin ilk yenileme tarihi 2027, 2025’inki 2028. Bu kohortların henüz eleneceği bir yenileme eşiği gelmedi. Yani bu sayılar gerçek giriş sayısına eşit değil — dizin hâlâ yalnızca listelenmeyi kabul edenleri gösteriyor — ama en azından <strong>yenilemeden kaynaklı aşınmadan etkilenmemiş</strong> durumdalar. 2023 kohortu için bunu bile söyleyemeyiz: onların ilk yenileme tarihi 2026’ydı ve bir kısmı çoktan elenmiş olabilir.</p>
+
+<p>Bu yüzden yalnızca kendi aralarında karşılaştırılabilirler: <strong>2024’te 27, 2025’te 31, 2026’nın ilk sekiz ayında 34 kayıt.</strong> Son sütun yalnızca sekiz ayı kapsadığı hâlde 2025’in tamamını geçmiş durumda. Gözlenen sayılar son üç dönemde artıyor; ancak 2026 tamamlanmadığı için yıllık eğilimi bu veriyle kesinleştirmek doğru olmaz. On yıllık bir büyüme eğrisi ise hiç çizemeyiz.</p>
+
+<p>Bu ivmenin sebebini de veri söylemiyor. Yazı boyunca değindiğim iki şey — SSB Akademi’nin hazırlık eğitimi ve Türkiye’de düzenlenen yüz yüze sınav oturumları — sertifikaya erişimi kolaylaştıran etkenler; ancak bu veriyle bir neden-sonuç ilişkisi kurmak mümkün değil.</p>
+
+<h3 id="önümüzdeki-yılların-yenileme-takvimi">Önümüzdeki yılların yenileme takvimi</h3>
+
+<p>Aşınma sorunu geriye dönük seriyi bozuyor ama ileriye dönük olana dokunmuyor: mevcut 135 süreli sertifikanın (6 ESEP kaydının bitiş tarihi yok) ne zaman yenilenmesi gerektiğini tam olarak biliyoruz.</p>
+
+<div class="mermaid">
+xychart-beta
+    title "Mevcut sertifikaların yenileme yılı"
+    x-axis ["2026", "2027", "2028", "2029", "2030", "2031"]
+    y-axis 0 --&gt; 46
+    bar [16, 36, 32, 43, 4, 4]
+</div>
+
+<p>2029 sonuna kadar 127 sertifikanın — mevcut süreli kayıtların %94’ü — yenilenmesi gerekiyor. Bu, Türkiye’deki topluluğun ilk kez bu ölçekte bir yenileme dalgasıyla karşılaşması demek — ve bugünkü 141 sayısının önümüzdeki yıllarda ne olacağını da esas olarak bu belirleyecek. Kaç kişinin PDU’sunu toplayıp yenilediğini ancak birkaç yıl sonra göreceğiz; bu yazının rakamları da o zaman geriye dönük olarak yeniden yorumlanmak zorunda kalacak.</p>
+
+<h3 id="sertifika-ağırlıklı-olarak-savunma-ve-havacılıkta">Sertifika, ağırlıklı olarak savunma ve havacılıkta</h3>
+
+<p>Kurum dağılımı, yaş dağılımının aksine doğrudan bugünkü tabloyu gösteriyor. Yine de iki sınırı var: yenileme oranı işverene göre değişebilir (ücreti şirketin ödeyip ödememesi gibi) ve dizindeki işveren bilgisi kişinin kayıt anındaki işvereni olabilir.</p>
+
+<p>İşvereni belirtilmiş 105 kaydın <strong>79’u (%75) savunma ve havacılık</strong> kuruluşlarında. TÜBİTAK’ın 12 kaydını da eklerseniz oran %87’ye çıkıyor; TÜBİTAK’ı ayrı tuttum, çünkü SAGE ve BİLGEM savunma ağırlıklı olsa da kurumun geneli için aynı şeyi söylemek zor. Dağılım tek bir şirkette belirgin biçimde yoğunlaşıyor:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Kurum</th>
+      <th style="text-align: right">Kişi</th>
+      <th style="text-align: right">Pay</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ASELSAN</td>
+      <td style="text-align: right">31</td>
+      <td style="text-align: right">%22,0</td>
+    </tr>
+    <tr>
+      <td>TÜBİTAK</td>
+      <td style="text-align: right">12</td>
+      <td style="text-align: right">%8,5</td>
+    </tr>
+    <tr>
+      <td>HAVELSAN</td>
+      <td style="text-align: right">9</td>
+      <td style="text-align: right">%6,4</td>
+    </tr>
+    <tr>
+      <td>Turkish Aerospace (TUSAŞ)</td>
+      <td style="text-align: right">9</td>
+      <td style="text-align: right">%6,4</td>
+    </tr>
+    <tr>
+      <td>ROKETSAN</td>
+      <td style="text-align: right">7</td>
+      <td style="text-align: right">%5,0</td>
+    </tr>
+    <tr>
+      <td>SSB</td>
+      <td style="text-align: right">4</td>
+      <td style="text-align: right">%2,8</td>
+    </tr>
+    <tr>
+      <td>TEI</td>
+      <td style="text-align: right">3</td>
+      <td style="text-align: right">%2,1</td>
+    </tr>
+    <tr>
+      <td>TOGG</td>
+      <td style="text-align: right">2</td>
+      <td style="text-align: right">%1,4</td>
+    </tr>
+    <tr>
+      <td>TRMOTOR</td>
+      <td style="text-align: right">2</td>
+      <td style="text-align: right">%1,4</td>
+    </tr>
+    <tr>
+      <td>Tek kişilik diğer kurumlar (26 ayrı kurum)</td>
+      <td style="text-align: right">26</td>
+      <td style="text-align: right">%18,4</td>
+    </tr>
+    <tr>
+      <td>Belirtilmemiş</td>
+      <td style="text-align: right">36</td>
+      <td style="text-align: right">%25,5</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>ASELSAN tek başına tüm listenin beşte birinden fazlasını oluşturuyor. Kayıtların dörtte birinde işveren belirtilmediği için bu oranlar kesin değil; verinin gösterdiği genel dağılım bu.</p>
+
+<p>Savunma ve havacılık ağırlığı yalnızca yerli kuruluşlardan gelmiyor: Rolls-Royce, RTX Rockwell Collins, Thales, TRMOTOR ve TEI gibi havacılık ve motor şirketleri de bu grubun içinde.</p>
+
+<p>Grubun dışında kalan 14 kayıt ise otomotiv (TOGG, Ford Otosan, FEV), sanayi ve elektronik (Bosch, Philips), yazılım ve danışmanlık ile belgelendirme alanlarına dağılıyor. Yani dizinde savunma ve havacılık dışındaki sektörlerden kuruluşlar da görülüyor; ancak ağırlık merkezi net.</p>
+
+<h3 id="seviye-dağılımı">Seviye dağılımı</h3>
+
+<p>Bugün geçerli sertifikaların dağılımı beklendiği gibi CSEP ağırlıklı: <strong>121 CSEP (%85,8), 14 ASEP (%9,9), 6 ESEP (%4,3)</strong>.</p>
+
+<p>ASEP’in zamanlaması dikkat çekici: dizindeki en eski ASEP kaydı 2023 tarihli, öncesinde tek bir tane bile yok. Burada da ihtiyatlı olmak gerekiyor, çünkü ASEP beş yıl geçerli — 2020’de ASEP almış ve 2025’te yenilememiş biri listede görünmezdi. Ama 2022’de alınmış bir ASEP 2027’ye kadar geçerli olurdu ve öyle bir kayıt da yok. Yani ASEP’in Türkiye’de gerçekten yeni yaygınlaştığı yönünde makul, ama tek başına kesin olmayan bir işaret var. Deneyimi CSEP’in 60 ay şartını karşılamayanlar için aşağıdaki öneri listesinin ilk maddesinde anlattığım yol bu.</p>
+
+<p>ESEP tarafı ise hâlâ çok dar: altı kişi. Bu, yukarıdaki tabloda ESEP için belirtilen 20 yıllık deneyim ve liderlik şartı düşünüldüğünde beklenen bir sonuç. (Küçük bir teknik not: dizin, ESEP kayıtları için geçerlilik tarihi göstermiyor; bu bir dizin özelliği, sertifikanın süresiz olduğu anlamına gelmiyor.)</p>
+
+<h3 id="bu-listedeki-son-satır">Bu listedeki son satır</h3>
+
+<p>Anlık görüntünün alındığı tarihte dizindeki en yeni CSEP kaydı bana aitti. Süreci tek başıma yaşadığım bir maraton gibi hatırlıyorum, ama listeye bakınca aynı anda onlarca kişinin aynı yoldan geçtiğini görüyorum. Üç yıl sonra bu listede kalıp kalmayacağımı ise PDU defterimi ne kadar düzenli tuttuğum belirleyecek — ki bu da yenileme bölümünde anlattığım meseleye çıkıyor.</p>
+
+<blockquote>
+  <p><strong>Veri notu:</strong> Sayılar INCOSE’un herkese açık SEP dizininden 28 Ağustos 2026’da alınan anlık görüntüye dayanıyor. İki önemli sınırı var. Birincisi, dizinde yalnızca listelenmeyi kabul eden sertifika sahipleri görünüyor; gerçek sayı daha yüksek. İkincisi ve daha önemlisi, dizin yalnızca <strong>geçerli</strong> sertifikaları içeriyor: sertifikasını yenilemeyenler listeden düştüğü için eski yılların sayıları olduğundan az görünüyor. Bu nedenle yıl kırılımı bir büyüme serisi olarak değil, bugünkü kayıtların yaş dağılımı olarak okunmalıdır. Kurum adları, aynı kuruluşun farklı yazımları birleştirilerek gruplandı. Kişi adları bilinçli olarak paylaşılmadı.</p>
+</blockquote>
+
+<hr />
+
+<h2 id="türkiyede-csep-kimin-i̇şine-yarar">Türkiye’de CSEP Kimin İşine Yarar?</h2>
+
+<p>Gerçekçi olalım: CSEP, tek başına kapı açan sihirli bir anahtar değil. Değerinin en yüksek olduğu yerler oldukça belirli.</p>
+
+<p><strong>Savunma ve havacılık sektörü.</strong> SSB, TUSAŞ, ASELSAN, ROKETSAN, HAVELSAN, STM gibi kurum ve şirketlerin projelerinde sistem mühendisliği süreçlerinin önemli bir rolü var. Bu ortamda CSEP, bireysel yetkinliğin gösterilmesinde işe yarayan bir belge. SSB Akademi’nin hazırlık eğitimi düzenlemesi ve sınava ev sahipliği yapması da bu ilgiyi gösteriyor.</p>
+
+<p><strong>Yazılımdan sisteme geçiş yapanlar.</strong> Benim durumum tam olarak bu. Yazılım tarafında derinleşmiş bir mühendisin sistem tarafına adım atarken karşılaştığı en büyük engel, deneyimin “yazılım deneyimi” olarak okunması. Benim açımdan CSEP, bu deneyimi sistem mühendisliğinin kendi diliyle ve bağımsız bir kurumun onayıyla ifade etmenin işe yarayan bir yoluydu.</p>
+
+<p><strong>Uluslararası ortak projelerde çalışanlar.</strong> Benim açımdan motivasyonlardan biri de yerel deneyimi uluslararası ölçekte taşınabilir bir formata çevirmesiydi; çok ortaklı programlarda ortak bir terminolojiye sahip olmak işi kolaylaştırıyor.</p>
+
+<p>Buna karşılık, tek bir üründe uzmanlaşmış ve sistem seviyesinde sorumluluk almayacak bir rolde çalışıyorsanız, sertifikanın getirisi harcanan zaman ve parayı karşılamayabilir. Bunu peşinen değerlendirmekte fayda var.</p>
+
+<hr />
+
+<h2 id="almayı-düşünenlere-öneriler">Almayı Düşünenlere Öneriler</h2>
+
+<p>Süreci baştan yaşamış biri olarak, sırayla uygulanabilecek somut önerilerim şunlar:</p>
+
+<ol>
+  <li><strong>Önce uygunluğunuzu kontrol edin.</strong> 60 ayı ve üç alanda 12’şer ayı bugünkü deneyiminizle karşılayabiliyor musunuz? Karşılayamıyorsanız ASEP ile başlayın; ASEP’ten sonra beş yıl içinde CSEP’e geçerken sınavı tekrar vermeniz gerekmiyor.</li>
+  <li><strong>Referanslarınızı sınavdan önce belirleyin ve sayıyı asgaride tutmayın.</strong> Kimin hangi dönemi doğrulayabileceğini bilmek, deneyim tablosunu nasıl dolduracağınızı da belirler; ben son üç iş yerimden sekiz referans verdim. Uygun bir referans bulamıyorsanız, bunu sınav ücretini ödemeden önce öğrenmek istersiniz.</li>
+  <li><strong>Handbook’u iki kez okuyun.</strong> Birincisi altını çizerek, ikincisi özümsemek için. Tek okumayla geçenler var ama emniyet payı bırakmak daha iyi.</li>
+  <li><strong>Notlarınızı süreç bazında tutun.</strong> Her süreç için amaç, girdiler, aktiviteler, çıktılar. Sınavın ödüllendirdiği yapı bu.</li>
+  <li><strong>Beşinci baskıya çalışın.</strong> 15 Mart 2025’ten beri sınav tamamen v5 tabanlı. Türkçe çeviri v4’e ait; destekleyici kaynak olarak faydalı, ana kaynak olarak riskli.</li>
+  <li><strong>Pratik soruları teşhis aracı olarak kullanın.</strong> Puanınızı değil, hangi bölümlerde hata yaptığınızı takip edin.</li>
+  <li><strong>Kâğıt oturum takvimini erkenden öğrenin.</strong> Türkiye’deki yüz yüze oturumların tarihleri INCOSE TR ve SSB Akademi duyurularıyla açıklanıyor ve yıldan yıla değişiyor; maliyet avantajı ciddi ama takvim esnek değil. Oturuma giderken sözlüğünüzü, kurşun kaleminizi ve silginizi yanınıza almayı, yerleşkeye araç girişi için plaka kaydını önceden yaptırmayı unutmayın.</li>
+  <li><strong>Başvuru ücretini sınavdan önce bütçeleyin.</strong> On iki aylık geçerlilik kuralı, erteleme lüksünüzü sınırlıyor. Üyeliğinizi de sürecin başında açmayı değerlendirin: üyelik Ekim 2025’ten beri zorunlu değil, ama ücret farkı büyük ve Türkiye’nin PPP kademesi sayesinde yıllık aidat 175 USD yerine 130 USD.</li>
+  <li><strong>Deneyim beyanında dürüst ve ölçülü olun.</strong> Referansınızın tereddütsüz onaylayacağı cümleler kurun.</li>
+  <li><strong>PDU defterini ilk günden açın.</strong> Üç yıl, geriye dönük hatırlamak için uzun bir süre.</li>
+</ol>
+
+<hr />
+
+<h2 id="sonuç">Sonuç</h2>
+
+<p>CSEP sürecinin bana kazandırdığı en değerli şey unvan olmadı. Altı aylık hazırlık, on yıla yakın sürede parça parça öğrendiğim pratikleri tek bir çerçeveye oturttu ve bu çerçevenin ne kadarını gerçekten bildiğimi, ne kadarını sadece uyguladığımı gösterdi. Sınavdan hemen sonra sistem mühendisliği yüksek lisansına başlamamın sebebi de buydu.</p>
+
+<p>Başvuru dosyası ise başka bir şey öğretti: yaptığınız işi başkasının anlayacağı ve doğrulayabileceği bir dille anlatmak, işin kendisinden ayrı bir beceri. Deneyim tablosunu doldururken kendi kariyerime dışarıdan bakmak zorunda kaldım: hangi işler gerçekten sistem seviyesinde sorumluluk taşıyordu, hangileri iyi yapılmış ama dar kapsamlı işlerdi? Bu egzersizi, sertifikaya başvurmayacak olsanız bile tavsiye ederim.</p>
+
+<p>Aynı yolu yürüyecek olanlara kolaylıklar dilerim. Süreçle ilgili sorusu olanlar <a href="/contact">iletişim</a> sayfasından bana ulaşabilir.</p>
+
+<hr />
+
+<h2 id="kaynaklar">Kaynaklar</h2>
+
+<ul>
+  <li><a href="https://www.incose.org/certification/">INCOSE Certification Program</a></li>
+  <li><a href="https://www.incose.org/certification/start-your-certification/applying-for-csep/">Applying for CSEP — INCOSE</a></li>
+  <li><a href="https://www.incose.org/certification/start-your-certification/taking-the-exam/">Taking the Exam — INCOSE</a></li>
+  <li><a href="https://www.incose.org/certification/start-your-certification/being-a-reference/">Being a Reference — INCOSE</a></li>
+  <li><a href="https://www.incose.org/certification/pricing-requirements/">Certification Pricing and Requirements — INCOSE</a></li>
+  <li><a href="https://www.incose.org/certification/maintaining-renewing-certification/renewing-certification/">Renewing Certification — INCOSE</a></li>
+  <li><a href="https://www.incose.org/certification/certification-faqs/">Certification FAQs — INCOSE</a></li>
+  <li><a href="https://www.incose.org/wp-content/uploads/2026/07/CSEP_HowToApply_2026.pdf">How to Apply for CSEP, 2026</a> — başvurunun adım adım anlatımı</li>
+  <li><a href="https://www.incose.org/wp-content/uploads/2026/01/form-2-instructions-for-completing-form-1-1.pdf">Form 2 — CSEP Application Instructions</a> — Form 1’in nasıl doldurulacağı ve deneyim alanlarının tanımları</li>
+  <li><a href="https://forms.office.com/pages/responsepage.aspx?id=k6cjNVAORka4CyXYO9fylpdnShHiChFNk4sYt-8URhFUN1RNUE5NSDdKTlRVSkNZVFdYRkwyOVlPSC4u&amp;route=shorturl">FORM 4B: Reference for CSEP/ESEP</a> — referansların dolduracağı dijital mektup</li>
+  <li><a href="https://www.incose.org/wp-content/uploads/2026/08/EXAM_HowToRegister_Online-and-Paper.pdf">How to Register for an Exam, online ve kâğıt</a></li>
+  <li><a href="https://www.incose.org/wp-content/uploads/2026/07/SEP_HowToReneworReinstate_2026.pdf">How to Renew or Reinstate a SEP, 2026</a></li>
+  <li>INCOSE, <em>Systems Engineering Handbook</em>, 5. baskı, Wiley — sınavın tek resmî kaynağı</li>
+  <li>INCOSE, <em>Sistem Mühendisliği El Kitabı</em>, dördüncü versiyon, Savunma Sanayii Akademi Yayınları — Türkçe çeviri</li>
+  <li><a href="https://www.ssa.gov.tr/">Savunma Sanayii Akademi</a> — CSEP hazırlık eğitimi ve Türkiye’deki kâğıt sınav oturumu</li>
+  <li><a href="https://tr.linkedin.com/company/incosetr">INCOSE TR</a></li>
+  <li>INCOSE SEP sertifika dizini (herkese açık sertifika sahipleri listesi) — “Türkiye’de SEP Manzarası” bölümündeki sayıların kaynağı; 28 Ağustos 2026 anlık görüntüsü</li>
+</ul>
+
+<h3 id="pratik-soru-setleri-udemy">Pratik soru setleri (Udemy)</h3>
+
+<p>Hazırlık sırasında kullandığım soru setleri. Hiçbiri INCOSE’un resmî kaynağı değildir; teşhis aracı olarak faydalıdırlar, tek başına hazırlık kaynağı olarak değil.</p>
+
+<ul>
+  <li><a href="https://www.udemy.com/course/incose-asepcsep-practice-knowledge-exams-5th-ed">INCOSE ASEP/CSEP Practice Knowledge Exams, 5th Ed.</a></li>
+  <li><a href="https://www.udemy.com/course/incose-certified-systems-engineering-professional-csep">INCOSE Certified Systems Engineering Professional, CSEP</a></li>
+  <li><a href="https://www.udemy.com/course/incose-asepcsep-practice-test">INCOSE ASEP/CSEP Practice Test</a></li>
+  <li><a href="https://www.udemy.com/course/systems-engineering-practitioner-prep-for-se-handbook-v5">Systems Engineering Practitioner: Prep for SE Handbook v5</a></li>
+</ul>]]></content><author><name>M. Serdar Karaman</name></author><category term="muhendislik" /><category term="sistem-muhendisligi" /><category term="sertifikasyon" /><category term="kariyer" /><category term="incose" /><summary type="html"><![CDATA[Altmış ay deneyim, en az üç farklı alanda on ikişer ay, referanslarca doğrulanmış bir deneyim dosyası ve 100 puanlanan soruluk bir sınav. INCOSE CSEP (Certified Systems Engineering Professional) sertifikasyonunun şartları kabaca bunlar. Benim dosyamda bunlara ek olarak sekiz referans vardı; cebimden çıkan da 610 USD ile 1.000 TL oldu.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://karaman.dev/img/og-default.webp" /><media:content medium="image" url="https://karaman.dev/img/og-default.webp" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry xml:lang="tr"><title type="html">Analitiğin Dört Hâli: Descriptive, Diagnostic, Predictive, Prescriptive</title><link href="https://karaman.dev/2026/09/22/analitigin-dort-hali-descriptive-diagnostic-predictive-prescriptive.html" rel="alternate" type="text/html" title="Analitiğin Dört Hâli: Descriptive, Diagnostic, Predictive, Prescriptive" /><published>2026-09-22T09:00:00+00:00</published><updated>2026-09-22T09:00:00+00:00</updated><id>https://karaman.dev/2026/09/22/analitigin-dort-hali-descriptive-diagnostic-predictive-prescriptive</id><content type="html" xml:base="https://karaman.dev/2026/09/22/analitigin-dort-hali-descriptive-diagnostic-predictive-prescriptive.html"><![CDATA[<p>Çoğu ekibin veriyle ilişkisi aynı sahneyle başlar: bir gösterge paneli (<em>dashboard</em>) açılır, ekranda on beş grafik vardır, hepsi doğrudur, hiçbiri bir şey yaptırmaz; karar yine “bence” ile verilir. Sorun verinin azlığı değil, <strong>sorulan sorunun türünün farkında olmamaktır.</strong> “Ne oldu?”, “neden oldu?”, “ne olacak?” ve “ne yapmalıyız?” farklı yöntem ve farklı kanıt standardı isteyen dört ayrı sorudur. Bunlara sırasıyla <strong>descriptive</strong> (betimleyici), <strong>diagnostic</strong> (tanısal), <strong>predictive</strong> (öngörücü) ve <strong>prescriptive</strong> (kuralkoyucu) analitik denir.</p>
 
 <p>Sınıflandırmanın kökleri, Davenport ve Harris’in 2007 tarihli <em>Competing on Analytics</em> kitabına ve INFORMS’un 2010’da yayımladığı “The Analytics Journey” makalesindeki descriptive–predictive–prescriptive üçlüsüne dayanır. Bugün en yaygın olan dörtlü hâlini, araya diagnostic’i ekleyen Gartner’ın “analitik yükseliş modeli” (<em>Analytic Ascendancy Model</em>) yerleştirdi. Etiketler yeni olsa da en üst basamağın motoru, 1950’lerden beri gelişen yöneylem araştırmasıdır.</p>
 
@@ -3701,1454 +4329,4 @@ flowchart TB
   <li><a href="https://ilac.org/">ILAC — Uluslararası Laboratuvar Akreditasyonu Birliği</a></li>
   <li><a href="https://jila.colorado.edu/yelabs">JILA — Optik Latis Saat Çalışmaları (Ye Lab)</a></li>
   <li><a href="https://en.wikipedia.org/wiki/2019_revision_of_the_SI">Wikipedia — 2019 redefinition of the SI base units (özet)</a></li>
-</ul>]]></content><author><name>M. Serdar Karaman</name></author><category term="muhendislik" /><category term="metroloji" /><summary type="html"><![CDATA[]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://karaman.dev/img/og-default.webp" /><media:content medium="image" url="https://karaman.dev/img/og-default.webp" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry xml:lang="tr"><title type="html">Ölçtüğünüz Sayı Ne Kadar Doğru? Ölçüm Belirsizliği için Bir Rehber</title><link href="https://karaman.dev/2026/05/06/olcum-belirsizligi-gum-annex-f-ncsli-rp-12.html" rel="alternate" type="text/html" title="Ölçtüğünüz Sayı Ne Kadar Doğru? Ölçüm Belirsizliği için Bir Rehber" /><published>2026-05-06T09:00:00+00:00</published><updated>2026-05-06T09:00:00+00:00</updated><id>https://karaman.dev/2026/05/06/olcum-belirsizligi-gum-annex-f-ncsli-rp-12</id><content type="html" xml:base="https://karaman.dev/2026/05/06/olcum-belirsizligi-gum-annex-f-ncsli-rp-12.html"><![CDATA[<script src="https://cdn.plot.ly/plotly-basic-2.27.0.min.js"></script>
-
-<p>Test laboratuvarındaki ilk gününüz. Önünüzdeki multimetre 24,98 V gösteriyor. Test belgesi diyor ki: cihazın çıkışı 24 V ± 1 V olmalı. Yan masadaki kıdemli mühendis formun üstüne büyük harflerle “GEÇTİ” yazıyor. Doğru değer 24,98 V. Sınırın çok içinde. Tamam.</p>
-
-<p>Ama dur. O ekrandaki 24,98 sayısı ne kadar gerçeği yansıtıyor? Multimetre dün kalibre edildi. Kabloların kendi direnci var. Oda sıcaklığı sabah 21 °C iken öğleden sonra 25 °C oldu. Bakır konnektörlerde küçük gerilimler oluşuyor. Bunların hepsi, ekrandaki sayının yanına bir hata payı ekliyor. Eğer bu pay 5 mV ise sorun yok. Ama ya 1,5 V ise? O zaman cihaz gerçekte 23,5 V ya da 26,5 V çıkış veriyor olabilir. Sınırın dışında, yani aslında geçmemiş.</p>
-
-<p>İşte bu hata payına <strong>ölçüm belirsizliği</strong> diyoruz. Bu yazının amacı, belirsizliği nasıl hesapladığınızı sıfırdan anlatmak. İki uluslararası kılavuza dayanacağız. Birincisi <strong>GUM</strong> (Türkçe açılımıyla “Ölçüm Belirsizliğinin İfadesi Kılavuzu”), uluslararası referans. İkincisi <strong>NCSLI RP-12</strong>, ABD kalibrasyon mühendislerinin yazdığı pratik el kitabı. Üç gerçek örnek üzerinden hesabı tamamlayacağız: bir voltmetre, bir sıcaklık sensörü, bir basınç sensörü. Sonra aviyonik UUT üreticisi bir şirketin neden farklı bir disiplinle çalışması gerektiğini somut bir VOR/ILS alıcısı örneği üzerinden inceleyeceğiz. Sayılar gerçek, formüller gerçek; dil olabildiğince sade.</p>
-
-<hr />
-
-<h2 id="bu-belgeler-nereden-çıktı">Bu Belgeler Nereden Çıktı?</h2>
-
-<p>Ölçüm belirsizliği bilimi yaklaşık 50 yıllık. Aşağıdaki zaman çizelgesi ana adımları gösteriyor.</p>
-
-<div class="mermaid">
-flowchart TB
-    A["<b>1977</b> &nbsp; CIPM, BIPM'e talimat verdi<br /><i>Ortak bir dile geçilmesi sağlanmalı</i>"]
-    B["<b>1980</b> &nbsp; INC-1 kararı<br />Tip A ve Tip B kavramları ilk kez"]
-    C["<b>1993</b> &nbsp; İlk GUM yayını<br />ISO + IEC + OIML + BIPM ortak imza"]
-    D["<b>1995</b> &nbsp; İlk NCSLI RP-12 yayımlandı"]
-    E["<b>2006</b> &nbsp; ANSI Z540.3 standardı<br />Yanlış kabul olasılığı %2 sınırı"]
-    F["<b>2008</b> &nbsp; JCGM 100:2008 + JCGM 101<br />GUM yenilendi, Monte Carlo eklendi"]
-    G["<b>2013</b> &nbsp; NCSLI RP-12 yeni baskı<br />Howard Castrup öncülüğünde"]
-    H["<b>2020</b> &nbsp; JCGM GUM-6<br />Modelleme ve uygulama rehberi"]
-    A --&gt; B --&gt; C --&gt; D --&gt; E --&gt; F --&gt; G --&gt; H
-    style A fill:#e8eef7,stroke:#4a6fa5,stroke-width:2px
-    style B fill:#dbe7f5,stroke:#4a6fa5,stroke-width:2px
-    style C fill:#cee0f3,stroke:#4a6fa5,stroke-width:2px
-    style D fill:#bfd6f0,stroke:#4a6fa5,stroke-width:2px
-    style E fill:#aecbed,stroke:#4a6fa5,stroke-width:2px
-    style F fill:#9cc0e9,stroke:#3a5f95,stroke-width:2px
-    style G fill:#88b3e5,stroke:#3a5f95,stroke-width:2px
-    style H fill:#73a6e0,stroke:#2a4f85,stroke-width:2px,color:#fff
-</div>
-
-<p>1970’lerde dünyada ölçüm yapan büyük kurumlar — Amerika’da NIST, İngiltere’de NPL, Almanya’da PTB, Fransa’da BIPM — ortak bir derde sahipti. Hepsi aynı miktarı ölçüyordu (1 metrenin uzunluğu, 1 kilogramın ağırlığı), ama her biri farklı şekilde rapor ediyordu. Kimi “± 0,1 mm” yazıyordu, kimi “%95 güvenle 0,15 mm”. Sonuçları karşılaştırmak çok zordu.</p>
-
-<p>1977’de uluslararası ağırlıklar ve ölçümler komitesi <strong>CIPM</strong>, alt birimi olan BIPM’den bu sorunu çözmesini istedi. BIPM, 1980’de 11 ulusal metroloji laboratuvarından uzmanları bir araya getirdi ve “Belirsizlik Beyanı Çalışma Grubu” toplandı. Çalışma grubunun çıkardığı <strong>INC-1 (1980)</strong> kararı, bugün hâlâ kullandığımız iki kavramı tanımladı:</p>
-
-<ul>
-  <li><strong>Tip A belirsizlik:</strong> Aynı ölçümü defalarca yaparak, çıkan sayıların ne kadar dağıldığına bakarak hesaplanan belirsizlik. Örneğin cihazı 10 kez ölçüp standart sapmayı hesaplamak.</li>
-  <li><strong>Tip B belirsizlik:</strong> Tekrarlı ölçüm dışındaki her bilgi. Kalibrasyon belgesi, üretici kataloğu, geçmiş deneyim.</li>
-</ul>
-
-<p>13 yıl sonra, 1993’te bu fikirler genişletildi ve uluslararası dört kuruluş (ISO, IEC, OIML, BIPM) ortak bir el kitabı yayımladı: <strong>GUM</strong>. 2008’de küçük düzeltmelerle yeniden basıldı, bugün <strong>JCGM 100:2008</strong> adıyla kullanılıyor. Sonra ek belgeler geldi: <strong>JCGM 101</strong> (Monte Carlo simülasyonu ile belirsizlik hesabı, 2008), <strong>JCGM 102</strong> (birden fazla sonuç veren ölçümler, 2011), <strong>JCGM 106</strong> (uyum kararı, 2012).</p>
-
-<p>Amerika tarafında <strong>NCSL International</strong> kalibrasyon mühendislerinin oluşturduğu bir dernek. 1995’te ilk <strong>RP-12</strong> belgesini yayımladılar, 2013’te tamamen yeniden yazdılar. RP-12, GUM’un akademik dilini günlük kalibrasyon laboratuvarının diline çevirir. Yanına 2006’da yayımlanan <strong>ANSI Z540.3</strong> standardı kalibrasyon laboratuvarları için bağlayıcı kurallar getirir.</p>
-
-<p>Türkiye’de <strong>TÜBİTAK UME</strong> (Ulusal Metroloji Enstitüsü) ulusal ölçüm referanslarını korur. <strong>TÜRKAK</strong> kalibrasyon laboratuvarlarına akreditasyon verir. Aldığınız kalibrasyon belgesinin doğruluğu, bu zincirden geçerek Paris’in batısındaki Sèvres ilçesinde bulunan BIPM merkezine ve oradan da SI birim tanımlarına bağlanır. Bu bağlantıya <strong>izlenebilirlik</strong> deniyor.</p>
-
-<p>İzlenebilirlik zinciri görsel olarak şu şekilde:</p>
-
-<div class="mermaid">
-flowchart TB
-    SI[SI Birim Tanımları<br />BIPM, Sèvres - Fransa<br />2019'dan beri Planck sabiti, c, e, k_B, ...]
-    UME[TÜBİTAK UME<br />Ulusal Metroloji Enstitüsü<br />Türkiye'nin birincil referansı]
-    KAL[Akredite Kalibrasyon Laboratuvarı<br />TÜRKAK belgeli<br />ISO 17025 uyumlu]
-    UUT[Test edilen cihaz<br />multimetre, PT100, basınç sensörü...]
-    URUN[Ürün ölçümü<br />uçak, otomobil, medikal cihaz...]
-    SI --&gt; UME
-    UME --&gt; KAL
-    KAL --&gt; UUT
-    UUT --&gt; URUN
-    style SI fill:#1a73e8,color:#fff
-    style UME fill:#2e7d32,color:#fff
-    style KAL fill:#e8711a,color:#fff
-    style UUT fill:#c62828,color:#fff
-    style URUN fill:#6a1b9a,color:#fff
-</div>
-
-<p>Her okun başında ve sonunda bir <strong>belirsizlik kazanımı</strong> olur. SI tanımlarındaki belirsizlik atomik mertebede sıfıra yakındır. UME’nin referansları nano düzeyde belirsizlik taşır. Akredite laboratuvarın belirsizliği biraz daha büyük, sizin cihazınızın daha da. Ürün ölçümünüzün belirsizliği zincirin son halkası — ve eğer zincirde kopukluk varsa (mesela “akredite olmayan bir laboratuvarda kalibre ettirdik”) tüm zincir geçersiz olur.</p>
-
-<hr />
-
-<h2 id="belirsizlik-nedir-birkaç-temel-kavram">Belirsizlik Nedir? Birkaç Temel Kavram</h2>
-
-<p>Önce küçük bir sözlük. Bu kavramları sık karıştırırız:</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Terim</th>
-      <th>Anlamı</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>**Hata**</td>
-      <td>Ölçtüğümüz değer eksi gerçek değer. Gerçek değeri hiçbir zaman tam bilemediğimiz için hatayı da tam bilemeyiz.</td>
-    </tr>
-    <tr>
-      <td>**Belirsizlik**</td>
-      <td>Ölçüme atfedebileceğimiz değerlerin dağılımı. "Sayım şu civarda olabilir" demek.</td>
-    </tr>
-    <tr>
-      <td>**Doğruluk (accuracy)**</td>
-      <td>Ölçümün gerçek değere ne kadar yakın olduğu.</td>
-    </tr>
-    <tr>
-      <td>**Kesinlik (precision)**</td>
-      <td>Aynı ölçümü tekrarladığımızda sayıların birbirine ne kadar yakın çıktığı.</td>
-    </tr>
-    <tr>
-      <td>**Tolerans**</td>
-      <td>Ürünün kabul edilebilir aralığı (örn. 24 V ± 1 V).</td>
-    </tr>
-    <tr>
-      <td>**İzlenebilirlik**</td>
-      <td>Ölçüm cihazımızın doğruluğunun zincir halinde uluslararası referansa bağlanması.</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>Doğruluk ve kesinlik birbirinden bağımsız iki şey. Bir cihaz çok doğru ama az kesin olabilir, ya da çok kesin ama doğru olmayabilir. Bunu anlatmanın en kolay yolu nişan tahtasıdır. Aşağıda dört durum var: her tahtada beş atış var; merkez gerçek değer, atışlar ölçümler.</p>
-
-<div id="grafik-dogruluk" style="width:100%;max-width:760px;margin:1.5rem auto 2.5rem auto;height:680px;"></div>
-<script>
-(function(){
-  var MEAS = '#c62828';
-  var CENTER = '#1a73e8';
-
-  function meas(xs, ys, xaxis, yaxis, showleg){
-    return {x:xs, y:ys, mode:'markers', type:'scatter',
-            marker:{size:12, color:MEAS, line:{color:'#000', width:1}},
-            xaxis:xaxis, yaxis:yaxis,
-            name:'Ölçüm sonucu (5 tekrar)',
-            legendgroup:'meas', showlegend:showleg};
-  }
-  function center(xaxis, yaxis, showleg){
-    return {x:[0], y:[0], mode:'markers', type:'scatter',
-            marker:{size:20, color:CENTER, symbol:'star', line:{color:'#000', width:1.5}},
-            xaxis:xaxis, yaxis:yaxis,
-            name:'Gerçek değer (hedef merkezi)',
-            legendgroup:'center', showlegend:showleg};
-  }
-  function targetShapes(xref, yref){
-    var shapes = [];
-    [3, 2, 1].forEach(function(r){
-      shapes.push({
-        type:'circle', xref:xref, yref:yref,
-        x0:-r, y0:-r, x1:r, y1:r,
-        line:{color:'#888', width:1},
-        fillcolor: r===3 ? 'rgba(220,220,220,0.4)' : (r===2 ? 'rgba(240,240,240,0.4)' : 'rgba(255,255,255,0.6)')
-      });
-    });
-    return shapes;
-  }
-
-  var data = [
-    meas([0.15,-0.1,0.05,-0.05,0.1], [0.05,0.1,-0.1,0.15,-0.05], 'x1', 'y1', true),
-    center('x1', 'y1', true),
-    meas([0.9,0.7,0.6,1.0,0.8], [-0.5,-0.3,-0.7,-0.4,-0.6], 'x2', 'y2', false),
-    center('x2', 'y2', false),
-    meas([1.2,-0.8,0.5,-1.4,1.5], [1.3,-1.0,1.4,0.6,-0.9], 'x3', 'y3', false),
-    center('x3', 'y3', false),
-    meas([1.6,-1.2,0.9,-0.6,1.4], [-1.5,1.7,-1.6,-1.8,-2.0], 'x4', 'y4', false),
-    center('x4', 'y4', false)
-  ];
-  var shapes = []
-    .concat(targetShapes('x1','y1'))
-    .concat(targetShapes('x2','y2'))
-    .concat(targetShapes('x3','y3'))
-    .concat(targetShapes('x4','y4'));
-  var ax = function(){ return {range:[-3.2,3.2], showgrid:false, zeroline:false, showticklabels:false, fixedrange:true};};
-
-  var layout = {
-    grid: {rows:2, columns:2, pattern:'independent', ygap:0.30, xgap:0.10},
-    xaxis: ax(), yaxis: ax(),
-    xaxis2: ax(), yaxis2: ax(),
-    xaxis3: ax(), yaxis3: ax(),
-    xaxis4: ax(), yaxis4: ax(),
-    annotations:[
-      {text:'<b>1) Doğru ve kesin</b><br><span style="font-size:11px;color:#555">merkezde toplanmış</span>',
-       x:0.225, y:1.04, xref:'paper', yref:'paper', showarrow:false, font:{size:13}, align:'center', xanchor:'center', yanchor:'bottom'},
-      {text:'<b>2) Doğru değil ama kesin</b><br><span style="font-size:11px;color:#555">sapma (bias) var, ama tutarlı</span>',
-       x:0.775, y:1.04, xref:'paper', yref:'paper', showarrow:false, font:{size:13}, align:'center', xanchor:'center', yanchor:'bottom'},
-      {text:'<b>3) Doğru ama kesin değil</b><br><span style="font-size:11px;color:#555">merkez etrafı, dağınık</span>',
-       x:0.225, y:0.46, xref:'paper', yref:'paper', showarrow:false, font:{size:13}, align:'center', xanchor:'center', yanchor:'bottom'},
-      {text:'<b>4) Ne doğru ne kesin</b><br><span style="font-size:11px;color:#555">her yerde, sapma + dağınık</span>',
-       x:0.775, y:0.46, xref:'paper', yref:'paper', showarrow:false, font:{size:13}, align:'center', xanchor:'center', yanchor:'bottom'}
-    ],
-    shapes: shapes,
-    margin:{l:30, r:30, t:80, b:80},
-    plot_bgcolor:'#ffffff', paper_bgcolor:'#ffffff',
-    legend:{orientation:'h', x:0.5, xanchor:'center', y:-0.02, yanchor:'top', font:{size:12},
-            bgcolor:'rgba(255,255,255,0.85)', bordercolor:'#ccc', borderwidth:1},
-    showlegend:true
-  };
-  Plotly.newPlot('grafik-dogruluk', data, layout, {responsive:true, displayModeBar:false});
-})();
-</script>
-
-<p>İdeal durum tabii ki sol üst: hem doğru hem kesin. Sağ üst tehlikeli; cihaz çok kesin ölçüm yapıyor (atışlar bir arada) ama hep yanlış yönde sapıyor. <strong>Sapma (bias)</strong> dediğimiz durum bu. Sağ alt durumda atışlar merkezi etrafına yığılmış ama dağınık; ortalamasını alırsak doğru cevaba ulaşırız. Kalibrasyon ve belirsizlik analizinin işi, bu dört durumdan hangisinde olduğumuzu bulup uygun şekilde raporlamaktır.</p>
-
-<p>Belirsizliği iki adımda hesaplıyoruz. Önce her bir kaynağı <strong>standart belirsizlik</strong> denilen bir sayıya dönüştürüyoruz (1 sigmaya, yani normal dağılımın bir standart sapmasına denk düşen değer). Sonra hepsini birleştirip <strong>birleşik belirsizlik</strong> elde ediyoruz. Birleştirme yöntemi şu: her bileşeni karesel olarak topla, sonra karekökünü al. Buna “<strong>karekök kareler toplamı</strong>” diyelim, kısaltılmışı <strong>KKT</strong> (İngilizce literatürde RSS).</p>
-
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>u_birleşik² = u_1² + u_2² + u_3² + ...
-u_birleşik = √(u_1² + u_2² + u_3² + ...)
-</code></pre></div></div>
-
-<p>Neden böyle topluyoruz? Çünkü farklı kaynaklardan gelen küçük rastlantısal hatalar, doğrudan toplanmaz; istatistik kuralı gereği kareleri toplanır. İki adet ±1 mm hata yan yana geldiğinde sonuç ±2 mm değil, ±1,4 mm olur (√2 ≈ 1,41).</p>
-
-<p>Son olarak, <strong>kapsama faktörü</strong> denilen bir sayı (genelde k=2) ile çarparak <strong>genişletilmiş belirsizliği</strong> elde ederiz. k=2, yaklaşık olarak %95 güven düzeyine karşılık gelir. Yani “U=56 µV (k=2)” demek, “gerçek değer büyük olasılıkla ölçtüğümüz sayının 56 µV içinde” demek.</p>
-
-<blockquote>
-  <p><strong>Akılda kalsın — üç temel formül:</strong></p>
-  <ul>
-    <li><strong>Standart belirsizlik:</strong> her bileşeni 1σ’a çevir (Tip A için s/√n; Tip B için aralığı dağılım faktörüne böl).</li>
-    <li><strong>Birleşik belirsizlik:</strong> u_birleşik = √(u₁² + u₂² + … + uₙ²)</li>
-    <li><strong>Genişletilmiş belirsizlik:</strong> U = k × u_birleşik (genelde k = 2, ≈ %95 güven)</li>
-  </ul>
-</blockquote>
-
-<p>Tip B belirsizlikleri standart belirsizliğe çevirirken bir varsayım yapmamız gerekir: dağılım nasıl dağılıyor? Üretici “±1 mV” diyorsa o aralığın içinde her değer eşit ihtimalli mi, yoksa orta yoğun mu? Üç tipik durum:</p>
-
-<ul>
-  <li><strong>Düz (üniform) dağılım:</strong> Aralık içinde her nokta eşit olası. Standart belirsizliği = a / √3.</li>
-  <li><strong>Üçgen dağılım:</strong> Orta nokta daha olası, kenarlar düşer. Standart belirsizliği = a / √6.</li>
-  <li><strong>Normal dağılım:</strong> Genelde sertifikadan gelir. k ile birlikte verilirse, standart belirsizlik = U / k.</li>
-</ul>
-
-<p>Bilgi yoksa, en güvenli tercih düz dağılım varsaymaktır. Aşağıdaki grafik dört dağılım tipini yan yana gösteriyor; hepsinde aralık ±1 birim, ama içerideki olasılık şekli farklı.</p>
-
-<div id="grafik-pdf" style="width:100%;max-width:780px;margin:1.5rem auto 2.5rem auto;height:340px;"></div>
-<script>
-(function(){
-  var x = [];
-  for (var i=-150; i<=150; i++) x.push(i/100);
-  var uniform = x.map(function(v){return (v>=-1 && v<=1) ? 0.5 : 0;});
-  var triangular = x.map(function(v){return (v>=-1 && v<=1) ? (1-Math.abs(v)) : 0;});
-  var normal = x.map(function(v){var s=0.5; return Math.exp(-v*v/(2*s*s))/(s*Math.sqrt(2*Math.PI));});
-  var ushape = x.map(function(v){return (v>-1 && v<1) ? 1/(Math.PI*Math.sqrt(1-v*v)) : 0;});
-  var common = {type:'scatter', mode:'lines', fill:'tozeroy', line:{width:2}};
-  var data = [
-    Object.assign({}, common, {x:x, y:uniform, name:'Düz', xaxis:'x1', yaxis:'y1', line:{color:'#1a73e8', width:2}, fillcolor:'rgba(26,115,232,0.25)'}),
-    Object.assign({}, common, {x:x, y:triangular, name:'Üçgen', xaxis:'x2', yaxis:'y2', line:{color:'#e8711a', width:2}, fillcolor:'rgba(232,113,26,0.25)'}),
-    Object.assign({}, common, {x:x, y:normal, name:'Normal', xaxis:'x3', yaxis:'y3', line:{color:'#2e7d32', width:2}, fillcolor:'rgba(46,125,50,0.25)'}),
-    Object.assign({}, common, {x:x, y:ushape, name:'U-shape', xaxis:'x4', yaxis:'y4', line:{color:'#6a1b9a', width:2}, fillcolor:'rgba(106,27,154,0.25)'})
-  ];
-  var ax = function(){ return {range:[-1.5,1.5], showgrid:false, zeroline:false, showticklabels:false, fixedrange:true};};
-  var ay = function(){ return {showgrid:false, zeroline:false, showticklabels:false, fixedrange:true};};
-  var layout = {
-    grid:{rows:1, columns:4, pattern:'independent'},
-    xaxis:ax(), yaxis:ay(), xaxis2:ax(), yaxis2:ay(),
-    xaxis3:ax(), yaxis3:ay(), xaxis4:ax(), yaxis4:ay(),
-    annotations:[
-      {text:'<b>Düz</b><br>u = a/√3', x:0, y:1.15, xref:'x1', yref:'paper', showarrow:false, font:{size:13}},
-      {text:'<b>Üçgen</b><br>u = a/√6', x:0, y:1.15, xref:'x2', yref:'paper', showarrow:false, font:{size:13}},
-      {text:'<b>Normal</b><br>u = U/k', x:0, y:1.15, xref:'x3', yref:'paper', showarrow:false, font:{size:13}},
-      {text:'<b>U-shape</b><br>u = a/√2', x:0, y:1.15, xref:'x4', yref:'paper', showarrow:false, font:{size:13}}
-    ],
-    showlegend:false,
-    margin:{l:10, r:10, t:50, b:30},
-    plot_bgcolor:'#ffffff', paper_bgcolor:'#ffffff'
-  };
-  Plotly.newPlot('grafik-pdf', data, layout, {responsive:true, displayModeBar:false});
-})();
-</script>
-
-<p>U-shape dağılım sıcaklık dalgalanmaları gibi durumlarda görülür: termostatlı bir oda sıcaklığı çoğunlukla alt sınır veya üst sınıra yakın salınır, orta noktada nadir kalır. Klasik üç dağılım dışında ihtiyaç doğdukça başka dağılımlar da kullanılır.</p>
-
-<blockquote>
-  <p><strong>Akılda kalsın — aralığı standart belirsizliğe çevirme:</strong></p>
-
-  <table>
-    <thead>
-      <tr>
-        <th>Elinizde olan</th>
-        <th>Yapacağınız</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Sertifika "U = … (k=2)" der</td>
-        <td>u = U / 2</td>
-      </tr>
-      <tr>
-        <td>Sertifika "U = … (k=3)" der</td>
-        <td>u = U / 3</td>
-      </tr>
-      <tr>
-        <td>Üretici "±a" der, ek bilgi yok</td>
-        <td>u = a / √3 *(düz/üniform)*</td>
-      </tr>
-      <tr>
-        <td>"Merkez yakını daha olası" notu var</td>
-        <td>u = a / √6 *(üçgen)*</td>
-      </tr>
-      <tr>
-        <td>Termostat dalgalanması, ±a sınırlı</td>
-        <td>u = a / √2 *(U-shape)*</td>
-      </tr>
-    </tbody>
-  </table>
-
-  <p>Şüpheliyseniz <strong>düz dağılım</strong> seçin — en muhafazakâr olanı.</p>
-</blockquote>
-
-<hr />
-
-<h2 id="gum-annex-f-pratik-uyarılar">GUM Annex F: Pratik Uyarılar</h2>
-
-<p>GUM’un ana metni biraz akademik dilde yazılmış: integraller, kovaryans matrisleri. Yeni başlayan biri için zorlu bir okuma. Ama belgenin <strong>F eki</strong> (Annex F) bambaşka. Doğrudan ölçüm yapan mühendise sesleniyor, en sık yapılan yanlışları sıralıyor, çözüm öneriyor. Aşağıda en önemli yedi noktayı açıklayalım.</p>
-
-<h3 id="1-tekrar-ölçümleriniz-gerçekten-rastgele-mi">1. Tekrar ölçümleriniz gerçekten “rastgele” mi?</h3>
-
-<p>10 ölçüm aldınız, standart sapmasını hesapladınız, “Tip A belirsizlik = 5 mV” dediniz. Ama o 10 ölçüm sırasında oda sıcaklığı 1 °C arttı, kalibratör yavaşça kaymaya başladı, kablonun bağlantı noktasında küçük voltajlar birikti. Bu durumda standart sapma rastgele dalgalanmayı değil, <strong>sıralı bir gidişatı</strong> ölçer. GUM uyarısı: tekrar ölçümler arasında koşulları gerçekten yenileyin. Cihazı kapatıp açın, sıfırlayın, kabloyu temizleyin, ısıl dengelenmeyi bekleyin.</p>
-
-<h3 id="2-ortalamanın-belirsizliği-ile-tek-ölçümün-belirsizliği-farklı-şeyler">2. Ortalamanın belirsizliği ile tek ölçümün belirsizliği farklı şeyler.</h3>
-
-<p>10 ölçümün ortalamasının standart belirsizliği s/√10 olur. Yani standart sapmayı √10 ile bölersiniz. Ama gelecekte yapılacak tek bir ölçümün belirsizliği s’in kendisidir. Test prosedüründe gelecekte hep 10 kez ölçüp ortalama mı raporlayacaksınız, yoksa tek ölçüm mü? Birinciyse s/√10, ikinciyse s. Pek çok kişi bu ikisini karıştırır.</p>
-
-<h3 id="3-birden-fazla-küçük-örnek-varsa-havuzlayın">3. Birden fazla küçük örnek varsa havuzlayın.</h3>
-
-<p>Diyelim ki 10 farklı günde, her gün 5 ölçüm yapıyorsunuz. Toplam 50 ölçüm var ama her gün için ayrı bir standart sapma çıkıyor. Hangisini kullanacaksınız? GUM cevabı: hepsini “havuzlayın”. Şu formülle:</p>
-
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>        Σ ν_i · s_i²
-s² =  ──────────────
-          Σ ν_i
-</code></pre></div></div>
-
-<p>Burada her grubun “serbestlik derecesi” ν_i = n_i − 1. Sonuç: tek bir küçük gruba göre çok daha güvenilir bir s. Ölçüm tekrarlanabilirliği çalışmalarının (R&amp;R çalışmaları) matematiksel temeli budur.</p>
-
-<h3 id="4-üreticinin-verdiği-değerleri-olduğu-gibi-alın">4. Üreticinin verdiği değerleri olduğu gibi alın.</h3>
-
-<p>Tip B belirsizliği hesaplarken sık yapılan bir hata: “Üretici ±100 µV demiş ama ben yine de 200 µV koyayım, daha güvenli olsun.” Bu yanlış. Elinizdeki kanıt ne ise onu kullanın. Sertifika varsa sertifikadan, üretici belgesi varsa o belgeden, geçmiş ölçüm verisi varsa o veriden. Kendi sezginizle “biraz daha kötümser olalım” demek, sayıları güvenilmez yapar.</p>
-
-<h3 id="5-pdf-varsayımı-yargı-gerektirir">5. PDF varsayımı yargı gerektirir.</h3>
-
-<p>Üretici “±1%” diyorsa, içindeki dağılım nasıl? Üretici belirtmediyse düz dağılım varsayın. “Çoğunlukla orta yakınında çıkar” diye bir not varsa üçgen dağılım. Ama bu kararı belgenizde yazılı olarak gerekçelendirmelisiniz.</p>
-
-<h3 id="6-bağımsızlık-varsayımı-çoğu-zaman-yanlıştır">6. Bağımsızlık varsayımı çoğu zaman yanlıştır.</h3>
-
-<p>Birleşik belirsizlik formülü (“kareler toplamının karekökü”) sadece <strong>birbirinden bağımsız</strong> kaynaklar için geçerli. Eğer iki ölçüm aynı kalibratörden besleniyorsa, sertifikalarındaki belirsizlikler ilişkili demektir. Aynı operatör, aynı oda, aynı ortam koşulları… bunlar belirsizlikleri ilişkili kılar. İlişkili kaynakları “bağımsız” kabul edip topladığınızda, sonuç gerçeğin altında ya da üstünde çıkar. GUM bunun için ek bir terim ekler:</p>
-
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>u² = Σ u_i² + 2 · Σ u_ij
-</code></pre></div></div>
-
-<p>İkinci terim, ilişkili kaynak çiftleri arasında pozitifse belirsizliği büyütür, negatifse küçültür.</p>
-
-<h3 id="7-sertifika-belirsizliklerinde-gizli-sıcaklık-tuzağı">7. Sertifika belirsizliklerinde gizli sıcaklık tuzağı</h3>
-
-<p>Bu özellikle test laboratuvarlarında sık görülen bir tuzak. Kalibrasyon belgesi diyor ki: “Cihazın belirsizliği ±28 µV (k=2)”. Sonra ayrıca “ölçümler 23 °C ± 1 °C odada yapıldı” notu var. Şimdi siz cihazı kendi laboratuvarınızda 23 °C ± 3 °C koşullarda kullanıyorsunuz. Cihazın sıcaklık katsayısı bilgisini kataloga bakıp ayrıca ekliyorsunuz.</p>
-
-<p>Burada gizli bir çift sayma var. Cihazın 23 °C ± 1 °C aralığındaki davranışı zaten kalibrasyon belgesindeki ±28 µV içine girmiş. Siz “±3 °C” aralığını eklerken sadece <strong>fark olan ±2 °C’lik kısmı</strong> hesaba katmalısınız, tüm ±3 °C’yi değil. Aksi halde sıcaklık etkisini iki kez sayarsınız ve belirsizliği gerçeğin üstünde gösterirsiniz.</p>
-
-<blockquote>
-  <p><strong>Bu yedi maddenin ortak fikri:</strong> Belirsizlik bir tahmin değil, bir hesap. Her seçiminizi (dağılım varsayımı, bağımsızlık kararı, hangi sertifika değerinin kullanıldığı) belgenizde yazılı tutun. Akreditasyon denetiminde her birinin gerekçesi sorulur.</p>
-</blockquote>
-
-<hr />
-
-<h2 id="k2-mi-k3-mü-sorusu">“k=2 mi, k=3 mü?” Sorusu</h2>
-
-<p>Genişletilmiş belirsizliği hesaplarken k değerini seçmemiz gerekiyor. Çoğu uygulamada k=2 (yaklaşık %95 güven) standart. Bazı kritik uygulamalarda k=3 (yaklaşık %99 güven) tercih ediliyor. Ama ikisi arasında dikkat etmemiz gereken bir ayrıntı var.</p>
-
-<p>k=2 yaklaşık %95’lik güven düzeyine <strong>sadece ölçüm sayısı yeterince çoksa</strong> karşılık geliyor. Eğer Tip A hesaplamasında az sayıda ölçüm yaptıysanız (örneğin sadece 5), istatistiksel dağılım normal değil <strong>Student-t</strong> dağılımı oluyor. Bu durumda k=2 yerine biraz daha büyük bir değer kullanmak gerekir.</p>
-
-<p>Bu hesabı <strong>Welch-Satterthwaite formülü</strong> yapar:</p>
-
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>                u_birleşik⁴
-ν_etkin =  ──────────────────
-              Σ (u_i⁴ / ν_i)
-</code></pre></div></div>
-
-<p>Buradaki ν_etkin “etkin serbestlik derecesi”. Tip A bileşeninin serbestlik derecesi n−1, Tip B bileşenleri için (sertifikadan veya katalog değerinden geldikleri için) genelde sonsuz kabul edilir. Etkin serbestlik derecesi yeterince büyükse (genelde 30’dan büyük) k=2 güvenle kullanılabilir. Daha küçükse Student-t tablosundan k değerini bakarsınız.</p>
-
-<p>Pratik tavsiye: ölçümlerinizi en az 30 kere yapıyorsanız k=2 düşünmeyin bile, doğrudan kullanın. Daha az ölçüm yapıyorsanız etkin serbestlik derecesini hesaplayın. Hesabı kolaylaştıran bedava araçlar var; örneğin Amerika’nın NIST kurumunun yayımladığı “NIST Uncertainty Machine” web aracı bu hesabı tek tıkla yapar.</p>
-
-<hr />
-
-<h2 id="ncsli-rp-12-pratik-bir-el-kitabı">NCSLI RP-12: Pratik Bir El Kitabı</h2>
-
-<p>GUM size “ne yapmanız gerektiğini” söyler. NCSLI RP-12 ise “nasıl yaparsınız, hangi tabloları kullanırsınız, hangi şablonu doldurursunuz” sorusunu yanıtlar. 2013 baskısı NCSLI’nin Belirsizlik Analizi Komitesi tarafından yazıldı; komitenin başında belirsizlik analizinin önde gelen isimlerinden Howard Castrup (Integrated Sciences Group kurucusu, NCSLI Wildhack Ödülü 2002 sahibi) vardı.</p>
-
-<p>RP-12’nin yapısı GUM’dan biraz farklı. GUM “Tip A vs Tip B” ayrımıyla giderken, RP-12 hata kaynaklarını günlük dile daha yakın gruplara ayırır:</p>
-
-<ul>
-  <li><strong>Sapma (bias):</strong> Cihazın gerçek değerden sürekli aynı yönde sapması.</li>
-  <li><strong>Rastgele:</strong> Ölçümden ölçüme sebepsiz dalgalanma.</li>
-  <li><strong>Kayma (drift):</strong> Zamanla yavaş değişme.</li>
-  <li><strong>Çevre:</strong> Sıcaklık, nem, EMG (elektromanyetik girişim).</li>
-  <li><strong>Operatör:</strong> Kim ölçtü.</li>
-  <li><strong>Yöntem:</strong> Hangi adımlarla ölçüldü.</li>
-</ul>
-
-<p>Bu sınıflandırma, kalibrasyon laboratuvarı çalışanlarının kafasındaki gerçeğe daha yakın. Bir sorun bulduklarında “bu hangi kategoriden?” sorusuna kolay cevap verirler.</p>
-
-<p>RP-12’de işine yarayacak özel bölümler:</p>
-
-<ul>
-  <li><strong>Üretici belgesinden belirsizlik çıkarmak:</strong> Hangi belge satırı hangi belirsizlik kaynağına karşılık geliyor; hangi durumlarda hangi PDF varsayılmalı.</li>
-  <li><strong>Aynı anda birden çok cihazı kalibre etmek:</strong> Kalibrasyon prosedürü tek bir referansla 10 cihazı doğruluyorsa, belirsizlik nasıl bölüştürülür.</li>
-  <li><strong>Düzeltilmemiş sapmalar için belirsizlik:</strong> Sertifika “+0,12 mV sapma” diyor ama prosedürünüz düzeltme uygulamıyor. Bu sapmayı belirsizliğe nasıl yansıtırsınız.</li>
-  <li><strong>Monte Carlo simülasyonu:</strong> Doğrusal olmayan ölçüm modellerinde klasik GUM yöntemi yetersiz kalır. Bilgisayarda 100.000 simülasyon yapıp dağılımı doğrudan üretirsiniz. RP-12 bu yöntemi pratik bir şekilde anlatır.</li>
-</ul>
-
-<p><strong>ANSI Z540.3 ile bağlantı.</strong> Bu standart bir kalibrasyon laboratuvarının uyması gereken kurallardan biri. Ana maddesi şudur: kalibrasyon sonucu yanlış kabul olasılığı %2’den fazla olamaz. Ya da bunu hesaplamak zorsa, <strong>TUR ≥ 4:1</strong> olmalıdır. TUR, “test belirsizlik oranı” demek; cihazın toleransının kalibrasyon belirsizliğine oranı. Örnek: cihazın toleransı ±100 µV, kalibrasyon belirsizliği ±25 µV ise TUR = 4. RP-12 bu kuralı sağlamak için gerekli hesap yöntemlerini sunar.</p>
-
-<p><strong>Türkiye uygulaması.</strong> TÜRKAK akreditasyonlu kalibrasyon laboratuvarları çoğunlukla Avrupa rehberi EA-4/02’yi takip eder. Ama Türkiye’nin aviyonik (TUSAS, BAYKAR), savunma (ASELSAN, ROKETSAN) ve otomotiv (Togg ve tedarikçileri) firmaları ABD merkezli müşterilere de iş yapıyor. ABD ortağına rapor verdiğinizde NCSLI RP-12 ve Z540.3’e atıf gerekiyor. Yani Türk test mühendisinin masasında giderek artan oranda her iki belge de bulunmalı.</p>
-
-<hr />
-
-<h2 id="örnek-1-voltmetre-kalibrasyonu">Örnek 1: Voltmetre Kalibrasyonu</h2>
-
-<p><strong>Senaryo.</strong> Sistem entegrasyon laboratuvarında elinizdeki voltmetre (Keysight 34465A, 6½ haneli) referans bir kalibratörle (Fluke 5720A) doğrulanıyor. Kalibratör tam olarak 10,000 V veriyor. Voltmetrenin bu değeri ne kadar doğru okuduğunu ve okumanın ne kadar belirsizlik içerdiğini hesaplayacağız. Ortam sıcaklığı (23 ± 2) °C.</p>
-
-<h3 id="adım-1-tip-a--10-kez-ölçüm-yapın">Adım 1: Tip A — 10 kez ölçüm yapın</h3>
-
-<p>Aynı koşullarda 10 ardı ardına ölçüm. Her ölçüm öncesinde voltmetrenin girişini açıp kapayıp kabloyu temizliyoruz (önceki bölümdeki 1. uyarı). Sonuçlar:</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Ölçüm</th>
-      <th>Değer (V)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>9,999870</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>9,999910</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>9,999890</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>9,999895</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>9,999860</td>
-    </tr>
-    <tr>
-      <td>6</td>
-      <td>9,999900</td>
-    </tr>
-    <tr>
-      <td>7</td>
-      <td>9,999875</td>
-    </tr>
-    <tr>
-      <td>8</td>
-      <td>9,999895</td>
-    </tr>
-    <tr>
-      <td>9</td>
-      <td>9,999920</td>
-    </tr>
-    <tr>
-      <td>10</td>
-      <td>9,999875</td>
-    </tr>
-  </tbody>
-</table>
-
-<ul>
-  <li>Ortalama: x̄ = 9,999889 V</li>
-  <li>Standart sapma: s ≈ 19 µV</li>
-  <li>Ortalamanın standart belirsizliği: u_A = s / √10 ≈ 6 µV</li>
-</ul>
-
-<h3 id="adım-2-tip-b--diğer-kaynakları-listeleyin">Adım 2: Tip B — Diğer kaynakları listeleyin</h3>
-
-<p>Her kaynağı düzgün bir tabloya koyarız. Aralığı (üreticinin verdiği değer) ilgili dağılım varsayımıyla bölerek standart belirsizliğe geçeriz.</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Kaynak</th>
-      <th>Aralık</th>
-      <th>Dağılım</th>
-      <th>Bölme</th>
-      <th>u (µV)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Kalibratör sertifikası (UME, k=2)</td>
-      <td>±28 µV</td>
-      <td>normal</td>
-      <td>2</td>
-      <td>14,0</td>
-    </tr>
-    <tr>
-      <td>Voltmetre çözünürlüğü (1 µV son hane)</td>
-      <td>±0,5 µV</td>
-      <td>düz</td>
-      <td>√3</td>
-      <td>0,29</td>
-    </tr>
-    <tr>
-      <td>Sıcaklık katsayısı (±2 °C, 2 ppm/°C × 10 V)</td>
-      <td>±40 µV</td>
-      <td>düz</td>
-      <td>√3</td>
-      <td>23,1</td>
-    </tr>
-    <tr>
-      <td>Bakır konnektörlerde gerilim oluşumu</td>
-      <td>±3 µV</td>
-      <td>düz</td>
-      <td>√3</td>
-      <td>1,73</td>
-    </tr>
-    <tr>
-      <td>Hat gürültüsü (50 Hz)</td>
-      <td>±2 µV</td>
-      <td>normal</td>
-      <td>1</td>
-      <td>2,0</td>
-    </tr>
-    <tr>
-      <td>Kalibratörün 1 yıllık kayması</td>
-      <td>±5 µV</td>
-      <td>düz</td>
-      <td>√3</td>
-      <td>2,89</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="adım-3-birleşik-belirsizliği-hesaplayın">Adım 3: Birleşik belirsizliği hesaplayın</h3>
-
-<p>Her bileşeni karesel olarak topla, karekök al:</p>
-
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>u² = 6² + 14² + 0,29² + 23,1² + 1,73² + 2² + 2,89²
-u² = 36 + 196 + 0,08 + 533,6 + 3 + 4 + 8,4
-u² ≈ 781
-u  ≈ 28 µV
-</code></pre></div></div>
-
-<h3 id="adım-4-genişletilmiş-belirsizlik">Adım 4: Genişletilmiş belirsizlik</h3>
-
-<p>Kapsama faktörü k=2 ile çarpın:</p>
-
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>U = 2 × 28 = 56 µV
-</code></pre></div></div>
-
-<h3 id="adım-5-sonucu-ifade-edin">Adım 5: Sonucu ifade edin</h3>
-
-<p>Voltmetrenin okuması = (9,999889 ± 0,000056) V, k = 2.</p>
-
-<p>Yani gerçek değer büyük olasılıkla 9,999833 V ile 9,999945 V arasında.</p>
-
-<h3 id="hangi-kaynak-en-çok-katkı-veriyor">Hangi kaynak en çok katkı veriyor?</h3>
-
-<p>Aşağıdaki grafikte, yedi belirsizlik kaynağının her birinin katkısını sıralı görüyorsunuz. Sıcaklık katsayısı toplam belirsizliğin yarısından fazlasını oluşturuyor.</p>
-
-<div id="grafik-multimetre" style="width:100%;max-width:760px;margin:1.5rem auto 2.5rem auto;height:380px;"></div>
-<script>
-(function(){
-  var data = [{
-    type: 'bar',
-    orientation: 'h',
-    x: [533.6, 196, 36, 8.4, 4, 3, 0.08],
-    y: ['Sıcaklık katsayısı', 'Kalibratör sertifikası', 'Tekrar ölçüm (Tip A)', 'Kalibratör kayması', 'Hat gürültüsü', 'Bakır konnektör', 'Voltmetre çözünürlüğü'],
-    text: ['68,3%', '25,1%', '4,6%', '1,1%', '0,5%', '0,4%', '0,01%'],
-    textposition: 'auto',
-    marker: { color: '#1a73e8' }
-  }];
-  var layout = {
-    title: { text: 'Voltmetre Belirsizlik Bütçesi (varyans katkısı)', font: { size: 14 } },
-    xaxis: { title: 'Varyans katkısı (µV²)' },
-    yaxis: { autorange: 'reversed' },
-    margin: { l: 180, r: 30, t: 50, b: 50 },
-    plot_bgcolor: '#ffffff',
-    paper_bgcolor: '#ffffff'
-  };
-  Plotly.newPlot('grafik-multimetre', data, layout, {responsive: true, displayModeBar: false});
-})();
-</script>
-
-<p>Grafiğin söylediği şey net. Belirsizliği düşürmek isteseniz nereye yatırım yaparsınız? Voltmetreye değil. Daha pahalı bir kalibratöre de değil. <strong>Oda sıcaklığını sabitlemeye.</strong> Sıcaklık aralığı ±2 °C yerine ±0,5 °C olsa, sıcaklık katkısı 23 µV’den 6 µV’ye düşer; toplam belirsizlik 28 µV’den 16 µV’ye iner. Hiçbir cihaz yatırımı yapmadan, sadece klimayı düzgün ayarlayarak belirsizliği yarıya indirdiniz.</p>
-
-<blockquote>
-  <p><strong>Akılda kalsın — Pareto kuralı:</strong>
-Belirsizlik bütçesindeki bileşenleri varyans katkısına göre sıralayın. <strong>İlk iki kaynak çoğu zaman toplamın %80–90’ını oluşturur.</strong> İyileştirmeye onlardan başlayın; küçük katkılarla uğraşmak vakit ve para kaybı. Önce en büyük katkıyı yarıya indirmek, geri kalan altıyla uğraşmaktan daha çok kazandırır.</p>
-</blockquote>
-
-<h3 id="bu-sonucu-kabul-etmeli-miyiz">Bu sonucu kabul etmeli miyiz?</h3>
-
-<p>Voltmetrenin teknik kataloğu diyor ki cihazın 10 V’ta toleransı ±100 µV. Şimdi TUR hesaplayalım:</p>
-
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>TUR = Tolerans / Belirsizlik = 100 / 56 ≈ 1,8
-</code></pre></div></div>
-
-<p>Z540.3’ün 4:1 sınırının çok altında. Ya kabul kararı verirken çok dikkatli olacağız (güvenlik payı uygulayacağız), ya da belirsizliği düşüreceğiz. Üç seçenek var:</p>
-
-<ol>
-  <li><strong>Sıcaklığı sabitle.</strong> Yukarıda anlatıldı. Belirsizlik 16 µV’ye iner, TUR = 6,3 olur. En ucuz çözüm.</li>
-  <li><strong>Daha iyi kalibratör kullan.</strong> UME’nin daha düşük belirsizlikle kalibre ettiği bir referans kaynağa geç. Sertifika belirsizliği ±10 µV olabilir. Ama maliyet artar.</li>
-  <li><strong>Müşteriyle konuş.</strong> Belki ±100 µV toleransı çok sıkı, gerçek uygulamada ±200 µV bile yeterli olabilir.</li>
-</ol>
-
-<p>Bir test mühendisinin işi sadece sayı üretmek değil, bu üç seçeneği masaya getirip yöneticisiyle tartışmak. Belirsizlik bütçesi olmadan bu konuşmayı yapamazsınız.</p>
-
-<hr />
-
-<h2 id="örnek-2-sıcaklık-sensörü-ile-test-fırını-ölçümü">Örnek 2: Sıcaklık Sensörü ile Test Fırını Ölçümü</h2>
-
-<p><strong>Senaryo.</strong> Endüstriyel bir parçanın yüksek sıcaklık dayanım testini yapıyorsunuz. Test gereksinimi: parça 200 °C ± 2 °C ortamda 30 dakika çalışmalı. Fırının içine bir <strong>PT100</strong> sensörü koymuşsunuz. (PT100, 0 °C’de tam 100 ohm direnç gösteren platin tel sensörü; sıcaklıkla direnç doğrusal artar; çalışma aralığı tipik olarak −200 °C ile +650 °C arası.) Sensör bir <strong>veri toplama kartına</strong> (DAQ kartı, NI 9217) bağlı, kart bilgisayara veriyor.</p>
-
-<p>Sıcaklığın gerçek değeri ne olabilir? Belirsizlik bütçesi:</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Kaynak</th>
-      <th>Aralık</th>
-      <th>Dağılım</th>
-      <th>u (°C)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>PT100 kalibrasyon belgesi (UME, k=2)</td>
-      <td>±0,15 °C</td>
-      <td>normal</td>
-      <td>0,075</td>
-    </tr>
-    <tr>
-      <td>Sensörün kendi kendine ısınması (1 mA × 100 Ω = 0,1 mW; ısıl direnç 0,5 K/mW)</td>
-      <td>±0,05 °C</td>
-      <td>düz</td>
-      <td>0,029</td>
-    </tr>
-    <tr>
-      <td>Bir yıllık kayma (kalibrasyondan bu yana)</td>
-      <td>±0,10 °C</td>
-      <td>düz</td>
-      <td>0,058</td>
-    </tr>
-    <tr>
-      <td>Fırın iç hacminde sıcaklık dağılımı (önceki ölçümlerden 0,3 °C tepe-tepe)</td>
-      <td>±0,15 °C</td>
-      <td>üçgen</td>
-      <td>0,061</td>
-    </tr>
-    <tr>
-      <td>DAQ kartı (NI 9217 katalog değeri, 200 °C civarı)</td>
-      <td>±0,15 °C</td>
-      <td>normal</td>
-      <td>0,075</td>
-    </tr>
-    <tr>
-      <td>4 telli kablo direnç dengesizliği</td>
-      <td>±0,02 °C</td>
-      <td>düz</td>
-      <td>0,012</td>
-    </tr>
-    <tr>
-      <td>30 ölçümün dağılımı (Tip A, s=0,04 °C)</td>
-      <td>s/√30</td>
-      <td>normal</td>
-      <td>0,007</td>
-    </tr>
-  </tbody>
-</table>
-
-<p><strong>Birleşik belirsizlik:</strong></p>
-
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>u² = 0,075² + 0,029² + 0,058² + 0,061² + 0,075² + 0,012² + 0,007²
-u² = 0,00563 + 0,00084 + 0,00336 + 0,00372 + 0,00563 + 0,00014 + 0,00005
-u² ≈ 0,0194
-u  ≈ 0,14 °C
-</code></pre></div></div>
-
-<p><strong>Genişletilmiş belirsizlik (k=2):</strong></p>
-
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>U = 2 × 0,14 = 0,28 °C
-</code></pre></div></div>
-
-<p><strong>Sonuç:</strong> Fırının iç sıcaklığı = (200,00 ± 0,28) °C, k = 2.</p>
-
-<p>Hangi bileşenler en çok katkı yapıyor? Bakalım:</p>
-
-<div id="grafik-pt100" style="width:100%;max-width:760px;margin:1.5rem auto 2.5rem auto;height:380px;"></div>
-<script>
-(function(){
-  var data = [{
-    type: 'bar',
-    orientation: 'h',
-    x: [0.00563, 0.00563, 0.00372, 0.00336, 0.00084, 0.00014, 0.00005],
-    y: ['PT100 kalibrasyon belgesi', 'DAQ kartı', 'Fırın sıcaklık dağılımı', 'Kayma', 'Kendi kendine ısınma', 'Kablo dengesizliği', 'Tekrar ölçüm (Tip A)'],
-    text: ['29,1%', '29,1%', '19,2%', '17,3%', '4,3%', '0,7%', '0,3%'],
-    textposition: 'auto',
-    marker: { color: '#e8711a' }
-  }];
-  var layout = {
-    title: { text: 'PT100 Belirsizlik Bütçesi (varyans katkısı)', font: { size: 14 } },
-    xaxis: { title: 'Varyans katkısı (°C²)' },
-    yaxis: { autorange: 'reversed' },
-    margin: { l: 200, r: 30, t: 50, b: 50 },
-    plot_bgcolor: '#ffffff',
-    paper_bgcolor: '#ffffff'
-  };
-  Plotly.newPlot('grafik-pt100', data, layout, {responsive: true, displayModeBar: false});
-})();
-</script>
-
-<p><strong>Test mühendisi olarak ne dersiniz?</strong> Gereksinim 200 ± 2 °C, ölçüm belirsizliği 0,28 °C. TUR = 2 / 0,28 ≈ 7,1. Z540.3’ün 4:1 sınırının çok üstünde, sorunsuz.</p>
-
-<p>Ama gereksinim daha sıkı olsaydı (örneğin 200 ± 0,5 °C), TUR = 1,8’e düşerdi. Bu durumda yapılacak iş şu: önce belirsizliği düşürmek lazım. Grafiğe bakın. İlk üç kaynak (PT100 belgesi, DAQ kartı, fırın dağılımı) toplam belirsizliğin %75’ini oluşturuyor. İyileştirme öncelikleri:</p>
-
-<ol>
-  <li>PT100’ü TÜBİTAK UME’de daha düşük belirsizlikle yeniden kalibre ettirin. ±0,15 yerine ±0,05 °C.</li>
-  <li>Daha yüksek doğruluklu DAQ kartı alın (NI 9226 gibi).</li>
-  <li>Fırın içine ek termal blok koyun, hava sirkülasyonunu artırın.</li>
-</ol>
-
-<p>Bu üç adım belirsizliği yarıya indirir. Hangi kaynağa dokunmadan da ayrı ayrı denenebilir. Mantığı: önce büyüğü azalt, sonra küçükleri düşün.</p>
-
-<hr />
-
-<h2 id="örnek-3-bir-sensörü-kabul-mü-edelim-reddedelim-mi">Örnek 3: Bir Sensörü Kabul mü Edelim, Reddedelim mi?</h2>
-
-<p><strong>Senaryo.</strong> Bir otomotiv basınç sensörü 0–100 bar arasında ölçüm yapıyor. Kalite kontrolünden geçmesi için toleransı ±0,10 bar. Yani ölçüm cihazı bir referans değer verirken sensör ±0,10 bar içinde okumalı. Kalibrasyon sürecinin belirsizliği: U = 0,025 bar.</p>
-
-<p><strong>TUR hesabı:</strong></p>
-
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>TUR = Tolerans / Belirsizlik = 0,10 / 0,025 = 4
-</code></pre></div></div>
-
-<p>Z540.3’ün 4:1 sınırına tam denk geldi. Bu sayı yetiyor mu?</p>
-
-<p>Soruyu şöyle çevirelim: ölçüm cihazı sensörü “geçti” diye işaretlediği halde sensör aslında toleransın dışındaysa, bu <strong>yanlış kabul</strong> olur. Yanlış kabul olasılığı (PFA = Probability of False Accept) ne kadar?</p>
-
-<p>Önce yanlış kabulun ne demek olduğunu görsel olarak görelim. Aşağıda bir sensörün ölçüm dağılımı çizilmiş. Sensörün gerçek değeri 0,098 bar diyelim — yani toleransın iç sınırına çok yakın. Ölçüm cihazı U = 0,025 bar belirsizlikle bu sensörü ölçüyor. Ölçüm sonucu, gerçek değer civarında bir normal dağılımdan rastgele bir nokta gibi düşünebiliriz. Ölçüm 0,10’un altında çıkarsa “geçti” diyoruz — ama gerçek değer 0,098’de bile, ölçüm dağılımının bir kısmı 0,10’un üstüne taşar. Taşan bu kısım yanlış kabul bölgesidir.</p>
-
-<div id="grafik-pfa-gorsel" style="width:100%;max-width:760px;margin:1.5rem auto 2.5rem auto;height:400px;"></div>
-<script>
-(function(){
-  var x = [];
-  for (var i=0; i<=400; i++) x.push(0.05 + i*(0.15-0.05)/400);
-  var mu = 0.098, sigma = 0.0125;
-  var pdf = x.map(function(v){return Math.exp(-(v-mu)*(v-mu)/(2*sigma*sigma))/(sigma*Math.sqrt(2*Math.PI));});
-  var maxY = Math.max.apply(null, pdf);
-  var xAccept = x.filter(function(v){return v <= 0.10;});
-  var pdfAccept = xAccept.map(function(v){return Math.exp(-(v-mu)*(v-mu)/(2*sigma*sigma))/(sigma*Math.sqrt(2*Math.PI));});
-  var xReject = x.filter(function(v){return v > 0.10;});
-  var pdfReject = xReject.map(function(v){return Math.exp(-(v-mu)*(v-mu)/(2*sigma*sigma))/(sigma*Math.sqrt(2*Math.PI));});
-  var data = [
-    {x:xAccept, y:pdfAccept, type:'scatter', mode:'lines', fill:'tozeroy',
-     line:{color:'#2e7d32', width:2}, fillcolor:'rgba(46,125,50,0.30)',
-     name:'Doğru kabul (geçti)', hoverinfo:'skip'},
-    {x:xReject, y:pdfReject, type:'scatter', mode:'lines', fill:'tozeroy',
-     line:{color:'#c62828', width:2}, fillcolor:'rgba(198,40,40,0.55)',
-     name:'Yanlış kabul (gerçekte tolerans dışı)', hoverinfo:'skip'}
-  ];
-  var layout = {
-    title:{text:'Ölçüm Dağılımı ve Yanlış Kabul Bölgesi', font:{size:14}},
-    xaxis:{title:'Ölçüm değeri (bar)', range:[0.05, 0.15], zeroline:false},
-    yaxis:{title:'Olasılık yoğunluğu', showticklabels:false, zeroline:false},
-    shapes:[
-      {type:'line', x0:0.10, x1:0.10, y0:0, y1:maxY*1.05,
-       line:{color:'#000', width:2, dash:'dash'}},
-      {type:'line', x0:mu, x1:mu, y0:0, y1:maxY*0.85,
-       line:{color:'#1a73e8', width:1.5, dash:'dot'}}
-    ],
-    annotations:[
-      {x:0.10, y:maxY*1.10, text:'Tolerans sınırı<br>0,10 bar', showarrow:false, font:{size:11}},
-      {x:mu, y:maxY*0.92, text:'Gerçek değer<br>0,098 bar', showarrow:false, font:{size:11, color:'#1a73e8'}},
-      {x:0.115, y:maxY*0.30, text:'Yanlış<br>kabul', showarrow:true, arrowhead:2, ax:-25, ay:-30, font:{size:11, color:'#c62828'}}
-    ],
-    showlegend:true, legend:{x:0.02, y:0.98},
-    margin:{l:60, r:30, t:50, b:60},
-    plot_bgcolor:'#ffffff', paper_bgcolor:'#ffffff'
-  };
-  Plotly.newPlot('grafik-pfa-gorsel', data, layout, {responsive:true, displayModeBar:false});
-})();
-</script>
-
-<p>Yeşil alan: ölçüm 0,10’un altında çıkıyor, doğru kabul. Kırmızı alan: ölçüm 0,10’un üstünde çıkıyor (gerçekte sensör tolerans içinde olduğu halde). Burada ölçüm cihazı “reddet” diyecek — ama bu durumda <strong>yanlış red</strong>. Tam tersi durum, yani sensörün gerçek değeri 0,103 bar olursa (tolerans dışı), ölçüm yine dağılım gösterir, ve dağılımın bir kısmı 0,10’un altına düşer; o zaman ölçüm cihazı “geçti” diyor ama sensör aslında tolerans dışı — <strong>yanlış kabul</strong>. Bu yazının kalan kısmında yanlış kabul bizi daha çok ilgilendiriyor (üreticinin çıkardığı bozuk ürün).</p>
-
-<p>Aşağıdaki ikinci grafik, TUR’a göre yanlış kabul olasılığının nasıl değiştiğini gösteriyor. Eğri, sensörün gerçek değerinin tolerans içinde <strong>uniform dağıldığı</strong> varsayımı altında.</p>
-
-<div id="grafik-tur-pfa" style="width:100%;max-width:760px;margin:1.5rem auto 2.5rem auto;height:380px;"></div>
-<script>
-(function(){
-  var data = [{
-    type: 'scatter',
-    mode: 'lines+markers',
-    x: [1, 1.5, 2, 2.5, 3, 4, 6, 10],
-    y: [30, 15, 8, 5, 3, 1.5, 0.5, 0.1],
-    line: { color: '#c62828', width: 3 },
-    marker: { size: 8, color: '#c62828' },
-    name: 'Yanlış kabul olasılığı'
-  }];
-  var layout = {
-    title: { text: 'TUR ile Yanlış Kabul Olasılığının Değişimi', font: { size: 14 } },
-    xaxis: { title: 'TUR (Tolerans / Belirsizlik)' },
-    yaxis: { title: 'Yanlış kabul olasılığı (%)', type: 'log' },
-    shapes: [{
-      type: 'line', x0: 4, x1: 4, y0: 0.05, y1: 30,
-      line: { color: '#888', width: 2, dash: 'dash' }
-    }],
-    annotations: [{
-      x: 4, y: 1.5, xref: 'x', yref: 'y',
-      text: 'Z540.3 sınırı (4:1)', showarrow: true, arrowhead: 2, ax: 60, ay: -30
-    }],
-    margin: { l: 70, r: 30, t: 50, b: 60 },
-    plot_bgcolor: '#ffffff',
-    paper_bgcolor: '#ffffff'
-  };
-  Plotly.newPlot('grafik-tur-pfa', data, layout, {responsive: true, displayModeBar: false});
-})();
-</script>
-
-<p>TUR = 4’te bile yanlış kabul olasılığı yaklaşık %1,5. 10.000 sensör sevkiyatında 150 hatalı kabul demek. Bu yüzden Z540.3 ek bir önlem öneriyor: <strong>kabul aralığını güvenlik payı kadar daraltmak</strong>. Buna <strong>güvenlik payı</strong> (İngilizcesi guard band) deniyor.</p>
-
-<p>Z540.3 6. yöntemde güvenlik payı çarpanı M, TUR’a göre tablodan okunur. PFA’yı %2’nin altında tutmak için tipik değerler:</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>TUR</th>
-      <th>M çarpanı</th>
-      <th>Güvenlik payı (= M × U)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>4:1</td>
-      <td>≈ 0,053</td>
-      <td>%5,3 × U</td>
-    </tr>
-    <tr>
-      <td>3:1</td>
-      <td>≈ 0,155</td>
-      <td>%15,5 × U</td>
-    </tr>
-    <tr>
-      <td>2:1</td>
-      <td>≈ 0,282</td>
-      <td>%28,2 × U</td>
-    </tr>
-    <tr>
-      <td>1:1</td>
-      <td>≈ 0,457</td>
-      <td>%45,7 × U</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>TUR azaldıkça güvenlik payı büyür; bu mantıklı, çünkü belirsizlik tolerans büyüklüğüne yaklaştıkça yanlış kabul riski artıyor. Bizim örneğimiz için TUR = 4:</p>
-
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Güvenlik payı = 0,053 × 0,025 = 0,00133 bar
-Yeni kabul aralığı = ±(0,10 − 0,00133) = ±0,09867 bar
-</code></pre></div></div>
-
-<p>Yani sensörün ölçümü 0,099 bar çıkarsa: tolerans içinde ama güvenlik payı dışında. “Sınırda, manuel inceleme” durumu.</p>
-
-<p>Karşılaştırma için: ILAC G8 (Avrupa) güvenlik payını sade bir şekilde <strong>U</strong> olarak alır (M = 1). Bu daha muhafazakâr; bizim örneğimizde güvenlik payı 0,025 bar olur, kabul aralığı ±0,075 bar’a kadar daralır. ILAC ve ANSI farkı sahada önemli; müşterinizin hangi standardı şart koştuğuna bakın.</p>
-
-<p><strong>Önemli bir uyarı.</strong> “TUR ≥ 4 yeter” varsayımı eski bir kuraldır. Henry Zumbrun adlı uzman 2021’de yazdığı “TUR=4 Neden Yeterli Değil” makalesinde gerçek üretim verisi üzerinden gösterdi: bir ölçüm sınıra çok yakın çıktığında TUR=4 bile %30+ yanlış kabul olasılığı yaratabilir. Bu yüzden modern uygulama, sadece TUR’a bakmak değil, gerçek PFA’yı hesaplamaktır. Z540.3 6. yöntem ya da <strong>ILAC G8</strong> (Avrupa eşdeğeri, güvenlik payı = 1×U formülünü kullanır) bu işi yapar.</p>
-
-<blockquote>
-  <p><strong>Akılda kalsın — kabul/red kararı:</strong></p>
-  <ul>
-    <li><strong>TUR = Tolerans / Genişletilmiş belirsizlik (U)</strong></li>
-    <li><strong>Z540.3 (ABD):</strong> Yanlış kabul olasılığı (PFA) ≤ %2 olmalı; pratik değilse TUR ≥ 4. Method 6 ile güvenlik payı: TUR=4 için ≈ 0,053×U; TUR=2 için ≈ 0,28×U.</li>
-    <li><strong>ILAC G8 (Avrupa):</strong> Güvenlik payı = 1×U (kabul aralığı her iki yandan U kadar daraltılır).</li>
-    <li><strong>Önemli:</strong> TUR ≥ 4 yeter zannetmeyin. Ölçüm sınıra çok yakın çıkarsa TUR=4 bile %30+ yanlış kabul üretebilir. Karar verirken hem TUR’a hem ölçümün sınıra uzaklığına bakın.</li>
-  </ul>
-</blockquote>
-
-<hr />
-
-<h2 id="aviyonik-uut-üreticisi-i̇çin-ölçüm-disiplini">Aviyonik UUT Üreticisi İçin Ölçüm Disiplini</h2>
-
-<p>Yukarıdaki üç örnek genel bir test laboratuvarı bakışıyla yazıldı. Ama bir aviyonik UUT (Unit Under Test, “test edilen cihaz”) üreten şirketin tablosu farklı. Bir VOR/ILS alıcısı üretiyorsunuz, datasheet’inize “azimuth accuracy ±0,1°” yazdınız, müşteriniz uçak üreticisi (TUSAS, Airbus, Sikorsky) bu beyana güvenerek tip sertifikasyonunu yürütüyor. Sahaya çıkan her cihaz için bu beyanı doğrulamak zorundasınız.</p>
-
-<p>Test ekipmanınız bir RF sinyal üreticisi. Datasheet’inde “azimuth çıkış doğruluğu ±0,001°” yazıyor. Sayılar büyüleyici görünüyor: TUR = 0,1 / 0,001 = 100. Yazının ilk yarısındaki “≥ 10 → sorunsuz” kategorisinin çok ötesinde. Burada bitti, geçtik mi?</p>
-
-<p>Hayır. Bu noktada üç gizli tuzak var ve aviyonik bağlamda her birine düşmek pahalıya patlıyor.</p>
-
-<h3 id="önce-kavram-belirsizlik-çıkarılır-mı-eklenir-mi-yoksa-hiç-dokunulmaz-mı">Önce kavram: belirsizlik çıkarılır mı, eklenir mi, yoksa hiç dokunulmaz mı?</h3>
-
-<p>Test laboratuvarında kabul/red kararı verirken belirsizlik üç farklı şekilde işlenebilir. Aşağıdaki grafik aynı toleransı (örnek olarak ±0,1) ve aynı ölçüm belirsizliğini (U = 0,025) üç yaklaşımla yan yana gösteriyor; her satırın yeşil bandı <strong>kabul aralığını</strong>, gri bandı toleransı temsil ediyor.</p>
-
-<div id="grafik-uut-uretici-yaklasimlar" style="width:100%;max-width:780px;margin:1.5rem auto 2.5rem auto;height:420px;"></div>
-<script>
-(function(){
-  var T = 0.1;
-  var U = 0.025;
-
-  var shapes = [
-    // 1) Paylaşılan risk - tolerans = kabul aralığı
-    {type:'rect', x0:-T,    x1:T,    y0:2.65, y1:3.35, fillcolor:'#cccccc', line:{color:'#999', width:1}},
-    {type:'rect', x0:-T,    x1:T,    y0:2.85, y1:3.15, fillcolor:'#2e7d32', line:{color:'#1b5e20', width:1}, opacity:0.85},
-
-    // 2) Korumalı kabul - kabul aralığı içeri daraltılmış (DOĞRU yaklaşım)
-    {type:'rect', x0:-T,    x1:T,    y0:1.65, y1:2.35, fillcolor:'#cccccc', line:{color:'#999', width:1}},
-    {type:'rect', x0:-(T-U), x1:(T-U), y0:1.85, y1:2.15, fillcolor:'#2e7d32', line:{color:'#1b5e20', width:1}, opacity:0.85},
-
-    // 3) Korumalı red - kabul aralığı dışarı genişletilmiş (RİSK)
-    {type:'rect', x0:-T,    x1:T,    y0:0.65, y1:1.35, fillcolor:'#cccccc', line:{color:'#999', width:1}},
-    {type:'rect', x0:-(T+U), x1:(T+U), y0:0.85, y1:1.15, fillcolor:'#c62828', line:{color:'#8e0000', width:1}, opacity:0.75}
-  ];
-
-  var data = [
-    // Tolerans sınır çizgileri (referans için her panelde)
-    {x:[-T, T], y:[3, 3], type:'scatter', mode:'markers', marker:{size:0.1, color:'rgba(0,0,0,0)'}, showlegend:false, hoverinfo:'skip'},
-    // Legend için sahte traceler
-    {x:[null], y:[null], type:'scatter', mode:'markers', marker:{size:14, color:'#cccccc', symbol:'square', line:{color:'#999', width:1}}, name:'Tolerans aralığı (±T)'},
-    {x:[null], y:[null], type:'scatter', mode:'markers', marker:{size:14, color:'#2e7d32', symbol:'square', line:{color:'#1b5e20', width:1}}, name:'Kabul aralığı (yeşil = doğru karar bölgesi)'},
-    {x:[null], y:[null], type:'scatter', mode:'markers', marker:{size:14, color:'#c62828', symbol:'square', line:{color:'#8e0000', width:1}}, name:'Kabul aralığı (kırmızı = riskli, PFA yüksek)'}
-  ];
-
-  var layout = {
-    title:{text:'Üç Yaklaşım: Belirsizliği Toleransla Nasıl İlişkilendirmeli?', font:{size:14}},
-    xaxis:{
-      title:'Ölçüm değeri',
-      range:[-0.16, 0.16], zeroline:true, zerolinecolor:'#444', zerolinewidth:1,
-      tickvals:[-T-U, -T, 0, T, T+U],
-      ticktext:['−(T+U)', '−T', '0', '+T', '+(T+U)']
-    },
-    yaxis:{
-      tickvals:[1, 2, 3],
-      ticktext:[
-        '<b>3) Korumalı red</b><br><span style="font-size:10px;color:#c62828">PFR↓, PFA↑ — RİSK</span>',
-        '<b>2) Korumalı kabul</b><br><span style="font-size:10px;color:#2e7d32">UUT üreticisi: DOĞRU</span>',
-        '<b>1) Paylaşılan risk</b><br><span style="font-size:10px;color:#666">eski yaklaşım</span>'
-      ],
-      range:[0.4, 3.6], showgrid:false, zeroline:false
-    },
-    shapes:shapes,
-    annotations:[
-      {x:0, y:3, text:'Kabul aralığı = ±T', showarrow:false, font:{size:11, color:'#fff'}, bgcolor:'rgba(0,0,0,0.35)', borderpad:2},
-      {x:0, y:2, text:'Kabul aralığı = ±(T − U)', showarrow:false, font:{size:11, color:'#fff'}, bgcolor:'rgba(0,0,0,0.35)', borderpad:2},
-      {x:0, y:1, text:'Kabul aralığı = ±(T + U)', showarrow:false, font:{size:11, color:'#fff'}, bgcolor:'rgba(0,0,0,0.35)', borderpad:2},
-      {x:T+U, y:1, ax:T+U+0.02, ay:1, xref:'x', yref:'y', axref:'x', ayref:'y',
-       text:'Tolerans dışına<br>taşıyor!', showarrow:true, arrowhead:2, font:{size:10, color:'#c62828'}, xanchor:'left'}
-    ],
-    showlegend:true,
-    legend:{orientation:'h', x:0.5, xanchor:'center', y:-0.18, yanchor:'top', font:{size:11}},
-    margin:{l:170, r:40, t:55, b:90},
-    plot_bgcolor:'#ffffff', paper_bgcolor:'#ffffff'
-  };
-  Plotly.newPlot('grafik-uut-uretici-yaklasimlar', data, layout, {responsive:true, displayModeBar:false});
-})();
-</script>
-
-<ul>
-  <li><strong>1) Paylaşılan risk:</strong> Belirsizliği hesaba katmazsınız. Ölçüm tolerans içindeyse “geçti”. Eski test laboratuvarı uygulaması; ISO/IEC 17025 ile uyumlu beyan üretiyorsanız artık kabul edilmez.</li>
-  <li><strong>2) Korumalı kabul (guarded acceptance):</strong> Belirsizlik tolerans sınırından <strong>içeri</strong> doğru çekilir. Müşteriyi/son kullanıcıyı korur, <strong>yanlış kabul</strong> olasılığını (PFA) düşürür. UUT üreticisi konumunda <strong>doğru</strong> yaklaşım.</li>
-  <li><strong>3) Korumalı red (guarded rejection):</strong> Belirsizlik tolerans sınırından <strong>dışarı</strong> doğru itilir. Üreticiyi yanlış red’den korur ama yanlış kabul artar. Aviyonik bağlamda gerekçelendirilmesi zor.</li>
-</ul>
-
-<p>UUT üreticisi olarak ikinci sütundayım — bu yazının kalan kısmı bunu sayısal hale getiriyor.</p>
-
-<h3 id="risk-yönü-tartışılır-değil">Risk yönü tartışılır değil</h3>
-
-<p>Test laboratuvarında “shared risk” denilen bir uygulama yaygındır: belirsizliği hesaba katmazsın, ölçüm tolerans içindeyse geçer. Bunun temeli müşteri ile laboratuvar arasında risk paylaşımıdır. UUT üreticisi konumunda bu seçeneğiniz <strong>yok</strong>. Beyan size ait, kabul kararı sizin, sahaya çıkan cihazın sorumluluğu da sizin. İki olası hatanın bedeli aynı değildir:</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>Hata türü</th>
-      <th>Bedel</th>
-      <th>Kim öder</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Yanlış kabul (PFA)</td>
-      <td>Bozuk cihaz uçar</td>
-      <td>Pilot, yolcu, üretici (sertifika kaybı)</td>
-    </tr>
-    <tr>
-      <td>Yanlış red (PFR)</td>
-      <td>Sağlam cihaz hurdaya gider</td>
-      <td>Sadece üretici (üretim maliyeti)</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>Bu asimetrik risk profilinde <strong>belirsizlik her zaman içeri çekilir</strong>, yani kabul aralığı toleranstan daraltılır. Yukarıdaki üç yaklaşımdan tek meşru olanı bu. Ekleme (kabul aralığını genişletme) yönü, DO-178C DAL A bir LRU için sertifikasyon denetiminde gerekçelendirilemez.</p>
-
-<h3 id="hangi-standart-ilac-g8-default">Hangi standart: ILAC G8 default</h3>
-
-<p>Türkiye’de TÜRKAK akreditasyonu üzerinden çalıştığınız için doğal default <strong>ILAC G8</strong> ve onun Avrupa eşdeğeri <strong>EA-4/02</strong>:</p>
-
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Kabul aralığı = ±(T − U)
-</code></pre></div></div>
-
-<p>Müşteriniz ABD merkezliyse (Lockheed, Raytheon, Boeing tedarik zincirinde değilseniz bile) sözleşme <strong>Z540.3</strong> atfı içerebilir. O durumda Method 6 ile TUR’a bağlı M çarpanı kullanırsınız. Pratik fark: ILAC G8 bütün TUR değerleri için 1×U çıkarır; Z540.3 yüksek TUR’da daha az çıkarır. Yani yüksek TUR’da Z540.3 daha gevşek, ILAC G8 daha muhafazakâr. Aviyonik için muhafazakâr olan tarafta kalın.</p>
-
-<p>İki müşteri tipi de varsa rapor şablonunu çift sütun yapın: “ILAC G8 kabul aralığı: ±X” ve “Z540.3 kabul aralığı: ±Y”. Sahada hangisini uygulayacağınızı sözleşme belirler.</p>
-
-<h3 id="datasheet-speci-son-çaredir">Datasheet spec’i son çaredir</h3>
-
-<p>Sinyal üreticinizin datasheet’inde “±0,001°” yazıyor. Bu satır, üreticinin geniş bir cihaz popülasyonu için garanti ettiği en kötü durumdur. Sizin elinizdeki tek tek cihaz büyük olasılıkla daha iyidir. Ama bunu nasıl bilirsiniz?</p>
-
-<p><strong>Akredite kalibrasyon belgesi.</strong> Sinyal üreticinizi TÜRKAK akredite (veya ulusal eşdeğer) bir laboratuvarda yıllık olarak kalibre ettirdiğinizde belgenizde “ölçülen değer = X, U = ±0,0002° (k=2)” tarzında bir veri olur. Bu sayı genelde datasheet spec’inin 3-10 katı küçüktür. Belirsizlik bütçenizde <strong>datasheet spec’i değil bu belgenin U’sunu</strong> kullanın.</p>
-
-<p>Datasheet spec ne zaman kullanılır? İki durumda:</p>
-
-<ol>
-  <li>Sinyal üretici hiç kalibre edilmedi (kötü uygulama, akreditasyon denetimi takılır).</li>
-  <li>Kalibrasyon belgesi var ama ölçüm yaptığınız belirli noktayı kapsamıyor (interpolasyon yapamıyorsunuz).</li>
-</ol>
-
-<p>Spec’i kullanırken yazıdaki kuralı uygulayın: bilgi yoksa düz dağılım, u = a / √3.</p>
-
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>u_kaynak (datasheet)                       = 0,001 / √3   ≈ 0,000577°
-u_kaynak (akredite belge, U=0,0002, k=2)   = 0,0002 / 2   = 0,0001°
-</code></pre></div></div>
-
-<p>Akredite belgeyle çalışırsanız bu bileşenden gelen katkı yaklaşık <strong>6 kat</strong> azalır.</p>
-
-<h3 id="specin-geçerlilik-kapsamına-bakın">Spec’in geçerlilik kapsamına bakın</h3>
-
-<p>Datasheet spec’i her zaman bir koşullar paketinin içinde geçerlidir:</p>
-
-<ul>
-  <li><strong>Sıcaklık aralığı:</strong> “23 °C ± 5 °C” tipik. Lab sıcaklığınız bu aralık dışında salınıyorsa spec geçersiz, ek bir tempco (sıcaklık katsayısı) bileşeni ekleyin.</li>
-  <li><strong>Takvim:</strong> “90 gün spec” ve “1 yıl spec” sayıları farklıdır. Son kalibrasyondan bu yana ne kadar zaman geçti?</li>
-  <li><strong>Isınma süresi:</strong> “30 dakika ısınma sonrası” yazıyorsa, üretimdeki testlerde bunu uygulayın.</li>
-  <li><strong>Ölçüm bandı:</strong> Spec belli bir frekans ya da seviye aralığında geçerli olabilir. VOR sinyali için 108–118 MHz, ILS için 108–112 MHz gibi.</li>
-</ul>
-
-<p>Bu kapsam dışında kullanırsanız spec’i kullanmaya hakkınız yok. F Eki 7. uyarısının (gizli sıcaklık tuzağı) tersi: <strong>kapsam içindeyken çift saymak</strong>, <strong>kapsam dışındayken eksik saymak</strong> sık yapılan hata.</p>
-
-<h3 id="bileşen-listesi-tek-satıra-düşmez">Bileşen listesi tek satıra düşmez</h3>
-
-<p>±0,001° spec’ini tek bileşen olarak kullanmak yetmez. Bir VOR alıcısı azimuth doğruluğu testi için tipik bütçe şöyle görünür:</p>
-
-<table>
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Kaynak</th>
-      <th>Aralık</th>
-      <th>Dağılım</th>
-      <th>Bölme</th>
-      <th>u (°)</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>Sinyal üretici (akredite belge, k=2)</td>
-      <td>±0,0002</td>
-      <td>normal</td>
-      <td>2</td>
-      <td>0,0001</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>Sinyal üretici 1 yıllık drift</td>
-      <td>±0,0005</td>
-      <td>düz</td>
-      <td>√3</td>
-      <td>0,00029</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>Sinyal üretici tempco (lab Δ=±3 °C)</td>
-      <td>±0,0003</td>
-      <td>düz</td>
-      <td>√3</td>
-      <td>0,00017</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>UUT çözünürlüğü (0,01° son hane)</td>
-      <td>±0,005</td>
-      <td>düz</td>
-      <td>√3</td>
-      <td>0,00289</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>RF kablo kayıp/faz</td>
-      <td>±0,002</td>
-      <td>düz</td>
-      <td>√3</td>
-      <td>0,00115</td>
-    </tr>
-    <tr>
-      <td>6</td>
-      <td>Tip A (n=10 ölçüm, s=0,003°)</td>
-      <td>s/√10</td>
-      <td>normal</td>
-      <td>√10</td>
-      <td>0,00095</td>
-    </tr>
-    <tr>
-      <td>7</td>
-      <td>Multipath / antenna kuplajı</td>
-      <td>±0,001</td>
-      <td>düz</td>
-      <td>√3</td>
-      <td>0,00058</td>
-    </tr>
-    <tr>
-      <td>8</td>
-      <td>UUT ısınma + tempco</td>
-      <td>±0,002</td>
-      <td>düz</td>
-      <td>√3</td>
-      <td>0,00115</td>
-    </tr>
-  </tbody>
-</table>
-
-<p>Birleşik belirsizlik:</p>
-
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>u² = 0,0001² + 0,00029² + 0,00017² + 0,00289² + 0,00115²
-   + 0,00095² + 0,00058² + 0,00115²
-u² ≈ 1,24 × 10⁻⁵
-u  ≈ 0,0035°
-
-U  = 2 × 0,0035 ≈ 0,007°  (k=2)
-</code></pre></div></div>
-
-<p>Yani gerçek ölçüm belirsizliğiniz <code class="language-plaintext highlighter-rouge">±0,007°</code> mertebesinde. Datasheet spec’inden gelen <code class="language-plaintext highlighter-rouge">±0,001°</code> ise toplamın yalnızca <strong>küçük bir parçası</strong>. Çözünürlük (4. satır) ve RF kablolama (5. ve 8. satırlar) çok daha büyük katkı veriyor.</p>
-
-<h3 id="kabul-aralığı-ve-karar">Kabul aralığı ve karar</h3>
-
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>TUR     = 0,1 / 0,007 ≈ 14,3
-Kabul aralığı (ILAC G8) = ±(0,1 − 0,007) = ±0,093°
-</code></pre></div></div>
-
-<p>UUT’nin ölçülen azimuth hatası <code class="language-plaintext highlighter-rouge">±0,093°</code> içindeyse “azimuth accuracy ±0,1° spec’ini karşılıyor” beyanı verebilirsiniz. <code class="language-plaintext highlighter-rouge">±0,093°</code> ile <code class="language-plaintext highlighter-rouge">±0,1°</code> arasındaysa cihaz <strong>sınır bölgesinde</strong> — yazılı prosedürünüze göre bu cihazları ya tekrar test edersiniz, ya manuel inceleme yaparsınız, ya da reddedersiniz. Fail-safe tarafa düşmek için reddetmek en güvenlisidir.</p>
-
-<h3 id="üç-katmanlı-koruma">Üç katmanlı koruma</h3>
-
-<p>Bütün bu hesabı yapsanız bile sahaya çıkan her cihazın spec içinde kalması garanti değildir. Aviyonikte standart pratik <strong>çift güvence</strong>:</p>
-
-<div class="language-text highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Tasarım hedefi   ⊆   Kabul aralığı   ⊆   Beyan toleransı
-   (±0,05°)            (±0,093°)            (±0,1°)
-</code></pre></div></div>
-
-<ul>
-  <li><strong>Tasarım hedefi (±0,05°):</strong> R&amp;D ekibi devre tasarımını bu hedefe göre yapar; üretim sürecindeki normal varyasyonun beyana taşması engellenir.</li>
-  <li><strong>Kabul aralığı (±0,093°):</strong> Üretim sonu testte kullanılan eşik. Ölçüm belirsizliği çıkarılmış halidir.</li>
-  <li><strong>Beyan toleransı (±0,1°):</strong> Datasheet’te yazan, müşteriye verilen söz.</li>
-</ul>
-
-<p>Bu üç sınır arasındaki boşluklar — <code class="language-plaintext highlighter-rouge">0,05°</code> tasarım marjı ve <code class="language-plaintext highlighter-rouge">0,007°</code> ölçüm marjı — emniyet kritik sistemde “ücretsiz öğle yemeği” değildir; üretim verim kaybı (yield loss) olarak para olarak ödenir. Ama VOR/ILS bir LRU’nun sahada <code class="language-plaintext highlighter-rouge">±0,12°</code> ile gelmesinin bedeli, bir avukatın saatlik ücretiyle ölçülür. Yatırım bu açıdan değerlendirilir.</p>
-
-<h3 id="do-178c-do-254-ve-veri-yönetimi">DO-178C, DO-254 ve veri yönetimi</h3>
-
-<p>Bütün belirsizlik bütçeniz konfigürasyon yönetimi altında saklanmalı. Pratik kontroller:</p>
-
-<ul>
-  <li>Bütçe dökümanı bir baseline’a (DOORS, SVN vb.) bağlı; revizyon geçmişi var.</li>
-  <li>Test prosedürü (TPS) bütçeyi atıf olarak gösteriyor.</li>
-  <li>Sinyal üretici kalibrasyon belgeleri (PDF) prosedürün ek dosyaları olarak kayıtlı.</li>
-  <li>ATR (Acceptance Test Report) her seri için: ölçüm değeri, U, k, kabul aralığı, karar — dört sütunlu.</li>
-  <li>Akreditasyon denetiminde her bütçe satırı için <strong>gerekçe belgesi</strong> istenir (PDF varsayımı, dağılım seçimi, bağımsızlık kararı).</li>
-</ul>
-
-<p>DO-178C’nin doğrudan ölçüm belirsizliği zorunluluğu yoktur — yazılım standardıdır. Ama DO-254 (donanım), ARP4761 (emniyet değerlendirme) ve müşteriye verilen Hardware Acceptance Data Sheet’ler bütçeyi varsayar. ARP4761 FHA/PSSA aşamalarında “ölçüm doğrulanmamış” bir donanım performansı argüman olarak kullanılamaz.</p>
-
-<h3 id="aviyonik-uut-üreticisi-için-kontrol-listesi">Aviyonik UUT üreticisi için kontrol listesi</h3>
-
-<ol>
-  <li><strong>Default ILAC G8’i seçin</strong>, müşteri Z540.3 isterse iki sütunlu rapor verin. Eklemeyi (genişletmeyi) hiçbir koşulda kullanmayın.</li>
-  <li><strong>Sinyal üreticilerini akredite labda kalibre ettirin</strong>, datasheet spec’ini sadece son çare olarak kullanın.</li>
-  <li><strong>Spec geçerlilik kapsamını okuyun</strong>: sıcaklık, takvim, ısınma, frekans, seviye. Lab koşullarınız dışındaysa ek bileşen ekleyin.</li>
-  <li><strong>Bütçeyi tek satıra düşürmeyin</strong>: çözünürlük, RF kablolama, multipath, UUT tempco — hepsi aviyonikte kayda değer katkı verir.</li>
-  <li><strong>Üç katmanlı koruma</strong>: tasarım hedefi &lt; kabul aralığı &lt; beyan toleransı. Tasarım marjı R&amp;D’nin işidir, ölçüm marjı sizin işiniz.</li>
-  <li><strong>TUR yeterli sayılmaz</strong>: TUR=14 olsa bile guard band uygulayın. TUR &lt; 4 olursa ya bütçeyi düşürün ya beyanı gevşetin — denetimde “işte böyle çıkıyor” demek geçerli savunma değil.</li>
-  <li><strong>Bütçeyi konfigürasyon yönetimi altına alın</strong>: revizyon, gerekçe, ek belgeler. Akreditasyon ve sertifikasyon denetiminde her satır sorulur.</li>
-</ol>
-
-<blockquote>
-  <p><strong>Akılda kalsın — UUT üreticisi için altın kural:</strong></p>
-  <ul>
-    <li>Risk size ait → belirsizlik <strong>çıkarılır</strong>, eklenmez.</li>
-    <li>Datasheet spec değil, akredite kalibrasyon belgesi.</li>
-    <li>Spec geçerlilik kapsamı dışındaysa, ek bileşen.</li>
-    <li>Tasarım hedefi, kabul aralığı ve beyan toleransı <strong>üç ayrı sayıdır</strong>; arada para kaybedersiniz, kaybetmek zorundasınız.</li>
-    <li>TUR ≥ 4 yeterli değil; PFA hesaplı guard band uygulayın.</li>
-  </ul>
-</blockquote>
-
-<hr />
-
-<h2 id="yedi-pratik-tavsiye">Yedi Pratik Tavsiye</h2>
-
-<p>Yazıyı bir el kitabına dönüştürelim. Yarın işe gittiğinizde uygulayabileceğiniz somut yedi madde:</p>
-
-<ol>
-  <li>
-    <p><strong>Belirsizlik bütçesini test prosedürünün parçası yapın.</strong> Test belgesinin içine “belirsizlik bütçesi” başlıklı bir bölüm koyun. Sonradan eklenen bütçe çoğunlukla eksik kalır.</p>
-  </li>
-  <li>
-    <p><strong>Tek ölçüm yapmayın.</strong> En az 10 tekrar ölçüm. Mümkünse iki farklı operatör, iki farklı gün. Kıdemli mühendis “bir kez ölçtüm geçti” derse, “tekrar yapalım” deyin.</p>
-  </li>
-  <li>
-    <p><strong>Kalibrasyon belgelerini saklayın.</strong> Her cihazın izlenebilirlik zincirinde TÜRKAK akreditasyonlu bir laboratuvarın belgesi olmalı. Belge numaralarını test belgesine yazın. Akreditasyon denetiminde her birinin sorulması olası.</p>
-  </li>
-  <li>
-    <p><strong>İlişkili kaynakları arayın.</strong> Aynı kalibratörden iki cihaz besleniyorsa, sertifika belirsizlikleri ilişkili. Aynı oda, aynı kullanıcı, aynı kablolar; bunlar ilişki yaratır. Bağımsızlık varsayımı doğal değildir, doğru olduğunu göstermek size düşer.</p>
-  </li>
-  <li>
-    <p><strong>PDF varsayımlarını yazılı gerekçelendirin.</strong> “Düz dağılım kullandım çünkü üretici belirtmedi” gibi bir not her satırın yanında olsun.</p>
-  </li>
-  <li>
-    <p><strong>TUR ≥ 4 yeterli demeyin.</strong> Yanlış kabul olasılığını hesaplayın. Z540.3 6. yöntem ya da ILAC G8 ile güvenlik payı ekleyin.</p>
-  </li>
-  <li>
-    <p><strong>Sonucu doğru ifade edin.</strong> “Geçti” yerine: “9,999889 V, U = 56 µV (k=2). Tolerans 10,000 V ± 100 µV. Sonuç: tolerans içinde, güvenlik payı içinde.” Sayı + birim + belirsizlik + k dörtlüsü eksik olduğunda rapor da eksik.</p>
-  </li>
-</ol>
-
-<hr />
-
-<h2 id="hızlı-referans-kartı">Hızlı Referans Kartı</h2>
-
-<p>Bu bölümü ayrı bir sayfaya yazdırıp masanızın üstüne koyabilirsiniz. Belirsizlik bütçesi yaparken sürekli geri dönülen şablon.</p>
-
-<h3 id="adım-adım-belirsizlik-hesabı">Adım adım belirsizlik hesabı</h3>
-
-<ol>
-  <li>Ölçtüğünüz büyüklüğün <strong>bileşenlerini listeleyin</strong> (Tip A + Tip B kaynakları).</li>
-  <li>Her bileşen için <strong>standart belirsizliği</strong> (u) hesaplayın:
-    <ul>
-      <li>Tip A: birden fazla ölçüm → s/√n</li>
-      <li>Tip B: aralığı dağılım faktörüne böl</li>
-    </ul>
-  </li>
-  <li><strong>Birleşik belirsizlik:</strong> u = √(Σ uᵢ²)</li>
-  <li><strong>Genişletilmiş belirsizlik:</strong> U = k × u (genelde k = 2)</li>
-  <li><strong>Sonucu yazın:</strong> “X = (değer ± U) birim, k = 2”</li>
-  <li><strong>TUR kontrol edin:</strong> TUR = Tolerans / U; gerekirse güvenlik payı uygulayın.</li>
-</ol>
-
-<h3 id="aralık--standart-belirsizlik-dönüşüm-tablosu">Aralık → standart belirsizlik dönüşüm tablosu</h3>
-
-<table>
-  <thead>
-    <tr>
-      <th>Veri kaynağı</th>
-      <th>Standart belirsizlik formülü</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Sertifika "U, k=2"</td>
-      <td>u = U / 2</td>
-    </tr>
-    <tr>
-      <td>Sertifika "U, k=3"</td>
-      <td>u = U / 3</td>
-    </tr>
-    <tr>
-      <td>Üretici spec "±a" (bilgi yok)</td>
-      <td>u = a / √3</td>
-    </tr>
-    <tr>
-      <td>"Merkez yakını daha olası"</td>
-      <td>u = a / √6</td>
-    </tr>
-    <tr>
-      <td>Termostat dalgalanması</td>
-      <td>u = a / √2</td>
-    </tr>
-    <tr>
-      <td>Tip A: n ölçüm, ortalama raporlanır</td>
-      <td>u = s / √n</td>
-    </tr>
-    <tr>
-      <td>Tip A: tek ölçüm raporlanır</td>
-      <td>u = s</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="karar-kuralı">Karar kuralı</h3>
-
-<table>
-  <thead>
-    <tr>
-      <th>TUR (Tolerans / U)</th>
-      <th>Yaklaşık PFA</th>
-      <th>Yapılacak</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>≥ 10</td>
-      <td>≤ %0,1</td>
-      <td>Sorunsuz</td>
-    </tr>
-    <tr>
-      <td>≥ 4</td>
-      <td>≤ %1,5</td>
-      <td>Z540.3 sınırı, dikkat</td>
-    </tr>
-    <tr>
-      <td>2–4</td>
-      <td>%2–8</td>
-      <td>Güvenlik payı şart</td>
-    </tr>
-    <tr>
-      <td>&lt; 2</td>
-      <td>%8+</td>
-      <td>Belirsizliği düşür ya da toleransı gevşet</td>
-    </tr>
-  </tbody>
-</table>
-
-<h3 id="akreditasyon-denetiminde-sorulanlar">Akreditasyon denetiminde sorulanlar</h3>
-
-<ul>
-  <li>Her cihazın izlenebilirlik zinciri belge numarası var mı?</li>
-  <li>Tip B bileşenleri için PDF varsayımı <strong>yazılı gerekçesi</strong> var mı?</li>
-  <li>Bağımsızlık varsayımı kontrol edildi mi (aynı kalibratör, aynı operatör)?</li>
-  <li>Tip A ölçümleri arasında koşullar gerçekten yenilendi mi?</li>
-  <li>TUR &lt; 4 ise PFA hesabı belgelenmiş mi?</li>
-  <li>Sonuç raporu “değer + birim + U + k” dörtlüsünü içeriyor mu?</li>
-</ul>
-
-<h3 id="belirsizlik-bütçesi-şablonu-kopyala-doldur">Belirsizlik bütçesi şablonu (kopyala-doldur)</h3>
-
-<table>
-  <thead>
-    <tr>
-      <th>#</th>
-      <th>Kaynak</th>
-      <th>Aralık</th>
-      <th>Dağılım</th>
-      <th>Bölme</th>
-      <th>u (birim)</th>
-      <th>u²</th>
-      <th>Katkı %</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>1</td>
-      <td>(örn. kalibrasyon belgesi)</td>
-      <td>± …</td>
-      <td>normal</td>
-      <td>2</td>
-      <td>…</td>
-      <td>…</td>
-      <td>…</td>
-    </tr>
-    <tr>
-      <td>2</td>
-      <td>(örn. çözünürlük)</td>
-      <td>± …</td>
-      <td>düz</td>
-      <td>√3</td>
-      <td>…</td>
-      <td>…</td>
-      <td>…</td>
-    </tr>
-    <tr>
-      <td>3</td>
-      <td>(örn. sıcaklık etkisi)</td>
-      <td>± …</td>
-      <td>düz</td>
-      <td>√3</td>
-      <td>…</td>
-      <td>…</td>
-      <td>…</td>
-    </tr>
-    <tr>
-      <td>4</td>
-      <td>(örn. drift)</td>
-      <td>± …</td>
-      <td>düz</td>
-      <td>√3</td>
-      <td>…</td>
-      <td>…</td>
-      <td>…</td>
-    </tr>
-    <tr>
-      <td>5</td>
-      <td>(Tip A, n ölçüm)</td>
-      <td>s = …</td>
-      <td>normal</td>
-      <td>√n</td>
-      <td>…</td>
-      <td>…</td>
-      <td>…</td>
-    </tr>
-    <tr>
-      <td> </td>
-      <td>**Birleşik (u)**</td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td>**√Σ**</td>
-      <td>**= ?**</td>
-      <td>%100</td>
-    </tr>
-    <tr>
-      <td> </td>
-      <td>**Genişletilmiş (U, k=2)**</td>
-      <td> </td>
-      <td> </td>
-      <td> </td>
-      <td>**2u**</td>
-      <td> </td>
-      <td> </td>
-    </tr>
-  </tbody>
-</table>
-
-<p>Tabloyu doldurduktan sonra “Katkı %” sütunu hangi bileşenin en çok katkıyı verdiğini gösterir; iyileştirmeye en büyük yüzdeden başlayın.</p>
-
-<hr />
-
-<h2 id="sonuç">Sonuç</h2>
-
-<p>GUM teorik temeli kuruyor, <strong>F eki</strong> günlük ölçüm yapan mühendise yönelik en pratik bölüm. NCSLI RP-12 GUM’u günlük dile çeviriyor, somut tablo ve şablonlar veriyor. ANSI Z540.3 ile birleşince kalibrasyon laboratuvarlarının uyması gereken kurallar bütünü ortaya çıkıyor.</p>
-
-<p>Türkiye’de uçak elektroniği (TUSAS, BAYKAR), savunma (ASELSAN, ROKETSAN), otomotiv (Togg ve tedarikçileri) ve medikal cihaz alanında bu disiplin yavaş yavaş zorunlu hale geliyor. Akreditasyon denetimleri sertleşiyor, müşteriler belirsizlik bütçesini bir formalite değil mühendislik ürünü olarak istiyor. Aviyonik UUT üreticisi konumunda olanlar için ek bir disiplin var: belirsizlik daima toleranstan <strong>çıkarılır</strong>, üç katmanlı koruma (tasarım hedefi → kabul aralığı → beyan toleransı) standart pratiktir, ve bütün bütçe konfigürasyon yönetimi altında izlenebilir olmalıdır.</p>
-
-<p>Bir test mühendisinin işi sadece sayı üretmek değil. Sayının yanına eklenecek “± şu kadar” değerini de üretmek. Bu olmadan “geçti” sözünün ölçüsel bir karşılığı yok; sadece bir tahmin.</p>
-
-<p>Bir sonraki yazıda aynı problemleri <strong>Monte Carlo simülasyonu</strong> ile çözeceğiz. Doğrusal olmayan ölçüm modellerinde (radyo frekans güç ölçümü, dinamik basınç gibi) klasik kareli toplam yaklaşımı yetersiz kalır; bilgisayarda 100.000 simülasyon yaparak dağılımı doğrudan üretmek gerekir.</p>
-
-<hr />
-
-<h2 id="kaynaklar">Kaynaklar</h2>
-
-<ul>
-  <li><a href="https://www.bipm.org/documents/20126/2071204/JCGM_100_2008_E.pdf">JCGM 100:2008 — Ölçüm Belirsizliğinin İfadesi Kılavuzu (BIPM PDF)</a></li>
-  <li><a href="https://www.bipm.org/documents/20126/2071204/JCGM_101_2008_E.pdf">JCGM 101:2008 — Monte Carlo ile Belirsizlik Dağılımı (Ek 1)</a></li>
-  <li><a href="https://www.bipm.org/documents/20126/2071204/JCGM_GUM_6_2020.pdf">JCGM GUM-6:2020 — Ölçüm Modelleri Geliştirme ve Kullanma</a></li>
-  <li><a href="https://www.iso.org/sites/JCGM/GUM/JCGM100/C045315e-html/C045315e_FILES/MAIN_C045315e/AF_e.html">GUM F Eki — Belirsizlik Bileşenlerini Hesaplamak için Pratik Rehber (HTML)</a></li>
-  <li><a href="https://www.iso.org/sites/JCGM/GUM/JCGM100/C045315e-html/C045315e_FILES/MAIN_C045315e/AH_e.html">GUM H Eki — Sayısal Örnekler (HTML)</a></li>
-  <li><a href="https://ncsli.org/store/viewproduct.aspx?id=16960491">NCSLI RP-12: Ölçüm Belirsizliklerini Belirleme ve Raporlama (2013)</a></li>
-  <li><a href="https://www.isobudgets.com/pdf/uncertainty-guides/ea-4-02-m-2013-expression-of-the-uncertainty-of-measurement-in-calibration.pdf">EA-4/02 M:2013 — Avrupa Kalibrasyon Belirsizliği Rehberi</a></li>
-  <li><a href="https://ilac.org/publications-and-resources/ilac-guidance-series/">ILAC G8:09/2019 — Uygunluk Beyanı Kuralları için Rehber</a></li>
-  <li><a href="https://mhforce.com/wp-content/uploads/2021/04/TUR-is-not-enough-1-1.pdf">Henry Zumbrun — TUR=4 Neden Yeterli Değil (Morehouse, 2021)</a></li>
-  <li><a href="https://incompliancemag.com/using-welch-satterthwaite-formula-in-uncertainty-analysis/">Welch-Satterthwaite Formülü Pratik Açıklaması (In Compliance Magazine)</a></li>
-  <li><a href="https://www.isobudgets.com/calculating-effective-degrees-of-freedom/">Etkin Serbestlik Derecesi Hesabı (ISOBudgets)</a></li>
-  <li><a href="https://www.isobudgets.com/guard-banding-how-to-take-uncertainty-into-account/">Güvenlik Payı (Guard Band) Açıklaması (ISOBudgets)</a></li>
-  <li><a href="https://www.fluke.com/en-us/learn/blog/pressure-calibration/guide-determining-pressure-measurement-uncertainty">Basınç Ölçüm Belirsizliği Rehberi (Fluke Calibration)</a></li>
-  <li><a href="https://www.rtca.org/training-courses/do-254-design-assurance-guidance-for-airborne-electronic-hardware/">RTCA DO-254 — Aviyonik Donanım Tasarım Güvencesi Rehberi</a></li>
-  <li><a href="https://www.sae.org/standards/content/arp4761/">SAE ARP4761 — Sivil Hava Sistemleri Güvenlik Değerlendirme Rehberi</a></li>
-  <li><a href="https://www.ume.tubitak.gov.tr/">TÜBİTAK UME — Ulusal Metroloji Enstitüsü</a></li>
-  <li><a href="https://www.turkak.org.tr/">TÜRKAK — Türk Akreditasyon Kurumu</a></li>
 </ul>]]></content><author><name>M. Serdar Karaman</name></author><category term="muhendislik" /><category term="metroloji" /><summary type="html"><![CDATA[]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://karaman.dev/img/og-default.webp" /><media:content medium="image" url="https://karaman.dev/img/og-default.webp" xmlns:media="http://search.yahoo.com/mrss/" /></entry></feed>

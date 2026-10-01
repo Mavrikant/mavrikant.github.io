@@ -1,0 +1,1233 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="utf-8">
+<!-- Content Security Policy: defense-in-depth against supply-chain script
+     injection (e.g. the polyfill.io attack). script-src is an explicit
+     allowlist of the CDNs this site actually uses, so any unlisted external
+     script (such as polyfill.io) is blocked by the browser. -->
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://cdn.plot.ly https://plausible.io https://js.sentry-cdn.com https://browser.sentry-cdn.com https://giscus.app; style-src 'self' 'unsafe-inline' https://giscus.app; font-src 'self' data: https://cdn.jsdelivr.net; img-src 'self' data: https:; connect-src 'self' https://plausible.io https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://www.google.com https://*.sentry.io; frame-src 'self' https://giscus.app https://www.youtube.com https://www.youtube-nocookie.com; worker-src 'self' blob:; manifest-src 'self'; form-action 'self' https://formspree.io">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<link href="/favicon.ico" rel="shortcut icon" sizes="36x36 24x24 16x16" type="image/x-icon">
+<link href="/favicon.png" rel="icon" sizes="196x196" type="image/png">
+<meta content="/mstile-icon-128x128.png" name="msapplication-TileImage">
+<meta content="transparent" name="msapplication-TileColor">
+<link href="/manifest.webmanifest" rel="manifest">
+<meta content="/browserconfig.xml" name="msapplication-config">
+<!-- Begin Jekyll SEO tag v2.9.1 -->
+<title>INCOSE CSEP: Sınavdan Sertifikaya Bir Yol Haritası | M. Serdar Karaman</title>
+<meta name="generator" content="Jekyll v4.4.1">
+<meta property="og:title" content="INCOSE CSEP: Sınavdan Sertifikaya Bir Yol Haritası">
+<meta name="author" content="M. Serdar Karaman">
+<meta property="og:locale" content="tr_TR">
+<meta name="description" content="Altmış ay deneyim, en az üç farklı alanda on ikişer ay, referanslarca doğrulanmış bir deneyim dosyası ve 100 puanlanan soruluk bir sınav. INCOSE CSEP (Certified Systems Engineering Professional) sertifikasyonunun şartları kabaca bunlar. Benim dosyamda bunlara ek olarak sekiz referans vardı; cebimden çıkan da 610 USD ile 1.000 TL oldu.">
+<meta name="twitter:description" property="og:description" content="Altmış ay deneyim, en az üç farklı alanda on ikişer ay, referanslarca doğrulanmış bir deneyim dosyası ve 100 puanlanan soruluk bir sınav. INCOSE CSEP (Certified Systems Engineering Professional) sertifikasyonunun şartları kabaca bunlar. Benim dosyamda bunlara ek olarak sekiz referans vardı; cebimden çıkan da 610 USD ile 1.000 TL oldu.">
+<link rel="canonical" href="https://karaman.dev/2026/10/01/incose-csep-sertifikasyonu-yolculugum.html">
+<meta property="og:url" content="https://karaman.dev/2026/10/01/incose-csep-sertifikasyonu-yolculugum.html">
+<meta property="og:site_name" content="M. Serdar Karaman">
+<meta property="og:image" content="https://karaman.dev/img/og-default.webp">
+<meta property="og:type" content="article">
+<meta property="article:published_time" content="2026-10-01T22:21:00+00:00">
+<meta property="article:modified_time" content="2026-10-01T22:21:00+00:00">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://karaman.dev/img/og-default.webp">
+<meta name="twitter:title" content="INCOSE CSEP: Sınavdan Sertifikaya Bir Yol Haritası">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"M. Serdar Karaman"},"dateModified":"2026-10-01T22:21:00+00:00","datePublished":"2026-10-01T22:21:00+00:00","description":"Altmış ay deneyim, en az üç farklı alanda on ikişer ay, referanslarca doğrulanmış bir deneyim dosyası ve 100 puanlanan soruluk bir sınav. INCOSE CSEP (Certified Systems Engineering Professional) sertifikasyonunun şartları kabaca bunlar. Benim dosyamda bunlara ek olarak sekiz referans vardı; cebimden çıkan da 610 USD ile 1.000 TL oldu.","headline":"INCOSE CSEP: Sınavdan Sertifikaya Bir Yol Haritası","image":"https://karaman.dev/img/og-default.webp","mainEntityOfPage":{"@type":"WebPage","@id":"https://karaman.dev/2026/10/01/incose-csep-sertifikasyonu-yolculugum.html"},"url":"https://karaman.dev/2026/10/01/incose-csep-sertifikasyonu-yolculugum.html"}</script>
+<!-- End Jekyll SEO tag -->
+
+
+<!-- Sentry (errors + performance + replay) -->
+<script src="https://js.sentry-cdn.com/d9df60c4bcc41adb14bb648db4013b52.min.js" crossorigin="anonymous"></script>
+<script>
+  Sentry.onLoad(function () {
+    Sentry.init({
+      integrations: [
+        Sentry.browserTracingIntegration(),
+        Sentry.replayIntegration({
+          maskAllText: false,
+          blockAllMedia: false,
+        }),
+      ],
+      tracesSampleRate: 1.0,
+      replaysSessionSampleRate: 0.1,
+      replaysOnErrorSampleRate: 1.0,
+    });
+  });
+</script>
+
+
+
+<!-- Privacy-friendly analytics by Plausible -->
+<script defer src="https://plausible.io/js/pa-BMAxUwrIK8Icg2HpLysj2.js"></script>
+<script>
+  window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments) };
+  window.plausible.init = window.plausible.init || function (i) { window.plausible.o = i || {} };
+  plausible.init();
+</script>
+
+
+<script>
+  // No-flash dark mode: applies the saved theme before paint.
+  (function () {
+    try {
+      var stored = localStorage.getItem('theme');
+      var prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      var theme = stored || (prefersDark ? 'dark' : 'light');
+      document.documentElement.setAttribute('data-theme', theme);
+    } catch (e) {}
+  })();
+</script>
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/fonts/inter-var-latin-ext.woff2">
+<link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/fonts/source-serif-4-var-latin-ext.woff2">
+<link rel="preload" as="image" href="/img/posts/incose-csep-sertifikasi.webp" fetchpriority="high">
+<link rel="stylesheet" href="/assets/main.css">
+<link rel="alternate" type="application/rss+xml" title="M. Serdar Karaman" href="/feed.xml">
+<meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0e1014" media="(prefers-color-scheme: dark)">
+<link rel="manifest" href="/manifest.json">
+</head>
+<body id="page-top">
+  <!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+  <div class="container">
+    <a class="navbar-brand" href="/">M. Serdar Karaman</a>
+    <div class="navbar-controls">
+      <button type="button" class="search-toggle" aria-label="Ara" title="Ara (Ctrl+K)">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      </button>
+      <button type="button" class="theme-toggle" aria-label="Tema değiştir" title="Tema değiştir">
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+      </button>
+    </div>
+    <button class="navbar-toggler navbar-toggler-right" type="button" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Menüyü aç/kapat">
+      <span class="navbar-toggler__label">Menü</span>
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarResponsive">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <a class="nav-link" href="/">Ana sayfa</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/about">Hakkımda</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/posts">Yazılar</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/categories">Kategoriler</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="/contact">İletişim</a>
+        </li>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownProjects" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            Projeler
+          </a>
+          <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownProjects">
+            <a class="dropdown-item" href="https://karaman.dev/games" target="_blank" rel="noopener">Oyunlar</a>
+            <a class="dropdown-item" href="https://karaman.dev/or-araclari" target="_blank" rel="noopener">OR Araçları</a>
+            <a class="dropdown-item" href="https://karaman.dev/numio/" target="_blank" rel="noopener">Numio</a>
+          </div>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <!-- Site içi arama — içerik /search.json'dan ilk açılışta yüklenir -->
+<div id="search-modal" class="search-modal" hidden>
+  <div class="search-modal__backdrop" data-search-close></div>
+  <div class="search-modal__panel" role="dialog" aria-modal="true" aria-label="Site içi arama">
+    <div class="search-modal__bar">
+      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+      <input id="search-input" type="search" placeholder="Yazılarda ara…" autocomplete="off" aria-label="Arama sorgusu">
+      <button type="button" class="search-modal__close" data-search-close aria-label="Aramayı kapat">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+      </button>
+    </div>
+    <ul id="search-results" class="search-modal__results" role="listbox" aria-label="Arama sonuçları"></ul>
+    <p id="search-empty" class="search-modal__empty" hidden>Sonuç bulunamadı.</p>
+    <p class="search-modal__hint"><kbd>Esc</kbd> kapatır · <kbd>Ctrl</kbd>+<kbd>K</kbd> açar</p>
+  </div>
+</div>
+
+  <!-- Reading progress (filled by assets/scripts.js) -->
+<div class="reading-progress" aria-hidden="true"><div class="reading-progress__bar"></div></div>
+
+<!-- Page Header -->
+
+<header class="masthead" style="background-image: url('/img/posts/incose-csep-sertifikasi.webp')">
+  
+    <div class="overlay"></div>
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <div class="post-heading">
+            <h1>INCOSE CSEP: Sınavdan Sertifikaya Bir Yol Haritası</h1>
+            
+            <h2 class="subheading">My Road to INCOSE CSEP Certification</h2>
+            
+            <span class="meta">
+              <a href="/about">M. Serdar Karaman</a>
+              · 1 Ekim 2026 · <span class="reading-time" title="Estimated read time">
+  
+  42 dk okuma süresi</span>
+
+            </span>
+            
+            <div class="post-heading__tags">
+              
+              <a class="tag-chip tag-chip--category" href="/categories/#muhendislik">Mühendislik</a>
+              
+              <a class="tag-chip" href="/tags/#sistem-muhendisligi">Sistem Mühendisliği</a><a class="tag-chip" href="/tags/#sertifikasyon">sertifikasyon</a><a class="tag-chip" href="/tags/#kariyer">kariyer</a><a class="tag-chip" href="/tags/#incose">incose</a>
+            </div>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <div class="container" lang="tr">
+    <div class="row">
+      <div class="col-lg-8 col-md-10 mx-auto">
+
+        <div class="post-shell">
+          <aside class="post-toc" aria-label="İçindekiler">
+  <button class="post-toc__toggle" type="button" aria-expanded="false" aria-controls="post-toc-nav">
+    <span>İçindekiler</span>
+    <svg class="post-toc__chevron" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"></polyline></svg>
+  </button>
+  <h2 class="post-toc__title">İçindekiler</h2>
+  <nav id="post-toc-nav"></nav>
+</aside>
+
+          <div class="post-content">
+            <p>Altmış ay deneyim, en az üç farklı alanda on ikişer ay, referanslarca doğrulanmış bir deneyim dosyası ve 100 puanlanan soruluk bir sınav. INCOSE <strong>CSEP</strong> (Certified Systems Engineering Professional) sertifikasyonunun şartları kabaca bunlar. Benim dosyamda bunlara ek olarak sekiz referans vardı; cebimden çıkan da 610 USD ile 1.000 TL oldu.</p>
+
+<p>12 Ağustos 2026 Çarşamba günü başvurumun onaylandığı e-posta geldiğinde, hedefi koyduğum günden bu yana yaklaşık on dokuz ay geçmişti: hedefi 2025’in ilk aylarında koymuş, altı ay hazırlanmış, sınava 10 Ocak 2026’da girmiştim. Süreç boyunca en çok zorlandığım şey de sınav olmadı; kendi deneyimimi başkasının doğrulayabileceği bir dille anlatmak oldu.</p>
+
+<p>Bu yazı hem o süreci baştan sona anlatıyor hem de aynı yolu yürümeyi düşünenler için pratik bir rehber olmayı amaçlıyor. Türkiye’den başvuran biri için özellikle merak edilen kısımlar var: Sınav nerede, nasıl ve kaça alınıyor? Başvuru formunda deneyim nasıl belgeleniyor? Referans kim olabilir? Süreç ne kadar sürüyor ve gerçekten değer mi?</p>
+
+<p>Sistem mühendisliğinin ne olduğu, neden var olduğu ve yaşam döngüsünü nasıl yönettiği konusunu daha önce <a href="/2026/05/26/sistem-muhendisligi-nedir.html">Sistem Mühendisliği Nedir?</a> yazısında ele almıştım. Bu yazı onun devamı niteliğinde: disiplinin kendisinden çok, o disiplindeki yetkinliğin nasıl belgelendiğine odaklanıyor.</p>
+
+<hr>
+
+<h2 id="incose-ve-sep-programı">INCOSE ve SEP Programı</h2>
+
+<p><strong>INCOSE</strong> (International Council on Systems Engineering), 1990 yılında kurulmuş, sistem mühendisliğinin uluslararası meslek örgütüdür. INCOSE’un yayınları, sistem mühendisliği pratiğinde yaygın olarak kullanılan başvuru kaynakları arasında; en bilineni de düzenli olarak güncellenen <strong>Systems Engineering Handbook</strong>‘tur. Handbook, ISO/IEC/IEEE 15288 ile uyumlu yaşam döngüsü süreçlerinin uygulanmasına yönelik kapsamlı bir rehberdir ve sertifikasyon programının tek resmî bilgi kaynağıdır.</p>
+
+<p>INCOSE’un <strong>SEP</strong> (Systems Engineering Professional) sertifikasyon programı üç kademeden oluşur:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Kademe</th>
+      <th>Deneyim şartı</th>
+      <th>Bilgi sınavı</th>
+      <th>Referans</th>
+      <th>Geçerlilik</th>
+      <th>Başvuru ücreti (üye)</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>
+<strong>ASEP</strong> — Associate SEP</td>
+      <td>Deneyim şartı yok</td>
+      <td>Gerekli</td>
+      <td>Gerekmez</td>
+      <td>5 yıl</td>
+      <td>180 USD</td>
+    </tr>
+    <tr>
+      <td>
+<strong>CSEP</strong> — Certified SEP</td>
+      <td>En az 60 ay doğrudan SE deneyimi</td>
+      <td>Gerekli</td>
+      <td>Gerekli</td>
+      <td>3 yıl</td>
+      <td>350 USD</td>
+    </tr>
+    <tr>
+      <td>
+<strong>ESEP</strong> — Expert SEP</td>
+      <td>Kariyerin ileri aşaması: uzun süreli SE deneyimi ve liderlik</td>
+      <td>Yazılı sınav yok; mülakat</td>
+      <td>Gerekli</td>
+      <td>10 yıl</td>
+      <td>630 USD</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Bu üçlünün ortasındaki CSEP, programın omurgasıdır: hem <em>bildiğinizi</em> (sınavla) hem de <em>yaptığınızı</em> (belgelenmiş ve referanslarca doğrulanmış deneyimle) kanıtlamanızı ister. ASEP yeni mezunlar ve alana geçiş yapanlar için giriş kapısıdır; ESEP ise kariyerinin ileri aşamasındaki, alana yön vermiş kişiler içindir.</p>
+
+<p>CSEP’te sınav sürecin yalnızca yarısı; asıl elemeyi başvuru dosyasının insan eliyle değerlendirilmesi yapıyor.</p>
+
+<hr>
+
+<h2 id="neden-csep">Neden CSEP?</h2>
+
+<p>Kariyerimin büyük bölümü <strong>DO-178C DAL A</strong> seviyesinde aviyonik yazılım geliştirerek geçti. Bu dünyada gereksinim yönetimi, izlenebilirlik, doğrulama ve konfigürasyon kontrolü zaten günlük işin parçası. Ancak bir süre sonra fark ettim ki bu pratikleri “aviyonik yazılımın kuralları” olarak öğrenmiştim; oysa bunların çoğu aslında sistem mühendisliğinin genel pratiklerinin belirli bir sektöre uyarlanmış hâliydi.</p>
+
+<p>Bu farkın pratik bir bedeli var. Sistem tarafındaki meslektaşlarınızla konuşurken aynı şeyleri kastedip farklı kelimeler kullanıyorsunuz; ya da daha kötüsü, aynı kelimeleri kullanıp farklı şeyler kastediyorsunuz. “Doğrulama” (<em>verification</em>) ile “geçerleme” (<em>validation</em>) arasındaki ayrım, “gereksinim” ile “tasarım kısıtı” arasındaki sınır, bir arayüz kontrol dokümanının kime ait olduğu… Bunlar akademik ayrımlar değil, proje geciktiren tartışmalar.</p>
+
+<p>CSEP’e yönelmemin üç sebebi vardı:</p>
+
+<ol>
+  <li>
+<strong>Ortak dil.</strong> Handbook’u sistematik biçimde çalışmak, parça parça öğrendiğim pratikleri tek bir çerçeveye oturttu. Yazılım tarafından bakınca “süreç yükü” gibi görünen pek çok şeyin sistem tarafında nereye oturduğunu görmek, o yükü anlamlı kıldı.</li>
+  <li>
+<strong>Belgelenebilirlik.</strong> Türkiye’nin savunma ve havacılık sektöründe sistem mühendisliği yetkinliği giderek daha fazla sözleşme ve şartname maddesine giriyor. CSEP, bu yetkinliği uluslararası ölçekte tanınan ve bağımsız biçimde doğrulanmış bir belgeyle göstermenin yollarından biri.</li>
+  <li>
+<strong>Disiplinli okuma bahanesi.</strong> Dürüst olmak gerekirse, bir sınav tarihi olmadan yüzlerce sayfalık bir el kitabını baştan sona okumam pek olası değildi.</li>
+</ol>
+
+<hr>
+
+<h2 id="sürecin-haritası">Sürecin Haritası</h2>
+
+<p>Süreç iki ana adımdan oluşuyor: bilgi sınavı ve başvuru dosyası. Ben önce sınava girip sonra başvurdum, ama bu sıra zorunlu değil — başvuru dosyasını sınavdan önce de açabiliyorsunuz. Benim takvimim şöyle işledi:</p>
+
+<div class="mermaid">
+flowchart LR
+    M[2025 başı - Hedef ve INCOSE üyeliği] --&gt; A[Temmuz 2025 - Hazırlık başlangıcı]
+    A --&gt; B[10 Ocak 2026 - Bilgi sınavı]
+    B --&gt; C[19 Temmuz 2026 - CSEP başvurusu]
+    C --&gt; D[12 Ağustos 2026 - Onay]
+</div>
+
+<table>
+  <thead>
+    <tr>
+      <th>Tarih</th>
+      <th>Adım</th>
+      <th>Maliyet</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>2025 başı</td>
+      <td>CSEP hedefinin konması</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>18 Mart 2025</td>
+      <td>INCOSE üyeliği — Regular PPP 2</td>
+      <td>130 USD</td>
+    </tr>
+    <tr>
+      <td>Temmuz 2025</td>
+      <td>Handbook v5 ile hazırlığa başlangıç</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>10 Ocak 2026</td>
+      <td>Bilgi sınavı, SSB Akademi / ODTÜ Teknokent</td>
+      <td>1.000 TL</td>
+    </tr>
+    <tr>
+      <td>9 Mart 2026</td>
+      <td>Üyelik yenileme</td>
+      <td>130 USD</td>
+    </tr>
+    <tr>
+      <td>Ocak–Temmuz 2026</td>
+      <td>Başvuru dosyasının hazırlanması ve ertelenmesi</td>
+      <td>—</td>
+    </tr>
+    <tr>
+      <td>19 Temmuz 2026</td>
+      <td>CSEP başvurusunun gönderilmesi</td>
+      <td>350 USD</td>
+    </tr>
+    <tr>
+      <td>12 Ağustos 2026</td>
+      <td>Başvurunun onaylanması</td>
+      <td>—</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Sınav ile başvuru arasında geçen altı ay tamamen benim tercihimdi ve bu tercihin arkasındaki sebebe aşağıda döneceğim. Başvurunun değerlendirilmesi ise beklediğimden hızlı, yaklaşık <strong>üç buçuk hafta</strong> sürdü.</p>
+
+<hr>
+
+<h2 id="birinci-adım-bilgi-sınavı">Birinci Adım: Bilgi Sınavı</h2>
+
+<h3 id="sınavın-kapsamı">Sınavın kapsamı</h3>
+
+<p>INCOSE bilgi sınavı çoktan seçmeli bir sınavdır ve <strong>tek kaynağı</strong> SE Handbook’tur. Burada kritik bir tarih var: Ağustos 2023 ile 14 Mart 2025 arasında uygulanan “hibrit” sınav, dördüncü ve beşinci baskıların <em>ortak</em> içeriğinden soru soruyordu. <strong>15 Mart 2025’ten itibaren sınav içeriğinin tamamı beşinci baskıdan geliyor.</strong> Yani bugün hazırlananlar için dördüncü baskı artık birincil kaynak değil.</p>
+
+<p>Sınavda puanlanan soru sayısı 100’dür. Bunlara ek olarak, ileride kullanılıp kullanılmayacağına karar verilmek üzere denenen ve puanlanmayan 20 ya da 50 soru gelebiliyor. INCOSE süreyi soru başına bir dakika olarak veriyor; beta sorular dâhil 120 soruluk standart bir oturum 120 dakika sürüyor. Benim girdiğim 10 Ocak 2026 tarihli Türkiye oturumunda <strong>100 puanlanan soru için 130 dakika</strong> verildi; yani soru başına yaklaşık bir dakika on sekiz saniye. Bunun genel kuraldan farklı olduğunu not edeyim: süre ve soru sayısı oturuma göre değişebiliyor, kendi davet e-postanızda yazan rakama bakın. Bu süre, soruları sakin okumak ve şüpheli bıraktıklarınıza sonradan dönmek için yeterli; yeter ki tek bir soruda beş dakika harcamayın.</p>
+
+<p>Geçme eşiği için INCOSE sabit bir yüzde ilan etmiyor. Yaygın olarak %70 civarı telaffuz edilse de resmî tutum şu: farklı soru setleri arasındaki zorluk farkı dengelenerek eşik ayarlanıyor, yani daha zor bir sette biraz daha düşük bir doğru sayısı da geçmeye yetebiliyor. Sorular Handbook’un geneline yayılıyor, yani “şu bölümü atlarım” gibi bir lüksünüz yok.</p>
+
+<h3 id="türkiyede-sınava-girmek">Türkiye’de sınava girmek</h3>
+
+<p>INCOSE, sınavı iki formatta sunuyor: kendi bilgisayarınızdan, canlı uzaktan gözetmenli (<strong>online proctored</strong>) olarak ya da INCOSE onaylı bir gözetmenin denetiminde <strong>kâğıt üzerinde</strong>. Benim hazırlandığım 2026 sürecinde Prometric test merkezi seçeneği bulunmuyordu.</p>
+
+<p>Başlangıçtaki planım online sınava daha erken bir tarihte girmekti. Sonra Türkiye’de düzenlenen kâğıt oturumun ücretinin <strong>1.000 TL</strong> olduğunu gördüm; INCOSE’un online sınav için aldığı 80 USD ile kıyaslandığında aradaki fark, birkaç ay beklemeye değecek kadar büyüktü. Bu yüzden hazırlığı biraz daha uzatıp kâğıt oturumu bekledim ve sınavı <strong>10 Ocak 2026’da ODTÜ Teknokent’teki SSB Akademi binasında</strong> aldım. Türkiye’de bu organizasyon INCOSE TR şubesi ve SSB Akademi eliyle yürüyor; SSB Akademi ayrıca CSEP sınavına hazırlık eğitimi de düzenliyor.</p>
+
+<p>Kâğıt formatının başka bir faydası daha var: ekran yerine kâğıt üzerinde okumak, uzun ve iç içe geçmiş şıkları taramayı kolaylaştırıyor; soruların üzerini işaretleyip geri dönebiliyorsunuz.</p>
+
+<p>Buna karşılık bir kısıtı var: kâğıt oturumlar belirli tarihlerde açılıyor, sizin hazır olduğunuz ana göre değil. <strong>Ben sınava girdiğimde Türkiye’deki kâğıt oturum yılda bir kez, ocak ayında yapılıyordu.</strong> Online sınavın “hazır olduğumda girerim” esnekliğinin yerini takvime sabitlenmiş tek bir tarih alıyordu. Bunun hazırlık planı açısından üç sonucu vardı:</p>
+
+<ul>
+  <li>Hazırlığınızın bitiş çizgisi sizin değil, takvimin belirlediği bir tarih. Ekim ayında hazır hâle gelseniz de ocağı bekliyorsunuz; kasımda geride kaldığınızı fark ederseniz erteleyecek yeriniz yok.</li>
+  <li>Oturumu kaçırırsanız bir sonraki fırsat bir yıl sonra. Araya iş seyahati, hastalık ya da proje teslimi girerse alternatifiniz online sınava dönmek oluyor.</li>
+  <li>Sınavı geçtikten sonraki on iki aylık başvuru penceresi de sınav tarihinde başlıyor. Yani başvuru ücretini bütçelemek için elinizde net bir takvim oluyor: sınavı ocakta geçtiyseniz, bir sonraki ocaktan önce başvurmuş olmanız gerekiyor.</li>
+</ul>
+
+<p>Burası yazının en çabuk eskiyen kısmı: oturumların sayısı ve tarihleri yıldan yıla değişiyor. Planınızı benim anlattığım ocak takvimine göre değil, <strong>INCOSE TR ve SSB Akademi’nin güncel duyurularına</strong> göre kurun.</p>
+
+<p>Bir de tekrar hakkı meselesi var: sınava istediğiniz sıklıkta giremiyorsunuz. INCOSE, on iki aylık dönem içinde <a href="https://www.incose.org/certification/start-your-certification/taking-the-exam/">en fazla üç deneme</a> hakkı tanıyor ve her deneme için ücret yeniden ödeniyor. Kâğıt oturumda kalırsanız ya bir sonraki oturumu bekliyor ya da online sınava geçiyorsunuz. Yani “girer bakarım, olmazsa tekrar girerim” teknik olarak mümkün; ama her deneme ayrı ücrete tabi olduğu için pahalı bir strateji.</p>
+
+<h3 id="sınav-günü-nasıl-işliyor">Sınav günü nasıl işliyor?</h3>
+
+<p>Kâğıt oturum, INCOSE prosedürleri gereği oldukça kurallı ilerliyor. Benim oturumumdaki düzen şöyleydi:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Saat</th>
+      <th>Ne oluyor</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>09.00</td>
+      <td>Binada olma sınırı; girişte kayıt ve cep telefonlarının kutulara bırakılması</td>
+    </tr>
+    <tr>
+      <td>09.10’a kadar</td>
+      <td>Numaralı oturma düzenine göre yerleşme, yoklama, kimlik ve sözlük kontrolü</td>
+    </tr>
+    <tr>
+      <td>09.10</td>
+      <td>INCOSE prosedürü gereği sınav bilgilendirme notunun okunması</td>
+    </tr>
+    <tr>
+      <td>09.30 – 11.40</td>
+      <td>Sınav — 100 soru, 130 dakika</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Pratik ayrıntılar, sınav sabahı sürpriz yaşamamak için önemli:</p>
+
+<ul>
+  <li>
+<strong>Sınav İngilizce yapılıyor ve yanınızda sözlük bulundurabiliyorsunuz.</strong> Sözlük girişte kontrol ediliyor. Anadili İngilizce olmayan adaylar için bu ciddi bir rahatlama; ancak sözlüğe güvenip terminolojiyi Handbook’un kendi ifadeleriyle öğrenmemek işe yaramaz — sözlük “requirement” kelimesini çevirir, “measure of effectiveness” ile “measure of performance” arasındaki farkı anlatmaz.</li>
+  <li>
+<strong>Kimlik ve sözlük dışında hiçbir doküman içeri alınmıyor.</strong> Telefonunuz girişte teslim ediliyor.</li>
+  <li>
+<strong>Kâğıt sınav olduğu için kurşun kalem ve silgiyi kendiniz götürüyorsunuz.</strong> Basit ama unutulması sınav sabahı telaş yaratacak bir ayrıntı.</li>
+  <li>
+<strong>Ulaşımı önceden planlayın.</strong> Sınav ODTÜ Teknokent’teki SSB Akademi binasında yapıldığı için, Teknokent araç kartı olmayanların plaka bilgilerini önceden organizasyona bildirip nizamiye kaydını yaptırması gerekiyor; aksi hâlde araçla giriş mümkün olmuyor. Bu tür yerleşke kuralları, davet e-postasında yazan ve gerçekten uyulması gereken maddeler.</li>
+  <li>
+<strong>Sonuçlar oturumun sonunda açıklanmıyor ve puan verilmiyor.</strong> Sonuç, INCOSE tarafından e-posta ile iletiliyor; ne zaman geleceği INCOSE’un yoğunluğuna bağlı. E-postada yalnızca başarılı olup olmadığınız yazıyor — kaç doğru, kaç yanlış yaptığınız paylaşılmıyor. Yani geçme eşiğine ne kadar yaklaştığınızı hiçbir zaman öğrenmiyorsunuz. Bu da hazırlığı “sınırı zar zor geçecek kadar” değil, rahat bir payla planlamak için iyi bir sebep.</li>
+  <li>
+<strong>Sonucun paylaşımı için rıza isteniyor.</strong> INCOSE TR ekibi, sonucunuzun kendileriyle paylaşılabilmesi için bir rıza metni imzalatıyor; amaç, sınavı geçen adayları sertifikasyon sürecinin sonraki adımlarına yönlendirebilmek.</li>
+</ul>
+
+<hr>
+
+<h2 id="nasıl-hazırlandım">Nasıl Hazırlandım?</h2>
+
+<p>Toplam hazırlık sürem <strong>altı ay</strong> oldu. Yoğun bir tempoyla değil, haftada birkaç akşam ve hafta sonlarının bir kısmıyla ilerleyen, düzenli ama sakin bir dönemdi. Kullandığım üç kaynak vardı.</p>
+
+<h3 id="handbooku-iki-kez-okumak">Handbook’u iki kez okumak</h3>
+
+<p><img src="/img/posts/incose-se-handbook-v5.webp" alt="INCOSE Systems Engineering Handbook, beşinci baskı" style="display:block; margin-left:auto; margin-right:auto; max-width:320px" class="img-fluid"></p>
+
+<p><em>INCOSE Systems Engineering Handbook, 5. baskı — sınavın tek resmî kaynağı. Kapak görseli INCOSE ve Wiley’e aittir.</em></p>
+
+<p><strong>İngilizce SE Handbook v5’i baştan sona iki kez okudum.</strong> Bu, hazırlığın belkemiğiydi; ama iki okuma birbirinin tekrarı değildi.</p>
+
+<p>Birinci okuma baştan sona detaylıydı: satır satır ilerledim ve önemli gördüğüm her yerin altını çizdim. Hızlı bir tarama ya da “önce bir göz gezdireyim” turu değildi; kitabı ilk seferde ciddiye alarak okudum.</p>
+
+<p><img src="/img/posts/incose-handbook-notlarim.webp" alt="Altı çizilerek okunmuş bir Handbook sayfası" style="display:block; margin-left:auto; margin-right:auto" class="img-fluid"></p>
+
+<p><em>Başucu kitabımdan bir sayfa.</em></p>
+
+<p>İkinci okuma ise daha da detaylıydı. Amacı bilgiyi tazelemek değil, özümsemekti: ilk turda altını çizdiğim cümlelerin neden önemli olduğunu, süreçlerin birbirini nasıl beslediğini ve aynı kavramın farklı bölümlerde nasıl tekrar karşıma çıktığını görmeye çalıştım. Handbook’un cümlelerini tanımakla kavramı gerçekten anlamak arasındaki farkı asıl bu ikinci turda kapattım.</p>
+
+<p>İkinci okumayı birinciden ayıran asıl şey yöntemdi: her süreci <strong>girdileri, aktiviteleri ve çıktıları</strong> üzerinden okudum. Benim hazırlığımda en yüksek getiriyi bu sağladı; “şu sürecin çıktısı hangisidir?” tipi sorular, kitabı okumuş ama süreçleri bu üçlü üzerinden düşünmemiş adayı rahatlıkla zorluyor.</p>
+
+<h3 id="türkçe-dördüncü-baskının-yeri">Türkçe dördüncü baskının yeri</h3>
+
+<p><img src="/img/posts/incose-se-el-kitabi-v4-tr.webp" alt="INCOSE Sistem Mühendisliği El Kitabı, dördüncü versiyon, Savunma Sanayii Akademi Yayınları" style="display:block; margin-left:auto; margin-right:auto; max-width:320px" class="img-fluid"></p>
+
+<p><em>Sistem Mühendisliği El Kitabı’nın Türkçe çevirisi — dördüncü versiyon, Savunma Sanayii Akademi Yayınları.</em></p>
+
+<p>Handbook’un <strong>Türkçe çevirisi dördüncü baskıya ait</strong> ve Savunma Sanayii Akademi Yayınları tarafından <em>Sistem Mühendisliği El Kitabı — Sistem Ömür Devri Yönetimi ve Faaliyetleri için Kılavuz</em> adıyla yayımlanmış durumda. Ben onu da bir kez okudum. Bunun bana somut bir faydası oldu: kavramların Türkçe karşılıklarını görmek, günlük işte kullandığım terimlerle Handbook’un terminolojisi arasındaki köprüyü kurmamı sağladı. Aviyonik dünyasında “verification” ve “validation” gibi terimleri zaten İngilizce kullanıyoruz; ancak “enabling system”, “system of interest” veya “measures of effectiveness” gibi kavramların Türkçesini bir kez okumak, kavramın kendisini gerçekten anlayıp anlamadığımı test etmenin iyi bir yoluydu.</p>
+
+<p>Ancak burada net bir uyarı gerekiyor: <strong>Türkçe çeviri bir sınav kaynağı değildir.</strong> İki sebeple. Birincisi, sınav artık beşinci baskıdan soruluyor ve iki baskı arasında yapısal farklar var. İkincisi, sınav İngilizce ve şıklar sıklıkla Handbook’un tam ifadelerini kullanıyor; kavramı Türkçe bilmek, doğru İngilizce ifadeyi seçmenizi garanti etmiyor. Türkçe baskıyı destekleyici bir kaynak olarak görün, ana kaynak olarak değil.</p>
+
+<h3 id="soru-çözmenin-yeri">Soru çözmenin yeri</h3>
+
+<p>Üçüncü kaynağım Udemy üzerindeki pratik soru setleri oldu. Bu setlerin değeri bilgi öğretmelerinde değil, iki başka şeyde:</p>
+
+<ul>
+  <li>
+<strong>Soru formatını tanımak.</strong> INCOSE soruları çoğu zaman “hangisi <em>en iyi</em> tanımlar” veya “hangisi <em>değildir</em>” biçiminde kurulur. Şıkların üçü makul görünür, biri Handbook’un tam ifadesidir. Bu kalıba alışmak, sınavda ciddi zaman kazandırıyor.</li>
+  <li>
+<strong>Boşlukları tespit etmek.</strong> Yanlış cevapladığım her soruyu Handbook’ta ilgili bölüme geri dönerek işaretledim. Hazırlığın son ayında çalıştığım şey kitabın tamamı değil, bu işaretli bölümlerdi.</li>
+</ul>
+
+<p>Kullandığım setlerin bağlantıları yazının sonundaki <a href="#kaynaklar">Kaynaklar</a> bölümünde. Şunu da eklemek isterim: piyasadaki pratik soruların hiçbiri gerçek sınav sorularının birebir yansıması değil. Bazıları Handbook’un eski baskısına dayanıyor, bazılarının cevap anahtarları tartışmalı. Doğru cevap oranınızı bir hedef olarak görmeyin; zayıf bölümlerinizi bulmak için bir araç olarak kullanın.</p>
+
+<h3 id="sınavdan-sonra-yüksek-lisans">Sınavdan sonra: yüksek lisans</h3>
+
+<p>İlginç bir yan etki: sınavı geçtikten sonra <strong>ikinci yüksek lisansım olarak sistem mühendisliğine başladım.</strong> Altı aylık hazırlık, alanın ne kadar geniş olduğunu ve Handbook’un bir referans çerçevesi olduğunu, alanın kendisinin ise bunun çok ötesine geçtiğini gösterdi. Sınav bir bitiş çizgisi değil, hangi konularda daha derine inmek istediğimi netleştiren bir haritaydı.</p>
+
+<hr>
+
+<h2 id="i̇kinci-adım-başvuru">İkinci Adım: Başvuru</h2>
+
+<p>Sınavı geçtikten sonra elinizde bir “bilgi yeterliliği” var; sertifika değil. CSEP için asıl iş şimdi başlıyor.</p>
+
+<blockquote>
+  <p><strong>Not:</strong> Bu bölüm, başvurumu yaptığım Temmuz–Ağustos 2026 dönemindeki akışı anlatıyor. Ağustos 2026’dan sonra INCOSE portalında bir sistem güncellemesi yapıldı ve Form 1’in doldurulma yöntemi değişti: benim başvurumda Form 1, indirilip bilgisayarda doldurulan ve sonra yüklenen bir <strong>PDF dosyasıydı</strong>; yeni sistemde form doğrudan <strong>web sitesi üzerinden</strong> dolduruluyor. Deneyim beyanının mantığı — altmış ay, üç alan, referans doğrulaması — aynı kalsa da adımların adları, sırası ve formların sunuluş biçimi bugün farklı olabilir. Süreci yürütürken INCOSE’un <a href="https://www.incose.org/certification/start-your-certification/applying-for-csep/">CSEP başvuru sayfasını</a> esas alın; buradaki anlatıyı neyle karşılaşacağınızı öngörmek için kullanın.</p>
+</blockquote>
+
+<h3 id="60-ay-ve-üç-alan-kuralı">60 ay ve üç alan kuralı</h3>
+
+<p>CSEP, en az <strong>60 ay doğrudan sistem mühendisliği deneyimi</strong> ister. Ancak toplam süre tek başına yeterli değil; INCOSE aynı zamanda <strong>derinlik ve genişlik</strong> arar. Somut kural şu: deneyiminizin en az <strong>üç farklı sistem mühendisliği alanında, her birinde en az 12 ay</strong> olması gerekiyor.</p>
+
+<p>Başvuru formunda deneyim, önceden tanımlı <strong>14 sistem mühendisliği alanına</strong> dağıtılarak beyan ediliyor. Alanlar şunlar:</p>
+
+<ol>
+  <li>Gereksinim mühendisliği — <em>Requirements Engineering</em>
+</li>
+  <li>Sistem ve karar analizi — <em>System and Decision Analysis</em>
+</li>
+  <li>Mimari ve tasarım geliştirme — <em>Architecture/Design Development</em>
+</li>
+  <li>Sistem entegrasyonu — <em>Systems Integration</em>
+</li>
+  <li>Doğrulama ve geçerleme — <em>Verification and Validation</em>
+</li>
+  <li>Sistem işletimi ve bakımı — <em>System Operation and Maintenance</em>
+</li>
+  <li>Teknik planlama — <em>Technical Planning</em>
+</li>
+  <li>Teknik izleme ve kontrol — <em>Technical Monitoring and Control</em>
+</li>
+  <li>Tedarik ve temin — <em>Acquisition and Supply</em>
+</li>
+  <li>Bilgi ve konfigürasyon yönetimi — <em>Information and Configuration Management</em>
+</li>
+  <li>Risk ve fırsat yönetimi — <em>Risk and Opportunity Management</em>
+</li>
+  <li>Yaşam döngüsü süreçlerinin tanımlanması ve yönetimi — <em>Lifecycle Process Definition and Management</em>
+</li>
+  <li>Özel mühendislik dalları — <em>Specialty Engineering</em> (emniyet, güvenilirlik, güvenlik, insan faktörleri, yaşam döngüsü maliyeti ve benzerleri)</li>
+  <li>Kurumsal proje etkinleştirme faaliyetleri — <em>Organizational Project Enabling Activities</em>
+</li>
+</ol>
+
+<p>Bunlara ek olarak, hiçbirine oturmayan ama sistem mühendisliği olduğunu gerekçelendirebildiğiniz işler için bir de “Diğer” seçeneği var; ancak üç alan kuralı 14 tanımlı alan üzerinden değerlendiriliyor.</p>
+
+<p>Formu doldururken en çok zorlanılan nokta burası. Deneyim, <strong>tam zamana eşdeğer (FTE) ay</strong> cinsinden beyan ediliyor: aynı takvim döneminde birden fazla alanda çalıştıysanız o dönemin eforunu alanlar arasında paylaştırıyorsunuz ve alanlara dağıttığınız toplam, o takvim döneminin uzunluğunu aşamıyor. Yani “aynı dönemde hem gereksinim yazdım hem entegrasyon yaptım” diyerek aynı ayları her iki alana da tam olarak yazamıyorsunuz; eforu bölüştürmeniz gerekiyor. Bu, toplam deneyimin takvimle tutarlı kalmasını sağlıyor.</p>
+
+<h3 id="aviyonik-deneyimini-se-alanlarına-eşlemek">Aviyonik deneyimini SE alanlarına eşlemek</h3>
+
+<p>Benim gibi yazılım tarafından gelenler için asıl zihinsel egzersiz, yaptığı işi INCOSE’un diline çevirmek. DO-178C dünyasında yapılan işlerin karşılıkları büyük ölçüde mevcut:</p>
+
+<ul>
+  <li>Üst seviye ve alt seviye yazılım gereksinimlerinin yazılması, gözden geçirilmesi ve izlenebilirliğin kurulması → <strong>Gereksinim mühendisliği</strong>
+</li>
+  <li>Gereksinim tabanlı testler, yapısal kapsam analizi, test sonuçlarının yönetimi → <strong>Doğrulama ve geçerleme</strong>
+</li>
+  <li>Donanım-yazılım entegrasyonu, arayüzlerin tanımlanması ve yönetimi → <strong>Sistem entegrasyonu</strong>
+</li>
+  <li>DO-178C planlarının ve standartlarının yazılması, geliştirme süreçlerinin tanımlanması ve iyileştirilmesi → <strong>Yaşam döngüsü süreçlerinin tanımlanması ve yönetimi</strong>
+</li>
+  <li>Konfigürasyon yönetimi, sürüm kontrolü, sertifikasyon verilerinin yönetimi → <strong>Bilgi ve konfigürasyon yönetimi</strong>
+</li>
+  <li>Gözden geçirmeler, uygunluk denetimleri, ilerleme ve kalite ölçütlerinin takibi → <strong>Teknik izleme ve kontrol</strong>
+</li>
+  <li>DAL A seviyesinde emniyet analizlerine katkı, güvenilirlik ve güvenlik çalışmaları → <strong>Özel mühendislik dalları</strong>
+</li>
+  <li>Test otomasyonu altyapısının kurulması ve ekibin bu altyapıyla çalışacak biçimde yetkinleştirilmesi → <strong>Kurumsal proje etkinleştirme faaliyetleri</strong>
+</li>
+</ul>
+
+<p>Buradaki en büyük tuzağa dikkat: <strong>DO-178C kapsamında yapılan her faaliyet otomatik olarak sistem mühendisliği deneyimi sayılmıyor.</strong> Yukarıdaki eşleme, ilgili faaliyeti fiilen yürütmüş olmanız hâlinde geçerli. Örneğin DAL A seviyesinde bir projede çalışmış olmak tek başına Specialty Engineering deneyimi oluşturmuyor; emniyet, güvenilirlik ya da güvenlik analizini gerçekten siz yapmış olmalısınız. Aynı şekilde bir test altyapısı geliştirmiş olmak kendiliğinden kurumsal etkinleştirme faaliyeti değil; o altyapının kurumsal düzeyde bir yetkinliğe dönüşmesinde rol almış olmanız gerekiyor.</p>
+
+<p>Bu eşlemeyi yaparken abartmamak önemli. Değerlendirme komitesi, beyan ettiğiniz alanların referanslarınızın doğrulayabileceği türden olmasını bekliyor. Bir alanda 12 ayı zorlayarak doldurmaktansa, gerçekten güçlü olduğunuz üç alanı sağlam biçimde belgelemek daha iyi bir strateji.</p>
+
+<p>Formu yazarken kullandığım pratik bir yöntem: her satır için “referansım bu cümleyi okusa, gözünü kırpmadan onaylar mı?” diye sordum. Cevap tereddütlüyse cümleyi ya yumuşattım ya çıkardım.</p>
+
+<h3 id="referanslar">Referanslar</h3>
+
+<p>CSEP başvurusunda deneyiminizi doğrulayacak <strong>referanslar</strong> gerekiyor. Kuralları özetlemek gerekirse:</p>
+
+<ul>
+  <li>Referans, <a href="https://www.incose.org/certification/start-your-certification/being-a-reference/">en az beş yıllık iş deneyimine sahip olmalı ve sistem mühendisliğine aşina olmalı</a> — yani yaptığınız işin gerçekten sistem mühendisliği olduğunu değerlendirebilecek durumda olmalı. Referansın sistem mühendisi ya da INCOSE üyesi olması şart değil.</li>
+  <li>Referans, beyan ettiğiniz deneyim döneminde sizi tanıyor ve o işten haberdar olmalı. Sonradan tanışılmış bir kişi o dönemi doğrulayamaz.</li>
+  <li>Her referans, beyan ettiğiniz sürenin en az 12 ayını doğrudan doğrulayabilmeli; referansların toplamı ise nitelikli diplomaya sahip adaylar için beş yıllık deneyimi kapsamalı. Diploması alan dışında olanlarda bu eşik on yıla çıkıyor.</li>
+  <li>Kural olarak tek bir referans derinlik, genişlik ve süre şartının tamamını doğrulayabiliyorsa yeterli sayılabiliyor; pratikte başvurular çoğunlukla üç civarı referansla destekleniyor. Referansın sizinle akrabalık bağı olmaması gerekiyor.</li>
+  <li>
+<strong>INCOSE, mevcut ve eski yöneticiler ile müşterileri ideal referans olarak tanımlıyor; astlarınız referans olamıyor.</strong> Benim deneyimimde de en güçlü doğrulama, ilgili dönemdeki yöneticilerimden geldi.</li>
+</ul>
+
+<p>Ben asgari sayıyla yetinmedim: <strong>çalıştığım son üç iş yerinden toplam sekiz referans</strong> verdim. Bunun iki sebebi vardı. Birincisi kapsama: beyan ettiğim altmış aylık deneyim tek bir projeye ya da tek bir yöneticinin görüş alanına sığmıyordu; her dönemi ve her deneyim alanını o işi bizzat gören biriyle eşleştirmek istedim. İkincisi dayanıklılık: referansların formu doldurması gönüllülük esasına dayanıyor, araya izin, yoğunluk ya da unutma girebiliyor. Sekiz kişiden birkaçı gecikse bile dosyanın doğrulanmış deneyimi eksik kalmıyor.</p>
+
+<p>Burada yaygın bir yanlış beklenti var, ben de sürece girene kadar öyle sanıyordum: <strong>referans sürecini INCOSE değil, siz başlatıyorsunuz.</strong> Form 4B’nin bağlantısını referanslarınıza siz iletiyorsunuz; onlar da formu doğrudan INCOSE’a gönderiyor. Yani trafiği başlatmak ve takip etmek tamamen adayın sorumluluğunda.</p>
+
+<h3 id="başvurudan-sonra-ne-oluyor">Başvurudan sonra ne oluyor?</h3>
+
+<p>Başvuruyu gönderdikten hemen sonra INCOSE Sertifikasyon Ofisi’nden bir “sonraki adımlar” e-postası geliyor ve süreç şöyle işliyor:</p>
+
+<ol>
+  <li>
+<strong>Tarama.</strong> Önce Sertifikasyon Ofisi başvuru formunuzun şartlara uygun olup olmadığını kontrol ediyor. Bu onay gelmeden referans adımına geçmiyorsunuz.</li>
+  <li>
+    <p><strong>Referanslar.</strong> Form uygun bulunduktan sonra her referansınıza iki şey gönderiyorsunuz: doldurduğunuz <strong>Form 1</strong>‘in bir kopyası ve <strong>dijital referans mektubunun</strong> (<a href="https://forms.office.com/pages/responsepage.aspx?id=k6cjNVAORka4CyXYO9fylpdnShHiChFNk4sYt-8URhFUN1RNUE5NSDdKTlRVSkNZVFdYRkwyOVlPSC4u&route=shorturl">Form 4b</a>) bağlantısı. Form 1’in kopyası şart, çünkü referans sizin hangi dönemde hangi alanda ne beyan ettiğinizi görmeden mektubu dolduramıyor. Referans mektubu doldurulup gönderildiğinde INCOSE’a otomatik olarak ulaşıyor; arada sizin bir şey iletmeniz gerekmiyor. Formun kendi uyarısına göre doldurulması yaklaşık <strong>30 dakika</strong> sürüyor — referansınızdan isteyeceğiniz şeyin büyüklüğünü bilin ve ona da baştan söyleyin.</p>
+  </li>
+  <li>
+<strong>Değerlendirme ve karar.</strong> Referans mektupları tamamlandıktan sonra dosya değerlendiriliyor ve sonuç e-posta ile bildiriliyor.</li>
+</ol>
+
+<p>Bu akış, referanslara önceden haber vermeyi sadece nezaket olmaktan çıkarıp sürecin hızını belirleyen faktör hâline getiriyor. Onlara ne göndereceğinizi ve ne kadar zaman alacağını baştan anlatın; formun linki elinize geçtiğinde aynı gün dağıtabilecek durumda olun. Başvurumun üç buçuk haftada sonuçlanmasının en büyük sebebi, referanslarımın mektupları hızla doldurmasıydı.</p>
+
+<h3 id="ücret-ve-on-iki-ay-kuralı">Ücret ve on iki ay kuralı</h3>
+
+<p>Başvuru ücreti INCOSE üyeleri için <strong>350 USD</strong>, online sınav ücreti ise 80 USD. Buna üye olmayı seçerseniz yıllık aidat ekleniyor. Türkiye’den bakıldığında bu, azımsanacak bir tutar değil.</p>
+
+<p>Burada önemli bir güncelleme var: <strong>INCOSE, Ekim 2025’ten itibaren üyeliği sertifikasyon için zorunlu olmaktan çıkardı.</strong> Yani üye olmadan da başvurabiliyorsunuz. Ancak üye olmayanların ödediği başvuru ücreti belirgin biçimde yüksek; pratikte üyelik neredeyse her durumda daha ucuza geliyor.</p>
+
+<p>Üstelik <strong>üyelik ücretinde Türkiye’ye özel bir avantaj var:</strong> INCOSE, bireysel üyelik ücretini ülkelerin satın alma gücüne göre kademelendiriyor. Türkiye “Regular PPP 2” kademesinde yer alıyor ve yıllık aidat <strong>130 USD</strong> — standart 175 USD’lik ücret yerine. Ücret farkı göz önüne alındığında sürece üye olarak başlamak benim için açık ara daha ucuzdu.</p>
+
+<p>Ben 18 Mart 2025’te üye oldum ve 9 Mart 2026’da üyeliğimi yeniledim; yani sertifikasyon süreci boyunca iki yıllık aidat ödedim. <strong>Benim seçtiğim yolun</strong> maliyeti şöyle oldu — bu bir CSEP fiyat listesi değil, iki yıllık üyelik, başvuru ücreti ve Türkiye’deki kâğıt oturumdan oluşan kişisel toplamım:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Kalem</th>
+      <th>Tutar</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>INCOSE üyeliği, 2 yıl — Regular PPP 2, 130 USD/yıl</td>
+      <td>260 USD</td>
+    </tr>
+    <tr>
+      <td>Bilgi sınavı — Türkiye’deki kâğıt oturum</td>
+      <td>1.000 TL</td>
+    </tr>
+    <tr>
+      <td>CSEP başvuru ücreti</td>
+      <td>350 USD</td>
+    </tr>
+    <tr>
+      <td><strong>Toplam</strong></td>
+      <td><strong>610 USD + 1.000 TL</strong></td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Buna üç yıl sonraki yenileme için 100 USD’lik ücret ve o dönem boyunca devam edecek üyelik aidatı da eklenecek.</p>
+
+<p>Açık söyleyeyim: <strong>başvuruyu tam da bu ücret yüzünden aylarca erteledim.</strong> Sınavı ocak ayında geçmiştim ama başvuruyu ancak temmuzda gönderdim. Ertelemeye son veren şey şu oldu: sınav sonucunun geçerlilik süresi çoğu durumda <strong>on iki ay</strong>. Bu süre içinde başvurmazsanız sınava yeniden girmeniz gerekiyor. Pratik sonucu net: <strong>sınava, başvuru ücretini ödemeye hazır olduğunuzda girin.</strong></p>
+
+<hr>
+
+<h2 id="sertifika-sonrası-yenileme">Sertifika Sonrası: Yenileme</h2>
+
+<p>CSEP üç yıl geçerli. Yenilemek için üç şey gerekiyor:</p>
+
+<ul>
+  <li>
+<strong>120 PDU</strong> (Professional Development Unit) — üç yıllık dönem boyunca kazanılmış olmalı</li>
+  <li>
+<strong>100 USD</strong> yenileme ücreti</li>
+  <li>
+<strong>INCOSE üyeliği</strong> — Ekim 2025’ten beri sertifikasyon için biçimsel bir zorunluluk değil; yine de ücretler üyeler lehine, Türkiye’de yıllık aidat 130 USD. Yenileme koşulları değişebildiği için başvuru anında INCOSE’un yenileme sayfasından teyit edin.</li>
+</ul>
+
+<p>PDU’lar yalnızca eğitim ve konferanslardan gelmiyor; sistem mühendisi olarak çalışmak, ekip liderliği yapmak, meslek örgütü ve şube etkinliklerine katılmak, makale yazmak ve gönüllü görevler almak da sayılıyor. Dönem içinde 120’nin üzerinde PDU biriktirirseniz <a href="https://www.incose.org/certification/maintaining-renewing-certification/renewing-certification/">en fazla 30’unu</a> bir sonraki döneme aktarabiliyorsunuz.</p>
+
+<p>Buradaki asıl mesele muhasebe disiplini: INCOSE bir <strong>PDU kayıt defteri</strong> tutmanızı ve gerektiğinde belgeleyebilmenizi bekliyor. Üç yıl sonra geriye dönüp hatırlamaya çalışmak yerine, katıldığınız her etkinliği o gün kaydetmek çok daha kolay. Ben bu kaydı sertifikayı aldığım gün açtım.</p>
+
+<hr>
+
+<h2 id="incose-dizininin-gösterdiği-türkiye-manzarası">INCOSE Dizininin Gösterdiği Türkiye Manzarası</h2>
+
+<p>Süreci bitirdikten sonra merak ettim: Türkiye’de benim gibi kaç kişi var? INCOSE’un herkese açık SEP dizini bu soruya kısmen cevap veriyor. 28 Ağustos 2026 tarihli anlık görüntüde Türkiye merkezli <strong>141 kayıt</strong> listeleniyor.</p>
+
+<h3 id="önce-bu-listenin-ne-olmadığını-konuşalım">Önce bu listenin ne olmadığını konuşalım</h3>
+
+<p>Dizin, sertifika almış herkesi değil, <strong>sertifikası o an geçerli olanları</strong> gösteriyor. Süreli 135 kaydın 42’sinin geçerliliği önümüzdeki bir yıl içinde doluyor; 6 ESEP kaydı için ise dizin bitiş tarihi göstermiyor.</p>
+
+<p>Bunun sonucu, veriyi okurken sürekli akılda tutulması gereken bir çarpıklık. CSEP üç yılda bir, ASEP beş yılda bir yenilenmek zorunda. Yenilemeyen kişi listeden tamamen kayboluyor. Veride bunun izi açıkça görülüyor: <strong>121 CSEP kaydının</strong> 80’inde ilk sertifikalanma tarihiyle bitiş tarihi arasındaki fark üç yıl (hiç yenilememişler), 30’unda altı yıl (bir kez yenilemişler), 11’inde yedi yıl veya daha uzun. Yani listedeki “2013” kaydı, 2013’ten beri sertifikasını dört kez yenilemiş bir kişi.</p>
+
+<p>Pratik karşılığı şu: <strong>eski yıllar olduğundan az görünüyor.</strong> 2015’te sertifika alıp 2018’de yenilemeyen bir mühendis bu veride hiç yok. Dolayısıyla aşağıdaki grafik bir büyüme grafiği değil; bugün geçerli sertifikaların yaş dağılımı.</p>
+
+<div class="mermaid">
+xychart-beta
+    title "Bugün geçerli sertifikaların ilk sertifikalanma yılı"
+    x-axis ["2013", "2014", "2015", "2016", "2017", "2018", "2019", "2020", "2021", "2022", "2023", "2024", "2025", "2026"]
+    y-axis 0 --&gt; 36
+    bar [1, 1, 1, 1, 0, 0, 3, 17, 12, 3, 10, 27, 31, 34]
+</div>
+
+<p>Soldaki çöküş, 2013–2019 arasında Türkiye’de kimsenin sertifika almadığı anlamına gelmiyor; o yıllarda sertifika alanların çoğunun bugün geçerli bir sertifikası olmadığı anlamına geliyor. İki olguyu birbirinden ayıramıyoruz.</p>
+
+<h3 id="yine-de-son-üç-yıl-hakkında-bir-şey-söylenebilir">Yine de son üç yıl hakkında bir şey söylenebilir</h3>
+
+<p>Grafiğin sağ tarafı bu çarpıklıktan <strong>etkilenmiyor</strong>, çünkü CSEP döngüsü üç yıl: 2024’te sertifika alan birinin ilk yenileme tarihi 2027, 2025’inki 2028. Bu kohortların henüz eleneceği bir yenileme eşiği gelmedi. Yani bu sayılar gerçek giriş sayısına eşit değil — dizin hâlâ yalnızca listelenmeyi kabul edenleri gösteriyor — ama en azından <strong>yenilemeden kaynaklı aşınmadan etkilenmemiş</strong> durumdalar. 2023 kohortu için bunu bile söyleyemeyiz: onların ilk yenileme tarihi 2026’ydı ve bir kısmı çoktan elenmiş olabilir.</p>
+
+<p>Bu yüzden yalnızca kendi aralarında karşılaştırılabilirler: <strong>2024’te 27, 2025’te 31, 2026’nın ilk sekiz ayında 34 kayıt.</strong> Son sütun yalnızca sekiz ayı kapsadığı hâlde 2025’in tamamını geçmiş durumda. Gözlenen sayılar son üç dönemde artıyor; ancak 2026 tamamlanmadığı için yıllık eğilimi bu veriyle kesinleştirmek doğru olmaz. On yıllık bir büyüme eğrisi ise hiç çizemeyiz.</p>
+
+<p>Bu ivmenin sebebini de veri söylemiyor. Yazı boyunca değindiğim iki şey — SSB Akademi’nin hazırlık eğitimi ve Türkiye’de düzenlenen yüz yüze sınav oturumları — sertifikaya erişimi kolaylaştıran etkenler; ancak bu veriyle bir neden-sonuç ilişkisi kurmak mümkün değil.</p>
+
+<h3 id="önümüzdeki-yılların-yenileme-takvimi">Önümüzdeki yılların yenileme takvimi</h3>
+
+<p>Aşınma sorunu geriye dönük seriyi bozuyor ama ileriye dönük olana dokunmuyor: mevcut 135 süreli sertifikanın (6 ESEP kaydının bitiş tarihi yok) ne zaman yenilenmesi gerektiğini tam olarak biliyoruz.</p>
+
+<div class="mermaid">
+xychart-beta
+    title "Mevcut sertifikaların yenileme yılı"
+    x-axis ["2026", "2027", "2028", "2029", "2030", "2031"]
+    y-axis 0 --&gt; 46
+    bar [16, 36, 32, 43, 4, 4]
+</div>
+
+<p>2029 sonuna kadar 127 sertifikanın — mevcut süreli kayıtların %94’ü — yenilenmesi gerekiyor. Bu, Türkiye’deki topluluğun ilk kez bu ölçekte bir yenileme dalgasıyla karşılaşması demek — ve bugünkü 141 sayısının önümüzdeki yıllarda ne olacağını da esas olarak bu belirleyecek. Kaç kişinin PDU’sunu toplayıp yenilediğini ancak birkaç yıl sonra göreceğiz; bu yazının rakamları da o zaman geriye dönük olarak yeniden yorumlanmak zorunda kalacak.</p>
+
+<h3 id="sertifika-ağırlıklı-olarak-savunma-ve-havacılıkta">Sertifika, ağırlıklı olarak savunma ve havacılıkta</h3>
+
+<p>Kurum dağılımı, yaş dağılımının aksine doğrudan bugünkü tabloyu gösteriyor. Yine de iki sınırı var: yenileme oranı işverene göre değişebilir (ücreti şirketin ödeyip ödememesi gibi) ve dizindeki işveren bilgisi kişinin kayıt anındaki işvereni olabilir.</p>
+
+<p>İşvereni belirtilmiş 105 kaydın <strong>79’u (%75) savunma ve havacılık</strong> kuruluşlarında. TÜBİTAK’ın 12 kaydını da eklerseniz oran %87’ye çıkıyor; TÜBİTAK’ı ayrı tuttum, çünkü SAGE ve BİLGEM savunma ağırlıklı olsa da kurumun geneli için aynı şeyi söylemek zor. Dağılım tek bir şirkette belirgin biçimde yoğunlaşıyor:</p>
+
+<table>
+  <thead>
+    <tr>
+      <th>Kurum</th>
+      <th style="text-align: right">Kişi</th>
+      <th style="text-align: right">Pay</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>ASELSAN</td>
+      <td style="text-align: right">31</td>
+      <td style="text-align: right">%22,0</td>
+    </tr>
+    <tr>
+      <td>TÜBİTAK</td>
+      <td style="text-align: right">12</td>
+      <td style="text-align: right">%8,5</td>
+    </tr>
+    <tr>
+      <td>HAVELSAN</td>
+      <td style="text-align: right">9</td>
+      <td style="text-align: right">%6,4</td>
+    </tr>
+    <tr>
+      <td>Turkish Aerospace (TUSAŞ)</td>
+      <td style="text-align: right">9</td>
+      <td style="text-align: right">%6,4</td>
+    </tr>
+    <tr>
+      <td>ROKETSAN</td>
+      <td style="text-align: right">7</td>
+      <td style="text-align: right">%5,0</td>
+    </tr>
+    <tr>
+      <td>SSB</td>
+      <td style="text-align: right">4</td>
+      <td style="text-align: right">%2,8</td>
+    </tr>
+    <tr>
+      <td>TEI</td>
+      <td style="text-align: right">3</td>
+      <td style="text-align: right">%2,1</td>
+    </tr>
+    <tr>
+      <td>TOGG</td>
+      <td style="text-align: right">2</td>
+      <td style="text-align: right">%1,4</td>
+    </tr>
+    <tr>
+      <td>TRMOTOR</td>
+      <td style="text-align: right">2</td>
+      <td style="text-align: right">%1,4</td>
+    </tr>
+    <tr>
+      <td>Tek kişilik diğer kurumlar (26 ayrı kurum)</td>
+      <td style="text-align: right">26</td>
+      <td style="text-align: right">%18,4</td>
+    </tr>
+    <tr>
+      <td>Belirtilmemiş</td>
+      <td style="text-align: right">36</td>
+      <td style="text-align: right">%25,5</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>ASELSAN tek başına tüm listenin beşte birinden fazlasını oluşturuyor. Kayıtların dörtte birinde işveren belirtilmediği için bu oranlar kesin değil; verinin gösterdiği genel dağılım bu.</p>
+
+<p>Savunma ve havacılık ağırlığı yalnızca yerli kuruluşlardan gelmiyor: Rolls-Royce, RTX Rockwell Collins, Thales, TRMOTOR ve TEI gibi havacılık ve motor şirketleri de bu grubun içinde.</p>
+
+<p>Grubun dışında kalan 14 kayıt ise otomotiv (TOGG, Ford Otosan, FEV), sanayi ve elektronik (Bosch, Philips), yazılım ve danışmanlık ile belgelendirme alanlarına dağılıyor. Yani dizinde savunma ve havacılık dışındaki sektörlerden kuruluşlar da görülüyor; ancak ağırlık merkezi net.</p>
+
+<h3 id="seviye-dağılımı">Seviye dağılımı</h3>
+
+<p>Bugün geçerli sertifikaların dağılımı beklendiği gibi CSEP ağırlıklı: <strong>121 CSEP (%85,8), 14 ASEP (%9,9), 6 ESEP (%4,3)</strong>.</p>
+
+<p>ASEP’in zamanlaması dikkat çekici: dizindeki en eski ASEP kaydı 2023 tarihli, öncesinde tek bir tane bile yok. Burada da ihtiyatlı olmak gerekiyor, çünkü ASEP beş yıl geçerli — 2020’de ASEP almış ve 2025’te yenilememiş biri listede görünmezdi. Ama 2022’de alınmış bir ASEP 2027’ye kadar geçerli olurdu ve öyle bir kayıt da yok. Yani ASEP’in Türkiye’de gerçekten yeni yaygınlaştığı yönünde makul, ama tek başına kesin olmayan bir işaret var. Deneyimi CSEP’in 60 ay şartını karşılamayanlar için aşağıdaki öneri listesinin ilk maddesinde anlattığım yol bu.</p>
+
+<p>ESEP tarafı ise hâlâ çok dar: altı kişi. Bu, yukarıdaki tabloda ESEP için belirtilen 20 yıllık deneyim ve liderlik şartı düşünüldüğünde beklenen bir sonuç. (Küçük bir teknik not: dizin, ESEP kayıtları için geçerlilik tarihi göstermiyor; bu bir dizin özelliği, sertifikanın süresiz olduğu anlamına gelmiyor.)</p>
+
+<h3 id="bu-listedeki-son-satır">Bu listedeki son satır</h3>
+
+<p>Anlık görüntünün alındığı tarihte dizindeki en yeni CSEP kaydı bana aitti. Süreci tek başıma yaşadığım bir maraton gibi hatırlıyorum, ama listeye bakınca aynı anda onlarca kişinin aynı yoldan geçtiğini görüyorum. Üç yıl sonra bu listede kalıp kalmayacağımı ise PDU defterimi ne kadar düzenli tuttuğum belirleyecek — ki bu da yenileme bölümünde anlattığım meseleye çıkıyor.</p>
+
+<blockquote>
+  <p><strong>Veri notu:</strong> Sayılar INCOSE’un herkese açık SEP dizininden 28 Ağustos 2026’da alınan anlık görüntüye dayanıyor. İki önemli sınırı var. Birincisi, dizinde yalnızca listelenmeyi kabul eden sertifika sahipleri görünüyor; gerçek sayı daha yüksek. İkincisi ve daha önemlisi, dizin yalnızca <strong>geçerli</strong> sertifikaları içeriyor: sertifikasını yenilemeyenler listeden düştüğü için eski yılların sayıları olduğundan az görünüyor. Bu nedenle yıl kırılımı bir büyüme serisi olarak değil, bugünkü kayıtların yaş dağılımı olarak okunmalıdır. Kurum adları, aynı kuruluşun farklı yazımları birleştirilerek gruplandı. Kişi adları bilinçli olarak paylaşılmadı.</p>
+</blockquote>
+
+<hr>
+
+<h2 id="türkiyede-csep-kimin-i̇şine-yarar">Türkiye’de CSEP Kimin İşine Yarar?</h2>
+
+<p>Gerçekçi olalım: CSEP, tek başına kapı açan sihirli bir anahtar değil. Değerinin en yüksek olduğu yerler oldukça belirli.</p>
+
+<p><strong>Savunma ve havacılık sektörü.</strong> SSB, TUSAŞ, ASELSAN, ROKETSAN, HAVELSAN, STM gibi kurum ve şirketlerin projelerinde sistem mühendisliği süreçlerinin önemli bir rolü var. Bu ortamda CSEP, bireysel yetkinliğin gösterilmesinde işe yarayan bir belge. SSB Akademi’nin hazırlık eğitimi düzenlemesi ve sınava ev sahipliği yapması da bu ilgiyi gösteriyor.</p>
+
+<p><strong>Yazılımdan sisteme geçiş yapanlar.</strong> Benim durumum tam olarak bu. Yazılım tarafında derinleşmiş bir mühendisin sistem tarafına adım atarken karşılaştığı en büyük engel, deneyimin “yazılım deneyimi” olarak okunması. Benim açımdan CSEP, bu deneyimi sistem mühendisliğinin kendi diliyle ve bağımsız bir kurumun onayıyla ifade etmenin işe yarayan bir yoluydu.</p>
+
+<p><strong>Uluslararası ortak projelerde çalışanlar.</strong> Benim açımdan motivasyonlardan biri de yerel deneyimi uluslararası ölçekte taşınabilir bir formata çevirmesiydi; çok ortaklı programlarda ortak bir terminolojiye sahip olmak işi kolaylaştırıyor.</p>
+
+<p>Buna karşılık, tek bir üründe uzmanlaşmış ve sistem seviyesinde sorumluluk almayacak bir rolde çalışıyorsanız, sertifikanın getirisi harcanan zaman ve parayı karşılamayabilir. Bunu peşinen değerlendirmekte fayda var.</p>
+
+<hr>
+
+<h2 id="almayı-düşünenlere-öneriler">Almayı Düşünenlere Öneriler</h2>
+
+<p>Süreci baştan yaşamış biri olarak, sırayla uygulanabilecek somut önerilerim şunlar:</p>
+
+<ol>
+  <li>
+<strong>Önce uygunluğunuzu kontrol edin.</strong> 60 ayı ve üç alanda 12’şer ayı bugünkü deneyiminizle karşılayabiliyor musunuz? Karşılayamıyorsanız ASEP ile başlayın; ASEP’ten sonra beş yıl içinde CSEP’e geçerken sınavı tekrar vermeniz gerekmiyor.</li>
+  <li>
+<strong>Referanslarınızı sınavdan önce belirleyin ve sayıyı asgaride tutmayın.</strong> Kimin hangi dönemi doğrulayabileceğini bilmek, deneyim tablosunu nasıl dolduracağınızı da belirler; ben son üç iş yerimden sekiz referans verdim. Uygun bir referans bulamıyorsanız, bunu sınav ücretini ödemeden önce öğrenmek istersiniz.</li>
+  <li>
+<strong>Handbook’u iki kez okuyun.</strong> Birincisi altını çizerek, ikincisi özümsemek için. Tek okumayla geçenler var ama emniyet payı bırakmak daha iyi.</li>
+  <li>
+<strong>Notlarınızı süreç bazında tutun.</strong> Her süreç için amaç, girdiler, aktiviteler, çıktılar. Sınavın ödüllendirdiği yapı bu.</li>
+  <li>
+<strong>Beşinci baskıya çalışın.</strong> 15 Mart 2025’ten beri sınav tamamen v5 tabanlı. Türkçe çeviri v4’e ait; destekleyici kaynak olarak faydalı, ana kaynak olarak riskli.</li>
+  <li>
+<strong>Pratik soruları teşhis aracı olarak kullanın.</strong> Puanınızı değil, hangi bölümlerde hata yaptığınızı takip edin.</li>
+  <li>
+<strong>Kâğıt oturum takvimini erkenden öğrenin.</strong> Türkiye’deki yüz yüze oturumların tarihleri INCOSE TR ve SSB Akademi duyurularıyla açıklanıyor ve yıldan yıla değişiyor; maliyet avantajı ciddi ama takvim esnek değil. Oturuma giderken sözlüğünüzü, kurşun kaleminizi ve silginizi yanınıza almayı, yerleşkeye araç girişi için plaka kaydını önceden yaptırmayı unutmayın.</li>
+  <li>
+<strong>Başvuru ücretini sınavdan önce bütçeleyin.</strong> On iki aylık geçerlilik kuralı, erteleme lüksünüzü sınırlıyor. Üyeliğinizi de sürecin başında açmayı değerlendirin: üyelik Ekim 2025’ten beri zorunlu değil, ama ücret farkı büyük ve Türkiye’nin PPP kademesi sayesinde yıllık aidat 175 USD yerine 130 USD.</li>
+  <li>
+<strong>Deneyim beyanında dürüst ve ölçülü olun.</strong> Referansınızın tereddütsüz onaylayacağı cümleler kurun.</li>
+  <li>
+<strong>PDU defterini ilk günden açın.</strong> Üç yıl, geriye dönük hatırlamak için uzun bir süre.</li>
+</ol>
+
+<hr>
+
+<h2 id="sonuç">Sonuç</h2>
+
+<p>CSEP sürecinin bana kazandırdığı en değerli şey unvan olmadı. Altı aylık hazırlık, on yıla yakın sürede parça parça öğrendiğim pratikleri tek bir çerçeveye oturttu ve bu çerçevenin ne kadarını gerçekten bildiğimi, ne kadarını sadece uyguladığımı gösterdi. Sınavdan hemen sonra sistem mühendisliği yüksek lisansına başlamamın sebebi de buydu.</p>
+
+<p>Başvuru dosyası ise başka bir şey öğretti: yaptığınız işi başkasının anlayacağı ve doğrulayabileceği bir dille anlatmak, işin kendisinden ayrı bir beceri. Deneyim tablosunu doldururken kendi kariyerime dışarıdan bakmak zorunda kaldım: hangi işler gerçekten sistem seviyesinde sorumluluk taşıyordu, hangileri iyi yapılmış ama dar kapsamlı işlerdi? Bu egzersizi, sertifikaya başvurmayacak olsanız bile tavsiye ederim.</p>
+
+<p>Aynı yolu yürüyecek olanlara kolaylıklar dilerim. Süreçle ilgili sorusu olanlar <a href="/contact">iletişim</a> sayfasından bana ulaşabilir.</p>
+
+<hr>
+
+<h2 id="kaynaklar">Kaynaklar</h2>
+
+<ul>
+  <li><a href="https://www.incose.org/certification/">INCOSE Certification Program</a></li>
+  <li><a href="https://www.incose.org/certification/start-your-certification/applying-for-csep/">Applying for CSEP — INCOSE</a></li>
+  <li><a href="https://www.incose.org/certification/start-your-certification/taking-the-exam/">Taking the Exam — INCOSE</a></li>
+  <li><a href="https://www.incose.org/certification/start-your-certification/being-a-reference/">Being a Reference — INCOSE</a></li>
+  <li><a href="https://www.incose.org/certification/pricing-requirements/">Certification Pricing and Requirements — INCOSE</a></li>
+  <li><a href="https://www.incose.org/certification/maintaining-renewing-certification/renewing-certification/">Renewing Certification — INCOSE</a></li>
+  <li><a href="https://www.incose.org/certification/certification-faqs/">Certification FAQs — INCOSE</a></li>
+  <li>
+<a href="https://www.incose.org/wp-content/uploads/2026/07/CSEP_HowToApply_2026.pdf">How to Apply for CSEP, 2026</a> — başvurunun adım adım anlatımı</li>
+  <li>
+<a href="https://www.incose.org/wp-content/uploads/2026/01/form-2-instructions-for-completing-form-1-1.pdf">Form 2 — CSEP Application Instructions</a> — Form 1’in nasıl doldurulacağı ve deneyim alanlarının tanımları</li>
+  <li>
+<a href="https://forms.office.com/pages/responsepage.aspx?id=k6cjNVAORka4CyXYO9fylpdnShHiChFNk4sYt-8URhFUN1RNUE5NSDdKTlRVSkNZVFdYRkwyOVlPSC4u&route=shorturl">FORM 4B: Reference for CSEP/ESEP</a> — referansların dolduracağı dijital mektup</li>
+  <li><a href="https://www.incose.org/wp-content/uploads/2026/08/EXAM_HowToRegister_Online-and-Paper.pdf">How to Register for an Exam, online ve kâğıt</a></li>
+  <li><a href="https://www.incose.org/wp-content/uploads/2026/07/SEP_HowToReneworReinstate_2026.pdf">How to Renew or Reinstate a SEP, 2026</a></li>
+  <li>INCOSE, <em>Systems Engineering Handbook</em>, 5. baskı, Wiley — sınavın tek resmî kaynağı</li>
+  <li>INCOSE, <em>Sistem Mühendisliği El Kitabı</em>, dördüncü versiyon, Savunma Sanayii Akademi Yayınları — Türkçe çeviri</li>
+  <li>
+<a href="https://www.ssa.gov.tr/">Savunma Sanayii Akademi</a> — CSEP hazırlık eğitimi ve Türkiye’deki kâğıt sınav oturumu</li>
+  <li><a href="https://tr.linkedin.com/company/incosetr">INCOSE TR</a></li>
+  <li>INCOSE SEP sertifika dizini (herkese açık sertifika sahipleri listesi) — “Türkiye’de SEP Manzarası” bölümündeki sayıların kaynağı; 28 Ağustos 2026 anlık görüntüsü</li>
+</ul>
+
+<h3 id="pratik-soru-setleri-udemy">Pratik soru setleri (Udemy)</h3>
+
+<p>Hazırlık sırasında kullandığım soru setleri. Hiçbiri INCOSE’un resmî kaynağı değildir; teşhis aracı olarak faydalıdırlar, tek başına hazırlık kaynağı olarak değil.</p>
+
+<ul>
+  <li><a href="https://www.udemy.com/course/incose-asepcsep-practice-knowledge-exams-5th-ed">INCOSE ASEP/CSEP Practice Knowledge Exams, 5th Ed.</a></li>
+  <li><a href="https://www.udemy.com/course/incose-certified-systems-engineering-professional-csep">INCOSE Certified Systems Engineering Professional, CSEP</a></li>
+  <li><a href="https://www.udemy.com/course/incose-asepcsep-practice-test">INCOSE ASEP/CSEP Practice Test</a></li>
+  <li><a href="https://www.udemy.com/course/systems-engineering-practitioner-prep-for-se-handbook-v5">Systems Engineering Practitioner: Prep for SE Handbook v5</a></li>
+</ul>
+
+          </div>
+        </div>
+
+        <div class="post-share" aria-label="Yazıyı paylaş">
+  <span class="post-share__label">Paylaş:</span>
+  <a class="post-share__btn" href="https://twitter.com/intent/tweet?text=INCOSE+CSEP%3A+S%C4%B1navdan+Sertifikaya+Bir+Yol+Haritas%C4%B1&amp;url=https%3A%2F%2Fkaraman.dev%2F2026%2F10%2F01%2Fincose-csep-sertifikasyonu-yolculugum.html" target="_blank" rel="noopener" aria-label="X'te paylaş">
+    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewbox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path></svg>
+  </a>
+  <a class="post-share__btn" href="https://www.linkedin.com/sharing/share-offsite/?url=https%3A%2F%2Fkaraman.dev%2F2026%2F10%2F01%2Fincose-csep-sertifikasyonu-yolculugum.html" target="_blank" rel="noopener" aria-label="LinkedIn'de paylaş">
+    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+  </a>
+  <button type="button" class="post-share__btn share-copy" data-share-url="https://karaman.dev/2026/10/01/incose-csep-sertifikasyonu-yolculugum.html" aria-label="Bağlantıyı kopyala">
+    <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"></path><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"></path></svg>
+    <span class="share-copy__feedback" aria-live="polite"></span>
+  </button>
+</div>
+
+        <aside class="post-cta">
+  <p class="post-cta__text">
+    Yeni yazılardan haberdar olmak için
+    <a href="/feed.xml">RSS ile takip edebilir</a>
+    veya <a href="https://www.linkedin.com/in/mserdarkaraman" target="_blank" rel="noopener">LinkedIn'den bağlantı kurabilirsiniz</a>.
+  </p>
+</aside>
+
+
+        <nav class="post-nav" aria-label="Yazı navigasyonu">
+          
+          <a class="post-nav__item post-nav__item--prev" href="/2026/09/22/analitigin-dort-hali-descriptive-diagnostic-predictive-prescriptive">
+            <span class="post-nav__direction">← Önceki yazı</span>
+            <span class="post-nav__title">Analitiğin Dört Hâli: Descriptive, Diagnostic, Predictive, Prescriptive</span>
+            <span class="post-nav__date">Eyl 2026</span>
+          </a>
+          
+          
+        </nav>
+
+        <section class="related-posts" aria-label="İlgili yazılar">
+  <h2 class="related-posts__title">Bunları da okuyun</h2>
+  <div class="related-posts__grid">
+<a class="related-card" href="/2026/05/26/sistem-muhendisligi-nedir">
+      
+      <img src="/img/posts/sistem-muhendisligi-nedir-cover.webp" srcset="/img/posts/sm/sistem-muhendisligi-nedir-cover.webp 768w, /img/posts/sistem-muhendisligi-nedir-cover.webp 1600w" sizes="(max-width: 640px) 100vw, 240px" alt="" loading="lazy" width="1600" height="1067" decoding="async">
+      
+      <span class="related-card__title">Sistem Mühendisliği Nedir?</span>
+      <span class="related-card__date">26 Mayıs 2026</span>
+    </a><a class="related-card" href="/2022/04/29/yazilim-sistem-muhendisligi">
+      
+      <img src="/img/posts/soft-sys-eng-page-header.webp" srcset="/img/posts/sm/soft-sys-eng-page-header.webp 768w, /img/posts/soft-sys-eng-page-header.webp 1600w" sizes="(max-width: 640px) 100vw, 240px" alt="" loading="lazy" width="1600" height="1067" decoding="async">
+      
+      <span class="related-card__title">Yazılım Sistem Mühendisliği</span>
+      <span class="related-card__date">29 Nisan 2022</span>
+    </a><a class="related-card" href="/2026/09/22/analitigin-dort-hali-descriptive-diagnostic-predictive-prescriptive">
+      
+      <img src="/img/posts/analitigin-dort-hali-cover.webp" srcset="/img/posts/sm/analitigin-dort-hali-cover.webp 768w, /img/posts/analitigin-dort-hali-cover.webp 1600w" sizes="(max-width: 640px) 100vw, 240px" alt="" loading="lazy" width="1600" height="1067" decoding="async">
+      
+      <span class="related-card__title">Analitiğin Dört Hâli: Descriptive, Diagnostic, Predictive, Prescriptive</span>
+      <span class="related-card__date">22 Eylül 2026</span>
+    </a>
+</div>
+</section>
+
+        <div id="giscus-container" class="giscus-container"></div>
+<script>
+  (function () {
+    var loaded = false;
+    function loadGiscus() {
+      if (loaded) return;
+      loaded = true;
+      var s = document.createElement('script');
+      s.src = 'https://giscus.app/client.js';
+      s.async = true;
+      s.crossOrigin = 'anonymous';
+      s.setAttribute('data-repo', 'mavrikant/mavrikant.github.io');
+      s.setAttribute('data-repo-id', 'R_kgDOGsFIYQ');
+      s.setAttribute('data-category', 'Blog Comments');
+      s.setAttribute('data-category-id', 'DIC_kwDOGsFIYc4C_JXl');
+      // Yorumları .html kanonik URL'sine sabitle; uzantısız adreste de aynı dizi yüklensin
+      s.setAttribute('data-mapping', 'specific');
+      s.setAttribute('data-term', 'https://karaman.dev/2026/10/01/incose-csep-sertifikasyonu-yolculugum.html');
+      s.setAttribute('data-strict', '0');
+      s.setAttribute('data-reactions-enabled', '1');
+      s.setAttribute('data-emit-metadata', '0');
+      s.setAttribute('data-input-position', 'bottom');
+      s.setAttribute('data-theme', document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light');
+      s.setAttribute('data-lang', 'tr');
+      s.setAttribute('data-loading', 'lazy');
+      document.getElementById('giscus-container').appendChild(s);
+    }
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) {
+          loadGiscus();
+          observer.disconnect();
+        }
+      }, { rootMargin: '200px' });
+      observer.observe(document.getElementById('giscus-container'));
+    } else {
+      loadGiscus();
+    }
+  })();
+</script>
+<noscript>Yorumları görüntülemek için JavaScript'i etkinleştirin (<a href="https://giscus.app" rel="noopener">giscus</a>).</noscript>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+
+<footer class="footer-modern">
+  <div class="footer-main">
+    <div class="container">
+      <div class="row">
+
+        <!-- About column -->
+        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
+          <h5 class="footer-heading">M. Serdar Karaman</h5>
+          <p class="footer-description">Aviyonik yazılım, DO-178C ve emniyet kritik mühendislik üzerine sahadan notlar.</p>
+        </div>
+
+        <!-- Quick links column -->
+        <div class="col-lg-2 col-md-6 mb-4 mb-lg-0 offset-lg-1">
+          <h5 class="footer-heading">Bağlantılar</h5>
+          <ul class="footer-links">
+            <li><a href="/">Ana sayfa</a></li>
+            <li><a href="/hakkimda">Hakkımda</a></li>
+            <li><a href="/posts">Yazılar</a></li>
+            <li><a href="/tags">Etiketler</a></li>
+            <li><a href="/archive">Arşiv</a></li>
+            <li><a href="/contact">İletişim</a></li>
+            <li><a href="/feed.xml">RSS</a></li>
+          </ul>
+          <h5 class="footer-heading mt-3">Projeler</h5>
+          <ul class="footer-links">
+            <li><a href="https://karaman.dev/games" target="_blank" rel="noopener">Oyunlar</a></li>
+            <li><a href="https://karaman.dev/or-araclari" target="_blank" rel="noopener">OR Araçları</a></li>
+            <li><a href="https://karaman.dev/numio/" target="_blank" rel="noopener">Numio</a></li>
+          </ul>
+        </div>
+
+        <!-- Social column -->
+        <div class="col-lg-4 col-md-12 mb-0 offset-lg-1">
+          <h5 class="footer-heading">İletişim</h5>
+          <ul class="footer-social list-inline">
+            
+            <li class="list-inline-item">
+              <a href="mailto:%73%65%72%64%61%72@%6B%61%72%61%6D%61%6E.%64%65%76" aria-label="E-posta">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
+              </a>
+            </li>
+            
+            
+            <li class="list-inline-item">
+              <a href="https://github.com/Mavrikant" aria-label="GitHub" target="_blank" rel="noopener">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"></path></svg>
+              </a>
+            </li>
+            
+            
+            <li class="list-inline-item">
+              <a href="https://www.linkedin.com/in/mserdarkaraman" aria-label="LinkedIn" target="_blank" rel="noopener">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg>
+              </a>
+            </li>
+            
+            
+            
+            
+            
+            <li class="list-inline-item">
+              <a href="https://www.youtube.com/channel/UCIlBH9QynIkHxX8uiY0UEMQ" aria-label="YouTube" target="_blank" rel="noopener">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.96C18.88 4 12 4 12 4s-6.88 0-8.59.46a2.78 2.78 0 0 0-1.95 1.96A29 29 0 0 0 1 12a29 29 0 0 0 .46 5.58A2.78 2.78 0 0 0 3.41 19.6C5.12 20.06 12 20.06 12 20.06s6.88 0 8.59-.46a2.78 2.78 0 0 0 1.95-1.95A29 29 0 0 0 23 12a29 29 0 0 0-.46-5.58z"></path><polygon points="9.75 15.02 15.5 12 9.75 8.98 9.75 15.02"></polygon></svg>
+              </a>
+            </li>
+            
+            <li class="list-inline-item">
+              <a href="/feed.xml" aria-label="RSS beslemesi">
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
+              </a>
+            </li>
+          </ul>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container">
+      <div class="row">
+        <div class="col-12 text-center">
+          <p class="copyright mb-0">© 2026 M. Serdar Karaman. Tüm hakları saklıdır.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<!-- 
+<div id="bayram-splash" class="bayram-splash" data-theme="dark" role="dialog" aria-modal="true" aria-labelledby="bayram-splash-title" aria-describedby="bayram-splash-subtitle" hidden>
+  <div class="bayram-splash__backdrop" data-bayram-close="backdrop"></div>
+
+  <div class="bayram-splash__panel" role="document">
+    <button type="button" class="bayram-splash__close" aria-label="Kapat" data-bayram-close="button">
+      <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+        <path d="M3 3 L15 15 M15 3 L3 15" stroke="currentColor" stroke-width="1.5" stroke-linecap="square"/>
+      </svg>
+    </button>
+
+    <div class="bayram-splash__status" aria-hidden="true">
+      <div class="bayram-splash__status-left">
+        <span class="bayram-splash__pip"></span>
+        <span>karaman.dev</span>
+        <span class="bayram-splash__sep">/</span>
+        <span class="bayram-splash__status-dim">bayram</span>
+        <span class="bayram-splash__sep">/</span>
+        <span class="bayram-splash__status-faint">lang · tr / en</span>
+      </div>
+      <div class="bayram-splash__status-right">
+        <span class="bayram-splash__status-faint">REF · BAYRAM-2026</span>
+      </div>
+    </div>
+
+    <div class="bayram-splash__ticks" aria-hidden="true">
+      <span class="bayram-splash__tick bayram-splash__tick--tl"></span>
+      <span class="bayram-splash__tick bayram-splash__tick--tr"></span>
+      <span class="bayram-splash__tick bayram-splash__tick--bl"></span>
+      <span class="bayram-splash__tick bayram-splash__tick--br"></span>
+    </div>
+
+    <div class="bayram-splash__body">
+      <div class="bayram-splash__art" aria-hidden="true">
+        <svg viewBox="0 0 360 360" width="220" height="220" role="img" aria-label="Hilâl ve yıldız">
+          <defs>
+            <mask id="bayram-crescent-mask" maskUnits="userSpaceOnUse">
+              <rect x="0" y="0" width="360" height="360" fill="black"/>
+              <circle cx="170" cy="180" r="120" fill="white"/>
+              <circle class="bayram-splash__mask-inner" cx="208" cy="180" r="120" fill="black"/>
+            </mask>
+            <pattern id="bayram-pcb" width="22" height="22" patternUnits="userSpaceOnUse">
+              <circle cx="3" cy="3"  r="0.9" fill="rgba(8,22,30,0.55)"/>
+              <circle cx="19" cy="19" r="0.7" fill="rgba(8,22,30,0.4)"/>
+              <circle cx="19" cy="3"  r="0.5" fill="rgba(8,22,30,0.28)"/>
+              <circle cx="3"  cy="19" r="0.5" fill="rgba(8,22,30,0.28)"/>
+              <path d="M3 3 L3 11 L11 11 L11 3 M11 11 L19 11 L19 19 M3 19 L3 11"
+                    stroke="rgba(8,22,30,0.32)" stroke-width="0.4" fill="none"/>
+            </pattern>
+          </defs>
+
+          <g mask="url(#bayram-crescent-mask)">
+            <circle cx="170" cy="180" r="120" class="bayram-splash__crescent-fill"/>
+            <rect x="50" y="60" width="240" height="240" fill="url(#bayram-pcb)"/>
+
+            <g class="bayram-splash__net" stroke="rgba(8,22,30,0.55)" stroke-width="0.9" fill="none">
+              <line x1="86"  y1="129" x2="120" y2="106"/>
+              <line x1="86"  y1="129" x2="116" y2="139"/>
+              <line x1="86"  y1="129" x2="116" y2="180"/>
+              <line x1="79"  y1="174" x2="116" y2="139"/>
+              <line x1="79"  y1="174" x2="116" y2="180"/>
+              <line x1="79"  y1="174" x2="116" y2="220"/>
+              <line x1="86"  y1="228" x2="116" y2="180"/>
+              <line x1="86"  y1="228" x2="116" y2="220"/>
+              <line x1="86"  y1="228" x2="120" y2="252"/>
+              <line x1="120" y1="106" x2="151" y2="132"/>
+              <line x1="116" y1="139" x2="151" y2="132"/>
+              <line x1="116" y1="139" x2="148" y2="180"/>
+              <line x1="116" y1="180" x2="148" y2="180"/>
+              <line x1="116" y1="180" x2="151" y2="228"/>
+              <line x1="116" y1="220" x2="148" y2="180"/>
+              <line x1="116" y1="220" x2="151" y2="228"/>
+              <line x1="120" y1="252" x2="151" y2="228"/>
+            </g>
+            <g class="bayram-splash__nodes">
+              <circle cx="86"  cy="129" r="3"/>
+              <circle cx="79"  cy="174" r="3"/>
+              <circle cx="86"  cy="228" r="3"/>
+              <circle cx="120" cy="106" r="3"/>
+              <circle cx="116" cy="139" r="3"/>
+              <circle cx="116" cy="180" r="3"/>
+              <circle cx="116" cy="220" r="3"/>
+              <circle cx="120" cy="252" r="3"/>
+              <circle cx="151" cy="132" r="3"/>
+              <circle cx="148" cy="180" r="3"/>
+              <circle cx="151" cy="228" r="3"/>
+            </g>
+
+            <g class="bayram-splash__hex" font-family="'JetBrains Mono', monospace" fill="rgba(8,22,30,0.7)">
+              <text x="86"  y="100" font-size="10" letter-spacing="0.1em">0xAI</text>
+              <text x="100" y="270" font-size="8"  letter-spacing="0.15em">01010111</text>
+              <text x="70"  y="195" font-size="7"  letter-spacing="0.12em">v1.447</text>
+            </g>
+          </g>
+
+          <path class="bayram-splash__star"
+                d="M 280 168 L 290 188 L 312 191 L 296 207 L 300 229 L 280 219 L 260 229 L 264 207 L 248 191 L 270 188 Z"/>
+        </svg>
+      </div>
+
+      <p class="bayram-splash__eyebrow">01 / Tebrik · Kurban Bayramı · 1447 H</p>
+
+      <h2 id="bayram-splash-title" class="bayram-splash__title">
+        Kurban Bayramınız<br>mübarek olsun.
+      </h2>
+
+      <div class="bayram-splash__divider" aria-hidden="true"></div>
+
+      <p id="bayram-splash-subtitle" class="bayram-splash__subtitle">
+        <em>Eid al&#8209;Adha Mubarak</em>
+      </p>
+
+      <p class="bayram-splash__wish">
+        Sevdiklerinizle birlikte sağlık, huzur<br>ve nice güzelliklere.
+      </p>
+
+      <div class="bayram-splash__signature">
+        <span class="bayram-splash__sig-rule"></span>
+        <span class="bayram-splash__sig-name">karaman.dev</span>
+        <span class="bayram-splash__sig-rule"></span>
+      </div>
+    </div>
+  </div>
+</div>
+ -->
+  <script src="/assets/scripts.js"></script>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-YDEV31NZ5J"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-YDEV31NZ5J');
+</script>
+
+
+</body>
+</html>
