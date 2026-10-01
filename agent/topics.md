@@ -39,14 +39,15 @@
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- **Rate Monotonic Scheduling — Liu-Layland Sınırından RTA'ya** —
+  dal: `post/2026-07-27-rate-monotonic-liu-layland-rta`,
+  dosya: `_posts/2026-07-27-rate-monotonic-liu-layland-rta.md`,
+  durum: PR açılacak (bu çalıştırma) — alan: gerçek zamanlı/aviyonik.
 
 ## Reddedildi (bu çalıştırma)
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- _(bu çalıştırmada konu reddedilmedi; RMA + RTA fikir havuzunun bir üstünden — matematiksel derinlik + Türkçe boşluk temelinde — seçildi.)_
+- **ARINC 429 Anatomisi**: başka bir worktree'de (`post/2026-07-02-arinc-429-anatomisi`) hâlihazırda taslak halinde olduğu için bu çalıştırmada seçilmedi.
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 
@@ -108,21 +109,27 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - [ ] DO-254 donanım sertifikasyonu (yazarın uzmanlığı ağırlıklı yazılım tarafında)
 - [ ] İzlenebilirlik matrisi (klasik konu, derinlik çıkarmak zor)
 
-## Notlar (bu çalıştırma — 2026-05-21)
+## Notlar (bu çalıştırma — 2026-07-27)
 
-- **Bandpass Sampling** seçildi (alan: RF/DSP). Önceki çalıştırmaların ardından
-  açılan PR'lar son üç alt-alanı (sertifikasyon #77, navigasyon #78, yazılım
-  zanaatı/CRC #79) işaretlemişti; bu yazı **bu üç alandan da** son yayınlanan 3
-  posttan da (Renode gömülü/SoC, kalibrasyon ×2) farklı bir alan getiriyor.
-- Yayın kapısı durumu: Bölüm 4 yalnızca "yayın PR ile olmalı" kuralı koyar; backlog
-  büyüklüğüne dair sert bir sınır yoktur. Açık 7 PR olmasına rağmen son yayınlanan
-  yazıdan (Renode, 2026-05-14) bu yana 7 gün geçti — `min_yayin_araligi_gun = 2`
-  şartı fazlasıyla sağlanmış durumda. Bu çalıştırmada yeni PR açıldı.
-- Bandpass sampling konusunun "neden Türkçe içerikte zor bulunuyor" yanıtı:
-  matematik (Vaughan 1991), datasheet okuma (analog input BW), saat phase noise
-  ve filtre tasarımı disiplinlerinin kesişiminde bulunuyor; Türkçe kaynaklar
-  genellikle yalnızca tek bir cepheden ele almış oluyor (genelde Lyons özet
-  çevirisi). Sentez ve somut sayısal örnek boşluğu büyük.
-- Açık PR'lar konusunda inceleme önceliği yorumu (gözlem): #50 ve #51 hâlâ uzun
-  süredir bekliyor; #50 eski yazıyı genişletiyor, #51 ise yayındaki MISRA C:2025
-  ile büyük olasılıkla çakışıyor. İnceleyen kişinin dikkatine.
+- **Rate Monotonic Scheduling** seçildi (alan: gerçek zamanlı / aviyonik).
+  Değerlendirme: Draft PR #149 gerçek zamanlı sistemleri kavramsal olarak (hard/soft/
+  firm sınıflandırması) ele alıyor ama Liu-Layland kanıtına ve RTA iterasyonuna
+  girmiyor; bu yazı matematiksel omurgayı sağlıyor ve #149 ile çakışmıyor, tamamlayıcı.
+  Priority inversion (#120), WCET (#98, #164), Kalman (yayında + #103) alanlarına
+  yakın komşu ama hiçbirinin işlediği konu değil.
+- "Neden Türkçe içerikte zor bulunuyor?" yanıtı: Liu-Layland kanıtının detayı ve
+  RTA'nın sabit-nokta iterasyonu, akademik ders notları ile Buttazzo'nun İngilizce
+  ders kitabı arasında bir yerde; Türkçe blogosferde "utilization bound = 0.693"
+  cümlesi geçer ama kanıtın "kritik an argümanı"na ve sınırın **yeterli-ama-gerek-değil**
+  niteliğine değinen kaynak yok. Somut bir sayısal örnekle (bound'u geçemeyen ama
+  RTA'yı geçen bir küme) bu farkı gösteren Türkçe içerik neredeyse yok.
+- Yayın kapısı: son merge (`#153`, antifragile update, 2026-06-24) ile bugün
+  (2026-07-27) arasında bir aydan fazla geçmiş; `min_yayin_araligi_gun = 2` fazlasıyla
+  sağlanmış. Açık PR sayısı 40+ olmasına rağmen Bölüm 4 sert bir backlog sınırı
+  koymaz. Bu çalıştırmada yeni PR açıldı.
+- Ledger büyük ölçüde stale: son merge edilen 5 yazı (bandpass, sistem müh., Kalman,
+  coupling, antifragile) ve son ~40 PR ledger'a yansımamış. Sync başka bir
+  çalıştırmaya bırakıldı (tek amaç: yeni yazı üretmek + PR açmak).
+- Derinlik öğesi (Bölüm 7): **matematiksel türetme** (Liu-Layland kanıtı sezgisi
+  + RTA sabit-nokta iterasyonu, sayısal örnek üzerinden tam çözüm) — Bölüm 6'daki
+  utilization bound sınırının yetersizliğini gösteren somut karşı örnek.
