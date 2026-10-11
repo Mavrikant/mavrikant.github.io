@@ -185,7 +185,7 @@ Makul QNH aralığının tamamında model 352–362 kt arasında kalıyor; alt u
 Model ayrıca ikincil kaynaklar arasındaki bir çelişkiyi de ayırt ediyor. Wikipedia 4.700 ft'te yaklaşık 350 kt okunduğunu yazıyor; resmi rapor 6.688 ft'te 352 kt diyor. Model 4.700 ft için yaklaşık 306 kt veriyor — yani 350 kt o irtifada fizikle bağdaşmıyor. Rapordaki eşleşme tutarlı, Wikipedia'daki değil. Fiziğin ikincil kaynaklar arasında hakemlik yapabilmesi hoşuma gidiyor.
 
 <figure>
-<svg viewBox="0 0 720 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tıkalı pitot durumunda gösterilen hız ile gerçek hızın irtifayla birlikte ters yönde ayrışması">
+<svg viewBox="0 0 748 400" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Tıkalı pitot durumunda gösterilen hız ile gerçek hızın irtifayla birlikte ters yönde ayrışması">
 <g stroke="currentColor" stroke-opacity="0.18" stroke-width="1">
 <line x1="62" y1="354.0" x2="600" y2="354.0"/>
 <line x1="62" y1="316.7" x2="600" y2="316.7"/>
