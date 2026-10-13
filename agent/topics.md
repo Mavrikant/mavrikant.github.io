@@ -22,6 +22,11 @@
 - [x] Ölçüm Belirsizliği (GUM Annex F + NCSLI RP-12) — 2026-05-06 — alan: metroloji
 - [x] Kalibrasyon Zincirinin Tepesi (Birincil Standartlar) — 2026-05-07 — alan: metroloji
 - [x] Renode ile Zynq7000 Simülasyonu — 2026-05-14 — alan: gömülü/SoC
+- [x] Bandpass Sampling — 2026-05-21 — alan: RF/DSP
+- [x] Sistem Mühendisliği Nedir? — 2026-05-26 — alan: sistem
+- [x] Kalman Filtresi ve EKF — 2026-06-02 — alan: navigasyon/estimasyon
+- [x] Coupling'i Dengelemek — 2026-06-04 — alan: yazılım tasarımı
+- [x] Antikırılgan (Taleb) — 2026-06-24 — alan: sistem düşüncesi
 
 ## Açık PR'lar (insan inceleme bekleniyor)
 
@@ -39,14 +44,14 @@
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- **CAST-32A'dan AC 20-193'e: Multicore Aviyonikte Karşılıklı Etki Analizi** —
+  dal: `post/2026-07-30-cast32a-ac-20-193-multicore-interference`,
+  dosya: `_posts/2026-07-30-cast-32a-ac-20-193-multicore-interference-analizi.md`,
+  durum: PR açıldı (2026-07-30) — alan: sertifikasyon/multicore.
 
 ## Reddedildi (bu çalıştırma)
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- _(reddedilen konu yok; multicore certification chain açık bir Türkçe boşluğu doldurduğu için doğrudan seçildi.)_
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 
@@ -108,7 +113,27 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - [ ] DO-254 donanım sertifikasyonu (yazarın uzmanlığı ağırlıklı yazılım tarafında)
 - [ ] İzlenebilirlik matrisi (klasik konu, derinlik çıkarmak zor)
 
-## Notlar (bu çalıştırma — 2026-05-21)
+## Notlar (bu çalıştırma — 2026-07-30)
+
+- **CAST-32A / AC 20-193** seçildi (alan: sertifikasyon / multicore). Açık PR yığını
+  incelendi (40+ PR): WCET, ARINC 653, MPU/MMU, DO-330, MC/DC, data/control coupling
+  gibi tekil konular varken **multicore sertifikasyon zinciri (CAST-32A → AMC 20-193
+  → AC 20-193)** hiçbir açık PR tarafından işlenmiyor. Son üç yayınlanan post
+  (Kalman, Coupling, Antikırılgan) alt-alan olarak da farklı — sertifikasyon alanı
+  rotasyona uygun.
+- "Neden Türkçe içerikte zor bulunuyor?" yanıtı: belgeler İngilizce ve pahalı /
+  otorite sitelerinde parçalı; interference channel merkezciliği, robust partitioning
+  ayrımı ve "verify separately" ifadesinin belge içinde özel tanımı sentez isteyen
+  detaylar; endüstriyel training paketleri de İngilizce (AFuzion, Rapita, LDRA).
+  Türkçe okuyucu için sentez boşluğu büyük.
+- Derinlik öğesi: Standart yorumu (AC 20-193 objektif matrisi + "verify separately"
+  ifadesinin sınırları) + gerçek ölçüm (Nowotsch et al. P4080 üzerinde 39 → 1007
+  cycle yazma gecikmesi, ~25× yavaşlama).
+- Gizlilik: Yalnızca kamuya açık standartlar (FAA AC, EASA AMC, CAST pozisyon
+  belgesi), akademik yayınlar (ECRTS/RTAS) ve halka açık üretici wiki'leri
+  kullanıldı. Proje/müşteri/ürün adı yok.
+
+## Notlar (önceki çalıştırma — 2026-05-21)
 
 - **Bandpass Sampling** seçildi (alan: RF/DSP). Önceki çalıştırmaların ardından
   açılan PR'lar son üç alt-alanı (sertifikasyon #77, navigasyon #78, yazılım
