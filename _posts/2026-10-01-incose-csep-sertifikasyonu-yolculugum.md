@@ -19,7 +19,7 @@ Bu yazıda kendi CSEP sürecimi anlatıyorum: sınava nasıl hazırlandığımı
 Sistem mühendisliğinin kendisini daha önce [Sistem Mühendisliği Nedir?]({% post_url 2026-05-26-sistem-muhendisligi-nedir %}) yazısında ele almıştım. Bu yazı ise sistem mühendisliğini anlatmaktan çok, bu alandaki deneyimimi nasıl belgelediğime ve CSEP sürecinde neler yaşadığıma odaklanıyor.
 
 > **Güncellik notu:** Buradaki kurallar, ücretler ve formlar benim 2025–2026'da yaşadığım süreci yansıtıyor. Daha sonra SEP süreci değişmiş olabilir. Başvururken INCOSE'nin güncel [sertifikasyon sayfasını](https://www.incose.org/certification/) mutlaka kontrol edin.
-> 
+
 ---
 
 ## INCOSE ve SEP Programı
