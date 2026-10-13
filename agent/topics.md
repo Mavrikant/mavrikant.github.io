@@ -22,6 +22,11 @@
 - [x] Ölçüm Belirsizliği (GUM Annex F + NCSLI RP-12) — 2026-05-06 — alan: metroloji
 - [x] Kalibrasyon Zincirinin Tepesi (Birincil Standartlar) — 2026-05-07 — alan: metroloji
 - [x] Renode ile Zynq7000 Simülasyonu — 2026-05-14 — alan: gömülü/SoC
+- [x] Bandpass Sampling — 2026-05-21 — alan: RF/DSP
+- [x] Sistem Mühendisliği Nedir — 2026-05-26 — alan: sistem
+- [x] Kalman Filtresi — 2026-06-02 — alan: navigasyon/füzyon
+- [x] Coupling Dengesi — 2026-06-04 — alan: sistem
+- [x] Antikırılgan (Taleb) — 2026-06-24 — alan: sistem/felsefe
 
 ## Açık PR'lar (insan inceleme bekleniyor)
 
@@ -39,14 +44,21 @@
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
+- **I/Q Örnekleme ve Analitik Sinyal — İki Kanal, Karmaşık Değerler ve Negatif Frekansın Sırrı** —
+  dal: `post/2026-07-28-iq-ornekleme-analitik-sinyal`,
+  dosya: `_posts/2026-07-28-iq-ornekleme-analitik-sinyal.md`,
   durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+  Derinlik öğesi: küçük-hata Taylor açılımıyla IRR türetmesi + IRR tablosu
+  (0.1/0.5/1 dB genlik, 1/3/5° faz, karma senaryolar) + kalibrasyon matrisi.
+  Neden az bulunur: analitik sinyal ve Hilbert dönüşümünü IRR ile bağlayan
+  Türkçe kaynak yok; İngilizce'de dahi çoğu kaynak ya sadece matematiği ya
+  sadece donanım pratiğini işliyor, ikisini birden değil.
 
 ## Reddedildi (bu çalıştırma)
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- _(bu çalıştırmada konu reddedilmedi; havuzdan IQ örnekleme seçildi —
+  bandpass sampling yazısının doğal devamı, hiçbir açık PR/yayınla anlamsal
+  örtüşme yok.)_
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 
