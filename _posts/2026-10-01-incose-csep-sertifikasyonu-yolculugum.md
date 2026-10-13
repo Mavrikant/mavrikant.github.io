@@ -1,5 +1,5 @@
 ---
-title: "INCOSE CSEP: Sınavdan Sertifikaya Bir Yol Haritası"
+title: "INCOSE CSEP: Sınavdan Sertifikaya Yolculuğum"
 subtitle: "My Road to INCOSE CSEP Certification"
 background: "/img/posts/incose-csep-sertifikasi.webp"
 date: '2026-10-01 22:21:00'
@@ -10,7 +10,7 @@ categories: [muhendislik]
 tags: [sistem-muhendisligi, sertifikasyon, kariyer, incose]
 ---
 
-Altmış ay deneyim, en az üç farklı sistem mühendisliği alanında on iki aylık deneyim, referanslarla doğrulanmış bir deneyim dosyası ve çoktan seçmeli bir bilgi sınavı. INCOSE **CSEP** (Certified Systems Engineering Professional) sertifikasını almak için karşılamam gereken temel şartlar bunlardı. Ben de bu şartları sağladım, gerekli başvuruları yaptım, referanslarımı tamamladım ve süreç boyunca toplam 610 USD + 1.000 TL ücret ödedim. 
+Altmış ay deneyim, en az üç farklı sistem mühendisliği alanında on ikişer aylık deneyim, referanslarla doğrulanmış bir deneyim dosyası ve çoktan seçmeli bir bilgi sınavı. INCOSE **CSEP** (Certified Systems Engineering Professional) sertifikasını almak için karşılamam gereken temel şartlar bunlardı. Ben de bu şartları sağladım, gerekli başvuruları yaptım, referanslarımı tamamladım ve süreç boyunca toplam 610 USD + 1.000 TL ücret ödedim. 
 
 12 Ağustos 2026 Çarşamba günü başvurumun onaylandığı e-posta geldiğinde, hedefi koyduğum günden bu yana yaklaşık on dokuz ay geçmişti. Hedefi 2025'in ilk aylarında koymuş, altı ay hazırlanmış ve 10 Ocak 2026'da sınava girmiştim. Süreçte beni en çok zorlayan şey sınav olmadı. Asıl zorlandığım kısım, yıllardır yaptığım işi başkasının anlayabileceği ve doğrulayabileceği bir dille anlatmaktı.
 
@@ -108,12 +108,12 @@ Yine de **Türkçe çeviri bir sınav kaynağı değil.** Sınav artık beşinci
 
 ### Soru çözmenin yeri
 
-Üçüncü kaynağım Udemy'deki pratik soru setleriydi. Bunlar bilgi öğretmiyor, ama iki işe yarıyor:
+Üçüncü kaynağım Udemy'deki pratik soru setleriydi. Bunlar bilgi öğretmiyor, ama iki işime yaradı:
 
-- **Soru formatını tanımak.** INCOSE soruları çoğu zaman "hangisi *en iyi* tanımlar" ya da "hangisi *değildir*" biçiminde kuruluyor. Şıkların üçü makul görünüyor, biri Handbook'un tam ifadesi. Bu kalıba alışmak sınavda ciddi zaman kazandırıyor.
-- **Boşlukları tespit etmek.** Yanlış cevapladığım her soruda Handbook'un ilgili bölümüne dönüp işaret koydum. Hazırlığın son aylarında kitabın tamamını değil, bu işaretli bölümlere odaklandım.
+- **Soru formatını tanımak.** INCOSE soruları çoğu zaman "hangisi *en iyi* tanımlar" ya da "hangisi *değildir*" biçiminde kuruluyor. Şıkların üçü makul görünüyor, biri Handbook'un tam ifadesi. Bu kalıba alışmak sınavda bana ciddi zaman kazandırdı.
+- **Boşlukları tespit etmek.** Yanlış cevapladığım her soruda Handbook'un ilgili bölümüne dönüp işaret koydum. Hazırlığın son aylarında kitabın tamamına değil, bu işaretli bölümlere odaklandım.
 
-Piyasadaki pratik soruların hiçbiri gerçek sınav sorularının birebir yansıması değil; bazıları eski baskıya dayanıyor, bazılarının cevabı tartışmalı. Doğru cevap oranınızı bir hedef olarak değil, zayıf bölümlerinizi bulmak için bir araç olarak kullanın. Kullandığım setlerin bağlantıları [Kaynaklar](#kaynaklar) bölümünde.
+Piyasadaki pratik soruların hiçbiri gerçek sınav sorularının birebir yansıması değil; bazıları eski baskıya dayanıyor, bazılarının cevabı tartışmalı. Bu yüzden doğru cevap oranımı bir hedef olarak değil, zayıf bölümlerimi bulmak için bir araç olarak kullandım. Kullandığım setlerin bağlantıları [Kaynaklar](#kaynaklar) bölümünde.
 
 ---
 
@@ -128,20 +128,20 @@ Kâğıt oturum, INCOSE prosedürleri gereği oldukça kurallı ilerliyor. Benim
 | 09.10 | INCOSE prosedürü gereği sınav bilgilendirme notunun okunması |
 | 09.30 – 11.40 | Sınav — 100 soru, 130 dakika |
 
-Sınav sabahı sürpriz yaşamamak için:
+Sınav sabahından aklımda kalanlar:
 
-- **Sınav İngilizce, ama yanınızda sözlük bulundurabiliyorsunuz.** Sözlük girişte kontrol ediliyor. Yine de terminolojiyi Handbook'un kendi ifadeleriyle öğrenmek şart: sözlük "requirement" kelimesini çevirir, "measure of effectiveness" ile "measure of performance" arasındaki farkı anlatmaz. Kişisel tavsiyem, sözlükle vakit kaybetmemeniz yönünde.
-- **Kimlik ve sözlük dışında hiçbir doküman içeri alınmıyor;** telefonunuz girişte teslim ediliyor.
-- **Kurşun kalem ve silgiyi kendiniz götürüyorsunuz.**
-- **Araçla gidecekseniz plaka kaydını önceden yaptırın.** Teknokent araç kartı olmayanların plaka bilgisini önceden organizasyona bildirip nizamiye kaydı yaptırması gerekiyordu; aksi hâlde araçla giriş mümkün olmuyordu.
-- **Sonuçlar oturumun sonunda açıklanmıyor ve puan verilmiyor.** Sonuç INCOSE tarafından e-postayla iletiliyor; ne zaman geleceği INCOSE'nin yoğunluğuna bağlı. E-postada yalnızca başarılı olup olmadığınız yazıyor, kaç doğru yaptığınız paylaşılmıyor. Geçme eşiğine ne kadar yaklaştığınızı hiç öğrenmediğiniz için hazırlığı rahat bir payla planlamak mantıklı.
-- **Sonucun paylaşımı için rıza isteniyor.** INCOSE TR ekibi, sonucunuzun kendileriyle paylaşılabilmesi için bir rıza metni imzalatıyor; amaç, sınavı geçen adayları başvuru adımına yönlendirebilmek.
+- **Sınav İngilizceydi, ama yanımızda sözlük bulundurabiliyorduk.** Sözlükler girişte kontrol edildi. Yine de terminolojiyi Handbook'un kendi ifadeleriyle öğrenmek şart: sözlük "requirement" kelimesini çevirir, "measure of effectiveness" ile "measure of performance" arasındaki farkı anlatmaz. Kişisel tavsiyem, sözlükle vakit kaybetmemeniz yönünde.
+- **Kimlik ve sözlük dışında hiçbir doküman içeri alınmadı;** telefonlarımızı girişte teslim ettik.
+- **Kurşun kalem ve silgiyi kendimiz götürdük.**
+- **Araçla gelenler için plaka kaydı önceden isteniyordu.** Teknokent araç kartı olmayanların plaka bilgisini önceden organizasyona bildirip nizamiye kaydı yaptırması gerekiyordu; aksi hâlde araçla giriş mümkün olmuyordu.
+- **Sonuçlar oturumun sonunda açıklanmadı ve puan verilmedi.** Sonuç INCOSE tarafından e-postayla iletiliyor; ne zaman geleceği INCOSE'nin yoğunluğuna bağlı. Bana gelen e-postada yalnızca başarılı olduğum yazıyordu, kaç doğru yaptığım paylaşılmadı. Geçme eşiğini ne kadar farkla aştığımı hiç öğrenmediğim için hazırlığı rahat bir payla planlamak bence mantıklı.
+- **Sonucun paylaşımı için rıza istendi.** INCOSE TR ekibi, sonucumuzun kendileriyle paylaşılabilmesi için bir rıza metni imzalattı; amaç, sınavı geçen adayları başvuru adımına yönlendirebilmekti.
 
 ---
 
 ## İkinci Adım: Başvuru
 
-Sınavı geçmek size bir sertifika değil, yalnızca “bilgi yeterliliği” kazandırıyor. Benim için asıl zor kısım bundan sonra başladı. Çevremde daha önce SEP sertifikası almış kimse yoktu; sınavdan sonra ne yapmam gerektiğini kendi başıma çözmem gerekti.
+Sınavı geçmek size bir sertifika değil, yalnızca "bilgi yeterliliği" kazandırıyor. Benim için asıl zor kısım bundan sonra başladı. Çevremde daha önce SEP sertifikası almış kimse yoktu; sınavdan sonra ne yapmam gerektiğini kendi başıma çözmem gerekti.
 
 > **Not:** Bu bölüm Temmuz–Ağustos 2026'daki akışı anlatıyor. Benim başvurumda Form 1 doldurulup yüklenen bir **PDF dosyasıydı**; Ağustos 2026'daki portal güncellemesinden sonra form doğrudan **web sitesi üzerinden** dolduruluyor. Güncel süreç için INCOSE'nin [CSEP başvuru sayfasını](https://www.incose.org/certification/start-your-certification/applying-for-csep/) esas alın.
 
@@ -174,7 +174,7 @@ Deneyim **tam zamana eşdeğer ay** cinsinden yazılıyor. Aynı takvim dönemin
 
 ## DO-178C Deneyimini SE Diline Çevirmek
 
-Benim gibi yazılım kökenli mühendisler için başvurunun asıl zihinsel egzersizi, yaptıkları işi INCOSE'nin diline çevirmek. Bu çeviride akılda tutulması gereken ilk kural şu: **DO-178C kapsamında yapılan her faaliyet otomatik olarak sistem mühendisliği deneyimi sayılmıyor.** Bir faaliyeti ancak fiilen siz yürüttüyseniz beyan edebilirsiniz.
+Yazılım kökenli bir mühendis olarak başvurunun benim için asıl zihinsel egzersizi, yaptığım işi INCOSE'nin diline çevirmekti. Bu çeviride aklımda tuttuğum ilk kural şuydu: **DO-178C kapsamında yapılan her faaliyet otomatik olarak sistem mühendisliği deneyimi sayılmıyor.** Bir faaliyeti ancak fiilen ben yürüttüysem beyan edebilirdim.
 
 Bu şartla, DO-178C dünyasındaki işlerin karşılıkları büyük ölçüde mevcut:
 
@@ -189,7 +189,7 @@ Bu şartla, DO-178C dünyasındaki işlerin karşılıkları büyük ölçüde m
 
 Örneğin DAL A seviyesinde bir projede çalışmış olmak tek başına Specialty Engineering deneyimi oluşturmuyor; emniyet, güvenilirlik ya da güvenlik analizini gerçekten sizin yapmış olmanız gerekiyor. Aynı şekilde bir test altyapısı geliştirmiş olmak kendiliğinden kurumsal etkinleştirme faaliyeti değil; o altyapının kurumsal düzeyde bir yetkinliğe dönüşmesinde rol almış olmanız gerekiyor.
 
-Eşlemeyi yaparken abartmamak önemli. Değerlendirme komitesi, beyan ettiğiniz alanların referanslarınızın doğrulayabileceği türden olmasını bekliyor. Bir alanda 12 ayı zorlayarak doldurmaktansa, gerçekten güçlü olduğunuz üç alanı sağlam biçimde belgelemek daha iyi. Formu yazarken her satır için kendime şunu sordum: "Referansım bu cümleyi okusa, gözünü kırpmadan onaylar mı?" Cevap tereddütlüyse cümleyi ya yumuşattım ya çıkardım. Bu bakış açısıyla **Form 1** başvuru formunu doldurdum.
+Eşlemeyi yaparken abartmamaya özen gösterdim. Değerlendirme komitesi, beyan ettiğim alanların referanslarımın doğrulayabileceği türden olmasını bekliyordu. Bir alanda 12 ayı zorlayarak doldurmaktansa, gerçekten güçlü olduğum alanları sağlam biçimde belgelemeyi tercih ettim. Formu yazarken her satır için kendime şunu sordum: "Referansım bu cümleyi okusa, gözünü kırpmadan onaylar mı?" Cevap tereddütlüyse cümleyi ya yumuşattım ya çıkardım. Bu bakış açısıyla **Form 1** başvuru formunu doldurdum.
 
 ---
 
@@ -209,11 +209,11 @@ Ben asgari sayıyla yetinmedim: **çalıştığım son üç iş yerinden toplam 
 
 ### Başvurudan sonra ne oluyor?
 
-Başvuruyu gönderdikten hemen sonra INCOSE Sertifikasyon Ofisi'nden bir "sonraki adımlar" e-postası geliyor. Süreç şöyle işledi:
+Başvuruyu gönderdikten hemen sonra INCOSE Sertifikasyon Ofisi'nden bir "sonraki adımlar" e-postası geldi. Süreç şöyle işledi:
 
-1. **Tarama.** Sertifikasyon Ofisi önce başvuru formunuzun şartlara uygun olup olmadığını kontrol ediyor. Bu onay gelmeden referans adımına geçmiyorsunuz.
-2. **Referanslar.** Form uygun bulununca her referansınıza iki şey gönderiyorsunuz: doldurduğunuz **Form 1**'in bir kopyası ve **dijital referans mektubunun** ([Form 4B](https://forms.office.com/pages/responsepage.aspx?id=k6cjNVAORka4CyXYO9fylpdnShHiChFNk4sYt-8URhFUN1RNUE5NSDdKTlRVSkNZVFdYRkwyOVlPSC4u&route=shorturl)) bağlantısı. Form 1'in kopyası şart, çünkü referans sizin hangi dönemde hangi alanda ne beyan ettiğinizi görmeden mektubu dolduramıyor. Mektup gönderildiğinde doğrudan INCOSE'ye ulaşıyor. Formun doldurulması yaklaşık **30 dakika** sürüyor; bunu referansınıza baştan söyleyin.
-3. **Değerlendirme ve karar.** Referans mektupları tamamlanınca dosya değerlendiriliyor ve sonuç e-postayla bildiriliyor.
+1. **Tarama.** Sertifikasyon Ofisi önce başvuru formumun şartlara uygun olup olmadığını kontrol etti. Bu onay gelmeden referans adımına geçilmiyor.
+2. **Referanslar.** Form uygun bulununca her referansıma iki şey gönderdim: doldurduğum **Form 1**'in bir kopyası ve **dijital referans mektubunun** ([Form 4B](https://forms.office.com/pages/responsepage.aspx?id=k6cjNVAORka4CyXYO9fylpdnShHiChFNk4sYt-8URhFUN1RNUE5NSDdKTlRVSkNZVFdYRkwyOVlPSC4u&route=shorturl)) bağlantısı. Form 1'in kopyası şart, çünkü referans hangi dönemde hangi alanda ne beyan ettiğimi görmeden mektubu dolduramıyor. Mektup gönderildiğinde doğrudan INCOSE'ye ulaşıyor. Formun doldurulması yaklaşık **30 dakika** sürüyor; bunu referanslara baştan söylemekte fayda var.
+3. **Değerlendirme ve karar.** Referans mektupları tamamlanınca dosyam değerlendirildi ve sonuç e-postayla bildirildi.
 
 Süreç başlayana kadar referanslarla INCOSE'nin ilgileneceğini sanıyordum. Öyle değilmiş: **referans sürecini siz başlatıyor, siz takip ediyorsunuz**. Bu yüzden referanslarınıza önceden haber vermek süreci en çok hızlandıran şey. Başvurumun yaklaşık üç buçuk haftada sonuçlanmasını büyük ölçüde referanslarımın mektupları hızla doldurmasına borçluyum.
 
@@ -245,9 +245,9 @@ INCOSE'nin [fiyat sayfasına](https://www.incose.org/certification/pricing-requi
 
 ## Sertifika Sonrası: Yenileme
 
-CSEP üç yıl geçerli. [Yenilemek](https://www.incose.org/certification/maintaining-renewing-certification/renewing-certification/) için üç yıllık dönem içinde **120 PDU** (Professional Development Unit) toplamanız ve **100 USD** yenileme ücreti (üye fiyatı) ödemeniz gerekiyor. Üyelik yenileme için zorunlu değil ama ücretler yine üyeler lehine. PDU'lar yalnızca eğitim ve konferanslardan gelmiyor; sistem mühendisi olarak çalışmak, ekip liderliği yapmak, meslek örgütü ve şube etkinliklerine katılmak, makale yazmak ve gönüllü görevler almak da sayılıyor. Dönem içinde 120'nin üzerinde PDU biriktirirseniz en fazla 30'unu bir sonraki döneme aktarabiliyorsunuz.
+CSEP üç yıl geçerli. [Yenilemek](https://www.incose.org/certification/maintaining-renewing-certification/renewing-certification/) için üç yıllık dönem içinde **120 PDU** (Professional Development Unit) toplamam ve **100 USD** yenileme ücreti (üye fiyatı) ödemem gerekiyor. Üyelik yenileme için zorunlu değil ama ücretler yine üyeler lehine. PDU'lar yalnızca eğitim ve konferanslardan gelmiyor; sistem mühendisi olarak çalışmak, ekip liderliği yapmak, meslek örgütü ve şube etkinliklerine katılmak, makale yazmak ve gönüllü görevler almak da sayılıyor. Dönem içinde 120'nin üzerinde PDU biriktirirsem en fazla 30'unu bir sonraki döneme aktarabiliyorum.
 
-INCOSE bir **PDU kayıt defteri** tutmanızı ve gerektiğinde belgeleyebilmenizi bekliyor. Üç yıl sonra geriye dönüp hatırlamaya çalışmak yerine, katıldığınız her etkinliği o gün kaydetmek çok daha kolay. Ben bu kaydı sertifikayı aldığım gün açtım.
+INCOSE bir **PDU kayıt defteri** tutmamı ve gerektiğinde belgeleyebilmemi bekliyor. Üç yıl sonra geriye dönüp hatırlamaya çalışmak yerine, katıldığım her etkinliği o gün kaydetmek çok daha kolay. Ben bu kaydı sertifikayı aldığım gün açtım.
 
 ---
 
@@ -325,7 +325,7 @@ Kişisel görüşüm, sistem seviyesinde sorumluluk almayacak ya da almak isteme
 
 CSEP sürecinin bana kazandırdığı en değerli şey unvan olmadı. Altı aylık hazırlık, on yıla yakın sürede parça parça öğrendiğim pratikleri tek bir çerçeveye oturttu ve bu çerçevenin ne kadarını gerçekten bildiğimi, ne kadarını sadece uyguladığımı gösterdi. Alanın Handbook'un çok ötesine geçtiğini görmek, sınavdan sonra ikinci yüksek lisansım olarak sistem mühendisliğine başlamamın da sebebi oldu.
 
-Başvuru dosyası ise başka bir şey öğretti: yaptığınız işi başkasının anlayacağı ve doğrulayabileceği bir dille anlatmak, işin kendisinden ayrı bir beceri. Deneyim tablosunu doldururken kendi kariyerime dışarıdan bakmak durumunda kaldım: hangi işler gerçekten sistem seviyesinde sorumluluk taşıyordu, hangileri iyi yapılmış ama dar kapsamlı işlerdi? 
+Başvuru dosyası ise başka bir şey öğretti: yaptığım işi başkasının anlayacağı ve doğrulayabileceği bir dille anlatmak, işin kendisinden ayrı bir beceri. Deneyim tablosunu doldururken kendi kariyerime dışarıdan bakmak durumunda kaldım: hangi işler gerçekten sistem seviyesinde sorumluluk taşıyordu, hangileri iyi yapılmış ama dar kapsamlı işlerdi? 
 
 Aynı yolu yürüyecek olanlara kolaylıklar dilerim. Süreçle ilgili sorusu olanlar [iletişim]({{ '/contact' | relative_url }}) sayfasından bana ulaşabilir.
 
