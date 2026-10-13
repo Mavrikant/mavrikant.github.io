@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="tr"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://karaman.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://karaman.dev/" rel="alternate" type="text/html" hreflang="tr" /><updated>2026-10-13T00:44:58+00:00</updated><id>https://karaman.dev/feed.xml</id><title type="html">M. Serdar Karaman</title><subtitle>Aviyonik yazılım, DO-178C ve emniyet kritik mühendislik üzerine sahadan notlar.</subtitle><author><name>M. Serdar Karaman</name></author><entry xml:lang="tr"><title type="html">INCOSE CSEP: Sınavdan Sertifikaya Bir Yol Haritası</title><link href="https://karaman.dev/2026/10/01/incose-csep-sertifikasyonu-yolculugum.html" rel="alternate" type="text/html" title="INCOSE CSEP: Sınavdan Sertifikaya Bir Yol Haritası" /><published>2026-10-01T22:21:00+00:00</published><updated>2026-10-01T22:21:00+00:00</updated><id>https://karaman.dev/2026/10/01/incose-csep-sertifikasyonu-yolculugum</id><content type="html" xml:base="https://karaman.dev/2026/10/01/incose-csep-sertifikasyonu-yolculugum.html"><![CDATA[<p>Altmış ay deneyim, en az üç farklı sistem mühendisliği alanında on iki aylık deneyim, referanslarla doğrulanmış bir deneyim dosyası ve çoktan seçmeli bir bilgi sınavı. INCOSE <strong>CSEP</strong> (Certified Systems Engineering Professional) sertifikasını almak için karşılamam gereken temel şartlar bunlardı. Ben de bu şartları sağladım, gerekli başvuruları yaptım, referanslarımı tamamladım ve süreç boyunca toplam 610 USD + 1.000 TL ücret ödedim.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="tr"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://karaman.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://karaman.dev/" rel="alternate" type="text/html" hreflang="tr" /><updated>2026-10-13T00:52:33+00:00</updated><id>https://karaman.dev/feed.xml</id><title type="html">M. Serdar Karaman</title><subtitle>Aviyonik yazılım, DO-178C ve emniyet kritik mühendislik üzerine sahadan notlar.</subtitle><author><name>M. Serdar Karaman</name></author><entry xml:lang="tr"><title type="html">INCOSE CSEP: Sınavdan Sertifikaya Bir Yol Haritası</title><link href="https://karaman.dev/2026/10/01/incose-csep-sertifikasyonu-yolculugum.html" rel="alternate" type="text/html" title="INCOSE CSEP: Sınavdan Sertifikaya Bir Yol Haritası" /><published>2026-10-01T22:21:00+00:00</published><updated>2026-10-01T22:21:00+00:00</updated><id>https://karaman.dev/2026/10/01/incose-csep-sertifikasyonu-yolculugum</id><content type="html" xml:base="https://karaman.dev/2026/10/01/incose-csep-sertifikasyonu-yolculugum.html"><![CDATA[<p>Altmış ay deneyim, en az üç farklı sistem mühendisliği alanında on iki aylık deneyim, referanslarla doğrulanmış bir deneyim dosyası ve çoktan seçmeli bir bilgi sınavı. INCOSE <strong>CSEP</strong> (Certified Systems Engineering Professional) sertifikasını almak için karşılamam gereken temel şartlar bunlardı. Ben de bu şartları sağladım, gerekli başvuruları yaptım, referanslarımı tamamladım ve süreç boyunca toplam 610 USD + 1.000 TL ücret ödedim.</p>
 
 <p>12 Ağustos 2026 Çarşamba günü başvurumun onaylandığı e-posta geldiğinde, hedefi koyduğum günden bu yana yaklaşık on dokuz ay geçmişti. Hedefi 2025’in ilk aylarında koymuş, altı ay hazırlanmış ve 10 Ocak 2026’da sınava girmiştim. Süreçte beni en çok zorlayan şey sınav olmadı. Asıl zorlandığım kısım, yıllardır yaptığım işi başkasının anlayabileceği ve doğrulayabileceği bir dille anlatmaktı.</p>
 
@@ -95,7 +95,7 @@
 
 <p>INCOSE sınavı iki formatta sunuyor: kendi bilgisayarınızdan, canlı uzaktan gözetmenli olarak ya da INCOSE onaylı bir gözetmenin denetiminde <strong>kâğıt üzerinde</strong>.</p>
 
-<p>İlk planım online sınava daha erken bir tarihte girmekti. Sonra Türkiye’de düzenlenen kâğıt oturumun ücretinin <strong>1.000 TL</strong> olduğunu gördüm; online sınavın 80 USD olduğu düşünülünce aradaki fark birkaç ay beklemeye değerdi. Hazırlığı biraz uzattım ve <strong>10 Ocak 2026’da ODTÜ Teknokent’teki SSB Akademi binasında sınava girdim.</strong> Türkiye’de bu organizasyonu INCOSE TR şubesi ve SSB Akademi yürütüyor; SSB Akademi ayrıca CSEP sınavına hazırlık eğitimi de düzenliyor.</p>
+<p>İlk planım online sınava daha erken bir tarihte girmekti. Sonra Türkiye’de düzenlenen kâğıt oturumun ücretinin <strong>1.000 TL</strong> olduğunu gördüm; online sınavın 80 USD olduğu düşünülünce aradaki fark birkaç ay beklemeye değerdi. Hazırlığı biraz uzattım ve <strong>10 Ocak 2026’da ODTÜ Teknokent’teki Savunma Sanayii Akademi binasında sınava girdim.</strong> Türkiye’de bu organizasyonu INCOSE TR şubesi ve Savunma Sanayii Akademi yürütüyor; Akademi ayrıca CSEP sınavına hazırlık eğitimi de düzenliyor.</p>
 
 <p>Kâğıt formatın benim hoşuma giden bir avantajı daha vardı: Uzun ve iç içe geçmiş şıkları kalemle elemek daha kolay. Elediğim şıkların üstünü çizip emin olmadığım soruları sona bırakabildim. Dezavantajı ise takvim kısıtı. Kâğıt oturumlar sizin hazır olduğunuz zamana göre değil, belirli tarihlere göre açılıyor. Benim için en yakın oturum ocak ayındaydı. Ekim ayında hazır olsaydım da ocağı bekleyecektim. Ocak ayındaki oturuma hazır olmasaydım da bir sonraki oturumu beklemek veya daha pahalı online sınava girmek zorunda kalacaktım.</p>
 
@@ -109,9 +109,9 @@
 
 <p><img src="/img/posts/incose-se-handbook-v5.webp" alt="INCOSE Systems Engineering Handbook, beşinci baskı" style="display:block; margin-left:auto; margin-right:auto; max-width:320px" class="img-fluid" /></p>
 
-<p><em>INCOSE Systems Engineering Handbook, 5. baskı — sınavın tek resmî kaynağı. Kapak görseli INCOSE ve Wiley’e aittir.</em></p>
+<p><em>INCOSE Systems Engineering Handbook, beşinci baskı — sınavın tek resmî kaynağı. Kapak görseli INCOSE ve Wiley’e aittir.</em></p>
 
-<p><strong>İngilizce SE Handbook v5’i baştan sona iki kez okudum.</strong> Hazırlığın belkemiği buydu, ama iki okuma birbirinin tekrarı değildi.</p>
+<p><strong>İngilizce SE Handbook v5’i baştan sona iki kez okudum.</strong> Hazırlığın bel kemiği buydu, ama iki okuma birbirinin tekrarı değildi.</p>
 
 <p>İlk okumada satır satır ilerledim ve önemli gördüğüm her yerin altını çizdim; “önce bir göz gezdireyim” turu değildi.</p>
 
@@ -227,7 +227,7 @@
 
 <h2 id="do-178c-deneyimini-se-diline-çevirmek">DO-178C Deneyimini SE Diline Çevirmek</h2>
 
-<p>Benim gibi yazılım kökenli mühendisler için başvurunun asıl zihinsel egzersizi, yaptığı işi INCOSE’nin diline çevirmek. Bu çeviride akılda tutulması gereken ilk kural şu: <strong>DO-178C kapsamında yapılan her faaliyet otomatik olarak sistem mühendisliği deneyimi sayılmıyor.</strong> Bir faaliyeti ancak fiilen siz yürüttüyseniz beyan edebilirsiniz.</p>
+<p>Benim gibi yazılım kökenli mühendisler için başvurunun asıl zihinsel egzersizi, yaptıkları işi INCOSE’nin diline çevirmek. Bu çeviride akılda tutulması gereken ilk kural şu: <strong>DO-178C kapsamında yapılan her faaliyet otomatik olarak sistem mühendisliği deneyimi sayılmıyor.</strong> Bir faaliyeti ancak fiilen siz yürüttüyseniz beyan edebilirsiniz.</p>
 
 <p>Bu şartla, DO-178C dünyasındaki işlerin karşılıkları büyük ölçüde mevcut:</p>
 
@@ -256,10 +256,10 @@
 
 <ul>
   <li>Referans en az beş yıllık iş deneyimine sahip olmalı ve sistem mühendisliğine aşina olmalı; yani yaptığınız işin gerçekten sistem mühendisliği olduğunu değerlendirebilecek durumda olmalı. Sistem mühendisi ya da INCOSE üyesi olması şart değil.</li>
-  <li>Referans, beyan ettiğiniz deneyim döneminde sizi tanıyor ve o işten haberdar olmalı. Sonradan tanıştığınız biri o dönemi doğrulayamaz.</li>
+  <li>Referans, beyan ettiğiniz deneyim döneminde sizi tanımalı ve o işten haberdar olmalı. Sonradan tanıştığınız biri o dönemi doğrulayamaz.</li>
   <li>Referansların toplamı, gerekli deneyimin tamamını kapsamalı.</li>
   <li>Referansın sizinle akrabalık bağı olmamalı.</li>
-  <li><strong>INCOSE mevcut ve eski yöneticileri ile müşteri tarafını ideal referans olarak tanımlıyor; astlarınız referans olamıyor.</strong> Benim dosyamda da en güçlü doğrulama, ilgili dönemdeki yöneticilerimden geldi.</li>
+  <li><strong>INCOSE mevcut ve eski yöneticilerinizi ve müşteri tarafını ideal referans olarak tanımlıyor; astlarınız referans olamıyor.</strong> Benim dosyamda da en güçlü doğrulama, ilgili dönemdeki yöneticilerimden geldi.</li>
 </ul>
 
 <p>Ben asgari sayıyla yetinmedim: <strong>çalıştığım son üç iş yerinden toplam sekiz referans</strong> verdim. İki sebebi vardı. Birincisi kapsama: beyan ettiğim altmış aylık deneyim tek bir projeye ya da tek bir yöneticinin görüş alanına sığmıyordu; her dönemi ve her deneyim alanını o işi bizzat gören biriyle eşleştirmek istedim. İkincisi dayanıklılık: referansların formu doldurması gönüllülüğe dayanıyor, araya izin, yoğunluk ya da unutma girebiliyor. Sekiz kişiden birkaçı gecikse bile dosya eksik kalmıyordu.</p>
@@ -308,7 +308,7 @@
     </tr>
     <tr>
       <td>10 Ocak 2026</td>
-      <td>Bilgi sınavı, SSB Akademi / ODTÜ Teknokent</td>
+      <td>Bilgi sınavı, Savunma Sanayii Akademi / ODTÜ Teknokent</td>
       <td>1.000 TL</td>
     </tr>
     <tr>
@@ -343,7 +343,7 @@
 
 <p><strong>Üyelik.</strong> Ekim 2025’ten beri zorunlu olmasa da üye olmayanların ödediği ücretler belirgin biçimde yüksek. Türkiye için ayrıca bir avantaj var: INCOSE bireysel üyelik aidatını ülkelerin satın alma gücüne göre kademelendiriyor. Türkiye “Regular PPP 2” kademesinde ve yıllık aidat, standart 175 USD yerine <strong>130 USD</strong>. Bu fark yüzünden sürece üye olarak başlamak benim için açık ara daha ucuzdu.</p>
 
-<p><strong>On iki ay kuralı.</strong> Sınavı ocakta geçmiştim ama başvuruyu ancak temmuzda gönderdim; aradaki altı ayın sebebi 350 USD başvuru ücretiydi. Bilgi sınavının geçerlilik süresi 12 ay. Bu nedenle daha fazla ötelemeden başvurumu yaptım.</p>
+<p><strong>On iki ay kuralı.</strong> Sınavı ocakta geçmiştim ama başvuruyu ancak temmuzda gönderdim; aradaki altı ayın sebebi 350 USD başvuru ücretiydi. Bilgi sınavının geçerlilik süresi on iki ay. Bu nedenle daha fazla ötelemeden başvurumu yaptım.</p>
 
 <hr />
 
@@ -464,7 +464,7 @@ xychart-beta
 
 <p><strong>Uluslararası ortak projeler.</strong> Çok ortaklı programlarda ortak bir terminolojiye sahip olmak işi kolaylaştırıyor; CSEP yerel deneyimi uluslararası ölçekte tanınan bir formata çeviriyor.</p>
 
-<p>Kişisel görüşüm, sistem seviyesinde sorumluluk almayacak/almak istemeyen bir rolde çalışan biri için harcanan zaman ve paranın karşılığını geri almanın zor olduğu yönünde.</p>
+<p>Kişisel görüşüm, sistem seviyesinde sorumluluk almayacak ya da almak istemeyen bir rolde çalışan biri için harcanan zaman ve paranın karşılığını almanın zor olduğu yönünde.</p>
 
 <hr />
 
@@ -506,7 +506,7 @@ xychart-beta
   <li><a href="https://forms.office.com/pages/responsepage.aspx?id=k6cjNVAORka4CyXYO9fylpdnShHiChFNk4sYt-8URhFUN1RNUE5NSDdKTlRVSkNZVFdYRkwyOVlPSC4u&amp;route=shorturl">FORM 4B: Reference for CSEP/ESEP</a> — referansların dolduracağı dijital mektup</li>
   <li><a href="https://www.incose.org/wp-content/uploads/2026/08/EXAM_HowToRegister_Online-and-Paper.pdf">How to Register for an Exam, online ve kâğıt</a></li>
   <li><a href="https://www.incose.org/wp-content/uploads/2026/07/SEP_HowToReneworReinstate_2026.pdf">How to Renew or Reinstate a SEP, 2026</a></li>
-  <li>INCOSE, <em>Systems Engineering Handbook</em>, 5. baskı, Wiley — sınavın tek resmî kaynağı</li>
+  <li>INCOSE, <em>Systems Engineering Handbook</em>, beşinci baskı, Wiley — sınavın tek resmî kaynağı</li>
   <li>INCOSE, <em>Sistem Mühendisliği El Kitabı</em>, dördüncü versiyon, Savunma Sanayii Akademi Yayınları — Türkçe çeviri</li>
   <li><a href="https://www.ssa.gov.tr/">Savunma Sanayii Akademi</a> — CSEP hazırlık eğitimi ve Türkiye’deki kâğıt sınav oturumu</li>
   <li><a href="https://tr.linkedin.com/company/incosetr">INCOSE TR</a></li>
