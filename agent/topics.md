@@ -22,6 +22,10 @@
 - [x] Ölçüm Belirsizliği (GUM Annex F + NCSLI RP-12) — 2026-05-06 — alan: metroloji
 - [x] Kalibrasyon Zincirinin Tepesi (Birincil Standartlar) — 2026-05-07 — alan: metroloji
 - [x] Renode ile Zynq7000 Simülasyonu — 2026-05-14 — alan: gömülü/SoC
+- [x] Bandpass Sampling — 2026-05-21 — alan: RF/DSP
+- [x] Sistem Mühendisliği Nedir? — 2026-05-26 — alan: sistem mühendisliği
+- [x] Kalman Filtresi — 2026-06-02 — alan: navigasyon/füzyon
+- [x] Coupling Dengesi (DO-178C) — 2026-06-04 — alan: yazılım zanaatı/sertifikasyon
 
 ## Açık PR'lar (insan inceleme bekleniyor)
 
@@ -39,14 +43,15 @@
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- **Lockstep CPU Mimarileri: Cortex-R5 DCLS, CCM-R5 ve DAL A Donanımı** —
+  dal: `post/2026-06-09-lockstep-cpu-dcls-tms570-cortex-r5`,
+  dosya: `_posts/2026-06-09-lockstep-cpu-dcls-tms570-cortex-r5.md`,
+  durum: PR açılacak (2026-06-09 çalıştırması) — alan: gömülü/safety donanım.
 
 ## Reddedildi (bu çalıştırma)
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- _(bu çalıştırmada konu reddedilmedi; lockstep CPU havuza eklenip seçildi —
+  açık 20+ PR'la çakışmıyor, son 3 yayın alanlarıyla farklı.)_
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 
@@ -63,6 +68,11 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
       alan: yazılım zanaatı — polinom seçimi, hata tespit gücü, bit-hata analizi
 - [ ] **WCET analizi: statik analiz vs ölçüm tabanlı yaklaşımlar, cache etkileri** —
       alan: gerçek zamanlı — somut örnek (örn. Cortex-R5 üzerinde basit görev)
+      _(PR #88, #98 olarak açık)_
+- [ ] **TCLS (Triple Core Lockstep) vs DCLS — fail-operational mimariler** —
+      alan: gömülü/safety — bu çalıştırmadaki DCLS yazısının doğal devamı
+- [ ] **DO-254 DAL A için FPGA tasarım garantisi: ne kanıtlanır, nasıl?** —
+      alan: donanım sertifikasyon — DCLS yazısının yan dalı
 - [ ] **IQ örnekleme ve karmaşık sinyaller: gerçek SDR'ye giriş** —
       alan: RF/SDR — neden negatif frekans, neden 2 kanal
 - [ ] **GIC (Generic Interrupt Controller): SGI/PPI/SPI farkları ve önceliklendirme** —
@@ -108,7 +118,26 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - [ ] DO-254 donanım sertifikasyonu (yazarın uzmanlığı ağırlıklı yazılım tarafında)
 - [ ] İzlenebilirlik matrisi (klasik konu, derinlik çıkarmak zor)
 
-## Notlar (bu çalıştırma — 2026-05-21)
+## Notlar (bu çalıştırma — 2026-06-09)
+
+- **Lockstep CPU Mimarileri** seçildi (alan: gömülü/safety — donanım fault tolerance).
+  Mevcut 20+ açık PR ve yayındaki yazıların hiçbirinde yer almıyor. Son 3 yayın
+  (coupling/DO-178C, Kalman, sistem mühendisliği) farklı alanlardı; seçilen yazı yeni
+  bir alt-alan (donanım emniyet mimarisi) getiriyor.
+- "Neden Türkçe içerikte zor bulunuyor" yanıtı: konu ARM Cortex-R TRM, TI Hercules
+  safety manual (200+ sayfa PDF), ISO 26262-5 Annex D (ücretli), IEC 61508-2 Annex C
+  (ücretli), DO-254 (ücretli) ve birkaç ACM/MDPI makalesinin kesişiminde. Türkçe içerik
+  ya pazarlama özetleri ya da datasheet özet çevirileri. Sentez gerektiren açılardan
+  (2-cycle skew neden, FMEDA hesabı, common-cause sınırı) Türkçe boşluk büyük.
+- Derinlik öğesi: (a) CCM-R5'in 2-çevrim input + 2-çevrim output skew tasarımının
+  matematiksel türetimi ve hangi hata sınıfını yakaladığı; (b) somut bir FMEDA hesabı
+  (50 FIT ham hata oranı → ASIL D < 10 FIT λ_DU bütçesi).
+- Yayın kapısı: son yayın 2026-06-04 (coupling); 2026-06-09'a 5 gün var —
+  `min_yayin_araligi_gun = 2` rahatlıkla sağlandı.
+- 20+ açık PR olmasına rağmen Bölüm 4 sert bir backlog sınırı koymuyor; ajan her gün
+  bir taslak üretir, insan tempoyu kontrol eder.
+
+## Notlar (eski çalıştırma — 2026-05-21)
 
 - **Bandpass Sampling** seçildi (alan: RF/DSP). Önceki çalıştırmaların ardından
   açılan PR'lar son üç alt-alanı (sertifikasyon #77, navigasyon #78, yazılım
