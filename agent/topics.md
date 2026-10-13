@@ -39,14 +39,16 @@
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- **Aviyonik yazılımda malloc yasak mı? DO-178C, DO-332 objektifleri ve TLSF** —
+  dal: `post/2026-07-29-aviyonik-malloc-yasak-mi-do178c-do332-tlsf`,
+  dosya: `_posts/2026-07-29-aviyonik-malloc-yasak-mi-do178c-do332-tlsf.md`,
+  durum: PR açılacak (bu çalıştırma) — alan: sertifikasyon / gömülü bellek yönetimi.
 
 ## Reddedildi (bu çalıştırma)
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- _(bu çalıştırmada konu reddedilmedi; "DAL A malloc efsanesi" boşluğu için havuzda
+  olmayan yeni bir konu seçildi. Havuzdaki 40+ konunun çoğu şu an açık PR'larda beklediği
+  için havuz dışına çıkıldı.)_
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 
@@ -108,21 +110,31 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - [ ] DO-254 donanım sertifikasyonu (yazarın uzmanlığı ağırlıklı yazılım tarafında)
 - [ ] İzlenebilirlik matrisi (klasik konu, derinlik çıkarmak zor)
 
-## Notlar (bu çalıştırma — 2026-05-21)
+## Notlar (bu çalıştırma — 2026-07-29)
 
-- **Bandpass Sampling** seçildi (alan: RF/DSP). Önceki çalıştırmaların ardından
-  açılan PR'lar son üç alt-alanı (sertifikasyon #77, navigasyon #78, yazılım
-  zanaatı/CRC #79) işaretlemişti; bu yazı **bu üç alandan da** son yayınlanan 3
-  posttan da (Renode gömülü/SoC, kalibrasyon ×2) farklı bir alan getiriyor.
-- Yayın kapısı durumu: Bölüm 4 yalnızca "yayın PR ile olmalı" kuralı koyar; backlog
-  büyüklüğüne dair sert bir sınır yoktur. Açık 7 PR olmasına rağmen son yayınlanan
-  yazıdan (Renode, 2026-05-14) bu yana 7 gün geçti — `min_yayin_araligi_gun = 2`
-  şartı fazlasıyla sağlanmış durumda. Bu çalıştırmada yeni PR açıldı.
-- Bandpass sampling konusunun "neden Türkçe içerikte zor bulunuyor" yanıtı:
-  matematik (Vaughan 1991), datasheet okuma (analog input BW), saat phase noise
-  ve filtre tasarımı disiplinlerinin kesişiminde bulunuyor; Türkçe kaynaklar
-  genellikle yalnızca tek bir cepheden ele almış oluyor (genelde Lyons özet
-  çevirisi). Sentez ve somut sayısal örnek boşluğu büyük.
-- Açık PR'lar konusunda inceleme önceliği yorumu (gözlem): #50 ve #51 hâlâ uzun
-  süredir bekliyor; #50 eski yazıyı genişletiyor, #51 ise yayındaki MISRA C:2025
-  ile büyük olasılıkla çakışıyor. İnceleyen kişinin dikkatine.
+- **"Aviyonik yazılımda malloc yasak mı?"** seçildi (alan: sertifikasyon + gömülü
+  bellek yönetimi). Son yayınlanan yazılar (Renode, bandpass, sistem müh., Kalman,
+  coupling dengesi, antikırılgan) tamamen farklı alt-alanlarda; en yakın alan olan
+  DO-178C sertifikasyon konuları henüz yayında değil — MC/DC (#77), setjmp/longjmp
+  (#151), data/control coupling (#168), object code coverage (#146) hepsi açık PR'da.
+  Bu yazının konusu (dinamik bellek + DO-332 objektifleri + TLSF) hiçbir açık PR
+  veya yayında yazıyla anlamsal çakışma yaratmıyor.
+- "Neden Türkçe içerikte zor bulunuyor" yanıtı: konu üç ayrı disiplini kesiştiriyor —
+  (1) DO-178C/DO-332 standart metni (ücretli, erişim zor), (2) real-time allocator
+  literatürü (Masmano ECRTS 2004 makalesi teknik derin), (3) pratik gömülü sistem
+  deneyimi. Türkçe kaynaklarda ya yalnızca "malloc yasak, bitti" cümlesi ya da
+  Türkçe olmayan allocator akademik makalelerinin özet çevirileri var. Sentez yok.
+- Yayın kapısı durumu: son yayın 2026-06-24 (35 gün); `min_yayin_araligi_gun = 2`
+  şartı çok fazlasıyla sağlanmış. Açık PR sayısı yüksek (48) — çoğu havuzdaki
+  konuları tüketmiş durumda. Bu çalıştırmada havuz **dışına** çıkıldı ve yeni bir
+  konu üretildi.
+- Depth element: (a) DO-332 yedi endişesinin allocator başına tablo eşleştirmesi,
+  (b) TLSF FL/SL bitmap algoritmasının satır satır anatomisi + worst-case O(1)
+  çıkarımı, (c) fragmentation bound için matematiksel türetme, (d) mermaid karar
+  ağacı. Bölüm 7'nin "matematiksel türetme" ve "standart yorumu" öğelerini birden
+  taşıyor.
+- Açık PR incelemesi: 2026-05-21 çalıştırmasında flag edilen #50 ve #51 hâlâ açık;
+  yeni açılan PR'lar arasında **çok sayıda `volatile` konulu duplicate** var
+  (#134, #155, #156, #157, #159 — 5 farklı PR aynı konuyu farklı açılardan işliyor).
+  İnceleyen kişinin dikkatine — muhtemelen 1-2 tanesi konsolide edilip diğerleri
+  kapatılabilir.
