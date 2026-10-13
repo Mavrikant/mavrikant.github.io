@@ -14,12 +14,12 @@ Altmış ay deneyim, en az üç farklı sistem mühendisliği alanında on iki a
 
 12 Ağustos 2026 Çarşamba günü başvurumun onaylandığı e-posta geldiğinde, hedefi koyduğum günden bu yana yaklaşık on dokuz ay geçmişti. Hedefi 2025'in ilk aylarında koymuş, altı ay hazırlanmış ve 10 Ocak 2026'da sınava girmiştim. Süreçte beni en çok zorlayan şey sınav olmadı. Asıl zorlandığım kısım, yıllardır yaptığım işi başkasının anlayabileceği ve doğrulayabileceği bir dille anlatmaktı.
 
-Bu yazıda kendi CSEP sürecimi anlatıyorum: sınava nasıl hazırlandığımı, Türkiye'deki kâğıt oturumundaki deneyimimi, başvuru formunda DO-178C deneyimimi sistem mühendisliği alanlarıyla nasıl eşlediğimi ve referans sürecini. Yazının sonunda da INCOSE'nin herkese açık dizininden Türkiye'deki sertifika sahiplerine dair çıkardığım tabloyu paylaşıyorum.
+Bu yazıda kendi CSEP sürecimi anlatıyorum: sınava nasıl hazırlandığımı, Türkiye'deki kâğıt oturumundaki deneyimimi, başvuru formunda DO-178C deneyimimi sistem mühendisliği alanlarıyla nasıl eşlediğimi ve referans sürecini. Yazının sonunda da INCOSE'un herkese açık dizininden Türkiye'deki sertifika sahiplerine dair çıkardığım tabloyu paylaşıyorum.
 
 Sistem mühendisliğinin kendisini daha önce [Sistem Mühendisliği Nedir?]({% post_url 2026-05-26-sistem-muhendisligi-nedir %}) yazısında ele almıştım. Bu yazı ise sistem mühendisliğini anlatmaktan çok, bu alandaki deneyimimi nasıl belgelediğime ve CSEP sürecinde neler yaşadığıma odaklanıyor.
 
-> **Güncellik notu:** Buradaki kurallar, ücretler ve formlar benim 2025–2026'da yaşadığım süreci yansıtıyor. Daha sonra SEP süreci değişmiş olabilir. Başvururken INCOSE'nin güncel [sertifikasyon sayfasını](https://www.incose.org/certification/) mutlaka kontrol edin.
-> 
+> **Güncellik notu:** Buradaki kurallar, ücretler ve formlar benim 2025–2026'da yaşadığım süreci yansıtıyor. Daha sonra SEP süreci değişmiş olabilir. Başvururken INCOSE'un güncel [sertifikasyon sayfasını](https://www.incose.org/certification/) mutlaka kontrol edin.
+
 ---
 
 ## INCOSE ve SEP Programı
@@ -62,7 +62,7 @@ INCOSE bilgi sınavı çoktan seçmeli ve **tek bilgi kaynağı** SE Handbook. A
 
 Sınavda 100 adet çoktan seçmeli soru var. Bunlara ek olarak, ileride kullanılıp kullanılmayacağına karar verilmek üzere denenen ve puanlanmayan ek sorular da gelebiliyor. Normalde sınav süresi soru başına bir dakika. Ana dili İngilizce olmayan adaylara 30 dakika ek süre veriliyor. Benim girdiğim **10 Ocak 2026 tarihli Türkiye oturumunda 100 soru için 130 dakika** verildi. Bu süre, soruları sakin okumak ve şüpheli bıraktığım sorulara geri dönmek için benim açımdan fazlasıyla yeterliydi.
 
-INCOSE sabit bir geçme yüzdesi yayımlamıyor. Kendi [açıklamasına göre](https://www.incose.org/certification/about-the-certification-program/certification-blog/certification-blog/2022/03/18/how-does-exam-scoring-work) her sınav versiyonunun geçme puanı aynı değil; daha zor bir soru setinde daha düşük bir puan da geçmeye yetebiliyor. Sorular Handbook'un geneline yayılıyor; "şu bölümü calismasam olur" deme lüksünüz yok.
+INCOSE sabit bir geçme yüzdesi yayımlamıyor. Kendi [açıklamasına göre](https://www.incose.org/certification/about-the-certification-program/certification-blog/certification-blog/2022/03/18/how-does-exam-scoring-work) her sınav versiyonunun geçme puanı aynı değil; daha zor bir soru setinde daha düşük bir puan da geçmeye yetebiliyor. Sorular Handbook'un geneline yayılıyor; "şu bölümü çalışmasam olur" deme lüksünüz yok.
 
 Sınava istediğiniz sıklıkta da giremiyorsunuz: INCOSE on iki aylık dönem içinde [en fazla üç deneme](https://www.incose.org/certification/start-your-certification/taking-the-exam/) hakkı tanıyor ve her deneme ayrıca ücretlendiriliyor.
 
@@ -104,16 +104,16 @@ Toplam hazırlık sürem **altı ay** oldu. Haftada birkaç akşam, birkaç saat
 
 Handbook'un **Türkçe çevirisi dördüncü baskıya ait** ve Savunma Sanayii Akademi Yayınları tarafından *Sistem Mühendisliği El Kitabı — Sistem Ömür Devri Yönetimi ve Faaliyetleri için Kılavuz* adıyla yayımlanmış durumda. Onu da bir kez okudum. Aviyonikte "verification" ve "validation" gibi terimleri zaten İngilizce kullanıyoruz; ama "enabling system", "system of interest" ya da "measures of effectiveness" gibi kavramların Türkçesini okumak, kavramı gerçekten anlayıp anlamadığımı test etmenin iyi bir yoluydu.
 
-Yine de **Türkçe çeviri bir sınav kaynağı değil.** Sınav artık beşinci baskıdan soruluyor ve iki baskı arasında yapısal farklar var. Ayrıca sınav İngilizce ve şıklarda Handbook'un tam ifadeleri kullanıliyor; kavramı Türkçe bilmek, doğru İngilizce ifadeyi seçmenizi garanti etmiyor.
+Yine de **Türkçe çeviri bir sınav kaynağı değil.** Sınav artık beşinci baskıdan soruluyor ve iki baskı arasında yapısal farklar var. Ayrıca sınav İngilizce ve şıklarda Handbook'un tam ifadeleri kullanılıyor; kavramı Türkçe bilmek, doğru İngilizce ifadeyi seçmenizi garanti etmiyor.
 
 ### Soru çözmenin yeri
 
 Üçüncü kaynağım Udemy'deki pratik soru setleriydi. Bunlar bilgi öğretmiyor, ama iki işe yarıyor:
 
 - **Soru formatını tanımak.** INCOSE soruları çoğu zaman "hangisi *en iyi* tanımlar" ya da "hangisi *değildir*" biçiminde kuruluyor. Şıkların üçü makul görünüyor, biri Handbook'un tam ifadesi. Bu kalıba alışmak sınavda ciddi zaman kazandırıyor.
-- **Boşlukları tespit etmek.** Yanlış cevapladığım her soruda Handbook'un ilgili bölümüne dönüp işaret koydum. Hazırlığın son aylarinda kitabın tamamını değil, bu işaretli bölümlere odaklandim.
+- **Boşlukları tespit etmek.** Yanlış cevapladığım her soruda Handbook'un ilgili bölümüne dönüp işaret koydum. Hazırlığın son aylarında kitabın tamamını değil, bu işaretli bölümlere odaklandım.
 
-Piyasadaki pratik soruların hiçbiri gerçek sınav sorularının birebir yansıması değil; bazıları eski baskıya dayanıyor, bazılarının cevabi tartışmalı. Doğru cevap oranınızı bir hedef olarak değil, zayıf bölümlerinizi bulmak için bir araç olarak kullanın. Kullandığım setlerin bağlantıları [Kaynaklar](#kaynaklar) bölümünde.
+Piyasadaki pratik soruların hiçbiri gerçek sınav sorularının birebir yansıması değil; bazıları eski baskıya dayanıyor, bazılarının cevabı tartışmalı. Doğru cevap oranınızı bir hedef olarak değil, zayıf bölümlerinizi bulmak için bir araç olarak kullanın. Kullandığım setlerin bağlantıları [Kaynaklar](#kaynaklar) bölümünde.
 
 ---
 
@@ -130,7 +130,7 @@ Kâğıt oturum, INCOSE prosedürleri gereği oldukça kurallı ilerliyor. Benim
 
 Sınav sabahı sürpriz yaşamamak için:
 
-- **Sınav İngilizce, ama yanınızda sözlük bulundurabiliyorsunuz.** Sözlük girişte kontrol ediliyor. Yine de terminolojiyi Handbook'un kendi ifadeleriyle öğrenmek şart: sözlük "requirement" kelimesini çevirir, "measure of effectiveness" ile "measure of performance" arasındaki farkı anlatmaz. Kisisel tavsiyem sozluk ile vakit kaybetmemeniz yonunde. 
+- **Sınav İngilizce, ama yanınızda sözlük bulundurabiliyorsunuz.** Sözlük girişte kontrol ediliyor. Yine de terminolojiyi Handbook'un kendi ifadeleriyle öğrenmek şart: sözlük "requirement" kelimesini çevirir, "measure of effectiveness" ile "measure of performance" arasındaki farkı anlatmaz. Kişisel tavsiyem, sözlükle vakit kaybetmemeniz yönünde.
 - **Kimlik ve sözlük dışında hiçbir doküman içeri alınmıyor;** telefonunuz girişte teslim ediliyor.
 - **Kurşun kalem ve silgiyi kendiniz götürüyorsunuz.**
 - **Araçla gidecekseniz plaka kaydını önceden yaptırın.** Teknokent araç kartı olmayanların plaka bilgisini önceden organizasyona bildirip nizamiye kaydı yaptırması gerekiyordu; aksi hâlde araçla giriş mümkün olmuyordu.
@@ -143,7 +143,7 @@ Sınav sabahı sürpriz yaşamamak için:
 
 Sınavı geçmek size bir sertifika değil, yalnızca “bilgi yeterliliği” kazandırıyor. Benim için asıl zor kısım bundan sonra başladı. Çevremde daha önce SEP sertifikası almış kimse yoktu; sınavdan sonra ne yapmam gerektiğini kendi başıma çözmem gerekti.
 
-> **Not:** Bu bölüm Temmuz–Ağustos 2026'daki akışı anlatıyor. Benim başvurumda Form 1 doldurulup yüklenen bir **PDF dosyasıydı**; Ağustos 2026'daki portal güncellemesinden sonra form doğrudan **web sitesi üzerinden** dolduruluyor. Güncel surec için INCOSE'un [CSEP başvuru sayfasını](https://www.incose.org/certification/start-your-certification/applying-for-csep/) esas alın.
+> **Not:** Bu bölüm Temmuz–Ağustos 2026'daki akışı anlatıyor. Benim başvurumda Form 1 doldurulup yüklenen bir **PDF dosyasıydı**; Ağustos 2026'daki portal güncellemesinden sonra form doğrudan **web sitesi üzerinden** dolduruluyor. Güncel süreç için INCOSE'un [CSEP başvuru sayfasını](https://www.incose.org/certification/start-your-certification/applying-for-csep/) esas alın.
 
 ### 60 ay ve üç alan kuralı
 
@@ -189,7 +189,7 @@ Bu şartla, DO-178C dünyasındaki işlerin karşılıkları büyük ölçüde m
 
 Örneğin DAL A seviyesinde bir projede çalışmış olmak tek başına Specialty Engineering deneyimi oluşturmuyor; emniyet, güvenilirlik ya da güvenlik analizini gerçekten sizin yapmış olmanız gerekiyor. Aynı şekilde bir test altyapısı geliştirmiş olmak kendiliğinden kurumsal etkinleştirme faaliyeti değil; o altyapının kurumsal düzeyde bir yetkinliğe dönüşmesinde rol almış olmanız gerekiyor.
 
-Eşlemeyi yaparken abartmamak önemli. Değerlendirme komitesi, beyan ettiğiniz alanların referanslarınızın doğrulayabileceği türden olmasını bekliyor. Bir alanda 12 ayı zorlayarak doldurmaktansa, gerçekten güçlü olduğunuz üç alanı sağlam biçimde belgelemek daha iyi. Formu yazarken her satır için kendime şunu sordum: "Referansım bu cümleyi okusa, gözünü kırpmadan onaylar mı?" Cevap tereddütlüyse cümleyi ya yumuşattım ya çıkardım. Bu bakis acisiyla **Form 1** basvuru formunu doldurdum.
+Eşlemeyi yaparken abartmamak önemli. Değerlendirme komitesi, beyan ettiğiniz alanların referanslarınızın doğrulayabileceği türden olmasını bekliyor. Bir alanda 12 ayı zorlayarak doldurmaktansa, gerçekten güçlü olduğunuz üç alanı sağlam biçimde belgelemek daha iyi. Formu yazarken her satır için kendime şunu sordum: "Referansım bu cümleyi okusa, gözünü kırpmadan onaylar mı?" Cevap tereddütlüyse cümleyi ya yumuşattım ya çıkardım. Bu bakış açısıyla **Form 1** başvuru formunu doldurdum.
 
 ---
 
@@ -239,7 +239,7 @@ INCOSE'un [fiyat sayfasına](https://www.incose.org/certification/pricing-requir
 
 **Üyelik.** Ekim 2025'ten beri zorunlu olmasa da üye olmayanların ödediği ücretler belirgin biçimde yüksek. Türkiye için ayrıca bir avantaj var: INCOSE bireysel üyelik aidatını ülkelerin satın alma gücüne göre kademelendiriyor. Türkiye "Regular PPP 2" kademesinde ve yıllık aidat, standart 175 USD yerine **130 USD**. Bu fark yüzünden sürece üye olarak başlamak benim için açık ara daha ucuzdu.
 
-**On iki ay kuralı.** Sınavı ocakta geçmiştim ama başvuruyu ancak temmuzda gönderdim; aradaki altı ayın sebebi 350 USD başvuru ücretiydi. Bilgi sinavinin gecerlilik suresi 12 ay. Bu nedenle daha fazla otelemeden basvurumu yaptim.
+**On iki ay kuralı.** Sınavı ocakta geçmiştim ama başvuruyu ancak temmuzda gönderdim; aradaki altı ayın sebebi 350 USD başvuru ücretiydi. Bilgi sınavının geçerlilik süresi 12 ay. Bu nedenle daha fazla ötelemeden başvurumu yaptım.
 
 ---
 
@@ -269,7 +269,7 @@ xychart-beta
 
 ### Son üç yıl kendi arasında karşılaştırılabilir
 
-Grafiğin sağ tarafı bu çarpıklıktan etkilenmiyor. CSEP döngüsü üç yıl olduğu için 2024 ve 2025 gruplari henüz bir yenileme eşiğinden geçmedi; ilk yenileme tarihleri 2027 ve 2028. Son üç yılın sayıları **2024'te 27, 2025'te 31, 2026'nın ilk sekiz ayında 34 kayıt.** Son sütun sekiz ayı kapsadığı hâlde 2025'in tamamını geçmiş durumda.
+Grafiğin sağ tarafı bu çarpıklıktan etkilenmiyor. CSEP döngüsü üç yıl olduğu için 2024 ve 2025 grupları henüz bir yenileme eşiğinden geçmedi; ilk yenileme tarihleri 2027 ve 2028. Son üç yılın sayıları **2024'te 27, 2025'te 31, 2026'nın ilk sekiz ayında 34 kayıt.** Son sütun sekiz ayı kapsadığı hâlde 2025'in tamamını geçmiş durumda.
 
 ### Sertifika ağırlıklı olarak savunma ve havacılıkta
 
