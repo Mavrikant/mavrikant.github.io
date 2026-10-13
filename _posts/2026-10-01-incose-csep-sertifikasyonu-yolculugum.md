@@ -70,7 +70,7 @@ Sınava istediğiniz sıklıkta da giremiyorsunuz: INCOSE on iki aylık dönem i
 
 INCOSE sınavı iki formatta sunuyor: kendi bilgisayarınızdan, canlı uzaktan gözetmenli olarak ya da INCOSE onaylı bir gözetmenin denetiminde **kâğıt üzerinde**. 
 
-İlk planım online sınava daha erken bir tarihte girmekti. Sonra Türkiye'de düzenlenen kâğıt oturumun ücretinin **1.000 TL** olduğunu gördüm; online sınavın 80 USD olduğu düşünülünce aradaki fark birkaç ay beklemeye değerdi. Hazırlığı biraz uzattım ve **10 Ocak 2026'da ODTÜ Teknokent'teki SSB Akademi binasında sınava girdim.** Türkiye'de bu organizasyonu INCOSE TR şubesi ve SSB Akademi yürütüyor; SSB Akademi ayrıca CSEP sınavına hazırlık eğitimi de düzenliyor.
+İlk planım online sınava daha erken bir tarihte girmekti. Sonra Türkiye'de düzenlenen kâğıt oturumun ücretinin **1.000 TL** olduğunu gördüm; online sınavın 80 USD olduğu düşünülünce aradaki fark birkaç ay beklemeye değerdi. Hazırlığı biraz uzattım ve **10 Ocak 2026'da ODTÜ Teknokent'teki Savunma Sanayii Akademi binasında sınava girdim.** Türkiye'de bu organizasyonu INCOSE TR şubesi ve Savunma Sanayii Akademi yürütüyor; Akademi ayrıca CSEP sınavına hazırlık eğitimi de düzenliyor.
 
 Kâğıt formatın benim hoşuma giden bir avantajı daha vardı: Uzun ve iç içe geçmiş şıkları kalemle elemek daha kolay. Elediğim şıkların üstünü çizip emin olmadığım soruları sona bırakabildim. Dezavantajı ise takvim kısıtı. Kâğıt oturumlar sizin hazır olduğunuz zamana göre değil, belirli tarihlere göre açılıyor. Benim için en yakın oturum ocak ayındaydı. Ekim ayında hazır olsaydım da ocağı bekleyecektim. Ocak ayındaki oturuma hazır olmasaydım da bir sonraki oturumu beklemek veya daha pahalı online sınava girmek zorunda kalacaktım.
 
@@ -84,9 +84,9 @@ Toplam hazırlık sürem **altı ay** oldu. Haftada birkaç akşam, birkaç saat
 
 ![INCOSE Systems Engineering Handbook, beşinci baskı](/img/posts/incose-se-handbook-v5.webp){:style="display:block; margin-left:auto; margin-right:auto; max-width:320px" .img-fluid}
 
-*INCOSE Systems Engineering Handbook, 5. baskı — sınavın tek resmî kaynağı. Kapak görseli INCOSE ve Wiley'e aittir.*
+*INCOSE Systems Engineering Handbook, beşinci baskı — sınavın tek resmî kaynağı. Kapak görseli INCOSE ve Wiley'e aittir.*
 
-**İngilizce SE Handbook v5'i baştan sona iki kez okudum.** Hazırlığın belkemiği buydu, ama iki okuma birbirinin tekrarı değildi.
+**İngilizce SE Handbook v5'i baştan sona iki kez okudum.** Hazırlığın bel kemiği buydu, ama iki okuma birbirinin tekrarı değildi.
 
 İlk okumada satır satır ilerledim ve önemli gördüğüm her yerin altını çizdim; "önce bir göz gezdireyim" turu değildi.
 
@@ -174,7 +174,7 @@ Deneyim **tam zamana eşdeğer ay** cinsinden yazılıyor. Aynı takvim dönemin
 
 ## DO-178C Deneyimini SE Diline Çevirmek
 
-Benim gibi yazılım kökenli mühendisler için başvurunun asıl zihinsel egzersizi, yaptığı işi INCOSE'nin diline çevirmek. Bu çeviride akılda tutulması gereken ilk kural şu: **DO-178C kapsamında yapılan her faaliyet otomatik olarak sistem mühendisliği deneyimi sayılmıyor.** Bir faaliyeti ancak fiilen siz yürüttüyseniz beyan edebilirsiniz.
+Benim gibi yazılım kökenli mühendisler için başvurunun asıl zihinsel egzersizi, yaptıkları işi INCOSE'nin diline çevirmek. Bu çeviride akılda tutulması gereken ilk kural şu: **DO-178C kapsamında yapılan her faaliyet otomatik olarak sistem mühendisliği deneyimi sayılmıyor.** Bir faaliyeti ancak fiilen siz yürüttüyseniz beyan edebilirsiniz.
 
 Bu şartla, DO-178C dünyasındaki işlerin karşılıkları büyük ölçüde mevcut:
 
@@ -200,10 +200,10 @@ Eşlemeyi yaparken abartmamak önemli. Değerlendirme komitesi, beyan ettiğiniz
 CSEP başvurusunda deneyiminizi [referanslar](https://www.incose.org/certification/start-your-certification/being-a-reference/) doğruluyor. Kurallar özetle şöyle:
 
 - Referans en az beş yıllık iş deneyimine sahip olmalı ve sistem mühendisliğine aşina olmalı; yani yaptığınız işin gerçekten sistem mühendisliği olduğunu değerlendirebilecek durumda olmalı. Sistem mühendisi ya da INCOSE üyesi olması şart değil.
-- Referans, beyan ettiğiniz deneyim döneminde sizi tanıyor ve o işten haberdar olmalı. Sonradan tanıştığınız biri o dönemi doğrulayamaz.
+- Referans, beyan ettiğiniz deneyim döneminde sizi tanımalı ve o işten haberdar olmalı. Sonradan tanıştığınız biri o dönemi doğrulayamaz.
 - Referansların toplamı, gerekli deneyimin tamamını kapsamalı. 
 - Referansın sizinle akrabalık bağı olmamalı.
-- **INCOSE mevcut ve eski yöneticileri ile müşteri tarafını ideal referans olarak tanımlıyor; astlarınız referans olamıyor.** Benim dosyamda da en güçlü doğrulama, ilgili dönemdeki yöneticilerimden geldi.
+- **INCOSE mevcut ve eski yöneticilerinizi ve müşteri tarafını ideal referans olarak tanımlıyor; astlarınız referans olamıyor.** Benim dosyamda da en güçlü doğrulama, ilgili dönemdeki yöneticilerimden geldi.
 
 Ben asgari sayıyla yetinmedim: **çalıştığım son üç iş yerinden toplam sekiz referans** verdim. İki sebebi vardı. Birincisi kapsama: beyan ettiğim altmış aylık deneyim tek bir projeye ya da tek bir yöneticinin görüş alanına sığmıyordu; her dönemi ve her deneyim alanını o işi bizzat gören biriyle eşleştirmek istedim. İkincisi dayanıklılık: referansların formu doldurması gönüllülüğe dayanıyor, araya izin, yoğunluk ya da unutma girebiliyor. Sekiz kişiden birkaçı gecikse bile dosya eksik kalmıyordu.
 
@@ -228,7 +228,7 @@ Benim takvimim ve harcamalarım aşağıda. Bu bir CSEP fiyat listesi değil; ik
 | 2025 başı | CSEP hedefinin konması | — |
 | 18 Mart 2025 | INCOSE üyeliği — Regular PPP 2 | 130 USD |
 | Temmuz 2025 | Handbook v5 ile hazırlığa başlangıç | — |
-| 10 Ocak 2026 | Bilgi sınavı, SSB Akademi / ODTÜ Teknokent | 1.000 TL |
+| 10 Ocak 2026 | Bilgi sınavı, Savunma Sanayii Akademi / ODTÜ Teknokent | 1.000 TL |
 | 9 Mart 2026 | Üyelik yenileme | 130 USD |
 | Ocak–Temmuz 2026 | Başvuru dosyasının hazırlanması ve ertelenmesi | — |
 | 19 Temmuz 2026 | CSEP başvurusunun gönderilmesi | 350 USD |
@@ -239,7 +239,7 @@ INCOSE'nin [fiyat sayfasına](https://www.incose.org/certification/pricing-requi
 
 **Üyelik.** Ekim 2025'ten beri zorunlu olmasa da üye olmayanların ödediği ücretler belirgin biçimde yüksek. Türkiye için ayrıca bir avantaj var: INCOSE bireysel üyelik aidatını ülkelerin satın alma gücüne göre kademelendiriyor. Türkiye "Regular PPP 2" kademesinde ve yıllık aidat, standart 175 USD yerine **130 USD**. Bu fark yüzünden sürece üye olarak başlamak benim için açık ara daha ucuzdu.
 
-**On iki ay kuralı.** Sınavı ocakta geçmiştim ama başvuruyu ancak temmuzda gönderdim; aradaki altı ayın sebebi 350 USD başvuru ücretiydi. Bilgi sınavının geçerlilik süresi 12 ay. Bu nedenle daha fazla ötelemeden başvurumu yaptım.
+**On iki ay kuralı.** Sınavı ocakta geçmiştim ama başvuruyu ancak temmuzda gönderdim; aradaki altı ayın sebebi 350 USD başvuru ücretiydi. Bilgi sınavının geçerlilik süresi on iki ay. Bu nedenle daha fazla ötelemeden başvurumu yaptım.
 
 ---
 
@@ -307,7 +307,7 @@ CSEP aldım diye ertesi gün kariyerimde dramatik bir değişiklik olmadı. Beni
 
 **Uluslararası ortak projeler.** Çok ortaklı programlarda ortak bir terminolojiye sahip olmak işi kolaylaştırıyor; CSEP yerel deneyimi uluslararası ölçekte tanınan bir formata çeviriyor.
 
-Kişisel görüşüm, sistem seviyesinde sorumluluk almayacak/almak istemeyen bir rolde çalışan biri için harcanan zaman ve paranın karşılığını geri almanın zor olduğu yönünde.
+Kişisel görüşüm, sistem seviyesinde sorumluluk almayacak ya da almak istemeyen bir rolde çalışan biri için harcanan zaman ve paranın karşılığını almanın zor olduğu yönünde.
 
 ---
 
@@ -346,7 +346,7 @@ Aynı yolu yürüyecek olanlara kolaylıklar dilerim. Süreçle ilgili sorusu ol
 - [FORM 4B: Reference for CSEP/ESEP](https://forms.office.com/pages/responsepage.aspx?id=k6cjNVAORka4CyXYO9fylpdnShHiChFNk4sYt-8URhFUN1RNUE5NSDdKTlRVSkNZVFdYRkwyOVlPSC4u&route=shorturl) — referansların dolduracağı dijital mektup
 - [How to Register for an Exam, online ve kâğıt](https://www.incose.org/wp-content/uploads/2026/08/EXAM_HowToRegister_Online-and-Paper.pdf)
 - [How to Renew or Reinstate a SEP, 2026](https://www.incose.org/wp-content/uploads/2026/07/SEP_HowToReneworReinstate_2026.pdf)
-- INCOSE, *Systems Engineering Handbook*, 5. baskı, Wiley — sınavın tek resmî kaynağı
+- INCOSE, *Systems Engineering Handbook*, beşinci baskı, Wiley — sınavın tek resmî kaynağı
 - INCOSE, *Sistem Mühendisliği El Kitabı*, dördüncü versiyon, Savunma Sanayii Akademi Yayınları — Türkçe çeviri
 - [Savunma Sanayii Akademi](https://www.ssa.gov.tr/) — CSEP hazırlık eğitimi ve Türkiye'deki kâğıt sınav oturumu
 - [INCOSE TR](https://tr.linkedin.com/company/incosetr)
