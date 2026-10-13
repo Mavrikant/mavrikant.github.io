@@ -14,11 +14,11 @@ Altmış ay deneyim, en az üç farklı sistem mühendisliği alanında on iki a
 
 12 Ağustos 2026 Çarşamba günü başvurumun onaylandığı e-posta geldiğinde, hedefi koyduğum günden bu yana yaklaşık on dokuz ay geçmişti. Hedefi 2025'in ilk aylarında koymuş, altı ay hazırlanmış ve 10 Ocak 2026'da sınava girmiştim. Süreçte beni en çok zorlayan şey sınav olmadı. Asıl zorlandığım kısım, yıllardır yaptığım işi başkasının anlayabileceği ve doğrulayabileceği bir dille anlatmaktı.
 
-Bu yazıda kendi CSEP sürecimi anlatıyorum: sınava nasıl hazırlandığımı, Türkiye'deki kâğıt oturumundaki deneyimimi, başvuru formunda DO-178C deneyimimi sistem mühendisliği alanlarıyla nasıl eşlediğimi ve referans sürecini. Yazının sonunda da INCOSE'un herkese açık dizininden Türkiye'deki sertifika sahiplerine dair çıkardığım tabloyu paylaşıyorum.
+Bu yazıda kendi CSEP sürecimi anlatıyorum: sınava nasıl hazırlandığımı, Türkiye'deki kâğıt oturumundaki deneyimimi, başvuru formunda DO-178C deneyimimi sistem mühendisliği alanlarıyla nasıl eşlediğimi ve referans sürecini. Yazının sonunda da INCOSE'nin herkese açık dizininden Türkiye'deki sertifika sahiplerine dair çıkardığım tabloyu paylaşıyorum.
 
 Sistem mühendisliğinin kendisini daha önce [Sistem Mühendisliği Nedir?]({% post_url 2026-05-26-sistem-muhendisligi-nedir %}) yazısında ele almıştım. Bu yazı ise sistem mühendisliğini anlatmaktan çok, bu alandaki deneyimimi nasıl belgelediğime ve CSEP sürecinde neler yaşadığıma odaklanıyor.
 
-> **Güncellik notu:** Buradaki kurallar, ücretler ve formlar benim 2025–2026'da yaşadığım süreci yansıtıyor. Daha sonra SEP süreci değişmiş olabilir. Başvururken INCOSE'un güncel [sertifikasyon sayfasını](https://www.incose.org/certification/) mutlaka kontrol edin.
+> **Güncellik notu:** Buradaki kurallar, ücretler ve formlar benim 2025–2026'da yaşadığım süreci yansıtıyor. Daha sonra SEP süreci değişmiş olabilir. Başvururken INCOSE'nin güncel [sertifikasyon sayfasını](https://www.incose.org/certification/) mutlaka kontrol edin.
 
 ---
 
@@ -26,7 +26,7 @@ Sistem mühendisliğinin kendisini daha önce [Sistem Mühendisliği Nedir?]({% 
 
 **INCOSE** (International Council on Systems Engineering), 1990'da kurulmuş, sistem mühendisliğinin uluslararası meslek örgütü. En bilinen yayını **Systems Engineering Handbook**: ISO/IEC/IEEE 15288'deki yaşam döngüsü süreçlerinin uygulanmasına yönelik kapsamlı bir rehber ve bilgi sınavının temel kaynağı.
 
-INCOSE'un **SEP** (Systems Engineering Professional) sertifikasyon programı üç kademeden oluşuyor:
+INCOSE'nin **SEP** (Systems Engineering Professional) sertifikasyon programı üç kademeden oluşuyor:
 
 | Kademe | Deneyim şartı | Bilgi sınavı | Referans | Geçerlilik | Başvuru ücreti (üye) |
 |---|---|---|---|---|---|
@@ -134,7 +134,7 @@ Sınav sabahı sürpriz yaşamamak için:
 - **Kimlik ve sözlük dışında hiçbir doküman içeri alınmıyor;** telefonunuz girişte teslim ediliyor.
 - **Kurşun kalem ve silgiyi kendiniz götürüyorsunuz.**
 - **Araçla gidecekseniz plaka kaydını önceden yaptırın.** Teknokent araç kartı olmayanların plaka bilgisini önceden organizasyona bildirip nizamiye kaydı yaptırması gerekiyordu; aksi hâlde araçla giriş mümkün olmuyordu.
-- **Sonuçlar oturumun sonunda açıklanmıyor ve puan verilmiyor.** Sonuç INCOSE tarafından e-postayla iletiliyor; ne zaman geleceği INCOSE'un yoğunluğuna bağlı. E-postada yalnızca başarılı olup olmadığınız yazıyor, kaç doğru yaptığınız paylaşılmıyor. Geçme eşiğine ne kadar yaklaştığınızı hiç öğrenmediğiniz için hazırlığı rahat bir payla planlamak mantıklı.
+- **Sonuçlar oturumun sonunda açıklanmıyor ve puan verilmiyor.** Sonuç INCOSE tarafından e-postayla iletiliyor; ne zaman geleceği INCOSE'nin yoğunluğuna bağlı. E-postada yalnızca başarılı olup olmadığınız yazıyor, kaç doğru yaptığınız paylaşılmıyor. Geçme eşiğine ne kadar yaklaştığınızı hiç öğrenmediğiniz için hazırlığı rahat bir payla planlamak mantıklı.
 - **Sonucun paylaşımı için rıza isteniyor.** INCOSE TR ekibi, sonucunuzun kendileriyle paylaşılabilmesi için bir rıza metni imzalatıyor; amaç, sınavı geçen adayları başvuru adımına yönlendirebilmek.
 
 ---
@@ -143,7 +143,7 @@ Sınav sabahı sürpriz yaşamamak için:
 
 Sınavı geçmek size bir sertifika değil, yalnızca “bilgi yeterliliği” kazandırıyor. Benim için asıl zor kısım bundan sonra başladı. Çevremde daha önce SEP sertifikası almış kimse yoktu; sınavdan sonra ne yapmam gerektiğini kendi başıma çözmem gerekti.
 
-> **Not:** Bu bölüm Temmuz–Ağustos 2026'daki akışı anlatıyor. Benim başvurumda Form 1 doldurulup yüklenen bir **PDF dosyasıydı**; Ağustos 2026'daki portal güncellemesinden sonra form doğrudan **web sitesi üzerinden** dolduruluyor. Güncel süreç için INCOSE'un [CSEP başvuru sayfasını](https://www.incose.org/certification/start-your-certification/applying-for-csep/) esas alın.
+> **Not:** Bu bölüm Temmuz–Ağustos 2026'daki akışı anlatıyor. Benim başvurumda Form 1 doldurulup yüklenen bir **PDF dosyasıydı**; Ağustos 2026'daki portal güncellemesinden sonra form doğrudan **web sitesi üzerinden** dolduruluyor. Güncel süreç için INCOSE'nin [CSEP başvuru sayfasını](https://www.incose.org/certification/start-your-certification/applying-for-csep/) esas alın.
 
 ### 60 ay ve üç alan kuralı
 
@@ -174,7 +174,7 @@ Deneyim **tam zamana eşdeğer ay** cinsinden yazılıyor. Aynı takvim dönemin
 
 ## DO-178C Deneyimini SE Diline Çevirmek
 
-Benim gibi yazılım kökenli mühendisler için başvurunun asıl zihinsel egzersizi, yaptığı işi INCOSE'un diline çevirmek. Bu çeviride akılda tutulması gereken ilk kural şu: **DO-178C kapsamında yapılan her faaliyet otomatik olarak sistem mühendisliği deneyimi sayılmıyor.** Bir faaliyeti ancak fiilen siz yürüttüyseniz beyan edebilirsiniz.
+Benim gibi yazılım kökenli mühendisler için başvurunun asıl zihinsel egzersizi, yaptığı işi INCOSE'nin diline çevirmek. Bu çeviride akılda tutulması gereken ilk kural şu: **DO-178C kapsamında yapılan her faaliyet otomatik olarak sistem mühendisliği deneyimi sayılmıyor.** Bir faaliyeti ancak fiilen siz yürüttüyseniz beyan edebilirsiniz.
 
 Bu şartla, DO-178C dünyasındaki işlerin karşılıkları büyük ölçüde mevcut:
 
@@ -212,10 +212,10 @@ Ben asgari sayıyla yetinmedim: **çalıştığım son üç iş yerinden toplam 
 Başvuruyu gönderdikten hemen sonra INCOSE Sertifikasyon Ofisi'nden bir "sonraki adımlar" e-postası geliyor. Süreç şöyle işledi:
 
 1. **Tarama.** Sertifikasyon Ofisi önce başvuru formunuzun şartlara uygun olup olmadığını kontrol ediyor. Bu onay gelmeden referans adımına geçmiyorsunuz.
-2. **Referanslar.** Form uygun bulununca her referansınıza iki şey gönderiyorsunuz: doldurduğunuz **Form 1**'in bir kopyası ve **dijital referans mektubunun** ([Form 4B](https://forms.office.com/pages/responsepage.aspx?id=k6cjNVAORka4CyXYO9fylpdnShHiChFNk4sYt-8URhFUN1RNUE5NSDdKTlRVSkNZVFdYRkwyOVlPSC4u&route=shorturl)) bağlantısı. Form 1'in kopyası şart, çünkü referans sizin hangi dönemde hangi alanda ne beyan ettiğinizi görmeden mektubu dolduramıyor. Mektup gönderildiğinde doğrudan INCOSE'a ulaşıyor. Formun doldurulması yaklaşık **30 dakika** sürüyor; bunu referansınıza baştan söyleyin.
+2. **Referanslar.** Form uygun bulununca her referansınıza iki şey gönderiyorsunuz: doldurduğunuz **Form 1**'in bir kopyası ve **dijital referans mektubunun** ([Form 4B](https://forms.office.com/pages/responsepage.aspx?id=k6cjNVAORka4CyXYO9fylpdnShHiChFNk4sYt-8URhFUN1RNUE5NSDdKTlRVSkNZVFdYRkwyOVlPSC4u&route=shorturl)) bağlantısı. Form 1'in kopyası şart, çünkü referans sizin hangi dönemde hangi alanda ne beyan ettiğinizi görmeden mektubu dolduramıyor. Mektup gönderildiğinde doğrudan INCOSE'ye ulaşıyor. Formun doldurulması yaklaşık **30 dakika** sürüyor; bunu referansınıza baştan söyleyin.
 3. **Değerlendirme ve karar.** Referans mektupları tamamlanınca dosya değerlendiriliyor ve sonuç e-postayla bildiriliyor.
 
-Süreç başlayana kadar referanslarla INCOSE’un ilgileneceğini sanıyordum. Öyle değilmiş: **referans sürecini siz başlatıyor, siz takip ediyorsunuz**. Bu yüzden referanslarınıza önceden haber vermek süreci en çok hızlandıran şey. Başvurumun yaklaşık üç buçuk haftada sonuçlanmasını büyük ölçüde referanslarımın mektupları hızla doldurmasına borçluyum.
+Süreç başlayana kadar referanslarla INCOSE'nin ilgileneceğini sanıyordum. Öyle değilmiş: **referans sürecini siz başlatıyor, siz takip ediyorsunuz**. Bu yüzden referanslarınıza önceden haber vermek süreci en çok hızlandıran şey. Başvurumun yaklaşık üç buçuk haftada sonuçlanmasını büyük ölçüde referanslarımın mektupları hızla doldurmasına borçluyum.
 
 ---
 
@@ -235,7 +235,7 @@ Benim takvimim ve harcamalarım aşağıda. Bu bir CSEP fiyat listesi değil; ik
 | 12 Ağustos 2026 | Başvurunun onaylanması | — |
 | | **Toplam** | **610 USD + 1.000 TL** |
 
-INCOSE'un [fiyat sayfasına](https://www.incose.org/certification/pricing-requirements/) göre üyeler için CSEP başvuru ücreti 350 USD, online sınav 80 USD; kâğıt sınavın ücreti ise oturumu düzenleyen etkinliğe göre değişiyor.
+INCOSE'nin [fiyat sayfasına](https://www.incose.org/certification/pricing-requirements/) göre üyeler için CSEP başvuru ücreti 350 USD, online sınav 80 USD; kâğıt sınavın ücreti ise oturumu düzenleyen etkinliğe göre değişiyor.
 
 **Üyelik.** Ekim 2025'ten beri zorunlu olmasa da üye olmayanların ödediği ücretler belirgin biçimde yüksek. Türkiye için ayrıca bir avantaj var: INCOSE bireysel üyelik aidatını ülkelerin satın alma gücüne göre kademelendiriyor. Türkiye "Regular PPP 2" kademesinde ve yıllık aidat, standart 175 USD yerine **130 USD**. Bu fark yüzünden sürece üye olarak başlamak benim için açık ara daha ucuzdu.
 
@@ -253,7 +253,7 @@ INCOSE bir **PDU kayıt defteri** tutmanızı ve gerektiğinde belgeleyebilmeniz
 
 ## INCOSE Dizininde Türkiye
 
-Süreci bitirdikten sonra Türkiye'de benim gibi kaç kişi var merak ettim. INCOSE'un herkese açık [SEP dizini](https://www.incose.org/certification/certification-faqs/sep-directory/) bu soruya kısmen cevap veriyor. Bu bölümdeki bütün sayılar, **28 Ağustos 2026'da aldığım anlık görüntüye** dayanıyor; dizin sürekli değiştiği için bugün baktığınızda farklı sayılar görürsünüz. O tarihte Türkiye merkezli **141 kayıt** listeleniyordu.
+Süreci bitirdikten sonra Türkiye'de benim gibi kaç kişi var merak ettim. INCOSE'nin herkese açık [SEP dizini](https://www.incose.org/certification/certification-faqs/sep-directory/) bu soruya kısmen cevap veriyor. Bu bölümdeki bütün sayılar, **28 Ağustos 2026'da aldığım anlık görüntüye** dayanıyor; dizin sürekli değiştiği için bugün baktığınızda farklı sayılar görürsünüz. O tarihte Türkiye merkezli **141 kayıt** listeleniyordu.
 
 ### Dizin neyi göstermiyor?
 
@@ -354,7 +354,7 @@ Aynı yolu yürüyecek olanlara kolaylıklar dilerim. Süreçle ilgili sorusu ol
 
 ### Pratik soru setleri (Udemy)
 
-Hazırlık sırasında kullandığım soru setleri. Hiçbiri INCOSE'un resmî kaynağı değil. Ben bunları daha çok eksiklerimi görmek için kullandım; tek başına hazırlık kaynağı olarak kullanmadım.
+Hazırlık sırasında kullandığım soru setleri. Hiçbiri INCOSE'nin resmî kaynağı değil. Ben bunları daha çok eksiklerimi görmek için kullandım; tek başına hazırlık kaynağı olarak kullanmadım.
 
 - [INCOSE ASEP/CSEP Practice Knowledge Exams, 5th Ed.](https://www.udemy.com/course/incose-asepcsep-practice-knowledge-exams-5th-ed)
 - [INCOSE Certified Systems Engineering Professional, CSEP](https://www.udemy.com/course/incose-certified-systems-engineering-professional-csep)

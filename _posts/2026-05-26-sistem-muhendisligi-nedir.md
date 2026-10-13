@@ -151,7 +151,7 @@ Tarihsel olarak alanın kökleri 1950–60'lı yıllarda ABD savunma ve uzay pro
 
 Geleneksel sistem mühendisliği büyük ölçüde **belge merkezlidir**: yüzlerce sayfalık gereksinim dokümanları, Word ve Excel tablolarında yönetilen izlenebilirlik matrisleri. Bu yaklaşımın sorunu, belgelerin kolayca tutarsız hâle gelmesi ve büyük sistemlerde senkronizasyonun imkânsızlaşmasıdır.
 
-**Model Tabanlı Sistem Mühendisliği** (*Model-Based Systems Engineering*, MBSE) bu soruna yanıttır. INCOSE'un tanımıyla MBSE; gereksinim, tasarım, analiz, doğrulama ve onaylama faaliyetlerini desteklemek için modellemenin, kavramsal tasarım aşamasından itibaren resmî olarak kullanılmasıdır.
+**Model Tabanlı Sistem Mühendisliği** (*Model-Based Systems Engineering*, MBSE) bu soruna yanıttır. INCOSE'nin tanımıyla MBSE; gereksinim, tasarım, analiz, doğrulama ve onaylama faaliyetlerini desteklemek için modellemenin, kavramsal tasarım aşamasından itibaren resmî olarak kullanılmasıdır.
 
 MBSE'de "tek doğru kaynak" artık belgeler değil, **tutarlı bir sistem modelidir**. Bu modelden gereksinim raporları, arayüz tanımları ve diyagramlar otomatik türetilir. Modelin standart dili çoğunlukla **SysML**'dir (Systems Modeling Language); son yıllarda olgunlaşan **SysML v2**, dilin ifade gücünü ve araç birlikte çalışabilirliğini önemli ölçüde artırmıştır.
 
