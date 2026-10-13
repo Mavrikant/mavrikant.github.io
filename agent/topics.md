@@ -22,6 +22,11 @@
 - [x] Ölçüm Belirsizliği (GUM Annex F + NCSLI RP-12) — 2026-05-06 — alan: metroloji
 - [x] Kalibrasyon Zincirinin Tepesi (Birincil Standartlar) — 2026-05-07 — alan: metroloji
 - [x] Renode ile Zynq7000 Simülasyonu — 2026-05-14 — alan: gömülü/SoC
+- [x] Bandpass Sampling — 2026-05-21 — alan: RF/DSP
+- [x] Sistem Mühendisliği Nedir — 2026-05-26 — alan: sistem
+- [x] Kalman Filtresi ve EKF — 2026-06-02 — alan: navigasyon/füzyon
+- [x] Coupling'i Dengelemek — 2026-06-04 — alan: yazılım tasarımı
+- [x] Antikırılgan: Belirsizlikten Güç Alan Sistemler — 2026-06-24 — alan: sistem/felsefe
 
 ## Açık PR'lar (insan inceleme bekleniyor)
 
@@ -39,16 +44,39 @@
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- **32 Bitlik Akümülatör, 72 dBc'lik Spektrum: NCO'da Faz Kırpma Spurları** —
+  dal: `post/2026-08-31-nco-faz-kirpma-spurlari`,
+  dosya: `_posts/2026-08-31-nco-faz-kirpma-spurlari.md`,
+  durum: PR açıldı (2026-08-31) — alan: RF/DSP + FPGA.
+  Derinlik öğesi: matematiksel türetme (−6.02·P kuralının kapalı formdan çıkarılması)
+  + tekrar üretilebilir NumPy deneyi (tahmin ile ölçüm 0.03 dB içinde).
 
-## Reddedildi (bu çalıştırma)
+## Reddedildi
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- _(2026-05-21 çalıştırması: konu reddedilmedi.)_
+- **2026-08-31 çalıştırması:** ARINC 429 anatomisi (açık PR #173 MIL-STD-1553B ve
+  #165 AFDX ile aynı alt-alanda, veri yolu üçlemesi olur — doygun); FMEA pratikte
+  (#96 Fault Tree Analizi ile örtüşme riski); DO-178C ölü kod / etkisizleştirilmiş
+  kod ayrımı (açık PR listesinde sekiz ayrı DO-178C yazısı var, alan rotasyonu
+  ihlali); ADC apertür jitteri ve ENOB (yayındaki bandpass sampling yazısıyla
+  çakışma riski).
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
+
+> **UYARI (2026-08-31):** Depoda ~67 açık PR var ve aşağıdaki havuzun neredeyse
+> tamamı bunlar tarafından tüketilmiş durumda — MC/DC, CRC, VOR, ILS, GIC, linker
+> script, watchdog, WCET, volatile/_Atomic, MPU-MMU, lockstep, endianness, DMA-cache,
+> sabit nokta, Kalman tuzakları, DO-330, DO-326A, FTA, deterministik build, Cortex-A
+> boot ve IQ örnekleme için hepsi açık PR mevcut. **Yeni konu seçmeden önce mutlaka
+> `gh pr list --repo Mavrikant/mavrikant.github.io --state open --limit 100` çalıştır**
+> ve başlıkları oku; aşağıdaki listeyi tek başına güvenilir kabul etme.
+>
+> Halen boşta görünen alanlar: DDS/NCO ailesinin geri kalanı (CORDIC, genlik
+> kuantalaması, Taylor düzeltmesi), ARP4761A (2023 revizyonu) ve ortak sebep analizi
+> (zonal / particular risks / CMA), IEEE 1588 PTP ve IRIG-B ile zaman senkronizasyonu,
+> DO-333 formel yöntemler, çok hızlı örnekleme dönüşümü (polyphase decimation),
+> gereksinim tabanlı test: normal vs robustness test durumları.
+
 
 Aşağıdaki adaylar, mevcut yazılar + açık PR'larla çakışmıyor ve Bölüm 6 kriterlerini
 geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
