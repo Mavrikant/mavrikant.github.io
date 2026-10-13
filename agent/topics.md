@@ -22,6 +22,10 @@
 - [x] Ölçüm Belirsizliği (GUM Annex F + NCSLI RP-12) — 2026-05-06 — alan: metroloji
 - [x] Kalibrasyon Zincirinin Tepesi (Birincil Standartlar) — 2026-05-07 — alan: metroloji
 - [x] Renode ile Zynq7000 Simülasyonu — 2026-05-14 — alan: gömülü/SoC
+- [x] Bandpass Sampling — 2026-05-21 — alan: RF/DSP
+- [x] Sistem Mühendisliği Nedir — 2026-05-26 — alan: sistem
+- [x] Kalman Filtresi — 2026-06-02 — alan: navigasyon/füzyon
+- [x] Coupling Dengesi — 2026-06-04 — alan: yazılım tasarımı
 
 ## Açık PR'lar (insan inceleme bekleniyor)
 
@@ -39,14 +43,16 @@
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- **MPU vs MMU: ARM'da Donanım Tabanlı Bellek Korumasının Anatomisi** —
+  dal: `post/2026-06-14-mpu-vs-mmu-arm-bellek-korumasi`,
+  dosya: `_posts/2026-06-14-mpu-vs-mmu-arm-bellek-korumasi.md`,
+  durum: PR açılacak (bu çalıştırma) — alan: gömülü/ARM/sertifikasyon.
+  Derinlik öğesi: PMSAv7 192 KB region için SRD matematiği + Cortex-M4 stack guard
+  region kayıt değerleri.
 
 ## Reddedildi (bu çalıştırma)
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- _(bu çalıştırmada konu reddedilmedi; MPU vs MMU havuzdan seçildi.)_
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 
@@ -83,6 +89,7 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
       alan: navigasyon/füzyon — basit IMU örneği + Python kodu
 - [ ] **Sabit nokta (Q-format) aritmetik: Cortex-M0'da FPU yokken DSP nasıl yapılır?** —
       alan: gömülü/DSP — Q15/Q31 örnekleri, overflow yönetimi
+      _(NOT: açık PR #114 ile çakışıyor — gelecek çalıştırmada düşülmeli.)_
 
 ### Orta öncelikli (kovaya alındı)
 
@@ -98,6 +105,11 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - [ ] Lockstep CPU mimarisi: TI Hercules / NXP MPC57xx örnekleri
 - [ ] MPU vs MMU: hangisi ne zaman, FreeRTOS-MPU örneği
 - [ ] Statik analiz neyi yakalar / kaçırır: somut C kodu üzerinden Coverity/Polyspace
+- [ ] ARM Cortex-A boot: reset vektöründen `main()`'e (linker script #90 ile sınırı net çiz)
+- [ ] Cortex-M NVIC tail-chaining ve late arrival — kesme gecikmesi analizi
+- [ ] AXI4 protokolü: handshake, burst, QoS — DMA correctness'in alt katmanı
+- [ ] Sabit nokta NEON SIMD: aviyonik DSP'de ne zaman değer var
+- [ ] Determinist build: SOURCE_DATE_EPOCH, reproducible toolchain
 - [ ] Radyasyona dayanıklı yazılım: SEU, TMR, scrubbing
 - [ ] ADS-B sinyal yapısı: PPM modülasyon, mesaj formatı
 - [ ] FIR vs IIR: faz cevabı, hesaplama maliyeti, stabilite
@@ -108,7 +120,27 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - [ ] DO-254 donanım sertifikasyonu (yazarın uzmanlığı ağırlıklı yazılım tarafında)
 - [ ] İzlenebilirlik matrisi (klasik konu, derinlik çıkarmak zor)
 
-## Notlar (bu çalıştırma — 2026-05-21)
+## Notlar (bu çalıştırma — 2026-06-14)
+
+- **MPU vs MMU** seçildi (alan: gömülü/ARM/sertifikasyon). Son üç yayın (sistem
+  mühendisliği, Kalman, coupling) ve son üç PR alanı (volatile/MMIO, Allan
+  deviation, SEU/ECC) ile alan örtüşmesi yok; ayrıca açık PR havuzunda da
+  MPU/MMU başlığı yok.
+- "Bu konu neden Türkçe'de zor bulunuyor" yanıtı: PMSAv7 hizalama kuralları ARMv7-M
+  ARM Part B3'te dağınık; PMSAv8'in PMSAv7'den farkı yeni ve Türkçe karşılaştırması
+  yok; ARINC 653 robust partitioning ile MPU bağlantısı akademik/sertifikasyon
+  literatüründe kapalı kalmış. Sentez Türkçe'de boş.
+- Derinlik öğesi: (1) PMSAv7 256 KB region + SRD ile 192 KB efektif region
+  matematiği; (2) Cortex-M4 stack guard region için `MPU_RNR/RBAR/RASR` somut
+  kayıt değerleri. İkisi de "kavramsal değil sayısal" düzeyde.
+- Topics ledger açık PR sayısı patlamış durumda (27+ açık PR). İnsan onaylayıcının
+  öncelik sırasını belirlemesi yararlı olur; eski PR'ların (özellikle #50, #51, #54,
+  #67) hâlâ inceleme bekliyor olması dikkat çekici.
+- Yayın kapısı durumu: son yayın 2026-06-04 (coupling); bugün 2026-06-14, aradan
+  10 gün geçti — `min_yayin_araligi_gun = 2` şartı fazlasıyla sağlandı. Bu
+  çalıştırmada yeni PR açıldı.
+
+## Notlar (önceki çalıştırma — 2026-05-21)
 
 - **Bandpass Sampling** seçildi (alan: RF/DSP). Önceki çalıştırmaların ardından
   açılan PR'lar son üç alt-alanı (sertifikasyon #77, navigasyon #78, yazılım
