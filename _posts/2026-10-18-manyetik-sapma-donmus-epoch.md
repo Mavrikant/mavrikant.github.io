@@ -7,7 +7,7 @@ layout: post
 lang: tr
 mermaid: true
 categories: [aviyonik]
-tags: [aviyonik, navigasyon, emniyet-kritik, sertifikasyon]
+tags: [navigasyon, emniyet-kritik, sertifikasyon]
 ---
 
 Modern bir yolcu uçağının göstergesinde okuduğunuz manyetik başlık, bir ölçüm değildir. Atalesel referans birimi gerçek (true) başlığı jiroskoplarıyla hesaplar, sonra bu değerden gömülü bir tablodan okuduğu manyetik sapmayı çıkarır ve sonucu "manyetik başlık" adıyla uçuş kontrol sistemine, FMS'e ve göstergelere dağıtır. Yani pusula iğnesi yoktur; bir veritabanı sorgusu vardır.
