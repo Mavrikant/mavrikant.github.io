@@ -616,6 +616,10 @@ header.masthead {
   }
 }
 
+// Oscilloscope-style signal trace (cyan + faint amber), shared by the blueprint
+// masthead and the footer. Stretched to the box with preserveAspectRatio=none.
+$signal-trace: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 120' preserveAspectRatio='none'%3E%3Cpath d='M0 70L16 74L32 76L48 76L64 75L80 73L96 72L112 71L128 71L144 73L160 76L176 80L192 82L208 83L224 83L240 83L256 80L272 74L288 65L304 56L320 50L336 45L352 40L368 35L384 33L400 36L416 41L432 45L448 45L464 45L480 48L496 52L512 52L528 46L544 41L560 43L576 49L592 53L608 53L624 55L640 64L656 78L672 87L688 87L704 85L720 87L736 92L752 91L768 82L784 70L800 66L816 69L832 70L848 65L864 58L880 58L896 65L912 69L928 65L944 55L960 50L976 49L992 48L1008 40L1024 29L1040 25L1056 28L1072 33L1088 36L1104 38L1120 43L1136 52L1152 62L1168 66L1184 66L1200 66L1216 68L1232 70L1248 69L1264 67L1280 66L1296 69L1312 74L1328 78L1344 81L1360 84L1376 87L1392 89L1408 88L1424 83L1440 77L1456 70L1472 62L1488 55L1504 48L1520 43L1536 41L1552 40L1568 41L1584 43L1600 45' fill='none' stroke='rgba(78,201,214,0.5)' stroke-width='1.5' vector-effect='non-scaling-stroke'/%3E%3Cpath d='M0 92L20 94L40 95L60 92L80 88L100 83L120 78L140 76L160 75L180 76L200 78L220 78L240 76L260 72L280 67L300 64L320 62L340 63L360 65L380 69L400 71L420 72L440 70L460 68L480 67L500 67L520 70L540 74L560 80L580 84L600 86L620 86L640 85L660 84L680 84L700 86L720 90L740 94L760 98L780 99L800 97L820 94L840 90L860 88L880 88L900 89L920 91L940 92L960 91L980 88L1000 83L1020 78L1040 74L1060 72L1080 72L1100 74L1120 75L1140 75L1160 72L1180 68L1200 64L1220 62L1240 61L1260 64L1280 67L1300 71L1320 73L1340 73L1360 72L1380 70L1400 69L1420 71L1440 75L1460 80L1480 85L1500 88L1520 90L1540 89L1560 87L1580 86L1600 87' fill='none' stroke='rgba(242,184,75,0.3)' stroke-width='1' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+
 // -----------------------------------------------------------------------------
 // Blueprint masthead — home and listing pages (no photo). Navy canvas, faint
 // engineering grid and a soft signal trace: the same visual language as the
@@ -656,7 +660,7 @@ header.masthead.masthead--blueprint {
     height: clamp(36px, 8vh, 72px);
     z-index: -1;
     opacity: 0.8;
-    background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 120' preserveAspectRatio='none'%3E%3Cpath d='M0 70L16 74L32 76L48 76L64 75L80 73L96 72L112 71L128 71L144 73L160 76L176 80L192 82L208 83L224 83L240 83L256 80L272 74L288 65L304 56L320 50L336 45L352 40L368 35L384 33L400 36L416 41L432 45L448 45L464 45L480 48L496 52L512 52L528 46L544 41L560 43L576 49L592 53L608 53L624 55L640 64L656 78L672 87L688 87L704 85L720 87L736 92L752 91L768 82L784 70L800 66L816 69L832 70L848 65L864 58L880 58L896 65L912 69L928 65L944 55L960 50L976 49L992 48L1008 40L1024 29L1040 25L1056 28L1072 33L1088 36L1104 38L1120 43L1136 52L1152 62L1168 66L1184 66L1200 66L1216 68L1232 70L1248 69L1264 67L1280 66L1296 69L1312 74L1328 78L1344 81L1360 84L1376 87L1392 89L1408 88L1424 83L1440 77L1456 70L1472 62L1488 55L1504 48L1520 43L1536 41L1552 40L1568 41L1584 43L1600 45' fill='none' stroke='rgba(78,201,214,0.5)' stroke-width='1.5' vector-effect='non-scaling-stroke'/%3E%3Cpath d='M0 92L20 94L40 95L60 92L80 88L100 83L120 78L140 76L160 75L180 76L200 78L220 78L240 76L260 72L280 67L300 64L320 62L340 63L360 65L380 69L400 71L420 72L440 70L460 68L480 67L500 67L520 70L540 74L560 80L580 84L600 86L620 86L640 85L660 84L680 84L700 86L720 90L740 94L760 98L780 99L800 97L820 94L840 90L860 88L880 88L900 89L920 91L940 92L960 91L980 88L1000 83L1020 78L1040 74L1060 72L1080 72L1100 74L1120 75L1140 75L1160 72L1180 68L1200 64L1220 62L1240 61L1260 64L1280 67L1300 71L1320 73L1340 73L1360 72L1380 70L1400 69L1420 71L1440 75L1460 80L1480 85L1500 88L1520 90L1540 89L1560 87L1580 86L1600 87' fill='none' stroke='rgba(242,184,75,0.3)' stroke-width='1' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E") no-repeat center / 100% 100%;
+    background: $signal-trace no-repeat center / 100% 100%;
     pointer-events: none;
   }
 
@@ -1836,25 +1840,66 @@ article {
 }
 
 // =============================================================================
-// Modern Footer — token-driven, follows the active theme
+// Footer — the same navy blueprint as the home/listing masthead (identical in
+// both themes): faint grid fading down from a signal trace along the top edge.
 // =============================================================================
 .footer-modern {
   font-family: var(--font-sans);
   font-size: 0.9rem;
 
+  // Accent on the navy surfaces: the light-theme accent (#00788F) is too dark
+  // there, so the footer always uses the cyan of the covers.
+  --footer-accent: #4ec9d6;
+  --footer-accent-ink: #0a121e;
+
   .footer-main {
-    background-color: var(--color-overlay-dark);
-    padding: 64px 0 44px;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: 80px 0 48px;
     color: var(--color-on-dark-muted);
+    background-color: var(--color-blueprint-bg-deep);
+    background-image:
+      radial-gradient(ellipse 50% 90% at 18% 0%, rgba(0, 150, 180, 0.16), transparent 70%),
+      linear-gradient(180deg, var(--color-blueprint-bg) 0%, var(--color-blueprint-bg-deep) 100%);
+
+    // Grid, strongest under the trace and fading out towards the bottom.
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background-image:
+        linear-gradient(var(--color-blueprint-grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--color-blueprint-grid) 1px, transparent 1px);
+      background-size: 32px 32px;
+      background-position: center top;
+      -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 75%);
+      mask-image: linear-gradient(180deg, #000 0%, transparent 75%);
+    }
+
+    // Signal trace along the top edge — continues the masthead's motif.
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 6px;
+      height: 44px;
+      z-index: -1;
+      opacity: 0.7;
+      background: $signal-trace no-repeat center / 100% 100%;
+      pointer-events: none;
+    }
 
     .footer-heading {
       color: var(--color-on-dark);
       margin-top: 0;
-      font-size: 0.85rem;
+      font-size: 0.8rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      margin-bottom: 1.3rem;
+      margin-bottom: 1.2rem;
       position: relative;
       padding-bottom: 0.7rem;
 
@@ -1863,19 +1908,22 @@ article {
         position: absolute;
         left: 0;
         bottom: 0;
-        width: 28px;
+        width: 24px;
         height: 2px;
-        background-color: var(--color-accent);
+        background-color: var(--footer-accent);
         border-radius: 2px;
       }
     }
+
+    a:focus-visible { outline-color: var(--footer-accent); }
 
     .footer-description {
       color: var(--color-on-dark-muted);
       font-family: var(--font-serif);
       line-height: 1.7;
-      margin: 0;
+      margin: 0 0 1.25rem;
       font-size: 0.95rem;
+      max-width: 34ch;
     }
 
     .footer-links {
@@ -1899,49 +1947,158 @@ article {
         transition: color 0.2s ease, transform 0.2s ease;
         display: inline-block;
 
-        &:hover {
-          color: var(--color-accent);
-          transform: translateX(4px);
+        &:hover,
+        &:focus {
+          color: var(--footer-accent);
+          transform: translateX(3px);
         }
       }
     }
 
     .footer-social {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
       padding: 0;
       margin: 0;
 
-      .list-inline-item { margin-right: 0.4rem; }
+      .list-inline-item { margin: 0; }
 
       a {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 38px;
-        height: 38px;
+        width: 40px;
+        height: 40px;
         border-radius: 50%;
-        background-color: rgba(255, 255, 255, 0.06);
+        background-color: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(110, 160, 200, 0.22);
         color: var(--color-on-dark-muted);
         text-decoration: none;
-        transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+        transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
 
-        &:hover {
-          background-color: var(--color-accent);
-          color: var(--color-accent-contrast);
+        &:hover,
+        &:focus {
+          background-color: var(--footer-accent);
+          border-color: var(--footer-accent);
+          color: var(--footer-accent-ink);
           transform: translateY(-3px);
         }
       }
     }
+
+    .footer-note {
+      margin: 1.1rem 0 0;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: var(--color-on-dark-muted);
+
+      a {
+        color: var(--footer-accent);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+    }
+  }
+
+  // Brand block: avatar + name + role, linking to the about page.
+  .footer-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 1rem;
+    text-decoration: none;
+
+    &__avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(78, 201, 214, 0.55);
+      box-shadow: 0 0 0 4px rgba(78, 201, 214, 0.08);
+      flex-shrink: 0;
+    }
+
+    &__text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.3;
+    }
+
+    &__name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--color-on-dark);
+      letter-spacing: -0.01em;
+    }
+
+    &__role {
+      font-size: 0.8rem;
+      color: var(--color-on-dark-muted);
+    }
+
+    &:hover .footer-brand__name,
+    &:focus .footer-brand__name { color: var(--footer-accent); }
+  }
+
+  // Outline pill CTA (RSS).
+  .footer-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.42rem 0.95rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--footer-accent);
+    border: 1px solid rgba(78, 201, 214, 0.45);
+    border-radius: 999px;
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+
+    &:hover,
+    &:focus {
+      color: var(--footer-accent-ink);
+      background-color: var(--footer-accent);
+      border-color: var(--footer-accent);
+    }
   }
 
   .footer-bottom {
-    background-color: var(--color-overlay-darker);
+    background-color: #04070c;
+    border-top: 1px solid rgba(110, 160, 200, 0.12);
     padding: 16px 0;
     color: var(--color-on-dark-subtle);
+    font-size: 0.82rem;
 
-    .copyright {
-      color: var(--color-on-dark-subtle);
-      font-size: 0.82rem;
-      margin: 0;
+    &__inner {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 0.4rem 1.5rem;
+
+      @media (max-width: 575.98px) {
+        justify-content: center;
+        text-align: center;
+      }
+    }
+
+    // Phones: keep the last line clear of the floating scroll-to-top button.
+    @media (max-width: 575.98px) {
+      padding-bottom: 76px;
+    }
+
+    p { margin: 0; }
+
+    .copyright { color: var(--color-on-dark-subtle); }
+
+    &__meta a {
+      color: var(--color-on-dark-muted);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+
+      &:hover,
+      &:focus { color: var(--footer-accent); }
     }
   }
 }

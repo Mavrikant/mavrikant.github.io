@@ -7,8 +7,19 @@
 
         <!-- About column -->
         <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
-          <h2 class="footer-heading">{{ site.title | escape }}</h2>
+          <h2 class="sr-only">{{ site.title | escape }}</h2>
+          <a class="footer-brand" href="{{ "/hakkimda" | relative_url }}">
+            <img class="footer-brand__avatar" src="{{ '/img/me-animated.webp' | relative_url }}" alt="" width="52" height="52" loading="lazy" decoding="async">
+            <span class="footer-brand__text">
+              <span class="footer-brand__name">{{ site.author | escape }}</span>
+              <span class="footer-brand__role">Kıdemli Aviyonik Yazılım Tasarım Mühendisi</span>
+            </span>
+          </a>
           <p class="footer-description">{{ site.description | escape }}</p>
+          <a class="footer-cta" href="{{ "/feed.xml" | relative_url }}">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9"/><path d="M4 4a16 16 0 0 1 16 16"/><circle cx="5" cy="19" r="1"/></svg>
+            RSS ile takip et
+          </a>
         </div>
 
         <!-- Quick links column -->
@@ -96,6 +107,7 @@
               </a>
             </li>
           </ul>
+          <p class="footer-note">Soru, öneri ya da iş birliği için <a href="{{ "/contact" | relative_url }}">iletişim formunu</a> kullanabilirsiniz.</p>
         </div>
 
       </div>
@@ -103,12 +115,9 @@
   </div>
 
   <div class="footer-bottom">
-    <div class="container">
-      <div class="row">
-        <div class="col-12 text-center">
-          <p class="copyright mb-0">&copy; {{ 'now' | date: "%Y" }} {{ site.author | escape }}. Tüm hakları saklıdır.</p>
-        </div>
-      </div>
+    <div class="container footer-bottom__inner">
+      <p class="copyright">&copy; {{ 'now' | date: "%Y" }} {{ site.author | escape }}. Tüm hakları saklıdır.</p>
+      <p class="footer-bottom__meta">Jekyll ile hazırlandı &middot; <a href="https://github.com/Mavrikant/mavrikant.github.io" target="_blank" rel="noopener">Kaynak kodu</a></p>
     </div>
   </div>
 </footer>
