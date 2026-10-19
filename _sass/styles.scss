@@ -2070,18 +2070,7 @@ article {
     color: var(--color-on-dark-subtle);
     font-size: 0.82rem;
 
-    &__inner {
-      display: flex;
-      flex-wrap: wrap;
-      align-items: center;
-      justify-content: space-between;
-      gap: 0.4rem 1.5rem;
-
-      @media (max-width: 575.98px) {
-        justify-content: center;
-        text-align: center;
-      }
-    }
+    &__inner { text-align: center; }
 
     // Phones: keep the last line clear of the floating scroll-to-top button.
     @media (max-width: 575.98px) {
@@ -2091,15 +2080,6 @@ article {
     p { margin: 0; }
 
     .copyright { color: var(--color-on-dark-subtle); }
-
-    &__meta a {
-      color: var(--color-on-dark-muted);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-
-      &:hover,
-      &:focus { color: var(--footer-accent); }
-    }
   }
 }
 
