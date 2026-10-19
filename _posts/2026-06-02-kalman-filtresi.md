@@ -89,7 +89,7 @@ $$
 Süreç gürültüsünü, modellenmemiş bir ivmeden gelir gibi düşünürüz (beyaz-gürültü ivme modeli):
 
 $$
-Q = q\begin{bmatrix} \tfrac{\Delta t^4}{4} & \tfrac{\Delta t^3}{2} \\[4pt] \tfrac{\Delta t^3}{2} & \Delta t^2 \end{bmatrix}, \qquad
+Q = q\begin{bmatrix} \tfrac{\Delta t^4}{4} & \tfrac{\Delta t^3}{2} \\\\[4pt] \tfrac{\Delta t^3}{2} & \Delta t^2 \end{bmatrix}, \qquad
 R = \begin{bmatrix} \sigma_{\text{ölç}}^2 \end{bmatrix}
 $$
 
@@ -316,7 +316,7 @@ Klasik örnek: orijine yerleştirilmiş bir sensör, hareketli bir cisme olan **
 
 $$
 h(x) = \begin{bmatrix} r \\ \theta \end{bmatrix}
-     = \begin{bmatrix} \sqrt{p_x^2 + p_y^2} \\[4pt] \operatorname{atan2}(p_y, p_x) \end{bmatrix}
+     = \begin{bmatrix} \sqrt{p_x^2 + p_y^2} \\\\[4pt] \operatorname{atan2}(p_y, p_x) \end{bmatrix}
 $$
 
 İçindeki karekök ve `atan2` yüzünden bu fonksiyon durumda doğrusal değildir. İşte sorun: Kalman filtresinin tüm matematiği "Gauss içeri girer, Gauss dışarı çıkar" varsayımına dayanır. Ama bir Gauss dağılımını doğrusal-olmayan bir fonksiyondan geçirirseniz, çıkan şey **artık Gauss değildir** — çarpık, eğri büğrü bir dağılımdır. `H` matrisi diye bir şey de yoktur; `h(x)` bir matrisle yazılamaz. Klasik KF burada çalışmaz.
@@ -362,7 +362,7 @@ Hız bileşenlerine göre türevler sıfırdır, çünkü ölçüm hıza doğrud
 $$
 H_k = \frac{\partial h}{\partial x}
 = \begin{bmatrix}
-\dfrac{p_x}{r} & \dfrac{p_y}{r} & 0 & 0 \\[8pt]
+\dfrac{p_x}{r} & \dfrac{p_y}{r} & 0 & 0 \\\\[8pt]
 -\dfrac{p_y}{r^2} & \dfrac{p_x}{r^2} & 0 & 0
 \end{bmatrix}
 $$
@@ -398,7 +398,7 @@ EKF döngüsü, klasik KF'ten yalnızca iki yerde ayrılır. Önce ölçüm mode
 $$
 F = \begin{bmatrix} 1&0&\Delta t&0 \\ 0&1&0&\Delta t \\ 0&0&1&0 \\ 0&0&0&1 \end{bmatrix}, \qquad
 Q = G\,\sigma_a^2\,G^{\mathsf{T}},\quad
-G = \begin{bmatrix} \tfrac{\Delta t^2}{2}&0 \\[2pt] 0&\tfrac{\Delta t^2}{2} \\[2pt] \Delta t&0 \\[2pt] 0&\Delta t \end{bmatrix}
+G = \begin{bmatrix} \tfrac{\Delta t^2}{2}&0 \\\\[2pt] 0&\tfrac{\Delta t^2}{2} \\\\[2pt] \Delta t&0 \\\\[2pt] 0&\Delta t \end{bmatrix}
 $$
 
 EKF adımları:

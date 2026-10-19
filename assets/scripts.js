@@ -275,8 +275,11 @@
   // Desktop navbar headroom: once the reader scrolls past it, the navbar is
   // parked just above the viewport (`is-fixed`) and slides back in on
   // scroll-up (`is-visible`), so search, theme and menu stay one flick away on
-  // long posts. Styles live under `#mainNav.is-fixed` in _sass/styles.scss.
-  // Below 992px the navbar is already pinned to the top by CSS.
+  // long posts. Styles live under `#mainNav.is-fixed` in _sass/styles.scss
+  // (keyboard focus inside the parked bar also reveals it, via :focus-visible).
+  // Below 992px the navbar keeps the theme's original behaviour: it sits at
+  // the top of the page and scrolls away (the scroll-to-top button brings the
+  // reader back to it).
   // ---------------------------------------------------------------------------
   function initNavbarScroll() {
     var nav = document.getElementById('mainNav');
@@ -285,15 +288,20 @@
     var lastY = window.scrollY;
     var ticking = false;
 
-    function reset() {
-      nav.classList.remove('is-fixed', 'is-visible');
+    // Park (but do not show) the bar when the page opens mid-scroll: a reload,
+    // a back navigation or an anchor link restores the scroll position before
+    // any scroll event, and a resize can cross the breakpoint mid-page.
+    function sync() {
+      lastY = window.scrollY;
+      nav.classList.remove('is-visible');
+      nav.classList.toggle('is-fixed', desktop.matches && lastY > nav.offsetHeight);
     }
 
     function update() {
       ticking = false;
       var y = window.scrollY;
       if (!desktop.matches) {
-        reset();
+        nav.classList.remove('is-fixed', 'is-visible');
         lastY = y;
         return;
       }
@@ -301,8 +309,11 @@
       if (Math.abs(y - lastY) < 4) return;
       if (y < lastY) {
         if (y > 0 && nav.classList.contains('is-fixed')) nav.classList.add('is-visible');
-        else reset();
+        else nav.classList.remove('is-fixed', 'is-visible');
       } else {
+        // Hiding or parking the bar must not leave an open "Projeler" menu
+        // hanging into the viewport.
+        closeNavDropdowns();
         nav.classList.remove('is-visible');
         if (y > nav.offsetHeight && !nav.classList.contains('is-fixed')) nav.classList.add('is-fixed');
       }
@@ -315,7 +326,9 @@
         window.requestAnimationFrame(update);
       }
     }, { passive: true });
-    if (desktop.addEventListener) desktop.addEventListener('change', reset);
+    window.addEventListener('pageshow', sync);
+    if (desktop.addEventListener) desktop.addEventListener('change', sync);
+    sync();
   }
 
   // ---------------------------------------------------------------------------
@@ -338,19 +351,19 @@
   // ---------------------------------------------------------------------------
   // Navbar dropdowns: vanilla JS replacement for Bootstrap 4 jQuery dropdown.
   // ---------------------------------------------------------------------------
+  function closeNavDropdowns() {
+    document.querySelectorAll('.nav-item.dropdown.show').forEach(function (el) {
+      el.classList.remove('show');
+      var t = el.querySelector('[data-toggle="dropdown"]');
+      if (t) t.setAttribute('aria-expanded', 'false');
+      var m = el.querySelector('.dropdown-menu');
+      if (m) m.classList.remove('show');
+    });
+  }
+
   function initNavbarDropdowns() {
     var toggles = document.querySelectorAll('[data-toggle="dropdown"]');
     if (!toggles.length) return;
-
-    function closeAllDropdowns() {
-      document.querySelectorAll('.nav-item.dropdown.show').forEach(function (el) {
-        el.classList.remove('show');
-        var t = el.querySelector('[data-toggle="dropdown"]');
-        if (t) t.setAttribute('aria-expanded', 'false');
-        var m = el.querySelector('.dropdown-menu');
-        if (m) m.classList.remove('show');
-      });
-    }
 
     toggles.forEach(function (toggle) {
       toggle.addEventListener('click', function (e) {
@@ -361,7 +374,7 @@
         var menu = parentLi.querySelector('.dropdown-menu');
         if (!menu) return;
         var isOpen = parentLi.classList.contains('show');
-        closeAllDropdowns();
+        closeNavDropdowns();
         if (!isOpen) {
           parentLi.classList.add('show');
           menu.classList.add('show');
@@ -371,7 +384,7 @@
     });
 
     // Close dropdowns when clicking outside
-    document.addEventListener('click', closeAllDropdowns);
+    document.addEventListener('click', closeNavDropdowns);
   }
 
   // ---------------------------------------------------------------------------

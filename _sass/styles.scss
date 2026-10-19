@@ -365,6 +365,13 @@ hr {
     text-transform: uppercase;
   }
 
+  // Between the lg breakpoint and ~1200px the vendor's 20px link padding plus
+  // the search/theme buttons overflow the container (theme toggle clipped).
+  @media only screen and (min-width: 992px) and (max-width: 1199.98px) {
+    .navbar-brand { padding-right: 12px; }
+    .navbar-nav > li.nav-item > a { padding-left: 12px; padding-right: 12px; }
+  }
+
   // Current-page indicator: short accent rule under the active link
   .navbar-nav > li.nav-item > a.active {
     position: relative;
@@ -393,6 +400,13 @@ hr {
   // one navbar-height above the top whatever its rendered height, so the
   // vendor's translate(0, 100%) lands it flush at top: 0.
   @media only screen and (min-width: 992px) {
+    // Keyboard focus moving into the parked bar (Shift+Tab from the page)
+    // slides it in, so the focused link is never off-screen. :focus-visible
+    // keeps a mouse click on a nav item from pinning the bar open.
+    &.is-fixed:has(:focus-visible) {
+      transform: translate3d(0, 100%, 0);
+    }
+
     &.is-fixed {
       top: auto;
       bottom: 100%;
@@ -1383,6 +1397,12 @@ div.highlight {
     font-size: 0.88rem;
     line-height: 1.6;
     border: none;
+
+    // Focusable for keyboard scrolling; the wrapper clips outside outlines.
+    &:focus-visible {
+      outline-offset: -2px;
+      border-radius: var(--radius-md);
+    }
   }
 
   code {
@@ -1765,6 +1785,10 @@ article {
       border-color: var(--color-accent);
     }
   }
+
+  // Hand-drawn demo canvases (bandpass) paint dark text on a transparent
+  // background; keep them on white like the Plotly figures.
+  canvas { background-color: #ffffff; }
 
   // Live read-out line under the sliders.
   .demo-status {
@@ -3131,6 +3155,19 @@ mjx-container[display="true"] {
 
   h2, h3, h4 { page-break-after: avoid; }
   blockquote, table { page-break-inside: avoid; }
+
+  // Blueprint mastheads print as plain titles (no navy, grid or trace).
+  header.masthead.masthead--blueprint {
+    background: none !important;
+
+    &::before,
+    &::after { display: none !important; }
+
+    .page-heading { padding: 1.5rem 0 0.5rem !important; }
+  }
+
+  .hero-intro__avatar,
+  .hero-intro__topics { display: none !important; }
 
   // Cards not yet scrolled into view would otherwise print blank.
   html.reveal-ready .post-card {
