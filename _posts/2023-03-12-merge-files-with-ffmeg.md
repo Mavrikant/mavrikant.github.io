@@ -1,6 +1,6 @@
 ---
 title: Merge Files with FFmpeg
-background: "/img/posts/7.webp"
+background: "/img/posts/ffmpeg-merge-cover.webp"
 date: '2023-03-12 08:00:00'
 layout: post
 lang: en

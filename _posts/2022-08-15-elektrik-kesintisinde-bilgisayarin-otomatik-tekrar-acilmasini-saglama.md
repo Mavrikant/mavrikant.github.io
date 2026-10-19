@@ -1,6 +1,6 @@
 ---
 title: Elektrik kesintisinde bilgisayarın otomatik tekrar açılmasını sağlama
-background: "/img/posts/3.webp"
+background: "/img/posts/elektrik-kesintisi-otomatik-acilma-cover.webp"
 date: '2022-08-15 12:00:00'
 layout: post
 lang: tr

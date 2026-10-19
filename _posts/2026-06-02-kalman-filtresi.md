@@ -1,7 +1,7 @@
 ---
 title: "Kalman Filtresi ve EKF: Gürültülü Veriden Gizli Durumu Kestirmek"
 subtitle: "The Kalman Filter and EKF: Estimating Hidden State from Noisy Data"
-background: "/img/posts/9.webp"
+background: "/img/posts/kalman-filtresi-cover.webp"
 date: '2026-06-02 09:00:00'
 layout: post
 lang: tr

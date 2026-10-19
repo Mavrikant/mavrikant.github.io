@@ -1,6 +1,6 @@
 ---
 title: Recursively Delete a Specific Folder
-background: "/img/posts/8.webp"
+background: "/img/posts/recursive-folder-delete-cover.webp"
 date: '2022-09-11 12:00:00'
 layout: post
 lang: en

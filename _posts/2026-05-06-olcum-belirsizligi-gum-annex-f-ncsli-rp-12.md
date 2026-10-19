@@ -1,7 +1,7 @@
 ---
 title: "Ölçtüğünüz Sayı Ne Kadar Doğru? Ölçüm Belirsizliği için Bir Rehber"
 subtitle: "How Accurate Is Your Measurement? A Guide to Measurement Uncertainty"
-background: "/img/posts/3.webp"
+background: "/img/posts/olcum-belirsizligi-cover.webp"
 date: '2026-05-06 09:00:00'
 layout: post
 lang: tr

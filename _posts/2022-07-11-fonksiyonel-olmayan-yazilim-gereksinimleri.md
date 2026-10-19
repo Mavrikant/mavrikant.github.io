@@ -1,7 +1,7 @@
 ---
 title: Fonksiyonel ve fonksiyonel olmayan yazılım gereksinimleri
 subtitle: Functional and Non-functional Requirements in Software Engineering
-background: "/img/posts/8.webp"
+background: "/img/posts/fonksiyonel-olmayan-gereksinimler-cover.webp"
 date: '2022-07-11 15:59:34'
 layout: post
 lang: tr

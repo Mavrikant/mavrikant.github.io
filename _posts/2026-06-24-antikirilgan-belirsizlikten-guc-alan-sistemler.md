@@ -1,7 +1,7 @@
 ---
 title: "Antikırılgan: Belirsizlikten ve Kaostan Güç Alan Sistemler"
 subtitle: "Antifragile: Building Systems That Gain From Disorder"
-background: "/img/posts/2.webp"
+background: "/img/posts/antikirilgan-cover.webp"
 date: '2026-06-24 09:00:00'
 layout: post
 lang: tr

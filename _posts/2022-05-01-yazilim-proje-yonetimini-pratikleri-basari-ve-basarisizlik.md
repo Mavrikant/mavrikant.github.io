@@ -1,6 +1,6 @@
 ---
 title: 'Yazılım Proje Yönetimi Pratikleri: Başarı ve Başarısızlık'
-background: "/img/posts/1.webp"
+background: "/img/posts/yazilim-proje-yonetimi-cover.webp"
 date: '2022-05-03 20:08:36'
 layout: post
 lang: tr
