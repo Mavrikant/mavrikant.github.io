@@ -6,14 +6,14 @@ layout: default
 {% if page.background %}
 <header class="masthead" style="background-image: url('{{ page.background | prepend: site.baseurl | replace: '//', '/' }}')">
   {% else %}
-  <header class="masthead">
+  <header class="masthead masthead--blueprint">
     {% endif %}
     <div class="overlay"></div>
     <div class="container">
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="page-heading hero-intro">
-            <img class="hero-intro__avatar" src="{{ '/img/me-animated.webp' | relative_url }}" alt="M. Serdar Karaman" width="112" height="112" loading="eager" fetchpriority="high">
+            <img class="hero-intro__avatar" src="{{ '/img/me-animated.webp' | relative_url }}" alt="M. Serdar Karaman" width="104" height="104" loading="eager" fetchpriority="high">
             <h1>{{ site.title }}</h1>
             {% if site.description %}
             <span class="subheading">{{ site.description }}</span>
@@ -40,10 +40,10 @@ layout: default
         <!-- Home Post List -->
         <div class="post-list">
           {% for post in site.posts limit : 5 %}
-          {% assign card_image = post.background | default: '/img/posts/1.webp' %}
+          {% assign card_image = post.background | default: '/img/og-default.webp' %}
           {% assign card_image_sm = card_image | replace: '/img/posts/', '/img/posts/sm/' %}
           <article class="post-card{% if forloop.first %} post-card--featured{% endif %}">
-            <a class="post-card__media" href="{{ post.url | remove: '.html' | prepend: site.baseurl | replace: '//', '/' }}" aria-label="{{ post.title | escape }}">
+            <a class="post-card__media" href="{{ post.url | remove: '.html' | prepend: site.baseurl | replace: '//', '/' }}" aria-label="{{ post.title | escape }}"{% if post.image_position %} style="--media-pos: {{ post.image_position }}"{% endif %}>
               {% if card_image contains '/img/posts/' %}
               <img src="{{ card_image | prepend: site.baseurl | replace: '//', '/' }}"
                    srcset="{{ card_image_sm | prepend: site.baseurl | replace: '//', '/' }} 768w, {{ card_image | prepend: site.baseurl | replace: '//', '/' }} 1600w"
@@ -81,6 +81,42 @@ layout: default
         <div class="pager-row pager-row--end">
           <a class="btn btn-primary" href="{{"/posts" | relative_url }}">Tüm yazılar &rarr;</a>
         </div>
+
+        <!-- Topics: each category with its latest posts not already listed above -->
+        {% assign recent_urls = "" %}
+        {% for post in site.posts limit: 5 %}{% assign recent_urls = recent_urls | append: post.url | append: "|" %}{% endfor %}
+        <section class="home-topics" aria-labelledby="home-topics-title">
+          <div class="home-topics__header">
+            <h2 class="home-topics__title" id="home-topics-title">Konulara göre keşfet</h2>
+            <a class="home-topics__all" href="{{ '/categories/' | relative_url }}">Tüm kategoriler &rarr;</a>
+          </div>
+          <div class="home-topics__grid">
+            {% for cat in site.data.categories %}
+            {% assign slug = cat[0] %}
+            {% assign info = cat[1] %}
+            {% assign cat_posts = site.categories[slug] %}
+            {% if cat_posts.size > 0 %}
+            <article class="topic-card">
+              <h3 class="topic-card__name">
+                <a href="{{ '/categories/' | relative_url }}#{{ slug }}">{{ info.name }}</a>
+                <span class="topic-card__count">{{ cat_posts.size }} yazı</span>
+              </h3>
+              {% if info.description %}<p class="topic-card__desc">{{ info.description }}</p>{% endif %}
+              <ul class="topic-card__posts">
+                {% assign shown = 0 %}
+                {% for post in cat_posts %}
+                {% if shown >= 2 %}{% break %}{% endif %}
+                {% assign probe = post.url | append: "|" %}
+                {% if recent_urls contains probe %}{% continue %}{% endif %}
+                <li><a href="{{ post.url | remove: '.html' | prepend: site.baseurl | replace: '//', '/' }}">{{ post.title }}</a></li>
+                {% assign shown = shown | plus: 1 %}
+                {% endfor %}
+              </ul>
+            </article>
+            {% endif %}
+            {% endfor %}
+          </div>
+        </section>
 
       </div>
     </div>

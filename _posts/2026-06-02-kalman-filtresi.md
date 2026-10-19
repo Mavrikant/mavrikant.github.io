@@ -280,15 +280,15 @@ Aşağıdaki simülatör gerçek zamanlı çalışır. Üç düğme var: ölçü
   <div class="card-body">
     <div class="form-row mb-2">
       <div class="col-md-4 mb-2">
-        <label class="mb-0 small">Ölçüm gürültüsü σ = <b id="kf-v-R">2.0</b></label>
+        <label for="kf-sl-R" class="mb-0 small">Ölçüm gürültüsü σ = <b id="kf-v-R">2.0</b></label>
         <input type="range" class="custom-range" id="kf-sl-R" min="0.2" max="8" value="2" step="0.1">
       </div>
       <div class="col-md-4 mb-2">
-        <label class="mb-0 small">Süreç gürültüsü q (filtre) = <b id="kf-v-Q">0.0100</b></label>
+        <label for="kf-sl-Q" class="mb-0 small">Süreç gürültüsü q (filtre) = <b id="kf-v-Q">0.0100</b></label>
         <input type="range" class="custom-range" id="kf-sl-Q" min="0.0001" max="1" value="0.01" step="0.0001">
       </div>
       <div class="col-md-4 mb-2">
-        <label class="mb-0 small">Gerçek hız = <b id="kf-v-V">1.0</b> br/adım</label>
+        <label for="kf-sl-V" class="mb-0 small">Gerçek hız = <b id="kf-v-V">1.0</b> br/adım</label>
         <input type="range" class="custom-range" id="kf-sl-V" min="-2" max="2" value="1" step="0.1">
       </div>
     </div>
@@ -296,7 +296,7 @@ Aşağıdaki simülatör gerçek zamanlı çalışır. Üç düğme var: ölçü
       <button class="btn btn-sm btn-primary" id="kf-btn-play" type="button">⏸ Duraklat</button>
       <button class="btn btn-sm btn-outline-secondary" id="kf-btn-reset" type="button">↻ Yeni gerçekleştirme</button>
     </div>
-    <div id="kf-status" class="px-2 py-1 mb-2 rounded small" style="font-family:monospace;min-height:2.2em;background:#f1f5fb;"></div>
+    <div id="kf-status" class="demo-status px-2 py-1 mb-2 rounded small"></div>
     <canvas id="kf-canvas" style="width:100%;display:block;border-radius:4px;border:1px solid #dee2e6;"></canvas>
     <p class="text-muted small mt-1 mb-0">σ'yı büyüt → kestirim pürüzsüzleşir ama gecikir. q'yu büyüt → kestirim her ölçümün peşinden koşar. q'yu çok küçültürsen filtre fazla kendine güvenir: ±2σ bandı incelir ama gerçek konum bandın dışına taşar (ıraksamanın habercisi).</p>
   </div>
@@ -532,19 +532,19 @@ Burada hareketin doğrusal olduğuna (`f` = sabit `F`) ama ölçümün doğrusal
   <div class="card-body">
     <div class="form-row mb-2">
       <div class="col-md-3 mb-2">
-        <label class="mb-0 small">Menzil gürültüsü σ<sub>r</sub> = <b id="ekf-v-sr">0.50</b> m</label>
+        <label for="ekf-sl-sr" class="mb-0 small">Menzil gürültüsü σ<sub>r</sub> = <b id="ekf-v-sr">0.50</b> m</label>
         <input type="range" class="custom-range" id="ekf-sl-sr" min="0.05" max="3" value="0.5" step="0.05">
       </div>
       <div class="col-md-3 mb-2">
-        <label class="mb-0 small">Açı gürültüsü σ<sub>θ</sub> = <b id="ekf-v-sth">1.0</b>°</label>
+        <label for="ekf-sl-sth" class="mb-0 small">Açı gürültüsü σ<sub>θ</sub> = <b id="ekf-v-sth">1.0</b>°</label>
         <input type="range" class="custom-range" id="ekf-sl-sth" min="0.1" max="5" value="1" step="0.1">
       </div>
       <div class="col-md-3 mb-2">
-        <label class="mb-0 small">Süreç gürültüsü q = <b id="ekf-v-q">0.0100</b></label>
+        <label for="ekf-sl-q" class="mb-0 small">Süreç gürültüsü q = <b id="ekf-v-q">0.0100</b></label>
         <input type="range" class="custom-range" id="ekf-sl-q" min="0.0001" max="0.5" value="0.01" step="0.0001">
       </div>
       <div class="col-md-3 mb-2">
-        <label class="mb-0 small">Dönüş hızı = <b id="ekf-v-turn">0.5</b>°/adım</label>
+        <label for="ekf-sl-turn" class="mb-0 small">Dönüş hızı = <b id="ekf-v-turn">0.5</b>°/adım</label>
         <input type="range" class="custom-range" id="ekf-sl-turn" min="0" max="3" value="0.5" step="0.1">
       </div>
     </div>
@@ -552,7 +552,7 @@ Burada hareketin doğrusal olduğuna (`f` = sabit `F`) ama ölçümün doğrusal
       <button class="btn btn-sm btn-primary" id="ekf-btn-play" type="button">⏸ Duraklat</button>
       <button class="btn btn-sm btn-outline-secondary" id="ekf-btn-reset" type="button">↻ Yeni gerçekleştirme</button>
     </div>
-    <div id="ekf-status" class="px-2 py-1 mb-2 rounded small" style="font-family:monospace;min-height:2.2em;background:#f1f5fb;"></div>
+    <div id="ekf-status" class="demo-status px-2 py-1 mb-2 rounded small"></div>
     <canvas id="ekf-canvas" style="width:100%;display:block;border-radius:4px;border:1px solid #dee2e6;"></canvas>
     <p class="text-muted small mt-1 mb-0">Sensör orijinde. Hedef uzaktayken 2σ elipsi açı (teğet) yönünde şişer — uzakta küçük bir açı hatası büyük yanal hataya dönüşür. Hedef sensöre yaklaştıkça elips daralır: gözlemlenebilirliğin (observability) görünür hâli.</p>
   </div>

@@ -2,7 +2,6 @@
 layout: page
 title: Etiketler
 subtitle: Yazıları konuya göre keşfedin
-background: '/img/bg-post.webp'
 lang: tr
 permalink: /tags/
 ---
@@ -11,13 +10,15 @@ permalink: /tags/
 
 <div class="tag-cloud">
   {% for pair in sorted_tags %}
-  <a class="tag-chip" href="#{{ pair[0] }}">{{ site.data.tags[pair[0]].name | default: pair[0] }} <span class="tag-chip__count">{{ pair[1] | size }}</span></a>
+  {% assign key = pair[0] %}
+  <a class="tag-chip" href="#{{ pair[0] }}">{{ site.data.tags[key].name | default: pair[0] }} <span class="tag-chip__count">{{ pair[1] | size }}</span></a>
   {% endfor %}
 </div>
 
 {% for pair in sorted_tags %}
+{% assign key = pair[0] %}
 <section class="tag-section" id="{{ pair[0] }}">
-  <h2 class="tag-section__title">{{ site.data.tags[pair[0]].name | default: pair[0] }} <span class="tag-section__count">({{ pair[1] | size }})</span></h2>
+  <h2 class="tag-section__title">{{ site.data.tags[key].name | default: pair[0] }} <span class="tag-section__count">({{ pair[1] | size }})</span></h2>
   <ul class="archive-list">
     {% for post in pair[1] %}
     <li>

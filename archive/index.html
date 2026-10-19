@@ -2,7 +2,6 @@
 layout: page
 title: Arşiv
 subtitle: Tüm yazılar, yıla göre
-background: '/img/bg-post.webp'
 lang: tr
 permalink: /archive/
 ---
@@ -10,7 +9,6 @@ permalink: /archive/
 {% assign by_year = site.posts | group_by_exp: "post", "post.date | date: '%Y'" %}
 
 {% for group in by_year %}
-{% if group.name == "1970" %}{% continue %}{% endif %}
 <section class="tag-section" id="y{{ group.name }}">
   <h2 class="tag-section__title">{{ group.name }} <span class="tag-section__count">({{ group.items | size }})</span></h2>
   <ul class="archive-list">

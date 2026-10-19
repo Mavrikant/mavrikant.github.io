@@ -43,3 +43,11 @@ mizah:
   name: "Mizah"
 genel:
   name: "Genel"
+veri-analitigi:
+  name: "Veri Analitiği"
+sertifikasyon:
+  name: "Sertifikasyon"
+kariyer:
+  name: "Kariyer"
+incose:
+  name: "INCOSE"

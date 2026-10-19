@@ -2,6 +2,8 @@
 title: "INCOSE CSEP: Sınavdan Sertifikaya Yolculuğum"
 subtitle: "My Road to INCOSE CSEP Certification"
 background: "/img/posts/incose-csep-sertifikasi.webp"
+# Kart kırpımında sertifikanın başlığı görünsün (object-position).
+image_position: "50% 8%"
 date: '2026-10-01 22:21:00'
 layout: post
 lang: tr

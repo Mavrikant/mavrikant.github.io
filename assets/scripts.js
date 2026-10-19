@@ -48,24 +48,28 @@
         }
       }
 
+      // Long lines scroll sideways inside <pre>; make that scroll region
+      // reachable from the keyboard (WCAG 2.1.1).
+      var pre = block.querySelector('pre');
+      if (pre && !pre.hasAttribute('tabindex')) pre.setAttribute('tabindex', '0');
+
       // Copy button
       if (block.querySelector('.copy-code-btn')) return;
-      var pre = block.querySelector('pre');
       if (!pre) return;
 
       var btn = document.createElement('button');
       btn.type = 'button';
       btn.className = 'copy-code-btn';
-      btn.setAttribute('aria-label', 'Copy code to clipboard');
-      btn.textContent = 'Copy';
+      btn.setAttribute('aria-label', 'Kodu panoya kopyala');
+      btn.textContent = 'Kopyala';
 
       btn.addEventListener('click', function () {
         var code = pre.innerText;
         var done = function () {
-          btn.textContent = 'Copied';
+          btn.textContent = 'Kopyalandı';
           btn.classList.add('is-copied');
           setTimeout(function () {
-            btn.textContent = 'Copy';
+            btn.textContent = 'Kopyala';
             btn.classList.remove('is-copied');
           }, 1800);
         };
@@ -265,6 +269,53 @@
       }
     }, { passive: true });
     update();
+  }
+
+  // ---------------------------------------------------------------------------
+  // Desktop navbar headroom: once the reader scrolls past it, the navbar is
+  // parked just above the viewport (`is-fixed`) and slides back in on
+  // scroll-up (`is-visible`), so search, theme and menu stay one flick away on
+  // long posts. Styles live under `#mainNav.is-fixed` in _sass/styles.scss.
+  // Below 992px the navbar is already pinned to the top by CSS.
+  // ---------------------------------------------------------------------------
+  function initNavbarScroll() {
+    var nav = document.getElementById('mainNav');
+    if (!nav) return;
+    var desktop = window.matchMedia('(min-width: 992px)');
+    var lastY = window.scrollY;
+    var ticking = false;
+
+    function reset() {
+      nav.classList.remove('is-fixed', 'is-visible');
+    }
+
+    function update() {
+      ticking = false;
+      var y = window.scrollY;
+      if (!desktop.matches) {
+        reset();
+        lastY = y;
+        return;
+      }
+      // Ignore trackpad jitter so the bar does not flicker.
+      if (Math.abs(y - lastY) < 4) return;
+      if (y < lastY) {
+        if (y > 0 && nav.classList.contains('is-fixed')) nav.classList.add('is-visible');
+        else reset();
+      } else {
+        nav.classList.remove('is-visible');
+        if (y > nav.offsetHeight && !nav.classList.contains('is-fixed')) nav.classList.add('is-fixed');
+      }
+      lastY = y;
+    }
+
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(update);
+      }
+    }, { passive: true });
+    if (desktop.addEventListener) desktop.addEventListener('change', reset);
   }
 
   // ---------------------------------------------------------------------------
@@ -834,6 +885,7 @@
     initHeadingAnchors();
     initScrollTop();
     initNavbarToggle();
+    initNavbarScroll();
     initNavbarDropdowns();
     initBayramSplash();
     initReadingProgress();

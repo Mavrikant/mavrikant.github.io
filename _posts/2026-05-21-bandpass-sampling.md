@@ -242,15 +242,15 @@ Aşağıdaki araçla f<sub>c</sub>, B ve f<sub>s</sub> değerlerini değiştirer
   <div class="card-body">
     <div class="form-row mb-2">
       <div class="col-md-4 mb-2">
-        <label class="mb-0 small">f<sub>c</sub> (IF merkezi) = <b id="v-fc">70</b> MHz</label>
+        <label for="sl-fc" class="mb-0 small">f<sub>c</sub> (IF merkezi) = <b id="v-fc">70</b> MHz</label>
         <input type="range" class="custom-range" id="sl-fc" min="10" max="400" value="70" step="1">
       </div>
       <div class="col-md-4 mb-2">
-        <label class="mb-0 small">B (bant genişliği) = <b id="v-bw">10</b> MHz</label>
+        <label for="sl-bw" class="mb-0 small">B (bant genişliği) = <b id="v-bw">10</b> MHz</label>
         <input type="range" class="custom-range" id="sl-bw" min="1" max="80" value="10" step="1">
       </div>
       <div class="col-md-4 mb-2">
-        <label class="mb-0 small">f<sub>s</sub> (örnekleme) = <b id="v-fs">31.25</b> MSPS</label>
+        <label for="sl-fs" class="mb-0 small">f<sub>s</sub> (örnekleme) = <b id="v-fs">31.25</b> MSPS</label>
         <input type="range" class="custom-range" id="sl-fs" min="5" max="300" value="31.25" step="0.25">
       </div>
     </div>

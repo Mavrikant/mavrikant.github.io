@@ -53,6 +53,17 @@ sentry_loader_id:   d9df60c4bcc41adb14bb648db4013b52
 plausible_id:       BMAxUwrIK8Icg2HpLysj2
 
 # Build settings
+# Depo meta dosyaları ve otonom yazı ajanının notları siteye yayınlanmasın.
+# (Jekyll 4 kendi varsayılan dışlamalarını — Gemfile, node_modules vb. — buna ekler.)
+exclude:
+  - CLAUDE.md
+  - README.md
+  - LICENSE
+  - package.json
+  - jekyll-theme-clean-blog.gemspec
+  - sonar-project.properties
+  - bin/
+  - agent/
 permalink:          /:year/:month/:day/:title:output_ext
 markdown:           kramdown
 paginate:           10
