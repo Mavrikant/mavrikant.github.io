@@ -1831,9 +1831,16 @@ article {
 // =============================================================================
 // Reduced motion
 // =============================================================================
+// Transitions get 0s, not the common 0.01ms: `transition-property` defaults
+// to `all`, so a non-zero duration on `*` would make *every* style change
+// animate — including on elements that never declared a transition. Mermaid
+// sets label styles and measures them synchronously; with 0.01ms it read the
+// pre-transition box (a 2000px node) and crashed ("Syntax error in text").
+// The JS that waits for `transitionend` has setTimeout fallbacks.
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
-    transition-duration: 0.01ms !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
     animation-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
