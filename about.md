@@ -20,6 +20,12 @@ My day-to-day moves between requirements, C and C++ code that has to behave unde
 
 I hold an M.Sc. in Computer Software Engineering from Hacettepe University and a B.Sc. in Electrical, Electronics and Communications Engineering from İzmir Institute of Technology. I'm currently pursuing a second M.Sc. in Systems Engineering.
 
+Alongside the degrees, I hold three professional certifications that mirror the two sides of my work, systems engineering and testing:
+
+- **INCOSE Certified Systems Engineering Professional (CSEP)**: I wrote about [the road to it]({% post_url 2026-10-01-incose-csep-sertifikasyonu-yolculugum %}) (in Turkish)
+- **ISTQB Certified Tester Foundation Level (CTFL)**
+- **ISTQB Certified Tester, Advanced Level Test Automation Engineer (CTAL-TAE)**
+
 Outside the day job I write at [karaman.dev](https://karaman.dev/) and [aviyonikyazilim.com](https://www.aviyonikyazilim.com/), ship pet projects on [GitHub](https://github.com/Mavrikant), and have contributed 225,000+ edits and bot scripts to Wikipedia since 2014. I also maintain a few side projects hosted here: [Games](https://karaman.dev/games) and [OR Tools](https://karaman.dev/or-araclari).
 
 <ul class="skill-tags">

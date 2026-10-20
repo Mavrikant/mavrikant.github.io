@@ -19,6 +19,12 @@ Gündelik işim gereksinimler, MISRA ve JSF kurallarına göre yazılan C/C++ ko
 
 Hacettepe Üniversitesi Bilgisayar Yazılımı Mühendisliği yüksek lisansım ve İzmir Yüksek Teknoloji Enstitüsü Elektrik-Elektronik ve Haberleşme Mühendisliği lisansım var. Şu anda Sistem Mühendisliği alanında ikinci yüksek lisansıma devam ediyorum.
 
+Diplomalarımın yanında, işimin iki yüzünü, yani sistem mühendisliğini ve testi yansıtan üç mesleki sertifikam var:
+
+- **INCOSE Certified Systems Engineering Professional (CSEP)**: sürecini [şu yazıda]({% post_url 2026-10-01-incose-csep-sertifikasyonu-yolculugum %}) anlattım
+- **ISTQB Certified Tester Foundation Level (CTFL)**
+- **ISTQB Certified Tester, Advanced Level Test Automation Engineer (CTAL-TAE)**
+
 İşin dışında [karaman.dev](https://karaman.dev/) ve [aviyonikyazilim.com](https://www.aviyonikyazilim.com/) üzerinde yazıyor, [GitHub](https://github.com/Mavrikant)'da kişisel projeler geliştiriyor ve 2014'ten bu yana Vikipedi'ye 225 binden fazla düzenleme ve bot betiğiyle katkı veriyorum. Site üzerinde barındırdığım bazı yan projelerime de göz atabilirsiniz: [Oyunlar](https://karaman.dev/games) ve [OR Araçları](https://karaman.dev/or-araclari).
 
 <ul class="skill-tags">
