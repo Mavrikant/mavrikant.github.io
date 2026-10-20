@@ -9,6 +9,7 @@ layout: default
   <header class="masthead masthead--blueprint">
     {% endif %}
     <div class="overlay"></div>
+    {% unless page.background %}{% include signal-trace.html %}{% endunless %}
     <div class="container" {% if page.lang %}lang="{{ page.lang }}"{% endif %}>
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
