@@ -120,11 +120,11 @@ Aşağıdaki tabloda bazı fonksiyonel olmayan özelliklerin nasıl ölçülebil
 | Özellik | Ölçü (metrik) |
 |---------|----------------|
 | Hız | Saniyede işlenen işlem sayısı, kullanıcı/olay yanıt süresi, ekran tazeleme süresi |
-| Büyüklük | Ihtiyac duyulan minimum bellek/depolama miktarı |
+| Büyüklük | İhtiyaç duyulan minimum bellek/depolama miktarı |
 | Kullanım kolaylığı | Eğitim süresi, yardım ekranı sayısı |
 | Güvenilirlik | Ortalama arızasız çalışma süresi (MTTF), kullanılamama olasılığı, erişilebilirlik oranı |
 | Dayanıklılık | Arıza sonrası yeniden başlama süresi, hataya yol açan olayların yüzdesi |
-| Taşınabilirlik | Platforma (işletim sistemi, işlemci) baglı kodların yüzdesi, desteklenen isletim sistemi sayısı |
+| Taşınabilirlik | Platforma (işletim sistemi, işlemci) bağlı kodların yüzdesi, desteklenen işletim sistemi sayısı |
 
 ## Fonksiyonel ve fonksiyonel olmayan gereksinimlerin karşılaştırılması
 

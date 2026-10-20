@@ -3,7 +3,7 @@ title: "INCOSE CSEP: Sınavdan Sertifikaya Yolculuğum"
 subtitle: "My Road to INCOSE CSEP Certification"
 background: "/img/posts/incose-csep-sertifikasi.webp"
 # Kart kırpımında sertifikanın başlığı görünsün (object-position).
-image_position: "50% 8%"
+image_position: "50% 0%"
 date: '2026-10-01 22:21:00'
 layout: post
 lang: tr
@@ -84,7 +84,7 @@ Toplam hazırlık sürem **altı ay** oldu. Haftada birkaç akşam, birkaç saat
 
 ### Handbook'u en az iki kez okumak
 
-![INCOSE Systems Engineering Handbook, beşinci baskı](/img/posts/incose-se-handbook-v5.webp){:style="display:block; margin-left:auto; margin-right:auto; max-width:320px" .img-fluid}
+![INCOSE Systems Engineering Handbook, beşinci baskı](/img/posts/incose-se-handbook-v5.webp){:style="display:block; margin-left:auto; margin-right:auto; max-width:min(320px, 100%)" .img-fluid}
 
 *INCOSE Systems Engineering Handbook, beşinci baskı — sınavın tek resmî kaynağı. Kapak görseli INCOSE ve Wiley'e aittir.*
 
@@ -100,7 +100,7 @@ Toplam hazırlık sürem **altı ay** oldu. Haftada birkaç akşam, birkaç saat
 
 ### Türkçe dördüncü baskının yeri
 
-![INCOSE Sistem Mühendisliği El Kitabı, dördüncü versiyon, Savunma Sanayii Akademi Yayınları](/img/posts/incose-se-el-kitabi-v4-tr.webp){:style="display:block; margin-left:auto; margin-right:auto; max-width:320px" .img-fluid}
+![INCOSE Sistem Mühendisliği El Kitabı, dördüncü versiyon, Savunma Sanayii Akademi Yayınları](/img/posts/incose-se-el-kitabi-v4-tr.webp){:style="display:block; margin-left:auto; margin-right:auto; max-width:min(320px, 100%)" .img-fluid}
 
 *Sistem Mühendisliği El Kitabı'nın Türkçe çevirisi — dördüncü versiyon, Savunma Sanayii Akademi Yayınları.*
 

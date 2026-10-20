@@ -131,9 +131,19 @@
     var ul = document.createElement('ul');
     var usedIds = {};
 
+    // Heading text without footnote markers (<sup>) or injected anchors, so
+    // "Onaylama<sup>2</sup>" does not become "Onaylama2" in the TOC and slug.
+    function headingText(h) {
+      var clone = h.cloneNode(true);
+      Array.prototype.forEach.call(clone.querySelectorAll('sup, .heading-anchor'), function (el) {
+        el.parentNode.removeChild(el);
+      });
+      return (clone.textContent || '').replace(/\s+/g, ' ').trim();
+    }
+
     headings.forEach(function (h) {
       if (!h.id) {
-        var base = slugify(h.textContent || '') || 'section';
+        var base = slugify(headingText(h)) || 'section';
         var id = base;
         var i = 2;
         while (usedIds[id] || document.getElementById(id)) {
@@ -148,7 +158,7 @@
       var li = document.createElement('li');
       var a = document.createElement('a');
       a.href = '#' + h.id;
-      a.textContent = h.textContent || '';
+      a.textContent = headingText(h);
       a.dataset.target = h.id;
       if (h.tagName === 'H3') a.classList.add('toc-h3');
       li.appendChild(a);
@@ -173,34 +183,42 @@
       });
     }
 
-    // Scroll spy
-    if (!('IntersectionObserver' in window)) return;
-
+    // Scroll spy: the active entry is the last heading whose top has passed
+    // the reading line below the navbar; at the very bottom it is the last
+    // heading. Computed from scroll position, so it stays right after jumps
+    // (End/Home, TOC clicks, reloads mid-page) where intersection events miss.
     var links = nav.querySelectorAll('a');
     var byId = {};
     links.forEach(function (l) { byId[l.dataset.target] = l; });
+    var current = null;
 
-    var setActive = function (id) {
-      links.forEach(function (l) { l.classList.remove('is-active'); });
-      if (byId[id]) byId[id].classList.add('is-active');
-    };
-
-    var visible = new Set();
-    var observer = new IntersectionObserver(function (entries) {
-      entries.forEach(function (e) {
-        if (e.isIntersecting) visible.add(e.target.id);
-        else visible.delete(e.target.id);
-      });
-      // Pick the first visible heading (top-most in document order)
-      for (var i = 0; i < headings.length; i++) {
-        if (visible.has(headings[i].id)) {
-          setActive(headings[i].id);
-          return;
+    function spy() {
+      var line = 120;
+      var id = null;
+      var atBottom = window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 2;
+      if (atBottom) {
+        id = headings[headings.length - 1].id;
+      } else {
+        for (var i = 0; i < headings.length; i++) {
+          if (headings[i].getBoundingClientRect().top <= line) id = headings[i].id;
+          else break;
         }
       }
-    }, { rootMargin: '-80px 0px -65% 0px', threshold: 0 });
+      if (id === current) return;
+      if (current && byId[current]) byId[current].classList.remove('is-active');
+      if (id && byId[id]) byId[id].classList.add('is-active');
+      current = id;
+    }
 
-    headings.forEach(function (h) { observer.observe(h); });
+    var spyTicking = false;
+    window.addEventListener('scroll', function () {
+      if (!spyTicking) {
+        spyTicking = true;
+        window.requestAnimationFrame(function () { spyTicking = false; spy(); });
+      }
+    }, { passive: true });
+    window.addEventListener('resize', spy);
+    spy();
   }
 
   // ---------------------------------------------------------------------------
@@ -237,6 +255,57 @@
       a.setAttribute('aria-label', 'Bu bölüme bağlantı');
       a.innerHTML = ANCHOR_ICON;
       h.appendChild(a);
+    });
+  }
+
+  // ---------------------------------------------------------------------------
+  // Content accessibility touch-ups for markup that comes from Markdown:
+  // - tables sit in a .table-scroll wrapper that becomes a focusable, labelled
+  //   region when it overflows (keyboard scrolling on phones) — the role goes
+  //   on the wrapper so the table keeps its table semantics;
+  // - embedded videos without a title get one;
+  // - an empty header cell (a matrix corner) becomes a plain data cell.
+  // ---------------------------------------------------------------------------
+  function initContentA11y() {
+    var content = document.querySelector('.post-content');
+    if (!content) return;
+
+    var wrappers = [];
+    content.querySelectorAll('table').forEach(function (table) {
+      if (table.parentNode.classList && table.parentNode.classList.contains('table-scroll')) return;
+      var wrap = document.createElement('div');
+      wrap.className = 'table-scroll';
+      table.parentNode.insertBefore(wrap, table);
+      wrap.appendChild(table);
+      wrappers.push(wrap);
+
+      table.querySelectorAll('th').forEach(function (th) {
+        if (th.textContent.trim()) return;
+        var td = document.createElement('td');
+        Array.prototype.forEach.call(th.attributes, function (a) { td.setAttribute(a.name, a.value); });
+        th.parentNode.replaceChild(td, th);
+      });
+    });
+
+    function markScrollable() {
+      wrappers.forEach(function (wrap) {
+        if (wrap.scrollWidth > wrap.clientWidth + 1) {
+          wrap.setAttribute('tabindex', '0');
+          wrap.setAttribute('role', 'region');
+          wrap.setAttribute('aria-label', 'Tablo (yatay kaydırılabilir)');
+        } else {
+          wrap.removeAttribute('tabindex');
+          wrap.removeAttribute('role');
+          wrap.removeAttribute('aria-label');
+        }
+      });
+    }
+    markScrollable();
+    window.addEventListener('resize', markScrollable);
+
+    content.querySelectorAll('iframe').forEach(function (frame) {
+      if ((frame.getAttribute('title') || '').trim()) return;
+      frame.setAttribute('title', /youtube/.test(frame.src) ? 'YouTube videosu' : 'Gömülü içerik');
     });
   }
 
@@ -385,6 +454,15 @@
 
     // Close dropdowns when clicking outside
     document.addEventListener('click', closeNavDropdowns);
+
+    // Escape closes an open dropdown and returns focus to its toggle.
+    document.addEventListener('keydown', function (e) {
+      if (e.key !== 'Escape') return;
+      var openToggle = document.querySelector('.nav-item.dropdown.show [data-toggle="dropdown"]');
+      if (!openToggle) return;
+      closeNavDropdowns();
+      openToggle.focus();
+    });
   }
 
   // ---------------------------------------------------------------------------
@@ -512,11 +590,16 @@
       if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
     }
 
+    var statusEl = document.getElementById('search-status');
+    function announce(text) {
+      if (statusEl) statusEl.textContent = text;
+    }
+
     function render(query) {
       resultsEl.textContent = '';
       emptyEl.hidden = true;
       var q = foldTr(query.trim());
-      if (q.length < 2 || !index) return;
+      if (q.length < 2 || !index) { announce(''); return; }
 
       var scored = [];
       index.forEach(function (entry) {
@@ -530,8 +613,10 @@
 
       if (!scored.length) {
         emptyEl.hidden = false;
+        announce('Sonuç bulunamadı.');
         return;
       }
+      announce(Math.min(scored.length, 8) + ' sonuç');
 
       scored.slice(0, 8).forEach(function (item) {
         var li = document.createElement('li');
@@ -558,6 +643,24 @@
     input.addEventListener('input', function () {
       clearTimeout(debounceTimer);
       debounceTimer = setTimeout(function () { render(input.value); }, 120);
+    });
+
+    // Keep Tab / Shift+Tab inside the dialog while it is open (aria-modal).
+    modal.addEventListener('keydown', function (e) {
+      if (e.key !== 'Tab') return;
+      var focusables = Array.prototype.filter.call(
+        modal.querySelectorAll('input, button, a[href]'),
+        function (el) { return el.offsetParent !== null; }
+      );
+      if (!focusables.length) return;
+      var first = focusables[0], last = focusables[focusables.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
     });
 
     // Arrow keys move between the input and result links
@@ -706,6 +809,11 @@
       var img = overlay.querySelector('.lightbox__img');
       var caption = overlay.querySelector('.lightbox__caption');
       img.src = sourceImg.currentSrc || sourceImg.src;
+      // Aspect ratio drives the CSS size: the zoomed image fills the free
+      // area (never smaller than it was inline).
+      if (sourceImg.naturalWidth && sourceImg.naturalHeight) {
+        img.style.setProperty('--ar', String(sourceImg.naturalWidth / sourceImg.naturalHeight));
+      }
       caption.textContent = sourceImg.alt || '';
       caption.hidden = !sourceImg.alt;
 
@@ -793,8 +901,92 @@
         layout: 'dagre',
         flowchart: { look: 'classic', layout: 'dagre', wrappingWidth: 200 }
       });
-      try { window.mermaid.run({ nodes: nodes }); } catch (e) {}
+      try {
+        Promise.resolve(window.mermaid.run({ nodes: nodes }))
+          .then(function () { fixLabelContrast(); fitForSmallScreens(); })
+          .catch(function () {});
+      } catch (e) {}
     }
+
+    // Posts colour nodes with inline `style X fill:#fde0e0` pastels. The dark
+    // theme's light label text is unreadable on those (≈1.2:1), and a dark fill
+    // would be just as bad in the light theme. After rendering, give each node
+    // whose label contrast is below 4.5:1 a dark or light ink, whichever reads.
+    function luminance(rgb) {
+      var c = rgb.map(function (v) {
+        v /= 255;
+        return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+      });
+      return 0.2126 * c[0] + 0.7152 * c[1] + 0.0722 * c[2];
+    }
+
+    function parseRgb(str) {
+      var m = (str || '').match(/rgba?\(([^)]+)\)/);
+      if (!m) return null;
+      var p = m[1].split(',').map(parseFloat);
+      if (p.length > 3 && p[3] === 0) return null;
+      return p.slice(0, 3);
+    }
+
+    function contrast(a, b) {
+      var la = luminance(a), lb = luminance(b);
+      return (Math.max(la, lb) + 0.05) / (Math.min(la, lb) + 0.05);
+    }
+
+    function fixLabelContrast() {
+      var DARK = [26, 29, 35], LIGHT = [245, 247, 250];
+      nodes.forEach(function (n) {
+        n.querySelectorAll('g.node, g.cluster').forEach(function (g) {
+          var shape = g.querySelector('rect, polygon, path, circle, ellipse');
+          var fill = shape && parseRgb(getComputedStyle(shape).fill);
+          if (!fill) return;
+          var labels = g.querySelectorAll('.nodeLabel, .cluster-label span, text');
+          labels.forEach(function (el) {
+            var ink = parseRgb(getComputedStyle(el).color);
+            if (ink && contrast(ink, fill) >= 4.5) return;
+            var pick = contrast(DARK, fill) >= contrast(LIGHT, fill) ? DARK : LIGHT;
+            var css = 'rgb(' + pick.join(',') + ')';
+            el.style.setProperty('color', css, 'important');
+            if (el.tagName.toLowerCase() === 'text') el.style.setProperty('fill', css, 'important');
+          });
+        });
+      });
+    }
+
+    // Mermaid scales a wide diagram down to the column, which can leave 4-7px
+    // labels (timelines, long flowcharts, phones). Never shrink below 70%:
+    // past that the diagram keeps 70% of its natural size and the .mermaid
+    // box scrolls sideways (keyboard-focusable, labelled).
+    var MIN_SCALE = 0.7;
+    function fitForSmallScreens() {
+      nodes.forEach(function (n) {
+        var svg = n.querySelector('svg');
+        if (!svg) return;
+        var vb = svg.viewBox && svg.viewBox.baseVal;
+        var natural = vb && vb.width;
+        var target = natural ? Math.max(n.clientWidth, natural * MIN_SCALE) : 0;
+        var scroll = natural && target > n.clientWidth + 8;
+        // Remember Mermaid's own inline max-width so it can be restored.
+        if (!svg.hasAttribute('data-mw')) svg.setAttribute('data-mw', svg.style.maxWidth);
+        svg.style.maxWidth = scroll ? 'none' : svg.getAttribute('data-mw');
+        svg.style.width = scroll ? Math.round(target) + 'px' : '';
+        if (scroll) {
+          n.setAttribute('tabindex', '0');
+          n.setAttribute('role', 'region');
+          n.setAttribute('aria-label', 'Diyagram (yatay kaydırılabilir)');
+        } else {
+          n.removeAttribute('tabindex');
+          n.removeAttribute('role');
+          n.removeAttribute('aria-label');
+        }
+      });
+    }
+
+    var resizeTimer;
+    window.addEventListener('resize', function () {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(fitForSmallScreens, 200);
+    });
 
     var loaded = false;
     function load() {
@@ -894,6 +1086,7 @@
   ready(function () {
     initThemeToggle();
     initCodeEnhancements();
+    initContentA11y();
     initPostToc();
     initHeadingAnchors();
     initScrollTop();

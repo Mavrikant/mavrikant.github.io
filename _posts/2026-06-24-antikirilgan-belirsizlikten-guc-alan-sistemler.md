@@ -6,6 +6,8 @@ date: '2026-06-24 09:00:00'
 layout: post
 lang: tr
 mermaid: true
+categories: [muhendislik]
+tags: [sistem-muhendisligi, yazilim-muhendisligi]
 ---
 
 Mühendislikte uzun süredir tek bir niteliğin peşinden koşarız: dayanıklılık. Sistemin şoka, yüke ve arızaya rağmen ayakta kalmasını isteriz; emniyet-kritik alanlarda bunu bir zorunluluğa çeviririz. Oysa Nassim Nicholas Taleb'in *Incerto* serisinde işlediği temel iddia, dayanıklılığın bir uç değil bir orta nokta olduğudur. Kırılganın gerçek zıttı "kırılmayan" değildir; volatiliteden, stresten ve hatadan fayda gören, yani sarsıldıkça güçlenen bir şeydir.

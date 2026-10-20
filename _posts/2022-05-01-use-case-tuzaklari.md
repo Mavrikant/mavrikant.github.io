@@ -1,7 +1,7 @@
 ---
 title: Use Case Tuzakları
 subtitle: Use Case Kullanan Gerçek Projelerde Karşılaşılan En Önemli 10 Sorun
-background: "/img/posts/use-case-tuzak.webp"
+background: "/img/posts/use-case-tuzaklari-cover.webp"
 date: '2022-05-01 10:51:46'
 layout: post
 lang: tr

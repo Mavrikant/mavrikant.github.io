@@ -13,7 +13,11 @@ layout: default
       <div class="row">
         <div class="col-lg-8 col-md-10 mx-auto">
           <div class="page-heading hero-intro">
-            <img class="hero-intro__avatar" src="{{ '/img/me-animated.webp' | relative_url }}" alt="M. Serdar Karaman" width="104" height="104" loading="eager" fetchpriority="high">
+            <picture>
+              {%- comment -%} Reduced motion: the still first frame instead of the looping animation. {%- endcomment -%}
+              <source srcset="{{ '/img/me-avatar.webp' | relative_url }}" media="(prefers-reduced-motion: reduce)">
+              <img class="hero-intro__avatar" src="{{ '/img/me-animated.webp' | relative_url }}" alt="M. Serdar Karaman" width="104" height="104" loading="eager" fetchpriority="high">
+            </picture>
             <h1>{{ site.title }}</h1>
             {% if site.description %}
             <span class="subheading">{{ site.description }}</span>

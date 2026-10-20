@@ -1,6 +1,6 @@
 ---
 title: Türkiye'de Debugging aşamaları
-background: "/img/posts/debugging.webp"
+background: "/img/posts/debugging-asamalari-cover.webp"
 date: '2023-12-01 08:00:00'
 layout: post
 lang: tr

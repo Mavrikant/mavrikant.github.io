@@ -22,14 +22,17 @@ layout: default
             {% endif %}
             <span class="meta">
               <a href="{{ "/about" | relative_url }}">{% if page.author %}{{ page.author }}{% else %}{{ site.author }}{% endif %}</a>
-              &middot; {% include tr-month.html date=page.date format="long" %} &middot; {% include read_time.html content=page.content %}
+              &middot; <span class="nowrap">{% include tr-month.html date=page.date format="long" %}</span> &middot; <span class="nowrap">{% include read_time.html content=page.content %}</span>
             </span>
             {% if page.categories.size > 0 %}
+            {% assign cat_names = "" %}
             <div class="post-heading__tags">
               {% for cat in page.categories %}
-              <a class="tag-chip tag-chip--category" href="{{ '/categories/' | relative_url }}#{{ cat }}">{{ site.data.categories[cat].name | default: cat }}</a>
+              {% assign cat_name = site.data.categories[cat].name | default: cat %}
+              {% assign cat_names = cat_names | append: "|" | append: cat_name | append: "|" %}
+              <a class="tag-chip tag-chip--category" href="{{ '/categories/' | relative_url }}#{{ cat }}">{{ cat_name }}</a>
               {% endfor %}
-              {% include tag-chips.html tags=page.tags %}
+              {% include tag-chips.html tags=page.tags skip=cat_names %}
             </div>
             {% elsif page.tags.size > 0 %}
             <div class="post-heading__tags">
