@@ -170,6 +170,14 @@ Doğruluk ve kesinlik birbirinden bağımsız iki şey. Bir cihaz çok doğru am
             bgcolor:'rgba(255,255,255,0.85)', bordercolor:'#ccc', borderwidth:1},
     showlegend:true
   };
+  // Below ~320px two subplot titles no longer fit side by side.
+  if (document.getElementById('grafik-dogruluk').clientWidth < 320) {
+    layout.margin.l = layout.margin.r = 20;
+    layout.annotations.forEach(function (a) {
+      a.font.size = 11;
+      a.text = a.text.replace('font-size:11px', 'font-size:10px');
+    });
+  }
   Plotly.newPlot('grafik-dogruluk', data, layout, {responsive:true, displayModeBar:false});
 })();
 </script>
@@ -521,6 +529,19 @@ Hangi bileşenler en çok katkı yapıyor? Bakalım:
     plot_bgcolor: '#ffffff',
     paper_bgcolor: '#ffffff'
   };
+  // Phones: the long category names would squeeze the bars to a sliver, so
+  // they go above each (thinner) bar instead of beside it.
+  var el = document.getElementById('grafik-pt100');
+  if (el.clientWidth < 576) {
+    el.style.height = '460px';
+    data[0].width = 0.45;
+    layout.yaxis.showticklabels = false;
+    layout.margin.l = 12;
+    layout.annotations = data[0].y.map(function (name, i) {
+      return { xref: 'paper', x: 0, xanchor: 'left', y: i - 0.24, yanchor: 'bottom',
+               text: name, showarrow: false, font: { size: 11, color: '#444' } };
+    });
+  }
   Plotly.newPlot('grafik-pt100', data, layout, {responsive: true, displayModeBar: false});
 })();
 </script>
@@ -553,7 +574,7 @@ Soruyu şöyle çevirelim: ölçüm cihazı sensörü "geçti" diye işaretledi�
 
 Önce yanlış kabulun ne demek olduğunu görsel olarak görelim. Aşağıda bir sensörün ölçüm dağılımı çizilmiş. Sensörün gerçek değeri 0,098 bar diyelim — yani toleransın iç sınırına çok yakın. Ölçüm cihazı U = 0,025 bar belirsizlikle bu sensörü ölçüyor. Ölçüm sonucu, gerçek değer civarında bir normal dağılımdan rastgele bir nokta gibi düşünebiliriz. Ölçüm 0,10'un altında çıkarsa "geçti" diyoruz — ama gerçek değer 0,098'de bile, ölçüm dağılımının bir kısmı 0,10'un üstüne taşar. Taşan bu kısım yanlış kabul bölgesidir.
 
-<div id="grafik-pfa-gorsel" style="width:100%;max-width:760px;margin:1.5rem auto 2.5rem auto;height:400px;"></div>
+<div id="grafik-pfa-gorsel" style="width:100%;max-width:760px;margin:1.5rem auto 2.5rem auto;height:440px;"></div>
 <script>
 (function(){
   var x = [];
@@ -585,11 +606,12 @@ Soruyu şöyle çevirelim: ölçüm cihazı sensörü "geçti" diye işaretledi�
     ],
     annotations:[
       {x:0.10, y:maxY*1.10, text:'Tolerans sınırı<br>0,10 bar', showarrow:false, font:{size:11}},
-      {x:mu, y:maxY*0.92, text:'Gerçek değer<br>0,098 bar', showarrow:false, font:{size:11, color:'#1a73e8'}},
+      {x:mu, y:maxY*0.92, text:'Gerçek değer<br>0,098 bar', showarrow:false, font:{size:11, color:'#1a73e8'}, bgcolor:'rgba(255,255,255,0.85)'},
       {x:0.115, y:maxY*0.30, text:'Yanlış<br>kabul', showarrow:true, arrowhead:2, ax:-25, ay:-30, font:{size:11, color:'#c62828'}}
     ],
-    showlegend:true, legend:{x:0.02, y:0.98},
-    margin:{l:60, r:30, t:50, b:60},
+    showlegend:true,
+    legend:{orientation:'h', x:0.5, xanchor:'center', yref:'container', y:0, yanchor:'bottom', font:{size:11}},
+    margin:{l:60, r:30, t:50, b:110},
     plot_bgcolor:'#ffffff', paper_bgcolor:'#ffffff'
   };
   Plotly.newPlot('grafik-pfa-gorsel', data, layout, {responsive:true, displayModeBar:false});
@@ -676,7 +698,7 @@ Hayır. Bu noktada üç gizli tuzak var ve aviyonik bağlamda her birine düşme
 
 Test laboratuvarında kabul/red kararı verirken belirsizlik üç farklı şekilde işlenebilir. Aşağıdaki grafik aynı toleransı (örnek olarak ±0,1) ve aynı ölçüm belirsizliğini (U = 0,025) üç yaklaşımla yan yana gösteriyor; her satırın yeşil bandı **kabul aralığını**, gri bandı toleransı temsil ediyor.
 
-<div id="grafik-uut-uretici-yaklasimlar" style="width:100%;max-width:780px;margin:1.5rem auto 2.5rem auto;height:420px;"></div>
+<div id="grafik-uut-uretici-yaklasimlar" style="width:100%;max-width:780px;margin:1.5rem auto 2.5rem auto;height:460px;"></div>
 <script>
 (function(){
   var T = 0.1;
@@ -727,12 +749,12 @@ Test laboratuvarında kabul/red kararı verirken belirsizlik üç farklı şekil
       {x:0, y:3, text:'Kabul aralığı = ±T', showarrow:false, font:{size:11, color:'#fff'}, bgcolor:'rgba(0,0,0,0.35)', borderpad:2},
       {x:0, y:2, text:'Kabul aralığı = ±(T − U)', showarrow:false, font:{size:11, color:'#fff'}, bgcolor:'rgba(0,0,0,0.35)', borderpad:2},
       {x:0, y:1, text:'Kabul aralığı = ±(T + U)', showarrow:false, font:{size:11, color:'#fff'}, bgcolor:'rgba(0,0,0,0.35)', borderpad:2},
-      {x:T+U, y:1, ax:T+U+0.02, ay:1, xref:'x', yref:'y', axref:'x', ayref:'y',
-       text:'Tolerans dışına<br>taşıyor!', showarrow:true, arrowhead:2, font:{size:10, color:'#c62828'}, xanchor:'left'}
+      {x:T+U, y:1.15, ax:T+U, ay:1.5, xref:'x', yref:'y', axref:'x', ayref:'y',
+       text:'Tolerans dışına taşıyor!', showarrow:true, arrowhead:2, font:{size:10, color:'#c62828'}, xanchor:'right'}
     ],
     showlegend:true,
-    legend:{orientation:'h', x:0.5, xanchor:'center', y:-0.18, yanchor:'top', font:{size:11}},
-    margin:{l:170, r:40, t:55, b:90},
+    legend:{orientation:'h', x:0.5, xanchor:'center', yref:'container', y:0, yanchor:'bottom', font:{size:11}},
+    margin:{l:170, r:40, t:55, b:130},
     plot_bgcolor:'#ffffff', paper_bgcolor:'#ffffff'
   };
   Plotly.newPlot('grafik-uut-uretici-yaklasimlar', data, layout, {responsive:true, displayModeBar:false});

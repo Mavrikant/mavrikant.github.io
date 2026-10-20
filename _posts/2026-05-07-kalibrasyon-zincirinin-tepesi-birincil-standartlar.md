@@ -370,6 +370,19 @@ Yedi SI temel biriminin en iyi gerçekleme belirsizlikleri arasında 15 mertebel
     plot_bgcolor: '#ffffff',
     paper_bgcolor: '#ffffff'
   };
+  // Phones: the long category names would squeeze the bars to a sliver, so
+  // they go above each (thinner) bar instead of beside it.
+  var el = document.getElementById('grafik-si-belirsizlik');
+  if (el.clientWidth < 576) {
+    el.style.height = '460px';
+    data[0].width = 0.45;
+    layout.yaxis.showticklabels = false;
+    layout.margin.l = 12;
+    layout.annotations = data[0].y.map(function (name, i) {
+      return { xref: 'paper', x: 0, xanchor: 'left', y: i - 0.24, yanchor: 'bottom',
+               text: name, showarrow: false, font: { size: 11, color: '#444' } };
+    });
+  }
   Plotly.newPlot('grafik-si-belirsizlik', data, layout, {responsive: true, displayModeBar: false});
 })();
 </script>
@@ -494,6 +507,19 @@ Her seviyede bağıl belirsizlik yaklaşık 10× kötüleşiyor. Bu pratik bir s
     plot_bgcolor: '#ffffff',
     paper_bgcolor: '#ffffff'
   };
+  // Phones: the long category names would squeeze the bars to a sliver, so
+  // they go above each (thinner) bar instead of beside it.
+  var el = document.getElementById('grafik-zincir');
+  if (el.clientWidth < 576) {
+    el.style.height = '400px';
+    data[0].width = 0.45;
+    layout.yaxis.showticklabels = false;
+    layout.margin.l = 12;
+    layout.annotations = data[0].y.map(function (name, i) {
+      return { xref: 'paper', x: 0, xanchor: 'left', y: i - 0.24, yanchor: 'bottom',
+               text: name, showarrow: false, font: { size: 11, color: '#444' } };
+    });
+  }
   Plotly.newPlot('grafik-zincir', data, layout, {responsive: true, displayModeBar: false});
 })();
 </script>

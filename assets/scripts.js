@@ -18,6 +18,21 @@
     });
   }
 
+  // One shared, visually hidden live region for short status messages
+  // (WCAG 4.1.3), e.g. "copied to clipboard".
+  var liveRegion = null;
+  function announce(text) {
+    if (!liveRegion) {
+      liveRegion = document.createElement('p');
+      liveRegion.className = 'sr-only';
+      liveRegion.setAttribute('role', 'status');
+      liveRegion.setAttribute('aria-live', 'polite');
+      document.body.appendChild(liveRegion);
+    }
+    liveRegion.textContent = '';
+    setTimeout(function () { liveRegion.textContent = text; }, 50);
+  }
+
   // ---------------------------------------------------------------------------
   // Code blocks: language badge + copy-to-clipboard buttons
   // ---------------------------------------------------------------------------
@@ -68,6 +83,7 @@
         var done = function () {
           btn.textContent = 'Kopyalandı';
           btn.classList.add('is-copied');
+          announce('Kod panoya kopyalandı.');
           setTimeout(function () {
             btn.textContent = 'Kopyala';
             btn.classList.remove('is-copied');
@@ -206,8 +222,21 @@
       }
       if (id === current) return;
       if (current && byId[current]) byId[current].classList.remove('is-active');
-      if (id && byId[id]) byId[id].classList.add('is-active');
+      if (id && byId[id]) {
+        byId[id].classList.add('is-active');
+        keepInView(byId[id]);
+      }
       current = id;
+    }
+
+    // Long TOCs scroll inside the sticky sidebar: keep the active entry
+    // visible by scrolling the nav box only (never the page).
+    function keepInView(link) {
+      if (nav.scrollHeight <= nav.clientHeight) return;
+      var top = link.getBoundingClientRect().top - nav.getBoundingClientRect().top + nav.scrollTop;
+      var bottom = top + link.offsetHeight;
+      if (top < nav.scrollTop + 24) nav.scrollTop = Math.max(0, top - 24);
+      else if (bottom > nav.scrollTop + nav.clientHeight - 24) nav.scrollTop = bottom - nav.clientHeight + 24;
     }
 
     var spyTicking = false;
@@ -591,7 +620,7 @@
     }
 
     var statusEl = document.getElementById('search-status');
-    function announce(text) {
+    function announceResults(text) {
       if (statusEl) statusEl.textContent = text;
     }
 
@@ -599,7 +628,7 @@
       resultsEl.textContent = '';
       emptyEl.hidden = true;
       var q = foldTr(query.trim());
-      if (q.length < 2 || !index) { announce(''); return; }
+      if (q.length < 2 || !index) { announceResults(''); return; }
 
       var scored = [];
       index.forEach(function (entry) {
@@ -613,10 +642,10 @@
 
       if (!scored.length) {
         emptyEl.hidden = false;
-        announce('Sonuç bulunamadı.');
+        announceResults('Sonuç bulunamadı.');
         return;
       }
-      announce(Math.min(scored.length, 8) + ' sonuç');
+      announceResults(Math.min(scored.length, 8) + ' sonuç');
 
       scored.slice(0, 8).forEach(function (item) {
         var li = document.createElement('li');
@@ -1021,6 +1050,65 @@
     });
   }
 
+  // ---------------------------------------------------------------------------
+  // Plotly never wraps titles, so on phones a long chart or x-axis title runs
+  // past the figure edge and is clipped. When one doesn't fit, break it at
+  // word boundaries (growing that margin by the added lines); the authored
+  // text and margins come back once the figure is wide enough again.
+  // ---------------------------------------------------------------------------
+  function initPlotlyTitles() {
+    if (!window.Plotly) return;
+    var LINE = 1.3; // Plotly's line spacing, in font sizes
+    var ctx = document.createElement('canvas').getContext('2d');
+
+    function width(text, font) {
+      ctx.font = font.size + 'px ' + font.family;
+      return ctx.measureText(text).width;
+    }
+
+    function wrap(text, font, max) {
+      var lines = [], line = '';
+      text.split(' ').forEach(function (word) {
+        var next = line ? line + ' ' + word : word;
+        if (line && width(next, font) > max) { lines.push(line); line = word; } else { line = next; }
+      });
+      lines.push(line);
+      return lines;
+    }
+
+    function fit(gd) {
+      var full = gd._fullLayout;
+      if (!full || !full.xaxis) return;
+      var orig = gd._titleFit || (gd._titleFit = {
+        title: full.title.text, x: full.xaxis.title.text, t: full.margin.t, b: full.margin.b
+      });
+      var W = full.width, size = full._size;
+      var update = {};
+
+      function plan(text, font, avail, key, marginKey, base, current) {
+        if (!text || text.indexOf('<') !== -1) return; // leave authored markup alone
+        var lines = width(text, font) > avail ? wrap(text, font, avail) : [text];
+        var next = lines.join('<br>');
+        if (next === current) return;
+        update[key] = next;
+        update[marginKey] = base + Math.round((lines.length - 1) * font.size * LINE);
+      }
+
+      // The chart title is centred on the figure, the x-axis title on the plot.
+      plan(orig.title, full.title.font, W - 16, 'title.text', 'margin.t', orig.t, full.title.text);
+      var cx = size.l + size.w / 2;
+      plan(orig.x, full.xaxis.title.font, 2 * Math.min(cx, W - cx) - 8,
+        'xaxis.title.text', 'margin.b', orig.b, full.xaxis.title.text);
+
+      if (Object.keys(update).length) window.Plotly.relayout(gd, update);
+    }
+
+    document.querySelectorAll('.js-plotly-plot').forEach(function (gd) {
+      if (typeof gd.on === 'function') gd.on('plotly_afterplot', function () { fit(gd); });
+      fit(gd);
+    });
+  }
+
   function ready(fn) {
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', fn);
@@ -1102,5 +1190,6 @@
     initGiscusThemeSync();
     initMermaid();
     initPlotlyTheme();
+    initPlotlyTitles();
   });
 })();
