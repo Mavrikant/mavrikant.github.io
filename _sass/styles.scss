@@ -1760,6 +1760,10 @@ article {
 .post-toc {
   // Small/medium screens: collapsible card above the article body.
   display: block;
+  // The desktop TOC is absolutely positioned before the article and its nav
+  // scrolls on its own; if the browser anchors scrolling there, a deep link
+  // drifts off its heading when diagrams/images above it render later.
+  overflow-anchor: none;
   margin: 0 0 2rem;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
@@ -1892,6 +1896,13 @@ article {
   // Bootstrap's grey utilities are tuned for white only.
   .text-muted { color: var(--color-text-muted) !important; }
 
+  // Demo button rows: keep a gap between buttons when they wrap on phones.
+  div:has(> .btn) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
   .btn-outline-secondary {
     color: var(--color-text-muted);
     border-color: var(--color-border-strong);
@@ -1944,9 +1955,10 @@ article {
 // recolouring every annotation, which would leave some labels unreadable).
 [data-theme="dark"] .post-content .js-plotly-plot {
   background: #ffffff;
-  border: 1px solid var(--color-border-strong);
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-md);
+  // A ring instead of a border: a border would shrink the box by 2px and
+  // clip the bottom of the x-axis titles Plotly draws at full size.
+  box-shadow: 0 0 0 1px var(--color-border-strong), var(--shadow-md);
   overflow: hidden;
 }
 
@@ -2319,6 +2331,9 @@ article {
   // to open small-scaled ones in a dialog), so nothing needs to scroll here;
   // visible overflow keeps edge glyphs such as xychart axis labels unclipped.
   overflow: visible;
+  // Collapses with a following paragraph's margin; keeps a "Büyüt" button
+  // clear of a diagram or list that follows directly.
+  margin-bottom: 1.25rem;
 
   svg {
     display: block;
@@ -2329,6 +2344,10 @@ article {
   }
 
   &.is-zoomable svg { cursor: zoom-in; }
+
+  // A diagram shrunk to ~30% would draw its edges as faint sub-pixel lines;
+  // keep them at least one screen pixel wide at any scale.
+  svg .flowchart-link { vector-effect: non-scaling-stroke; }
 
   // Mermaid's xychart palette is a very pale lavender that nearly disappears
   // on the light theme's white plot area. Drive the series colour from the
@@ -3131,7 +3150,11 @@ mjx-container[display="true"] {
     &:hover,
     &:focus-visible {
       background: rgba(255, 255, 255, 0.18);
-      outline: none;
+    }
+
+    &:focus-visible {
+      outline: 2px solid rgba(245, 247, 250, 0.95);
+      outline-offset: 2px;
     }
   }
 }

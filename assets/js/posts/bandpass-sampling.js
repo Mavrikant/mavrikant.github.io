@@ -61,6 +61,7 @@
 
     function panel(x0,fMin,fMax,bL,bH,title,col,extra){
       var f2x=function(f){return x0+(f-fMin)/(fMax-fMin)*pw;};
+      var bandLabel=null;
       ctx.fillStyle='#f8f9fa'; ctx.fillRect(x0,PT,pw,ph);
 
       /* Nyquist zone stripes on alias panel */
@@ -94,14 +95,7 @@
             ctx.beginPath();ctx.moveTo(bx,PT);ctx.lineTo(bx,PT+ph);ctx.stroke();
           });
           /* band label */
-          /* band label on a light backing so the edge lines don't strike
-             through it; kept inside the panel when the band is narrow */
-          ctx.font='10px system-ui,sans-serif'; ctx.textAlign='center';
-          var bt=rnd(bL)+'–'+rnd(bH)+' MHz', btw=ctx.measureText(bt).width;
-          var btx=Math.min(Math.max((bx1+bx2)/2,x0+btw/2+3),x0+pw-btw/2-3);
-          ctx.fillStyle='rgba(255,255,255,0.85)'; ctx.fillRect(btx-btw/2-2,PT+4,btw+4,12);
-          ctx.fillStyle=col; ctx.fillText(bt,btx,PT+13);
-          ctx.font='11px system-ui,sans-serif';
+          bandLabel={x1:bx1,x2:bx2,text:rnd(bL)+'–'+rnd(bH)+' MHz'};
         }
       }
 
@@ -113,13 +107,22 @@
       ctx.strokeStyle='#999'; ctx.lineWidth=1;
       ctx.beginPath();ctx.moveTo(x0,PT+ph);ctx.lineTo(x0+pw,PT+ph);ctx.stroke();
 
-      /* ticks */
-      var nt=pw<220?3:5; /* fewer ticks on narrow (phone) panels */
+      /* ticks: as many (max 5) as fit without neighbouring labels touching;
+         end labels align inwards so they stay inside the panel */
+      var nt=5;
+      for(;nt>1;nt--){
+        var prevR=-1e9, fits=true;
+        for(var j=0;j<=nt&&fits;j++){
+          var jf=fMin+(fMax-fMin)*j/nt, jx=f2x(jf), jw=ctx.measureText(rnd(jf,1)).width;
+          var jl=j===0?jx:(j===nt?jx-jw:jx-jw/2);
+          fits=jl>=prevR+6; prevR=jl+jw;
+        }
+        if(fits) break;
+      }
       for(var i=0;i<=nt;i++){
         var tf=fMin+(fMax-fMin)*i/nt, tx=f2x(tf);
         ctx.strokeStyle='#ccc'; ctx.lineWidth=0.5;
         ctx.beginPath();ctx.moveTo(tx,PT);ctx.lineTo(tx,PT+ph+4);ctx.stroke();
-        /* end labels align inwards so neighbouring panels' labels don't touch */
         ctx.fillStyle='#5f6672'; ctx.textAlign=i===0?'left':(i===nt?'right':'center');
         ctx.fillText(rnd(tf,1),tx,PT+ph+14);
       }
@@ -132,11 +135,22 @@
       ctx.fillText(title,x0+pw/2,PT-10);
       ctx.font='11px system-ui,sans-serif';
 
-      if(extra&&extra.inv){
-        ctx.fillStyle='#6a1b9a'; ctx.textAlign='right'; ctx.font='10px system-ui,sans-serif';
-        ctx.fillText('↔ ters spektrum',x0+pw-4,PT+ph-6);
-        ctx.font='11px system-ui,sans-serif';
+      /* labels last, on a light backing, so no band edge or gridline
+         strikes through them; the band label stays inside the panel */
+      ctx.font='10px system-ui,sans-serif';
+      if(bandLabel){
+        var btw=ctx.measureText(bandLabel.text).width;
+        var btx=Math.min(Math.max((bandLabel.x1+bandLabel.x2)/2,x0+btw/2+3),x0+pw-btw/2-3);
+        ctx.fillStyle='rgba(255,255,255,0.85)'; ctx.fillRect(btx-btw/2-2,PT+4,btw+4,12);
+        ctx.fillStyle=col; ctx.textAlign='center'; ctx.fillText(bandLabel.text,btx,PT+13);
       }
+      if(extra&&extra.inv){
+        var inv='↔ ters spektrum', iw=ctx.measureText(inv).width;
+        ctx.fillStyle='rgba(255,255,255,0.85)'; ctx.fillRect(x0+pw-6-iw,PT+ph-15,iw+4,12);
+        ctx.fillStyle='#6a1b9a'; ctx.textAlign='right';
+        ctx.fillText(inv,x0+pw-4,PT+ph-6);
+      }
+      ctx.font='11px system-ui,sans-serif';
     }
 
     /* forbidden panel */

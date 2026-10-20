@@ -87,4 +87,4 @@ PORE yaklaşımında üç aşamalı bir süreç uygulanıp en uygun ürün seçi
 
 Daha düşük maliyetli ve değişen gereksinimlere daha duyarlı sistemlerin daha hızlı teslimine yönelik iş talepleri, yazılım mühendisliğine yönelik geleneksel "önce gereksinimler" yaklaşımının değişmesi gerektiği anlamına gelir. Gereksinim mühendisliği, yeniden kullanımdan yararlanmak ve sistemlerin değişen gereksinimleri yansıtacak şekilde gelişmesine izin vermek için sistem uygulamasıyla daha sıkı bir şekilde bütünleştirilmelidir. İş sistemi geliştiricileri bu değişiklikleri zaten benimsemiştir. Önümüzdeki birkaç yıl içinde tümleşik gereksinim mühendisliğini çoğu sistem türü için tercih edilen geliştirme modu olacağını tahmin ediyorum.
 
-Bu yazı *Ian Sommerville*'ın *Integrated Requirements Engineering: A Tutorial* isimli makalesinden Türkçeleştirilerek oluşturulmuştur.
+Bu yazı *Ian Sommerville*’ın *Integrated Requirements Engineering: A Tutorial* isimli makalesinden Türkçeleştirilerek oluşturulmuştur.

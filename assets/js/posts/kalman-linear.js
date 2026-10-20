@@ -35,6 +35,12 @@
   }
   function rnd(v, d) { var p = Math.pow(10, d == null ? 2 : d); return Math.round(v * p) / p; }
 
+  // Kart gövdesinin içerik genişliği (dolgusu temadan gelir).
+  function contentWidth(box) {
+    var cs = getComputedStyle(box);
+    return box.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+  }
+
   function reset() {
     hist = []; k = 0;
     truePos = 0; trueVel = +el.V.value;
@@ -88,10 +94,11 @@
   }
 
   function paint() {
-    var W = el.cv.parentElement.clientWidth - 32, H = 340;
+    var W = contentWidth(el.cv.parentElement) - 2, H = 340;
     var dpr = window.devicePixelRatio || 1;
     el.cv.width = W * dpr; el.cv.height = H * dpr;
-    el.cv.style.width = W + 'px'; el.cv.style.height = H + 'px';
+    // +2: tuvalin 1px kenarlığı (border-box); bitmap CSS pikseline 1:1 otursun
+    el.cv.style.width = (W + 2) + 'px'; el.cv.style.height = (H + 2) + 'px';
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, W, H);
 
@@ -103,7 +110,7 @@
       ymin = Math.min(ymin, h.truth, h.meas, h.est - 2 * h.sd);
       ymax = Math.max(ymax, h.truth, h.meas, h.est + 2 * h.sd);
     });
-    if (!isFinite(ymin)) { ymin = -5; ymax = 5; }
+    if (ymin > ymax) { ymin = -5; ymax = 5; }   // boş geçmiş (ör. duraklatılmışken sıfırlandı)
     var pad = (ymax - ymin) * 0.1 + 1e-6; ymin -= pad; ymax += pad;
 
     var k0v = hist.length ? hist[0].k : 0;
@@ -173,7 +180,7 @@
   el.play.addEventListener('click', function () {
     running = !running; el.play.textContent = running ? '⏸ Duraklat' : '▶ Oynat';
   });
-  el.reset.addEventListener('click', function () { reset(); syncReadouts(); });
+  el.reset.addEventListener('click', function () { reset(); syncReadouts(); status(); });
   window.addEventListener('resize', paint);
 
   syncReadouts(); reset();

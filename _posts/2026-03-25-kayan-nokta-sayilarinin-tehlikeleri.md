@@ -212,7 +212,7 @@ int main() {
 }
 ```
 
-`1e10f` sayısının ULP'si (Unit in the Last Place — son basamağın değeri) yaklaşık **1024.0f**'dir. Yani `float` bu büyüklükte iki komşu sayı arasındaki fark 1024'tür. `360 < 1024` olduğundan çıkarma işlemi **yuvarlama hatası yüzünden tamamen kaybolur** ve `aci` bir sonraki iterasyonda hâlâ `>= 360.0f` olur.
+`1e10f` sayısının ULP'si (Unit in the Last Place — son basamağın değeri) yaklaşık **1024.0f**’dir. Yani `float` bu büyüklükte iki komşu sayı arasındaki fark 1024'tür. `360 < 1024` olduğundan çıkarma işlemi **yuvarlama hatası yüzünden tamamen kaybolur** ve `aci` bir sonraki iterasyonda hâlâ `>= 360.0f` olur.
 
 ```
 1e10f  →  1e10f - 360.0f  →  yuvarlama  →  1e10f   (değişmedi)

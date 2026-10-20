@@ -123,6 +123,7 @@ Doğruluk ve kesinlik birbirinden bağımsız iki şey. Bir cihaz çok doğru am
       shapes.push({
         type:'circle', xref:xref, yref:yref,
         x0:-r, y0:-r, x1:r, y1:r,
+        layer:'below', // keep the rings under the measurement dots and stars
         line:{color:'#888', width:1},
         fillcolor: r===3 ? 'rgba(220,220,220,0.4)' : (r===2 ? 'rgba(240,240,240,0.4)' : 'rgba(255,255,255,0.6)')
       });
@@ -447,6 +448,19 @@ Aşağıdaki grafikte, yedi belirsizlik kaynağının her birinin katkısını s
     plot_bgcolor: '#ffffff',
     paper_bgcolor: '#ffffff'
   };
+  // Phones: the long category names would squeeze the bars to a sliver, so
+  // they go above each (thinner) bar instead of beside it.
+  var el = document.getElementById('grafik-multimetre');
+  if (el.clientWidth < 576) {
+    el.style.height = '460px';
+    data[0].width = 0.45;
+    layout.yaxis.showticklabels = false;
+    layout.margin.l = 12;
+    layout.annotations = data[0].y.map(function (name, i) {
+      return { xref: 'paper', x: 0, xanchor: 'left', y: i - 0.24, yanchor: 'bottom',
+               text: name, showarrow: false, font: { size: 11, color: '#444' } };
+    });
+  }
   Plotly.newPlot('grafik-multimetre', data, layout, {responsive: true, displayModeBar: false});
 })();
 </script>
@@ -607,7 +621,7 @@ Soruyu şöyle çevirelim: ölçüm cihazı sensörü "geçti" diye işaretledi�
     annotations:[
       {x:0.10, y:maxY*1.10, text:'Tolerans sınırı<br>0,10 bar', showarrow:false, font:{size:11}},
       {x:mu, y:maxY*0.92, text:'Gerçek değer<br>0,098 bar', showarrow:false, font:{size:11, color:'#1a73e8'}, bgcolor:'rgba(255,255,255,0.85)'},
-      {x:0.115, y:maxY*0.30, text:'Yanlış<br>kabul', showarrow:true, arrowhead:2, ax:-25, ay:-30, font:{size:11, color:'#c62828'}}
+      {x:0.115, y:maxY*0.30, text:'Yanlış<br>kabul', showarrow:true, arrowhead:2, ax:30, ay:-30, font:{size:11, color:'#c62828'}, bgcolor:'rgba(255,255,255,0.85)'}
     ],
     showlegend:true,
     legend:{orientation:'h', x:0.5, xanchor:'center', yref:'container', y:0, yanchor:'bottom', font:{size:11}},
@@ -757,6 +771,27 @@ Test laboratuvarında kabul/red kararı verirken belirsizlik üç farklı şekil
     margin:{l:170, r:40, t:55, b:130},
     plot_bgcolor:'#ffffff', paper_bgcolor:'#ffffff'
   };
+  // Phones: the 170px row-name margin left an 80–170px plot where the ±T and
+  // ±(T+U) ticks collided. Row names go above each row instead; the ±(T+U)
+  // edge is left to the red bar and its arrow, which moves below that row.
+  var el = document.getElementById('grafik-uut-uretici-yaklasimlar');
+  if (el.clientWidth < 576) {
+    var rows = layout.yaxis.ticktext;
+    layout.yaxis.showticklabels = false;
+    layout.yaxis.range = [0.3, 3.85];
+    layout.margin.l = 12;
+    layout.margin.r = 12;
+    layout.xaxis.tickvals = [-T, 0, T];
+    layout.xaxis.ticktext = ['−T', '0', '+T'];
+    [1, 2, 3].forEach(function (y, i) {
+      layout.annotations.push({ xref: 'paper', x: 0, xanchor: 'left', y: y + 0.36, yanchor: 'bottom',
+        text: rows[i].replace('<br>', ' · '), showarrow: false, font: { size: 11, color: '#333' },
+        bgcolor: 'rgba(255,255,255,0.9)' }); // keeps the zero line from striking through
+    });
+    layout.annotations[3].y = 0.85;
+    layout.annotations[3].ay = 0.5;
+    layout.annotations[3].bgcolor = 'rgba(255,255,255,0.9)';
+  }
   Plotly.newPlot('grafik-uut-uretici-yaklasimlar', data, layout, {responsive:true, displayModeBar:false});
 })();
 </script>

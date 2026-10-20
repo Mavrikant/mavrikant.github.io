@@ -728,10 +728,13 @@
       }
       var inField = /^(INPUT|TEXTAREA|SELECT)$/.test((document.activeElement || {}).tagName || '') ||
         (document.activeElement && document.activeElement.isContentEditable);
+      // Not while an image/diagram lightbox is open: search would open
+      // beneath it and take focus into an input the reader cannot see.
+      var otherOverlay = !isOpen && document.querySelector('.lightbox.is-open');
       if ((e.ctrlKey || e.metaKey) && e.key.toLowerCase() === 'k') {
         e.preventDefault();
-        isOpen ? close() : open();
-      } else if (e.key === '/' && !isOpen && !inField) {
+        if (!otherOverlay) isOpen ? close() : open();
+      } else if (e.key === '/' && !isOpen && !inField && !otherOverlay) {
         e.preventDefault();
         open();
       }
@@ -1047,13 +1050,20 @@
 
     var dialog = null;
     var lastFocus = null;
+    var zoomSource = null;
 
     function closeZoom() {
       dialog.classList.remove('is-open');
       dialog.hidden = true;
       dialog.querySelector('.lightbox__diagram').textContent = '';
       document.body.style.overflow = '';
-      if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+      markZoomable(); // catch up on a resize/rotation that happened while open
+      // The opener may be gone if the diagram now fits; fall back to it or
+      // to the diagram itself so keyboard focus does not drop to <body>.
+      var target = lastFocus && lastFocus.isConnected ? lastFocus :
+        (zoomSource.querySelector('.mermaid-zoom') || zoomSource);
+      if (target === zoomSource && !zoomSource.hasAttribute('tabindex')) zoomSource.setAttribute('tabindex', '-1');
+      if (typeof target.focus === 'function') target.focus();
     }
 
     function buildDialog() {
@@ -1071,7 +1081,14 @@
       var closeBtn = dialog.querySelector('.lightbox__close');
       var box = dialog.querySelector('.lightbox__diagram');
       closeBtn.addEventListener('click', closeZoom);
-      dialog.addEventListener('click', function (e) { if (e.target === dialog) closeZoom(); });
+      // Close on a backdrop click only when it also started there: a pan or
+      // text-selection drag that overshoots the box must not close it.
+      var pressedOnBackdrop = false;
+      dialog.addEventListener('pointerdown', function (e) { pressedOnBackdrop = e.target === dialog; });
+      dialog.addEventListener('click', function (e) {
+        if (e.target === dialog && pressedOnBackdrop) closeZoom();
+        pressedOnBackdrop = false;
+      });
       document.addEventListener('keydown', function (e) {
         if (dialog.hidden) return;
         if (e.key === 'Escape') {
@@ -1089,6 +1106,7 @@
       var natural = naturalWidth(svg);
       if (!natural) return;
       lastFocus = document.activeElement;
+      zoomSource = n;
       if (!dialog) buildDialog();
       var box = dialog.querySelector('.lightbox__diagram');
       var clone = svg.cloneNode(true);
@@ -1100,6 +1118,10 @@
       box.appendChild(clone);
       dialog.hidden = false;
       void dialog.offsetWidth;
+      // Start every diagram at its top-left corner, not where the last one
+      // was panned to (only possible once the box is laid out again).
+      box.scrollLeft = 0;
+      box.scrollTop = 0;
       dialog.classList.add('is-open');
       document.body.style.overflow = 'hidden';
       dialog.querySelector('.lightbox__close').focus();
@@ -1108,7 +1130,8 @@
     var resizeTimer;
     window.addEventListener('resize', function () {
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(markZoomable, 200);
+      // While the dialog is open its opener must stay put; closeZoom() catches up.
+      resizeTimer = setTimeout(function () { if (!dialog || dialog.hidden) markZoomable(); }, 200);
     });
 
     var loaded = false;
