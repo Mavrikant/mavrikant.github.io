@@ -1,10 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
-<loc>https://karaman.dev/1970/01/01/hello-world.html</loc>
-<lastmod>1970-01-01T00:00:00+00:00</lastmod>
-</url>
-<url>
 <loc>https://karaman.dev/2022/04/28/tumlesik-gereksinim-yonetimi.html</loc>
 <lastmod>2022-04-28T19:00:13+00:00</lastmod>
 </url>
@@ -27,6 +23,10 @@
 <url>
 <loc>https://karaman.dev/2022/07/11/fonksiyonel-olmayan-yazilim-gereksinimleri.html</loc>
 <lastmod>2022-07-11T15:59:34+00:00</lastmod>
+</url>
+<url>
+<loc>https://karaman.dev/1970/01/01/hello-world.html</loc>
+<lastmod>2022-07-12T01:16:40+00:00</lastmod>
 </url>
 <url>
 <loc>https://karaman.dev/2022/07/20/cmake.html</loc>

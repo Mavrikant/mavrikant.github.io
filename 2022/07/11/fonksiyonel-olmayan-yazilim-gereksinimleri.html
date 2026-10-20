@@ -9,7 +9,7 @@
      script (such as polyfill.io) is blocked by the browser. connect-src
      allows jsDelivr because MathJax 4's speech worker fetches its locale
      maps (sre/mathmaps/*.json) from there for screen-reader output. -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://cdn.plot.ly https://plausible.io https://js.sentry-cdn.com https://browser.sentry-cdn.com https://giscus.app; style-src 'self' 'unsafe-inline' https://giscus.app; font-src 'self' data: https://cdn.jsdelivr.net; img-src 'self' data: https:; connect-src 'self' https://cdn.jsdelivr.net https://plausible.io https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://www.google.com https://*.sentry.io; frame-src 'self' https://giscus.app https://www.youtube.com https://www.youtube-nocookie.com; worker-src 'self' blob:; manifest-src 'self'; form-action 'self' https://formspree.io">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://cdn.plot.ly https://plausible.io https://js.sentry-cdn.com https://browser.sentry-cdn.com https://giscus.app; style-src 'self' 'unsafe-inline' https://giscus.app; font-src 'self' data: https://cdn.jsdelivr.net; img-src 'self' data: https:; connect-src 'self' https://cdn.jsdelivr.net https://plausible.io https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://www.google.com https://stats.g.doubleclick.net https://*.sentry.io; frame-src 'self' https://giscus.app https://www.youtube.com https://www.youtube-nocookie.com; worker-src 'self' blob:; manifest-src 'self'; form-action 'self' https://formspree.io">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="/favicon.ico" rel="shortcut icon" sizes="36x36 24x24 16x16" type="image/x-icon">
 <link href="/favicon.png" rel="icon" sizes="196x196" type="image/png">
@@ -28,15 +28,15 @@
 <link rel="canonical" href="https://karaman.dev/2022/07/11/fonksiyonel-olmayan-yazilim-gereksinimleri.html">
 <meta property="og:url" content="https://karaman.dev/2022/07/11/fonksiyonel-olmayan-yazilim-gereksinimleri.html">
 <meta property="og:site_name" content="M. Serdar Karaman">
-<meta property="og:image" content="https://karaman.dev/img/posts/8.webp">
+<meta property="og:image" content="https://karaman.dev/img/posts/fonksiyonel-olmayan-gereksinimler-cover.webp">
 <meta property="og:type" content="article">
 <meta property="article:published_time" content="2022-07-11T15:59:34+00:00">
 <meta property="article:modified_time" content="2022-07-11T15:59:34+00:00">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://karaman.dev/img/posts/8.webp">
+<meta name="twitter:image" content="https://karaman.dev/img/posts/fonksiyonel-olmayan-gereksinimler-cover.webp">
 <meta name="twitter:title" content="Fonksiyonel ve fonksiyonel olmayan yazılım gereksinimleri">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"M. Serdar Karaman"},"dateModified":"2022-07-11T15:59:34+00:00","datePublished":"2022-07-11T15:59:34+00:00","description":"Yazılım gereksinimleri, bir sistemin ne yapması gerektiğini ve hangi kısıtlar altında çalışacağını tanımlar. Gereksinimler genellikle iki ana başlık altında sınıflandırılır: fonksiyonel gereksinimler ve fonksiyonel olmayan gereksinimler. Fonksiyonel gereksinimler sistemin ne yapması gerektiğini anlatırken, fonksiyonel olmayan gereksinimler sistemin bu işi nasıl (ne kadar hızlı, ne kadar güvenli, ne kadar güvenilir) yapması gerektiğini belirler.","headline":"Fonksiyonel ve fonksiyonel olmayan yazılım gereksinimleri","image":"https://karaman.dev/img/posts/8.webp","mainEntityOfPage":{"@type":"WebPage","@id":"https://karaman.dev/2022/07/11/fonksiyonel-olmayan-yazilim-gereksinimleri.html"},"url":"https://karaman.dev/2022/07/11/fonksiyonel-olmayan-yazilim-gereksinimleri.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"M. Serdar Karaman"},"dateModified":"2022-07-11T15:59:34+00:00","datePublished":"2022-07-11T15:59:34+00:00","description":"Yazılım gereksinimleri, bir sistemin ne yapması gerektiğini ve hangi kısıtlar altında çalışacağını tanımlar. Gereksinimler genellikle iki ana başlık altında sınıflandırılır: fonksiyonel gereksinimler ve fonksiyonel olmayan gereksinimler. Fonksiyonel gereksinimler sistemin ne yapması gerektiğini anlatırken, fonksiyonel olmayan gereksinimler sistemin bu işi nasıl (ne kadar hızlı, ne kadar güvenli, ne kadar güvenilir) yapması gerektiğini belirler.","headline":"Fonksiyonel ve fonksiyonel olmayan yazılım gereksinimleri","image":"https://karaman.dev/img/posts/fonksiyonel-olmayan-gereksinimler-cover.webp","mainEntityOfPage":{"@type":"WebPage","@id":"https://karaman.dev/2022/07/11/fonksiyonel-olmayan-yazilim-gereksinimleri.html"},"url":"https://karaman.dev/2022/07/11/fonksiyonel-olmayan-yazilim-gereksinimleri.html"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -83,7 +83,7 @@
 </script>
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/fonts/inter-var-latin-ext.woff2">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/fonts/source-serif-4-var-latin-ext.woff2">
-<link rel="preload" as="image" href="/img/posts/8.webp" fetchpriority="high">
+<link rel="preload" as="image" href="/img/posts/fonksiyonel-olmayan-gereksinimler-cover.webp" fetchpriority="high">
 <link rel="stylesheet" href="/assets/main.css">
 <link rel="alternate" type="application/rss+xml" title="M. Serdar Karaman" href="/feed.xml">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
@@ -91,8 +91,9 @@
 <link rel="manifest" href="/manifest.json">
 </head>
 <body id="page-top">
+  <a class="skip-link" href="#main">İçeriğe atla</a>
   <!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" aria-label="Ana menü">
   <div class="container">
     <a class="navbar-brand" href="/">M. Serdar Karaman</a>
     <div class="navbar-controls">
@@ -152,18 +153,20 @@
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
       </button>
     </div>
-    <ul id="search-results" class="search-modal__results" role="listbox" aria-label="Arama sonuçları"></ul>
+    <ul id="search-results" class="search-modal__results" aria-label="Arama sonuçları"></ul>
+    <p id="search-status" class="sr-only" role="status" aria-live="polite"></p>
     <p id="search-empty" class="search-modal__empty" hidden>Sonuç bulunamadı.</p>
     <p class="search-modal__hint"><kbd>Esc</kbd> kapatır · <kbd>Ctrl</kbd>+<kbd>K</kbd> açar</p>
   </div>
 </div>
 
+  <main id="main" tabindex="-1">
   <!-- Reading progress (filled by assets/scripts.js) -->
 <div class="reading-progress" aria-hidden="true"><div class="reading-progress__bar"></div></div>
 
 <!-- Page Header -->
 
-<header class="masthead" style="background-image: url('/img/posts/8.webp')">
+<header class="masthead" style="background-image: url('/img/posts/fonksiyonel-olmayan-gereksinimler-cover.webp')">
   
     <div class="overlay"></div>
     <div class="container">
@@ -176,13 +179,16 @@
             
             <span class="meta">
               <a href="/about">M. Serdar Karaman</a>
-              · 11 Temmuz 2022 · <span class="reading-time" title="Estimated read time">
+              · <span class="nowrap">11 Temmuz 2022</span> · <span class="nowrap"><span class="reading-time" title="Estimated read time">
   
   8 dk okuma süresi</span>
-
+</span>
             </span>
             
+            
             <div class="post-heading__tags">
+              
+              
               
               <a class="tag-chip tag-chip--category" href="/categories/#yazilim">Yazılım</a>
               
@@ -358,7 +364,7 @@ graph LR
     </tr>
     <tr>
       <td>Büyüklük</td>
-      <td>Ihtiyac duyulan minimum bellek/depolama miktarı</td>
+      <td>İhtiyaç duyulan minimum bellek/depolama miktarı</td>
     </tr>
     <tr>
       <td>Kullanım kolaylığı</td>
@@ -374,7 +380,7 @@ graph LR
     </tr>
     <tr>
       <td>Taşınabilirlik</td>
-      <td>Platforma (işletim sistemi, işlemci) baglı kodların yüzdesi, desteklenen isletim sistemi sayısı</td>
+      <td>Platforma (işletim sistemi, işlemci) bağlı kodların yüzdesi, desteklenen işletim sistemi sayısı</td>
     </tr>
   </tbody>
 </table>
@@ -455,9 +461,9 @@ graph LR
           </a>
           
           
-          <a class="post-nav__item post-nav__item--next" href="/2022/07/20/cmake">
+          <a class="post-nav__item post-nav__item--next" href="/1970/01/01/hello-world">
             <span class="post-nav__direction">Sonraki yazı →</span>
-            <span class="post-nav__title">CMake</span>
+            <span class="post-nav__title">Hello world!</span>
             <span class="post-nav__date">Tem 2022</span>
           </a>
           
@@ -468,7 +474,7 @@ graph LR
   <div class="related-posts__grid">
 <a class="related-card" href="/2022/05/01/use-case-tuzaklari">
       
-      <img src="/img/posts/use-case-tuzak.webp" srcset="/img/posts/sm/use-case-tuzak.webp 768w, /img/posts/use-case-tuzak.webp 1600w" sizes="(max-width: 640px) 100vw, 240px" alt="" loading="lazy" width="1600" height="1067" decoding="async">
+      <img src="/img/posts/use-case-tuzaklari-cover.webp" srcset="/img/posts/sm/use-case-tuzaklari-cover.webp 768w, /img/posts/use-case-tuzaklari-cover.webp 1600w" sizes="(max-width: 640px) 100vw, 240px" alt="" loading="lazy" width="1600" height="1067" decoding="async">
       
       <span class="related-card__title">Use Case Tuzakları</span>
       <span class="related-card__date">1 Mayıs 2022</span>
@@ -534,6 +540,7 @@ graph LR
     </div>
   </div>
 
+  </main>
   <!-- Footer -->
 
 <footer class="footer-modern">
@@ -542,24 +549,40 @@ graph LR
       <div class="row">
 
         <!-- About column -->
-        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-          <h5 class="footer-heading">M. Serdar Karaman</h5>
+        <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+          <h2 class="sr-only">M. Serdar Karaman</h2>
+          <a class="footer-brand" href="/hakkimda">
+            <img class="footer-brand__avatar" src="/img/me-avatar.webp" alt="" width="52" height="52" loading="lazy" decoding="async">
+            <span class="footer-brand__text">
+              <span class="footer-brand__name">M. Serdar Karaman</span>
+              <span class="footer-brand__role">Kıdemli Aviyonik Yazılım Tasarım Mühendisi</span>
+            </span>
+          </a>
           <p class="footer-description">Aviyonik yazılım, DO-178C ve emniyet kritik mühendislik üzerine sahadan notlar.</p>
+          <a class="footer-cta" href="/feed.xml">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
+            RSS ile takip et
+          </a>
         </div>
 
         <!-- Quick links column -->
-        <div class="col-lg-2 col-md-6 mb-4 mb-lg-0 offset-lg-1">
-          <h5 class="footer-heading">Bağlantılar</h5>
-          <ul class="footer-links">
+        <div class="col-lg-3 col-md-5 col-7 mb-4 mb-lg-0">
+          <h2 class="footer-heading">Bağlantılar</h2>
+          <ul class="footer-links footer-links--split">
             <li><a href="/">Ana sayfa</a></li>
             <li><a href="/hakkimda">Hakkımda</a></li>
             <li><a href="/posts">Yazılar</a></li>
+            <li><a href="/categories">Kategoriler</a></li>
             <li><a href="/tags">Etiketler</a></li>
             <li><a href="/archive">Arşiv</a></li>
             <li><a href="/contact">İletişim</a></li>
             <li><a href="/feed.xml">RSS</a></li>
           </ul>
-          <h5 class="footer-heading mt-3">Projeler</h5>
+        </div>
+
+        <!-- Projects column -->
+        <div class="col-lg-2 col-md-3 col-5 mb-4 mb-lg-0">
+          <h2 class="footer-heading">Projeler</h2>
           <ul class="footer-links">
             <li><a href="https://karaman.dev/games" target="_blank" rel="noopener">Oyunlar</a></li>
             <li><a href="https://karaman.dev/or-araclari" target="_blank" rel="noopener">OR Araçları</a></li>
@@ -569,8 +592,8 @@ graph LR
         </div>
 
         <!-- Social column -->
-        <div class="col-lg-4 col-md-12 mb-0 offset-lg-1">
-          <h5 class="footer-heading">İletişim</h5>
+        <div class="col-lg-3 col-md-4 mb-0">
+          <h2 class="footer-heading">İletişim</h2>
           <ul class="footer-social list-inline">
             
             <li class="list-inline-item">
@@ -609,6 +632,7 @@ graph LR
               </a>
             </li>
           </ul>
+          <p class="footer-note">Soru, öneri ya da iş birliği için <a href="/contact">iletişim formunu</a> kullanabilirsiniz.</p>
         </div>
 
       </div>
@@ -616,12 +640,8 @@ graph LR
   </div>
 
   <div class="footer-bottom">
-    <div class="container">
-      <div class="row">
-        <div class="col-12 text-center">
-          <p class="copyright mb-0">© 2026 M. Serdar Karaman. Tüm hakları saklıdır.</p>
-        </div>
-      </div>
+    <div class="container footer-bottom__inner">
+      <p class="copyright">© 2026 M. Serdar Karaman. Tüm hakları saklıdır.</p>
     </div>
   </div>
 </footer>

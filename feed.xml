@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="tr"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://karaman.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://karaman.dev/" rel="alternate" type="text/html" hreflang="tr" /><updated>2026-10-13T19:08:17+00:00</updated><id>https://karaman.dev/feed.xml</id><title type="html">M. Serdar Karaman</title><subtitle>Aviyonik yazılım, DO-178C ve emniyet kritik mühendislik üzerine sahadan notlar.</subtitle><author><name>M. Serdar Karaman</name></author><entry xml:lang="tr"><title type="html">INCOSE CSEP: Sınavdan Sertifikaya Yolculuğum</title><link href="https://karaman.dev/2026/10/01/incose-csep-sertifikasyonu-yolculugum.html" rel="alternate" type="text/html" title="INCOSE CSEP: Sınavdan Sertifikaya Yolculuğum" /><published>2026-10-01T22:21:00+00:00</published><updated>2026-10-01T22:21:00+00:00</updated><id>https://karaman.dev/2026/10/01/incose-csep-sertifikasyonu-yolculugum</id><content type="html" xml:base="https://karaman.dev/2026/10/01/incose-csep-sertifikasyonu-yolculugum.html"><![CDATA[<p>Altmış ay deneyim, en az üç farklı sistem mühendisliği alanında on ikişer aylık deneyim, referanslarla doğrulanmış bir deneyim dosyası ve çoktan seçmeli bir bilgi sınavı. INCOSE <strong>CSEP</strong> (Certified Systems Engineering Professional) sertifikasını almak için karşılamam gereken temel şartlar bunlardı. Ben de bu şartları sağladım, gerekli başvuruları yaptım, referanslarımı tamamladım ve süreç boyunca toplam 610 USD + 1.000 TL ücret ödedim.</p>
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" xml:lang="tr"><generator uri="https://jekyllrb.com/" version="4.4.1">Jekyll</generator><link href="https://karaman.dev/feed.xml" rel="self" type="application/atom+xml" /><link href="https://karaman.dev/" rel="alternate" type="text/html" hreflang="tr" /><updated>2026-10-20T11:10:33+00:00</updated><id>https://karaman.dev/feed.xml</id><title type="html">M. Serdar Karaman</title><subtitle>Aviyonik yazılım, DO-178C ve emniyet kritik mühendislik üzerine sahadan notlar.</subtitle><author><name>M. Serdar Karaman</name></author><entry xml:lang="tr"><title type="html">INCOSE CSEP: Sınavdan Sertifikaya Yolculuğum</title><link href="https://karaman.dev/2026/10/01/incose-csep-sertifikasyonu-yolculugum.html" rel="alternate" type="text/html" title="INCOSE CSEP: Sınavdan Sertifikaya Yolculuğum" /><published>2026-10-01T22:21:00+00:00</published><updated>2026-10-01T22:21:00+00:00</updated><id>https://karaman.dev/2026/10/01/incose-csep-sertifikasyonu-yolculugum</id><content type="html" xml:base="https://karaman.dev/2026/10/01/incose-csep-sertifikasyonu-yolculugum.html"><![CDATA[<p>Altmış ay deneyim, en az üç farklı sistem mühendisliği alanında on ikişer aylık deneyim, referanslarla doğrulanmış bir deneyim dosyası ve çoktan seçmeli bir bilgi sınavı. INCOSE <strong>CSEP</strong> (Certified Systems Engineering Professional) sertifikasını almak için karşılamam gereken temel şartlar bunlardı. Ben de bu şartları sağladım, gerekli başvuruları yaptım, referanslarımı tamamladım ve süreç boyunca toplam 610 USD + 1.000 TL ücret ödedim.</p>
 
 <p>12 Ağustos 2026 Çarşamba günü başvurumun onaylandığı e-posta geldiğinde, hedefi koyduğum günden bu yana yaklaşık on dokuz ay geçmişti. Hedefi 2025’in ilk aylarında koymuş, altı ay hazırlanmış ve 10 Ocak 2026’da sınava girmiştim. Süreçte beni en çok zorlayan şey sınav olmadı. Asıl zorlandığım kısım, yıllardır yaptığım işi başkasının anlayabileceği ve doğrulayabileceği bir dille anlatmaktı.</p>
 
@@ -107,7 +107,7 @@
 
 <h3 id="handbooku-en-az-iki-kez-okumak">Handbook’u en az iki kez okumak</h3>
 
-<p><img src="/img/posts/incose-se-handbook-v5.webp" alt="INCOSE Systems Engineering Handbook, beşinci baskı" style="display:block; margin-left:auto; margin-right:auto; max-width:320px" class="img-fluid" /></p>
+<p><img src="/img/posts/incose-se-handbook-v5.webp" alt="INCOSE Systems Engineering Handbook, beşinci baskı" style="display:block; margin-left:auto; margin-right:auto; max-width:min(320px, 100%)" class="img-fluid" /></p>
 
 <p><em>INCOSE Systems Engineering Handbook, beşinci baskı — sınavın tek resmî kaynağı. Kapak görseli INCOSE ve Wiley’e aittir.</em></p>
 
@@ -123,7 +123,7 @@
 
 <h3 id="türkçe-dördüncü-baskının-yeri">Türkçe dördüncü baskının yeri</h3>
 
-<p><img src="/img/posts/incose-se-el-kitabi-v4-tr.webp" alt="INCOSE Sistem Mühendisliği El Kitabı, dördüncü versiyon, Savunma Sanayii Akademi Yayınları" style="display:block; margin-left:auto; margin-right:auto; max-width:320px" class="img-fluid" /></p>
+<p><img src="/img/posts/incose-se-el-kitabi-v4-tr.webp" alt="INCOSE Sistem Mühendisliği El Kitabı, dördüncü versiyon, Savunma Sanayii Akademi Yayınları" style="display:block; margin-left:auto; margin-right:auto; max-width:min(320px, 100%)" class="img-fluid" /></p>
 
 <p><em>Sistem Mühendisliği El Kitabı’nın Türkçe çevirisi — dördüncü versiyon, Savunma Sanayii Akademi Yayınları.</em></p>
 
@@ -270,7 +270,7 @@
 
 <ol>
   <li><strong>Tarama.</strong> Sertifikasyon Ofisi önce başvuru formumun şartlara uygun olup olmadığını kontrol etti. Bu onay gelmeden referans adımına geçilmiyor.</li>
-  <li><strong>Referanslar.</strong> Form uygun bulununca her referansıma iki şey gönderdim: doldurduğum <strong>Form 1</strong>‘in bir kopyası ve <strong>dijital referans mektubunun</strong> (<a href="https://forms.office.com/pages/responsepage.aspx?id=k6cjNVAORka4CyXYO9fylpdnShHiChFNk4sYt-8URhFUN1RNUE5NSDdKTlRVSkNZVFdYRkwyOVlPSC4u&amp;route=shorturl">Form 4B</a>) bağlantısı. Form 1’in kopyası şart, çünkü referans hangi dönemde hangi alanda ne beyan ettiğimi görmeden mektubu dolduramıyor. Mektup gönderildiğinde doğrudan INCOSE’ye ulaşıyor. Formun doldurulması yaklaşık <strong>30 dakika</strong> sürüyor; bunu referanslara baştan söylemekte fayda var.</li>
+  <li><strong>Referanslar.</strong> Form uygun bulununca her referansıma iki şey gönderdim: doldurduğum <strong>Form 1</strong>’in bir kopyası ve <strong>dijital referans mektubunun</strong> (<a href="https://forms.office.com/pages/responsepage.aspx?id=k6cjNVAORka4CyXYO9fylpdnShHiChFNk4sYt-8URhFUN1RNUE5NSDdKTlRVSkNZVFdYRkwyOVlPSC4u&amp;route=shorturl">Form 4B</a>) bağlantısı. Form 1’in kopyası şart, çünkü referans hangi dönemde hangi alanda ne beyan ettiğimi görmeden mektubu dolduramıyor. Mektup gönderildiğinde doğrudan INCOSE’ye ulaşıyor. Formun doldurulması yaklaşık <strong>30 dakika</strong> sürüyor; bunu referanslara baştan söylemekte fayda var.</li>
   <li><strong>Değerlendirme ve karar.</strong> Referans mektupları tamamlanınca dosyam değerlendirildi ve sonuç e-postayla bildirildi.</li>
 </ol>
 
@@ -753,6 +753,7 @@ flowchart TB
         direction LR
         K[Kullanıcı] --&gt; D[Destek] --&gt; R[Hata kaydı] --&gt; U[Ürün yönetimi] --&gt; G1[Geliştirici]
     end
+    A ~~~ B
 </div>
 
 <p>Kullanıcı aksaklığı çoğu zaman bildirmez. Bildirirse kelimelere döker, destek ekibi bunu bir kayda, ürün ekibi kaydı bir maddeye çevirir, madde de sıraya girer. Zincirin sonuna baştaki sinirin soluk bir kopyası ulaşır. Aksaklığı geliştiricinin kendisi yaşadığında bu çevirilerin hiçbiri gerekmez; sorun, onu çözebilecek kişinin zihninde ilk elden oluşur. Zinciri kısaltmanın somut sonucu, geri bildirim gecikmesinin (<em>feedback latency</em>) azalmasıdır: sorunun yaşanmasıyla onu düzeltebilecek kişiye ulaşması arasındaki süre günlerden saatlere, hatta dakikalara inebilir.</p>
@@ -1073,7 +1074,7 @@ flowchart LR
   <li>B. Beyer, C. Jones, J. Petoff, N. R. Murphy (ed.) — <em>Site Reliability Engineering</em>, O’Reilly, 2016 (error budget, blameless postmortem).</li>
   <li><a href="/2026/06/04/coupling-dengesi.html">Coupling’i Dengelemek: Yazılım Tasarımında Bağımlılığı Yönetmek</a></li>
   <li><a href="/2026/05/26/sistem-muhendisligi-nedir.html">Sistem Mühendisliği Nedir?</a></li>
-</ul>]]></content><author><name>M. Serdar Karaman</name></author><summary type="html"><![CDATA[Mühendislikte uzun süredir tek bir niteliğin peşinden koşarız: dayanıklılık. Sistemin şoka, yüke ve arızaya rağmen ayakta kalmasını isteriz; emniyet-kritik alanlarda bunu bir zorunluluğa çeviririz. Oysa Nassim Nicholas Taleb’in Incerto serisinde işlediği temel iddia, dayanıklılığın bir uç değil bir orta nokta olduğudur. Kırılganın gerçek zıttı “kırılmayan” değildir; volatiliteden, stresten ve hatadan fayda gören, yani sarsıldıkça güçlenen bir şeydir.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://karaman.dev/img/posts/2.webp" /><media:content medium="image" url="https://karaman.dev/img/posts/2.webp" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry xml:lang="tr"><title type="html">Coupling’i Dengelemek: Yazılım Tasarımında Bağımlılığı Yönetmek</title><link href="https://karaman.dev/2026/06/04/coupling-dengesi.html" rel="alternate" type="text/html" title="Coupling’i Dengelemek: Yazılım Tasarımında Bağımlılığı Yönetmek" /><published>2026-06-04T09:00:00+00:00</published><updated>2026-06-04T09:00:00+00:00</updated><id>https://karaman.dev/2026/06/04/coupling-dengesi</id><content type="html" xml:base="https://karaman.dev/2026/06/04/coupling-dengesi.html"><![CDATA[<p>Bir satırlık bir değişiklik yaptınız: bir alanın adını <code class="language-plaintext highlighter-rouge">userId</code>‘den <code class="language-plaintext highlighter-rouge">accountId</code>‘ye çevirdiniz. Derleyici hata vermeye başladı. Bir dosyayı düzelttiniz, üç dosya daha kırmızı yandı. Onları da düzelttiniz; bu kez testler patladı. Yarım saat sonra “küçücük” değişikliğiniz on iki dosyaya, iki servise ve bir veritabanı şemasına dokunmuştu. Tanıdık geldi mi?</p>
+</ul>]]></content><author><name>M. Serdar Karaman</name></author><category term="muhendislik" /><category term="sistem-muhendisligi" /><category term="yazilim-muhendisligi" /><summary type="html"><![CDATA[Mühendislikte uzun süredir tek bir niteliğin peşinden koşarız: dayanıklılık. Sistemin şoka, yüke ve arızaya rağmen ayakta kalmasını isteriz; emniyet-kritik alanlarda bunu bir zorunluluğa çeviririz. Oysa Nassim Nicholas Taleb’in Incerto serisinde işlediği temel iddia, dayanıklılığın bir uç değil bir orta nokta olduğudur. Kırılganın gerçek zıttı “kırılmayan” değildir; volatiliteden, stresten ve hatadan fayda gören, yani sarsıldıkça güçlenen bir şeydir.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://karaman.dev/img/posts/antikirilgan-cover.webp" /><media:content medium="image" url="https://karaman.dev/img/posts/antikirilgan-cover.webp" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry xml:lang="tr"><title type="html">Coupling’i Dengelemek: Yazılım Tasarımında Bağımlılığı Yönetmek</title><link href="https://karaman.dev/2026/06/04/coupling-dengesi.html" rel="alternate" type="text/html" title="Coupling’i Dengelemek: Yazılım Tasarımında Bağımlılığı Yönetmek" /><published>2026-06-04T09:00:00+00:00</published><updated>2026-06-04T09:00:00+00:00</updated><id>https://karaman.dev/2026/06/04/coupling-dengesi</id><content type="html" xml:base="https://karaman.dev/2026/06/04/coupling-dengesi.html"><![CDATA[<p>Bir satırlık bir değişiklik yaptınız: bir alanın adını <code class="language-plaintext highlighter-rouge">userId</code>’den <code class="language-plaintext highlighter-rouge">accountId</code>’ye çevirdiniz. Derleyici hata vermeye başladı. Bir dosyayı düzelttiniz, üç dosya daha kırmızı yandı. Onları da düzelttiniz; bu kez testler patladı. Yarım saat sonra “küçücük” değişikliğiniz on iki dosyaya, iki servise ve bir veritabanı şemasına dokunmuştu. Tanıdık geldi mi?</p>
 
 <p>Çoğumuz bu acıya bir isim veririz: <strong>coupling</strong> (bağlaşım). Ve hemen ardından bir reçete yazarız: “Demek ki daha az coupling lazım, her şeyi birbirinden ayıralım (<em>decouple</em> edelim).” Ekip bu uğurda kodu mikroservislere böler — ve birkaç ay sonra, ağ üzerinden birbirine eskisinden de sıkı bağlı, ama bu kez hata ayıklaması çok daha zor bir sisteme uyanır.</p>
 
@@ -1291,7 +1292,7 @@ flowchart LR
   <p><strong>Kontrol bağlaşımı (<em>control coupling</em>):</strong> Bir bileşenin, başka bir bileşenin yürütülmesini (ne zaman, hangi koşulda çalışacağını) etkileme biçimi veya derecesi.</p>
 </blockquote>
 
-<p>Standart, bu bağların yalnızca <em>var olduğunu</em> kabul etmekle yetinmez; doğrulama sürecinin bir <strong>objektifi</strong> olarak (DO‑178C’nin meşhur <em>Tablo A‑7</em>‘sinde) şunu talep eder: <strong>Gereksinim temelli testlerin, bileşenler arasındaki veri ve kontrol bağımlılıklarını gerçekten <em>çalıştırdığını</em> kanıtlayın.</strong> Burada DO‑178C, selefi DO‑178B’den ayrılır: eskiden bağları yalnızca <em>tanımlamak</em> yeterken, DO‑178C onların testlerle <em>uygulandığını</em> göstermeyi ister.</p>
+<p>Standart, bu bağların yalnızca <em>var olduğunu</em> kabul etmekle yetinmez; doğrulama sürecinin bir <strong>objektifi</strong> olarak (DO‑178C’nin meşhur <em>Tablo A‑7</em>’sinde) şunu talep eder: <strong>Gereksinim temelli testlerin, bileşenler arasındaki veri ve kontrol bağımlılıklarını gerçekten <em>çalıştırdığını</em> kanıtlayın.</strong> Burada DO‑178C, selefi DO‑178B’den ayrılır: eskiden bağları yalnızca <em>tanımlamak</em> yeterken, DO‑178C onların testlerle <em>uygulandığını</em> göstermeyi ister.</p>
 
 <p>Bu gereklilik her yazılım için aynı değildir. DO‑178C, olası bir arızanın yol açacağı sonucun ağırlığına göre beş <strong>tasarım güvence seviyesi</strong> (<em>Design Assurance Level</em>, DAL) tanımlar:</p>
 
@@ -1398,7 +1399,7 @@ flowchart LR
   <li>Rapita Systems — <a href="https://www.rapitasystems.com/dccc">Data Coupling &amp; Control Coupling for DO‑178C</a>.</li>
   <li>LDRA — <a href="https://ldra.com/capabilities/data-couplingcontrol-coupling/">Data Coupling and Control Coupling (DCCC) analysis</a>.</li>
   <li>FAA — <a href="https://www.faa.gov/regulations_policies/advisory_circulars/index.cfm/go/document.information/documentID/1032046">AC 20‑115D, Airborne Software Development Assurance</a>.</li>
-</ul>]]></content><author><name>M. Serdar Karaman</name></author><category term="yazilim" /><category term="yazilim-tasarimi" /><category term="yazilim-muhendisligi" /><summary type="html"><![CDATA[Bir satırlık bir değişiklik yaptınız: bir alanın adını userId‘den accountId‘ye çevirdiniz. Derleyici hata vermeye başladı. Bir dosyayı düzelttiniz, üç dosya daha kırmızı yandı. Onları da düzelttiniz; bu kez testler patladı. Yarım saat sonra “küçücük” değişikliğiniz on iki dosyaya, iki servise ve bir veritabanı şemasına dokunmuştu. Tanıdık geldi mi?]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://karaman.dev/img/posts/coupling-dengesi-cover.webp" /><media:content medium="image" url="https://karaman.dev/img/posts/coupling-dengesi-cover.webp" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry xml:lang="tr"><title type="html">Kalman Filtresi ve EKF: Gürültülü Veriden Gizli Durumu Kestirmek</title><link href="https://karaman.dev/2026/06/02/kalman-filtresi.html" rel="alternate" type="text/html" title="Kalman Filtresi ve EKF: Gürültülü Veriden Gizli Durumu Kestirmek" /><published>2026-06-02T09:00:00+00:00</published><updated>2026-06-02T09:00:00+00:00</updated><id>https://karaman.dev/2026/06/02/kalman-filtresi</id><content type="html" xml:base="https://karaman.dev/2026/06/02/kalman-filtresi.html"><![CDATA[<p>Telefonunuz masanın üzerinde dururken bile GPS noktası birkaç metre oraya buraya zıplar. Arabadaki ivmeölçer mükemmel veri verir ama integralini aldığınızda hata saniyeler içinde birikip sürüklenir (drift). Tek başına ne sensöre ne de modele güvenebilirsiniz — yine de haritadaki maviniz pürüzsüz, kararlı bir çizgi çizer. Bu sihrin arkasındaki makine çoğu zaman aynıdır: <strong>Kalman filtresi</strong>.</p>
+</ul>]]></content><author><name>M. Serdar Karaman</name></author><category term="yazilim" /><category term="yazilim-tasarimi" /><category term="yazilim-muhendisligi" /><summary type="html"><![CDATA[Bir satırlık bir değişiklik yaptınız: bir alanın adını userId’den accountId’ye çevirdiniz. Derleyici hata vermeye başladı. Bir dosyayı düzelttiniz, üç dosya daha kırmızı yandı. Onları da düzelttiniz; bu kez testler patladı. Yarım saat sonra “küçücük” değişikliğiniz on iki dosyaya, iki servise ve bir veritabanı şemasına dokunmuştu. Tanıdık geldi mi?]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://karaman.dev/img/posts/coupling-dengesi-cover.webp" /><media:content medium="image" url="https://karaman.dev/img/posts/coupling-dengesi-cover.webp" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry xml:lang="tr"><title type="html">Kalman Filtresi ve EKF: Gürültülü Veriden Gizli Durumu Kestirmek</title><link href="https://karaman.dev/2026/06/02/kalman-filtresi.html" rel="alternate" type="text/html" title="Kalman Filtresi ve EKF: Gürültülü Veriden Gizli Durumu Kestirmek" /><published>2026-06-02T09:00:00+00:00</published><updated>2026-06-02T09:00:00+00:00</updated><id>https://karaman.dev/2026/06/02/kalman-filtresi</id><content type="html" xml:base="https://karaman.dev/2026/06/02/kalman-filtresi.html"><![CDATA[<p>Telefonunuz masanın üzerinde dururken bile GPS noktası birkaç metre oraya buraya zıplar. Arabadaki ivmeölçer mükemmel veri verir ama integralini aldığınızda hata saniyeler içinde birikip sürüklenir (drift). Tek başına ne sensöre ne de modele güvenebilirsiniz — yine de haritadaki maviniz pürüzsüz, kararlı bir çizgi çizer. Bu sihrin arkasındaki makine çoğu zaman aynıdır: <strong>Kalman filtresi</strong>.</p>
 
 <p>Kalman filtresi, 1960’ta Rudolf Kálmán’ın ortaya koyduğundan beri uzay araçlarından telefonunuza, robotlardan finansal modellere kadar her yerde çalışan, gürültülü ölçümler ile kusurlu bir hareket modelini optimal şekilde <strong>harmanlayan</strong> özyinelemeli bir kestirimcidir. Bu yazıda filtreyi sıfırdan kuracağız: önce Gauss dağılımlarını birleştirme sezgisiyle, sonra doğrusal durum-uzay modeliyle, ardından doğrusal-olmayan dünyaya geçişi sağlayan <strong>Genişletilmiş Kalman Filtresi (EKF)</strong> ile. Yol boyunca hem NumPy ile tam çalışan Python kodları hem de tarayıcınızda canlı oynayabileceğiniz iki etkileşimli simülatör olacak.</p>
 
@@ -1476,12 +1477,12 @@ F = \begin{bmatrix} 1 &amp; \Delta t \\ 0 &amp; 1 \end{bmatrix}, \quad
 H = \begin{bmatrix} 1 &amp; 0 \end{bmatrix}
 $$</p>
 
-<p><code class="language-plaintext highlighter-rouge">F</code>‘in anlamı net: yeni konum = eski konum + hız·Δt; yeni hız = eski hız (sabit hız varsayımı). <code class="language-plaintext highlighter-rouge">H = [1, 0]</code> ise “ölçüm sadece konumu görür, hızı görmez” der. Hızı hiç ölçmediğimiz hâlde filtre onu konum ölçümlerinin zaman içindeki değişiminden <strong>çıkarsayacak</strong> — Kalman filtresinin en şık tarafı budur.</p>
+<p><code class="language-plaintext highlighter-rouge">F</code>’in anlamı net: yeni konum = eski konum + hız·Δt; yeni hız = eski hız (sabit hız varsayımı). <code class="language-plaintext highlighter-rouge">H = [1, 0]</code> ise “ölçüm sadece konumu görür, hızı görmez” der. Hızı hiç ölçmediğimiz hâlde filtre onu konum ölçümlerinin zaman içindeki değişiminden <strong>çıkarsayacak</strong> — Kalman filtresinin en şık tarafı budur.</p>
 
 <p>Süreç gürültüsünü, modellenmemiş bir ivmeden gelir gibi düşünürüz (beyaz-gürültü ivme modeli):</p>
 
 <p>$$
-Q = q\begin{bmatrix} \tfrac{\Delta t^4}{4} &amp; \tfrac{\Delta t^3}{2} \[4pt] \tfrac{\Delta t^3}{2} &amp; \Delta t^2 \end{bmatrix}, \qquad
+Q = q\begin{bmatrix} \tfrac{\Delta t^4}{4} &amp; \tfrac{\Delta t^3}{2} \\[4pt] \tfrac{\Delta t^3}{2} &amp; \Delta t^2 \end{bmatrix}, \qquad
 R = \begin{bmatrix} \sigma_{\text{ölç}}^2 \end{bmatrix}
 $$</p>
 
@@ -1655,14 +1656,14 @@ flowchart LR
   <figcaption><strong>Şekil 2.</strong> Gerçek konum (yeşil), gürültülü ölçümler (kırmızı nokta) ve KF kestirimi (mavi), ±2σ güven bandıyla birlikte. Mavi çizgi kırmızı bulutun ortasından pürüzsüzce geçiyor; güven bandı ilk adımlarda geniş, sonra daralıyor.</figcaption>
 </figure>
 
-<p>Bir de filtrenin “kendine güveni” olan <code class="language-plaintext highlighter-rouge">P</code> ve kazanç <code class="language-plaintext highlighter-rouge">K</code>‘nin zaman içindeki davranışına bakalım:</p>
+<p>Bir de filtrenin “kendine güveni” olan <code class="language-plaintext highlighter-rouge">P</code> ve kazanç <code class="language-plaintext highlighter-rouge">K</code>’nin zaman içindeki davranışına bakalım:</p>
 
 <figure>
   <img src="/img/posts/kalman-covariance-convergence.webp" alt="Kovaryans P ve Kalman kazancı K kararlı duruma oturuyor" class="img-fluid rounded" />
-  <figcaption><strong>Şekil 3.</strong> Konum varyansı P[0,0] başlangıçtaki 500'den birkaç adımda ~1'e iner (logaritmik eksen). Kalman kazancı K[0] ise ~1.0'dan başlayıp ~0.27'ye oturur. Sabit `F`, `H`, `Q`, `R` için kazanç bir <strong>kararlı duruma</strong> yakınsar — bu, gömülü sistemlerde "sabit kazançlı Kalman filtresi" olarak önceden hesaplanabilir.</figcaption>
+  <figcaption><strong>Şekil 3.</strong> Konum varyansı P[0,0] başlangıçtaki 500'den birkaç adımda ~1'e iner (logaritmik eksen). Kalman kazancı K[0] ise ~1.0'dan başlayıp ~0.27'ye oturur. Sabit <code>F</code>, <code>H</code>, <code>Q</code>, <code>R</code> için kazanç bir <strong>kararlı duruma</strong> yakınsar — bu, gömülü sistemlerde "sabit kazançlı Kalman filtresi" olarak önceden hesaplanabilir.</figcaption>
 </figure>
 
-<p><code class="language-plaintext highlighter-rouge">R</code> ve <code class="language-plaintext highlighter-rouge">q</code> değerleriyle oynayıp kodu yeniden çalıştırın: <code class="language-plaintext highlighter-rouge">R</code>‘yi büyütürseniz filtre ölçümlere daha az güvenir, kestirim pürüzsüzleşir ama yavaşlar. <code class="language-plaintext highlighter-rouge">q</code>‘yu büyütürseniz modele daha az güvenir, kestirim ölçümlerin peşinden koşar. Bu dengeyi en iyi, doğrudan elinizle hissederek anlarsınız — buyrun.</p>
+<p><code class="language-plaintext highlighter-rouge">R</code> ve <code class="language-plaintext highlighter-rouge">q</code> değerleriyle oynayıp kodu yeniden çalıştırın: <code class="language-plaintext highlighter-rouge">R</code>’yi büyütürseniz filtre ölçümlere daha az güvenir, kestirim pürüzsüzleşir ama yavaşlar. <code class="language-plaintext highlighter-rouge">q</code>’yu büyütürseniz modele daha az güvenir, kestirim ölçümlerin peşinden koşar. Bu dengeyi en iyi, doğrudan elinizle hissederek anlarsınız — buyrun.</p>
 
 <hr />
 
@@ -1675,15 +1676,15 @@ flowchart LR
   <div class="card-body">
     <div class="form-row mb-2">
       <div class="col-md-4 mb-2">
-        <label class="mb-0 small">Ölçüm gürültüsü σ = <b id="kf-v-R">2.0</b></label>
+        <label for="kf-sl-R" class="mb-0 small">Ölçüm gürültüsü σ = <b id="kf-v-R">2.0</b></label>
         <input type="range" class="custom-range" id="kf-sl-R" min="0.2" max="8" value="2" step="0.1" />
       </div>
       <div class="col-md-4 mb-2">
-        <label class="mb-0 small">Süreç gürültüsü q (filtre) = <b id="kf-v-Q">0.0100</b></label>
+        <label for="kf-sl-Q" class="mb-0 small">Süreç gürültüsü q (filtre) = <b id="kf-v-Q">0.0100</b></label>
         <input type="range" class="custom-range" id="kf-sl-Q" min="0.0001" max="1" value="0.01" step="0.0001" />
       </div>
       <div class="col-md-4 mb-2">
-        <label class="mb-0 small">Gerçek hız = <b id="kf-v-V">1.0</b> br/adım</label>
+        <label for="kf-sl-V" class="mb-0 small">Gerçek hız = <b id="kf-v-V">1.0</b> br/adım</label>
         <input type="range" class="custom-range" id="kf-sl-V" min="-2" max="2" value="1" step="0.1" />
       </div>
     </div>
@@ -1691,7 +1692,7 @@ flowchart LR
       <button class="btn btn-sm btn-primary" id="kf-btn-play" type="button">⏸ Duraklat</button>
       <button class="btn btn-sm btn-outline-secondary" id="kf-btn-reset" type="button">↻ Yeni gerçekleştirme</button>
     </div>
-    <div id="kf-status" class="px-2 py-1 mb-2 rounded small" style="font-family:monospace;min-height:2.2em;background:#f1f5fb;"></div>
+    <div id="kf-status" class="demo-status px-2 py-1 mb-2 rounded small"></div>
     <canvas id="kf-canvas" style="width:100%;display:block;border-radius:4px;border:1px solid #dee2e6;"></canvas>
     <p class="text-muted small mt-1 mb-0">σ'yı büyüt → kestirim pürüzsüzleşir ama gecikir. q'yu büyüt → kestirim her ölçümün peşinden koşar. q'yu çok küçültürsen filtre fazla kendine güvenir: ±2σ bandı incelir ama gerçek konum bandın dışına taşar (ıraksamanın habercisi).</p>
   </div>
@@ -1699,7 +1700,7 @@ flowchart LR
 
 <script src="/assets/js/posts/kalman-linear.js"></script>
 
-<p>Birkaç deney önerisi: <code class="language-plaintext highlighter-rouge">q</code>‘yu en küçük değere çekin ve birkaç saniye izleyin — güven bandı kâğıt inceliğine düşerken gerçek (yeşil) çizginin bandın dışına kaçtığını göreceksiniz. Filtre kendine olduğundan fazla güveniyor; bu, gerçek sistemlerde <strong>ıraksamanın</strong> (divergence) klasik reçetesidir. Sonra <code class="language-plaintext highlighter-rouge">q</code>‘yu sonuna kadar açın: bu sefer kestirim her gürültülü noktanın peşine takılır, filtrenin tüm pürüzsüzleştirme faydası kaybolur. İyi ayar ikisinin arasındadır.</p>
+<p>Birkaç deney önerisi: <code class="language-plaintext highlighter-rouge">q</code>’yu en küçük değere çekin ve birkaç saniye izleyin — güven bandı kâğıt inceliğine düşerken gerçek (yeşil) çizginin bandın dışına kaçtığını göreceksiniz. Filtre kendine olduğundan fazla güveniyor; bu, gerçek sistemlerde <strong>ıraksamanın</strong> (divergence) klasik reçetesidir. Sonra <code class="language-plaintext highlighter-rouge">q</code>’yu sonuna kadar açın: bu sefer kestirim her gürültülü noktanın peşine takılır, filtrenin tüm pürüzsüzleştirme faydası kaybolur. İyi ayar ikisinin arasındadır.</p>
 
 <hr />
 
@@ -1711,7 +1712,7 @@ flowchart LR
 
 <p>$$
 h(x) = \begin{bmatrix} r \\ \theta \end{bmatrix}
-     = \begin{bmatrix} \sqrt{p_x^2 + p_y^2} \[4pt] \operatorname{atan2}(p_y, p_x) \end{bmatrix}
+     = \begin{bmatrix} \sqrt{p_x^2 + p_y^2} \\[4pt] \operatorname{atan2}(p_y, p_x) \end{bmatrix}
 $$</p>
 
 <p>İçindeki karekök ve <code class="language-plaintext highlighter-rouge">atan2</code> yüzünden bu fonksiyon durumda doğrusal değildir. İşte sorun: Kalman filtresinin tüm matematiği “Gauss içeri girer, Gauss dışarı çıkar” varsayımına dayanır. Ama bir Gauss dağılımını doğrusal-olmayan bir fonksiyondan geçirirseniz, çıkan şey <strong>artık Gauss değildir</strong> — çarpık, eğri büğrü bir dağılımdır. <code class="language-plaintext highlighter-rouge">H</code> matrisi diye bir şey de yoktur; <code class="language-plaintext highlighter-rouge">h(x)</code> bir matrisle yazılamaz. Klasik KF burada çalışmaz.</p>
@@ -1761,7 +1762,7 @@ $$</p>
 <p>$$
 H_k = \frac{\partial h}{\partial x}
 = \begin{bmatrix}
-\dfrac{p_x}{r} &amp; \dfrac{p_y}{r} &amp; 0 &amp; 0 \[8pt]
+\dfrac{p_x}{r} &amp; \dfrac{p_y}{r} &amp; 0 &amp; 0 \\[8pt]
 -\dfrac{p_y}{r^2} &amp; \dfrac{p_x}{r^2} &amp; 0 &amp; 0
 \end{bmatrix}
 $$</p>
@@ -1791,12 +1792,12 @@ $$</p>
 
 <h2 id="ekf-algoritması">EKF Algoritması</h2>
 
-<p>EKF döngüsü, klasik KF’ten yalnızca iki yerde ayrılır. Önce ölçüm modelimizin sabit <code class="language-plaintext highlighter-rouge">F</code> matrisini (bu örnekte hareket doğrusal: 2B sabit hız) ve <code class="language-plaintext highlighter-rouge">Q</code>‘yu kuralım:</p>
+<p>EKF döngüsü, klasik KF’ten yalnızca iki yerde ayrılır. Önce ölçüm modelimizin sabit <code class="language-plaintext highlighter-rouge">F</code> matrisini (bu örnekte hareket doğrusal: 2B sabit hız) ve <code class="language-plaintext highlighter-rouge">Q</code>’yu kuralım:</p>
 
 <p>$$
 F = \begin{bmatrix} 1&amp;0&amp;\Delta t&amp;0 \\ 0&amp;1&amp;0&amp;\Delta t \\ 0&amp;0&amp;1&amp;0 \\ 0&amp;0&amp;0&amp;1 \end{bmatrix}, \qquad
 Q = G\,\sigma_a^2\,G^{\mathsf{T}},\quad
-G = \begin{bmatrix} \tfrac{\Delta t^2}{2}&amp;0 \[2pt] 0&amp;\tfrac{\Delta t^2}{2} \[2pt] \Delta t&amp;0 \[2pt] 0&amp;\Delta t \end{bmatrix}
+G = \begin{bmatrix} \tfrac{\Delta t^2}{2}&amp;0 \\[2pt] 0&amp;\tfrac{\Delta t^2}{2} \\[2pt] \Delta t&amp;0 \\[2pt] 0&amp;\Delta t \end{bmatrix}
 $$</p>
 
 <p>EKF adımları:</p>
@@ -1819,7 +1820,7 @@ $$</p>
 
 <ol>
   <li><strong>Ortalama gerçek fonksiyonla, kovaryans Jacobian’la taşınır.</strong> Yeniliği <code class="language-plaintext highlighter-rouge">z − H x̂⁻</code> değil, <code class="language-plaintext highlighter-rouge">z − h(x̂⁻)</code> ile hesaplarız; ama <code class="language-plaintext highlighter-rouge">S</code>, <code class="language-plaintext highlighter-rouge">K</code>, <code class="language-plaintext highlighter-rouge">P</code> denklemlerinde <code class="language-plaintext highlighter-rouge">H</code> yerine <code class="language-plaintext highlighter-rouge">H_k</code> Jacobian’ı kullanırız.</li>
-  <li><strong>Açı farkını sarmak (wrapping).</strong> <code class="language-plaintext highlighter-rouge">atan2</code> değerleri <code class="language-plaintext highlighter-rouge">[−π, π]</code> aralığındadır. <code class="language-plaintext highlighter-rouge">179°</code> beklerken <code class="language-plaintext highlighter-rouge">−179°</code> ölçerseniz, ham fark <code class="language-plaintext highlighter-rouge">−358°</code> çıkar; oysa gerçek fark sadece <code class="language-plaintext highlighter-rouge">+2°</code>‘dir. Bu yüzden açı yeniliğini daima <code class="language-plaintext highlighter-rouge">[−π, π]</code> aralığına sararız:</li>
+  <li><strong>Açı farkını sarmak (wrapping).</strong> <code class="language-plaintext highlighter-rouge">atan2</code> değerleri <code class="language-plaintext highlighter-rouge">[−π, π]</code> aralığındadır. <code class="language-plaintext highlighter-rouge">179°</code> beklerken <code class="language-plaintext highlighter-rouge">−179°</code> ölçerseniz, ham fark <code class="language-plaintext highlighter-rouge">−358°</code> çıkar; oysa gerçek fark sadece <code class="language-plaintext highlighter-rouge">+2°</code>’dir. Bu yüzden açı yeniliğini daima <code class="language-plaintext highlighter-rouge">[−π, π]</code> aralığına sararız:</li>
 </ol>
 
 <p>$$
@@ -1913,7 +1914,7 @@ flowchart TB
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">EKF konum RMSE = </span><span class="si">{</span><span class="n">rmse</span><span class="si">:</span><span class="p">.</span><span class="mi">2</span><span class="n">f</span><span class="si">}</span><span class="s"> m</span><span class="sh">"</span><span class="p">)</span>         <span class="c1"># -&gt; 0.56 m
 </span></code></pre></div></div>
 
-<p>Burada hareketin doğrusal olduğuna (<code class="language-plaintext highlighter-rouge">f</code> = sabit <code class="language-plaintext highlighter-rouge">F</code>) ama ölçümün doğrusal-olmadığına dikkat edin: tüm doğrusal-olmama <code class="language-plaintext highlighter-rouge">h</code> ve <code class="language-plaintext highlighter-rouge">H_k</code>‘de yaşıyor. Her adımda yeniden hesaplanan tek şey <code class="language-plaintext highlighter-rouge">Hk</code> Jacobian’ı. Sonuç: 1°’lik açı ve 0.5 m’lik menzil gürültüsüne rağmen konum RMSE’si <strong>0.56 m</strong> — sensörün ham gürültüsünün epey altında.</p>
+<p>Burada hareketin doğrusal olduğuna (<code class="language-plaintext highlighter-rouge">f</code> = sabit <code class="language-plaintext highlighter-rouge">F</code>) ama ölçümün doğrusal-olmadığına dikkat edin: tüm doğrusal-olmama <code class="language-plaintext highlighter-rouge">h</code> ve <code class="language-plaintext highlighter-rouge">H_k</code>’de yaşıyor. Her adımda yeniden hesaplanan tek şey <code class="language-plaintext highlighter-rouge">Hk</code> Jacobian’ı. Sonuç: 1°’lik açı ve 0.5 m’lik menzil gürültüsüne rağmen konum RMSE’si <strong>0.56 m</strong> — sensörün ham gürültüsünün epey altında.</p>
 
 <figure>
   <img src="/img/posts/ekf-trajectory.webp" alt="EKF ile menzil-açı sensöründen 2B hedef takibi" class="img-fluid rounded" />
@@ -1931,19 +1932,19 @@ flowchart TB
   <div class="card-body">
     <div class="form-row mb-2">
       <div class="col-md-3 mb-2">
-        <label class="mb-0 small">Menzil gürültüsü σ<sub>r</sub> = <b id="ekf-v-sr">0.50</b> m</label>
+        <label for="ekf-sl-sr" class="mb-0 small">Menzil gürültüsü σ<sub>r</sub> = <b id="ekf-v-sr">0.50</b> m</label>
         <input type="range" class="custom-range" id="ekf-sl-sr" min="0.05" max="3" value="0.5" step="0.05" />
       </div>
       <div class="col-md-3 mb-2">
-        <label class="mb-0 small">Açı gürültüsü σ<sub>θ</sub> = <b id="ekf-v-sth">1.0</b>°</label>
+        <label for="ekf-sl-sth" class="mb-0 small">Açı gürültüsü σ<sub>θ</sub> = <b id="ekf-v-sth">1.0</b>°</label>
         <input type="range" class="custom-range" id="ekf-sl-sth" min="0.1" max="5" value="1" step="0.1" />
       </div>
       <div class="col-md-3 mb-2">
-        <label class="mb-0 small">Süreç gürültüsü q = <b id="ekf-v-q">0.0100</b></label>
+        <label for="ekf-sl-q" class="mb-0 small">Süreç gürültüsü q = <b id="ekf-v-q">0.0100</b></label>
         <input type="range" class="custom-range" id="ekf-sl-q" min="0.0001" max="0.5" value="0.01" step="0.0001" />
       </div>
       <div class="col-md-3 mb-2">
-        <label class="mb-0 small">Dönüş hızı = <b id="ekf-v-turn">0.5</b>°/adım</label>
+        <label for="ekf-sl-turn" class="mb-0 small">Dönüş hızı = <b id="ekf-v-turn">0.5</b>°/adım</label>
         <input type="range" class="custom-range" id="ekf-sl-turn" min="0" max="3" value="0.5" step="0.1" />
       </div>
     </div>
@@ -1951,7 +1952,7 @@ flowchart TB
       <button class="btn btn-sm btn-primary" id="ekf-btn-play" type="button">⏸ Duraklat</button>
       <button class="btn btn-sm btn-outline-secondary" id="ekf-btn-reset" type="button">↻ Yeni gerçekleştirme</button>
     </div>
-    <div id="ekf-status" class="px-2 py-1 mb-2 rounded small" style="font-family:monospace;min-height:2.2em;background:#f1f5fb;"></div>
+    <div id="ekf-status" class="demo-status px-2 py-1 mb-2 rounded small"></div>
     <canvas id="ekf-canvas" style="width:100%;display:block;border-radius:4px;border:1px solid #dee2e6;"></canvas>
     <p class="text-muted small mt-1 mb-0">Sensör orijinde. Hedef uzaktayken 2σ elipsi açı (teğet) yönünde şişer — uzakta küçük bir açı hatası büyük yanal hataya dönüşür. Hedef sensöre yaklaştıkça elips daralır: gözlemlenebilirliğin (observability) görünür hâli.</p>
   </div>
@@ -1969,16 +1970,16 @@ flowchart TB
 
 <ol>
   <li>
-    <p><strong>Asıl mesele <code class="language-plaintext highlighter-rouge">Q/R</code> oranıdır.</strong> <code class="language-plaintext highlighter-rouge">R</code> çoğu zaman sensörün veri sayfasından ya da statik kalibrasyondan bilinir; gerçek ayar düğmesi <code class="language-plaintext highlighter-rouge">Q</code>‘dur. Mutlak değerlerden çok, <code class="language-plaintext highlighter-rouge">Q</code> ile <code class="language-plaintext highlighter-rouge">R</code> arasındaki <strong>oran</strong> filtrenin karakterini belirler: büyük <code class="language-plaintext highlighter-rouge">Q/R</code> → çevik ama gürültülü; küçük <code class="language-plaintext highlighter-rouge">Q/R</code> → pürüzsüz ama tembel ve manevrada geciken. Simülatörlerde bunu elinizle hissettiniz.</p>
+    <p><strong>Asıl mesele <code class="language-plaintext highlighter-rouge">Q/R</code> oranıdır.</strong> <code class="language-plaintext highlighter-rouge">R</code> çoğu zaman sensörün veri sayfasından ya da statik kalibrasyondan bilinir; gerçek ayar düğmesi <code class="language-plaintext highlighter-rouge">Q</code>’dur. Mutlak değerlerden çok, <code class="language-plaintext highlighter-rouge">Q</code> ile <code class="language-plaintext highlighter-rouge">R</code> arasındaki <strong>oran</strong> filtrenin karakterini belirler: büyük <code class="language-plaintext highlighter-rouge">Q/R</code> → çevik ama gürültülü; küçük <code class="language-plaintext highlighter-rouge">Q/R</code> → pürüzsüz ama tembel ve manevrada geciken. Simülatörlerde bunu elinizle hissettiniz.</p>
   </li>
   <li>
-    <p><strong>Filtrenin tutarlılığını ölçün (NIS/NEES).</strong> Filtre yalnızca doğru tahmin etmemeli, belirsizliği hakkında da <strong>dürüst</strong> olmalı. Yenilik <code class="language-plaintext highlighter-rouge">y</code> ile kovaryansı <code class="language-plaintext highlighter-rouge">S</code> kullanılarak hesaplanan normalize yenilik karesi (NIS), istatistiksel olarak bir χ² dağılımına uymalıdır. Yenilikler <code class="language-plaintext highlighter-rouge">S</code>‘in öngördüğünden sürekli büyükse filtre fazla iyimserdir (<code class="language-plaintext highlighter-rouge">Q</code> veya <code class="language-plaintext highlighter-rouge">R</code> küçük); sürekli küçükse fazla karamsardır. NIS, “filtrem yalan söylüyor mu?” sorusunun nicel cevabıdır.</p>
+    <p><strong>Filtrenin tutarlılığını ölçün (NIS/NEES).</strong> Filtre yalnızca doğru tahmin etmemeli, belirsizliği hakkında da <strong>dürüst</strong> olmalı. Yenilik <code class="language-plaintext highlighter-rouge">y</code> ile kovaryansı <code class="language-plaintext highlighter-rouge">S</code> kullanılarak hesaplanan normalize yenilik karesi (NIS), istatistiksel olarak bir χ² dağılımına uymalıdır. Yenilikler <code class="language-plaintext highlighter-rouge">S</code>’in öngördüğünden sürekli büyükse filtre fazla iyimserdir (<code class="language-plaintext highlighter-rouge">Q</code> veya <code class="language-plaintext highlighter-rouge">R</code> küçük); sürekli küçükse fazla karamsardır. NIS, “filtrem yalan söylüyor mu?” sorusunun nicel cevabıdır.</p>
   </li>
   <li>
-    <p><strong>Iraksamaya (divergence) karşı uyanık olun.</strong> En sinsi hata, <code class="language-plaintext highlighter-rouge">P</code>‘nin gerçek hatadan çok daha küçük olması — filtre kendine güvenir, gelen ölçümleri “aykırı” sanıp reddeder, gerçekten gitgide kopar. Sebepleri: çok küçük <code class="language-plaintext highlighter-rouge">Q</code>, modellenmemiş bir dinamik, ya da sayısal yuvarlama. Lineer simülatörde <code class="language-plaintext highlighter-rouge">q</code>‘yu dibe çekerek bunu birebir görebilirsiniz.</p>
+    <p><strong>Iraksamaya (divergence) karşı uyanık olun.</strong> En sinsi hata, <code class="language-plaintext highlighter-rouge">P</code>’nin gerçek hatadan çok daha küçük olması — filtre kendine güvenir, gelen ölçümleri “aykırı” sanıp reddeder, gerçekten gitgide kopar. Sebepleri: çok küçük <code class="language-plaintext highlighter-rouge">Q</code>, modellenmemiş bir dinamik, ya da sayısal yuvarlama. Lineer simülatörde <code class="language-plaintext highlighter-rouge">q</code>’yu dibe çekerek bunu birebir görebilirsiniz.</p>
   </li>
   <li>
-    <p><strong>Sayısal kararlılık için Joseph formunu kullanın.</strong> <code class="language-plaintext highlighter-rouge">P = (I − KH)P⁻</code> denklemi, kayan-nokta yuvarlamasıyla <code class="language-plaintext highlighter-rouge">P</code>‘yi asimetrik veya negatif-tanımlı yapabilir; bu da filtreyi çökertir. Joseph formu <code class="language-plaintext highlighter-rouge">P = (I−KH)P⁻(I−KH)ᵀ + KRKᵀ</code> her zaman simetrik ve pozitif yarı-tanımlı sonuç verir. Ek maliyet birkaç matris çarpımıdır; gömülü sistemlerde ucuz bir sigortadır. Her adımda <code class="language-plaintext highlighter-rouge">P</code>‘yi <code class="language-plaintext highlighter-rouge">(P + Pᵀ)/2</code> ile simetrikleştirmek de yaygın, ucuz bir önlemdir. (Kayan-nokta tuzakları üzerine ayrı bir yazı yazmıştım; Kalman filtresi bu tuzakların en çok ısırdığı yerlerden biridir.)</p>
+    <p><strong>Sayısal kararlılık için Joseph formunu kullanın.</strong> <code class="language-plaintext highlighter-rouge">P = (I − KH)P⁻</code> denklemi, kayan-nokta yuvarlamasıyla <code class="language-plaintext highlighter-rouge">P</code>’yi asimetrik veya negatif-tanımlı yapabilir; bu da filtreyi çökertir. Joseph formu <code class="language-plaintext highlighter-rouge">P = (I−KH)P⁻(I−KH)ᵀ + KRKᵀ</code> her zaman simetrik ve pozitif yarı-tanımlı sonuç verir. Ek maliyet birkaç matris çarpımıdır; gömülü sistemlerde ucuz bir sigortadır. Her adımda <code class="language-plaintext highlighter-rouge">P</code>’yi <code class="language-plaintext highlighter-rouge">(P + Pᵀ)/2</code> ile simetrikleştirmek de yaygın, ucuz bir önlemdir. (Kayan-nokta tuzakları üzerine ayrı bir yazı yazmıştım; Kalman filtresi bu tuzakların en çok ısırdığı yerlerden biridir.)</p>
   </li>
   <li>
     <p><strong>Gözlemlenebilirliği (observability) sorgulayın.</strong> Yalnızca menzil ölçen bir sensör, hedefin açısal konumunu tek başına belirleyemez; takip ancak hedef hareket ettikçe ve geometri değiştikçe oturur. EKF simülatöründe elipsin yöne bağlı şişmesi tam da bunun resmidir. Durumunuzun ölçümlerinizden gerçekten <strong>çıkarılabilir</strong> olduğundan emin olun.</p>
@@ -1996,7 +1997,7 @@ flowchart TB
 
 <p>EKF ise aynı makinenin doğrusal-olmayan dünyaya uzanmış hâlidir: her adımda fonksiyonları çalışma noktasında bir teğetle değiştirir, gerisini değiştirmez. Bu küçük numara, onu yarım asırdır navigasyondan robotiğe kadar her yerde çalışan bir iş atı yapmıştır — kusursuz değil, ama şaşırtıcı derecede dayanıklı.</p>
 
-<p>Tasarımınızın kaderini üç şey belirler: modelin (<code class="language-plaintext highlighter-rouge">F</code>, <code class="language-plaintext highlighter-rouge">H</code> ya da <code class="language-plaintext highlighter-rouge">f</code>, <code class="language-plaintext highlighter-rouge">h</code>) gerçeğe sadakati, <code class="language-plaintext highlighter-rouge">Q</code>‘nun ve <code class="language-plaintext highlighter-rouge">R</code>‘nin doğru ayarı. Bu üçünü yerine oturtursanız, gürültünün altından şaşırtıcı netlikte bir gerçek çıkarırsınız. Yanlış ayarlarsanız, filtre ya tembelce gerçeğin peşinden sürüklenir ya da kendine aşırı güvenip sessizce ıraksar. Her iki sonu da sahada görmek mümkün — ve artık ikisini de tanıyorsunuz.</p>
+<p>Tasarımınızın kaderini üç şey belirler: modelin (<code class="language-plaintext highlighter-rouge">F</code>, <code class="language-plaintext highlighter-rouge">H</code> ya da <code class="language-plaintext highlighter-rouge">f</code>, <code class="language-plaintext highlighter-rouge">h</code>) gerçeğe sadakati, <code class="language-plaintext highlighter-rouge">Q</code>’nun ve <code class="language-plaintext highlighter-rouge">R</code>’nin doğru ayarı. Bu üçünü yerine oturtursanız, gürültünün altından şaşırtıcı netlikte bir gerçek çıkarırsınız. Yanlış ayarlarsanız, filtre ya tembelce gerçeğin peşinden sürüklenir ya da kendine aşırı güvenip sessizce ıraksar. Her iki sonu da sahada görmek mümkün — ve artık ikisini de tanıyorsunuz.</p>
 
 <p>Devamı için iyi konular: durum boyutu büyüdüğünde <strong>kare-kök (square-root) filtreleri</strong> sayısal kararlılığı nasıl kurtarır; <strong>UKF</strong> sigma noktalarıyla Jacobian’a neden hiç ihtiyaç duymaz; ve birden çok hareket modelini paralel koşturan <strong>IMM</strong> (Interacting Multiple Model) manevra yapan hedeflerde neden EKF’i döver. Bunlar defterimde duruyor.</p>
 
@@ -2012,7 +2013,7 @@ flowchart TB
   <li>Yaakov Bar-Shalom, X.-Rong Li, Thiagalingam Kirubarajan — <em>Estimation with Applications to Tracking and Navigation</em> (Wiley, 2001). (Menzil-açı takibi, NIS/NEES tutarlılık testleri.)</li>
   <li>S. J. Julier, J. K. Uhlmann — <a href="https://doi.org/10.1109/JPROC.2003.823141">“Unscented Filtering and Nonlinear Estimation”</a>, Proceedings of the IEEE, Vol. 92, No. 3, 2004. (EKF’in ötesi: UKF.)</li>
   <li>Roger Labbe — <a href="https://github.com/rlabbe/Kalman-and-Bayesian-Filters-in-Python"><em>Kalman and Bayesian Filters in Python</em></a>. (Etkileşimli, kod-ağırlıklı ücretsiz kitap.)</li>
-</ul>]]></content><author><name>M. Serdar Karaman</name></author><category term="aviyonik" /><category term="sinyal-isleme" /><category term="aviyonik" /><summary type="html"><![CDATA[Telefonunuz masanın üzerinde dururken bile GPS noktası birkaç metre oraya buraya zıplar. Arabadaki ivmeölçer mükemmel veri verir ama integralini aldığınızda hata saniyeler içinde birikip sürüklenir (drift). Tek başına ne sensöre ne de modele güvenebilirsiniz — yine de haritadaki maviniz pürüzsüz, kararlı bir çizgi çizer. Bu sihrin arkasındaki makine çoğu zaman aynıdır: Kalman filtresi.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://karaman.dev/img/posts/9.webp" /><media:content medium="image" url="https://karaman.dev/img/posts/9.webp" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry xml:lang="tr"><title type="html">Sistem Mühendisliği Nedir?</title><link href="https://karaman.dev/2026/05/26/sistem-muhendisligi-nedir.html" rel="alternate" type="text/html" title="Sistem Mühendisliği Nedir?" /><published>2026-05-26T09:00:00+00:00</published><updated>2026-05-26T09:00:00+00:00</updated><id>https://karaman.dev/2026/05/26/sistem-muhendisligi-nedir</id><content type="html" xml:base="https://karaman.dev/2026/05/26/sistem-muhendisligi-nedir.html"><![CDATA[<p>Modern bir yolcu uçağında milyonlarca parça, onlarca farklı mühendislik disiplini ve binlerce gereksinim bir arada bulunur. Aerodinamikçi kanadı, yazılımcı uçuş kontrol bilgisayarını, elektronik mühendisi aviyonik veri yolunu, malzeme mühendisi gövde alaşımını tasarlar. Hiçbiri tek başına diğerinin işini bilmek zorunda değildir. Peki bütün bu parçaların <em>birlikte</em> güvenli bir şekilde uçan tek bir uçak oluşturduğundan kim emin olur?</p>
+</ul>]]></content><author><name>M. Serdar Karaman</name></author><category term="aviyonik" /><category term="sinyal-isleme" /><category term="aviyonik" /><summary type="html"><![CDATA[Telefonunuz masanın üzerinde dururken bile GPS noktası birkaç metre oraya buraya zıplar. Arabadaki ivmeölçer mükemmel veri verir ama integralini aldığınızda hata saniyeler içinde birikip sürüklenir (drift). Tek başına ne sensöre ne de modele güvenebilirsiniz — yine de haritadaki maviniz pürüzsüz, kararlı bir çizgi çizer. Bu sihrin arkasındaki makine çoğu zaman aynıdır: Kalman filtresi.]]></summary><media:thumbnail xmlns:media="http://search.yahoo.com/mrss/" url="https://karaman.dev/img/posts/kalman-filtresi-cover.webp" /><media:content medium="image" url="https://karaman.dev/img/posts/kalman-filtresi-cover.webp" xmlns:media="http://search.yahoo.com/mrss/" /></entry><entry xml:lang="tr"><title type="html">Sistem Mühendisliği Nedir?</title><link href="https://karaman.dev/2026/05/26/sistem-muhendisligi-nedir.html" rel="alternate" type="text/html" title="Sistem Mühendisliği Nedir?" /><published>2026-05-26T09:00:00+00:00</published><updated>2026-05-26T09:00:00+00:00</updated><id>https://karaman.dev/2026/05/26/sistem-muhendisligi-nedir</id><content type="html" xml:base="https://karaman.dev/2026/05/26/sistem-muhendisligi-nedir.html"><![CDATA[<p>Modern bir yolcu uçağında milyonlarca parça, onlarca farklı mühendislik disiplini ve binlerce gereksinim bir arada bulunur. Aerodinamikçi kanadı, yazılımcı uçuş kontrol bilgisayarını, elektronik mühendisi aviyonik veri yolunu, malzeme mühendisi gövde alaşımını tasarlar. Hiçbiri tek başına diğerinin işini bilmek zorunda değildir. Peki bütün bu parçaların <em>birlikte</em> güvenli bir şekilde uçan tek bir uçak oluşturduğundan kim emin olur?</p>
 
 <p>İşte bu sorunun cevabı <strong>sistem mühendisliğidir</strong>. Sistem mühendisi, tek tek parçaları tasarlayan kişi değil; parçaların oluşturduğu <em>bütünün</em> doğru çalışmasından sorumlu olan kişidir.</p>
 
@@ -2210,7 +2211,7 @@ graph TD
 
 <p><strong>Model Tabanlı Sistem Mühendisliği</strong> (<em>Model-Based Systems Engineering</em>, MBSE) bu soruna yanıttır. INCOSE’nin tanımıyla MBSE; gereksinim, tasarım, analiz, doğrulama ve onaylama faaliyetlerini desteklemek için modellemenin, kavramsal tasarım aşamasından itibaren resmî olarak kullanılmasıdır.</p>
 
-<p>MBSE’de “tek doğru kaynak” artık belgeler değil, <strong>tutarlı bir sistem modelidir</strong>. Bu modelden gereksinim raporları, arayüz tanımları ve diyagramlar otomatik türetilir. Modelin standart dili çoğunlukla <strong>SysML</strong>‘dir (Systems Modeling Language); son yıllarda olgunlaşan <strong>SysML v2</strong>, dilin ifade gücünü ve araç birlikte çalışabilirliğini önemli ölçüde artırmıştır.</p>
+<p>MBSE’de “tek doğru kaynak” artık belgeler değil, <strong>tutarlı bir sistem modelidir</strong>. Bu modelden gereksinim raporları, arayüz tanımları ve diyagramlar otomatik türetilir. Modelin standart dili çoğunlukla <strong>SysML</strong>’dir (Systems Modeling Language); son yıllarda olgunlaşan <strong>SysML v2</strong>, dilin ifade gücünü ve araç birlikte çalışabilirliğini önemli ölçüde artırmıştır.</p>
 
 <p>Bu dönüşüm, <strong>dijital iplik</strong> (<em>digital thread</em>) ve <strong>dijital ikiz</strong> (<em>digital twin</em>) gibi kavramların da temelini oluşturur: Sistemin kavramdan operasyona kadar tüm yaşam döngüsünün dijital, izlenebilir ve simüle edilebilir bir kopyasının tutulması.</p>
 
@@ -2407,15 +2408,7 @@ $$</p>
   <li><strong>n çift</strong> → spektrum <strong>ters çevrilmiş</strong> (zone 1’de f_s/4 etrafında aynalanmış).</li>
 </ul>
 
-<table>
-  <tbody>
-    <tr>
-      <td>Hızlı bir mental doğrulama: f_s = 10 Hz, gerçek sinyalin 11.5 ila 12.5 Hz aralığında bir spektrumu olsun. Zone 3’e (n = 3, tek) düşer. Alias:</td>
-      <td>12 − 1·10</td>
-      <td>= 2 Hz. 12.5 → 2.5, 11.5 → 1.5 — alt-üst sıralama korunur. Üst kenar yine üstte.</td>
-    </tr>
-  </tbody>
-</table>
+<p>Hızlı bir mental doğrulama: f_s = 10 Hz, gerçek sinyalin 11.5 ila 12.5 Hz aralığında bir spektrumu olsun. Zone 3’e (n = 3, tek) düşer. Alias: |12 − 1·10| = 2 Hz. 12.5 → 2.5, 11.5 → 1.5 — alt-üst sıralama korunur. Üst kenar yine üstte.</p>
 
 <p>Şimdi gerçek sinyali 7.5 ila 8.5 Hz arasına koyalım — zone 2 (n = 2, çift). Alias: 8.5 → 1.5, 7.5 → 2.5. Üst kenar artık altta. Ters çevrilmiş.</p>
 
@@ -2581,15 +2574,15 @@ $$</p>
   <div class="card-body">
     <div class="form-row mb-2">
       <div class="col-md-4 mb-2">
-        <label class="mb-0 small">f<sub>c</sub> (IF merkezi) = <b id="v-fc">70</b> MHz</label>
+        <label for="sl-fc" class="mb-0 small">f<sub>c</sub> (IF merkezi) = <b id="v-fc">70</b> MHz</label>
         <input type="range" class="custom-range" id="sl-fc" min="10" max="400" value="70" step="1" />
       </div>
       <div class="col-md-4 mb-2">
-        <label class="mb-0 small">B (bant genişliği) = <b id="v-bw">10</b> MHz</label>
+        <label for="sl-bw" class="mb-0 small">B (bant genişliği) = <b id="v-bw">10</b> MHz</label>
         <input type="range" class="custom-range" id="sl-bw" min="1" max="80" value="10" step="1" />
       </div>
       <div class="col-md-4 mb-2">
-        <label class="mb-0 small">f<sub>s</sub> (örnekleme) = <b id="v-fs">31.25</b> MSPS</label>
+        <label for="sl-fs" class="mb-0 small">f<sub>s</sub> (örnekleme) = <b id="v-fs">31.25</b> MSPS</label>
         <input type="range" class="custom-range" id="sl-fs" min="5" max="300" value="31.25" step="0.25" />
       </div>
     </div>
@@ -3386,11 +3379,11 @@ machine Resume
 
 <p><strong>9. Ekransız modu kullanın.</strong> Renode GUI yerel hata ayıklama için iyidir; CI için ise <code class="language-plaintext highlighter-rouge">--disable-xwt --console</code> veya <code class="language-plaintext highlighter-rouge">--hide-monitor</code> bayraklarıyla başlatın. Hem hız kazanırsınız hem de ekran bağımlılığı kalmaz.</p>
 
-<p><strong>10. Real-time bağımlılıkları dikkatli ele alın.</strong> Renode <code class="language-plaintext highlighter-rouge">RealTimeMode</code>‘da fiziksel zamana hizalanmaya çalışır ama saat doğruluğu çekirdek kullanımına bağlıdır. Sıkı timing testleri için <code class="language-plaintext highlighter-rouge">emulation SetGlobalQuantum</code> ile deterministik time-step kullanın; gerçek zamana güvenmeyin.</p>
+<p><strong>10. Real-time bağımlılıkları dikkatli ele alın.</strong> Renode <code class="language-plaintext highlighter-rouge">RealTimeMode</code>’da fiziksel zamana hizalanmaya çalışır ama saat doğruluğu çekirdek kullanımına bağlıdır. Sıkı timing testleri için <code class="language-plaintext highlighter-rouge">emulation SetGlobalQuantum</code> ile deterministik time-step kullanın; gerçek zamana güvenmeyin.</p>
 
 <p><strong>11. Sensör akışlarını dosyadan besleyin.</strong> Sensör simülasyonunu kod içine gömmek yerine, JSON / CSV dosyasından okuyacak şekilde yazın. Aynı test senaryosu farklı veri kümeleriyle koşturulabilir — veri odaklı test (data-driven testing) kapısı böylece açılır.</p>
 
-<p><strong>12. Mevcut platformları kopyalayıp özelleştirin.</strong> <code class="language-plaintext highlighter-rouge">@platforms/boards/zedboard.repl</code>‘i kopyalayıp <code class="language-plaintext highlighter-rouge">my_board.repl</code> yapın, <code class="language-plaintext highlighter-rouge">using</code> ile orijinali dahil edip üzerine <strong>sadece farkları</strong> yazın. Renode güncellemelerinde temel platform iyileşirken sizin patch’iniz korunur.</p>
+<p><strong>12. Mevcut platformları kopyalayıp özelleştirin.</strong> <code class="language-plaintext highlighter-rouge">@platforms/boards/zedboard.repl</code>’i kopyalayıp <code class="language-plaintext highlighter-rouge">my_board.repl</code> yapın, <code class="language-plaintext highlighter-rouge">using</code> ile orijinali dahil edip üzerine <strong>sadece farkları</strong> yazın. Renode güncellemelerinde temel platform iyileşirken sizin patch’iniz korunur.</p>
 
 <p><strong>13. Coverage’ı simülasyondan toplayın.</strong> <code class="language-plaintext highlighter-rouge">cpu0 EnableProfilerCollapsedStack</code> ile çıkan log + <code class="language-plaintext highlighter-rouge">inferno-flamegraph</code> = bir gecede test kapsamı raporu. Manuel kart üzerinde coverage almak çok daha pahalıdır.</p>
 
@@ -3536,7 +3529,7 @@ flowchart TB
 
 <p>1889’dan 2019’a kadar <strong>kilogram</strong>ın tanımı şöyleydi: “Uluslararası Kilogram Prototipi (IPK), Saint-Cloud’daki Pavillon de Breteuil’de (posta adresi: Sèvres) BIPM kasasında saklanan platin-iridyum silindirin kütlesi.” Yani dünyadaki <em>bir tek</em> gerçek 1 kg vardı; o silindir. Diğer her şey ona göre tanımlanmıştı. IPK günlük çalışma için kullanılmıyordu; yanında BIPM’in kendi yedekleri (témoin) ve bir avuç çalışma standardı vardı. Tarih boyunca yalnızca dört defa kasadan çıkarıldı — 1889 onayı ve üç doğrulama kampanyası (1939-46, 1989-92, 2014). Bu kampanyalarda BIPM yedekleri ve ülkelerin ulusal prototipleri (K20, K54…) IPK ile karşılaştırıldı. IPK’nın kendisinin bir kalibrasyonu yoktu — <em>o</em>, kalibrasyonun referansıydı.</p>
 
-<p>Sorun şuydu: özellikle 1989-92 karşılaştırmasında, IPK ile resmi yedekleri arasında ortalama yaklaşık <strong>50 µg</strong>‘lık bir farklılaşma raporlandı (yedeklerin çoğu IPK’ya göre kütle kazandı, ya da IPK kütle kaybetti). Yaklaşık bir asırlık değişim 50 mikrogram. Az gibi duruyor — ama önemli olan miktarı değil, ilkesi: <strong>eğer 1 kg’ın tanımı bu silindirse</strong>, silindir değişirse 1 kg da değişir. Mantık olarak silindirin <em>yanlış</em> olması mümkün değildi. Yanlış olan, dünyadaki diğer tüm 1 kg ölçümleriydi.</p>
+<p>Sorun şuydu: özellikle 1989-92 karşılaştırmasında, IPK ile resmi yedekleri arasında ortalama yaklaşık <strong>50 µg</strong>’lık bir farklılaşma raporlandı (yedeklerin çoğu IPK’ya göre kütle kazandı, ya da IPK kütle kaybetti). Yaklaşık bir asırlık değişim 50 mikrogram. Az gibi duruyor — ama önemli olan miktarı değil, ilkesi: <strong>eğer 1 kg’ın tanımı bu silindirse</strong>, silindir değişirse 1 kg da değişir. Mantık olarak silindirin <em>yanlış</em> olması mümkün değildi. Yanlış olan, dünyadaki diğer tüm 1 kg ölçümleriydi.</p>
 
 <p>Bu durum, dünyanın en hassas ölçümlerini yapan kuruluşları rahatsız etti. Birim tanımı bir esere bağlıyken, eserin iyi durumda olup olmadığından asla emin olamazdınız.</p>
 
@@ -3725,7 +3718,8 @@ flowchart TB
   var layout = {
     title: { text: 'Sezyum/optik atom saatlerinin doğruluğu (1955–2024)', font: { size: 14 } },
     xaxis: { title: { text: 'Yıl' } },
-    yaxis: { title: { text: 'Bağıl belirsizlik (log eksen)' }, type: 'log', autorange: true },
+    // Relative uncertainty is dimensionless: 10⁻ⁿ ticks, not SI prefixes (1p, 10f).
+    yaxis: { title: { text: 'Bağıl belirsizlik (log eksen)', standoff: 12 }, type: 'log', autorange: true, exponentformat: 'power', automargin: true },
     margin: { l: 80, r: 30, t: 50, b: 50 },
     plot_bgcolor: '#ffffff',
     paper_bgcolor: '#ffffff'
@@ -3912,12 +3906,25 @@ R_K = 25 812,807 45 Ω  (tam değer, h ve e tam olduğundan)
   }];
   var layout = {
     title: { text: '7 SI temel biriminin en iyi gerçekleme belirsizlikleri (bağıl, log eksen)', font: { size: 14 } },
-    xaxis: { title: { text: 'Bağıl belirsizlik (log eksen)' }, type: 'log', autorange: true },
+    xaxis: { title: { text: 'Bağıl belirsizlik (log eksen)' }, type: 'log', autorange: true, exponentformat: 'power' },
     yaxis: { autorange: 'reversed' },
     margin: { l: 280, r: 30, t: 50, b: 60 },
     plot_bgcolor: '#ffffff',
     paper_bgcolor: '#ffffff'
   };
+  // Phones: the long category names would squeeze the bars to a sliver, so
+  // they go above each (thinner) bar instead of beside it.
+  var el = document.getElementById('grafik-si-belirsizlik');
+  if (el.clientWidth < 576) {
+    el.style.height = '460px';
+    data[0].width = 0.45;
+    layout.yaxis.showticklabels = false;
+    layout.margin.l = 12;
+    layout.annotations = data[0].y.map(function (name, i) {
+      return { xref: 'paper', x: 0, xanchor: 'left', y: i - 0.24, yanchor: 'bottom',
+               text: name, showarrow: false, font: { size: 11, color: '#444' } };
+    });
+  }
   Plotly.newPlot('grafik-si-belirsizlik', data, layout, {responsive: true, displayModeBar: false});
 })();
 </script>
@@ -4157,6 +4164,19 @@ flowchart TB
     plot_bgcolor: '#ffffff',
     paper_bgcolor: '#ffffff'
   };
+  // Phones: the long category names would squeeze the bars to a sliver, so
+  // they go above each (thinner) bar instead of beside it.
+  var el = document.getElementById('grafik-zincir');
+  if (el.clientWidth < 576) {
+    el.style.height = '400px';
+    data[0].width = 0.45;
+    layout.yaxis.showticklabels = false;
+    layout.margin.l = 12;
+    layout.annotations = data[0].y.map(function (name, i) {
+      return { xref: 'paper', x: 0, xanchor: 'left', y: i - 0.24, yanchor: 'bottom',
+               text: name, showarrow: false, font: { size: 11, color: '#444' } };
+    });
+  }
   Plotly.newPlot('grafik-zincir', data, layout, {responsive: true, displayModeBar: false});
 })();
 </script>
@@ -4183,7 +4203,7 @@ flowchart TB
   <li><strong>TUR ≥ 4 sağlanıyor mu?</strong> Cihazınızın spec’i ile sertifika belirsizliği oranı 4’ün altındaysa, kabul/red kararı için güvenlik payı (guard band) hesaplanmalı.</li>
   <li><strong>Çevre koşulları belgelenmiş mi?</strong> Sertifika ölçüm sırasındaki sıcaklık (genelde 23 ± 2 °C) ve nem değerlerini içermeli. Sizin laboratuvarınızda koşullar farklıysa düzeltme veya ek belirsizlik gerekir.</li>
   <li><strong>Süre sonu belirtilmiş mi?</strong> “Geçerlilik 1 yıl”, “kalibrasyon aralığı kullanıcı sorumluluğunda” vb. ayrımına dikkat edin.</li>
-  <li><strong>Izlenebilirlik beyanı genel mi yoksa NMI numarasıyla mı?</strong> “Traceable to SI through UME via … “ spesifikse iyi; sadece “Traceable to NIST/UME” cümlesi tek başına yeterli kanıt değil.</li>
+  <li><strong>İzlenebilirlik beyanı genel mi yoksa NMI numarasıyla mı?</strong> “Traceable to SI through UME via …” spesifikse iyi; sadece “Traceable to NIST/UME” cümlesi tek başına yeterli kanıt değil.</li>
 </ul>
 
 <p>Bu sekiz madde aslında zincirin her halkasını sorgulayan tek bir kontrol listesi. Bir tanesi cevapsız kalıyorsa zincirde kopukluk var demektir; bu durumda kalibrasyon sertifikası işinize yaramaz.</p>

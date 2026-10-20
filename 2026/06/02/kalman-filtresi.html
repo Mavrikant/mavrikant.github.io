@@ -9,7 +9,7 @@
      script (such as polyfill.io) is blocked by the browser. connect-src
      allows jsDelivr because MathJax 4's speech worker fetches its locale
      maps (sre/mathmaps/*.json) from there for screen-reader output. -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://cdn.plot.ly https://plausible.io https://js.sentry-cdn.com https://browser.sentry-cdn.com https://giscus.app; style-src 'self' 'unsafe-inline' https://giscus.app; font-src 'self' data: https://cdn.jsdelivr.net; img-src 'self' data: https:; connect-src 'self' https://cdn.jsdelivr.net https://plausible.io https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://www.google.com https://*.sentry.io; frame-src 'self' https://giscus.app https://www.youtube.com https://www.youtube-nocookie.com; worker-src 'self' blob:; manifest-src 'self'; form-action 'self' https://formspree.io">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://cdn.plot.ly https://plausible.io https://js.sentry-cdn.com https://browser.sentry-cdn.com https://giscus.app; style-src 'self' 'unsafe-inline' https://giscus.app; font-src 'self' data: https://cdn.jsdelivr.net; img-src 'self' data: https:; connect-src 'self' https://cdn.jsdelivr.net https://plausible.io https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://www.google.com https://stats.g.doubleclick.net https://*.sentry.io; frame-src 'self' https://giscus.app https://www.youtube.com https://www.youtube-nocookie.com; worker-src 'self' blob:; manifest-src 'self'; form-action 'self' https://formspree.io">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="/favicon.ico" rel="shortcut icon" sizes="36x36 24x24 16x16" type="image/x-icon">
 <link href="/favicon.png" rel="icon" sizes="196x196" type="image/png">
@@ -28,15 +28,15 @@
 <link rel="canonical" href="https://karaman.dev/2026/06/02/kalman-filtresi.html">
 <meta property="og:url" content="https://karaman.dev/2026/06/02/kalman-filtresi.html">
 <meta property="og:site_name" content="M. Serdar Karaman">
-<meta property="og:image" content="https://karaman.dev/img/posts/9.webp">
+<meta property="og:image" content="https://karaman.dev/img/posts/kalman-filtresi-cover.webp">
 <meta property="og:type" content="article">
 <meta property="article:published_time" content="2026-06-02T09:00:00+00:00">
 <meta property="article:modified_time" content="2026-06-02T09:00:00+00:00">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://karaman.dev/img/posts/9.webp">
+<meta name="twitter:image" content="https://karaman.dev/img/posts/kalman-filtresi-cover.webp">
 <meta name="twitter:title" content="Kalman Filtresi ve EKF: Gürültülü Veriden Gizli Durumu Kestirmek">
 <script type="application/ld+json">
-{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"M. Serdar Karaman"},"dateModified":"2026-06-02T09:00:00+00:00","datePublished":"2026-06-02T09:00:00+00:00","description":"Telefonunuz masanın üzerinde dururken bile GPS noktası birkaç metre oraya buraya zıplar. Arabadaki ivmeölçer mükemmel veri verir ama integralini aldığınızda hata saniyeler içinde birikip sürüklenir (drift). Tek başına ne sensöre ne de modele güvenebilirsiniz — yine de haritadaki maviniz pürüzsüz, kararlı bir çizgi çizer. Bu sihrin arkasındaki makine çoğu zaman aynıdır: Kalman filtresi.","headline":"Kalman Filtresi ve EKF: Gürültülü Veriden Gizli Durumu Kestirmek","image":"https://karaman.dev/img/posts/9.webp","mainEntityOfPage":{"@type":"WebPage","@id":"https://karaman.dev/2026/06/02/kalman-filtresi.html"},"url":"https://karaman.dev/2026/06/02/kalman-filtresi.html"}</script>
+{"@context":"https://schema.org","@type":"BlogPosting","author":{"@type":"Person","name":"M. Serdar Karaman"},"dateModified":"2026-06-02T09:00:00+00:00","datePublished":"2026-06-02T09:00:00+00:00","description":"Telefonunuz masanın üzerinde dururken bile GPS noktası birkaç metre oraya buraya zıplar. Arabadaki ivmeölçer mükemmel veri verir ama integralini aldığınızda hata saniyeler içinde birikip sürüklenir (drift). Tek başına ne sensöre ne de modele güvenebilirsiniz — yine de haritadaki maviniz pürüzsüz, kararlı bir çizgi çizer. Bu sihrin arkasındaki makine çoğu zaman aynıdır: Kalman filtresi.","headline":"Kalman Filtresi ve EKF: Gürültülü Veriden Gizli Durumu Kestirmek","image":"https://karaman.dev/img/posts/kalman-filtresi-cover.webp","mainEntityOfPage":{"@type":"WebPage","@id":"https://karaman.dev/2026/06/02/kalman-filtresi.html"},"url":"https://karaman.dev/2026/06/02/kalman-filtresi.html"}</script>
 <!-- End Jekyll SEO tag -->
 
 
@@ -83,7 +83,7 @@
 </script>
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/fonts/inter-var-latin-ext.woff2">
 <link rel="preload" as="font" type="font/woff2" crossorigin href="/assets/fonts/source-serif-4-var-latin-ext.woff2">
-<link rel="preload" as="image" href="/img/posts/9.webp" fetchpriority="high">
+<link rel="preload" as="image" href="/img/posts/kalman-filtresi-cover.webp" fetchpriority="high">
 <link rel="stylesheet" href="/assets/main.css">
 <link rel="alternate" type="application/rss+xml" title="M. Serdar Karaman" href="/feed.xml">
 <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)">
@@ -92,8 +92,9 @@
 <script>MathJax={"tex":{"inlineMath":[["$","$"],["\\(","\\)"]],"displayMath":[["$$","$$"],["\\[","\\]"]]},"svg":{"fontCache":"global"}}</script><script src="https://cdn.jsdelivr.net/npm/mathjax@4/tex-mml-chtml.js"></script>
 </head>
 <body id="page-top">
+  <a class="skip-link" href="#main">İçeriğe atla</a>
   <!-- Navigation -->
-<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav" aria-label="Ana menü">
   <div class="container">
     <a class="navbar-brand" href="/">M. Serdar Karaman</a>
     <div class="navbar-controls">
@@ -153,18 +154,20 @@
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
       </button>
     </div>
-    <ul id="search-results" class="search-modal__results" role="listbox" aria-label="Arama sonuçları"></ul>
+    <ul id="search-results" class="search-modal__results" aria-label="Arama sonuçları"></ul>
+    <p id="search-status" class="sr-only" role="status" aria-live="polite"></p>
     <p id="search-empty" class="search-modal__empty" hidden>Sonuç bulunamadı.</p>
     <p class="search-modal__hint"><kbd>Esc</kbd> kapatır · <kbd>Ctrl</kbd>+<kbd>K</kbd> açar</p>
   </div>
 </div>
 
+  <main id="main" tabindex="-1">
   <!-- Reading progress (filled by assets/scripts.js) -->
 <div class="reading-progress" aria-hidden="true"><div class="reading-progress__bar"></div></div>
 
 <!-- Page Header -->
 
-<header class="masthead" style="background-image: url('/img/posts/9.webp')">
+<header class="masthead" style="background-image: url('/img/posts/kalman-filtresi-cover.webp')">
   
     <div class="overlay"></div>
     <div class="container">
@@ -177,17 +180,20 @@
             
             <span class="meta">
               <a href="/about">M. Serdar Karaman</a>
-              · 2 Haziran 2026 · <span class="reading-time" title="Estimated read time">
+              · <span class="nowrap">2 Haziran 2026</span> · <span class="nowrap"><span class="reading-time" title="Estimated read time">
   
   45 dk okuma süresi</span>
-
+</span>
             </span>
+            
             
             <div class="post-heading__tags">
               
+              
+              
               <a class="tag-chip tag-chip--category" href="/categories/#aviyonik">Aviyonik</a>
               
-              <a class="tag-chip" href="/tags/#sinyal-isleme">Sinyal İşleme</a><a class="tag-chip" href="/tags/#aviyonik">Aviyonik</a>
+              <a class="tag-chip" href="/tags/#sinyal-isleme">Sinyal İşleme</a>
             </div>
             
           </div>
@@ -297,12 +303,12 @@ F = \begin{bmatrix} 1 &amp; \Delta t \\ 0 &amp; 1 \end{bmatrix}, \quad
 H = \begin{bmatrix} 1 &amp; 0 \end{bmatrix}
 $$</p>
 
-<p><code class="language-plaintext highlighter-rouge">F</code>‘in anlamı net: yeni konum = eski konum + hız·Δt; yeni hız = eski hız (sabit hız varsayımı). <code class="language-plaintext highlighter-rouge">H = [1, 0]</code> ise “ölçüm sadece konumu görür, hızı görmez” der. Hızı hiç ölçmediğimiz hâlde filtre onu konum ölçümlerinin zaman içindeki değişiminden <strong>çıkarsayacak</strong> — Kalman filtresinin en şık tarafı budur.</p>
+<p><code class="language-plaintext highlighter-rouge">F</code>’in anlamı net: yeni konum = eski konum + hız·Δt; yeni hız = eski hız (sabit hız varsayımı). <code class="language-plaintext highlighter-rouge">H = [1, 0]</code> ise “ölçüm sadece konumu görür, hızı görmez” der. Hızı hiç ölçmediğimiz hâlde filtre onu konum ölçümlerinin zaman içindeki değişiminden <strong>çıkarsayacak</strong> — Kalman filtresinin en şık tarafı budur.</p>
 
 <p>Süreç gürültüsünü, modellenmemiş bir ivmeden gelir gibi düşünürüz (beyaz-gürültü ivme modeli):</p>
 
 <p>$$
-Q = q\begin{bmatrix} \tfrac{\Delta t^4}{4} &amp; \tfrac{\Delta t^3}{2} \[4pt] \tfrac{\Delta t^3}{2} &amp; \Delta t^2 \end{bmatrix}, \qquad
+Q = q\begin{bmatrix} \tfrac{\Delta t^4}{4} &amp; \tfrac{\Delta t^3}{2} \\[4pt] \tfrac{\Delta t^3}{2} &amp; \Delta t^2 \end{bmatrix}, \qquad
 R = \begin{bmatrix} \sigma_{\text{ölç}}^2 \end{bmatrix}
 $$</p>
 
@@ -484,14 +490,14 @@ flowchart LR
   <figcaption><strong>Şekil 2.</strong> Gerçek konum (yeşil), gürültülü ölçümler (kırmızı nokta) ve KF kestirimi (mavi), ±2σ güven bandıyla birlikte. Mavi çizgi kırmızı bulutun ortasından pürüzsüzce geçiyor; güven bandı ilk adımlarda geniş, sonra daralıyor.</figcaption>
 </figure>
 
-<p>Bir de filtrenin “kendine güveni” olan <code class="language-plaintext highlighter-rouge">P</code> ve kazanç <code class="language-plaintext highlighter-rouge">K</code>‘nin zaman içindeki davranışına bakalım:</p>
+<p>Bir de filtrenin “kendine güveni” olan <code class="language-plaintext highlighter-rouge">P</code> ve kazanç <code class="language-plaintext highlighter-rouge">K</code>’nin zaman içindeki davranışına bakalım:</p>
 
 <figure>
   <img src="/img/posts/kalman-covariance-convergence.webp" alt="Kovaryans P ve Kalman kazancı K kararlı duruma oturuyor" class="img-fluid rounded">
-  <figcaption><strong>Şekil 3.</strong> Konum varyansı P[0,0] başlangıçtaki 500'den birkaç adımda ~1'e iner (logaritmik eksen). Kalman kazancı K[0] ise ~1.0'dan başlayıp ~0.27'ye oturur. Sabit `F`, `H`, `Q`, `R` için kazanç bir <strong>kararlı duruma</strong> yakınsar — bu, gömülü sistemlerde "sabit kazançlı Kalman filtresi" olarak önceden hesaplanabilir.</figcaption>
+  <figcaption><strong>Şekil 3.</strong> Konum varyansı P[0,0] başlangıçtaki 500'den birkaç adımda ~1'e iner (logaritmik eksen). Kalman kazancı K[0] ise ~1.0'dan başlayıp ~0.27'ye oturur. Sabit <code>F</code>, <code>H</code>, <code>Q</code>, <code>R</code> için kazanç bir <strong>kararlı duruma</strong> yakınsar — bu, gömülü sistemlerde "sabit kazançlı Kalman filtresi" olarak önceden hesaplanabilir.</figcaption>
 </figure>
 
-<p><code class="language-plaintext highlighter-rouge">R</code> ve <code class="language-plaintext highlighter-rouge">q</code> değerleriyle oynayıp kodu yeniden çalıştırın: <code class="language-plaintext highlighter-rouge">R</code>‘yi büyütürseniz filtre ölçümlere daha az güvenir, kestirim pürüzsüzleşir ama yavaşlar. <code class="language-plaintext highlighter-rouge">q</code>‘yu büyütürseniz modele daha az güvenir, kestirim ölçümlerin peşinden koşar. Bu dengeyi en iyi, doğrudan elinizle hissederek anlarsınız — buyrun.</p>
+<p><code class="language-plaintext highlighter-rouge">R</code> ve <code class="language-plaintext highlighter-rouge">q</code> değerleriyle oynayıp kodu yeniden çalıştırın: <code class="language-plaintext highlighter-rouge">R</code>’yi büyütürseniz filtre ölçümlere daha az güvenir, kestirim pürüzsüzleşir ama yavaşlar. <code class="language-plaintext highlighter-rouge">q</code>’yu büyütürseniz modele daha az güvenir, kestirim ölçümlerin peşinden koşar. Bu dengeyi en iyi, doğrudan elinizle hissederek anlarsınız — buyrun.</p>
 
 <hr>
 
@@ -504,15 +510,15 @@ flowchart LR
   <div class="card-body">
     <div class="form-row mb-2">
       <div class="col-md-4 mb-2">
-        <label class="mb-0 small">Ölçüm gürültüsü σ = <b id="kf-v-R">2.0</b></label>
+        <label for="kf-sl-R" class="mb-0 small">Ölçüm gürültüsü σ = <b id="kf-v-R">2.0</b></label>
         <input type="range" class="custom-range" id="kf-sl-R" min="0.2" max="8" value="2" step="0.1">
       </div>
       <div class="col-md-4 mb-2">
-        <label class="mb-0 small">Süreç gürültüsü q (filtre) = <b id="kf-v-Q">0.0100</b></label>
+        <label for="kf-sl-Q" class="mb-0 small">Süreç gürültüsü q (filtre) = <b id="kf-v-Q">0.0100</b></label>
         <input type="range" class="custom-range" id="kf-sl-Q" min="0.0001" max="1" value="0.01" step="0.0001">
       </div>
       <div class="col-md-4 mb-2">
-        <label class="mb-0 small">Gerçek hız = <b id="kf-v-V">1.0</b> br/adım</label>
+        <label for="kf-sl-V" class="mb-0 small">Gerçek hız = <b id="kf-v-V">1.0</b> br/adım</label>
         <input type="range" class="custom-range" id="kf-sl-V" min="-2" max="2" value="1" step="0.1">
       </div>
     </div>
@@ -520,7 +526,7 @@ flowchart LR
       <button class="btn btn-sm btn-primary" id="kf-btn-play" type="button">⏸ Duraklat</button>
       <button class="btn btn-sm btn-outline-secondary" id="kf-btn-reset" type="button">↻ Yeni gerçekleştirme</button>
     </div>
-    <div id="kf-status" class="px-2 py-1 mb-2 rounded small" style="font-family:monospace;min-height:2.2em;background:#f1f5fb;"></div>
+    <div id="kf-status" class="demo-status px-2 py-1 mb-2 rounded small"></div>
     <canvas id="kf-canvas" style="width:100%;display:block;border-radius:4px;border:1px solid #dee2e6;"></canvas>
     <p class="text-muted small mt-1 mb-0">σ'yı büyüt → kestirim pürüzsüzleşir ama gecikir. q'yu büyüt → kestirim her ölçümün peşinden koşar. q'yu çok küçültürsen filtre fazla kendine güvenir: ±2σ bandı incelir ama gerçek konum bandın dışına taşar (ıraksamanın habercisi).</p>
   </div>
@@ -528,7 +534,7 @@ flowchart LR
 
 <script src="/assets/js/posts/kalman-linear.js"></script>
 
-<p>Birkaç deney önerisi: <code class="language-plaintext highlighter-rouge">q</code>‘yu en küçük değere çekin ve birkaç saniye izleyin — güven bandı kâğıt inceliğine düşerken gerçek (yeşil) çizginin bandın dışına kaçtığını göreceksiniz. Filtre kendine olduğundan fazla güveniyor; bu, gerçek sistemlerde <strong>ıraksamanın</strong> (divergence) klasik reçetesidir. Sonra <code class="language-plaintext highlighter-rouge">q</code>‘yu sonuna kadar açın: bu sefer kestirim her gürültülü noktanın peşine takılır, filtrenin tüm pürüzsüzleştirme faydası kaybolur. İyi ayar ikisinin arasındadır.</p>
+<p>Birkaç deney önerisi: <code class="language-plaintext highlighter-rouge">q</code>’yu en küçük değere çekin ve birkaç saniye izleyin — güven bandı kâğıt inceliğine düşerken gerçek (yeşil) çizginin bandın dışına kaçtığını göreceksiniz. Filtre kendine olduğundan fazla güveniyor; bu, gerçek sistemlerde <strong>ıraksamanın</strong> (divergence) klasik reçetesidir. Sonra <code class="language-plaintext highlighter-rouge">q</code>’yu sonuna kadar açın: bu sefer kestirim her gürültülü noktanın peşine takılır, filtrenin tüm pürüzsüzleştirme faydası kaybolur. İyi ayar ikisinin arasındadır.</p>
 
 <hr>
 
@@ -540,7 +546,7 @@ flowchart LR
 
 <p>$$
 h(x) = \begin{bmatrix} r \\ \theta \end{bmatrix}
-     = \begin{bmatrix} \sqrt{p_x^2 + p_y^2} \[4pt] \operatorname{atan2}(p_y, p_x) \end{bmatrix}
+     = \begin{bmatrix} \sqrt{p_x^2 + p_y^2} \\[4pt] \operatorname{atan2}(p_y, p_x) \end{bmatrix}
 $$</p>
 
 <p>İçindeki karekök ve <code class="language-plaintext highlighter-rouge">atan2</code> yüzünden bu fonksiyon durumda doğrusal değildir. İşte sorun: Kalman filtresinin tüm matematiği “Gauss içeri girer, Gauss dışarı çıkar” varsayımına dayanır. Ama bir Gauss dağılımını doğrusal-olmayan bir fonksiyondan geçirirseniz, çıkan şey <strong>artık Gauss değildir</strong> — çarpık, eğri büğrü bir dağılımdır. <code class="language-plaintext highlighter-rouge">H</code> matrisi diye bir şey de yoktur; <code class="language-plaintext highlighter-rouge">h(x)</code> bir matrisle yazılamaz. Klasik KF burada çalışmaz.</p>
@@ -594,7 +600,7 @@ $$</p>
 <p>$$
 H_k = \frac{\partial h}{\partial x}
 = \begin{bmatrix}
-\dfrac{p_x}{r} &amp; \dfrac{p_y}{r} &amp; 0 &amp; 0 \[8pt]
+\dfrac{p_x}{r} &amp; \dfrac{p_y}{r} &amp; 0 &amp; 0 \\[8pt]
 -\dfrac{p_y}{r^2} &amp; \dfrac{p_x}{r^2} &amp; 0 &amp; 0
 \end{bmatrix}
 $$</p>
@@ -624,12 +630,12 @@ $$</p>
 
 <h2 id="ekf-algoritması">EKF Algoritması</h2>
 
-<p>EKF döngüsü, klasik KF’ten yalnızca iki yerde ayrılır. Önce ölçüm modelimizin sabit <code class="language-plaintext highlighter-rouge">F</code> matrisini (bu örnekte hareket doğrusal: 2B sabit hız) ve <code class="language-plaintext highlighter-rouge">Q</code>‘yu kuralım:</p>
+<p>EKF döngüsü, klasik KF’ten yalnızca iki yerde ayrılır. Önce ölçüm modelimizin sabit <code class="language-plaintext highlighter-rouge">F</code> matrisini (bu örnekte hareket doğrusal: 2B sabit hız) ve <code class="language-plaintext highlighter-rouge">Q</code>’yu kuralım:</p>
 
 <p>$$
 F = \begin{bmatrix} 1&amp;0&amp;\Delta t&amp;0 \\ 0&amp;1&amp;0&amp;\Delta t \\ 0&amp;0&amp;1&amp;0 \\ 0&amp;0&amp;0&amp;1 \end{bmatrix}, \qquad
 Q = G\,\sigma_a^2\,G^{\mathsf{T}},\quad
-G = \begin{bmatrix} \tfrac{\Delta t^2}{2}&amp;0 \[2pt] 0&amp;\tfrac{\Delta t^2}{2} \[2pt] \Delta t&amp;0 \[2pt] 0&amp;\Delta t \end{bmatrix}
+G = \begin{bmatrix} \tfrac{\Delta t^2}{2}&amp;0 \\[2pt] 0&amp;\tfrac{\Delta t^2}{2} \\[2pt] \Delta t&amp;0 \\[2pt] 0&amp;\Delta t \end{bmatrix}
 $$</p>
 
 <p>EKF adımları:</p>
@@ -654,7 +660,7 @@ $$</p>
   <li>
 <strong>Ortalama gerçek fonksiyonla, kovaryans Jacobian’la taşınır.</strong> Yeniliği <code class="language-plaintext highlighter-rouge">z − H x̂⁻</code> değil, <code class="language-plaintext highlighter-rouge">z − h(x̂⁻)</code> ile hesaplarız; ama <code class="language-plaintext highlighter-rouge">S</code>, <code class="language-plaintext highlighter-rouge">K</code>, <code class="language-plaintext highlighter-rouge">P</code> denklemlerinde <code class="language-plaintext highlighter-rouge">H</code> yerine <code class="language-plaintext highlighter-rouge">H_k</code> Jacobian’ı kullanırız.</li>
   <li>
-<strong>Açı farkını sarmak (wrapping).</strong> <code class="language-plaintext highlighter-rouge">atan2</code> değerleri <code class="language-plaintext highlighter-rouge">[−π, π]</code> aralığındadır. <code class="language-plaintext highlighter-rouge">179°</code> beklerken <code class="language-plaintext highlighter-rouge">−179°</code> ölçerseniz, ham fark <code class="language-plaintext highlighter-rouge">−358°</code> çıkar; oysa gerçek fark sadece <code class="language-plaintext highlighter-rouge">+2°</code>‘dir. Bu yüzden açı yeniliğini daima <code class="language-plaintext highlighter-rouge">[−π, π]</code> aralığına sararız:</li>
+<strong>Açı farkını sarmak (wrapping).</strong> <code class="language-plaintext highlighter-rouge">atan2</code> değerleri <code class="language-plaintext highlighter-rouge">[−π, π]</code> aralığındadır. <code class="language-plaintext highlighter-rouge">179°</code> beklerken <code class="language-plaintext highlighter-rouge">−179°</code> ölçerseniz, ham fark <code class="language-plaintext highlighter-rouge">−358°</code> çıkar; oysa gerçek fark sadece <code class="language-plaintext highlighter-rouge">+2°</code>’dir. Bu yüzden açı yeniliğini daima <code class="language-plaintext highlighter-rouge">[−π, π]</code> aralığına sararız:</li>
 </ol>
 
 <p>$$
@@ -748,7 +754,7 @@ flowchart TB
 <span class="nf">print</span><span class="p">(</span><span class="sa">f</span><span class="sh">"</span><span class="s">EKF konum RMSE = </span><span class="si">{</span><span class="n">rmse</span><span class="si">:</span><span class="p">.</span><span class="mi">2</span><span class="n">f</span><span class="si">}</span><span class="s"> m</span><span class="sh">"</span><span class="p">)</span>         <span class="c1"># -&gt; 0.56 m
 </span></code></pre></div></div>
 
-<p>Burada hareketin doğrusal olduğuna (<code class="language-plaintext highlighter-rouge">f</code> = sabit <code class="language-plaintext highlighter-rouge">F</code>) ama ölçümün doğrusal-olmadığına dikkat edin: tüm doğrusal-olmama <code class="language-plaintext highlighter-rouge">h</code> ve <code class="language-plaintext highlighter-rouge">H_k</code>‘de yaşıyor. Her adımda yeniden hesaplanan tek şey <code class="language-plaintext highlighter-rouge">Hk</code> Jacobian’ı. Sonuç: 1°’lik açı ve 0.5 m’lik menzil gürültüsüne rağmen konum RMSE’si <strong>0.56 m</strong> — sensörün ham gürültüsünün epey altında.</p>
+<p>Burada hareketin doğrusal olduğuna (<code class="language-plaintext highlighter-rouge">f</code> = sabit <code class="language-plaintext highlighter-rouge">F</code>) ama ölçümün doğrusal-olmadığına dikkat edin: tüm doğrusal-olmama <code class="language-plaintext highlighter-rouge">h</code> ve <code class="language-plaintext highlighter-rouge">H_k</code>’de yaşıyor. Her adımda yeniden hesaplanan tek şey <code class="language-plaintext highlighter-rouge">Hk</code> Jacobian’ı. Sonuç: 1°’lik açı ve 0.5 m’lik menzil gürültüsüne rağmen konum RMSE’si <strong>0.56 m</strong> — sensörün ham gürültüsünün epey altında.</p>
 
 <figure>
   <img src="/img/posts/ekf-trajectory.webp" alt="EKF ile menzil-açı sensöründen 2B hedef takibi" class="img-fluid rounded">
@@ -766,19 +772,19 @@ flowchart TB
   <div class="card-body">
     <div class="form-row mb-2">
       <div class="col-md-3 mb-2">
-        <label class="mb-0 small">Menzil gürültüsü σ<sub>r</sub> = <b id="ekf-v-sr">0.50</b> m</label>
+        <label for="ekf-sl-sr" class="mb-0 small">Menzil gürültüsü σ<sub>r</sub> = <b id="ekf-v-sr">0.50</b> m</label>
         <input type="range" class="custom-range" id="ekf-sl-sr" min="0.05" max="3" value="0.5" step="0.05">
       </div>
       <div class="col-md-3 mb-2">
-        <label class="mb-0 small">Açı gürültüsü σ<sub>θ</sub> = <b id="ekf-v-sth">1.0</b>°</label>
+        <label for="ekf-sl-sth" class="mb-0 small">Açı gürültüsü σ<sub>θ</sub> = <b id="ekf-v-sth">1.0</b>°</label>
         <input type="range" class="custom-range" id="ekf-sl-sth" min="0.1" max="5" value="1" step="0.1">
       </div>
       <div class="col-md-3 mb-2">
-        <label class="mb-0 small">Süreç gürültüsü q = <b id="ekf-v-q">0.0100</b></label>
+        <label for="ekf-sl-q" class="mb-0 small">Süreç gürültüsü q = <b id="ekf-v-q">0.0100</b></label>
         <input type="range" class="custom-range" id="ekf-sl-q" min="0.0001" max="0.5" value="0.01" step="0.0001">
       </div>
       <div class="col-md-3 mb-2">
-        <label class="mb-0 small">Dönüş hızı = <b id="ekf-v-turn">0.5</b>°/adım</label>
+        <label for="ekf-sl-turn" class="mb-0 small">Dönüş hızı = <b id="ekf-v-turn">0.5</b>°/adım</label>
         <input type="range" class="custom-range" id="ekf-sl-turn" min="0" max="3" value="0.5" step="0.1">
       </div>
     </div>
@@ -786,7 +792,7 @@ flowchart TB
       <button class="btn btn-sm btn-primary" id="ekf-btn-play" type="button">⏸ Duraklat</button>
       <button class="btn btn-sm btn-outline-secondary" id="ekf-btn-reset" type="button">↻ Yeni gerçekleştirme</button>
     </div>
-    <div id="ekf-status" class="px-2 py-1 mb-2 rounded small" style="font-family:monospace;min-height:2.2em;background:#f1f5fb;"></div>
+    <div id="ekf-status" class="demo-status px-2 py-1 mb-2 rounded small"></div>
     <canvas id="ekf-canvas" style="width:100%;display:block;border-radius:4px;border:1px solid #dee2e6;"></canvas>
     <p class="text-muted small mt-1 mb-0">Sensör orijinde. Hedef uzaktayken 2σ elipsi açı (teğet) yönünde şişer — uzakta küçük bir açı hatası büyük yanal hataya dönüşür. Hedef sensöre yaklaştıkça elips daralır: gözlemlenebilirliğin (observability) görünür hâli.</p>
   </div>
@@ -804,16 +810,16 @@ flowchart TB
 
 <ol>
   <li>
-    <p><strong>Asıl mesele <code class="language-plaintext highlighter-rouge">Q/R</code> oranıdır.</strong> <code class="language-plaintext highlighter-rouge">R</code> çoğu zaman sensörün veri sayfasından ya da statik kalibrasyondan bilinir; gerçek ayar düğmesi <code class="language-plaintext highlighter-rouge">Q</code>‘dur. Mutlak değerlerden çok, <code class="language-plaintext highlighter-rouge">Q</code> ile <code class="language-plaintext highlighter-rouge">R</code> arasındaki <strong>oran</strong> filtrenin karakterini belirler: büyük <code class="language-plaintext highlighter-rouge">Q/R</code> → çevik ama gürültülü; küçük <code class="language-plaintext highlighter-rouge">Q/R</code> → pürüzsüz ama tembel ve manevrada geciken. Simülatörlerde bunu elinizle hissettiniz.</p>
+    <p><strong>Asıl mesele <code class="language-plaintext highlighter-rouge">Q/R</code> oranıdır.</strong> <code class="language-plaintext highlighter-rouge">R</code> çoğu zaman sensörün veri sayfasından ya da statik kalibrasyondan bilinir; gerçek ayar düğmesi <code class="language-plaintext highlighter-rouge">Q</code>’dur. Mutlak değerlerden çok, <code class="language-plaintext highlighter-rouge">Q</code> ile <code class="language-plaintext highlighter-rouge">R</code> arasındaki <strong>oran</strong> filtrenin karakterini belirler: büyük <code class="language-plaintext highlighter-rouge">Q/R</code> → çevik ama gürültülü; küçük <code class="language-plaintext highlighter-rouge">Q/R</code> → pürüzsüz ama tembel ve manevrada geciken. Simülatörlerde bunu elinizle hissettiniz.</p>
   </li>
   <li>
-    <p><strong>Filtrenin tutarlılığını ölçün (NIS/NEES).</strong> Filtre yalnızca doğru tahmin etmemeli, belirsizliği hakkında da <strong>dürüst</strong> olmalı. Yenilik <code class="language-plaintext highlighter-rouge">y</code> ile kovaryansı <code class="language-plaintext highlighter-rouge">S</code> kullanılarak hesaplanan normalize yenilik karesi (NIS), istatistiksel olarak bir χ² dağılımına uymalıdır. Yenilikler <code class="language-plaintext highlighter-rouge">S</code>‘in öngördüğünden sürekli büyükse filtre fazla iyimserdir (<code class="language-plaintext highlighter-rouge">Q</code> veya <code class="language-plaintext highlighter-rouge">R</code> küçük); sürekli küçükse fazla karamsardır. NIS, “filtrem yalan söylüyor mu?” sorusunun nicel cevabıdır.</p>
+    <p><strong>Filtrenin tutarlılığını ölçün (NIS/NEES).</strong> Filtre yalnızca doğru tahmin etmemeli, belirsizliği hakkında da <strong>dürüst</strong> olmalı. Yenilik <code class="language-plaintext highlighter-rouge">y</code> ile kovaryansı <code class="language-plaintext highlighter-rouge">S</code> kullanılarak hesaplanan normalize yenilik karesi (NIS), istatistiksel olarak bir χ² dağılımına uymalıdır. Yenilikler <code class="language-plaintext highlighter-rouge">S</code>’in öngördüğünden sürekli büyükse filtre fazla iyimserdir (<code class="language-plaintext highlighter-rouge">Q</code> veya <code class="language-plaintext highlighter-rouge">R</code> küçük); sürekli küçükse fazla karamsardır. NIS, “filtrem yalan söylüyor mu?” sorusunun nicel cevabıdır.</p>
   </li>
   <li>
-    <p><strong>Iraksamaya (divergence) karşı uyanık olun.</strong> En sinsi hata, <code class="language-plaintext highlighter-rouge">P</code>‘nin gerçek hatadan çok daha küçük olması — filtre kendine güvenir, gelen ölçümleri “aykırı” sanıp reddeder, gerçekten gitgide kopar. Sebepleri: çok küçük <code class="language-plaintext highlighter-rouge">Q</code>, modellenmemiş bir dinamik, ya da sayısal yuvarlama. Lineer simülatörde <code class="language-plaintext highlighter-rouge">q</code>‘yu dibe çekerek bunu birebir görebilirsiniz.</p>
+    <p><strong>Iraksamaya (divergence) karşı uyanık olun.</strong> En sinsi hata, <code class="language-plaintext highlighter-rouge">P</code>’nin gerçek hatadan çok daha küçük olması — filtre kendine güvenir, gelen ölçümleri “aykırı” sanıp reddeder, gerçekten gitgide kopar. Sebepleri: çok küçük <code class="language-plaintext highlighter-rouge">Q</code>, modellenmemiş bir dinamik, ya da sayısal yuvarlama. Lineer simülatörde <code class="language-plaintext highlighter-rouge">q</code>’yu dibe çekerek bunu birebir görebilirsiniz.</p>
   </li>
   <li>
-    <p><strong>Sayısal kararlılık için Joseph formunu kullanın.</strong> <code class="language-plaintext highlighter-rouge">P = (I − KH)P⁻</code> denklemi, kayan-nokta yuvarlamasıyla <code class="language-plaintext highlighter-rouge">P</code>‘yi asimetrik veya negatif-tanımlı yapabilir; bu da filtreyi çökertir. Joseph formu <code class="language-plaintext highlighter-rouge">P = (I−KH)P⁻(I−KH)ᵀ + KRKᵀ</code> her zaman simetrik ve pozitif yarı-tanımlı sonuç verir. Ek maliyet birkaç matris çarpımıdır; gömülü sistemlerde ucuz bir sigortadır. Her adımda <code class="language-plaintext highlighter-rouge">P</code>‘yi <code class="language-plaintext highlighter-rouge">(P + Pᵀ)/2</code> ile simetrikleştirmek de yaygın, ucuz bir önlemdir. (Kayan-nokta tuzakları üzerine ayrı bir yazı yazmıştım; Kalman filtresi bu tuzakların en çok ısırdığı yerlerden biridir.)</p>
+    <p><strong>Sayısal kararlılık için Joseph formunu kullanın.</strong> <code class="language-plaintext highlighter-rouge">P = (I − KH)P⁻</code> denklemi, kayan-nokta yuvarlamasıyla <code class="language-plaintext highlighter-rouge">P</code>’yi asimetrik veya negatif-tanımlı yapabilir; bu da filtreyi çökertir. Joseph formu <code class="language-plaintext highlighter-rouge">P = (I−KH)P⁻(I−KH)ᵀ + KRKᵀ</code> her zaman simetrik ve pozitif yarı-tanımlı sonuç verir. Ek maliyet birkaç matris çarpımıdır; gömülü sistemlerde ucuz bir sigortadır. Her adımda <code class="language-plaintext highlighter-rouge">P</code>’yi <code class="language-plaintext highlighter-rouge">(P + Pᵀ)/2</code> ile simetrikleştirmek de yaygın, ucuz bir önlemdir. (Kayan-nokta tuzakları üzerine ayrı bir yazı yazmıştım; Kalman filtresi bu tuzakların en çok ısırdığı yerlerden biridir.)</p>
   </li>
   <li>
     <p><strong>Gözlemlenebilirliği (observability) sorgulayın.</strong> Yalnızca menzil ölçen bir sensör, hedefin açısal konumunu tek başına belirleyemez; takip ancak hedef hareket ettikçe ve geometri değiştikçe oturur. EKF simülatöründe elipsin yöne bağlı şişmesi tam da bunun resmidir. Durumunuzun ölçümlerinizden gerçekten <strong>çıkarılabilir</strong> olduğundan emin olun.</p>
@@ -831,7 +837,7 @@ flowchart TB
 
 <p>EKF ise aynı makinenin doğrusal-olmayan dünyaya uzanmış hâlidir: her adımda fonksiyonları çalışma noktasında bir teğetle değiştirir, gerisini değiştirmez. Bu küçük numara, onu yarım asırdır navigasyondan robotiğe kadar her yerde çalışan bir iş atı yapmıştır — kusursuz değil, ama şaşırtıcı derecede dayanıklı.</p>
 
-<p>Tasarımınızın kaderini üç şey belirler: modelin (<code class="language-plaintext highlighter-rouge">F</code>, <code class="language-plaintext highlighter-rouge">H</code> ya da <code class="language-plaintext highlighter-rouge">f</code>, <code class="language-plaintext highlighter-rouge">h</code>) gerçeğe sadakati, <code class="language-plaintext highlighter-rouge">Q</code>‘nun ve <code class="language-plaintext highlighter-rouge">R</code>‘nin doğru ayarı. Bu üçünü yerine oturtursanız, gürültünün altından şaşırtıcı netlikte bir gerçek çıkarırsınız. Yanlış ayarlarsanız, filtre ya tembelce gerçeğin peşinden sürüklenir ya da kendine aşırı güvenip sessizce ıraksar. Her iki sonu da sahada görmek mümkün — ve artık ikisini de tanıyorsunuz.</p>
+<p>Tasarımınızın kaderini üç şey belirler: modelin (<code class="language-plaintext highlighter-rouge">F</code>, <code class="language-plaintext highlighter-rouge">H</code> ya da <code class="language-plaintext highlighter-rouge">f</code>, <code class="language-plaintext highlighter-rouge">h</code>) gerçeğe sadakati, <code class="language-plaintext highlighter-rouge">Q</code>’nun ve <code class="language-plaintext highlighter-rouge">R</code>’nin doğru ayarı. Bu üçünü yerine oturtursanız, gürültünün altından şaşırtıcı netlikte bir gerçek çıkarırsınız. Yanlış ayarlarsanız, filtre ya tembelce gerçeğin peşinden sürüklenir ya da kendine aşırı güvenip sessizce ıraksar. Her iki sonu da sahada görmek mümkün — ve artık ikisini de tanıyorsunuz.</p>
 
 <p>Devamı için iyi konular: durum boyutu büyüdüğünde <strong>kare-kök (square-root) filtreleri</strong> sayısal kararlılığı nasıl kurtarır; <strong>UKF</strong> sigma noktalarıyla Jacobian’a neden hiç ihtiyaç duymaz; ve birden çok hareket modelini paralel koşturan <strong>IMM</strong> (Interacting Multiple Model) manevra yapan hedeflerde neden EKF’i döver. Bunlar defterimde duruyor.</p>
 
@@ -907,7 +913,7 @@ flowchart TB
       
       <span class="related-card__title">Sistem Mühendisliği Nedir?</span>
       <span class="related-card__date">26 Mayıs 2026</span>
-    </a><a class="related-card" href="/2026/10/01/incose-csep-sertifikasyonu-yolculugum">
+    </a><a class="related-card" href="/2026/10/01/incose-csep-sertifikasyonu-yolculugum" style="--media-pos: 50% 0%">
       
       <img src="/img/posts/incose-csep-sertifikasi.webp" srcset="/img/posts/sm/incose-csep-sertifikasi.webp 768w, /img/posts/incose-csep-sertifikasi.webp 1600w" sizes="(max-width: 640px) 100vw, 240px" alt="" loading="lazy" width="1600" height="1067" decoding="async">
       
@@ -963,6 +969,7 @@ flowchart TB
     </div>
   </div>
 
+  </main>
   <!-- Footer -->
 
 <footer class="footer-modern">
@@ -971,24 +978,40 @@ flowchart TB
       <div class="row">
 
         <!-- About column -->
-        <div class="col-lg-4 col-md-6 mb-4 mb-lg-0">
-          <h5 class="footer-heading">M. Serdar Karaman</h5>
+        <div class="col-lg-4 col-md-12 mb-4 mb-lg-0">
+          <h2 class="sr-only">M. Serdar Karaman</h2>
+          <a class="footer-brand" href="/hakkimda">
+            <img class="footer-brand__avatar" src="/img/me-avatar.webp" alt="" width="52" height="52" loading="lazy" decoding="async">
+            <span class="footer-brand__text">
+              <span class="footer-brand__name">M. Serdar Karaman</span>
+              <span class="footer-brand__role">Kıdemli Aviyonik Yazılım Tasarım Mühendisi</span>
+            </span>
+          </a>
           <p class="footer-description">Aviyonik yazılım, DO-178C ve emniyet kritik mühendislik üzerine sahadan notlar.</p>
+          <a class="footer-cta" href="/feed.xml">
+            <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1"></circle></svg>
+            RSS ile takip et
+          </a>
         </div>
 
         <!-- Quick links column -->
-        <div class="col-lg-2 col-md-6 mb-4 mb-lg-0 offset-lg-1">
-          <h5 class="footer-heading">Bağlantılar</h5>
-          <ul class="footer-links">
+        <div class="col-lg-3 col-md-5 col-7 mb-4 mb-lg-0">
+          <h2 class="footer-heading">Bağlantılar</h2>
+          <ul class="footer-links footer-links--split">
             <li><a href="/">Ana sayfa</a></li>
             <li><a href="/hakkimda">Hakkımda</a></li>
             <li><a href="/posts">Yazılar</a></li>
+            <li><a href="/categories">Kategoriler</a></li>
             <li><a href="/tags">Etiketler</a></li>
             <li><a href="/archive">Arşiv</a></li>
             <li><a href="/contact">İletişim</a></li>
             <li><a href="/feed.xml">RSS</a></li>
           </ul>
-          <h5 class="footer-heading mt-3">Projeler</h5>
+        </div>
+
+        <!-- Projects column -->
+        <div class="col-lg-2 col-md-3 col-5 mb-4 mb-lg-0">
+          <h2 class="footer-heading">Projeler</h2>
           <ul class="footer-links">
             <li><a href="https://karaman.dev/games" target="_blank" rel="noopener">Oyunlar</a></li>
             <li><a href="https://karaman.dev/or-araclari" target="_blank" rel="noopener">OR Araçları</a></li>
@@ -998,8 +1021,8 @@ flowchart TB
         </div>
 
         <!-- Social column -->
-        <div class="col-lg-4 col-md-12 mb-0 offset-lg-1">
-          <h5 class="footer-heading">İletişim</h5>
+        <div class="col-lg-3 col-md-4 mb-0">
+          <h2 class="footer-heading">İletişim</h2>
           <ul class="footer-social list-inline">
             
             <li class="list-inline-item">
@@ -1038,6 +1061,7 @@ flowchart TB
               </a>
             </li>
           </ul>
+          <p class="footer-note">Soru, öneri ya da iş birliği için <a href="/contact">iletişim formunu</a> kullanabilirsiniz.</p>
         </div>
 
       </div>
@@ -1045,12 +1069,8 @@ flowchart TB
   </div>
 
   <div class="footer-bottom">
-    <div class="container">
-      <div class="row">
-        <div class="col-12 text-center">
-          <p class="copyright mb-0">© 2026 M. Serdar Karaman. Tüm hakları saklıdır.</p>
-        </div>
-      </div>
+    <div class="container footer-bottom__inner">
+      <p class="copyright">© 2026 M. Serdar Karaman. Tüm hakları saklıdır.</p>
     </div>
   </div>
 </footer>
