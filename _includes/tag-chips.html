@@ -2,8 +2,13 @@
   Etiket çipleri. Parametreler:
     tags  — slug listesi (ör. post.tags)
     limit — en fazla kaç çip gösterileceği (opsiyonel)
+    skip  — "|Ad|" biçiminde atlanacak görünen adlar (opsiyonel; aynı adlı
+            kategori çipi zaten gösteriliyorsa etiketi tekrar etmemek için)
 {%- endcomment -%}
 {%- assign chip_limit = include.limit | default: 99 -%}
 {%- for tag in include.tags limit: chip_limit -%}
-<a class="tag-chip" href="{{ '/tags/' | relative_url }}#{{ tag }}">{{ site.data.tags[tag].name | default: tag }}</a>
+{%- assign tag_name = site.data.tags[tag].name | default: tag -%}
+{%- assign probe = "|" | append: tag_name | append: "|" -%}
+{%- if include.skip contains probe %}{% continue %}{% endif -%}
+<a class="tag-chip" href="{{ '/tags/' | relative_url }}#{{ tag }}">{{ tag_name }}</a>
 {%- endfor -%}

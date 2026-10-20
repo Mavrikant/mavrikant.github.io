@@ -1,6 +1,6 @@
 ---
 title: Yazılım Sistem Mühendisliği
-background: "/img/posts/soft-sys-eng-page-header.webp"
+background: "/img/posts/yazilim-sistem-muhendisligi-cover.webp"
 date: '2022-04-29 22:00:00'
 layout: post
 lang: tr

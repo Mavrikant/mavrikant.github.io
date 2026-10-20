@@ -44,9 +44,10 @@ This is the personal blog of **M. Serdar Karaman**, hosted at <https://karaman.d
 │   ├── scripts.js
 │   └── vendor/              # Bootstrap 4.6.2 SCSS + Clean Blog theme SCSS
 ├── img/
-│   ├── bg-*.webp             # Page header backgrounds
-│   ├── me-animated.gif
-│   └── posts/               # Post hero images (1.webp, 2.webp, ...)
+│   ├── og-default.webp      # Default social card (pages without a cover)
+│   ├── me-animated.webp     # Animated avatar (home hero)
+│   ├── me-avatar.webp       # Still avatar (footer, reduced-motion hero)
+│   └── posts/               # Post covers (<slug>-cover.webp, 1600×1067)
 ├── posts/
 │   └── index.html           # Paginated post index (/posts/)
 ├── bin/
@@ -133,7 +134,7 @@ Use this structure (see existing posts like `_posts/2026-04-05-misra-c-2025-ile-
 ---
 title: "Post Title"
 subtitle: "Optional English or secondary subtitle"
-background: "/img/posts/7.webp"
+background: "/img/posts/misra-c-2025-cover.webp"
 date: '2026-04-05 09:00:00'
 layout: post
 lang: tr
@@ -144,6 +145,7 @@ Notes:
 
 - `layout: post` is required.
 - `background` should reference an image under `/img/posts/` (these are the hero header images).
+- Optional `image_position: "50% 8%"` sets the CSS `object-position` used when the cover is cropped in post cards (e.g. keep a certificate's heading visible).
 - `background` is also the post's social share image (`og:image` / `twitter:image`, feed thumbnail): `_plugins/social_image.rb` copies it into `image` at build time. Add `image:` only to share a different picture than the hero.
 - `lang: tr` is used for Turkish posts and is passed through to the `<div class="container" lang="tr">` in `_layouts/post.html`. Use `lang: en` for English posts.
 - `date` is used for ordering, reading-time display, and pagination.
@@ -152,6 +154,8 @@ Notes:
 ### Images
 
 - Place post hero backgrounds in `img/posts/` and reference them from front matter.
+- Covers share one house style: a textless technical illustration on a deep-navy blueprint grid (thin cyan/teal line-art, amber accent, almost no text), 1600×1067 WebP named `<slug>-cover.webp`. Keep the motif inside the central ~900×820 px so it survives the card thumbnail crop. Avoid stock photos.
+- Pages without a `background` (home, Yazılar, Kategoriler, Etiketler, Arşiv, İletişim, 404) get the CSS-only blueprint header (`.masthead--blueprint` in `_sass/styles.scss`); only the About pages use a photo. A page's `hero_position` front matter (e.g. `"center 30%"`) sets the header photo's `background-position`.
 - The `calibreapp-image-actions` workflow will compress images automatically in PRs.
 
 ## Key Conventions

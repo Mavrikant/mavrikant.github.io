@@ -1,7 +1,7 @@
 ---
 title: "Ölçtüğünüz Sayı Ne Kadar Doğru? Ölçüm Belirsizliği için Bir Rehber"
 subtitle: "How Accurate Is Your Measurement? A Guide to Measurement Uncertainty"
-background: "/img/posts/3.webp"
+background: "/img/posts/olcum-belirsizligi-cover.webp"
 date: '2026-05-06 09:00:00'
 layout: post
 lang: tr
@@ -123,6 +123,7 @@ Doğruluk ve kesinlik birbirinden bağımsız iki şey. Bir cihaz çok doğru am
       shapes.push({
         type:'circle', xref:xref, yref:yref,
         x0:-r, y0:-r, x1:r, y1:r,
+        layer:'below', // keep the rings under the measurement dots and stars
         line:{color:'#888', width:1},
         fillcolor: r===3 ? 'rgba(220,220,220,0.4)' : (r===2 ? 'rgba(240,240,240,0.4)' : 'rgba(255,255,255,0.6)')
       });
@@ -170,6 +171,14 @@ Doğruluk ve kesinlik birbirinden bağımsız iki şey. Bir cihaz çok doğru am
             bgcolor:'rgba(255,255,255,0.85)', bordercolor:'#ccc', borderwidth:1},
     showlegend:true
   };
+  // Below ~320px two subplot titles no longer fit side by side.
+  if (document.getElementById('grafik-dogruluk').clientWidth < 320) {
+    layout.margin.l = layout.margin.r = 20;
+    layout.annotations.forEach(function (a) {
+      a.font.size = 11;
+      a.text = a.text.replace('font-size:11px', 'font-size:10px');
+    });
+  }
   Plotly.newPlot('grafik-dogruluk', data, layout, {responsive:true, displayModeBar:false});
 })();
 </script>
@@ -439,6 +448,19 @@ Aşağıdaki grafikte, yedi belirsizlik kaynağının her birinin katkısını s
     plot_bgcolor: '#ffffff',
     paper_bgcolor: '#ffffff'
   };
+  // Phones: the long category names would squeeze the bars to a sliver, so
+  // they go above each (thinner) bar instead of beside it.
+  var el = document.getElementById('grafik-multimetre');
+  if (el.clientWidth < 576) {
+    el.style.height = '460px';
+    data[0].width = 0.45;
+    layout.yaxis.showticklabels = false;
+    layout.margin.l = 12;
+    layout.annotations = data[0].y.map(function (name, i) {
+      return { xref: 'paper', x: 0, xanchor: 'left', y: i - 0.24, yanchor: 'bottom',
+               text: name, showarrow: false, font: { size: 11, color: '#444' } };
+    });
+  }
   Plotly.newPlot('grafik-multimetre', data, layout, {responsive: true, displayModeBar: false});
 })();
 </script>
@@ -521,6 +543,19 @@ Hangi bileşenler en çok katkı yapıyor? Bakalım:
     plot_bgcolor: '#ffffff',
     paper_bgcolor: '#ffffff'
   };
+  // Phones: the long category names would squeeze the bars to a sliver, so
+  // they go above each (thinner) bar instead of beside it.
+  var el = document.getElementById('grafik-pt100');
+  if (el.clientWidth < 576) {
+    el.style.height = '460px';
+    data[0].width = 0.45;
+    layout.yaxis.showticklabels = false;
+    layout.margin.l = 12;
+    layout.annotations = data[0].y.map(function (name, i) {
+      return { xref: 'paper', x: 0, xanchor: 'left', y: i - 0.24, yanchor: 'bottom',
+               text: name, showarrow: false, font: { size: 11, color: '#444' } };
+    });
+  }
   Plotly.newPlot('grafik-pt100', data, layout, {responsive: true, displayModeBar: false});
 })();
 </script>
@@ -553,7 +588,7 @@ Soruyu şöyle çevirelim: ölçüm cihazı sensörü "geçti" diye işaretledi�
 
 Önce yanlış kabulun ne demek olduğunu görsel olarak görelim. Aşağıda bir sensörün ölçüm dağılımı çizilmiş. Sensörün gerçek değeri 0,098 bar diyelim — yani toleransın iç sınırına çok yakın. Ölçüm cihazı U = 0,025 bar belirsizlikle bu sensörü ölçüyor. Ölçüm sonucu, gerçek değer civarında bir normal dağılımdan rastgele bir nokta gibi düşünebiliriz. Ölçüm 0,10'un altında çıkarsa "geçti" diyoruz — ama gerçek değer 0,098'de bile, ölçüm dağılımının bir kısmı 0,10'un üstüne taşar. Taşan bu kısım yanlış kabul bölgesidir.
 
-<div id="grafik-pfa-gorsel" style="width:100%;max-width:760px;margin:1.5rem auto 2.5rem auto;height:400px;"></div>
+<div id="grafik-pfa-gorsel" style="width:100%;max-width:760px;margin:1.5rem auto 2.5rem auto;height:440px;"></div>
 <script>
 (function(){
   var x = [];
@@ -585,11 +620,12 @@ Soruyu şöyle çevirelim: ölçüm cihazı sensörü "geçti" diye işaretledi�
     ],
     annotations:[
       {x:0.10, y:maxY*1.10, text:'Tolerans sınırı<br>0,10 bar', showarrow:false, font:{size:11}},
-      {x:mu, y:maxY*0.92, text:'Gerçek değer<br>0,098 bar', showarrow:false, font:{size:11, color:'#1a73e8'}},
-      {x:0.115, y:maxY*0.30, text:'Yanlış<br>kabul', showarrow:true, arrowhead:2, ax:-25, ay:-30, font:{size:11, color:'#c62828'}}
+      {x:mu, y:maxY*0.92, text:'Gerçek değer<br>0,098 bar', showarrow:false, font:{size:11, color:'#1a73e8'}, bgcolor:'rgba(255,255,255,0.85)'},
+      {x:0.115, y:maxY*0.30, text:'Yanlış<br>kabul', showarrow:true, arrowhead:2, ax:30, ay:-30, font:{size:11, color:'#c62828'}, bgcolor:'rgba(255,255,255,0.85)'}
     ],
-    showlegend:true, legend:{x:0.02, y:0.98},
-    margin:{l:60, r:30, t:50, b:60},
+    showlegend:true,
+    legend:{orientation:'h', x:0.5, xanchor:'center', yref:'container', y:0, yanchor:'bottom', font:{size:11}},
+    margin:{l:60, r:30, t:50, b:110},
     plot_bgcolor:'#ffffff', paper_bgcolor:'#ffffff'
   };
   Plotly.newPlot('grafik-pfa-gorsel', data, layout, {responsive:true, displayModeBar:false});
@@ -676,7 +712,7 @@ Hayır. Bu noktada üç gizli tuzak var ve aviyonik bağlamda her birine düşme
 
 Test laboratuvarında kabul/red kararı verirken belirsizlik üç farklı şekilde işlenebilir. Aşağıdaki grafik aynı toleransı (örnek olarak ±0,1) ve aynı ölçüm belirsizliğini (U = 0,025) üç yaklaşımla yan yana gösteriyor; her satırın yeşil bandı **kabul aralığını**, gri bandı toleransı temsil ediyor.
 
-<div id="grafik-uut-uretici-yaklasimlar" style="width:100%;max-width:780px;margin:1.5rem auto 2.5rem auto;height:420px;"></div>
+<div id="grafik-uut-uretici-yaklasimlar" style="width:100%;max-width:780px;margin:1.5rem auto 2.5rem auto;height:460px;"></div>
 <script>
 (function(){
   var T = 0.1;
@@ -727,14 +763,35 @@ Test laboratuvarında kabul/red kararı verirken belirsizlik üç farklı şekil
       {x:0, y:3, text:'Kabul aralığı = ±T', showarrow:false, font:{size:11, color:'#fff'}, bgcolor:'rgba(0,0,0,0.35)', borderpad:2},
       {x:0, y:2, text:'Kabul aralığı = ±(T − U)', showarrow:false, font:{size:11, color:'#fff'}, bgcolor:'rgba(0,0,0,0.35)', borderpad:2},
       {x:0, y:1, text:'Kabul aralığı = ±(T + U)', showarrow:false, font:{size:11, color:'#fff'}, bgcolor:'rgba(0,0,0,0.35)', borderpad:2},
-      {x:T+U, y:1, ax:T+U+0.02, ay:1, xref:'x', yref:'y', axref:'x', ayref:'y',
-       text:'Tolerans dışına<br>taşıyor!', showarrow:true, arrowhead:2, font:{size:10, color:'#c62828'}, xanchor:'left'}
+      {x:T+U, y:1.15, ax:T+U, ay:1.5, xref:'x', yref:'y', axref:'x', ayref:'y',
+       text:'Tolerans dışına taşıyor!', showarrow:true, arrowhead:2, font:{size:10, color:'#c62828'}, xanchor:'right'}
     ],
     showlegend:true,
-    legend:{orientation:'h', x:0.5, xanchor:'center', y:-0.18, yanchor:'top', font:{size:11}},
-    margin:{l:170, r:40, t:55, b:90},
+    legend:{orientation:'h', x:0.5, xanchor:'center', yref:'container', y:0, yanchor:'bottom', font:{size:11}},
+    margin:{l:170, r:40, t:55, b:130},
     plot_bgcolor:'#ffffff', paper_bgcolor:'#ffffff'
   };
+  // Phones: the 170px row-name margin left an 80–170px plot where the ±T and
+  // ±(T+U) ticks collided. Row names go above each row instead; the ±(T+U)
+  // edge is left to the red bar and its arrow, which moves below that row.
+  var el = document.getElementById('grafik-uut-uretici-yaklasimlar');
+  if (el.clientWidth < 576) {
+    var rows = layout.yaxis.ticktext;
+    layout.yaxis.showticklabels = false;
+    layout.yaxis.range = [0.3, 3.85];
+    layout.margin.l = 12;
+    layout.margin.r = 12;
+    layout.xaxis.tickvals = [-T, 0, T];
+    layout.xaxis.ticktext = ['−T', '0', '+T'];
+    [1, 2, 3].forEach(function (y, i) {
+      layout.annotations.push({ xref: 'paper', x: 0, xanchor: 'left', y: y + 0.36, yanchor: 'bottom',
+        text: rows[i].replace('<br>', ' · '), showarrow: false, font: { size: 11, color: '#333' },
+        bgcolor: 'rgba(255,255,255,0.9)' }); // keeps the zero line from striking through
+    });
+    layout.annotations[3].y = 0.85;
+    layout.annotations[3].ay = 0.5;
+    layout.annotations[3].bgcolor = 'rgba(255,255,255,0.9)';
+  }
   Plotly.newPlot('grafik-uut-uretici-yaklasimlar', data, layout, {responsive:true, displayModeBar:false});
 })();
 </script>

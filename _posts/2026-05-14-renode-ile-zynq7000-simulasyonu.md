@@ -682,11 +682,11 @@ Renode'u proje sürecine sokarken biriken pratik dersler:
 
 **9. Ekransız modu kullanın.** Renode GUI yerel hata ayıklama için iyidir; CI için ise `--disable-xwt --console` veya `--hide-monitor` bayraklarıyla başlatın. Hem hız kazanırsınız hem de ekran bağımlılığı kalmaz.
 
-**10. Real-time bağımlılıkları dikkatli ele alın.** Renode `RealTimeMode`'da fiziksel zamana hizalanmaya çalışır ama saat doğruluğu çekirdek kullanımına bağlıdır. Sıkı timing testleri için `emulation SetGlobalQuantum` ile deterministik time-step kullanın; gerçek zamana güvenmeyin.
+**10. Real-time bağımlılıkları dikkatli ele alın.** Renode `RealTimeMode`’da fiziksel zamana hizalanmaya çalışır ama saat doğruluğu çekirdek kullanımına bağlıdır. Sıkı timing testleri için `emulation SetGlobalQuantum` ile deterministik time-step kullanın; gerçek zamana güvenmeyin.
 
 **11. Sensör akışlarını dosyadan besleyin.** Sensör simülasyonunu kod içine gömmek yerine, JSON / CSV dosyasından okuyacak şekilde yazın. Aynı test senaryosu farklı veri kümeleriyle koşturulabilir — veri odaklı test (data-driven testing) kapısı böylece açılır.
 
-**12. Mevcut platformları kopyalayıp özelleştirin.** `@platforms/boards/zedboard.repl`'i kopyalayıp `my_board.repl` yapın, `using` ile orijinali dahil edip üzerine **sadece farkları** yazın. Renode güncellemelerinde temel platform iyileşirken sizin patch'iniz korunur.
+**12. Mevcut platformları kopyalayıp özelleştirin.** `@platforms/boards/zedboard.repl`’i kopyalayıp `my_board.repl` yapın, `using` ile orijinali dahil edip üzerine **sadece farkları** yazın. Renode güncellemelerinde temel platform iyileşirken sizin patch'iniz korunur.
 
 **13. Coverage'ı simülasyondan toplayın.** `cpu0 EnableProfilerCollapsedStack` ile çıkan log + `inferno-flamegraph` = bir gecede test kapsamı raporu. Manuel kart üzerinde coverage almak çok daha pahalıdır.
 

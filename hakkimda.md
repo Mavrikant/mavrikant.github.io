@@ -3,6 +3,7 @@ title: Hakkımda
 layout: page
 description: Kıdemli Aviyonik Yazılım Tasarım Mühendisi
 background: "/img/me-animated.webp"
+hero_position: "center 30%"
 permalink: /hakkimda/
 lang: tr
 ---

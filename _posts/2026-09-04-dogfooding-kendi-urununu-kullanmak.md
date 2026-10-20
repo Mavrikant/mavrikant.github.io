@@ -36,6 +36,7 @@ flowchart TB
         direction LR
         K[Kullanıcı] --> D[Destek] --> R[Hata kaydı] --> U[Ürün yönetimi] --> G1[Geliştirici]
     end
+    A ~~~ B
 </div>
 
 Kullanıcı aksaklığı çoğu zaman bildirmez. Bildirirse kelimelere döker, destek ekibi bunu bir kayda, ürün ekibi kaydı bir maddeye çevirir, madde de sıraya girer. Zincirin sonuna baştaki sinirin soluk bir kopyası ulaşır. Aksaklığı geliştiricinin kendisi yaşadığında bu çevirilerin hiçbiri gerekmez; sorun, onu çözebilecek kişinin zihninde ilk elden oluşur. Zinciri kısaltmanın somut sonucu, geri bildirim gecikmesinin (*feedback latency*) azalmasıdır: sorunun yaşanmasıyla onu düzeltebilecek kişiye ulaşması arasındaki süre günlerden saatlere, hatta dakikalara inebilir.

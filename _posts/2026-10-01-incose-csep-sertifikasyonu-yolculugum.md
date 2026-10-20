@@ -2,6 +2,8 @@
 title: "INCOSE CSEP: Sınavdan Sertifikaya Yolculuğum"
 subtitle: "My Road to INCOSE CSEP Certification"
 background: "/img/posts/incose-csep-sertifikasi.webp"
+# Kart kırpımında sertifikanın başlığı görünsün (object-position).
+image_position: "50% 0%"
 date: '2026-10-01 22:21:00'
 layout: post
 lang: tr
@@ -82,7 +84,7 @@ Toplam hazırlık sürem **altı ay** oldu. Haftada birkaç akşam, birkaç saat
 
 ### Handbook'u en az iki kez okumak
 
-![INCOSE Systems Engineering Handbook, beşinci baskı](/img/posts/incose-se-handbook-v5.webp){:style="display:block; margin-left:auto; margin-right:auto; max-width:320px" .img-fluid}
+![INCOSE Systems Engineering Handbook, beşinci baskı](/img/posts/incose-se-handbook-v5.webp){:style="display:block; margin-left:auto; margin-right:auto; max-width:min(320px, 100%)" .img-fluid}
 
 *INCOSE Systems Engineering Handbook, beşinci baskı — sınavın tek resmî kaynağı. Kapak görseli INCOSE ve Wiley'e aittir.*
 
@@ -98,7 +100,7 @@ Toplam hazırlık sürem **altı ay** oldu. Haftada birkaç akşam, birkaç saat
 
 ### Türkçe dördüncü baskının yeri
 
-![INCOSE Sistem Mühendisliği El Kitabı, dördüncü versiyon, Savunma Sanayii Akademi Yayınları](/img/posts/incose-se-el-kitabi-v4-tr.webp){:style="display:block; margin-left:auto; margin-right:auto; max-width:320px" .img-fluid}
+![INCOSE Sistem Mühendisliği El Kitabı, dördüncü versiyon, Savunma Sanayii Akademi Yayınları](/img/posts/incose-se-el-kitabi-v4-tr.webp){:style="display:block; margin-left:auto; margin-right:auto; max-width:min(320px, 100%)" .img-fluid}
 
 *Sistem Mühendisliği El Kitabı'nın Türkçe çevirisi — dördüncü versiyon, Savunma Sanayii Akademi Yayınları.*
 
@@ -212,7 +214,7 @@ Ben asgari sayıyla yetinmedim: **çalıştığım son üç iş yerinden toplam 
 Başvuruyu gönderdikten hemen sonra INCOSE Sertifikasyon Ofisi'nden bir "sonraki adımlar" e-postası geldi. Süreç şöyle işledi:
 
 1. **Tarama.** Sertifikasyon Ofisi önce başvuru formumun şartlara uygun olup olmadığını kontrol etti. Bu onay gelmeden referans adımına geçilmiyor.
-2. **Referanslar.** Form uygun bulununca her referansıma iki şey gönderdim: doldurduğum **Form 1**'in bir kopyası ve **dijital referans mektubunun** ([Form 4B](https://forms.office.com/pages/responsepage.aspx?id=k6cjNVAORka4CyXYO9fylpdnShHiChFNk4sYt-8URhFUN1RNUE5NSDdKTlRVSkNZVFdYRkwyOVlPSC4u&route=shorturl)) bağlantısı. Form 1'in kopyası şart, çünkü referans hangi dönemde hangi alanda ne beyan ettiğimi görmeden mektubu dolduramıyor. Mektup gönderildiğinde doğrudan INCOSE'ye ulaşıyor. Formun doldurulması yaklaşık **30 dakika** sürüyor; bunu referanslara baştan söylemekte fayda var.
+2. **Referanslar.** Form uygun bulununca her referansıma iki şey gönderdim: doldurduğum **Form 1**’in bir kopyası ve **dijital referans mektubunun** ([Form 4B](https://forms.office.com/pages/responsepage.aspx?id=k6cjNVAORka4CyXYO9fylpdnShHiChFNk4sYt-8URhFUN1RNUE5NSDdKTlRVSkNZVFdYRkwyOVlPSC4u&route=shorturl)) bağlantısı. Form 1'in kopyası şart, çünkü referans hangi dönemde hangi alanda ne beyan ettiğimi görmeden mektubu dolduramıyor. Mektup gönderildiğinde doğrudan INCOSE'ye ulaşıyor. Formun doldurulması yaklaşık **30 dakika** sürüyor; bunu referanslara baştan söylemekte fayda var.
 3. **Değerlendirme ve karar.** Referans mektupları tamamlanınca dosyam değerlendirildi ve sonuç e-postayla bildirildi.
 
 Süreç başlayana kadar referanslarla INCOSE'nin ilgileneceğini sanıyordum. Öyle değilmiş: **referans sürecini siz başlatıyor, siz takip ediyorsunuz**. Bu yüzden referanslarınıza önceden haber vermek süreci en çok hızlandıran şey. Başvurumun yaklaşık üç buçuk haftada sonuçlanmasını büyük ölçüde referanslarımın mektupları hızla doldurmasına borçluyum.

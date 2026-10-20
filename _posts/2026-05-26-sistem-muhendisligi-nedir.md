@@ -153,7 +153,7 @@ Geleneksel sistem mühendisliği büyük ölçüde **belge merkezlidir**: yüzle
 
 **Model Tabanlı Sistem Mühendisliği** (*Model-Based Systems Engineering*, MBSE) bu soruna yanıttır. INCOSE'nin tanımıyla MBSE; gereksinim, tasarım, analiz, doğrulama ve onaylama faaliyetlerini desteklemek için modellemenin, kavramsal tasarım aşamasından itibaren resmî olarak kullanılmasıdır.
 
-MBSE'de "tek doğru kaynak" artık belgeler değil, **tutarlı bir sistem modelidir**. Bu modelden gereksinim raporları, arayüz tanımları ve diyagramlar otomatik türetilir. Modelin standart dili çoğunlukla **SysML**'dir (Systems Modeling Language); son yıllarda olgunlaşan **SysML v2**, dilin ifade gücünü ve araç birlikte çalışabilirliğini önemli ölçüde artırmıştır.
+MBSE'de "tek doğru kaynak" artık belgeler değil, **tutarlı bir sistem modelidir**. Bu modelden gereksinim raporları, arayüz tanımları ve diyagramlar otomatik türetilir. Modelin standart dili çoğunlukla **SysML**’dir (Systems Modeling Language); son yıllarda olgunlaşan **SysML v2**, dilin ifade gücünü ve araç birlikte çalışabilirliğini önemli ölçüde artırmıştır.
 
 Bu dönüşüm, **dijital iplik** (*digital thread*) ve **dijital ikiz** (*digital twin*) gibi kavramların da temelini oluşturur: Sistemin kavramdan operasyona kadar tüm yaşam döngüsünün dijital, izlenebilir ve simüle edilebilir bir kopyasının tutulması.
 

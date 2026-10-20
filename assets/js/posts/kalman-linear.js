@@ -35,6 +35,12 @@
   }
   function rnd(v, d) { var p = Math.pow(10, d == null ? 2 : d); return Math.round(v * p) / p; }
 
+  // Kart gövdesinin içerik genişliği (dolgusu temadan gelir).
+  function contentWidth(box) {
+    var cs = getComputedStyle(box);
+    return box.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+  }
+
   function reset() {
     hist = []; k = 0;
     truePos = 0; trueVel = +el.V.value;
@@ -88,10 +94,11 @@
   }
 
   function paint() {
-    var W = el.cv.parentElement.clientWidth - 32, H = 340;
+    var W = contentWidth(el.cv.parentElement) - 2, H = 340;
     var dpr = window.devicePixelRatio || 1;
     el.cv.width = W * dpr; el.cv.height = H * dpr;
-    el.cv.style.width = W + 'px'; el.cv.style.height = H + 'px';
+    // +2: tuvalin 1px kenarlığı (border-box); bitmap CSS pikseline 1:1 otursun
+    el.cv.style.width = (W + 2) + 'px'; el.cv.style.height = (H + 2) + 'px';
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, W, H);
 
@@ -103,7 +110,7 @@
       ymin = Math.min(ymin, h.truth, h.meas, h.est - 2 * h.sd);
       ymax = Math.max(ymax, h.truth, h.meas, h.est + 2 * h.sd);
     });
-    if (!isFinite(ymin)) { ymin = -5; ymax = 5; }
+    if (ymin > ymax) { ymin = -5; ymax = 5; }   // boş geçmiş (ör. duraklatılmışken sıfırlandı)
     var pad = (ymax - ymin) * 0.1 + 1e-6; ymin -= pad; ymax += pad;
 
     var k0v = hist.length ? hist[0].k : 0;
@@ -117,7 +124,7 @@
     for (var i = 0; i <= 4; i++) {
       var gy = PT + ph * i / 4, gv = ymax - (ymax - ymin) * i / 4;
       ctx.strokeStyle = '#eef0f3'; ctx.beginPath(); ctx.moveTo(PL, gy); ctx.lineTo(PL + pw, gy); ctx.stroke();
-      ctx.fillStyle = '#999'; ctx.textAlign = 'right'; ctx.fillText(rnd(gv, 0), PL - 6, gy + 3);
+      ctx.fillStyle = '#5f6672'; ctx.textAlign = 'right'; ctx.fillText(rnd(gv, 0), PL - 6, gy + 3);
     }
 
     if (hist.length > 1) {
@@ -141,7 +148,7 @@
     hist.forEach(function (h) { ctx.beginPath(); ctx.arc(X(h.k), Y(h.meas), 2.6, 0, 2 * Math.PI); ctx.fill(); });
 
     ctx.strokeStyle = '#ccc'; ctx.lineWidth = 1; ctx.strokeRect(PL, PT, pw, ph);
-    ctx.fillStyle = '#888'; ctx.textAlign = 'center'; ctx.fillText('adım (k)', PL + pw / 2, H - 6);
+    ctx.fillStyle = '#5f6672'; ctx.textAlign = 'center'; ctx.fillText('adım (k)', PL + pw / 2, H - 6);
 
     var lx = PL + 8, ly = PT + 12;
     function sw(c, t) { ctx.fillStyle = c; ctx.fillRect(lx, ly - 8, 12, 9); ctx.fillStyle = '#444'; ctx.textAlign = 'left'; ctx.fillText(t, lx + 16, ly); ly += 15; }
@@ -173,7 +180,7 @@
   el.play.addEventListener('click', function () {
     running = !running; el.play.textContent = running ? '⏸ Duraklat' : '▶ Oynat';
   });
-  el.reset.addEventListener('click', function () { reset(); syncReadouts(); });
+  el.reset.addEventListener('click', function () { reset(); syncReadouts(); status(); });
   window.addEventListener('resize', paint);
 
   syncReadouts(); reset();

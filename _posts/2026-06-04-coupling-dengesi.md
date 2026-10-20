@@ -10,7 +10,7 @@ categories: [yazilim]
 tags: [yazilim-tasarimi, yazilim-muhendisligi]
 ---
 
-Bir satırlık bir değişiklik yaptınız: bir alanın adını `userId`'den `accountId`'ye çevirdiniz. Derleyici hata vermeye başladı. Bir dosyayı düzelttiniz, üç dosya daha kırmızı yandı. Onları da düzelttiniz; bu kez testler patladı. Yarım saat sonra "küçücük" değişikliğiniz on iki dosyaya, iki servise ve bir veritabanı şemasına dokunmuştu. Tanıdık geldi mi?
+Bir satırlık bir değişiklik yaptınız: bir alanın adını `userId`’den `accountId`’ye çevirdiniz. Derleyici hata vermeye başladı. Bir dosyayı düzelttiniz, üç dosya daha kırmızı yandı. Onları da düzelttiniz; bu kez testler patladı. Yarım saat sonra "küçücük" değişikliğiniz on iki dosyaya, iki servise ve bir veritabanı şemasına dokunmuştu. Tanıdık geldi mi?
 
 Çoğumuz bu acıya bir isim veririz: **coupling** (bağlaşım). Ve hemen ardından bir reçete yazarız: "Demek ki daha az coupling lazım, her şeyi birbirinden ayıralım (*decouple* edelim)." Ekip bu uğurda kodu mikroservislere böler — ve birkaç ay sonra, ağ üzerinden birbirine eskisinden de sıkı bağlı, ama bu kez hata ayıklaması çok daha zor bir sisteme uyanır.
 
@@ -172,7 +172,7 @@ DO‑178C, Constantine'den miras aldığı iki terimi resmî olarak tanımlar:
 
 > **Kontrol bağlaşımı (*control coupling*):** Bir bileşenin, başka bir bileşenin yürütülmesini (ne zaman, hangi koşulda çalışacağını) etkileme biçimi veya derecesi.
 
-Standart, bu bağların yalnızca *var olduğunu* kabul etmekle yetinmez; doğrulama sürecinin bir **objektifi** olarak (DO‑178C'nin meşhur *Tablo A‑7*'sinde) şunu talep eder: **Gereksinim temelli testlerin, bileşenler arasındaki veri ve kontrol bağımlılıklarını gerçekten *çalıştırdığını* kanıtlayın.** Burada DO‑178C, selefi DO‑178B'den ayrılır: eskiden bağları yalnızca *tanımlamak* yeterken, DO‑178C onların testlerle *uygulandığını* göstermeyi ister.
+Standart, bu bağların yalnızca *var olduğunu* kabul etmekle yetinmez; doğrulama sürecinin bir **objektifi** olarak (DO‑178C'nin meşhur *Tablo A‑7*’sinde) şunu talep eder: **Gereksinim temelli testlerin, bileşenler arasındaki veri ve kontrol bağımlılıklarını gerçekten *çalıştırdığını* kanıtlayın.** Burada DO‑178C, selefi DO‑178B'den ayrılır: eskiden bağları yalnızca *tanımlamak* yeterken, DO‑178C onların testlerle *uygulandığını* göstermeyi ister.
 
 Bu gereklilik her yazılım için aynı değildir. DO‑178C, olası bir arızanın yol açacağı sonucun ağırlığına göre beş **tasarım güvence seviyesi** (*Design Assurance Level*, DAL) tanımlar:
 

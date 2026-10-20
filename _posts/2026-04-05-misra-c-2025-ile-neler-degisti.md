@@ -1,7 +1,7 @@
 ---
 title: "MISRA C:2025 ile Neler Değişti?"
 subtitle: "What Changed with MISRA C:2025?"
-background: "/img/posts/7.webp"
+background: "/img/posts/misra-c-2025-cover.webp"
 date: '2026-04-05 09:00:00'
 layout: post
 lang: tr
@@ -191,13 +191,13 @@ memcpy(&bits_guvenli, &f, sizeof(bits_guvenli));
 
 MISRA C:2025 ile birlikte **2 kural silinmiştir**. Silinen kural numaraları gelecekte yeniden kullanılmayacaktır; bu, eski sürümlerle karışıklığı önlemek için alınmış bilinçli bir karardır.
 
-Silinen kurallardan biri **Kural 21.2**'dir. Bu kuralın kapsadığı konular artık diğer kurallar tarafından karşılanmaktadır.
+Silinen kurallardan biri **Kural 21.2**’dir. Bu kuralın kapsadığı konular artık diğer kurallar tarafından karşılanmaktadır.
 
 ---
 
 ## Devre Dışı Bırakılan Kural: 15.5 — Tek Çıkış Noktası
 
-MISRA C:2025'in belki de en dikkat çekici değişikliği, uzun süredir tartışmalı olan **Kural 15.5**'in (tek çıkış noktası — single point of exit) **devre dışı bırakılmasıdır** (disapplied).
+MISRA C:2025'in belki de en dikkat çekici değişikliği, uzun süredir tartışmalı olan **Kural 15.5**’in (tek çıkış noktası — single point of exit) **devre dışı bırakılmasıdır** (disapplied).
 
 Bu kural, bir fonksiyonun yalnızca tek bir `return` ifadesi içermesi gerektiğini zorunlu kılıyordu:
 

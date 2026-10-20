@@ -3,7 +3,10 @@ title: About Me
 layout: page
 description: Senior Avionics Software Design Engineer
 background: "/img/me-animated.webp"
+hero_position: "center 30%"
 permalink: /about/
+lang: en
+locale: en_US
 ---
 
 <div class="lang-switch">

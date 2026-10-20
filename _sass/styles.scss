@@ -75,12 +75,15 @@
 // Design tokens (CSS custom properties) + dark mode
 // =============================================================================
 :root {
-  // Brand
-  --color-accent: #0085A1;
-  --color-accent-hover: #00a3c4;
+  // Brand — accent tuned for WCAG AA: 5.1:1 on white, 4.6:1 on the soft
+  // tint used by chips/badges. Hover goes darker (not lighter) so white text
+  // on a hovered button and hovered links stay readable.
+  --color-accent: #00788F;
+  --color-accent-hover: #005F72;
   --color-accent-contrast: #ffffff;
-  --color-accent-soft: rgba(0, 133, 161, 0.08);
-  --color-accent-soft-border: rgba(0, 133, 161, 0.25);
+  --color-accent-soft: rgba(0, 120, 143, 0.08);
+  --color-accent-soft-border: rgba(0, 120, 143, 0.25);
+  --color-accent-ring: rgba(0, 120, 143, 0.18);
 
   // Surfaces
   --color-bg: #ffffff;
@@ -93,7 +96,7 @@
   // Text
   --color-text: #1a1d23;
   --color-text-muted: #5b6270;
-  --color-text-subtle: #8a91a0;
+  --color-text-subtle: #687083; // ≥ 4.5:1 on --color-bg and --color-bg-alt
   --color-heading: #0f1115;
 
   // Dark surfaces (footer, hero overlay) — brand-consistent across themes,
@@ -104,10 +107,13 @@
   --color-on-dark-muted: #c8ccd5;
   --color-on-dark-subtle: #8b91a0;
 
-  // Hero gradient stops
-  --color-hero-grad-start: rgba(10, 12, 18, 0.35);
-  --color-hero-grad-mid:   rgba(10, 12, 18, 0.55);
-  --color-hero-grad-end:   rgba(10, 12, 18, 0.78);
+  // Hero gradient stops (strong enough for white text on bright covers such
+  // as the CSEP certificate; the top band behind the navbar is added in
+  // header.masthead .overlay)
+  --color-hero-grad-start: rgba(10, 12, 18, 0.45);
+  --color-hero-grad-mid:   rgba(10, 12, 18, 0.6);
+  --color-hero-grad-end:   rgba(10, 12, 18, 0.8);
+  --color-hero-nav-band:   rgba(8, 10, 16, 0.6);
 
   // Glassmorphism (navbar fixed, theme toggle on light surfaces)
   --color-glass-bg: rgba(255, 255, 255, 0.85);
@@ -118,8 +124,16 @@
   --color-code-bg: #1e1f29;
   --color-code-text: #e6e8ef;
   --color-code-inline-bg: #f1f3f6;
-  --color-code-inline-text: #c7254e;
+  --color-code-inline-text: #1f2937; // neutral: tint + border + mono set it apart
   --color-code-border: #2a2c38;
+
+  // Blueprint hero (home + listing pages) — same navy/grid language as the
+  // post covers; identical in both themes, like the footer.
+  --color-blueprint-bg: #0a121e;
+  --color-blueprint-bg-deep: #060a12;
+  --color-blueprint-grid: rgba(110, 160, 200, 0.11);
+  --color-blueprint-grid-major: rgba(110, 160, 200, 0.2);
+  --color-blueprint-glow: rgba(0, 150, 180, 0.28);
 
   // Shadows
   --shadow-sm: 0 1px 2px rgba(15, 17, 21, 0.05);
@@ -152,13 +166,17 @@
 
   --color-text: #e3e6ec;
   --color-text-muted: #9ba3b4;
-  --color-text-subtle: #6b7287;
+  --color-text-subtle: #838b9e; // ≥ 4.5:1 on bg, surface and elevated surface
   --color-heading: #f5f7fa;
 
   --color-accent: #4ec9d6;
   --color-accent-hover: #7bdbe6;
+  // The dark-theme accent is a light cyan: text on it must be dark (9.7:1),
+  // white would drop to 2:1.
+  --color-accent-contrast: #0e1014;
   --color-accent-soft: rgba(78, 201, 214, 0.1);
   --color-accent-soft-border: rgba(78, 201, 214, 0.3);
+  --color-accent-ring: rgba(78, 201, 214, 0.25);
 
   --color-overlay-dark: #0b0d12;
   --color-overlay-darker: #060709;
@@ -166,9 +184,10 @@
   --color-on-dark-muted: #b4bac6;
   --color-on-dark-subtle: #7a8194;
 
-  --color-hero-grad-start: rgba(0, 0, 0, 0.45);
+  --color-hero-grad-start: rgba(0, 0, 0, 0.5);
   --color-hero-grad-mid:   rgba(0, 0, 0, 0.65);
   --color-hero-grad-end:   rgba(0, 0, 0, 0.85);
+  --color-hero-nav-band:   rgba(0, 0, 0, 0.6);
 
   --color-glass-bg: rgba(14, 16, 20, 0.78);
   --color-glass-border: rgba(255, 255, 255, 0.06);
@@ -177,7 +196,7 @@
   --color-code-bg: #0b0d12;
   --color-code-text: #e6e8ef;
   --color-code-inline-bg: #1f2330;
-  --color-code-inline-text: #ff7eb6;
+  --color-code-inline-text: #e3e6ec;
   --color-code-border: #262a36;
 
   --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
@@ -208,17 +227,23 @@ body {
 p {
   line-height: 1.75;
   margin: 1.25em 0;
+  text-wrap: pretty;
+}
 
-  a {
-    color: var(--color-accent);
-    text-decoration: underline;
-    text-underline-offset: 3px;
-    text-decoration-thickness: 1.5px;
+// Prose links are underlined wherever they sit in running text — paragraphs,
+// list items ("Kaynaklar"), table cells, quotes — so they never rely on colour
+// alone (in dark mode the accent is only 1.6:1 against body text). Classed
+// links (heading anchors, footnotes, buttons, chips) keep their own styling.
+p a,
+.post-content a:not([class]) {
+  color: var(--color-accent);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1.5px;
 
-    &:hover,
-    &:focus {
-      color: var(--color-accent-hover);
-    }
+  &:hover,
+  &:focus {
+    color: var(--color-accent-hover);
   }
 }
 
@@ -228,6 +253,13 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 700;
   letter-spacing: -0.015em;
   line-height: 1.25;
+  text-wrap: balance;
+}
+
+.subheading,
+.post-card__title,
+.related-card__title {
+  text-wrap: balance;
 }
 
 h1 { font-size: clamp(2rem, 4vw, 2.75rem); }
@@ -280,12 +312,41 @@ hr {
   outline-offset: 2px;
 }
 
+// Skip link — first focusable element on every page; hidden until a keyboard
+// user tabs onto it, then jumps past the navbar to <main id="main">.
+.skip-link {
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  z-index: 2100; // above the navbar, progress bar and search modal
+  padding: 0.6rem 1rem;
+  font-family: var(--font-sans);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--color-accent-contrast);
+  background: var(--color-accent);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-md);
+  text-decoration: none;
+  transform: translateY(-200%);
+  transition: transform 0.15s ease;
+
+  &:focus,
+  &:focus-visible {
+    transform: translateY(0);
+    color: var(--color-accent-contrast);
+    outline-offset: 3px;
+  }
+}
+
+#main:focus { outline: none; }
+
 // Container/page background
 .container {
   // Make sure containers inherit the themed background
 }
 
-body > .container,
+#main > .container,
 .page-content {
   background-color: var(--color-bg);
 }
@@ -306,6 +367,13 @@ body > .container,
     font-weight: 600;
     letter-spacing: 0.03em;
     text-transform: uppercase;
+  }
+
+  // Between the lg breakpoint and ~1200px the vendor's 20px link padding plus
+  // the search/theme buttons overflow the container (theme toggle clipped).
+  @media only screen and (min-width: 992px) and (max-width: 1199.98px) {
+    .navbar-brand { padding-right: 12px; }
+    .navbar-nav > li.nav-item > a { padding-left: 12px; padding-right: 12px; }
   }
 
   // Current-page indicator: short accent rule under the active link
@@ -330,8 +398,34 @@ body > .container,
     }
   }
 
+  // Desktop headroom: once the reader scrolls past the header the navbar is
+  // parked just above the viewport (`is-fixed`, toggled by assets/scripts.js)
+  // and slides in on scroll-up (`is-visible`). `bottom: 100%` parks it exactly
+  // one navbar-height above the top whatever its rendered height, so the
+  // vendor's translate(0, 100%) lands it flush at top: 0.
+  // Transparent desktop bar over the hero: a light shadow keeps the white
+  // links readable on bright cover details.
   @media only screen and (min-width: 992px) {
+    &:not(.is-fixed) {
+      .navbar-brand,
+      .navbar-nav > li.nav-item > a {
+        text-shadow: 0 1px 3px rgba(0, 0, 0, 0.5);
+      }
+    }
+  }
+
+  @media only screen and (min-width: 992px) {
+    // Keyboard focus moving into the parked bar (Shift+Tab from the page)
+    // slides it in, so the focused link is never off-screen. :focus-visible
+    // keeps a mouse click on a nav item from pinning the bar open.
+    &.is-fixed:has(:focus-visible) {
+      transform: translate3d(0, 100%, 0);
+    }
+
     &.is-fixed {
+      top: auto;
+      bottom: 100%;
+      box-shadow: var(--shadow-sm);
       background-color: var(--color-glass-bg);
       backdrop-filter: saturate(180%) blur(12px);
       -webkit-backdrop-filter: saturate(180%) blur(12px);
@@ -390,6 +484,47 @@ body > .container,
       width: 32px;
       height: 32px;
       margin-left: 0.3rem;
+    }
+  }
+
+  // Below 992px the theme paints the bar plain white with Bootstrap's
+  // 50%-black links (3.9:1). Follow the theme tokens instead, so dark mode is
+  // not a white strip with invisible (light-on-white) icons.
+  #mainNav {
+    background-color: var(--color-surface);
+    border-bottom-color: var(--color-border);
+
+    .navbar-brand { color: var(--color-heading); }
+
+    .navbar-toggler {
+      color: var(--color-text);
+      border-color: var(--color-border-strong);
+    }
+
+    .navbar-nav > li.nav-item > a {
+      color: var(--color-text-muted);
+
+      &:hover,
+      &:focus { color: var(--color-accent); }
+    }
+  }
+}
+
+// "Projeler" dropdown — Bootstrap's white panel ignored the theme.
+#mainNav .dropdown-menu {
+  font-family: var(--font-sans);
+  background-color: var(--color-surface-elevated);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+
+  .dropdown-item {
+    color: var(--color-text);
+
+    &:hover,
+    &:focus {
+      color: var(--color-accent);
+      background-color: var(--color-accent-soft);
     }
   }
 }
@@ -489,22 +624,35 @@ header.masthead {
 
   .overlay {
     background-color: transparent;
-    background-image: linear-gradient(
-      180deg,
-      var(--color-hero-grad-start) 0%,
-      var(--color-hero-grad-mid)   50%,
-      var(--color-hero-grad-end)  100%
-    );
+    background-image:
+      // Extra band behind the transparent desktop navbar, so cover art under
+      // the nav links never fights them.
+      linear-gradient(180deg, var(--color-hero-nav-band) 0, transparent 150px),
+      linear-gradient(
+        180deg,
+        var(--color-hero-grad-start) 0%,
+        var(--color-hero-grad-mid)   50%,
+        var(--color-hero-grad-end)  100%
+      );
     opacity: 1;
   }
 
+  // A soft halo keeps hero text readable where a cover has bright details.
+  h1,
+  .subheading,
+  .meta {
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.45), 0 0 18px rgba(0, 0, 0, 0.35);
+  }
+
+  // Tall enough for the cover art to breathe, short enough that the first
+  // lines of the article show above the fold (~600px on a 900px viewport).
   .page-heading,
   .post-heading,
   .site-heading {
-    padding: clamp(120px, 22vh, 200px) 0 clamp(90px, 16vh, 150px);
+    padding: clamp(110px, 16vh, 150px) 0 clamp(64px, 10vh, 100px);
 
     @media only screen and (min-width: 768px) {
-      padding: clamp(160px, 24vh, 220px) 0;
+      padding: clamp(130px, 18vh, 180px) 0 clamp(90px, 13vh, 140px);
     }
   }
 
@@ -546,6 +694,63 @@ header.masthead {
 
       a { color: var(--color-on-dark); text-decoration: none; }
     }
+  }
+}
+
+// Oscilloscope-style signal trace (cyan + faint amber), shared by the blueprint
+// masthead and the footer. Stretched to the box with preserveAspectRatio=none.
+$signal-trace: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 120' preserveAspectRatio='none'%3E%3Cpath d='M0 70L16 74L32 76L48 76L64 75L80 73L96 72L112 71L128 71L144 73L160 76L176 80L192 82L208 83L224 83L240 83L256 80L272 74L288 65L304 56L320 50L336 45L352 40L368 35L384 33L400 36L416 41L432 45L448 45L464 45L480 48L496 52L512 52L528 46L544 41L560 43L576 49L592 53L608 53L624 55L640 64L656 78L672 87L688 87L704 85L720 87L736 92L752 91L768 82L784 70L800 66L816 69L832 70L848 65L864 58L880 58L896 65L912 69L928 65L944 55L960 50L976 49L992 48L1008 40L1024 29L1040 25L1056 28L1072 33L1088 36L1104 38L1120 43L1136 52L1152 62L1168 66L1184 66L1200 66L1216 68L1232 70L1248 69L1264 67L1280 66L1296 69L1312 74L1328 78L1344 81L1360 84L1376 87L1392 89L1408 88L1424 83L1440 77L1456 70L1472 62L1488 55L1504 48L1520 43L1536 41L1552 40L1568 41L1584 43L1600 45' fill='none' stroke='rgba(78,201,214,0.5)' stroke-width='1.5' vector-effect='non-scaling-stroke'/%3E%3Cpath d='M0 92L20 94L40 95L60 92L80 88L100 83L120 78L140 76L160 75L180 76L200 78L220 78L240 76L260 72L280 67L300 64L320 62L340 63L360 65L380 69L400 71L420 72L440 70L460 68L480 67L500 67L520 70L540 74L560 80L580 84L600 86L620 86L640 85L660 84L680 84L700 86L720 90L740 94L760 98L780 99L800 97L820 94L840 90L860 88L880 88L900 89L920 91L940 92L960 91L980 88L1000 83L1020 78L1040 74L1060 72L1080 72L1100 74L1120 75L1140 75L1160 72L1180 68L1200 64L1220 62L1240 61L1260 64L1280 67L1300 71L1320 73L1340 73L1360 72L1380 70L1400 69L1420 71L1440 75L1460 80L1480 85L1500 88L1520 90L1540 89L1560 87L1580 86L1600 87' fill='none' stroke='rgba(242,184,75,0.3)' stroke-width='1' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+
+// -----------------------------------------------------------------------------
+// Blueprint masthead — home and listing pages (no photo). Navy canvas, faint
+// engineering grid and a soft signal trace: the same visual language as the
+// post covers, drawn entirely in CSS (no image request, crisp at any size).
+// -----------------------------------------------------------------------------
+header.masthead.masthead--blueprint {
+  background-color: var(--color-blueprint-bg);
+  background-image:
+    radial-gradient(ellipse 55% 75% at 50% 40%, var(--color-blueprint-glow), transparent 70%),
+    linear-gradient(180deg, var(--color-blueprint-bg) 0%, var(--color-blueprint-bg-deep) 100%);
+  overflow: hidden;
+  isolation: isolate;
+
+  // Grid: 32px minor / 160px major lines, fading out towards the edges.
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image:
+      linear-gradient(var(--color-blueprint-grid-major) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-blueprint-grid-major) 1px, transparent 1px),
+      linear-gradient(var(--color-blueprint-grid) 1px, transparent 1px),
+      linear-gradient(90deg, var(--color-blueprint-grid) 1px, transparent 1px);
+    background-size: 160px 160px, 160px 160px, 32px 32px, 32px 32px;
+    background-position: center top;
+    -webkit-mask-image: radial-gradient(ellipse 80% 90% at 50% 40%, #000 25%, transparent 80%);
+    mask-image: radial-gradient(ellipse 80% 90% at 50% 40%, #000 25%, transparent 80%);
+  }
+
+  // Signal trace along the bottom edge (inline SVG, stretched to full width).
+  &::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: clamp(36px, 8vh, 72px);
+    z-index: -1;
+    opacity: 0.8;
+    background: $signal-trace no-repeat center / 100% 100%;
+    pointer-events: none;
+  }
+
+  .overlay { display: none; }
+
+  .page-heading {
+    padding: clamp(112px, 15vh, 150px) 0 clamp(72px, 11vh, 104px);
+
+    h1 { font-size: clamp(2.2rem, 5vw, 3.25rem); }
   }
 }
 
@@ -595,8 +800,10 @@ header.masthead {
     height: 100%;
     min-height: 160px;
     object-fit: cover;
+    // Per-post focal point (`image_position` front matter → --media-pos).
+    object-position: var(--media-pos, 50% 50%);
     display: block;
-    transition: transform 0.4s ease;
+    transition: transform 0.4s ease, filter 0.3s ease;
   }
 
   .post-card:hover & img {
@@ -715,6 +922,43 @@ header.masthead {
   border-radius: 999px;
 }
 
+// Dark mode: take the edge off bright thumbnails (white certificates, light
+// diagrams) so they do not glare against the dark surfaces; full brightness
+// returns on hover.
+[data-theme="dark"] {
+  .post-card__media img,
+  .related-card img,
+  .post-content img {
+    filter: brightness(0.86);
+  }
+
+  .post-card:hover .post-card__media img,
+  .related-card:hover img,
+  .post-content img:hover {
+    filter: none;
+  }
+}
+
+// Dark mode: Bootstrap's .text-muted (#6c757d, !important) is 4.1:1 on the
+// dark page; legacy captions use it. Transparent PNG/WebP figures drawn in
+// black (diagrams) need a light backing to stay visible.
+[data-theme="dark"] {
+  .text-muted { color: var(--color-text-muted) !important; }
+  .post-content img { background-color: #ffffff; }
+}
+
+// Focus rings that the default outline cannot show: the card image link is
+// clipped by the card's overflow:hidden, and Bootstrap buttons replace the
+// outline with a faint 50%-alpha glow.
+.post-card__media:focus-visible { outline-offset: -3px; }
+
+.btn:focus-visible,
+.btn.focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  box-shadow: none !important;
+}
+
 // Hide the legacy <hr> separators when using the new card layout
 .post-list + .clearfix hr,
 .post-card + hr { display: none; }
@@ -750,14 +994,12 @@ header.masthead {
 .tag-chip__count {
   font-size: 0.7rem;
   font-weight: 700;
-  opacity: 0.75;
 }
 
 .tag-chip--category {
   color: var(--color-text-muted);
   background-color: transparent;
-  border-color: var(--color-text-muted);
-  opacity: 0.8;
+  border-color: var(--color-border-strong);
 
   &:hover,
   &:focus {
@@ -777,6 +1019,7 @@ header.masthead {
 // Tag/arşiv sayfası bölümleri
 .tag-section {
   margin-bottom: 2.5rem;
+  scroll-margin-top: 96px;
 
   &__title {
     font-size: 1.35rem;
@@ -852,11 +1095,24 @@ header.masthead {
       border-color: var(--color-accent);
     }
   }
+
+  // Category: outline-only, so it reads as a different kind of chip.
+  .tag-chip--category {
+    color: var(--color-on-dark-muted);
+    background-color: transparent;
+  }
 }
+
+// Keep "12 Temmuz 2026" and "5 dk okuma süresi" each on one line.
+.post-heading .meta .nowrap { white-space: nowrap; }
 
 // =============================================================================
 // Homepage hero intro — avatar + topic chips on the masthead
 // =============================================================================
+header.masthead .page-heading.hero-intro {
+  padding: clamp(112px, 15vh, 150px) 0 clamp(80px, 12vh, 116px);
+}
+
 .hero-intro {
   display: flex;
   flex-direction: column;
@@ -864,14 +1120,18 @@ header.masthead {
   text-align: center;
 
   &__avatar {
-    width: 112px;
-    height: 112px;
+    width: 104px;
+    height: 104px;
     border-radius: 50%;
     object-fit: cover;
-    border: 3px solid rgba(255, 255, 255, 0.55);
-    box-shadow: var(--shadow-md);
-    margin-bottom: 1.4rem;
+    border: 2px solid rgba(78, 201, 214, 0.55);
+    box-shadow: 0 0 0 6px rgba(78, 201, 214, 0.08), var(--shadow-md);
+    margin-bottom: 1.25rem;
   }
+
+  .subheading { max-width: 36ch; }
+
+  picture { display: block; line-height: 0; }
 
   &__topics {
     display: flex;
@@ -895,6 +1155,107 @@ header.masthead {
       color: var(--color-accent-contrast);
       background-color: var(--color-accent);
       border-color: var(--color-accent);
+    }
+  }
+}
+
+// =============================================================================
+// Homepage topics — one card per category with its latest posts, so readers
+// can reach the older archive by subject, not only through pagination.
+// =============================================================================
+.home-topics {
+  margin: 3.5rem 0 1rem;
+
+  &__header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 1rem;
+    flex-wrap: wrap;
+    margin-bottom: 1.25rem;
+  }
+
+  &__title {
+    font-size: clamp(1.35rem, 2.6vw, 1.6rem);
+    margin: 0;
+  }
+
+  &__all {
+    font-family: var(--font-sans);
+    font-size: 0.9rem;
+    font-weight: 600;
+    text-decoration: none;
+
+    &:hover { text-decoration: underline; }
+  }
+
+  &__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 1rem;
+  }
+}
+
+// An odd last card spans the row instead of sitting alone in one column.
+.topic-card:last-child:nth-child(odd) { grid-column: 1 / -1; }
+
+.topic-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.1rem 1.2rem 1rem;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-top: 3px solid var(--color-accent);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  font-family: var(--font-sans);
+
+  &__name {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 0.5rem;
+    margin: 0 0 0.3rem;
+    font-size: 1.05rem;
+
+    a {
+      color: var(--color-heading);
+      text-decoration: none;
+
+      &:hover { color: var(--color-accent); }
+    }
+  }
+
+  &__count {
+    flex-shrink: 0;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--color-text-subtle);
+  }
+
+  &__desc {
+    margin: 0 0 0.75rem;
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--color-text-muted);
+  }
+
+  &__posts {
+    list-style: none;
+    padding: 0.2rem 0 0;
+    margin: 0;
+    border-top: 1px dashed var(--color-border);
+    font-size: 0.88rem;
+    line-height: 1.4;
+
+    li { padding: 0.5rem 0 0; }
+
+    a {
+      font-weight: 500;
+      color: var(--color-text);
+      text-decoration: none;
+
+      &:hover { color: var(--color-accent); }
     }
   }
 }
@@ -942,7 +1303,9 @@ header.masthead {
     width: 100%;
     height: 120px;
     object-fit: cover;
+    object-position: var(--media-pos, 50% 50%);
     display: block;
+    transition: filter 0.3s ease;
   }
 
   &__title {
@@ -1055,7 +1418,7 @@ html.reveal-ready {
     &:focus {
       outline: none;
       border-color: var(--color-accent);
-      box-shadow: 0 0 0 3px rgba(0, 133, 161, 0.18);
+      box-shadow: 0 0 0 3px var(--color-accent-ring);
     }
 
     &:focus + label,
@@ -1099,6 +1462,10 @@ pre,
 samp {
   font-family: var(--font-mono);
   font-size: 0.92em;
+  // JetBrains Mono's ligatures would draw C's != >= == as ≠ ⩾ and a bar;
+  // code must show the characters that are actually typed.
+  font-variant-ligatures: none;
+  font-feature-settings: "liga" 0, "calt" 0;
 }
 
 // Inline code
@@ -1127,11 +1494,18 @@ div.highlight {
     background-color: transparent !important;
     color: var(--color-code-text);
     margin: 0;
-    padding: 1.4rem 1.2rem 1.1rem;
+    // Top padding leaves a clear band for the language badge and copy button.
+    padding: 2.2rem 1.2rem 1.1rem;
     overflow-x: auto;
     font-size: 0.88rem;
     line-height: 1.6;
     border: none;
+
+    // Focusable for keyboard scrolling; the wrapper clips outside outlines.
+    &:focus-visible {
+      outline-offset: -2px;
+      border-radius: var(--radius-md);
+    }
   }
 
   code {
@@ -1180,6 +1554,11 @@ div.highlight {
   &:hover .copy-code-btn,
   &:focus-within .copy-code-btn { opacity: 1; }
 
+  // Touch screens have no hover: keep the copy button visible.
+  @media (hover: none) {
+    .copy-code-btn { opacity: 0.9; }
+  }
+
   .copy-code-btn:hover {
     background-color: rgba(255, 255, 255, 0.12);
     color: var(--color-on-dark);
@@ -1197,24 +1576,17 @@ div.highlight {
 // Post body — reading rhythm, drop cap, images, tables
 // =============================================================================
 .post-content {
-  // Comfortable reading column for prose; wide elements break out below.
-  > p,
-  > ul,
-  > ol,
-  > blockquote,
-  > h2,
-  > h3,
-  > h4 {
-    max-width: var(--reading-max-width);
-    margin-left: auto;
-    margin-right: auto;
-  }
+  // Prose, headings, tables and code share the column's left edge. (A 70ch
+  // cap per element used to inset paragraphs ~29px from the h2s, because
+  // `ch` follows each element's own font size; the col-lg-8 column is already
+  // a comfortable ~75-character measure.)
 
   // Anchor headings — soft target for TOC scroll-spy and in-page links
   h2, h3, h4 { scroll-margin-top: 96px; }
 
-  // Editorial drop cap on the very first paragraph of an article
-  > p:first-of-type::first-letter {
+  // Editorial drop cap on the very first paragraph of an article (not when
+  // that paragraph is just an epigraph caption, as in the 2022 posts).
+  > p:first-of-type:not(:has(> .caption))::first-letter {
     font-family: var(--font-sans);
     font-weight: 700;
     color: var(--color-accent);
@@ -1251,12 +1623,23 @@ div.highlight {
   }
 }
 
-// Touch devices have no hover — keep heading anchors quietly visible.
+// Interactive demos: a label that wraps to two lines must not stagger the
+// sliders across a row — each slider sits at the bottom of its column.
+.post-content :is(.row, .form-row) > [class*="col-"]:has(> .custom-range) {
+  display: flex;
+  flex-direction: column;
+
+  > .custom-range { margin-top: auto; }
+}
+
+// Touch devices have no hover — keep heading anchors visible. The muted
+// --color-text-subtle already keeps them quiet; fading it further would drop
+// the icon below 3:1 (WCAG 1.4.11).
 @media (hover: none) {
   .post-content h2 .heading-anchor,
   .post-content h3 .heading-anchor,
   .post-content h4 .heading-anchor {
-    opacity: 0.6;
+    opacity: 1;
   }
 }
 
@@ -1377,6 +1760,10 @@ article {
 .post-toc {
   // Small/medium screens: collapsible card above the article body.
   display: block;
+  // The desktop TOC is absolutely positioned before the article and its nav
+  // scrolls on its own; if the browser anchors scrolling there, a deep link
+  // drifts off its heading when diagrams/images above it render later.
+  overflow-anchor: none;
   margin: 0 0 2rem;
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
@@ -1397,6 +1784,12 @@ article {
     font-size: 0.9rem;
     font-weight: 600;
     color: var(--color-heading);
+
+    // The collapsible card clips outside outlines (overflow: hidden).
+    &:focus-visible {
+      outline-offset: -3px;
+      border-radius: var(--radius-md);
+    }
   }
 
   &__chevron {
@@ -1472,7 +1865,7 @@ article {
       display: block;
       position: sticky;
       top: 100px;
-      max-height: calc(100vh - 140px);
+      max-height: calc(100vh - 200px); // clear of the scroll-to-top button
       overflow-y: auto;
       padding: 0 0 0 1rem;
       border-left: 2px solid var(--color-border);
@@ -1485,14 +1878,87 @@ article {
   &.is-empty { display: none !important; }
 }
 
+// Interactive demos inside posts (Kalman, bandpass) are Bootstrap cards; theme
+// them with the tokens so they do not stay white under light dark-mode text.
+.post-content .card {
+  color: var(--color-text);
+  background-color: var(--color-surface);
+  border-color: var(--color-border);
+  border-radius: var(--radius-md);
+
+  .card-header {
+    font-family: var(--font-sans);
+    color: var(--color-heading);
+    background-color: var(--color-bg-alt);
+    border-bottom-color: var(--color-border);
+  }
+
+  // Bootstrap's grey utilities are tuned for white only.
+  .text-muted { color: var(--color-text-muted) !important; }
+
+  // Demo button rows: keep a gap between buttons when they wrap on phones.
+  div:has(> .btn) {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .btn-outline-secondary {
+    color: var(--color-text-muted);
+    border-color: var(--color-border-strong);
+
+    &:hover,
+    &:focus {
+      color: var(--color-accent-contrast);
+      background-color: var(--color-accent);
+      border-color: var(--color-accent);
+    }
+  }
+
+  // Demo buttons: Bootstrap's .btn-sm in the theme font next to our buttons
+  // came out taller and in a different (unloaded) font.
+  .btn {
+    font-family: var(--font-sans);
+    font-size: 0.85rem;
+    line-height: 1.4;
+    padding: 0.45rem 0.9rem;
+    border-radius: var(--radius-sm);
+  }
+
+  // Hand-drawn demo canvases (bandpass) paint dark text on a transparent
+  // background; keep them on white like the Plotly figures.
+  canvas { background-color: #ffffff; }
+
+  // Live read-out line under the sliders.
+  .demo-status {
+    min-height: 2.2em;
+    font-family: var(--font-mono);
+    color: var(--color-text);
+    background-color: var(--color-bg-alt);
+  }
+}
+
+// Embedded videos (jekyll-spaceship iframes are fixed at 350px high): keep
+// 16:9 at every width.
+.post-content iframe.media {
+  display: block;
+  width: 100%;
+  max-width: 720px;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  margin: 1.5em auto;
+  border-radius: var(--radius-md);
+}
+
 // Plotly charts are authored with light backgrounds and hand-tuned label
 // colors. In dark mode, frame them as deliberate light figures (rather than
 // recolouring every annotation, which would leave some labels unreadable).
 [data-theme="dark"] .post-content .js-plotly-plot {
   background: #ffffff;
-  border: 1px solid var(--color-border-strong);
   border-radius: var(--radius-md);
-  box-shadow: var(--shadow-md);
+  // A ring instead of a border: a border would shrink the box by 2px and
+  // clip the bottom of the x-axis titles Plotly draws at full size.
+  box-shadow: 0 0 0 1px var(--color-border-strong), var(--shadow-md);
   overflow: hidden;
 }
 
@@ -1541,33 +2007,82 @@ article {
 // =============================================================================
 // Reduced motion
 // =============================================================================
+// Transitions get 0s, not the common 0.01ms: `transition-property` defaults
+// to `all`, so a non-zero duration on `*` would make *every* style change
+// animate — including on elements that never declared a transition. Mermaid
+// sets label styles and measures them synchronously; with 0.01ms it read the
+// pre-transition box (a 2000px node) and crashed ("Syntax error in text").
+// The JS that waits for `transitionend` has setTimeout fallbacks.
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after {
-    transition-duration: 0.01ms !important;
+    transition-duration: 0s !important;
+    transition-delay: 0s !important;
     animation-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
 }
 
 // =============================================================================
-// Modern Footer — token-driven, follows the active theme
+// Footer — the same navy blueprint as the home/listing masthead (identical in
+// both themes): faint grid fading down from a signal trace along the top edge.
 // =============================================================================
 .footer-modern {
   font-family: var(--font-sans);
   font-size: 0.9rem;
 
+  // Accent on the navy surfaces: the light-theme accent (#00788F) is too dark
+  // there, so the footer always uses the cyan of the covers.
+  --footer-accent: #4ec9d6;
+  --footer-accent-ink: #0a121e;
+
   .footer-main {
-    background-color: var(--color-overlay-dark);
-    padding: 64px 0 44px;
+    position: relative;
+    isolation: isolate;
+    overflow: hidden;
+    padding: 80px 0 48px;
     color: var(--color-on-dark-muted);
+    background-color: var(--color-blueprint-bg-deep);
+    background-image:
+      radial-gradient(ellipse 50% 90% at 18% 0%, rgba(0, 150, 180, 0.16), transparent 70%),
+      linear-gradient(180deg, var(--color-blueprint-bg) 0%, var(--color-blueprint-bg-deep) 100%);
+
+    // Grid, strongest under the trace and fading out towards the bottom.
+    &::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      background-image:
+        linear-gradient(var(--color-blueprint-grid) 1px, transparent 1px),
+        linear-gradient(90deg, var(--color-blueprint-grid) 1px, transparent 1px);
+      background-size: 32px 32px;
+      background-position: center top;
+      -webkit-mask-image: linear-gradient(180deg, #000 0%, transparent 75%);
+      mask-image: linear-gradient(180deg, #000 0%, transparent 75%);
+    }
+
+    // Signal trace along the top edge — continues the masthead's motif.
+    &::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 6px;
+      height: 44px;
+      z-index: -1;
+      opacity: 0.7;
+      background: $signal-trace no-repeat center / 100% 100%;
+      pointer-events: none;
+    }
 
     .footer-heading {
       color: var(--color-on-dark);
-      font-size: 0.85rem;
+      margin-top: 0;
+      font-size: 0.8rem;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.12em;
-      margin-bottom: 1.3rem;
+      margin-bottom: 1.2rem;
       position: relative;
       padding-bottom: 0.7rem;
 
@@ -1576,25 +2091,36 @@ article {
         position: absolute;
         left: 0;
         bottom: 0;
-        width: 28px;
+        width: 24px;
         height: 2px;
-        background-color: var(--color-accent);
+        background-color: var(--footer-accent);
         border-radius: 2px;
       }
     }
+
+    a:focus-visible { outline-color: var(--footer-accent); }
 
     .footer-description {
       color: var(--color-on-dark-muted);
       font-family: var(--font-serif);
       line-height: 1.7;
-      margin: 0;
+      margin: 0 0 1.25rem;
       font-size: 0.95rem;
+      max-width: 34ch;
     }
 
     .footer-links {
       list-style: none;
       padding: 0;
       margin: 0;
+
+      // Long link list flows into two short columns instead of one tall one.
+      &--split {
+        columns: 2;
+        column-gap: 1.5rem;
+
+        li { break-inside: avoid; }
+      }
 
       li { margin-bottom: 0.55rem; }
 
@@ -1604,50 +2130,140 @@ article {
         transition: color 0.2s ease, transform 0.2s ease;
         display: inline-block;
 
-        &:hover {
-          color: var(--color-accent);
-          transform: translateX(4px);
+        &:hover,
+        &:focus {
+          color: var(--footer-accent);
+          transform: translateX(3px);
         }
       }
     }
 
     .footer-social {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.375rem;
       padding: 0;
       margin: 0;
 
-      .list-inline-item { margin-right: 0.4rem; }
+      .list-inline-item { margin: 0; }
 
       a {
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        width: 38px;
-        height: 38px;
+        // 5 × 36px + gaps fits the narrowest (≈210px) column in one row.
+        width: 36px;
+        height: 36px;
         border-radius: 50%;
-        background-color: rgba(255, 255, 255, 0.06);
+        background-color: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(110, 160, 200, 0.22);
         color: var(--color-on-dark-muted);
         text-decoration: none;
-        transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+        transition: background-color 0.25s ease, color 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
 
-        &:hover {
-          background-color: var(--color-accent);
-          color: var(--color-accent-contrast);
+        &:hover,
+        &:focus {
+          background-color: var(--footer-accent);
+          border-color: var(--footer-accent);
+          color: var(--footer-accent-ink);
           transform: translateY(-3px);
         }
       }
     }
+
+    .footer-note {
+      margin: 1.1rem 0 0;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: var(--color-on-dark-muted);
+
+      a {
+        color: var(--footer-accent);
+        text-decoration: underline;
+        text-underline-offset: 3px;
+      }
+    }
+  }
+
+  // Brand block: avatar + name + role, linking to the about page.
+  .footer-brand {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.85rem;
+    margin-bottom: 1rem;
+    text-decoration: none;
+
+    &__avatar {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid rgba(78, 201, 214, 0.55);
+      box-shadow: 0 0 0 4px rgba(78, 201, 214, 0.08);
+      flex-shrink: 0;
+    }
+
+    &__text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.3;
+    }
+
+    &__name {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--color-on-dark);
+      letter-spacing: -0.01em;
+    }
+
+    &__role {
+      font-size: 0.8rem;
+      color: var(--color-on-dark-muted);
+    }
+
+    &:hover .footer-brand__name,
+    &:focus .footer-brand__name { color: var(--footer-accent); }
+  }
+
+  // Outline pill CTA (RSS).
+  .footer-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.45rem;
+    padding: 0.42rem 0.95rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--footer-accent);
+    border: 1px solid rgba(78, 201, 214, 0.45);
+    border-radius: 999px;
+    text-decoration: none;
+    transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+
+    &:hover,
+    &:focus {
+      color: var(--footer-accent-ink);
+      background-color: var(--footer-accent);
+      border-color: var(--footer-accent);
+    }
   }
 
   .footer-bottom {
-    background-color: var(--color-overlay-darker);
+    background-color: #04070c;
+    border-top: 1px solid rgba(110, 160, 200, 0.12);
     padding: 16px 0;
     color: var(--color-on-dark-subtle);
+    font-size: 0.82rem;
 
-    .copyright {
-      color: var(--color-on-dark-subtle);
-      font-size: 0.82rem;
-      margin: 0;
+    &__inner { text-align: center; }
+
+    // Phones: keep the last line clear of the floating scroll-to-top button.
+    @media (max-width: 575.98px) {
+      padding-bottom: 76px;
     }
+
+    p { margin: 0; }
+
+    .copyright { color: var(--color-on-dark-subtle); }
   }
 }
 
@@ -1711,13 +2327,27 @@ article {
 // Responsive overrides for wide content (tables, Mermaid diagrams)
 // =============================================================================
 .mermaid {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+  // Diagrams always fit the column (assets/scripts.js adds a "Büyüt" button
+  // to open small-scaled ones in a dialog), so nothing needs to scroll here;
+  // visible overflow keeps edge glyphs such as xychart axis labels unclipped.
+  overflow: visible;
+  // Collapses with a following paragraph's margin; keeps a "Büyüt" button
+  // clear of a diagram or list that follows directly.
+  margin-bottom: 1.25rem;
 
   svg {
+    display: block;
+    margin: 0 auto;
     max-width: 100%;
     height: auto;
+    overflow: visible;
   }
+
+  &.is-zoomable svg { cursor: zoom-in; }
+
+  // A diagram shrunk to ~30% would draw its edges as faint sub-pixel lines;
+  // keep them at least one screen pixel wide at any scale.
+  svg .flowchart-link { vector-effect: non-scaling-stroke; }
 
   // Mermaid's xychart palette is a very pale lavender that nearly disappears
   // on the light theme's white plot area. Drive the series colour from the
@@ -1733,10 +2363,72 @@ article {
   }
 }
 
+// "Büyüt" button under a diagram that is shown below 75% of its natural size.
+.mermaid-zoom {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  width: max-content;
+  margin: 0.6rem auto 0;
+  padding: 0.35em 0.85em;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-text);
+  background: var(--color-surface-elevated);
+  border: 1px solid var(--color-border-strong);
+  border-radius: 999px;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+
+  &:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+  }
+}
+
+// MathJax display equations: scroll sideways inside their own box instead of
+// widening the whole page on phones (the Kalman post pushed it to 772px).
+mjx-container[display="true"] {
+  display: block;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  padding: 0.2em 0;
+}
+
+// Mermaid edge labels: the default dark theme paints #ccc on #585858
+// (4.4:1); use the site surface tokens instead.
+[data-theme="dark"] .mermaid .edgeLabel,
+[data-theme="dark"] .mermaid .edgeLabel p,
+[data-theme="dark"] .mermaid .labelBkg {
+  color: var(--color-text) !important;
+  background-color: var(--color-surface-elevated) !important;
+}
+
+// Tables scroll inside .table-scroll (added by assets/scripts.js, which also
+// makes it a focusable region when it overflows). Without JS, phones fall
+// back to scrolling the table itself.
+.table-scroll {
+  max-width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin: 1.5em 0;
+
+  > table { margin: 0; }
+}
+
 @media (max-width: 640px) {
   .post-content,
   article {
-    table {
+    table:not(.table-scroll > table) {
       display: block;
       overflow-x: auto;
       -webkit-overflow-scrolling: touch;
@@ -2253,6 +2945,12 @@ article {
     outline: none;
   }
 
+  // Keyboard (ArrowDown/Tab) focus: a visible accent ring, not just a tint.
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: -2px;
+  }
+
   &__title {
     font-family: var(--font-sans);
     font-size: 0.98rem;
@@ -2397,6 +3095,8 @@ article {
   gap: 0.8rem;
   padding: 32px;
   background: rgba(8, 10, 14, 0.9);
+
+  @media (max-width: 640px) { padding: 12px; }
   cursor: zoom-out;
   opacity: 0;
   pointer-events: none;
@@ -2410,6 +3110,10 @@ article {
   }
 
   &__img {
+    // --ar (natural width / height) is set by assets/scripts.js; the image
+    // fills the free area instead of showing at its (often small) natural size.
+    width: min(100%, calc((100vh - 120px) * var(--ar, 1.5)));
+    height: auto;
     max-width: 100%;
     max-height: calc(100vh - 120px);
     object-fit: contain;
@@ -2446,7 +3150,42 @@ article {
     &:hover,
     &:focus-visible {
       background: rgba(255, 255, 255, 0.18);
-      outline: none;
+    }
+
+    &:focus-visible {
+      outline: 2px solid rgba(245, 247, 250, 0.95);
+      outline-offset: 2px;
+    }
+  }
+}
+
+// Diagram dialog: the enlarged Mermaid SVG pans inside its own box.
+.lightbox--diagram {
+  cursor: default;
+  padding-top: 68px; // clear of the close button
+
+  .lightbox__diagram {
+    width: 100%;
+    max-height: calc(100vh - 100px);
+    overflow: auto;
+    overscroll-behavior: contain;
+    padding: 16px;
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+
+    &:focus-visible {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    padding-top: 64px;
+
+    .lightbox__diagram {
+      max-height: calc(100vh - 80px);
+      padding: 8px;
     }
   }
 }
@@ -2554,6 +3293,7 @@ article {
     font-family: var(--font-mono);
     font-size: 0.85em;
     padding: 0.08em 0.4em;
+    color: var(--color-text); // Bootstrap's kbd is white-on-black
     background: var(--color-bg-alt);
     border: 1px solid var(--color-border);
     border-radius: 4px;
@@ -2598,6 +3338,7 @@ article {
   .related-posts,
   .search-modal,
   .lightbox,
+  .mermaid-zoom,
   .copy-code-btn,
   .scroll-top,
   .heading-anchor,
@@ -2672,4 +3413,25 @@ article {
 
   h2, h3, h4 { page-break-after: avoid; }
   blockquote, table { page-break-inside: avoid; }
+
+  // Blueprint mastheads print as plain titles (no navy, grid or trace).
+  header.masthead.masthead--blueprint {
+    background: none !important;
+
+    &::before,
+    &::after { display: none !important; }
+
+    .page-heading { padding: 1.5rem 0 0.5rem !important; }
+  }
+
+  .hero-intro__avatar,
+  .hero-intro__topics { display: none !important; }
+
+  // Cards not yet scrolled into view would otherwise print blank.
+  html.reveal-ready .post-card {
+    opacity: 1 !important;
+    animation: none !important;
+  }
+
+  .skip-link { display: none !important; }
 }

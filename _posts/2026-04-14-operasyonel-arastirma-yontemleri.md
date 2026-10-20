@@ -1,7 +1,7 @@
 ---
 title: "Yöneylem Araştırması Yöntemleri: Kesin ve Metasezgisel Yaklaşımlar"
 subtitle: "Operational Research Methods: Exact and Metaheuristic Approaches"
-background: "/img/posts/5.webp"
+background: "/img/posts/yoneylem-arastirmasi-yontemleri-cover.webp"
 date: '2026-04-14 09:00:00'
 layout: post
 lang: tr
@@ -71,7 +71,7 @@ s.t.   a₁₁x₁ + a₁₂x₂ + ... + a₁ₙxₙ ≤ b₁
 
 Dantzig'in 1947'de geliştirdiği **simpleks yöntemi**, LP çözmek için hâlâ en yaygın kullanılan algoritmadır. Simpleks'in arkasındaki sezgi saf geometriktir: LP'nin uygulanabilir bölgesi (feasible region) çok boyutlu bir çokyüzlüdür (polyhedron); optimum değer bu çokyüzlünün **köşelerinden birinde** bulunur. Simpleks tam olarak bunu yapar: bir köşeden komşu köşeye geçerek amaç fonksiyonunu iyileştirir, iyileştirme kalmayınca durur. Pratikte son derece hızlıdır; ama en kötü durumda üstel zamanda çalışabilir. 1979'da Leonid Khachiyan'ın elipsoid yöntemi ile LP'nin polinom zamanda çözülebildiğini kanıtlaması ve 1984'te Narendra Karmarkar'ın projektif **iç nokta yöntemleri**ni (interior point methods) geliştirmesi, alanın iki büyük teorik sıçramasıdır. Modern çözücüler bu iki aileyi birlikte kullanır.
 
-LP'nin bir diğer güzelliği **ikilik teoremi**dir (duality theorem): Her LP'nin bir "eşleniği" (dual) vardır. Primal problem "kârı maksimize et" ise dual "minimum kaynak kullan" gibi yorumlanır. Dualin çözüm değeri, primale ait **gölge fiyatları** (shadow prices) verir: "Kısıt *i*'yi bir birim gevşetirsem amaç fonksiyonu ne kadar değişir?" sorusunun yanıtı. Duyarlılık analizi (sensitivity analysis), kapasite yatırımı ve fiyatlama gibi iş kararlarının temelidir.
+LP'nin bir diğer güzelliği **ikilik teoremi**dir (duality theorem): Her LP'nin bir "eşleniği" (dual) vardır. Primal problem "kârı maksimize et" ise dual "minimum kaynak kullan" gibi yorumlanır. Dualin çözüm değeri, primale ait **gölge fiyatları** (shadow prices) verir: "Kısıt *i*’yi bir birim gevşetirsem amaç fonksiyonu ne kadar değişir?" sorusunun yanıtı. Duyarlılık analizi (sensitivity analysis), kapasite yatırımı ve fiyatlama gibi iş kararlarının temelidir.
 
 **Klasik örnek — Üretim karışımı:** Bir mobilya atölyesi masa ve sandalye üretiyor. Her masadan 40 TL, her sandalyeden 30 TL kâr ediyor. Elimizde 400 saatlik marangozluk ve 240 saatlik cila kapasitesi var. Bir masa 4 saat marangozluk, 2 saat cila; bir sandalye 2 saat marangozluk, 2 saat cila gerektiriyor. Kârı maksimize etmek için kaç masa ve kaç sandalye üretmeliyiz?
 
@@ -166,7 +166,7 @@ MIP modelleri sıkça **Big-M tekniği** kullanır. "Eğer tesis *i* açıksa, a
 x_ij ≤ M · y_i       (y_i = 0 ise x_ij = 0'a zorlanır; y_i = 1 ise x_ij serbest)
 ```
 
-Burada `M` yeterince büyük bir sabittir. `M`'nin çok büyük seçilmesi LP gevşetmesini zayıflatır ve çözümü yavaşlatır; çok küçük seçilmesi gerçek çözümleri dışarıda bırakır. Doğru `M` seçimi iyi MIP modellemenin sanatıdır.
+Burada `M` yeterince büyük bir sabittir. `M`’nin çok büyük seçilmesi LP gevşetmesini zayıflatır ve çözümü yavaşlatır; çok küçük seçilmesi gerçek çözümleri dışarıda bırakır. Doğru `M` seçimi iyi MIP modellemenin sanatıdır.
 
 **Klasik örnek — Tedarik zinciri ağ tasarımı:** Hangi fabrikaların açılacağı (ikili), hangi fabrikadan hangi dağıtım merkezine ne kadar ürün akacağı (sürekli), hangi kamyon rotalarının kullanılacağı (ikili) kararlarının birleşimi saf bir MIP'dir. Çok katmanlı modelde açma/kapama kararları ile akış kararları aynı anda optimize edilir. Toplam maliyet = sabit açılış maliyetleri + değişken üretim ve taşıma maliyetleri. Kısıtlar: müşteri talebini karşılamak, kapasiteyi aşmamak, sadece açık tesisten akış olmak.
 
@@ -293,7 +293,7 @@ SA'nın teorik zarafeti, Hajek'in 1988'de ispatladığı bir **yakınsama teorem
 
 ### Tabu Arama (Tabu Search — TS)
 
-Fred Glover'ın 1986'daki çalışmasıyla tanıtılan ve 1989'da *ORSA Journal on Computing*'de "Tabu Search — Part I" başlığıyla formalize ettiği TS'in ayırt edici özelliği **bellek (memory)** kullanmasıdır: daha önce yapılan hareketleri **tabu listesi**nde tutar ve kısa süreliğine tekrarlanmalarını yasaklar. Bu, yerel minimumdan çıkmayı ve döngülere düşmemeyi sağlar.
+Fred Glover'ın 1986'daki çalışmasıyla tanıtılan ve 1989'da *ORSA Journal on Computing*’de "Tabu Search — Part I" başlığıyla formalize ettiği TS'in ayırt edici özelliği **bellek (memory)** kullanmasıdır: daha önce yapılan hareketleri **tabu listesi**nde tutar ve kısa süreliğine tekrarlanmalarını yasaklar. Bu, yerel minimumdan çıkmayı ve döngülere düşmemeyi sağlar.
 
 ```text
 x ← x₀
@@ -438,7 +438,7 @@ Matheuristic yaklaşımları; üretim planlama, enerji ağ optimizasyonu, lojist
 
 **Robust optimizasyon:** Parametreler için bir "belirsizlik kümesi" tanımlanır ve çözüm bu kümedeki **en kötü duruma** karşı en iyi olur. 2000'lerde Ben-Tal, Nemirovski ve Bertsimas'ın çalışmalarıyla olgunlaşan bu alan, özellikle finans, enerji ve savunma uygulamalarında tercih edilir: olasılık dağılımını tahmin etmek zorsa ya da "çok ender ama çok kötü" senaryolardan korunmak isteniyorsa robust optimizasyon doğal seçimdir.
 
-Son yıllarda **makine öğrenmesi** ile **OR**'un kesişimi de hızla büyüyor. **Prediction + optimization** çerçevesi, bir ML modelinin tahminlerinin ardından bir MIP/metasezgisel çözücünün kararları aldığı sıralı boru hattı şeklindedir. "Predict-then-optimize" paradigması ile tahmin hatasının optimizasyon kararı üzerindeki etkisi ortak olarak eğitilir. Bu alan son 5 yılda özellikle perakende talep tahmini, enerji fiyat tahmini ve rotalama gibi uygulamalarda iz bırakmıştır.
+Son yıllarda **makine öğrenmesi** ile **OR**’un kesişimi de hızla büyüyor. **Prediction + optimization** çerçevesi, bir ML modelinin tahminlerinin ardından bir MIP/metasezgisel çözücünün kararları aldığı sıralı boru hattı şeklindedir. "Predict-then-optimize" paradigması ile tahmin hatasının optimizasyon kararı üzerindeki etkisi ortak olarak eğitilir. Bu alan son 5 yılda özellikle perakende talep tahmini, enerji fiyat tahmini ve rotalama gibi uygulamalarda iz bırakmıştır.
 
 ---
 

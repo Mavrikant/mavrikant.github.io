@@ -1,7 +1,7 @@
 ---
 title: "Kalman Filtresi ve EKF: Gürültülü Veriden Gizli Durumu Kestirmek"
 subtitle: "The Kalman Filter and EKF: Estimating Hidden State from Noisy Data"
-background: "/img/posts/9.webp"
+background: "/img/posts/kalman-filtresi-cover.webp"
 date: '2026-06-02 09:00:00'
 layout: post
 lang: tr
@@ -84,12 +84,12 @@ F = \begin{bmatrix} 1 & \Delta t \\ 0 & 1 \end{bmatrix}, \quad
 H = \begin{bmatrix} 1 & 0 \end{bmatrix}
 $$
 
-`F`'in anlamı net: yeni konum = eski konum + hız·Δt; yeni hız = eski hız (sabit hız varsayımı). `H = [1, 0]` ise "ölçüm sadece konumu görür, hızı görmez" der. Hızı hiç ölçmediğimiz hâlde filtre onu konum ölçümlerinin zaman içindeki değişiminden **çıkarsayacak** — Kalman filtresinin en şık tarafı budur.
+`F`’in anlamı net: yeni konum = eski konum + hız·Δt; yeni hız = eski hız (sabit hız varsayımı). `H = [1, 0]` ise "ölçüm sadece konumu görür, hızı görmez" der. Hızı hiç ölçmediğimiz hâlde filtre onu konum ölçümlerinin zaman içindeki değişiminden **çıkarsayacak** — Kalman filtresinin en şık tarafı budur.
 
 Süreç gürültüsünü, modellenmemiş bir ivmeden gelir gibi düşünürüz (beyaz-gürültü ivme modeli):
 
 $$
-Q = q\begin{bmatrix} \tfrac{\Delta t^4}{4} & \tfrac{\Delta t^3}{2} \\[4pt] \tfrac{\Delta t^3}{2} & \Delta t^2 \end{bmatrix}, \qquad
+Q = q\begin{bmatrix} \tfrac{\Delta t^4}{4} & \tfrac{\Delta t^3}{2} \\\\[4pt] \tfrac{\Delta t^3}{2} & \Delta t^2 \end{bmatrix}, \qquad
 R = \begin{bmatrix} \sigma_{\text{ölç}}^2 \end{bmatrix}
 $$
 
@@ -260,14 +260,14 @@ Sonuç çarpıcı: ham ölçümlerin gerçek konuma göre RMSE'si **1.64** iken,
   <figcaption><strong>Şekil 2.</strong> Gerçek konum (yeşil), gürültülü ölçümler (kırmızı nokta) ve KF kestirimi (mavi), ±2σ güven bandıyla birlikte. Mavi çizgi kırmızı bulutun ortasından pürüzsüzce geçiyor; güven bandı ilk adımlarda geniş, sonra daralıyor.</figcaption>
 </figure>
 
-Bir de filtrenin "kendine güveni" olan `P` ve kazanç `K`'nin zaman içindeki davranışına bakalım:
+Bir de filtrenin "kendine güveni" olan `P` ve kazanç `K`’nin zaman içindeki davranışına bakalım:
 
 <figure>
   <img src="/img/posts/kalman-covariance-convergence.webp" alt="Kovaryans P ve Kalman kazancı K kararlı duruma oturuyor" class="img-fluid rounded">
-  <figcaption><strong>Şekil 3.</strong> Konum varyansı P[0,0] başlangıçtaki 500'den birkaç adımda ~1'e iner (logaritmik eksen). Kalman kazancı K[0] ise ~1.0'dan başlayıp ~0.27'ye oturur. Sabit `F`, `H`, `Q`, `R` için kazanç bir <strong>kararlı duruma</strong> yakınsar — bu, gömülü sistemlerde "sabit kazançlı Kalman filtresi" olarak önceden hesaplanabilir.</figcaption>
+  <figcaption><strong>Şekil 3.</strong> Konum varyansı P[0,0] başlangıçtaki 500'den birkaç adımda ~1'e iner (logaritmik eksen). Kalman kazancı K[0] ise ~1.0'dan başlayıp ~0.27'ye oturur. Sabit <code>F</code>, <code>H</code>, <code>Q</code>, <code>R</code> için kazanç bir <strong>kararlı duruma</strong> yakınsar — bu, gömülü sistemlerde "sabit kazançlı Kalman filtresi" olarak önceden hesaplanabilir.</figcaption>
 </figure>
 
-`R` ve `q` değerleriyle oynayıp kodu yeniden çalıştırın: `R`'yi büyütürseniz filtre ölçümlere daha az güvenir, kestirim pürüzsüzleşir ama yavaşlar. `q`'yu büyütürseniz modele daha az güvenir, kestirim ölçümlerin peşinden koşar. Bu dengeyi en iyi, doğrudan elinizle hissederek anlarsınız — buyrun.
+`R` ve `q` değerleriyle oynayıp kodu yeniden çalıştırın: `R`’yi büyütürseniz filtre ölçümlere daha az güvenir, kestirim pürüzsüzleşir ama yavaşlar. `q`’yu büyütürseniz modele daha az güvenir, kestirim ölçümlerin peşinden koşar. Bu dengeyi en iyi, doğrudan elinizle hissederek anlarsınız — buyrun.
 
 ---
 
@@ -280,15 +280,15 @@ Aşağıdaki simülatör gerçek zamanlı çalışır. Üç düğme var: ölçü
   <div class="card-body">
     <div class="form-row mb-2">
       <div class="col-md-4 mb-2">
-        <label class="mb-0 small">Ölçüm gürültüsü σ = <b id="kf-v-R">2.0</b></label>
+        <label for="kf-sl-R" class="mb-0 small">Ölçüm gürültüsü σ = <b id="kf-v-R">2.0</b></label>
         <input type="range" class="custom-range" id="kf-sl-R" min="0.2" max="8" value="2" step="0.1">
       </div>
       <div class="col-md-4 mb-2">
-        <label class="mb-0 small">Süreç gürültüsü q (filtre) = <b id="kf-v-Q">0.0100</b></label>
+        <label for="kf-sl-Q" class="mb-0 small">Süreç gürültüsü q (filtre) = <b id="kf-v-Q">0.0100</b></label>
         <input type="range" class="custom-range" id="kf-sl-Q" min="0.0001" max="1" value="0.01" step="0.0001">
       </div>
       <div class="col-md-4 mb-2">
-        <label class="mb-0 small">Gerçek hız = <b id="kf-v-V">1.0</b> br/adım</label>
+        <label for="kf-sl-V" class="mb-0 small">Gerçek hız = <b id="kf-v-V">1.0</b> br/adım</label>
         <input type="range" class="custom-range" id="kf-sl-V" min="-2" max="2" value="1" step="0.1">
       </div>
     </div>
@@ -296,7 +296,7 @@ Aşağıdaki simülatör gerçek zamanlı çalışır. Üç düğme var: ölçü
       <button class="btn btn-sm btn-primary" id="kf-btn-play" type="button">⏸ Duraklat</button>
       <button class="btn btn-sm btn-outline-secondary" id="kf-btn-reset" type="button">↻ Yeni gerçekleştirme</button>
     </div>
-    <div id="kf-status" class="px-2 py-1 mb-2 rounded small" style="font-family:monospace;min-height:2.2em;background:#f1f5fb;"></div>
+    <div id="kf-status" class="demo-status px-2 py-1 mb-2 rounded small"></div>
     <canvas id="kf-canvas" style="width:100%;display:block;border-radius:4px;border:1px solid #dee2e6;"></canvas>
     <p class="text-muted small mt-1 mb-0">σ'yı büyüt → kestirim pürüzsüzleşir ama gecikir. q'yu büyüt → kestirim her ölçümün peşinden koşar. q'yu çok küçültürsen filtre fazla kendine güvenir: ±2σ bandı incelir ama gerçek konum bandın dışına taşar (ıraksamanın habercisi).</p>
   </div>
@@ -304,7 +304,7 @@ Aşağıdaki simülatör gerçek zamanlı çalışır. Üç düğme var: ölçü
 
 <script src="{{ '/assets/js/posts/kalman-linear.js' | relative_url }}"></script>
 
-Birkaç deney önerisi: `q`'yu en küçük değere çekin ve birkaç saniye izleyin — güven bandı kâğıt inceliğine düşerken gerçek (yeşil) çizginin bandın dışına kaçtığını göreceksiniz. Filtre kendine olduğundan fazla güveniyor; bu, gerçek sistemlerde **ıraksamanın** (divergence) klasik reçetesidir. Sonra `q`'yu sonuna kadar açın: bu sefer kestirim her gürültülü noktanın peşine takılır, filtrenin tüm pürüzsüzleştirme faydası kaybolur. İyi ayar ikisinin arasındadır.
+Birkaç deney önerisi: `q`’yu en küçük değere çekin ve birkaç saniye izleyin — güven bandı kâğıt inceliğine düşerken gerçek (yeşil) çizginin bandın dışına kaçtığını göreceksiniz. Filtre kendine olduğundan fazla güveniyor; bu, gerçek sistemlerde **ıraksamanın** (divergence) klasik reçetesidir. Sonra `q`’yu sonuna kadar açın: bu sefer kestirim her gürültülü noktanın peşine takılır, filtrenin tüm pürüzsüzleştirme faydası kaybolur. İyi ayar ikisinin arasındadır.
 
 ---
 
@@ -316,7 +316,7 @@ Klasik örnek: orijine yerleştirilmiş bir sensör, hareketli bir cisme olan **
 
 $$
 h(x) = \begin{bmatrix} r \\ \theta \end{bmatrix}
-     = \begin{bmatrix} \sqrt{p_x^2 + p_y^2} \\[4pt] \operatorname{atan2}(p_y, p_x) \end{bmatrix}
+     = \begin{bmatrix} \sqrt{p_x^2 + p_y^2} \\\\[4pt] \operatorname{atan2}(p_y, p_x) \end{bmatrix}
 $$
 
 İçindeki karekök ve `atan2` yüzünden bu fonksiyon durumda doğrusal değildir. İşte sorun: Kalman filtresinin tüm matematiği "Gauss içeri girer, Gauss dışarı çıkar" varsayımına dayanır. Ama bir Gauss dağılımını doğrusal-olmayan bir fonksiyondan geçirirseniz, çıkan şey **artık Gauss değildir** — çarpık, eğri büğrü bir dağılımdır. `H` matrisi diye bir şey de yoktur; `h(x)` bir matrisle yazılamaz. Klasik KF burada çalışmaz.
@@ -362,7 +362,7 @@ Hız bileşenlerine göre türevler sıfırdır, çünkü ölçüm hıza doğrud
 $$
 H_k = \frac{\partial h}{\partial x}
 = \begin{bmatrix}
-\dfrac{p_x}{r} & \dfrac{p_y}{r} & 0 & 0 \\[8pt]
+\dfrac{p_x}{r} & \dfrac{p_y}{r} & 0 & 0 \\\\[8pt]
 -\dfrac{p_y}{r^2} & \dfrac{p_x}{r^2} & 0 & 0
 \end{bmatrix}
 $$
@@ -393,12 +393,12 @@ Maksimum fark `~10⁻⁹` mertebesinde; Jacobian'ımız doğru. (`p_x=3, p_y=4` 
 
 ## EKF Algoritması
 
-EKF döngüsü, klasik KF'ten yalnızca iki yerde ayrılır. Önce ölçüm modelimizin sabit `F` matrisini (bu örnekte hareket doğrusal: 2B sabit hız) ve `Q`'yu kuralım:
+EKF döngüsü, klasik KF'ten yalnızca iki yerde ayrılır. Önce ölçüm modelimizin sabit `F` matrisini (bu örnekte hareket doğrusal: 2B sabit hız) ve `Q`’yu kuralım:
 
 $$
 F = \begin{bmatrix} 1&0&\Delta t&0 \\ 0&1&0&\Delta t \\ 0&0&1&0 \\ 0&0&0&1 \end{bmatrix}, \qquad
 Q = G\,\sigma_a^2\,G^{\mathsf{T}},\quad
-G = \begin{bmatrix} \tfrac{\Delta t^2}{2}&0 \\[2pt] 0&\tfrac{\Delta t^2}{2} \\[2pt] \Delta t&0 \\[2pt] 0&\Delta t \end{bmatrix}
+G = \begin{bmatrix} \tfrac{\Delta t^2}{2}&0 \\\\[2pt] 0&\tfrac{\Delta t^2}{2} \\\\[2pt] \Delta t&0 \\\\[2pt] 0&\Delta t \end{bmatrix}
 $$
 
 EKF adımları:
@@ -420,7 +420,7 @@ $$
 İki kritik fark:
 
 1. **Ortalama gerçek fonksiyonla, kovaryans Jacobian'la taşınır.** Yeniliği `z − H x̂⁻` değil, `z − h(x̂⁻)` ile hesaplarız; ama `S`, `K`, `P` denklemlerinde `H` yerine `H_k` Jacobian'ı kullanırız.
-2. **Açı farkını sarmak (wrapping).** `atan2` değerleri `[−π, π]` aralığındadır. `179°` beklerken `−179°` ölçerseniz, ham fark `−358°` çıkar; oysa gerçek fark sadece `+2°`'dir. Bu yüzden açı yeniliğini daima `[−π, π]` aralığına sararız:
+2. **Açı farkını sarmak (wrapping).** `atan2` değerleri `[−π, π]` aralığındadır. `179°` beklerken `−179°` ölçerseniz, ham fark `−358°` çıkar; oysa gerçek fark sadece `+2°`’dir. Bu yüzden açı yeniliğini daima `[−π, π]` aralığına sararız:
 
 $$
 y_\theta \leftarrow \big((y_\theta + \pi)\bmod 2\pi\big) - \pi
@@ -514,7 +514,7 @@ rmse = np.sqrt(np.mean(np.sum((est[:, :2] - truth[:, :2])**2, axis=1)))
 print(f"EKF konum RMSE = {rmse:.2f} m")         # -> 0.56 m
 ```
 
-Burada hareketin doğrusal olduğuna (`f` = sabit `F`) ama ölçümün doğrusal-olmadığına dikkat edin: tüm doğrusal-olmama `h` ve `H_k`'de yaşıyor. Her adımda yeniden hesaplanan tek şey `Hk` Jacobian'ı. Sonuç: 1°'lik açı ve 0.5 m'lik menzil gürültüsüne rağmen konum RMSE'si **0.56 m** — sensörün ham gürültüsünün epey altında.
+Burada hareketin doğrusal olduğuna (`f` = sabit `F`) ama ölçümün doğrusal-olmadığına dikkat edin: tüm doğrusal-olmama `h` ve `H_k`’de yaşıyor. Her adımda yeniden hesaplanan tek şey `Hk` Jacobian'ı. Sonuç: 1°'lik açı ve 0.5 m'lik menzil gürültüsüne rağmen konum RMSE'si **0.56 m** — sensörün ham gürültüsünün epey altında.
 
 <figure>
   <img src="/img/posts/ekf-trajectory.webp" alt="EKF ile menzil-açı sensöründen 2B hedef takibi" class="img-fluid rounded">
@@ -532,19 +532,19 @@ Burada hareketin doğrusal olduğuna (`f` = sabit `F`) ama ölçümün doğrusal
   <div class="card-body">
     <div class="form-row mb-2">
       <div class="col-md-3 mb-2">
-        <label class="mb-0 small">Menzil gürültüsü σ<sub>r</sub> = <b id="ekf-v-sr">0.50</b> m</label>
+        <label for="ekf-sl-sr" class="mb-0 small">Menzil gürültüsü σ<sub>r</sub> = <b id="ekf-v-sr">0.50</b> m</label>
         <input type="range" class="custom-range" id="ekf-sl-sr" min="0.05" max="3" value="0.5" step="0.05">
       </div>
       <div class="col-md-3 mb-2">
-        <label class="mb-0 small">Açı gürültüsü σ<sub>θ</sub> = <b id="ekf-v-sth">1.0</b>°</label>
+        <label for="ekf-sl-sth" class="mb-0 small">Açı gürültüsü σ<sub>θ</sub> = <b id="ekf-v-sth">1.0</b>°</label>
         <input type="range" class="custom-range" id="ekf-sl-sth" min="0.1" max="5" value="1" step="0.1">
       </div>
       <div class="col-md-3 mb-2">
-        <label class="mb-0 small">Süreç gürültüsü q = <b id="ekf-v-q">0.0100</b></label>
+        <label for="ekf-sl-q" class="mb-0 small">Süreç gürültüsü q = <b id="ekf-v-q">0.0100</b></label>
         <input type="range" class="custom-range" id="ekf-sl-q" min="0.0001" max="0.5" value="0.01" step="0.0001">
       </div>
       <div class="col-md-3 mb-2">
-        <label class="mb-0 small">Dönüş hızı = <b id="ekf-v-turn">0.5</b>°/adım</label>
+        <label for="ekf-sl-turn" class="mb-0 small">Dönüş hızı = <b id="ekf-v-turn">0.5</b>°/adım</label>
         <input type="range" class="custom-range" id="ekf-sl-turn" min="0" max="3" value="0.5" step="0.1">
       </div>
     </div>
@@ -552,7 +552,7 @@ Burada hareketin doğrusal olduğuna (`f` = sabit `F`) ama ölçümün doğrusal
       <button class="btn btn-sm btn-primary" id="ekf-btn-play" type="button">⏸ Duraklat</button>
       <button class="btn btn-sm btn-outline-secondary" id="ekf-btn-reset" type="button">↻ Yeni gerçekleştirme</button>
     </div>
-    <div id="ekf-status" class="px-2 py-1 mb-2 rounded small" style="font-family:monospace;min-height:2.2em;background:#f1f5fb;"></div>
+    <div id="ekf-status" class="demo-status px-2 py-1 mb-2 rounded small"></div>
     <canvas id="ekf-canvas" style="width:100%;display:block;border-radius:4px;border:1px solid #dee2e6;"></canvas>
     <p class="text-muted small mt-1 mb-0">Sensör orijinde. Hedef uzaktayken 2σ elipsi açı (teğet) yönünde şişer — uzakta küçük bir açı hatası büyük yanal hataya dönüşür. Hedef sensöre yaklaştıkça elips daralır: gözlemlenebilirliğin (observability) görünür hâli.</p>
   </div>
@@ -568,13 +568,13 @@ En öğretici deney: açı gürültüsünü (`σ_θ`) büyütün ve kovaryans el
 
 Filtreyi çalıştırmak kolay; **doğru** çalıştırmak ustalık ister. Sahaya çıkmadan önce kontrol listesi:
 
-1. **Asıl mesele `Q/R` oranıdır.** `R` çoğu zaman sensörün veri sayfasından ya da statik kalibrasyondan bilinir; gerçek ayar düğmesi `Q`'dur. Mutlak değerlerden çok, `Q` ile `R` arasındaki **oran** filtrenin karakterini belirler: büyük `Q/R` → çevik ama gürültülü; küçük `Q/R` → pürüzsüz ama tembel ve manevrada geciken. Simülatörlerde bunu elinizle hissettiniz.
+1. **Asıl mesele `Q/R` oranıdır.** `R` çoğu zaman sensörün veri sayfasından ya da statik kalibrasyondan bilinir; gerçek ayar düğmesi `Q`’dur. Mutlak değerlerden çok, `Q` ile `R` arasındaki **oran** filtrenin karakterini belirler: büyük `Q/R` → çevik ama gürültülü; küçük `Q/R` → pürüzsüz ama tembel ve manevrada geciken. Simülatörlerde bunu elinizle hissettiniz.
 
-2. **Filtrenin tutarlılığını ölçün (NIS/NEES).** Filtre yalnızca doğru tahmin etmemeli, belirsizliği hakkında da **dürüst** olmalı. Yenilik `y` ile kovaryansı `S` kullanılarak hesaplanan normalize yenilik karesi (NIS), istatistiksel olarak bir χ² dağılımına uymalıdır. Yenilikler `S`'in öngördüğünden sürekli büyükse filtre fazla iyimserdir (`Q` veya `R` küçük); sürekli küçükse fazla karamsardır. NIS, "filtrem yalan söylüyor mu?" sorusunun nicel cevabıdır.
+2. **Filtrenin tutarlılığını ölçün (NIS/NEES).** Filtre yalnızca doğru tahmin etmemeli, belirsizliği hakkında da **dürüst** olmalı. Yenilik `y` ile kovaryansı `S` kullanılarak hesaplanan normalize yenilik karesi (NIS), istatistiksel olarak bir χ² dağılımına uymalıdır. Yenilikler `S`’in öngördüğünden sürekli büyükse filtre fazla iyimserdir (`Q` veya `R` küçük); sürekli küçükse fazla karamsardır. NIS, "filtrem yalan söylüyor mu?" sorusunun nicel cevabıdır.
 
-3. **Iraksamaya (divergence) karşı uyanık olun.** En sinsi hata, `P`'nin gerçek hatadan çok daha küçük olması — filtre kendine güvenir, gelen ölçümleri "aykırı" sanıp reddeder, gerçekten gitgide kopar. Sebepleri: çok küçük `Q`, modellenmemiş bir dinamik, ya da sayısal yuvarlama. Lineer simülatörde `q`'yu dibe çekerek bunu birebir görebilirsiniz.
+3. **Iraksamaya (divergence) karşı uyanık olun.** En sinsi hata, `P`’nin gerçek hatadan çok daha küçük olması — filtre kendine güvenir, gelen ölçümleri "aykırı" sanıp reddeder, gerçekten gitgide kopar. Sebepleri: çok küçük `Q`, modellenmemiş bir dinamik, ya da sayısal yuvarlama. Lineer simülatörde `q`’yu dibe çekerek bunu birebir görebilirsiniz.
 
-4. **Sayısal kararlılık için Joseph formunu kullanın.** `P = (I − KH)P⁻` denklemi, kayan-nokta yuvarlamasıyla `P`'yi asimetrik veya negatif-tanımlı yapabilir; bu da filtreyi çökertir. Joseph formu `P = (I−KH)P⁻(I−KH)ᵀ + KRKᵀ` her zaman simetrik ve pozitif yarı-tanımlı sonuç verir. Ek maliyet birkaç matris çarpımıdır; gömülü sistemlerde ucuz bir sigortadır. Her adımda `P`'yi `(P + Pᵀ)/2` ile simetrikleştirmek de yaygın, ucuz bir önlemdir. (Kayan-nokta tuzakları üzerine ayrı bir yazı yazmıştım; Kalman filtresi bu tuzakların en çok ısırdığı yerlerden biridir.)
+4. **Sayısal kararlılık için Joseph formunu kullanın.** `P = (I − KH)P⁻` denklemi, kayan-nokta yuvarlamasıyla `P`’yi asimetrik veya negatif-tanımlı yapabilir; bu da filtreyi çökertir. Joseph formu `P = (I−KH)P⁻(I−KH)ᵀ + KRKᵀ` her zaman simetrik ve pozitif yarı-tanımlı sonuç verir. Ek maliyet birkaç matris çarpımıdır; gömülü sistemlerde ucuz bir sigortadır. Her adımda `P`’yi `(P + Pᵀ)/2` ile simetrikleştirmek de yaygın, ucuz bir önlemdir. (Kayan-nokta tuzakları üzerine ayrı bir yazı yazmıştım; Kalman filtresi bu tuzakların en çok ısırdığı yerlerden biridir.)
 
 5. **Gözlemlenebilirliği (observability) sorgulayın.** Yalnızca menzil ölçen bir sensör, hedefin açısal konumunu tek başına belirleyemez; takip ancak hedef hareket ettikçe ve geometri değiştikçe oturur. EKF simülatöründe elipsin yöne bağlı şişmesi tam da bunun resmidir. Durumunuzun ölçümlerinizden gerçekten **çıkarılabilir** olduğundan emin olun.
 
@@ -588,7 +588,7 @@ Kalman filtresi, ilk bakışta matris denklemlerinden oluşan korkutucu bir reç
 
 EKF ise aynı makinenin doğrusal-olmayan dünyaya uzanmış hâlidir: her adımda fonksiyonları çalışma noktasında bir teğetle değiştirir, gerisini değiştirmez. Bu küçük numara, onu yarım asırdır navigasyondan robotiğe kadar her yerde çalışan bir iş atı yapmıştır — kusursuz değil, ama şaşırtıcı derecede dayanıklı.
 
-Tasarımınızın kaderini üç şey belirler: modelin (`F`, `H` ya da `f`, `h`) gerçeğe sadakati, `Q`'nun ve `R`'nin doğru ayarı. Bu üçünü yerine oturtursanız, gürültünün altından şaşırtıcı netlikte bir gerçek çıkarırsınız. Yanlış ayarlarsanız, filtre ya tembelce gerçeğin peşinden sürüklenir ya da kendine aşırı güvenip sessizce ıraksar. Her iki sonu da sahada görmek mümkün — ve artık ikisini de tanıyorsunuz.
+Tasarımınızın kaderini üç şey belirler: modelin (`F`, `H` ya da `f`, `h`) gerçeğe sadakati, `Q`’nun ve `R`’nin doğru ayarı. Bu üçünü yerine oturtursanız, gürültünün altından şaşırtıcı netlikte bir gerçek çıkarırsınız. Yanlış ayarlarsanız, filtre ya tembelce gerçeğin peşinden sürüklenir ya da kendine aşırı güvenip sessizce ıraksar. Her iki sonu da sahada görmek mümkün — ve artık ikisini de tanıyorsunuz.
 
 Devamı için iyi konular: durum boyutu büyüdüğünde **kare-kök (square-root) filtreleri** sayısal kararlılığı nasıl kurtarır; **UKF** sigma noktalarıyla Jacobian'a neden hiç ihtiyaç duymaz; ve birden çok hareket modelini paralel koşturan **IMM** (Interacting Multiple Model) manevra yapan hedeflerde neden EKF'i döver. Bunlar defterimde duruyor.
 

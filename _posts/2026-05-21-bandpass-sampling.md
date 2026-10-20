@@ -106,7 +106,7 @@ Lyons'un *Understanding Digital Signal Processing* kitabındaki konvansiyonu kul
 - **n tek** → spektrum yukarı doğru ("upright"), orijinaliyle aynı yönde.
 - **n çift** → spektrum **ters çevrilmiş** (zone 1'de f_s/4 etrafında aynalanmış).
 
-Hızlı bir mental doğrulama: f_s = 10 Hz, gerçek sinyalin 11.5 ila 12.5 Hz aralığında bir spektrumu olsun. Zone 3'e (n = 3, tek) düşer. Alias: |12 − 1·10| = 2 Hz. 12.5 → 2.5, 11.5 → 1.5 — alt-üst sıralama korunur. Üst kenar yine üstte.
+Hızlı bir mental doğrulama: f_s = 10 Hz, gerçek sinyalin 11.5 ila 12.5 Hz aralığında bir spektrumu olsun. Zone 3'e (n = 3, tek) düşer. Alias: \|12 − 1·10\| = 2 Hz. 12.5 → 2.5, 11.5 → 1.5 — alt-üst sıralama korunur. Üst kenar yine üstte.
 
 Şimdi gerçek sinyali 7.5 ila 8.5 Hz arasına koyalım — zone 2 (n = 2, çift). Alias: 8.5 → 1.5, 7.5 → 2.5. Üst kenar artık altta. Ters çevrilmiş.
 
@@ -242,15 +242,15 @@ Aşağıdaki araçla f<sub>c</sub>, B ve f<sub>s</sub> değerlerini değiştirer
   <div class="card-body">
     <div class="form-row mb-2">
       <div class="col-md-4 mb-2">
-        <label class="mb-0 small">f<sub>c</sub> (IF merkezi) = <b id="v-fc">70</b> MHz</label>
+        <label for="sl-fc" class="mb-0 small">f<sub>c</sub> (IF merkezi) = <b id="v-fc">70</b> MHz</label>
         <input type="range" class="custom-range" id="sl-fc" min="10" max="400" value="70" step="1">
       </div>
       <div class="col-md-4 mb-2">
-        <label class="mb-0 small">B (bant genişliği) = <b id="v-bw">10</b> MHz</label>
+        <label for="sl-bw" class="mb-0 small">B (bant genişliği) = <b id="v-bw">10</b> MHz</label>
         <input type="range" class="custom-range" id="sl-bw" min="1" max="80" value="10" step="1">
       </div>
       <div class="col-md-4 mb-2">
-        <label class="mb-0 small">f<sub>s</sub> (örnekleme) = <b id="v-fs">31.25</b> MSPS</label>
+        <label for="sl-fs" class="mb-0 small">f<sub>s</sub> (örnekleme) = <b id="v-fs">31.25</b> MSPS</label>
         <input type="range" class="custom-range" id="sl-fs" min="5" max="300" value="31.25" step="0.25">
       </div>
     </div>

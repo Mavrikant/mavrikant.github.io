@@ -40,9 +40,9 @@
   <h2 class="related-posts__title">Bunları da okuyun</h2>
   <div class="related-posts__grid">
     {%- for post in related -%}
-    {%- assign card_image = post.background | default: '/img/posts/1.webp' -%}
+    {%- assign card_image = post.background | default: '/img/og-default.webp' -%}
     {%- assign card_image_sm = card_image | replace: '/img/posts/', '/img/posts/sm/' -%}
-    <a class="related-card" href="{{ post.url | remove: '.html' | prepend: site.baseurl | replace: '//', '/' }}">
+    <a class="related-card" href="{{ post.url | remove: '.html' | prepend: site.baseurl | replace: '//', '/' }}"{% if post.image_position %} style="--media-pos: {{ post.image_position }}"{% endif %}>
       {% if card_image contains '/img/posts/' %}
       <img src="{{ card_image | prepend: site.baseurl | replace: '//', '/' }}"
            srcset="{{ card_image_sm | prepend: site.baseurl | replace: '//', '/' }} 768w, {{ card_image | prepend: site.baseurl | replace: '//', '/' }} 1600w"

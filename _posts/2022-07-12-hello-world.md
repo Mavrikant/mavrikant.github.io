@@ -1,8 +1,10 @@
 ---
 title: Hello world!
-subtitle: Merhaba Dunya!
-background: "/img/me-animated.webp"
-date: '1970-01-01 00:00:00'
+subtitle: Merhaba Dünya!
+background: "/img/posts/hello-world-cover.webp"
+date: '2022-07-12 01:16:40'
+# İlk yayında tarih 1970 verilmişti; eski bağlantılar kırılmasın diye adres korunuyor.
+permalink: /1970/01/01/hello-world.html
 layout: post
 lang: tr
 categories: [genel]

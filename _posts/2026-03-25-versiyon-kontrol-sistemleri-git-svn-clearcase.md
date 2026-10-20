@@ -1,6 +1,6 @@
 ---
 title: "Versiyon Kontrol Sistemleri: Git vs SVN vs ClearCase"
-background: "/img/posts/4.webp"
+background: "/img/posts/versiyon-kontrol-sistemleri-cover.webp"
 date: '2026-03-25 12:00:00'
 layout: post
 lang: tr

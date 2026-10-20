@@ -67,6 +67,12 @@
   }
   var running = true, frame = 0;
 
+  // Kart gövdesinin içerik genişliği (dolgusu temadan gelir).
+  function contentWidth(box) {
+    var cs = getComputedStyle(box);
+    return box.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight);
+  }
+
   function reset() {
     // gerçek hedef: sensör çevresinde sürekli bir yörüngeye otur (rastgele faz ve yön)
     phi = Math.random() * 2 * Math.PI;
@@ -114,10 +120,11 @@
   }
 
   function paint() {
-    var W = el.cv.parentElement.clientWidth - 32, H = 420;
+    var W = contentWidth(el.cv.parentElement) - 2, H = 420;
     var dpr = window.devicePixelRatio || 1;
     el.cv.width = W * dpr; el.cv.height = H * dpr;
-    el.cv.style.width = W + 'px'; el.cv.style.height = H + 'px';
+    // +2: tuvalin 1px kenarlığı (border-box); bitmap CSS pikseline 1:1 otursun
+    el.cv.style.width = (W + 2) + 'px'; el.cv.style.height = (H + 2) + 'px';
     ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
     ctx.clearRect(0, 0, W, H);
     ctx.fillStyle = '#fcfcfd'; ctx.fillRect(0, 0, W, H);
@@ -219,7 +226,7 @@
   }
   [el.sr, el.sth, el.q, el.turn].forEach(function (s) { s.addEventListener('input', syncReadouts); });
   el.play.addEventListener('click', function () { running = !running; el.play.textContent = running ? '⏸ Duraklat' : '▶ Oynat'; });
-  el.reset.addEventListener('click', function () { reset(); syncReadouts(); });
+  el.reset.addEventListener('click', function () { reset(); syncReadouts(); status(); });
   window.addEventListener('resize', paint);
 
   syncReadouts(); reset();

@@ -77,7 +77,7 @@ Tarih boyunca her zaman böyle değildi.
 
 1889'dan 2019'a kadar **kilogram**ın tanımı şöyleydi: "Uluslararası Kilogram Prototipi (IPK), Saint-Cloud'daki Pavillon de Breteuil'de (posta adresi: Sèvres) BIPM kasasında saklanan platin-iridyum silindirin kütlesi." Yani dünyadaki *bir tek* gerçek 1 kg vardı; o silindir. Diğer her şey ona göre tanımlanmıştı. IPK günlük çalışma için kullanılmıyordu; yanında BIPM'in kendi yedekleri (témoin) ve bir avuç çalışma standardı vardı. Tarih boyunca yalnızca dört defa kasadan çıkarıldı — 1889 onayı ve üç doğrulama kampanyası (1939-46, 1989-92, 2014). Bu kampanyalarda BIPM yedekleri ve ülkelerin ulusal prototipleri (K20, K54...) IPK ile karşılaştırıldı. IPK'nın kendisinin bir kalibrasyonu yoktu — *o*, kalibrasyonun referansıydı.
 
-Sorun şuydu: özellikle 1989-92 karşılaştırmasında, IPK ile resmi yedekleri arasında ortalama yaklaşık **50 µg**'lık bir farklılaşma raporlandı (yedeklerin çoğu IPK'ya göre kütle kazandı, ya da IPK kütle kaybetti). Yaklaşık bir asırlık değişim 50 mikrogram. Az gibi duruyor — ama önemli olan miktarı değil, ilkesi: **eğer 1 kg'ın tanımı bu silindirse**, silindir değişirse 1 kg da değişir. Mantık olarak silindirin *yanlış* olması mümkün değildi. Yanlış olan, dünyadaki diğer tüm 1 kg ölçümleriydi.
+Sorun şuydu: özellikle 1989-92 karşılaştırmasında, IPK ile resmi yedekleri arasında ortalama yaklaşık **50 µg**’lık bir farklılaşma raporlandı (yedeklerin çoğu IPK'ya göre kütle kazandı, ya da IPK kütle kaybetti). Yaklaşık bir asırlık değişim 50 mikrogram. Az gibi duruyor — ama önemli olan miktarı değil, ilkesi: **eğer 1 kg'ın tanımı bu silindirse**, silindir değişirse 1 kg da değişir. Mantık olarak silindirin *yanlış* olması mümkün değildi. Yanlış olan, dünyadaki diğer tüm 1 kg ölçümleriydi.
 
 Bu durum, dünyanın en hassas ölçümlerini yapan kuruluşları rahatsız etti. Birim tanımı bir esere bağlıyken, eserin iyi durumda olup olmadığından asla emin olamazdınız.
 
@@ -215,7 +215,8 @@ Sezyum saatinin doğruluğu yetmiş yılda yaklaşık 10 milyar kat iyileşti �
   var layout = {
     title: { text: 'Sezyum/optik atom saatlerinin doğruluğu (1955–2024)', font: { size: 14 } },
     xaxis: { title: { text: 'Yıl' } },
-    yaxis: { title: { text: 'Bağıl belirsizlik (log eksen)' }, type: 'log', autorange: true },
+    // Relative uncertainty is dimensionless: 10⁻ⁿ ticks, not SI prefixes (1p, 10f).
+    yaxis: { title: { text: 'Bağıl belirsizlik (log eksen)', standoff: 12 }, type: 'log', autorange: true, exponentformat: 'power', automargin: true },
     margin: { l: 80, r: 30, t: 50, b: 50 },
     plot_bgcolor: '#ffffff',
     paper_bgcolor: '#ffffff'
@@ -364,12 +365,25 @@ Yedi SI temel biriminin en iyi gerçekleme belirsizlikleri arasında 15 mertebel
   }];
   var layout = {
     title: { text: '7 SI temel biriminin en iyi gerçekleme belirsizlikleri (bağıl, log eksen)', font: { size: 14 } },
-    xaxis: { title: { text: 'Bağıl belirsizlik (log eksen)' }, type: 'log', autorange: true },
+    xaxis: { title: { text: 'Bağıl belirsizlik (log eksen)' }, type: 'log', autorange: true, exponentformat: 'power' },
     yaxis: { autorange: 'reversed' },
     margin: { l: 280, r: 30, t: 50, b: 60 },
     plot_bgcolor: '#ffffff',
     paper_bgcolor: '#ffffff'
   };
+  // Phones: the long category names would squeeze the bars to a sliver, so
+  // they go above each (thinner) bar instead of beside it.
+  var el = document.getElementById('grafik-si-belirsizlik');
+  if (el.clientWidth < 576) {
+    el.style.height = '460px';
+    data[0].width = 0.45;
+    layout.yaxis.showticklabels = false;
+    layout.margin.l = 12;
+    layout.annotations = data[0].y.map(function (name, i) {
+      return { xref: 'paper', x: 0, xanchor: 'left', y: i - 0.24, yanchor: 'bottom',
+               text: name, showarrow: false, font: { size: 11, color: '#444' } };
+    });
+  }
   Plotly.newPlot('grafik-si-belirsizlik', data, layout, {responsive: true, displayModeBar: false});
 })();
 </script>
@@ -494,6 +508,19 @@ Her seviyede bağıl belirsizlik yaklaşık 10× kötüleşiyor. Bu pratik bir s
     plot_bgcolor: '#ffffff',
     paper_bgcolor: '#ffffff'
   };
+  // Phones: the long category names would squeeze the bars to a sliver, so
+  // they go above each (thinner) bar instead of beside it.
+  var el = document.getElementById('grafik-zincir');
+  if (el.clientWidth < 576) {
+    el.style.height = '400px';
+    data[0].width = 0.45;
+    layout.yaxis.showticklabels = false;
+    layout.margin.l = 12;
+    layout.annotations = data[0].y.map(function (name, i) {
+      return { xref: 'paper', x: 0, xanchor: 'left', y: i - 0.24, yanchor: 'bottom',
+               text: name, showarrow: false, font: { size: 11, color: '#444' } };
+    });
+  }
   Plotly.newPlot('grafik-zincir', data, layout, {responsive: true, displayModeBar: false});
 })();
 </script>
@@ -517,7 +544,7 @@ Bunun pratik karşılığı: kalibrasyon sertifikasında "UME izlenebilirliği" 
 - **TUR ≥ 4 sağlanıyor mu?** Cihazınızın spec'i ile sertifika belirsizliği oranı 4'ün altındaysa, kabul/red kararı için güvenlik payı (guard band) hesaplanmalı.
 - **Çevre koşulları belgelenmiş mi?** Sertifika ölçüm sırasındaki sıcaklık (genelde 23 ± 2 °C) ve nem değerlerini içermeli. Sizin laboratuvarınızda koşullar farklıysa düzeltme veya ek belirsizlik gerekir.
 - **Süre sonu belirtilmiş mi?** "Geçerlilik 1 yıl", "kalibrasyon aralığı kullanıcı sorumluluğunda" vb. ayrımına dikkat edin.
-- **Izlenebilirlik beyanı genel mi yoksa NMI numarasıyla mı?** "Traceable to SI through UME via … " spesifikse iyi; sadece "Traceable to NIST/UME" cümlesi tek başına yeterli kanıt değil.
+- **İzlenebilirlik beyanı genel mi yoksa NMI numarasıyla mı?** "Traceable to SI through UME via …" spesifikse iyi; sadece "Traceable to NIST/UME" cümlesi tek başına yeterli kanıt değil.
 
 Bu sekiz madde aslında zincirin her halkasını sorgulayan tek bir kontrol listesi. Bir tanesi cevapsız kalıyorsa zincirde kopukluk var demektir; bu durumda kalibrasyon sertifikası işinize yaramaz.
 

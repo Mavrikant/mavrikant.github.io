@@ -52,7 +52,21 @@ sentry_loader_id:   d9df60c4bcc41adb14bb648db4013b52
 # Found in Plausible: Site Settings → General → Site Installation (the pa-<ID> in the script src)
 plausible_id:       BMAxUwrIK8Icg2HpLysj2
 
+# jekyll-seo-tag: Turkish title prefix for /posts/pageN/ ("Page 2 of 3 for …")
+seo_paginator_message: "Sayfa %<current>s / %<total>s · "
+
 # Build settings
+# Depo meta dosyaları ve otonom yazı ajanının notları siteye yayınlanmasın.
+# (Jekyll 4 kendi varsayılan dışlamalarını — Gemfile, node_modules vb. — buna ekler.)
+exclude:
+  - CLAUDE.md
+  - README.md
+  - LICENSE
+  - package.json
+  - jekyll-theme-clean-blog.gemspec
+  - sonar-project.properties
+  - bin/
+  - agent/
 permalink:          /:year/:month/:day/:title:output_ext
 markdown:           kramdown
 paginate:           10

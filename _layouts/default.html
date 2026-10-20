@@ -2,9 +2,12 @@
 <html lang="{{ page.lang | default: site.lang | default: 'tr' }}">
 {% include head.html %}
 <body id="page-top">
+  <a class="skip-link" href="#main">İçeriğe atla</a>
   {% include navbar.html %}
   {% include search-modal.html %}
+  <main id="main" tabindex="-1">
   {{ content }}
+  </main>
   {% include footer.html %}
 <!-- {% include bayram-splash.html %} -->
   {% include scripts.html %}
