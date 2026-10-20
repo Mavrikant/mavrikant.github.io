@@ -697,14 +697,27 @@ header.masthead {
   }
 }
 
-// Oscilloscope-style signal trace (cyan + faint amber), shared by the blueprint
-// masthead and the footer. Stretched to the box with preserveAspectRatio=none.
-$signal-trace: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1600 120' preserveAspectRatio='none'%3E%3Cpath d='M0 70L16 74L32 76L48 76L64 75L80 73L96 72L112 71L128 71L144 73L160 76L176 80L192 82L208 83L224 83L240 83L256 80L272 74L288 65L304 56L320 50L336 45L352 40L368 35L384 33L400 36L416 41L432 45L448 45L464 45L480 48L496 52L512 52L528 46L544 41L560 43L576 49L592 53L608 53L624 55L640 64L656 78L672 87L688 87L704 85L720 87L736 92L752 91L768 82L784 70L800 66L816 69L832 70L848 65L864 58L880 58L896 65L912 69L928 65L944 55L960 50L976 49L992 48L1008 40L1024 29L1040 25L1056 28L1072 33L1088 36L1104 38L1120 43L1136 52L1152 62L1168 66L1184 66L1200 66L1216 68L1232 70L1248 69L1264 67L1280 66L1296 69L1312 74L1328 78L1344 81L1360 84L1376 87L1392 89L1408 88L1424 83L1440 77L1456 70L1472 62L1488 55L1504 48L1520 43L1536 41L1552 40L1568 41L1584 43L1600 45' fill='none' stroke='rgba(78,201,214,0.5)' stroke-width='1.5' vector-effect='non-scaling-stroke'/%3E%3Cpath d='M0 92L20 94L40 95L60 92L80 88L100 83L120 78L140 76L160 75L180 76L200 78L220 78L240 76L260 72L280 67L300 64L320 62L340 63L360 65L380 69L400 71L420 72L440 70L460 68L480 67L500 67L520 70L540 74L560 80L580 84L600 86L620 86L640 85L660 84L680 84L700 86L720 90L740 94L760 98L780 99L800 97L820 94L840 90L860 88L880 88L900 89L920 91L940 92L960 91L980 88L1000 83L1020 78L1040 74L1060 72L1080 72L1100 74L1120 75L1140 75L1160 72L1180 68L1200 64L1220 62L1240 61L1260 64L1280 67L1300 71L1320 73L1340 73L1360 72L1380 70L1400 69L1420 71L1440 75L1460 80L1480 85L1500 88L1520 90L1540 89L1560 87L1580 86L1600 87' fill='none' stroke='rgba(242,184,75,0.3)' stroke-width='1' vector-effect='non-scaling-stroke'/%3E%3C/svg%3E");
+// Oscilloscope strip shared by the blueprint masthead and the footer:
+// _includes/signal-trace.html. initSignalTrace() in assets/scripts.js draws
+// RS-232 UART frames on the canvas with a sweeping beam and phosphor fade.
+.signal-trace {
+  position: absolute;
+  left: 0;
+  right: 0;
+  z-index: -1;
+  pointer-events: none;
+
+  &__screen {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
 
 // -----------------------------------------------------------------------------
 // Blueprint masthead — home and listing pages (no photo). Navy canvas, faint
-// engineering grid and a soft signal trace: the same visual language as the
-// post covers, drawn entirely in CSS (no image request, crisp at any size).
+// engineering grid and an oscilloscope strip: the same visual language as the
+// post covers, with no image request (crisp at any size).
 // -----------------------------------------------------------------------------
 header.masthead.masthead--blueprint {
   background-color: var(--color-blueprint-bg);
@@ -731,18 +744,10 @@ header.masthead.masthead--blueprint {
     mask-image: radial-gradient(ellipse 80% 90% at 50% 40%, #000 25%, transparent 80%);
   }
 
-  // Signal trace along the bottom edge (inline SVG, stretched to full width).
-  &::after {
-    content: '';
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: clamp(36px, 8vh, 72px);
-    z-index: -1;
-    opacity: 0.8;
-    background: $signal-trace no-repeat center / 100% 100%;
-    pointer-events: none;
+  // Oscilloscope strip along the bottom edge (fits in the heading's padding).
+  .signal-trace {
+    bottom: 4px;
+    height: clamp(64px, 10vh, 96px);
   }
 
   .overlay { display: none; }
@@ -2061,18 +2066,11 @@ article {
       mask-image: linear-gradient(180deg, #000 0%, transparent 75%);
     }
 
-    // Signal trace along the top edge — continues the masthead's motif.
-    &::after {
-      content: '';
-      position: absolute;
-      left: 0;
-      right: 0;
-      top: 6px;
-      height: 44px;
-      z-index: -1;
-      opacity: 0.7;
-      background: $signal-trace no-repeat center / 100% 100%;
-      pointer-events: none;
+    // Oscilloscope strip along the top edge — continues the masthead's motif.
+    .signal-trace {
+      top: 4px;
+      height: 68px;
+      opacity: 0.85;
     }
 
     .footer-heading {
@@ -3419,7 +3417,7 @@ mjx-container[display="true"] {
     background: none !important;
 
     &::before,
-    &::after { display: none !important; }
+    .signal-trace { display: none !important; }
 
     .page-heading { padding: 1.5rem 0 0.5rem !important; }
   }

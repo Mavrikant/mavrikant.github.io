@@ -155,7 +155,7 @@ Notes:
 
 - Place post hero backgrounds in `img/posts/` and reference them from front matter.
 - Covers share one house style: a textless technical illustration on a deep-navy blueprint grid (thin cyan/teal line-art, amber accent, almost no text), 1600×1067 WebP named `<slug>-cover.webp`. Keep the motif inside the central ~900×820 px so it survives the card thumbnail crop. Avoid stock photos.
-- Pages without a `background` (home, Yazılar, Kategoriler, Etiketler, Arşiv, İletişim, 404) get the CSS-only blueprint header (`.masthead--blueprint` in `_sass/styles.scss`); only the About pages use a photo. A page's `hero_position` front matter (e.g. `"center 30%"`) sets the header photo's `background-position`.
+- Pages without a `background` (home, Yazılar, Kategoriler, Etiketler, Arşiv, İletişim, 404) get the CSS-only blueprint header (`.masthead--blueprint` in `_sass/styles.scss`); only the About pages use a photo. The blueprint header and the footer carry an animated oscilloscope strip (`_includes/signal-trace.html`, drawn on a canvas by `initSignalTrace()` in `assets/scripts.js`) that sweeps RS-232 UART frames of the messages passed in its `messages` parameter. A page's `hero_position` front matter (e.g. `"center 30%"`) sets the header photo's `background-position`.
 - The `calibreapp-image-actions` workflow will compress images automatically in PRs.
 
 ## Key Conventions

@@ -1,0 +1,10 @@
+{%- comment -%}
+  Oscilloscope strip for the blueprint masthead and the footer. The canvas is
+  drawn by initSignalTrace() in assets/scripts.js: every sweep sends the next
+  "|"-separated message as RS-232 UART frames (8N1). Keep messages ASCII and
+  short (≤ 11 characters) so they fit the screen. Pass `messages` to override.
+{%- endcomment -%}
+{%- assign messages = include.messages | default: "karaman.dev|Merhaba!|DO-178C|MISRA C|C/C++|Aviyonik|Linux|Qt" -%}
+<div class="signal-trace" aria-hidden="true" data-messages="{{ messages | escape }}">
+  <canvas class="signal-trace__screen"></canvas>
+</div>

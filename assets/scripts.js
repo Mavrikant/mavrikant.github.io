@@ -557,6 +557,363 @@
   }
 
   // ---------------------------------------------------------------------------
+  // Oscilloscope strip (blueprint masthead + footer, _includes/signal-trace.html).
+  // Each sweep sends the next of `data-messages` as UART frames (8N1, LSB
+  // first). CH1 is the RS-232 line — inverted, so idle (mark) sits low and
+  // the start bit goes high — CH2 the TTL side of the same bytes. Edges get
+  // some slew and ringing, the traces a little noise. The beam leaves a
+  // phosphor glow that decays to a faint floor, so the previous message stays
+  // visible ahead of it; the decode row labels each byte once its stop bit is
+  // drawn. Off-screen strips stop; reduced motion gets one still frame.
+  // ---------------------------------------------------------------------------
+  function initSignalTrace() {
+    var hosts = document.querySelectorAll('.signal-trace');
+    if (!hosts.length || !window.Path2D) return;
+
+    var SWEEP = 3.2;   // s, beam travel across the strip
+    var HOLD = 0.8;    // s, beam off before the next trigger
+    var CYCLE = SWEEP + HOLD;
+    var TAU = 0.9;     // s, phosphor decay
+    var FLOOR = 0.22;  // the last trace never fades below this
+    var STEP = 1.5;    // px between samples
+    var CYAN = '78, 201, 214';
+    var CYAN_HOT = '175, 242, 250';
+    var AMBER = '242, 184, 75';
+    var AMBER_HOT = '255, 216, 145';
+
+    var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    var mono = getComputedStyle(document.documentElement).getPropertyValue('--font-mono')
+      .replace(/\s+/g, ' ').trim() || 'monospace';
+    var scopes = [];
+    var raf = 0;
+    var last = 0;
+
+    // Repeatable 0..1 value, so a resize redraws the same idle gaps.
+    function hash(n) {
+      var x = Math.sin(n * 12.9898) * 43758.5453;
+      return x - Math.floor(x);
+    }
+
+    function hiss() {
+      return (Math.random() + Math.random() + Math.random() - 1.5) * 1.15;
+    }
+
+    // Ideal ±1 levels through an underdamped second-order response: finite
+    // slew plus a little overshoot and ringing on every edge.
+    function analog(levels, bitsPerSample, omega, zeta, noise) {
+      var out = new Float32Array(levels.length);
+      var sub = 8;
+      var dt = bitsPerSample / sub;
+      var y = levels[0];
+      var dy = 0;
+      for (var i = 0; i < levels.length; i++) {
+        for (var k = 0; k < sub; k++) {
+          dy += (omega * omega * (levels[i] - y) - 2 * zeta * omega * dy) * dt;
+          y += dy * dt;
+        }
+        out[i] = y + hiss() * noise;
+      }
+      return out;
+    }
+
+    function trace(values, mid, amp) {
+      var path = new Path2D();
+      var ys = new Float32Array(values.length);
+      for (var i = 0; i < values.length; i++) {
+        ys[i] = mid - values[i] * amp;
+        if (i) path.lineTo(i * STEP, ys[i]); else path.moveTo(0, ys[i]);
+      }
+      return { path: path, ys: ys };
+    }
+
+    function bytesOf(text) {
+      if (window.TextEncoder) return Array.prototype.slice.call(new TextEncoder().encode(text));
+      return text.split('').map(function (c) { return c.charCodeAt(0) & 0xff; });
+    }
+
+    function labelOf(b) {
+      if (b === 32) return '␣';
+      if (b > 32 && b < 127) return String.fromCharCode(b);
+      return (b < 16 ? '0' : '') + b.toString(16).toUpperCase();
+    }
+
+    function messageAt(s, sweep) {
+      var list = s.shown;
+      return list[((sweep % list.length) + list.length) % list.length];
+    }
+
+    function buildFrame(s, sweep) {
+      var L = s.lay;
+      var n = Math.ceil(s.w / STEP) + 1;
+      var edges = [];
+      var boxes = [];
+      var t = L.pre;
+      bytesOf(messageAt(s, sweep)).forEach(function (b, j) {
+        edges.push([t, 0]); // start bit
+        for (var i = 0; i < 8; i++) edges.push([t + 1 + i, (b >> i) & 1]);
+        edges.push([t + 9, 1]); // stop bit
+        boxes.push({ x0: t * L.bit, x1: (t + 10) * L.bit, label: labelOf(b) });
+        t += 10 + hash(sweep * 97 + j) * 1.5; // idle gap before the next byte
+      });
+
+      var ttl = new Float32Array(n);
+      var line = new Float32Array(n);
+      for (var i = 0, e = 0, level = 1; i < n; i++) {
+        var at = i * STEP / L.bit;
+        while (e < edges.length && edges[e][0] <= at) level = edges[e++][1];
+        ttl[i] = level ? 1 : -1;
+        line[i] = -ttl[i]; // RS-232: mark (1) is the negative level
+      }
+      var bitsPerSample = STEP / L.bit;
+      return {
+        boxes: boxes,
+        ch1: trace(analog(line, bitsPerSample, 10, 0.6, 0.025), L.mid1, L.amp1),
+        ch2: trace(analog(ttl, bitsPerSample, 14, 0.42, 0.03), L.mid2, L.amp2)
+      };
+    }
+
+    function layout(s) {
+      var w = s.w;
+      var h = s.h;
+      var longest = s.messages.reduce(function (m, text) { return Math.max(m, bytesOf(text).length); }, 1);
+      var info = w >= 640;
+      var busH = Math.round(Math.max(11, Math.min(16, h * 0.17)));
+      var busY = 7 + busH / 2;
+      var top = busY + busH / 2 + Math.max(5, h * 0.08);
+      var avail = h - 3 - top;
+      var band1 = avail * 0.56;
+      var band2 = avail * 0.32;
+      // Timebase: the longest message fits beside the info label. On narrow
+      // screens the bits can't shrink further, so only messages that fit run.
+      var room = w - (info ? 150 : 8);
+      var bit = Math.max(3.5, Math.min(12, room / (longest * 11.5 + 4)));
+      var fit = s.messages.filter(function (text) { return (bytesOf(text).length * 11.5 + 4) * bit <= room; });
+      s.shown = fit.length ? fit : s.messages;
+      s.lay = {
+        info: info,
+        bit: bit,
+        pre: Math.max(3, 20 / bit), // idle bits before the trigger
+        busH: busH,
+        busY: busY,
+        font: Math.round(busH * 0.72),
+        mid1: top + band1 / 2,
+        amp1: band1 / 2 / 1.12,
+        mid2: top + avail - band2 / 2,
+        amp2: band2 / 2 / 1.2
+      };
+    }
+
+    function resize(s) {
+      var w = s.host.clientWidth;
+      var h = s.host.clientHeight;
+      if (!w || !h) return;
+      var dpr = Math.min(window.devicePixelRatio || 1, 2);
+      s.w = w;
+      s.h = h;
+      s.canvas.width = Math.round(w * dpr);
+      s.canvas.height = Math.round(h * dpr);
+      s.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      layout(s);
+      s.cur = buildFrame(s, s.sweep);
+      s.prev = buildFrame(s, s.sweep - 1);
+      if (reduce) render(s);
+    }
+
+    function intensity(age) {
+      return age < 0 ? 0 : FLOOR + (1 - FLOOR) * Math.exp(-age / TAU);
+    }
+
+    // Horizontal gradient whose alpha follows the phosphor age along x.
+    function glow(ctx, xa, xb, ageAt, rgb, alpha) {
+      var g = ctx.createLinearGradient(xa, 0, xb, 0);
+      for (var i = 0; i <= 16; i++) {
+        var x = xa + (xb - xa) * i / 16;
+        g.addColorStop(i / 16, 'rgba(' + rgb + ', ' + (alpha * intensity(ageAt(x))).toFixed(3) + ')');
+      }
+      return g;
+    }
+
+    function drawByte(ctx, L, b, a) {
+      var k = Math.min(4, (b.x1 - b.x0) / 4);
+      var top = L.busY - L.busH / 2;
+      var bottom = L.busY + L.busH / 2;
+      ctx.beginPath();
+      ctx.moveTo(b.x0, L.busY);
+      ctx.lineTo(b.x0 + k, top);
+      ctx.lineTo(b.x1 - k, top);
+      ctx.lineTo(b.x1, L.busY);
+      ctx.lineTo(b.x1 - k, bottom);
+      ctx.lineTo(b.x0 + k, bottom);
+      ctx.closePath();
+      ctx.fillStyle = 'rgba(8, 16, 26, 0.9)';
+      ctx.fill();
+      ctx.fillStyle = 'rgba(' + CYAN + ', ' + (0.16 * a).toFixed(3) + ')';
+      ctx.fill();
+      ctx.strokeStyle = 'rgba(' + CYAN + ', ' + (0.75 * a).toFixed(3) + ')';
+      ctx.stroke();
+      ctx.fillStyle = 'rgba(' + CYAN_HOT + ', ' + a.toFixed(3) + ')';
+      ctx.fillText(b.label, (b.x0 + b.x1) / 2, L.busY + 0.5);
+    }
+
+    // One sweep's traces and decoded bytes inside [xa, xb]. ageAt(x) is the
+    // time since the beam drew x; bytes ending past decodedTo are not shown yet.
+    function layer(s, f, xa, xb, ageAt, decodedTo) {
+      if (xb - xa < 1) return;
+      var ctx = s.ctx;
+      ctx.save();
+      ctx.beginPath();
+      ctx.rect(xa, 0, xb - xa, s.h);
+      ctx.clip();
+      [[f.ch2, AMBER, AMBER_HOT], [f.ch1, CYAN, CYAN_HOT]].forEach(function (ch) {
+        ctx.lineWidth = 5;
+        ctx.strokeStyle = glow(ctx, xa, xb, ageAt, ch[1], 0.16);
+        ctx.stroke(ch[0].path);
+        ctx.lineWidth = 1.3;
+        ctx.strokeStyle = glow(ctx, xa, xb, ageAt, ch[2], 0.95);
+        ctx.stroke(ch[0].path);
+      });
+      ctx.lineWidth = 1;
+      f.boxes.forEach(function (b) {
+        if (b.x1 > decodedTo || b.x1 < xa || b.x0 > xb) return;
+        var age = ageAt(b.x1);
+        drawByte(ctx, s.lay, b, (0.3 + 0.7 * intensity(age)) * Math.min(1, age / 0.12));
+      });
+      ctx.restore();
+    }
+
+    // Channel marker at the channel's 0 V level, as on a scope's left edge.
+    function marker(ctx, y, label, rgb) {
+      ctx.fillStyle = 'rgba(' + rgb + ', 0.8)';
+      ctx.beginPath();
+      ctx.moveTo(0, y - 5);
+      ctx.lineTo(9, y - 5);
+      ctx.lineTo(13, y);
+      ctx.lineTo(9, y + 5);
+      ctx.lineTo(0, y + 5);
+      ctx.closePath();
+      ctx.fill();
+      ctx.fillStyle = '#0a121e';
+      ctx.fillText(label, 5, y + 0.5);
+    }
+
+    function render(s) {
+      var ctx = s.ctx;
+      var L = s.lay;
+      var w = s.w;
+      ctx.clearRect(0, 0, w, s.h);
+      ctx.textAlign = 'center';
+      ctx.textBaseline = 'middle';
+
+      // Idle decode bus, trigger point and channel markers (CH1 0 V is the
+      // middle of its ±12 V swing, CH2 0 V the bottom of its 0–3.3 V one).
+      ctx.fillStyle = 'rgba(' + CYAN + ', 0.25)';
+      ctx.fillRect(0, Math.round(L.busY) - 0.5, w, 1);
+      var tx = L.pre * L.bit;
+      ctx.fillStyle = 'rgba(' + AMBER + ', 0.85)';
+      ctx.beginPath();
+      ctx.moveTo(tx - 4, 0);
+      ctx.lineTo(tx + 4, 0);
+      ctx.lineTo(tx, 5);
+      ctx.closePath();
+      ctx.fill();
+      ctx.font = '700 8px ' + mono;
+      marker(ctx, L.mid1, '1', CYAN);
+      marker(ctx, L.mid2 + L.amp2, '2', AMBER);
+      ctx.font = '600 ' + L.font + 'px ' + mono;
+      if (L.info) {
+        ctx.textAlign = 'right';
+        ctx.fillStyle = 'rgba(' + CYAN + ', 0.55)';
+        ctx.fillText('UART 9600 8N1 · RS-232', w - 10, L.busY + 0.5);
+        ctx.textAlign = 'center';
+      }
+
+      if (reduce) {
+        layer(s, s.cur, 0, w, function () { return 0.6; }, Infinity);
+        return;
+      }
+      var v = w / SWEEP;
+      var t = s.t;
+      var beam = Math.min(w, t * v);
+      layer(s, s.prev, beam, w, function (x) { return t + CYCLE - x / v; }, Infinity);
+      layer(s, s.cur, 0, beam, function (x) { return t - x / v; }, beam);
+      if (t < SWEEP) {
+        var i = Math.max(0, Math.min(s.cur.ch1.ys.length - 1, Math.round(beam / STEP)));
+        spot(ctx, beam, s.cur.ch2.ys[i], AMBER_HOT);
+        spot(ctx, beam, s.cur.ch1.ys[i], CYAN_HOT);
+      }
+    }
+
+    function spot(ctx, x, y, rgb) {
+      var g = ctx.createRadialGradient(x, y, 0, x, y, 10);
+      g.addColorStop(0, 'rgba(255, 255, 255, 0.95)');
+      g.addColorStop(0.3, 'rgba(' + rgb + ', 0.55)');
+      g.addColorStop(1, 'rgba(' + rgb + ', 0)');
+      ctx.fillStyle = g;
+      ctx.fillRect(x - 10, y - 10, 20, 20);
+    }
+
+    function tick(now) {
+      // rAF's timestamp can predate the performance.now() taken in wake().
+      var dt = Math.max(0, Math.min(0.1, (now - last) / 1000));
+      last = now;
+      raf = 0;
+      scopes.forEach(function (s) {
+        if (!s.visible || !s.cur) return;
+        s.t += dt;
+        if (s.t >= CYCLE) {
+          s.t -= CYCLE;
+          s.sweep++;
+          s.prev = s.cur;
+          s.cur = buildFrame(s, s.sweep);
+        }
+        render(s);
+        if (!raf) raf = requestAnimationFrame(tick);
+      });
+    }
+
+    function wake() {
+      if (raf || reduce) return;
+      last = performance.now();
+      raf = requestAnimationFrame(tick);
+    }
+
+    hosts.forEach(function (host) {
+      var canvas = host.querySelector('canvas');
+      var ctx = canvas && canvas.getContext('2d');
+      if (!ctx) return;
+      var s = {
+        host: host,
+        canvas: canvas,
+        ctx: ctx,
+        messages: (host.getAttribute('data-messages') || 'karaman.dev').split('|').filter(Boolean),
+        sweep: 0,
+        t: 0,
+        visible: !('IntersectionObserver' in window)
+      };
+      scopes.push(s);
+      resize(s);
+      if ('ResizeObserver' in window) {
+        new ResizeObserver(function () { resize(s); }).observe(host);
+      } else {
+        window.addEventListener('resize', function () { resize(s); });
+      }
+    });
+
+    if ('IntersectionObserver' in window) {
+      var observer = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          scopes.forEach(function (s) {
+            if (s.host === entry.target) s.visible = entry.isIntersecting;
+          });
+        });
+        wake();
+      });
+      scopes.forEach(function (s) { observer.observe(s.host); });
+    }
+    wake();
+  }
+
+  // ---------------------------------------------------------------------------
   // Site search: overlay fed by /search.json, Turkish-folded substring match
   // ---------------------------------------------------------------------------
   function foldTr(text) {
@@ -1301,6 +1658,7 @@
     initBayramSplash();
     initReadingProgress();
     initScrollReveal();
+    initSignalTrace();
     initSearch();
     initShareCopy();
     initLightbox();
