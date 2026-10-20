@@ -52,7 +52,7 @@
     el.cv.style.width=W+'px'; el.cv.style.height=H+'px';
     ctx.setTransform(dpr,0,0,dpr,0,0);
 
-    var PT=30,PB=30,PL=8,MID=18;
+    var PT=30,PB=30,PL=8,MID=40; /* MID: room for the arrow and its f_s caption */
     var pw=(W-PL*2-MID)/2, ph=H-PT-PB;
     var x1=PL, x2=PL+pw+MID;
 
@@ -94,8 +94,13 @@
             ctx.beginPath();ctx.moveTo(bx,PT);ctx.lineTo(bx,PT+ph);ctx.stroke();
           });
           /* band label */
-          ctx.fillStyle=col; ctx.textAlign='center'; ctx.font='10px system-ui,sans-serif';
-          ctx.fillText(rnd(bL)+'–'+rnd(bH)+' MHz',(bx1+bx2)/2,PT+13);
+          /* band label on a light backing so the edge lines don't strike
+             through it; kept inside the panel when the band is narrow */
+          ctx.font='10px system-ui,sans-serif'; ctx.textAlign='center';
+          var bt=rnd(bL)+'–'+rnd(bH)+' MHz', btw=ctx.measureText(bt).width;
+          var btx=Math.min(Math.max((bx1+bx2)/2,x0+btw/2+3),x0+pw-btw/2-3);
+          ctx.fillStyle='rgba(255,255,255,0.85)'; ctx.fillRect(btx-btw/2-2,PT+4,btw+4,12);
+          ctx.fillStyle=col; ctx.fillText(bt,btx,PT+13);
           ctx.font='11px system-ui,sans-serif';
         }
       }
@@ -109,15 +114,16 @@
       ctx.beginPath();ctx.moveTo(x0,PT+ph);ctx.lineTo(x0+pw,PT+ph);ctx.stroke();
 
       /* ticks */
-      var nt=5;
+      var nt=pw<220?3:5; /* fewer ticks on narrow (phone) panels */
       for(var i=0;i<=nt;i++){
         var tf=fMin+(fMax-fMin)*i/nt, tx=f2x(tf);
         ctx.strokeStyle='#ccc'; ctx.lineWidth=0.5;
         ctx.beginPath();ctx.moveTo(tx,PT);ctx.lineTo(tx,PT+ph+4);ctx.stroke();
-        ctx.fillStyle='#777'; ctx.textAlign='center';
+        /* end labels align inwards so neighbouring panels' labels don't touch */
+        ctx.fillStyle='#5f6672'; ctx.textAlign=i===0?'left':(i===nt?'right':'center');
         ctx.fillText(rnd(tf,1),tx,PT+ph+14);
       }
-      ctx.fillStyle='#888'; ctx.textAlign='center';
+      ctx.fillStyle='#5f6672'; ctx.textAlign='center';
       ctx.fillText('MHz',x0+pw/2,H-4);
 
       /* title */
@@ -158,8 +164,9 @@
     /* arrow */
     ctx.fillStyle='#555'; ctx.textAlign='center'; ctx.font='15px system-ui,sans-serif';
     ctx.fillText('→',x1+pw+MID/2,PT+ph/2+6);
-    ctx.font='9px system-ui,sans-serif'; ctx.fillStyle='#888';
-    ctx.fillText('f_s='+rnd(fs),x1+pw+MID/2,PT+ph/2+18);
+    ctx.font='9px system-ui,sans-serif'; ctx.fillStyle='#5f6672';
+    ctx.fillText('f_s =',x1+pw+MID/2,PT+ph/2+18);
+    ctx.fillText(rnd(fs),x1+pw+MID/2,PT+ph/2+28);
   }
 
   [el.fc,el.bw,el.fs].forEach(function(s){s.addEventListener('input',update);});

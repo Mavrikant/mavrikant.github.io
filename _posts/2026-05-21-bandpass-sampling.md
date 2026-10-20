@@ -106,7 +106,7 @@ Lyons'un *Understanding Digital Signal Processing* kitabındaki konvansiyonu kul
 - **n tek** → spektrum yukarı doğru ("upright"), orijinaliyle aynı yönde.
 - **n çift** → spektrum **ters çevrilmiş** (zone 1'de f_s/4 etrafında aynalanmış).
 
-Hızlı bir mental doğrulama: f_s = 10 Hz, gerçek sinyalin 11.5 ila 12.5 Hz aralığında bir spektrumu olsun. Zone 3'e (n = 3, tek) düşer. Alias: |12 − 1·10| = 2 Hz. 12.5 → 2.5, 11.5 → 1.5 — alt-üst sıralama korunur. Üst kenar yine üstte.
+Hızlı bir mental doğrulama: f_s = 10 Hz, gerçek sinyalin 11.5 ila 12.5 Hz aralığında bir spektrumu olsun. Zone 3'e (n = 3, tek) düşer. Alias: \|12 − 1·10\| = 2 Hz. 12.5 → 2.5, 11.5 → 1.5 — alt-üst sıralama korunur. Üst kenar yine üstte.
 
 Şimdi gerçek sinyali 7.5 ila 8.5 Hz arasına koyalım — zone 2 (n = 2, çift). Alias: 8.5 → 1.5, 7.5 → 2.5. Üst kenar artık altta. Ters çevrilmiş.
 

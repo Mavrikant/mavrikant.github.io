@@ -225,6 +225,8 @@
       if (id && byId[id]) {
         byId[id].classList.add('is-active');
         keepInView(byId[id]);
+      } else {
+        nav.scrollTop = 0; // above the first heading: show the list from its start
       }
       current = id;
     }
@@ -317,11 +319,12 @@
     });
 
     function markScrollable() {
-      wrappers.forEach(function (wrap) {
+      wrappers.forEach(function (wrap, i) {
         if (wrap.scrollWidth > wrap.clientWidth + 1) {
           wrap.setAttribute('tabindex', '0');
           wrap.setAttribute('role', 'region');
-          wrap.setAttribute('aria-label', 'Tablo (yatay kaydırılabilir)');
+          // Numbered so each region landmark has a unique name.
+          wrap.setAttribute('aria-label', 'Tablo ' + (i + 1) + ' (yatay kaydırılabilir)');
         } else {
           wrap.removeAttribute('tabindex');
           wrap.removeAttribute('role');
@@ -932,7 +935,7 @@
       });
       try {
         Promise.resolve(window.mermaid.run({ nodes: nodes }))
-          .then(function () { fixLabelContrast(); fitForSmallScreens(); })
+          .then(function () { darkenPastelClusters(); fixLabelContrast(); markZoomable(); })
           .catch(function () {});
       } catch (e) {}
     }
@@ -982,39 +985,130 @@
       });
     }
 
-    // Mermaid scales a wide diagram down to the column, which can leave 4-7px
-    // labels (timelines, long flowcharts, phones). Never shrink below 70%:
-    // past that the diagram keeps 70% of its natural size and the .mermaid
-    // box scrolls sideways (keyboard-focusable, labelled).
-    var MIN_SCALE = 0.7;
-    function fitForSmallScreens() {
+    // Posts colour subgraphs with inline pastel fills (`style KF fill:#e8f0fb`).
+    // In the dark theme those stay glaring light boxes and the theme's light
+    // edge strokes vanish on them (≈1.3:1). Turn such clusters into a dark
+    // tint of the same hue so the arrows inside read again.
+    function darkenPastelClusters() {
+      if (currentTheme() !== 'dark') return;
+      nodes.forEach(function (n) {
+        n.querySelectorAll('g.cluster > rect, g.cluster > path').forEach(function (shape) {
+          var fill = parseRgb(getComputedStyle(shape).fill);
+          if (!fill || luminance(fill) < 0.5) return;
+          var r = fill[0] / 255, g = fill[1] / 255, b = fill[2] / 255;
+          var max = Math.max(r, g, b), min = Math.min(r, g, b), h = 0;
+          if (max !== min) {
+            var d = max - min;
+            h = max === r ? (g - b) / d + (g < b ? 6 : 0) : max === g ? (b - r) / d + 2 : (r - g) / d + 4;
+          }
+          shape.style.setProperty('fill', 'hsl(' + Math.round(h * 60) + ', 30%, 17%)', 'important');
+        });
+      });
+    }
+
+    // Mermaid scales a wide diagram down to the column, so the whole diagram
+    // is always visible. Below 75% its labels get hard to read (4–7px on
+    // phones): such diagrams get a "Büyüt" button (or a click on the diagram)
+    // that opens them at a readable size in a dialog where they can be panned.
+    var ZOOM_BELOW = 0.75;
+    var EXPAND_ICON = '<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="15 3 21 3 21 9"/><polyline points="9 21 3 21 3 15"/><line x1="21" y1="3" x2="14" y2="10"/><line x1="3" y1="21" x2="10" y2="14"/></svg>';
+
+    function naturalWidth(svg) {
+      var vb = svg && svg.viewBox && svg.viewBox.baseVal;
+      return vb && vb.width ? vb.width : 0;
+    }
+
+    function markZoomable() {
       nodes.forEach(function (n) {
         var svg = n.querySelector('svg');
-        if (!svg) return;
-        var vb = svg.viewBox && svg.viewBox.baseVal;
-        var natural = vb && vb.width;
-        var target = natural ? Math.max(n.clientWidth, natural * MIN_SCALE) : 0;
-        var scroll = natural && target > n.clientWidth + 8;
-        // Remember Mermaid's own inline max-width so it can be restored.
-        if (!svg.hasAttribute('data-mw')) svg.setAttribute('data-mw', svg.style.maxWidth);
-        svg.style.maxWidth = scroll ? 'none' : svg.getAttribute('data-mw');
-        svg.style.width = scroll ? Math.round(target) + 'px' : '';
-        if (scroll) {
-          n.setAttribute('tabindex', '0');
-          n.setAttribute('role', 'region');
-          n.setAttribute('aria-label', 'Diyagram (yatay kaydırılabilir)');
-        } else {
-          n.removeAttribute('tabindex');
-          n.removeAttribute('role');
-          n.removeAttribute('aria-label');
+        var natural = naturalWidth(svg);
+        var small = natural > 0 && svg.getBoundingClientRect().width / natural < ZOOM_BELOW;
+        var btn = n.querySelector('.mermaid-zoom');
+        n.classList.toggle('is-zoomable', small);
+        if (small && !btn) {
+          btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'mermaid-zoom';
+          btn.innerHTML = EXPAND_ICON + '<span>Büyüt</span>';
+          btn.setAttribute('aria-label', 'Diyagramı büyüt');
+          n.appendChild(btn);
+        } else if (!small && btn) {
+          n.removeChild(btn);
+        }
+        if (!n.hasAttribute('data-zoom-bound')) {
+          n.setAttribute('data-zoom-bound', '');
+          n.addEventListener('click', function (e) {
+            if (n.classList.contains('is-zoomable') &&
+                (e.target.closest('.mermaid-zoom') || e.target.closest('svg'))) openZoom(n);
+          });
         }
       });
+    }
+
+    var dialog = null;
+    var lastFocus = null;
+
+    function closeZoom() {
+      dialog.classList.remove('is-open');
+      dialog.hidden = true;
+      dialog.querySelector('.lightbox__diagram').textContent = '';
+      document.body.style.overflow = '';
+      if (lastFocus && typeof lastFocus.focus === 'function') lastFocus.focus();
+    }
+
+    function buildDialog() {
+      dialog = document.createElement('div');
+      dialog.className = 'lightbox lightbox--diagram';
+      dialog.setAttribute('role', 'dialog');
+      dialog.setAttribute('aria-modal', 'true');
+      dialog.setAttribute('aria-label', 'Diyagram büyütme');
+      dialog.hidden = true;
+      dialog.innerHTML =
+        '<button type="button" class="lightbox__close" aria-label="Kapat"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>' +
+        // The pan area is focusable so arrow keys scroll it.
+        '<div class="lightbox__diagram mermaid" tabindex="0" role="group" aria-label="Diyagram"></div>';
+      document.body.appendChild(dialog);
+      var closeBtn = dialog.querySelector('.lightbox__close');
+      var box = dialog.querySelector('.lightbox__diagram');
+      closeBtn.addEventListener('click', closeZoom);
+      dialog.addEventListener('click', function (e) { if (e.target === dialog) closeZoom(); });
+      document.addEventListener('keydown', function (e) {
+        if (dialog.hidden) return;
+        if (e.key === 'Escape') {
+          closeZoom();
+        } else if (e.key === 'Tab') {
+          // Keep focus inside the dialog: close button <-> pan area.
+          e.preventDefault();
+          (document.activeElement === closeBtn ? box : closeBtn).focus();
+        }
+      });
+    }
+
+    function openZoom(n) {
+      var svg = n.querySelector('svg');
+      var natural = naturalWidth(svg);
+      if (!natural) return;
+      lastFocus = document.activeElement;
+      if (!dialog) buildDialog();
+      var box = dialog.querySelector('.lightbox__diagram');
+      var clone = svg.cloneNode(true);
+      // Fill the screen width, but never below 70% of the natural size (the
+      // pan area scrolls instead) nor above 100% (no blurry upscaling).
+      clone.style.maxWidth = natural + 'px';
+      clone.style.width = 'max(100%, ' + Math.round(natural * 0.7) + 'px)';
+      box.textContent = '';
+      box.appendChild(clone);
+      dialog.hidden = false;
+      void dialog.offsetWidth;
+      dialog.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+      dialog.querySelector('.lightbox__close').focus();
     }
 
     var resizeTimer;
     window.addEventListener('resize', function () {
       clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(fitForSmallScreens, 200);
+      resizeTimer = setTimeout(markZoomable, 200);
     });
 
     var loaded = false;

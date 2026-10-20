@@ -215,7 +215,8 @@ Sezyum saatinin doğruluğu yetmiş yılda yaklaşık 10 milyar kat iyileşti �
   var layout = {
     title: { text: 'Sezyum/optik atom saatlerinin doğruluğu (1955–2024)', font: { size: 14 } },
     xaxis: { title: { text: 'Yıl' } },
-    yaxis: { title: { text: 'Bağıl belirsizlik (log eksen)' }, type: 'log', autorange: true },
+    // Relative uncertainty is dimensionless: 10⁻ⁿ ticks, not SI prefixes (1p, 10f).
+    yaxis: { title: { text: 'Bağıl belirsizlik (log eksen)', standoff: 12 }, type: 'log', autorange: true, exponentformat: 'power', automargin: true },
     margin: { l: 80, r: 30, t: 50, b: 50 },
     plot_bgcolor: '#ffffff',
     paper_bgcolor: '#ffffff'
@@ -364,7 +365,7 @@ Yedi SI temel biriminin en iyi gerçekleme belirsizlikleri arasında 15 mertebel
   }];
   var layout = {
     title: { text: '7 SI temel biriminin en iyi gerçekleme belirsizlikleri (bağıl, log eksen)', font: { size: 14 } },
-    xaxis: { title: { text: 'Bağıl belirsizlik (log eksen)' }, type: 'log', autorange: true },
+    xaxis: { title: { text: 'Bağıl belirsizlik (log eksen)' }, type: 'log', autorange: true, exponentformat: 'power' },
     yaxis: { autorange: 'reversed' },
     margin: { l: 280, r: 30, t: 50, b: 60 },
     plot_bgcolor: '#ffffff',
@@ -543,7 +544,7 @@ Bunun pratik karşılığı: kalibrasyon sertifikasında "UME izlenebilirliği" 
 - **TUR ≥ 4 sağlanıyor mu?** Cihazınızın spec'i ile sertifika belirsizliği oranı 4'ün altındaysa, kabul/red kararı için güvenlik payı (guard band) hesaplanmalı.
 - **Çevre koşulları belgelenmiş mi?** Sertifika ölçüm sırasındaki sıcaklık (genelde 23 ± 2 °C) ve nem değerlerini içermeli. Sizin laboratuvarınızda koşullar farklıysa düzeltme veya ek belirsizlik gerekir.
 - **Süre sonu belirtilmiş mi?** "Geçerlilik 1 yıl", "kalibrasyon aralığı kullanıcı sorumluluğunda" vb. ayrımına dikkat edin.
-- **Izlenebilirlik beyanı genel mi yoksa NMI numarasıyla mı?** "Traceable to SI through UME via … " spesifikse iyi; sadece "Traceable to NIST/UME" cümlesi tek başına yeterli kanıt değil.
+- **İzlenebilirlik beyanı genel mi yoksa NMI numarasıyla mı?** "Traceable to SI through UME via …" spesifikse iyi; sadece "Traceable to NIST/UME" cümlesi tek başına yeterli kanıt değil.
 
 Bu sekiz madde aslında zincirin her halkasını sorgulayan tek bir kontrol listesi. Bir tanesi cevapsız kalıyorsa zincirde kopukluk var demektir; bu durumda kalibrasyon sertifikası işinize yaramaz.
 

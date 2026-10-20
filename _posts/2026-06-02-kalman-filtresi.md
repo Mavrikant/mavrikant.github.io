@@ -264,7 +264,7 @@ Bir de filtrenin "kendine güveni" olan `P` ve kazanç `K`'nin zaman içindeki d
 
 <figure>
   <img src="/img/posts/kalman-covariance-convergence.webp" alt="Kovaryans P ve Kalman kazancı K kararlı duruma oturuyor" class="img-fluid rounded">
-  <figcaption><strong>Şekil 3.</strong> Konum varyansı P[0,0] başlangıçtaki 500'den birkaç adımda ~1'e iner (logaritmik eksen). Kalman kazancı K[0] ise ~1.0'dan başlayıp ~0.27'ye oturur. Sabit `F`, `H`, `Q`, `R` için kazanç bir <strong>kararlı duruma</strong> yakınsar — bu, gömülü sistemlerde "sabit kazançlı Kalman filtresi" olarak önceden hesaplanabilir.</figcaption>
+  <figcaption><strong>Şekil 3.</strong> Konum varyansı P[0,0] başlangıçtaki 500'den birkaç adımda ~1'e iner (logaritmik eksen). Kalman kazancı K[0] ise ~1.0'dan başlayıp ~0.27'ye oturur. Sabit <code>F</code>, <code>H</code>, <code>Q</code>, <code>R</code> için kazanç bir <strong>kararlı duruma</strong> yakınsar — bu, gömülü sistemlerde "sabit kazançlı Kalman filtresi" olarak önceden hesaplanabilir.</figcaption>
 </figure>
 
 `R` ve `q` değerleriyle oynayıp kodu yeniden çalıştırın: `R`'yi büyütürseniz filtre ölçümlere daha az güvenir, kestirim pürüzsüzleşir ama yavaşlar. `q`'yu büyütürseniz modele daha az güvenir, kestirim ölçümlerin peşinden koşar. Bu dengeyi en iyi, doğrudan elinizle hissederek anlarsınız — buyrun.

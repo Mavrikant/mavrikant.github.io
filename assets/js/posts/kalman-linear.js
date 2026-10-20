@@ -117,7 +117,7 @@
     for (var i = 0; i <= 4; i++) {
       var gy = PT + ph * i / 4, gv = ymax - (ymax - ymin) * i / 4;
       ctx.strokeStyle = '#eef0f3'; ctx.beginPath(); ctx.moveTo(PL, gy); ctx.lineTo(PL + pw, gy); ctx.stroke();
-      ctx.fillStyle = '#999'; ctx.textAlign = 'right'; ctx.fillText(rnd(gv, 0), PL - 6, gy + 3);
+      ctx.fillStyle = '#5f6672'; ctx.textAlign = 'right'; ctx.fillText(rnd(gv, 0), PL - 6, gy + 3);
     }
 
     if (hist.length > 1) {
@@ -141,7 +141,7 @@
     hist.forEach(function (h) { ctx.beginPath(); ctx.arc(X(h.k), Y(h.meas), 2.6, 0, 2 * Math.PI); ctx.fill(); });
 
     ctx.strokeStyle = '#ccc'; ctx.lineWidth = 1; ctx.strokeRect(PL, PT, pw, ph);
-    ctx.fillStyle = '#888'; ctx.textAlign = 'center'; ctx.fillText('adım (k)', PL + pw / 2, H - 6);
+    ctx.fillStyle = '#5f6672'; ctx.textAlign = 'center'; ctx.fillText('adım (k)', PL + pw / 2, H - 6);
 
     var lx = PL + 8, ly = PT + 12;
     function sw(c, t) { ctx.fillStyle = c; ctx.fillRect(lx, ly - 8, 12, 9); ctx.fillStyle = '#444'; ctx.textAlign = 'left'; ctx.fillText(t, lx + 16, ly); ly += 15; }

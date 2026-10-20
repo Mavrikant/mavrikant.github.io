@@ -1623,12 +1623,23 @@ div.highlight {
   }
 }
 
-// Touch devices have no hover — keep heading anchors quietly visible.
+// Interactive demos: a label that wraps to two lines must not stagger the
+// sliders across a row — each slider sits at the bottom of its column.
+.post-content :is(.row, .form-row) > [class*="col-"]:has(> .custom-range) {
+  display: flex;
+  flex-direction: column;
+
+  > .custom-range { margin-top: auto; }
+}
+
+// Touch devices have no hover — keep heading anchors visible. The muted
+// --color-text-subtle already keeps them quiet; fading it further would drop
+// the icon below 3:1 (WCAG 1.4.11).
 @media (hover: none) {
   .post-content h2 .heading-anchor,
   .post-content h3 .heading-anchor,
   .post-content h4 .heading-anchor {
-    opacity: 0.6;
+    opacity: 1;
   }
 }
 
@@ -2304,17 +2315,20 @@ article {
 // Responsive overrides for wide content (tables, Mermaid diagrams)
 // =============================================================================
 .mermaid {
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+  // Diagrams always fit the column (assets/scripts.js adds a "Büyüt" button
+  // to open small-scaled ones in a dialog), so nothing needs to scroll here;
+  // visible overflow keeps edge glyphs such as xychart axis labels unclipped.
+  overflow: visible;
 
-  // Centred when narrower than the column; a wide (scrolling) diagram's auto
-  // margins resolve to 0, so it still starts at the left edge.
   svg {
     display: block;
     margin: 0 auto;
     max-width: 100%;
     height: auto;
+    overflow: visible;
   }
+
+  &.is-zoomable svg { cursor: zoom-in; }
 
   // Mermaid's xychart palette is a very pale lavender that nearly disappears
   // on the light theme's white plot area. Drive the series colour from the
@@ -2327,6 +2341,37 @@ article {
   .plot [class^="line-plot-"] path {
     stroke: var(--color-accent);
     stroke-width: 2.5;
+  }
+}
+
+// "Büyüt" button under a diagram that is shown below 75% of its natural size.
+.mermaid-zoom {
+  display: flex;
+  align-items: center;
+  gap: 0.4em;
+  width: max-content;
+  margin: 0.6rem auto 0;
+  padding: 0.35em 0.85em;
+  font-family: var(--font-sans);
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.2;
+  color: var(--color-text);
+  background: var(--color-surface-elevated);
+  border: 1px solid var(--color-border-strong);
+  border-radius: 999px;
+  box-shadow: var(--shadow-sm);
+  cursor: pointer;
+  transition: color 0.15s ease, border-color 0.15s ease;
+
+  &:hover {
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+  }
+
+  &:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
   }
 }
 
@@ -3091,6 +3136,37 @@ mjx-container[display="true"] {
   }
 }
 
+// Diagram dialog: the enlarged Mermaid SVG pans inside its own box.
+.lightbox--diagram {
+  cursor: default;
+  padding-top: 68px; // clear of the close button
+
+  .lightbox__diagram {
+    width: 100%;
+    max-height: calc(100vh - 100px);
+    overflow: auto;
+    overscroll-behavior: contain;
+    padding: 16px;
+    background: var(--color-surface);
+    border-radius: var(--radius-md);
+    box-shadow: var(--shadow-lg);
+
+    &:focus-visible {
+      outline: 2px solid var(--color-accent);
+      outline-offset: 2px;
+    }
+  }
+
+  @media (max-width: 640px) {
+    padding-top: 64px;
+
+    .lightbox__diagram {
+      max-height: calc(100vh - 80px);
+      padding: 8px;
+    }
+  }
+}
+
 // =============================================================================
 // Figure captions — <figcaption>, legacy .caption spans and img + em pattern
 // =============================================================================
@@ -3239,6 +3315,7 @@ mjx-container[display="true"] {
   .related-posts,
   .search-modal,
   .lightbox,
+  .mermaid-zoom,
   .copy-code-btn,
   .scroll-top,
   .heading-anchor,
