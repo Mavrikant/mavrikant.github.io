@@ -34,19 +34,31 @@
 | [#54](https://github.com/mavrikant/mavrikant.github.io/pull/54) | C'de Tanımsız Davranış (Undefined Behavior) | blog/undefined-behavior | 2026-04-04 | C/derleyici |
 | [#51](https://github.com/mavrikant/mavrikant.github.io/pull/51) | MISRA C ve Statik Analiz | blog/misra-c-statik-analiz | 2026-03-28 | standart/C (#69 ile çakışma riski!) |
 | [#50](https://github.com/mavrikant/mavrikant.github.io/pull/50) | Float Denormalize FTZ/DAZ (eski yazı genişletme) | claude/float-denormalize-ftz-daz | 2026-03-26 | gömülü/sayısal |
+| (bu PR) | `setjmp`/`longjmp` Neden DAL A'da Yasak? — Stack Unwind, MISRA C 21.4 ve Assembly Anatomisi | post/2026-06-25-setjmp-longjmp-do-178c-dal-a | 2026-06-24 | standart/C + sertifikasyon |
 
 > **Not:** PR #51 "MISRA C ve Statik Analiz", zaten yayında olan #69 "MISRA C:2025 ile Neler Değişti?" ile konu olarak çakışıyor olabilir. İnceleyen kişinin dikkatine.
+>
+> **Not:** Bu çalıştırma sırasında 33 açık PR (#150–#50 arası, çoğunluğu yazı önerisi) vardı; konu seçimi sıkı novelty filtresiyle yapıldı.
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- **`setjmp`/`longjmp` Neden DAL A'da Yasak?** —
+  dal: `post/2026-06-25-setjmp-longjmp-do-178c-dal-a`,
+  dosya: `_posts/2026-06-24-setjmp-longjmp-do-178c-dal-a.md`,
+  durum: PR açıldı (bu çalıştırma) — alan: standart/C + sertifikasyon.
 
-## Reddedildi (bu çalıştırma)
+## Reddedildi (bu çalıştırma — 2026-06-24)
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- Mevcut aday havuzunun büyük çoğunluğu (Linker script, GIC, MC/DC, VOR, ILS,
+  WCET, FMEA, FTA, Bellek güvenliği, Lockstep, Endianness, Sabit Nokta,
+  Cortex-A boot, MPU/MMU, DMA cache, DO-326A, SEU/SECDED, Allan Deviation,
+  Watchdog, Priority Inversion, Object Code Coverage, MISRA C statik analiz,
+  UB, Sessiz Kalman iraksama, Worst-Case Stack, Derleyici opt -O0,
+  Antikırılgan, Veri Analitiği, `volatile` ×2) **zaten açık PR halinde**;
+  Faz 2'de yeniden değerlendirildi ve **`setjmp`/`longjmp` DAL A'da yasak mı?**
+  konusu boşluk olarak seçildi — hiçbir açık PR ve yayında bu kesin kesişimi
+  (ARM newlib assembly + MISRA Rule 21.4 + DO-178C kapsama/WCET etkisi)
+  işlemiyor.
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 
@@ -108,21 +120,34 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - [ ] DO-254 donanım sertifikasyonu (yazarın uzmanlığı ağırlıklı yazılım tarafında)
 - [ ] İzlenebilirlik matrisi (klasik konu, derinlik çıkarmak zor)
 
-## Notlar (bu çalıştırma — 2026-05-21)
+## Notlar (bu çalıştırma — 2026-06-24)
 
-- **Bandpass Sampling** seçildi (alan: RF/DSP). Önceki çalıştırmaların ardından
-  açılan PR'lar son üç alt-alanı (sertifikasyon #77, navigasyon #78, yazılım
-  zanaatı/CRC #79) işaretlemişti; bu yazı **bu üç alandan da** son yayınlanan 3
-  posttan da (Renode gömülü/SoC, kalibrasyon ×2) farklı bir alan getiriyor.
-- Yayın kapısı durumu: Bölüm 4 yalnızca "yayın PR ile olmalı" kuralı koyar; backlog
-  büyüklüğüne dair sert bir sınır yoktur. Açık 7 PR olmasına rağmen son yayınlanan
-  yazıdan (Renode, 2026-05-14) bu yana 7 gün geçti — `min_yayin_araligi_gun = 2`
-  şartı fazlasıyla sağlanmış durumda. Bu çalıştırmada yeni PR açıldı.
-- Bandpass sampling konusunun "neden Türkçe içerikte zor bulunuyor" yanıtı:
-  matematik (Vaughan 1991), datasheet okuma (analog input BW), saat phase noise
-  ve filtre tasarımı disiplinlerinin kesişiminde bulunuyor; Türkçe kaynaklar
-  genellikle yalnızca tek bir cepheden ele almış oluyor (genelde Lyons özet
-  çevirisi). Sentez ve somut sayısal örnek boşluğu büyük.
+- **`setjmp`/`longjmp` Neden DAL A'da Yasak?** seçildi (alan: standart/C +
+  sertifikasyon). Açık 33 PR taraması yapıldı; aday havuzunun yüksek-öncelikli
+  kısmı ve orta-öncelikli kısmının büyük bölümü açık PR olarak halihazırda
+  yazılmış. Bu konu kesişimsel: ARM newlib assembly + ISO C §7.13 + MISRA C
+  Rule 21.4 + DO-178C §6.4.4 kapsama + WCET analizi etkisi. Hiçbir açık PR
+  ya da yayında bu özgül kombinasyon mevcut değil.
+- "Neden Türkçe içerikte bulmak zor?" yanıtı: Üç farklı disiplinin (ABI/
+  assembly, C dil standardı, sertifikasyon süreçleri) kesişiminde. MISRA
+  rasyonel metni ücretli; DO-178C kapsama/WCET etkileri ancak emniyet kritik
+  proje deneyiminden çıkar; ARM newlib `setjmp.S`'i okuyup yorumlamak ayrı
+  bir adım. Türkçe kaynaklar genelde yalnızca "setjmp ne işe yarar" düzeyinde
+  kalıyor; yasak gerekçesini açan sentez yok.
+- Yayın kapısı: son yayın (Coupling, 2026-06-04) ile bu yayın arasında 20 gün
+  var — `min_yayin_araligi_gun = 2` fazlasıyla aşılmış. Son üç yayın
+  (Coupling/yazılım, Kalman/aviyonik, Sistem Müh./sistem) ile alan farklı.
+  Build (`bundle exec jekyll build`) yerel olarak temiz geçti.
+- Derinlik öğesi (§7): assembly inceleme (newlib ARM `setjmp.S`) +
+  standart yorumu (MISRA Rule 21.4 rasyoneli + DO-178C §6.4.4) + failure
+  mode analizi (mutex/heap/FILE sızıntı senaryosu) + yeniden üretilebilir
+  örnek (Cortex-A9 / -O0 vs -O2). Birden fazla derinlik öğesi taşıyor.
+- Açık PR backlog'u (33 adet) önceki çalıştırmalardan birikmiş. Bu durum,
+  ajan bakımından sert bir kural ihlal etmiyor (Bölüm 4 backlog sınırı
+  koymuyor) ama insan inceleyicisi için dikkat çekici: ya inceleme oranı
+  yetişmiyor ya da konu seçim filtresi çok geniş tutuluyor. Bir sonraki
+  çalıştırma için öneri: aday havuzunda kalan boşluklar daralıyor;
+  Faz 2'de "henüz açık PR olmayan" konuları açık filtreyle önceliklendir.
 - Açık PR'lar konusunda inceleme önceliği yorumu (gözlem): #50 ve #51 hâlâ uzun
   süredir bekliyor; #50 eski yazıyı genişletiyor, #51 ise yayındaki MISRA C:2025
   ile büyük olasılıkla çakışıyor. İnceleyen kişinin dikkatine.
