@@ -39,14 +39,15 @@
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- **WCET'i Neden Ölçemezsiniz — Cache, Ölçüm Kuyruğu ve DO-178C 6.3.4.f** —
+  dal: `post/2026-07-13-wcet-analizi-cache-ve-do-178c`,
+  dosya: `_posts/2026-07-13-wcet-analizi-cache-ve-do-178c.md`,
+  durum: PR açıldı (bu çalıştırma, 2026-07-13) — alan: gerçek-zamanlı / sertifikasyon.
 
 ## Reddedildi (bu çalıştırma)
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- _(bu çalıştırmada konu reddedilmedi; WCET havuzun "WCET analizi" adayından seçildi
+  ve mevcut yayın + açık PR listesiyle çakışmadığı doğrulandı.)_
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 
@@ -61,8 +62,8 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
       alan: sertifikasyon — gerçek karar tablosu örneği, decision/condition farkı
 - [ ] **CRC vs checksum: neden CRC-32 değil de CRC-32C / CRC-16-CCITT seçilir?** —
       alan: yazılım zanaatı — polinom seçimi, hata tespit gücü, bit-hata analizi
-- [ ] **WCET analizi: statik analiz vs ölçüm tabanlı yaklaşımlar, cache etkileri** —
-      alan: gerçek zamanlı — somut örnek (örn. Cortex-R5 üzerinde basit görev)
+- [x] **WCET analizi: statik analiz vs ölçüm tabanlı yaklaşımlar, cache etkileri** —
+      alan: gerçek zamanlı — PR açıldı 2026-07-13, dal `post/2026-07-13-wcet-analizi-cache-ve-do-178c`
 - [ ] **IQ örnekleme ve karmaşık sinyaller: gerçek SDR'ye giriş** —
       alan: RF/SDR — neden negatif frekans, neden 2 kanal
 - [ ] **GIC (Generic Interrupt Controller): SGI/PPI/SPI farkları ve önceliklendirme** —
@@ -108,21 +109,22 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - [ ] DO-254 donanım sertifikasyonu (yazarın uzmanlığı ağırlıklı yazılım tarafında)
 - [ ] İzlenebilirlik matrisi (klasik konu, derinlik çıkarmak zor)
 
-## Notlar (bu çalıştırma — 2026-05-21)
+## Notlar (bu çalıştırma — 2026-07-13)
 
-- **Bandpass Sampling** seçildi (alan: RF/DSP). Önceki çalıştırmaların ardından
-  açılan PR'lar son üç alt-alanı (sertifikasyon #77, navigasyon #78, yazılım
-  zanaatı/CRC #79) işaretlemişti; bu yazı **bu üç alandan da** son yayınlanan 3
-  posttan da (Renode gömülü/SoC, kalibrasyon ×2) farklı bir alan getiriyor.
-- Yayın kapısı durumu: Bölüm 4 yalnızca "yayın PR ile olmalı" kuralı koyar; backlog
-  büyüklüğüne dair sert bir sınır yoktur. Açık 7 PR olmasına rağmen son yayınlanan
-  yazıdan (Renode, 2026-05-14) bu yana 7 gün geçti — `min_yayin_araligi_gun = 2`
-  şartı fazlasıyla sağlanmış durumda. Bu çalıştırmada yeni PR açıldı.
-- Bandpass sampling konusunun "neden Türkçe içerikte zor bulunuyor" yanıtı:
-  matematik (Vaughan 1991), datasheet okuma (analog input BW), saat phase noise
-  ve filtre tasarımı disiplinlerinin kesişiminde bulunuyor; Türkçe kaynaklar
-  genellikle yalnızca tek bir cepheden ele almış oluyor (genelde Lyons özet
-  çevirisi). Sentez ve somut sayısal örnek boşluğu büyük.
-- Açık PR'lar konusunda inceleme önceliği yorumu (gözlem): #50 ve #51 hâlâ uzun
-  süredir bekliyor; #50 eski yazıyı genişletiyor, #51 ise yayındaki MISRA C:2025
-  ile büyük olasılıkla çakışıyor. İnceleyen kişinin dikkatine.
+- **WCET Analizi** seçildi (alan: gerçek-zamanlı / sertifikasyon). Faz 1 taramasında:
+  mevcut yayın listesinde (`_posts/`) WCET geçen bir yazı yok; açık PR listesinde
+  (bkz. `gh pr list`) 30+ PR'da da WCET/timing analizi başlığı bulunmuyor. #150
+  worst-case *stack* konusunu ele alıyor — WCET (zaman) ile ayrık.
+- Alan rotasyonu kontrolü: son 3 yayınlanmış yazının alt-alanı — sistem/felsefe
+  (Antikırılgan), yazılım tasarımı (Coupling), matematik/navigasyon (Kalman). Bu
+  yazı yeni bir alt-alan getiriyor (zamanlama analizi).
+- "Bu konuyu bulmak neden zor" yanıtı: WCET, derleyici çıktı analizi + mikromimari
+  + istatistik (EVT) + sertifikasyon (DO-178C §6.3.4.f, CAST-32A, AMC 20-193)
+  disiplinlerinin kesişimidir. Türkçe sentez neredeyse yok. Wilhelm 2008 survey,
+  Altmeyer/Davis/Maiza (CRPD), CAST-32A/AMC 20-193 tek bir yazıda buluşmuyor.
+- Derinlik öğesi (Bölüm 7): sayısal zamanlama analizi (Cortex-A9 L1/L2/DDR3 çevrim
+  tablosu, cache sıcak/soğuk oranı, CRPD formülü ile UCB∩ECB yaklaşımı).
+- Not — mevcut defterin "Yazıldı" listesi ve "Açık PR'lar" tablosu master ile
+  önemli ölçüde senkronizasyondan çıkmış görünüyor (2026-05'ten bu yana 3 yeni
+  yayın ve ~30 yeni açık PR var). Ayrı bir chore/ledger-sync PR gerekiyor
+  (bkz. #154 örneği).
