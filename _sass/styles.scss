@@ -3307,20 +3307,12 @@ mjx-container[display="true"] {
 }
 
 // =============================================================================
-// View transitions — smooth cross-page fade (progressive enhancement)
+// View transitions — smooth cross-page fade (progressive enhancement).
+// The @view-transition opt-in is inline in _includes/head.html.
 // =============================================================================
-@view-transition {
-  navigation: auto;
-}
 
 // Keep the fixed navbar stable while the page content cross-fades
 #mainNav { view-transition-name: navbar; }
-
-@media (prefers-reduced-motion: reduce) {
-  @view-transition {
-    navigation: none;
-  }
-}
 
 // =============================================================================
 // Print stylesheet — clean article output, no site chrome
