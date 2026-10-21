@@ -22,31 +22,54 @@
 - [x] Ölçüm Belirsizliği (GUM Annex F + NCSLI RP-12) — 2026-05-06 — alan: metroloji
 - [x] Kalibrasyon Zincirinin Tepesi (Birincil Standartlar) — 2026-05-07 — alan: metroloji
 - [x] Renode ile Zynq7000 Simülasyonu — 2026-05-14 — alan: gömülü/SoC
+- [x] Bandpass Sampling — 2026-05-21 — alan: RF/DSP
+- [x] Sistem Mühendisliği Nedir — 2026-05-26 — alan: sistem
+- [x] Kalman Filtresi — 2026-06-02 — alan: navigasyon/füzyon
+- [x] Coupling Dengesi — 2026-06-04 — alan: yazılım tasarımı
+- [x] Antikırılgan Sistemler — 2026-06-24 — alan: sistem/felsefe
+- [x] Dogfooding — 2026-09-04 — alan: süreç/kültür
+- [x] Analitiğin Dört Hali — 2026-09-22 — alan: veri analitiği
+- [x] INCOSE CSEP Sertifikasyonu — 2026-10-01 — alan: sertifikasyon/kariyer
 
 ## Açık PR'lar (insan inceleme bekleniyor)
 
-| PR # | Başlık | Dal | Açılış | Alan |
-|------|--------|-----|--------|------|
-| [#79](https://github.com/mavrikant/mavrikant.github.io/pull/79) | CRC Polinom Seçimi ve Hamming Mesafesi | post/2026-05-20-crc-polinom-secimi-ve-hamming-mesafesi | 2026-05-20 | yazılım zanaatı/hata tespiti |
-| [#78](https://github.com/mavrikant/mavrikant.github.io/pull/78) | VOR Nasıl Çalışır? 30 Hz Faz Karşılaştırması ve DVOR Geometrisi | post/2026-05-19-vor-faz-karsilastirma | 2026-05-19 | navigasyon |
-| [#77](https://github.com/mavrikant/mavrikant.github.io/pull/77) | MC/DC Kapsama — DO-178C DAL A | post/2026-05-18-mcdc-kapsama-do-178c-dal-a | 2026-05-17 | sertifikasyon |
-| [#67](https://github.com/mavrikant/mavrikant.github.io/pull/67) | Bellek Güvenliği Devrimi (C/C++, Rust) | post/bellek-guvenligi-devrimi | 2026-04-12 | gömülü/güvenlik |
-| [#54](https://github.com/mavrikant/mavrikant.github.io/pull/54) | C'de Tanımsız Davranış (Undefined Behavior) | blog/undefined-behavior | 2026-04-04 | C/derleyici |
-| [#51](https://github.com/mavrikant/mavrikant.github.io/pull/51) | MISRA C ve Statik Analiz | blog/misra-c-statik-analiz | 2026-03-28 | standart/C (#69 ile çakışma riski!) |
-| [#50](https://github.com/mavrikant/mavrikant.github.io/pull/50) | Float Denormalize FTZ/DAZ (eski yazı genişletme) | claude/float-denormalize-ftz-daz | 2026-03-26 | gömülü/sayısal |
-
-> **Not:** PR #51 "MISRA C ve Statik Analiz", zaten yayında olan #69 "MISRA C:2025 ile Neler Değişti?" ile konu olarak çakışıyor olabilir. İnceleyen kişinin dikkatine.
+> **UYARI — bu bölümü elle güncel tutmaya çalışmayın.** 2026-10-12 itibarıyla
+> **66 açık PR** var; buraya tek tek yazmak her çalıştırmada bayatlıyor.
+> Tek doğru kaynak:
+>
+> ```bash
+> gh pr list --repo mavrikant/mavrikant.github.io --state open --limit 200
+> ```
+>
+> Faz 2'de konu seçmeden **önce** bu komutu çalıştırın. Yayınlanmış 27 yazının
+> yanı sıra 66 açık PR da konu uzayını tüketiyor; çakışma riski defterden değil
+> yalnızca canlı listeden görülebilir.
+>
+> Birikmiş PR'larda yoğunlaşan alanlar (yeni konu seçerken kaçının):
+> `volatile`/`_Atomic` (7 PR), WCET (3), DO-178C yapısal kapsama (4),
+> watchdog (2), endianness (2), MC/DC, CRC, VOR, ILS, I/Q örnekleme,
+> linker script, GIC, MPU/MMU, lockstep, Kalman, ARINC 653, AFDX,
+> MIL-STD-1553B, RAIM, Allan deviation, sabit nokta, FTA, MTBF,
+> üç kanallı oylama, senkronizatör MTBF.
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- **Tıkalı Bir Pitot Tüpü, Hız Göstergesini Altimetreye Çevirir** —
+  dal: `post/2026-10-12-tikali-pitot-hiz-gostergesi-altimetre`,
+  dosya: `_posts/2026-10-12-tikali-pitot-hiz-gostergesi-altimetre.md`,
+  durum: PR açıldı (2026-10-12) — alan: **hava veri / sensör arızası** (yeni alan).
+  Derinlik öğesi: ISA + Saint-Venant denklemlerinden kurulan sayısal model,
+  Birgenair 301 FDR kaydına (6.688 ft'te 352 kt) **5 kt içinde** oturuyor;
+  QNH duyarlılık analizi ve menzil-denetimi testi dahil.
 
-## Reddedildi (bu çalıştırma)
+## Reddedildi
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- **DO-178C ölü kod vs devre dışı kod (§6.4.4.3)** — 2026-10-12 — sertifikasyon
+  alanında zaten 10+ açık PR var; alan rotasyonu gereği ertelendi (havuza alındı).
+- **ARINC 429 anatomisi** — 2026-10-12 — #173 (1553B) ve #165 (AFDX) ile aynı
+  "veriyolu anatomisi" kalıbı; üçüncüsü tekrar hissi verir (havuza alındı).
+- **Manyetik sapma ve WMM modelinin son kullanma tarihi** — 2026-10-12 —
+  ilginç ama derinlik öğesi zayıf; deney/analiz bileşeni kurulamadı.
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 
@@ -126,3 +149,17 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - Açık PR'lar konusunda inceleme önceliği yorumu (gözlem): #50 ve #51 hâlâ uzun
   süredir bekliyor; #50 eski yazıyı genişletiyor, #51 ise yayındaki MISRA C:2025
   ile büyük olasılıkla çakışıyor. İnceleyen kişinin dikkatine.
+
+### Bu çalıştırmada havuza eklenenler (2026-10-12)
+
+- [ ] **Soğuk hava altimetre hatası** — ISA sapmasında altimetrenin *yüksek*
+      okuması, ICAO soğuk hava düzeltme tablosunun türetimi ve CFIT bağlantısı —
+      alan: hava veri (bu yazının doğal devamı, çakışmıyor)
+- [ ] **Kısmi pitot tıkanması** — tam tıkanma yerine sızıntılı tüp: zaman sabiti,
+      irtifa+zaman karışık imzası, tanılama zorluğu — alan: hava veri
+- [ ] **AF447 buz kristali imzası** — mekanik tıkanmadan farklı olarak geçici ve
+      iki yönlü bozulma; BEA raporu temelli — alan: hava veri
+- [ ] **DO-178C ölü kod vs devre dışı kod** — §6.4.4.3 yorum belirsizliği
+- [ ] **ARINC 429 anatomisi** — Harvard bi-phase, label/SDI/SSM, 32-bit kelime
+- [ ] **Analitik yedeklilik (analytical redundancy)** — model tabanlı sensör
+      arıza tespiti; bu yazının "ne işe yarar" bölümünün derinleştirilmesi
