@@ -9,7 +9,7 @@
      script (such as polyfill.io) is blocked by the browser. connect-src
      allows jsDelivr because MathJax 4's speech worker fetches its locale
      maps (sre/mathmaps/*.json) from there for screen-reader output. -->
-<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://cdn.plot.ly https://plausible.io https://js.sentry-cdn.com https://browser.sentry-cdn.com https://giscus.app; style-src 'self' 'unsafe-inline' https://giscus.app; font-src 'self' data: https://cdn.jsdelivr.net; img-src 'self' data: https:; connect-src 'self' https://cdn.jsdelivr.net https://plausible.io https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://www.google.com https://stats.g.doubleclick.net https://*.sentry.io; frame-src 'self' https://giscus.app https://www.youtube.com https://www.youtube-nocookie.com; worker-src 'self' blob:; manifest-src 'self'; form-action 'self' https://formspree.io">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://cdn.plot.ly https://js-de.sentry-cdn.com https://browser.sentry-cdn.com https://giscus.app; style-src 'self' 'unsafe-inline' https://giscus.app; font-src 'self' data: https://cdn.jsdelivr.net; img-src 'self' data: https:; connect-src 'self' https://cdn.jsdelivr.net https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://www.google.com https://stats.g.doubleclick.net https://*.sentry.io; frame-src 'self' https://giscus.app https://www.youtube.com https://www.youtube-nocookie.com; worker-src 'self' blob:; manifest-src 'self'; form-action 'self' https://formspree.io">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <link href="/favicon.ico" rel="shortcut icon" sizes="36x36 24x24 16x16" type="image/x-icon">
 <link href="/favicon.png" rel="icon" sizes="196x196" type="image/png">
@@ -38,8 +38,9 @@
 <!-- End Jekyll SEO tag -->
 
 
-<!-- Sentry (errors + performance + replay) -->
-<script src="https://js.sentry-cdn.com/d9df60c4bcc41adb14bb648db4013b52.min.js" crossorigin="anonymous"></script>
+<!-- Sentry (errors + performance + replay). The org lives in the EU (de) region:
+     its loader is served only from js-de.sentry-cdn.com; js.sentry-cdn.com returns a no-op stub. -->
+<script src="https://js-de.sentry-cdn.com/d9df60c4bcc41adb14bb648db4013b52.min.js" crossorigin="anonymous"></script>
 <script>
   Sentry.onLoad(function () {
     Sentry.init({
@@ -55,16 +56,6 @@
       replaysOnErrorSampleRate: 1.0,
     });
   });
-</script>
-
-
-
-<!-- Privacy-friendly analytics by Plausible -->
-<script defer src="https://plausible.io/js/pa-BMAxUwrIK8Icg2HpLysj2.js"></script>
-<script>
-  window.plausible = window.plausible || function () { (window.plausible.q = window.plausible.q || []).push(arguments) };
-  window.plausible.init = window.plausible.init || function (i) { window.plausible.o = i || {} };
-  plausible.init();
 </script>
 
 
