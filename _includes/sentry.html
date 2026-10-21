@@ -1,6 +1,7 @@
 {% if site.sentry_loader_id and site.sentry_loader_id != "YOUR_LOADER_ID_HERE" %}
-<!-- Sentry (errors + performance + replay) -->
-<script src="https://js.sentry-cdn.com/{{ site.sentry_loader_id }}.min.js" crossorigin="anonymous"></script>
+<!-- Sentry (errors + performance + replay). The org lives in the EU (de) region:
+     its loader is served only from js-de.sentry-cdn.com; js.sentry-cdn.com returns a no-op stub. -->
+<script src="https://js-de.sentry-cdn.com/{{ site.sentry_loader_id }}.min.js" crossorigin="anonymous"></script>
 <script>
   Sentry.onLoad(function () {
     Sentry.init({

@@ -48,10 +48,6 @@ google_analytics:   G-YDEV31NZ5J
 # Found in Sentry: Settings → Projects → <project> → Client Keys (DSN) → Loader Script
 sentry_loader_id:   d9df60c4bcc41adb14bb648db4013b52
 
-# Add your Plausible site snippet ID here to activate Plausible Analytics
-# Found in Plausible: Site Settings → General → Site Installation (the pa-<ID> in the script src)
-plausible_id:       BMAxUwrIK8Icg2HpLysj2
-
 # jekyll-seo-tag: Turkish title prefix for /posts/pageN/ ("Page 2 of 3 for …")
 seo_paginator_message: "Sayfa %<current>s / %<total>s · "
 
