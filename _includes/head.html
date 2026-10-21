@@ -10,6 +10,19 @@
      map without a CSP error. -->
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; base-uri 'self'; object-src 'none'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://cdn.plot.ly https://js-de.sentry-cdn.com https://browser.sentry-cdn.com https://giscus.app; style-src 'self' 'unsafe-inline' https://giscus.app; font-src 'self' data: https://cdn.jsdelivr.net; img-src 'self' data: https:; connect-src 'self' https://cdn.jsdelivr.net https://www.googletagmanager.com https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://*.analytics.google.com https://www.google.com https://stats.g.doubleclick.net https://browser.sentry-cdn.com https://*.sentry.io; frame-src 'self' https://giscus.app https://www.youtube.com https://www.youtube-nocookie.com; worker-src 'self' blob:; manifest-src 'self'; form-action 'self' https://formspree.io">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<!-- Cross-page view transitions (fade between pages). The opt-in is inline,
+     not in main.css, so it is active before the page is first revealed:
+     Chromium skips the transition with "ViewTransition opt-in disabled" when
+     it is not. A skipped transition rejects its `ready` promise, which nothing
+     awaits; marking it handled keeps it out of the console and Sentry. -->
+<style>@view-transition{navigation:auto}@media (prefers-reduced-motion:reduce){@view-transition{navigation:none}}</style>
+<script>
+  ['pageswap', 'pagereveal'].forEach(function (type) {
+    window.addEventListener(type, function (e) {
+      if (e.viewTransition) e.viewTransition.ready.catch(function () {});
+    });
+  });
+</script>
 {% favicon %}
 {% seo %}
 {% include sentry.html %}
