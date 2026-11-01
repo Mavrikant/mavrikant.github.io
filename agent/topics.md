@@ -22,31 +22,64 @@
 - [x] Ölçüm Belirsizliği (GUM Annex F + NCSLI RP-12) — 2026-05-06 — alan: metroloji
 - [x] Kalibrasyon Zincirinin Tepesi (Birincil Standartlar) — 2026-05-07 — alan: metroloji
 - [x] Renode ile Zynq7000 Simülasyonu — 2026-05-14 — alan: gömülü/SoC
+- [x] Bandpass Sampling — 2026-05-21 — alan: RF/DSP
+- [x] Sistem Mühendisliği Nedir — 2026-05-26 — alan: sistem
+- [x] Kalman Filtresi — 2026-06-02 — alan: navigasyon/füzyon
+- [x] Coupling Dengesi — 2026-06-04 — alan: yazılım tasarımı
+- [x] Antikırılgan Sistemler — 2026-06-24 — alan: sistem/felsefe
+- [x] Dogfooding — 2026-09-04 — alan: ürün/kültür
+- [x] Analitiğin Dört Hâli — 2026-09-22 — alan: veri analitiği
+- [x] INCOSE CSEP Sertifikasyonu Yolculuğum — 2026-10-01 — alan: sertifikasyon/kariyer
 
 ## Açık PR'lar (insan inceleme bekleniyor)
 
-| PR # | Başlık | Dal | Açılış | Alan |
-|------|--------|-----|--------|------|
-| [#79](https://github.com/mavrikant/mavrikant.github.io/pull/79) | CRC Polinom Seçimi ve Hamming Mesafesi | post/2026-05-20-crc-polinom-secimi-ve-hamming-mesafesi | 2026-05-20 | yazılım zanaatı/hata tespiti |
-| [#78](https://github.com/mavrikant/mavrikant.github.io/pull/78) | VOR Nasıl Çalışır? 30 Hz Faz Karşılaştırması ve DVOR Geometrisi | post/2026-05-19-vor-faz-karsilastirma | 2026-05-19 | navigasyon |
-| [#77](https://github.com/mavrikant/mavrikant.github.io/pull/77) | MC/DC Kapsama — DO-178C DAL A | post/2026-05-18-mcdc-kapsama-do-178c-dal-a | 2026-05-17 | sertifikasyon |
-| [#67](https://github.com/mavrikant/mavrikant.github.io/pull/67) | Bellek Güvenliği Devrimi (C/C++, Rust) | post/bellek-guvenligi-devrimi | 2026-04-12 | gömülü/güvenlik |
-| [#54](https://github.com/mavrikant/mavrikant.github.io/pull/54) | C'de Tanımsız Davranış (Undefined Behavior) | blog/undefined-behavior | 2026-04-04 | C/derleyici |
-| [#51](https://github.com/mavrikant/mavrikant.github.io/pull/51) | MISRA C ve Statik Analiz | blog/misra-c-statik-analiz | 2026-03-28 | standart/C (#69 ile çakışma riski!) |
-| [#50](https://github.com/mavrikant/mavrikant.github.io/pull/50) | Float Denormalize FTZ/DAZ (eski yazı genişletme) | claude/float-denormalize-ftz-daz | 2026-03-26 | gömülü/sayısal |
+> **Bu bölüm elle güncellenmiyor — tek doğru kaynak GitHub.** Konu seçmeden önce
+> mutlaka şunu çalıştır:
+>
+> ```bash
+> gh pr list --repo mavrikant/mavrikant.github.io --state open --limit 200
+> ```
+>
+> **2026-11-01 itibarıyla 71 açık PR var.** Aşağıdaki fikir havuzunun büyük kısmı
+> çoktan açık bir PR'a dönüşmüş durumda; havuzdan körlemesine konu seçmek
+> neredeyse kesin olarak çakışma üretir.
 
-> **Not:** PR #51 "MISRA C ve Statik Analiz", zaten yayında olan #69 "MISRA C:2025 ile Neler Değişti?" ile konu olarak çakışıyor olabilir. İnceleyen kişinin dikkatine.
+Alan bazında doyum durumu (2026-11-01 taramasından):
+
+| Alan | Durum | Örnek açık PR'lar |
+|---|---|---|
+| Sertifikasyon (DO-178C/330/331/332/326A) | **doygun** | #77, #118, #146, #151, #158, #163, #164, #168, #171, #172, #176, #186 |
+| ARM / gömülü / SoC | **doygun** | #90, #101, #119, #121, #122, #135, #145, #150, #166, #175, #181, #183 |
+| `volatile` / bellek modeli | **aşırı doygun (6 PR)** | #100, #134, #155, #156, #157, #159 |
+| RF / DSP | **doygun** | #114, #170, #178, #182, #208 |
+| Navigasyon | **doygun** | #78, #102, #103, #129, #167, #196, #203 |
+| Güvenilirlik / emniyet | doygun | #89, #96, #124, #161, #169, #174, #179, #195 |
+| Veri yolu (1553/AFDX/429) | doygun | #165, #173 |
+| **Test edilebilirlik / bakım (BIT, NFF, MTBUR)** | **boş — bu çalıştırmada girildi** | — |
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- **Söktük, Test Ettik, Arıza Yok: BIT Yanlış Alarmlarının Aritmetiği** —
+  dal: `post/2026-11-01-bit-yanlis-alarm-nff-mtbur`,
+  dosya: `_posts/2026-11-01-bit-yanlis-alarm-nff-mtbur.md`,
+  araştırma: `agent/research/2026-11-01-bit-yanlis-alarm-nff-mtbur.md`,
+  model: `agent/research/2026-11-01-bit-model.py`,
+  durum: PR açıldı — alan: test edilebilirlik / bakım (yeni alan).
 
-## Reddedildi (bu çalıştırma)
+## Reddedildi (2026-11-01 çalıştırması)
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- **ARINC 825 / CAN hata sınırlama (error confinement)** — 2026-11-01 — güçlü bir
+  konu, ama #165 (AFDX) ve #173 (MIL-STD-1553B) ile birlikte üçüncü "veri yolu
+  anatomisi" yazısı olurdu; alan rotasyonu kuralına takıldı. **Havuzda tutuldu.**
+- **IEEE 1588 / PTP ile aviyonikte zaman senkronizasyonu** — 2026-11-01 — İngilizce
+  ve Türkçe kaynak görece bol (telekom tarafından), Bölüm 8 novelty kapısını
+  geçemedi.
+- **Field Loadable Software (ARINC 665/666)** — 2026-11-01 — ilginç, ama #176
+  (Parameter Data Item) ile veri yükleme ekseninde örtüşme riski yüksek.
+  **Havuzda tutuldu.**
+- **FMA contraction / kayan nokta determinizmi** — 2026-11-01 — yayındaki "Kayan
+  Nokta Sayılarının Tehlikeleri" ve açık #184 (sinf argüman indirgeme), #50
+  (denormal FTZ/DAZ) ile çakışıyor.
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 
@@ -108,21 +141,33 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - [ ] DO-254 donanım sertifikasyonu (yazarın uzmanlığı ağırlıklı yazılım tarafında)
 - [ ] İzlenebilirlik matrisi (klasik konu, derinlik çıkarmak zor)
 
-## Notlar (bu çalıştırma — 2026-05-21)
+## Notlar (bu çalıştırma — 2026-11-01)
 
-- **Bandpass Sampling** seçildi (alan: RF/DSP). Önceki çalıştırmaların ardından
-  açılan PR'lar son üç alt-alanı (sertifikasyon #77, navigasyon #78, yazılım
-  zanaatı/CRC #79) işaretlemişti; bu yazı **bu üç alandan da** son yayınlanan 3
-  posttan da (Renode gömülü/SoC, kalibrasyon ×2) farklı bir alan getiriyor.
-- Yayın kapısı durumu: Bölüm 4 yalnızca "yayın PR ile olmalı" kuralı koyar; backlog
-  büyüklüğüne dair sert bir sınır yoktur. Açık 7 PR olmasına rağmen son yayınlanan
-  yazıdan (Renode, 2026-05-14) bu yana 7 gün geçti — `min_yayin_araligi_gun = 2`
-  şartı fazlasıyla sağlanmış durumda. Bu çalıştırmada yeni PR açıldı.
-- Bandpass sampling konusunun "neden Türkçe içerikte zor bulunuyor" yanıtı:
-  matematik (Vaughan 1991), datasheet okuma (analog input BW), saat phase noise
-  ve filtre tasarımı disiplinlerinin kesişiminde bulunuyor; Türkçe kaynaklar
-  genellikle yalnızca tek bir cepheden ele almış oluyor (genelde Lyons özet
-  çevirisi). Sentez ve somut sayısal örnek boşluğu büyük.
-- Açık PR'lar konusunda inceleme önceliği yorumu (gözlem): #50 ve #51 hâlâ uzun
-  süredir bekliyor; #50 eski yazıyı genişletiyor, #51 ise yayındaki MISRA C:2025
-  ile büyük olasılıkla çakışıyor. İnceleyen kişinin dikkatine.
+- **Seçilen alan yepyeni:** test edilebilirlik / bakım (BIT, NFF, MTBUR). 27 yayın
+  ve 71 açık PR'ın hiçbiri bu alana girmiyor. Son 3 yayın (INCOSE CSEP, analitik,
+  dogfooding) ile de alan çakışması yok.
+- **#174 (MTBF Bir Ömür Değildir) ile ayrım:** o yazı emniyet ekseninde
+  (10⁻⁹/uçuş saati hedefinin aritmetiği); bu yazı operasyonel güvenilirlik
+  ekseninde (MTBUR, söküm hızı, yanlış alarm). Kesişim MTBF teriminin tanımıyla
+  sınırlı.
+- **Novelty gerekçesi:** konu pahalı standart belgelerine (ARINC 604-1, ARINC 624-1)
+  ve ödeme duvarı ardındaki güvenilirlik dergilerine dağılmış durumda; üstelik
+  alandaki en iyi saha verisi bir TuHK albayının IEEE makalesinde ve Türkçe
+  literatürde hiç işlenmemiş.
+- **Derinlik öğesi:** matematiksel türetme + sayısal doğrulama. k-ardışık onay
+  filtresi için kapalı formda eşik `tau* = delta / ln(1/q)` türetildi; yanlış alarm
+  olasılığı tam Markov yinelemesiyle hesaplanıp `N q^k` yaklaşımıyla karşılaştırıldı
+  (3 anlamlı hanede örtüştü); yayımlanmış MTBUR/MTBF oranı ters çevrilerek ima
+  edilen aralıklı arıza hızı çıkarıldı.
+- **Kendi modelimin sınırını yazıya koydum:** üstel tespit yaklaşımı `tau << delta`
+  rejiminde çöküyor (MC 0,0499 vs formül 2e-9); yazıda açıkça belirtildi.
+- **Yerel build:** bu çalıştırmada `bundle exec jekyll build` tamamlanamadı —
+  `assets/main.scss` dönüşümünde `Broken pipe` (dart-sass alt süreci ölüyor).
+  Neden içerik değil, ortam: aynı anda başka bir Claude oturumu da aynı paylaşımlı
+  `vendor/bundle` üzerinden build alıyordu. Jekyll yazıyı sorunsuz işledi
+  (TableProcessor + MathjaxProcessor logda görünüyor). Doğrulama bunun yerine
+  doğrudan kramdown ile yapıldı: 6 tablo, 1 mermaid div, 96 satır-içi + 6 display
+  math span, hiçbirinde `<em>`/tablo enjeksiyonu yok.
+- **Yakalanan gerçek hata:** `$\tau^{*}$` içindeki yıldız, çevresindeki `**kalın**`
+  işaretleriyle çakışıp kramdown'da `<em>` bozulması üretiyordu. `\tau^{\star}`
+  ile düzeltildi. **Kural: matematik içinde asla ham `*` kullanma.**
