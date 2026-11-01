@@ -331,7 +331,7 @@ tespit olasılığını fena hâlde küçümsüyor.
 Aynı veriyi logaritmik eksende görmek, iki eğrinin ayrışmasını daha net gösteriyor:
 
 <figure class="post-figure">
-<svg viewBox="0 0 660 370" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Onay filtresi uzunlugu k arttikca yanlis alarm olasiligi geometrik olarak cokerken araliklı arıza tespiti yavas azalir; kisa epizodlarda tespit tamamen kaybolur.">
+<svg viewBox="0 0 660 370" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Onay filtresi uzunluğu k arttıkça yanlış alarm olasılığı geometrik olarak çökerken aralıklı arıza tespiti yavaş azalır; kısa epizodlarda tespit tamamen kaybolur.">
 <g font-family="system-ui,sans-serif" font-size="12" fill="currentColor">
 <line x1="62" y1="324.0" x2="452" y2="324.0" stroke="currentColor" stroke-opacity="0.13"/>
 <text x="54" y="328.0" text-anchor="end" fill-opacity="0.75">10<tspan baseline-shift="super" font-size="9">-9</tspan></text>
@@ -359,28 +359,28 @@ Aynı veriyi logaritmik eksende görmek, iki eğrinin ayrışmasını daha net g
 <text x="192.0" y="344" text-anchor="middle" fill-opacity="0.85">k=2</text>
 <text x="322.0" y="344" text-anchor="middle" fill-opacity="0.85">k=3</text>
 <text x="452.0" y="344" text-anchor="middle" fill-opacity="0.85">k=4</text>
-<text x="257" y="360" text-anchor="middle" fill-opacity="0.7">onay filtresi uzunlugu (ardisik &quot;fail&quot; sayisi)</text>
+<text x="257" y="360" text-anchor="middle" fill-opacity="0.7">onay filtresi uzunluğu (ardışık &quot;fail&quot; sayısı)</text>
 <polyline points="62.0,37.0 192.0,39.8 322.0,42.5 452.0,45.3" fill="none" stroke="#2bb3a3" stroke-width="2.4"/>
 <circle cx="62.0" cy="37.0" r="3.4" fill="#2bb3a3"/>
 <circle cx="192.0" cy="39.8" r="3.4" fill="#2bb3a3"/>
 <circle cx="322.0" cy="42.5" r="3.4" fill="#2bb3a3"/>
 <circle cx="452.0" cy="45.3" r="3.4" fill="#2bb3a3"/>
-<text x="462" y="48" fill="#2bb3a3" font-size="11.5">P_tespit  (epizod 5 s)</text>
+<text x="462" y="48" fill="#2bb3a3" font-size="11.5">P_tespit (epizod 5 s)</text>
 <polyline points="62.0,77.3 192.0,324.0 322.0,324.0 452.0,324.0" fill="none" stroke="#2bb3a3" stroke-width="2.4" stroke-dasharray="4 3"/>
 <circle cx="62.0" cy="77.3" r="3.4" fill="#2bb3a3"/>
 <circle cx="192.0" cy="324.0" r="3.4" fill="#2bb3a3"/>
 <circle cx="322.0" cy="324.0" r="3.4" fill="#2bb3a3"/>
 <circle cx="452.0" cy="324.0" r="3.4" fill="#2bb3a3"/>
-<text x="462" y="66" fill="#2bb3a3" font-size="11.5">P_tespit  (epizod 50 ms)</text>
+<text x="462" y="66" fill="#2bb3a3" font-size="11.5">P_tespit (epizod 50 ms)</text>
 <polyline points="62.0,35.6 192.0,104.3 322.0,200.4 452.0,296.5" fill="none" stroke="#e0952a" stroke-width="2.4"/>
 <circle cx="62.0" cy="35.6" r="3.4" fill="#e0952a"/>
 <circle cx="192.0" cy="104.3" r="3.4" fill="#e0952a"/>
 <circle cx="322.0" cy="200.4" r="3.4" fill="#e0952a"/>
 <circle cx="452.0" cy="296.5" r="3.4" fill="#e0952a"/>
-<text x="462" y="84" fill="#e0952a" font-size="11.5">P_yanlis-alarm (saglam birim)</text>
-<text x="462" y="112" fill-opacity="0.6" font-size="10.5">delta = 1 s, q = 10<tspan baseline-shift="super" font-size="8">-3</tspan></text>
+<text x="462" y="84" fill="#e0952a" font-size="11.5">P_yanlış-alarm (sağlam birim)</text>
+<text x="462" y="112" fill-opacity="0.6" font-size="10.5">Δ = 1 s, q = 10<tspan baseline-shift="super" font-size="8">-3</tspan></text>
 <text x="462" y="126" fill-opacity="0.6" font-size="10.5">bacak = 2 saat (N = 7200)</text>
-<text x="462" y="140" fill-opacity="0.6" font-size="10.5">esik: tau* = 0,145 s</text>
+<text x="462" y="140" fill-opacity="0.6" font-size="10.5">eşik: τ* = 0,145 s</text>
 </g></svg>
 <figcaption>Onay filtresi uzadıkça yanlış alarm olasılığı her adımda 1000 kat düşerken (turuncu), uzun epizodların tespiti yavaşça azalıyor (düz yeşil). Kısa epizodlarda tespit $k=2$’de tamamen kayboluyor (kesikli yeşil).</figcaption>
 </figure>
