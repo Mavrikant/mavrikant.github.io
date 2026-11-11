@@ -22,6 +22,11 @@
 - [x] Ölçüm Belirsizliği (GUM Annex F + NCSLI RP-12) — 2026-05-06 — alan: metroloji
 - [x] Kalibrasyon Zincirinin Tepesi (Birincil Standartlar) — 2026-05-07 — alan: metroloji
 - [x] Renode ile Zynq7000 Simülasyonu — 2026-05-14 — alan: gömülü/SoC
+- [x] Bandpass Sampling — 2026-05-21 — alan: RF/DSP
+- [x] Sistem Mühendisliği Nedir? — 2026-05-26 — alan: sistem
+- [x] Kalman Filtresi ve EKF — 2026-06-02 — alan: navigasyon/füzyon
+- [x] Coupling'i Dengelemek — 2026-06-04 — alan: yazılım tasarımı
+- [x] Antikırılgan: Belirsizlikten Güç Alan Sistemler — 2026-06-24 — alan: sistem/felsefe
 
 ## Açık PR'lar (insan inceleme bekleniyor)
 
@@ -39,14 +44,15 @@
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- **volatile Yetmez: C'de Eşzamanlılık, Bellek Modeli ve _Atomic'in Yeri** —
+  dal: `post/2026-07-07-volatile-yetmez-c-bellek-modeli-atomic`,
+  dosya: `_posts/2026-07-07-volatile-yetmez-c-bellek-modeli-atomic.md`,
+  durum: PR açıldı (bu çalıştırma) — alan: C/eşzamanlılık, gömülü bellek modeli.
 
 ## Reddedildi (bu çalıştırma)
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- _(bu çalıştırmada konu reddedilmedi; `volatile`'ın doğru kullanımı havuzdan seçildi;
+  son 3 yayının alt-alanlarıyla — sistem/felsefe, yazılım tasarımı, navigasyon — hiçbir örtüşme yok.)_
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 
@@ -73,14 +79,14 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
       alan: gömülü — kendi linker script'i yazma rehberi
 - [ ] **Watchdog tasarım desenleri: tek vs çoklu görev watchdog, deadman switch,
       windowed watchdog** — alan: güvenilirlik — gerçek tasarım kararları
-- [ ] **`volatile`'ın doğru kullanımı: nerede yetmez, neden `_Atomic` gerekir?** —
-      alan: C/eşzamanlılık — derleyici çıktı analizi
+- [x] ~~**`volatile`'ın doğru kullanımı: nerede yetmez, neden `_Atomic` gerekir?**~~ —
+      **2026-07-07 yazıldı**, PR açık
 - [ ] **VOR'un çalışma prensibi: 30 Hz referans + değişken faz nasıl yön verir?** —
-      alan: navigasyon — faz farkı matematiği + sinyal şeması
+      alan: navigasyon — faz farkı matematiği + sinyal şeması (PR #78 açık)
 - [ ] **ILS anatomisi: localizer 90/150 Hz DDM ve glide slope** —
       alan: navigasyon — modülasyon derinliği farkı + örnek hesap
-- [ ] **Kalman filtresi tuzakları: numerik stabilite, gözlemlenebilirlik, tuning** —
-      alan: navigasyon/füzyon — basit IMU örneği + Python kodu
+- [x] ~~**Kalman filtresi tuzakları: numerik stabilite, gözlemlenebilirlik, tuning**~~ —
+      **2026-06-02 yayında (Kalman + EKF)**
 - [ ] **Sabit nokta (Q-format) aritmetik: Cortex-M0'da FPU yokken DSP nasıl yapılır?** —
       alan: gömülü/DSP — Q15/Q31 örnekleri, overflow yönetimi
 
@@ -108,21 +114,25 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - [ ] DO-254 donanım sertifikasyonu (yazarın uzmanlığı ağırlıklı yazılım tarafında)
 - [ ] İzlenebilirlik matrisi (klasik konu, derinlik çıkarmak zor)
 
-## Notlar (bu çalıştırma — 2026-05-21)
+## Notlar (bu çalıştırma — 2026-07-07)
 
-- **Bandpass Sampling** seçildi (alan: RF/DSP). Önceki çalıştırmaların ardından
-  açılan PR'lar son üç alt-alanı (sertifikasyon #77, navigasyon #78, yazılım
-  zanaatı/CRC #79) işaretlemişti; bu yazı **bu üç alandan da** son yayınlanan 3
-  posttan da (Renode gömülü/SoC, kalibrasyon ×2) farklı bir alan getiriyor.
-- Yayın kapısı durumu: Bölüm 4 yalnızca "yayın PR ile olmalı" kuralı koyar; backlog
-  büyüklüğüne dair sert bir sınır yoktur. Açık 7 PR olmasına rağmen son yayınlanan
-  yazıdan (Renode, 2026-05-14) bu yana 7 gün geçti — `min_yayin_araligi_gun = 2`
-  şartı fazlasıyla sağlanmış durumda. Bu çalıştırmada yeni PR açıldı.
-- Bandpass sampling konusunun "neden Türkçe içerikte zor bulunuyor" yanıtı:
-  matematik (Vaughan 1991), datasheet okuma (analog input BW), saat phase noise
-  ve filtre tasarımı disiplinlerinin kesişiminde bulunuyor; Türkçe kaynaklar
-  genellikle yalnızca tek bir cepheden ele almış oluyor (genelde Lyons özet
-  çevirisi). Sentez ve somut sayısal örnek boşluğu büyük.
-- Açık PR'lar konusunda inceleme önceliği yorumu (gözlem): #50 ve #51 hâlâ uzun
-  süredir bekliyor; #50 eski yazıyı genişletiyor, #51 ise yayındaki MISRA C:2025
-  ile büyük olasılıkla çakışıyor. İnceleyen kişinin dikkatine.
+- **volatile Yetmez** seçildi (alan: C/eşzamanlılık, gömülü bellek modeli). Son 3
+  yayının (2026-06-24 Antikırılgan / sistem-felsefe, 2026-06-04 Coupling / yazılım
+  tasarımı, 2026-06-02 Kalman / navigasyon) hiçbiriyle alt-alan örtüşmüyor. Açık
+  PR'lardaki konularla da örtüşme yok (#54 UB, #67 bellek güvenliği, #77 MC/DC,
+  #78 VOR, #79 CRC — hiçbiri C11 atomics / bellek modeli değil).
+- Yayın kapısı: son yayın 2026-06-24; bu çalıştırma 2026-07-07 → 13 gün geçti,
+  `min_yayin_araligi_gun = 2` fazlasıyla sağlanmış. Bu çalıştırmada PR açıldı.
+- "Neden Türkçe içerikte zor bulunuyor" yanıtı: C standardı (as-if kuralı, soyut
+  makine), ARM/POWER weak memory model, C11 `<stdatomic.h>` ve MISRA'nın kesişiminde
+  bir konu. Türkçe kaynaklar genelde "volatile = kesme paylaşımı" cliché'siyle
+  yetiniyor; assembly çıktısı analizi + weakly-ordered CPU + `memory_order`
+  sentezini yapan yok. İngilizce'de bile ayrık kaynaklar var (McKenney'in perfbook'u,
+  Linux kernel'in volatile-considered-harmful'ı, Preshing bloğu) — Türkçe'de sentez
+  boşluğu net.
+- Ledger senkronizasyonu: son 5 yayın (bandpass sampling'ten antikırılgana kadar)
+  bu çalıştırmada listeye eklendi; önceki çalıştırma yalnızca kendi yazdığı yazıyı
+  bırakıp defteri tam güncellememişti.
+- Açık PR notları (önceki gözlem geçerli): #50 ve #51 hâlâ inceleme bekliyor; #51
+  büyük olasılıkla yayındaki MISRA C:2025 ile çakışır. #79 (CRC), #78 (VOR), #77
+  (MC/DC) ve #67 (bellek güvenliği) hâlâ açık — inceleyen kişinin dikkatine.
