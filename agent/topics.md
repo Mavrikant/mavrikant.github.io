@@ -39,10 +39,12 @@
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- **Deterministik Derleme — İki Build Slave Arasında Bit-Bit Aynı İkili ve DO-178C Kanıtı** —
+  dal: `post/2026-07-08-deterministik-derleme-do-178c-kaniti`,
+  dosya: `_posts/2026-07-08-deterministik-derleme-do-178c-kaniti.md`,
+  durum: PR açılacak (bu çalıştırma) — alan: yazılım zanaatı / sertifikasyon / build.
+
+- ~~Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek~~ — 2026-05-21 yayında (arşiv).
 
 ## Reddedildi (bu çalıştırma)
 
@@ -92,7 +94,7 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - [ ] FMEA pratikte: gerçek bir alt-sistem üzerinden adım adım
 - [ ] Fault Tree Analysis ile minimal cut set hesabı
 - [ ] FPU denormal performansı: Cortex-A vs x86 davranış farkı
-- [ ] Deterministik build: SOURCE_DATE_EPOCH, reproducible toolchain
+- [x] ~~Deterministik build: SOURCE_DATE_EPOCH, reproducible toolchain~~ — 2026-07-08 seçildi ve yazıldı
 - [ ] Endianness: ağ baytı vs host baytı, ARM'ın iki modu, bitfield tuzakları
 - [ ] DMA yarış koşulları: ARM'da cache invalidation/clean stratejileri
 - [ ] Lockstep CPU mimarisi: TI Hercules / NXP MPC57xx örnekleri
@@ -108,7 +110,25 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - [ ] DO-254 donanım sertifikasyonu (yazarın uzmanlığı ağırlıklı yazılım tarafında)
 - [ ] İzlenebilirlik matrisi (klasik konu, derinlik çıkarmak zor)
 
-## Notlar (bu çalıştırma — 2026-05-21)
+## Notlar (bu çalıştırma — 2026-07-08)
+
+- **Deterministik Derleme** seçildi (alan: yazılım zanaatı + sertifikasyon).
+  Alan rotasyonu: son 3 yayın (antikırılgan felsefi/sistem, coupling yazılım-tasarımı,
+  Kalman navigasyon) → yeni yazı yazılım-build zincirinde, çakışma yok. Son 30 gündeki
+  açık PR akışı (volatile/_Atomic serisi, DO-330, Cortex-A boot, MPU/MMU, DMA, lockstep,
+  SEU, endianness, GIC, ILS, WCET, linker script) da bu konuyu içermiyor.
+- "Neden Türkçede zor bulunuyor?" yanıtı: build sistemleri (make/CMake) ile Reproducible
+  Builds spec (2015), toolchain hermetikliği ve DO-178C SECI/DO-330 tool qualification —
+  bu dört disiplinin kesişimi. Türkçe kaynakların hemen tamamı ya sadece build sistemi
+  (Make/CMake) ya sadece "Docker imajı" düzeyinde kalıyor; SOURCE_DATE_EPOCH + hermetik
+  toolchain + sertifikasyon kanıtı üçlemesini birleştiren yazı Türkçede yok.
+- Derinlik öğesi: DENEY. `foo.c` üzerinde iki slave, `sha256sum` farkı, `diffoscope`
+  çıktısı, beş cephe (SOURCE_DATE_EPOCH, -ffile-prefix-map, sıralama, TZ/LC_ALL,
+  hermetik toolchain) uygulaması, bit-bit özdeşliğe iniş.
+- Yayın kapısı: son yayın 2026-06-24 (antikırılgan) → 14 gün geçti,
+  `min_yayin_araligi_gun = 2` fazlasıyla sağlanıyor.
+
+## Notlar (önceki çalıştırma — 2026-05-21)
 
 - **Bandpass Sampling** seçildi (alan: RF/DSP). Önceki çalıştırmaların ardından
   açılan PR'lar son üç alt-alanı (sertifikasyon #77, navigasyon #78, yazılım
