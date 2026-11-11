@@ -22,31 +22,45 @@
 - [x] Ölçüm Belirsizliği (GUM Annex F + NCSLI RP-12) — 2026-05-06 — alan: metroloji
 - [x] Kalibrasyon Zincirinin Tepesi (Birincil Standartlar) — 2026-05-07 — alan: metroloji
 - [x] Renode ile Zynq7000 Simülasyonu — 2026-05-14 — alan: gömülü/SoC
+- [x] Bandpass Sampling — 2026-05-21 — alan: RF/DSP
+- [x] Sistem Mühendisliği Nedir — 2026-05-26 — alan: sistem
+- [x] Kalman Filtresi — 2026-06-02 — alan: navigasyon/füzyon
+- [x] Coupling Dengesi — 2026-06-04 — alan: yazılım tasarımı
+- [x] Antikırılgan Sistemler — 2026-06-24 — alan: sistem/felsefe
+- [x] Dogfooding — 2026-09-04 — alan: ürün/süreç
+- [x] Analitiğin Dört Hali — 2026-09-22 — alan: veri analitiği
+- [x] INCOSE CSEP Sertifikasyonu Yolculuğum — 2026-10-01 — alan: kariyer/sertifikasyon
 
 ## Açık PR'lar (insan inceleme bekleniyor)
 
-| PR # | Başlık | Dal | Açılış | Alan |
-|------|--------|-----|--------|------|
-| [#79](https://github.com/mavrikant/mavrikant.github.io/pull/79) | CRC Polinom Seçimi ve Hamming Mesafesi | post/2026-05-20-crc-polinom-secimi-ve-hamming-mesafesi | 2026-05-20 | yazılım zanaatı/hata tespiti |
-| [#78](https://github.com/mavrikant/mavrikant.github.io/pull/78) | VOR Nasıl Çalışır? 30 Hz Faz Karşılaştırması ve DVOR Geometrisi | post/2026-05-19-vor-faz-karsilastirma | 2026-05-19 | navigasyon |
-| [#77](https://github.com/mavrikant/mavrikant.github.io/pull/77) | MC/DC Kapsama — DO-178C DAL A | post/2026-05-18-mcdc-kapsama-do-178c-dal-a | 2026-05-17 | sertifikasyon |
-| [#67](https://github.com/mavrikant/mavrikant.github.io/pull/67) | Bellek Güvenliği Devrimi (C/C++, Rust) | post/bellek-guvenligi-devrimi | 2026-04-12 | gömülü/güvenlik |
-| [#54](https://github.com/mavrikant/mavrikant.github.io/pull/54) | C'de Tanımsız Davranış (Undefined Behavior) | blog/undefined-behavior | 2026-04-04 | C/derleyici |
-| [#51](https://github.com/mavrikant/mavrikant.github.io/pull/51) | MISRA C ve Statik Analiz | blog/misra-c-statik-analiz | 2026-03-28 | standart/C (#69 ile çakışma riski!) |
-| [#50](https://github.com/mavrikant/mavrikant.github.io/pull/50) | Float Denormalize FTZ/DAZ (eski yazı genişletme) | claude/float-denormalize-ftz-daz | 2026-03-26 | gömülü/sayısal |
-
-> **Not:** PR #51 "MISRA C ve Statik Analiz", zaten yayında olan #69 "MISRA C:2025 ile Neler Değişti?" ile konu olarak çakışıyor olabilir. İnceleyen kişinin dikkatine.
+> **Bu tablo kalıcı olarak bayat kalıyordu; kaldırıldı.** Konu seçmeden önce canlı
+> listeyi oku — 2026-10-20 itibarıyla **70 açık PR** var ve neredeyse tamamı
+> birleştirilmemiş yazı taslağı:
+>
+> ```bash
+> gh pr list --repo mavrikant/mavrikant.github.io --state open --limit 200 \
+>   --json number,title,headRefName
+> ```
+>
+> Adayı hem bu listeye hem `_posts/` envanterine **anlam** olarak (başlık değil)
+> kontrol et. Birikmiş PR'larda doygun alanlar: `volatile`/`_Atomic` (7 PR), WCET (3),
+> DO-178C yapısal kapsama, watchdog (2), endianness, MC/DC, ARM çevre birimleri,
+> NCO/IIR/IQ tarafında DSP.
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- **CIC Filtresinde İntegratör Taşar — ve Bu Bir Bug Değildir** —
+  dal: `post/2026-10-20-cic-tasan-integrator`,
+  dosya: `_posts/2026-10-20-cic-tasan-integrator.md`,
+  araştırma: `agent/research/2026-10-20-cic-tasan-integrator.md`,
+  durum: PR açıldı (2026-10-20) — alan: DSP/gömülü aritmetik.
 
-## Reddedildi (bu çalıştırma)
+## Reddedildi / bekletildi (2026-10-20 çalıştırması)
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- ARINC 429 anatomisi — PR #122 (endianness) 429'a değiniyor; "doküman yeniden yazımı" riski.
+- DO-333 formel yöntemler eki — PR #163 (abstract interpretation) ile kısmi örtüşme.
+- ARP4761A ortak sebep analizi (PRA/ZSA/CMA) — somut derinlik öğesi üretmek güç.
+- ADC clock jitter ve ENOB — yayındaki bandpass sampling yazısına fazla komşu.
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 
@@ -108,21 +122,21 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - [ ] DO-254 donanım sertifikasyonu (yazarın uzmanlığı ağırlıklı yazılım tarafında)
 - [ ] İzlenebilirlik matrisi (klasik konu, derinlik çıkarmak zor)
 
-## Notlar (bu çalıştırma — 2026-05-21)
+## Notlar (bu çalıştırma — 2026-10-20)
 
-- **Bandpass Sampling** seçildi (alan: RF/DSP). Önceki çalıştırmaların ardından
-  açılan PR'lar son üç alt-alanı (sertifikasyon #77, navigasyon #78, yazılım
-  zanaatı/CRC #79) işaretlemişti; bu yazı **bu üç alandan da** son yayınlanan 3
-  posttan da (Renode gömülü/SoC, kalibrasyon ×2) farklı bir alan getiriyor.
-- Yayın kapısı durumu: Bölüm 4 yalnızca "yayın PR ile olmalı" kuralı koyar; backlog
-  büyüklüğüne dair sert bir sınır yoktur. Açık 7 PR olmasına rağmen son yayınlanan
-  yazıdan (Renode, 2026-05-14) bu yana 7 gün geçti — `min_yayin_araligi_gun = 2`
-  şartı fazlasıyla sağlanmış durumda. Bu çalıştırmada yeni PR açıldı.
-- Bandpass sampling konusunun "neden Türkçe içerikte zor bulunuyor" yanıtı:
-  matematik (Vaughan 1991), datasheet okuma (analog input BW), saat phase noise
-  ve filtre tasarımı disiplinlerinin kesişiminde bulunuyor; Türkçe kaynaklar
-  genellikle yalnızca tek bir cepheden ele almış oluyor (genelde Lyons özet
-  çevirisi). Sentez ve somut sayısal örnek boşluğu büyük.
-- Açık PR'lar konusunda inceleme önceliği yorumu (gözlem): #50 ve #51 hâlâ uzun
-  süredir bekliyor; #50 eski yazıyı genişletiyor, #51 ise yayındaki MISRA C:2025
-  ile büyük olasılıkla çakışıyor. İnceleyen kişinin dikkatine.
+- Seçilen konu **CIC desimasyon filtresinde integratör taşması**. 27 yayın + 70 açık PR
+  tarandı; DSP tarafında NCO (#182), IIR kuantizasyonu (#178), I/Q (#170), Q15 FIR (#114)
+  ve yayındaki bandpass sampling var — **CIC / desimasyon / bit büyümesi hiç yok**.
+  Yayındaki bandpass sampling yazısı CIC'i kendi "sonraki konu" paragrafında işaret ediyor.
+- Novelty gerekçesi: yaygın bir yanılgıyı hedefliyor (saturasyon "güvenli" sanılıyor,
+  oysa filtreyi bozan tam olarak o). Birincil kaynak (Hogenauer 1981) paywall arkasında;
+  satıcı dokümanları formülü verip türetmiyor; C tarafı bağlantısı (signed taşma = UB,
+  MISRA C:2012 Rule 1.3) DSP literatüründe hiç kurulmuyor; Türkçe kaynak yok.
+- Derinlik öğeleri (üç tane): tekrar üretilebilir sayısal deney (40/39 bit wraparound vs
+  saturasyon, bit-bit karşılaştırma), derleyici/assembly incelemesi (clang `-O2` signed
+  taşma varsayımı, `-fwrapv`, UBSan), matematiksel türetme + ölçülmüş frekans cevabı.
+- Yayın kapısı: son yayın 2026-10-01 (CSEP), aradan 19 gün geçti —
+  `min_yayin_araligi_gun = 2` fazlasıyla sağlandı. Öz-denetim listesi tam geçti.
+- Doğrulama: `bundle exec jekyll build` temiz; tarayıcıda MathJax 86 container / 0 hata,
+  mermaid 7 node, 5 tablo (beklenen sayı), inline SVG koyu ve açık temada doğru render.
+  Okuma süresi 32 dk (blogun teknik yazı aralığında).
