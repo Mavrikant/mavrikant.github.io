@@ -25,6 +25,8 @@ sinyal-isleme:
 metroloji:
   name: "Metroloji"
   featured: true
+istatistik:
+  name: "İstatistik"
 yoneylem-arastirmasi:
   name: "Yöneylem Araştırması"
 yazilim-tasarimi:
