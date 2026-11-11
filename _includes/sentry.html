@@ -1,6 +1,22 @@
 {% if site.sentry_loader_id and site.sentry_loader_id != "YOUR_LOADER_ID_HERE" %}
 <!-- Sentry (errors + performance + replay). The org lives in the EU (de) region:
      its loader is served only from js-de.sentry-cdn.com; js.sentry-cdn.com returns a no-op stub. -->
+<!-- The web-vitals library bundled in the Sentry SDK calls Array.prototype.at()
+     (ES2022) from its layout-shift observer; engines older than Safari 15.4 /
+     Chrome 92 lack it and throw "this.o.at is not a function". -->
+<script>
+  if (!Array.prototype.at) {
+    Object.defineProperty(Array.prototype, 'at', {
+      value: function (index) {
+        var i = Math.trunc(index) || 0;
+        if (i < 0) i += this.length;
+        return i < 0 || i >= this.length ? undefined : this[i];
+      },
+      writable: true,
+      configurable: true,
+    });
+  }
+</script>
 <script src="https://js-de.sentry-cdn.com/{{ site.sentry_loader_id }}.min.js" crossorigin="anonymous"></script>
 <script>
   Sentry.onLoad(function () {
