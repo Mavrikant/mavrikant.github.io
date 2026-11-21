@@ -19,6 +19,7 @@ This is the personal blog of **M. Serdar Karaman**, hosted at <https://karaman.d
 ├── package.json             # Upstream theme metadata (informational only)
 ├── CNAME                    # Custom domain for GitHub Pages
 ├── ads.txt                  # Ad network authorization file
+├── app-ads.txt              # AdMob authorization for apps that name karaman.dev as their developer site (Orbit Stackers)
 ├── index.html               # Homepage (layout: home)
 ├── about.md                 # About page
 ├── contact.html             # Contact page
