@@ -22,85 +22,85 @@
 - [x] Ölçüm Belirsizliği (GUM Annex F + NCSLI RP-12) — 2026-05-06 — alan: metroloji
 - [x] Kalibrasyon Zincirinin Tepesi (Birincil Standartlar) — 2026-05-07 — alan: metroloji
 - [x] Renode ile Zynq7000 Simülasyonu — 2026-05-14 — alan: gömülü/SoC
+- [x] Bandpass Sampling — 2026-05-21 — alan: RF/DSP
+- [x] Sistem Mühendisliği Nedir — 2026-05-26 — alan: sistem
+- [x] Kalman Filtresi — 2026-06-02 — alan: navigasyon/füzyon
+- [x] Coupling Dengesi — 2026-06-04 — alan: yazılım tasarımı
+- [x] Antikırılgan (Taleb) — 2026-06-24 — alan: sistem/felsefe
 
-## Açık PR'lar (insan inceleme bekleniyor)
+## Açık PR'lar (insan inceleme bekleniyor — 2026-07-12 tarama)
 
-| PR # | Başlık | Dal | Açılış | Alan |
-|------|--------|-----|--------|------|
-| [#79](https://github.com/mavrikant/mavrikant.github.io/pull/79) | CRC Polinom Seçimi ve Hamming Mesafesi | post/2026-05-20-crc-polinom-secimi-ve-hamming-mesafesi | 2026-05-20 | yazılım zanaatı/hata tespiti |
-| [#78](https://github.com/mavrikant/mavrikant.github.io/pull/78) | VOR Nasıl Çalışır? 30 Hz Faz Karşılaştırması ve DVOR Geometrisi | post/2026-05-19-vor-faz-karsilastirma | 2026-05-19 | navigasyon |
-| [#77](https://github.com/mavrikant/mavrikant.github.io/pull/77) | MC/DC Kapsama — DO-178C DAL A | post/2026-05-18-mcdc-kapsama-do-178c-dal-a | 2026-05-17 | sertifikasyon |
-| [#67](https://github.com/mavrikant/mavrikant.github.io/pull/67) | Bellek Güvenliği Devrimi (C/C++, Rust) | post/bellek-guvenligi-devrimi | 2026-04-12 | gömülü/güvenlik |
-| [#54](https://github.com/mavrikant/mavrikant.github.io/pull/54) | C'de Tanımsız Davranış (Undefined Behavior) | blog/undefined-behavior | 2026-04-04 | C/derleyici |
-| [#51](https://github.com/mavrikant/mavrikant.github.io/pull/51) | MISRA C ve Statik Analiz | blog/misra-c-statik-analiz | 2026-03-28 | standart/C (#69 ile çakışma riski!) |
-| [#50](https://github.com/mavrikant/mavrikant.github.io/pull/50) | Float Denormalize FTZ/DAZ (eski yazı genişletme) | claude/float-denormalize-ftz-daz | 2026-03-26 | gömülü/sayısal |
+Uzun bir açık PR yığını var (bu çalıştırma öncesi 20+ post PR'ı). Ledger listesi
+son çalıştırmadan bu yana ciddi biçimde eskidi. Aşağıda son çalıştırmalarda açılan
+ve inceleme bekleyen ana grupların özeti:
 
-> **Not:** PR #51 "MISRA C ve Statik Analiz", zaten yayında olan #69 "MISRA C:2025 ile Neler Değişti?" ile konu olarak çakışıyor olabilir. İnceleyen kişinin dikkatine.
+- **DAL A / DO-178C / Emniyet-kritik**: MC/DC (#77), setjmp/longjmp DAL A (#151),
+  Object Code Coverage (#146), DO-330 araç nitelendirme (#158), Deterministik
+  derleme + DO-178C SECI (#160), DO-326A/ED-202A siber güvenlik (#118).
+- **ARM / gömülü**: Cortex-A Boot (#145), MPU vs MMU (#135), Endianness üç katman
+  (#122), Lockstep DCLS (#121), DMA + cache (#119), ARM GIC (#101), Linker Script
+  (#90), Sabit nokta Q15 FIR (#114).
+- **Concurrency / bellek modeli**: `volatile` üzerine çok sayıda benzer PR
+  (#134, #100, #155, #156, #157, #159 — büyük olasılıkla dedupe gerekir).
+- **RTOS / IMA**: ARINC 653 (#162), Watchdog tasarım desenleri (#161),
+  Priority Inversion Mars Pathfinder (#120).
+- **Navigasyon**: VOR (#78), ILS (#102), Kalman Joseph form (#103),
+  Allan Deviation (#129).
+- **Analiz / test**: WCET (#98, #88 — dupe), Fault Tree (#96), Bellek güvenliği (#67).
+- **Diğer**: SEU/SECDED ECC (#124), Dört aşamalı veri analitiği (#99), CRC polinom
+  seçimi (#79), Undefined Behavior (#54).
+
+> **Genel not**: Açık PR sayısı 20'yi geçti; ledger'daki tekrarlar (özellikle
+> `volatile` grubu ve WCET çiftlemesi) inceleyicinin dikkatine. Yeni yazı,
+> hiçbirisiyle konu örtüşmüyor (formel yöntemler / abstract interpretation).
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- **Abstract Interpretation Pratikte: Interval Domain Neyi Kanıtlar,
+  Neyi Kanıtlamaz?** —
+  dal: `post/2026-07-12-abstract-interpretation-interval-domain`,
+  dosya: `_posts/2026-07-12-abstract-interpretation-interval-domain.md`,
+  durum: PR açılıyor (bu çalıştırma) — alan: formel yöntemler / statik analiz.
 
 ## Reddedildi (bu çalıştırma)
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- **MIL-STD-1553B — Manchester II + RT/BC/MC**: reddedilmedi, sonraki
+  çalıştırmaya bırakıldı (foundational aviation, iyi bir sonraki aday).
+- **AFDX / ARINC 664 Part 7**: ARINC 653'ün (PR #162) IMA kardeşi olduğu için
+  domain rotasyonu adına bu çalıştırmada seçilmedi; havacılık ağı sırası gelmişken
+  bir 2-3 yazı sonra ele alınabilir.
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 
-Aşağıdaki adaylar, mevcut yazılar + açık PR'larla çakışmıyor ve Bölüm 6 kriterlerini
-geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
-
 ### Yüksek öncelikli (kalıcı değer + Türkçe boşluk)
 
-- [ ] **ARM Cortex-A reset vektöründen `main()`'e: gerçekten ne oluyor?** —
-      alan: gömülü/SoC — Renode yazısının doğal devamı, somut deney imkânı
-- [ ] **MC/DC kapsama: DO-178C DAL A'da neden modified condition/decision şart?** —
-      alan: sertifikasyon — gerçek karar tablosu örneği, decision/condition farkı
-- [ ] **CRC vs checksum: neden CRC-32 değil de CRC-32C / CRC-16-CCITT seçilir?** —
-      alan: yazılım zanaatı — polinom seçimi, hata tespit gücü, bit-hata analizi
-- [ ] **WCET analizi: statik analiz vs ölçüm tabanlı yaklaşımlar, cache etkileri** —
-      alan: gerçek zamanlı — somut örnek (örn. Cortex-R5 üzerinde basit görev)
-- [ ] **IQ örnekleme ve karmaşık sinyaller: gerçek SDR'ye giriş** —
-      alan: RF/SDR — neden negatif frekans, neden 2 kanal
-- [ ] **GIC (Generic Interrupt Controller): SGI/PPI/SPI farkları ve önceliklendirme** —
-      alan: ARM — kesme yönlendirme, multicore'da CPU affinity
-- [ ] **Cache coherency ve MESI: ARM'da CCI/CMN ne yapar, neden yazılım perde
-      (barrier) gerekir?** — alan: ARM — pratik race condition örneği
-- [ ] **Linker script anatomisi: ARM bare-metal için bir `.ld` dosyası satır satır** —
-      alan: gömülü — kendi linker script'i yazma rehberi
-- [ ] **Watchdog tasarım desenleri: tek vs çoklu görev watchdog, deadman switch,
-      windowed watchdog** — alan: güvenilirlik — gerçek tasarım kararları
-- [ ] **`volatile`'ın doğru kullanımı: nerede yetmez, neden `_Atomic` gerekir?** —
-      alan: C/eşzamanlılık — derleyici çıktı analizi
-- [ ] **VOR'un çalışma prensibi: 30 Hz referans + değişken faz nasıl yön verir?** —
-      alan: navigasyon — faz farkı matematiği + sinyal şeması
-- [ ] **ILS anatomisi: localizer 90/150 Hz DDM ve glide slope** —
-      alan: navigasyon — modülasyon derinliği farkı + örnek hesap
-- [ ] **Kalman filtresi tuzakları: numerik stabilite, gözlemlenebilirlik, tuning** —
-      alan: navigasyon/füzyon — basit IMU örneği + Python kodu
-- [ ] **Sabit nokta (Q-format) aritmetik: Cortex-M0'da FPU yokken DSP nasıl yapılır?** —
-      alan: gömülü/DSP — Q15/Q31 örnekleri, overflow yönetimi
+- [ ] **MIL-STD-1553B: Manchester II Kodlaması + RT/BC/MC Anatomisi** —
+      alan: aviyonik veri yolu, foundational; sinyal analizi + bit hata toleransı
+- [ ] **AFDX / ARINC 664 Part 7: BAG, VL Redundancy ve Deterministik Ethernet** —
+      alan: modern aviyonik ağ; ARINC 653'ten sonra sırada
+- [ ] **IQ Örnekleme: Neden Karmaşık Sinyal, Neden Negatif Frekans?** —
+      alan: RF/DSP; Bandpass sampling yazısının doğal devamı, matematik ağır
+- [ ] **FIR vs IIR: Faz Cevabı, Stabilite ve Hesaplama Maliyeti** —
+      alan: DSP; Q15 FIR yazısını (#114) tamamlar niteliğinde
+- [ ] **ADS-B Extended Squitter: 112-bit Framing + PPM + CRC-24** —
+      alan: navigasyon; SDR ile üretilebilir bir deney
+- [ ] **Frama-C ile EVA: açık kaynak abstract interpretation deneme rehberi** —
+      alan: statik analiz; bu yazının doğal pratik devamı
+- [ ] **DO-333 Formel Yöntemler Eki (Formal Methods Supplement)** —
+      alan: sertifikasyon; sound analyzer ile MC/DC replacement pratiği
+- [ ] **Interval Contractor Programming (HC4, SIVIA)** — alan: geometrik/nümerik
+      hesaplama; yörünge analizinde INS envelope hesabı için kullanışlı
 
 ### Orta öncelikli (kovaya alındı)
 
-- [ ] DO-330 araç nitelendirme (Tool Qualification) seviyeleri
 - [ ] ARP4754A — sistem geliştirme süreci
-- [ ] DO-326A / ED-202A havacılık siber güvenliği
 - [ ] FMEA pratikte: gerçek bir alt-sistem üzerinden adım adım
-- [ ] Fault Tree Analysis ile minimal cut set hesabı
-- [ ] FPU denormal performansı: Cortex-A vs x86 davranış farkı
-- [ ] Deterministik build: SOURCE_DATE_EPOCH, reproducible toolchain
-- [ ] Endianness: ağ baytı vs host baytı, ARM'ın iki modu, bitfield tuzakları
-- [ ] DMA yarış koşulları: ARM'da cache invalidation/clean stratejileri
-- [ ] Lockstep CPU mimarisi: TI Hercules / NXP MPC57xx örnekleri
-- [ ] MPU vs MMU: hangisi ne zaman, FreeRTOS-MPU örneği
-- [ ] Statik analiz neyi yakalar / kaçırır: somut C kodu üzerinden Coverity/Polyspace
-- [ ] Radyasyona dayanıklı yazılım: SEU, TMR, scrubbing
-- [ ] ADS-B sinyal yapısı: PPM modülasyon, mesaj formatı
-- [ ] FIR vs IIR: faz cevabı, hesaplama maliyeti, stabilite
+- [ ] Cache coherency ve MESI: ARM CCI/CMN, race condition örneği
+- [ ] MISRA C Directive 4.1 (RTE'ye karşı savunma) ve sound analyzer ilişkisi
+- [ ] IEEE 754 subnormal davranışın Cortex-A vs x86'daki farkı
+- [ ] Radar Cross Section basics (yazarın uzmanlığına yakın değil, atlanabilir)
+- [ ] Time-Triggered Ethernet SAE AS-6003 TTP vs IEEE 802.1AS
+- [ ] Bounded Model Checking (BMC) — CBMC / ESBMC pratikte
 
 ### Düşük öncelikli / sonraya bırak
 
@@ -108,21 +108,21 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - [ ] DO-254 donanım sertifikasyonu (yazarın uzmanlığı ağırlıklı yazılım tarafında)
 - [ ] İzlenebilirlik matrisi (klasik konu, derinlik çıkarmak zor)
 
-## Notlar (bu çalıştırma — 2026-05-21)
+## Notlar (bu çalıştırma — 2026-07-12)
 
-- **Bandpass Sampling** seçildi (alan: RF/DSP). Önceki çalıştırmaların ardından
-  açılan PR'lar son üç alt-alanı (sertifikasyon #77, navigasyon #78, yazılım
-  zanaatı/CRC #79) işaretlemişti; bu yazı **bu üç alandan da** son yayınlanan 3
-  posttan da (Renode gömülü/SoC, kalibrasyon ×2) farklı bir alan getiriyor.
-- Yayın kapısı durumu: Bölüm 4 yalnızca "yayın PR ile olmalı" kuralı koyar; backlog
-  büyüklüğüne dair sert bir sınır yoktur. Açık 7 PR olmasına rağmen son yayınlanan
-  yazıdan (Renode, 2026-05-14) bu yana 7 gün geçti — `min_yayin_araligi_gun = 2`
-  şartı fazlasıyla sağlanmış durumda. Bu çalıştırmada yeni PR açıldı.
-- Bandpass sampling konusunun "neden Türkçe içerikte zor bulunuyor" yanıtı:
-  matematik (Vaughan 1991), datasheet okuma (analog input BW), saat phase noise
-  ve filtre tasarımı disiplinlerinin kesişiminde bulunuyor; Türkçe kaynaklar
-  genellikle yalnızca tek bir cepheden ele almış oluyor (genelde Lyons özet
-  çevirisi). Sentez ve somut sayısal örnek boşluğu büyük.
-- Açık PR'lar konusunda inceleme önceliği yorumu (gözlem): #50 ve #51 hâlâ uzun
-  süredir bekliyor; #50 eski yazıyı genişletiyor, #51 ise yayındaki MISRA C:2025
-  ile büyük olasılıkla çakışıyor. İnceleyen kişinin dikkatine.
+- **Abstract Interpretation** seçildi. Son yayın 2026-06-24 (Antikırılgan);
+  18 gün geçmiş — `min_yayin_araligi_gun=2` fazlasıyla sağlandı. Son 3 yazı
+  farklı alt-alan (sistem/felsefe, yazılım tasarımı, füzyon); bu yazı yeni bir
+  alan (formel yöntemler / statik analiz) getiriyor.
+- "Neden bulunması zor" yanıtı: Cousot 1977 makalesi matematik ağır, İngilizce.
+  Ticari araçlar (Astrée, Polyspace, TrustInSoft) iç domain işleyişini kapalı
+  tutuyor. Türkçe içerik "Polyspace kullanın" seviyesinde kalıyor; interval
+  domain'in *niye* sound, *ne zaman* yanlış alarm ürettiği matematiğini anlatan
+  Türkçe kaynak yok.
+- Derinlik öğesi: Küçük bir C fonksiyonu üzerinde interval domain'in el ile trace
+  edilmesi, widening'in devreye girdiği somut nokta ve interval'in tıkandığı
+  gerçek false positive örneği (k() fonksiyonu, `x==y ∧ x!=0` yolu).
+- Yayın kapısı durumu: 20+ açık PR var; ledger'daki eski liste güncellendi.
+  Bu yazı yeni PR olarak açılıyor — hiçbirisiyle konu örtüşmüyor.
+- Yerel `bundle exec jekyll build` başarılı (367 Sass deprecation uyarısı ihmal;
+  bunlar tema kaynaklı, upstream Bootstrap SCSS'in eski `if()` sözdiziminden).
