@@ -22,6 +22,10 @@
 - [x] Ölçüm Belirsizliği (GUM Annex F + NCSLI RP-12) — 2026-05-06 — alan: metroloji
 - [x] Kalibrasyon Zincirinin Tepesi (Birincil Standartlar) — 2026-05-07 — alan: metroloji
 - [x] Renode ile Zynq7000 Simülasyonu — 2026-05-14 — alan: gömülü/SoC
+- [x] Bandpass Sampling: 1 GHz Sinyali 50 MHz Clock ile Örneklemek — 2026-05-21 — alan: RF/DSP
+- [x] Sistem Mühendisliği Nedir? — 2026-05-26 — alan: sistem
+- [x] Kalman Filtresi — 2026-06-02 — alan: navigasyon/füzyon
+- [x] Coupling'i Dengelemek — 2026-06-04 — alan: yazılım tasarımı
 
 ## Açık PR'lar (insan inceleme bekleniyor)
 
@@ -39,14 +43,15 @@
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- **`volatile` Yetmez: C'de Eşzamanlılık, MMIO ve `_Atomic`** —
+  dal: `post/2026-06-13-volatile-yetmez-c-atomic`,
+  dosya: `_posts/2026-06-13-volatile-yetmez-c-atomic.md`,
+  durum: PR açılacak (bu çalıştırma) — alan: C/eşzamanlılık.
 
 ## Reddedildi (bu çalıştırma)
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- _(bu çalıştırmada konu reddedilmedi; fikir havuzundan "`volatile` doğru kullanımı"
+  seçildi.)_
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 
@@ -73,8 +78,8 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
       alan: gömülü — kendi linker script'i yazma rehberi
 - [ ] **Watchdog tasarım desenleri: tek vs çoklu görev watchdog, deadman switch,
       windowed watchdog** — alan: güvenilirlik — gerçek tasarım kararları
-- [ ] **`volatile`'ın doğru kullanımı: nerede yetmez, neden `_Atomic` gerekir?** —
-      alan: C/eşzamanlılık — derleyici çıktı analizi
+- [x] ~~**`volatile`'ın doğru kullanımı: nerede yetmez, neden `_Atomic` gerekir?**~~
+      → 2026-06-13 yayınlandı (yukarı taşındı)
 - [ ] **VOR'un çalışma prensibi: 30 Hz referans + değişken faz nasıl yön verir?** —
       alan: navigasyon — faz farkı matematiği + sinyal şeması
 - [ ] **ILS anatomisi: localizer 90/150 Hz DDM ve glide slope** —
@@ -108,7 +113,25 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - [ ] DO-254 donanım sertifikasyonu (yazarın uzmanlığı ağırlıklı yazılım tarafında)
 - [ ] İzlenebilirlik matrisi (klasik konu, derinlik çıkarmak zor)
 
-## Notlar (bu çalıştırma — 2026-05-21)
+## Notlar (bu çalıştırma — 2026-06-13)
+
+- **`volatile` Yetmez** seçildi (alan: C/eşzamanlılık). Son 5 yazı: coupling
+  (yazılım tasarımı), Kalman (navigasyon), sistem mühendisliği, bandpass (RF/DSP),
+  Renode (gömülü/SoC). Düşük seviye C / bellek modeli son ~6 ayda hiç işlenmemiş;
+  alan rotasyonu için doğal seçim.
+- Yayın kapısı: `min_yayin_araligi_gun = 2` rahatlıkla sağlandı (son yayın 2026-06-04,
+  arada 9 gün). Açık PR'ların inceleme bekliyor olması, yeni PR açmaya engel değil
+  (Bölüm 4 sert sınır koymaz, kalite koruması zaten konu seçimi ve eleştirmen fazında).
+- "Neden Türkçe'de bulunamıyor" yanıtı: `volatile` ile `_Atomic` ayrımı, derleyicinin
+  ürettiği assembly + ARM weakly-ordered hafıza modeli + C11 standart paragrafları
+  kesişimine düşüyor. Türkçe kaynaklar genellikle yalnızca derleyici cephesinden
+  ("değişebilir değişken") yaklaşıyor; donanım sıralaması ve `_Atomic` neredeyse
+  hiç işlenmemiş.
+- Derinlik öğesi (Bölüm 7): ARM Cortex-A53 (ARMv8) ve Cortex-A9 (ARMv7) için gcc
+  çıktısı karşılaştırması — `str` / `stlr` / `dmb ish` farkları somut şekilde
+  görülüyor.
+
+## Notlar (önceki çalıştırma — 2026-05-21)
 
 - **Bandpass Sampling** seçildi (alan: RF/DSP). Önceki çalıştırmaların ardından
   açılan PR'lar son üç alt-alanı (sertifikasyon #77, navigasyon #78, yazılım
