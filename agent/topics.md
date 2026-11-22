@@ -22,31 +22,54 @@
 - [x] Ölçüm Belirsizliği (GUM Annex F + NCSLI RP-12) — 2026-05-06 — alan: metroloji
 - [x] Kalibrasyon Zincirinin Tepesi (Birincil Standartlar) — 2026-05-07 — alan: metroloji
 - [x] Renode ile Zynq7000 Simülasyonu — 2026-05-14 — alan: gömülü/SoC
+- [x] Bandpass Sampling — 2026-05-21 — alan: RF/DSP
+- [x] Sistem Mühendisliği Nedir? — 2026-05-26 — alan: sistem
+- [x] Kalman Filtresi ve EKF — 2026-06-02 — alan: navigasyon/füzyon
+- [x] Coupling Dengesi — 2026-06-04 — alan: yazılım tasarımı
+- [x] Antikırılgan Sistemler — 2026-06-24 — alan: sistem/felsefe
+- [x] Dogfooding — 2026-09-04 — alan: ürün/kültür
+- [x] Analitiğin Dört Hâli — 2026-09-22 — alan: veri/analitik
+- [x] INCOSE CSEP Sertifikasyon Yolculuğum — 2026-10-01 — alan: sertifikasyon/kariyer
 
 ## Açık PR'lar (insan inceleme bekleniyor)
 
-| PR # | Başlık | Dal | Açılış | Alan |
-|------|--------|-----|--------|------|
-| [#79](https://github.com/mavrikant/mavrikant.github.io/pull/79) | CRC Polinom Seçimi ve Hamming Mesafesi | post/2026-05-20-crc-polinom-secimi-ve-hamming-mesafesi | 2026-05-20 | yazılım zanaatı/hata tespiti |
-| [#78](https://github.com/mavrikant/mavrikant.github.io/pull/78) | VOR Nasıl Çalışır? 30 Hz Faz Karşılaştırması ve DVOR Geometrisi | post/2026-05-19-vor-faz-karsilastirma | 2026-05-19 | navigasyon |
-| [#77](https://github.com/mavrikant/mavrikant.github.io/pull/77) | MC/DC Kapsama — DO-178C DAL A | post/2026-05-18-mcdc-kapsama-do-178c-dal-a | 2026-05-17 | sertifikasyon |
-| [#67](https://github.com/mavrikant/mavrikant.github.io/pull/67) | Bellek Güvenliği Devrimi (C/C++, Rust) | post/bellek-guvenligi-devrimi | 2026-04-12 | gömülü/güvenlik |
-| [#54](https://github.com/mavrikant/mavrikant.github.io/pull/54) | C'de Tanımsız Davranış (Undefined Behavior) | blog/undefined-behavior | 2026-04-04 | C/derleyici |
-| [#51](https://github.com/mavrikant/mavrikant.github.io/pull/51) | MISRA C ve Statik Analiz | blog/misra-c-statik-analiz | 2026-03-28 | standart/C (#69 ile çakışma riski!) |
-| [#50](https://github.com/mavrikant/mavrikant.github.io/pull/50) | Float Denormalize FTZ/DAZ (eski yazı genişletme) | claude/float-denormalize-ftz-daz | 2026-03-26 | gömülü/sayısal |
-
-> **Not:** PR #51 "MISRA C ve Statik Analiz", zaten yayında olan #69 "MISRA C:2025 ile Neler Değişti?" ile konu olarak çakışıyor olabilir. İnceleyen kişinin dikkatine.
+> **Bu bölümde liste TUTULMUYOR.** Master'a her merge sonrası bayatlıyordu ve
+> defterdeki 7 satır gerçekteki onlarca PR'ı hiçbir zaman yansıtmadı. Konu seçmeden
+> **önce** canlı listeyi oku:
+>
+> ```bash
+> gh pr list --repo mavrikant/mavrikant.github.io --state open --limit 200 \
+>   --json number,title,headRefName
+> ```
+>
+> Adayı hem bu listeye hem `_posts/` envanterine karşı **anlam** olarak (başlık değil)
+> kontrol et. 2026-10-18 sayımı: **72 açık PR**.
+>
+> Birikmiş PR'larda doygun alanlar: `volatile`/`_Atomic` (7+ PR), WCET (4 PR),
+> DO-178C yapısal kapsama (MC/DC, object code, data/control coupling, DO-331),
+> watchdog, endianness/bitfield, ARM çevre birimleri (GIC, MPU/MMU, DMA/cache, boot),
+> MIL-STD-1553B, AFDX/ARINC 653, Kalman, ILS/VOR, CRC, linker script.
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- **Manyetik Sapmanın İki Saati: Donmuş Epoch ve Kaybedilen Autoland** —
+  dal: `post/2026-10-18-manyetik-sapma-donmus-epoch`,
+  dosya: `_posts/2026-10-18-manyetik-sapma-donmus-epoch.md`,
+  araştırma: `agent/research/2026-10-18-manyetik-sapma-donmus-epoch.md`,
+  durum: PR açıldı (2026-10-18) — alan: navigasyon/jeomanyetizma + sertifikasyon.
+  Derinlik öğesi: WMM küresel harmonik modelini sıfırdan kurup NOAA'nın 100 resmî
+  test noktasına karşı doğrulama (D'de 0.005° — yayımlanmış hassasiyetin tavanı),
+  ardından IGRF-14 DGRF ile donmuş epoch hatasının enleme göre hesabı.
 
-## Reddedildi (bu çalıştırma)
+## Reddedildi (2026-10-18 çalıştırması)
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- **ARINC 429 etiket bit sırası / SSM BNR-BCD belirsizliği** — 2026-10-18 —
+  etiket bit-reversal açısı açık PR #122'de (Endianness'in Üç Katmanı) işlenmiş;
+  başlık farklı olsa da okuyucu algısında çakışır.
+- **DO-178C dead code vs deactivated code** — 2026-10-18 — yapısal kapsama alanı
+  4+ açık PR ile doygun; alan rotasyonu kuralına da takılıyor.
+- **ARINC 424 path terminator'ları** — 2026-10-18 — spesifikasyon paywall arkasında,
+  olgusal doğrulama Bölüm 10'un standardını karşılayamaz.
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 

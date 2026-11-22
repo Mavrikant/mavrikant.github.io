@@ -19,12 +19,16 @@ gomulu-sistemler:
 aviyonik:
   name: "Aviyonik"
   featured: true
+navigasyon:
+  name: "Navigasyon"
 sinyal-isleme:
   name: "Sinyal İşleme"
   featured: true
 metroloji:
   name: "Metroloji"
   featured: true
+sertifikasyon:
+  name: "Sertifikasyon"
 yoneylem-arastirmasi:
   name: "Yöneylem Araştırması"
 yazilim-tasarimi:
