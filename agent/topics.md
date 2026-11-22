@@ -22,107 +22,120 @@
 - [x] Ölçüm Belirsizliği (GUM Annex F + NCSLI RP-12) — 2026-05-06 — alan: metroloji
 - [x] Kalibrasyon Zincirinin Tepesi (Birincil Standartlar) — 2026-05-07 — alan: metroloji
 - [x] Renode ile Zynq7000 Simülasyonu — 2026-05-14 — alan: gömülü/SoC
+- [x] Bandpass Sampling — 2026-05-21 — alan: RF/DSP
+- [x] Sistem Mühendisliği Nedir — 2026-05-26 — alan: sistem
+- [x] Kalman Filtresi ve EKF — 2026-06-02 — alan: navigasyon/füzyon
+- [x] Coupling Dengesi — 2026-06-04 — alan: yazılım tasarımı
+- [x] Antikırılgan (Antifragile) — 2026-06-24 — alan: sistem/felsefe
+- [x] Watchdog Tasarım Desenleri — 2026-07-10 — alan: güvenilirlik/gömülü **(bu çalıştırma)**
 
 ## Açık PR'lar (insan inceleme bekleniyor)
 
-| PR # | Başlık | Dal | Açılış | Alan |
-|------|--------|-----|--------|------|
-| [#79](https://github.com/mavrikant/mavrikant.github.io/pull/79) | CRC Polinom Seçimi ve Hamming Mesafesi | post/2026-05-20-crc-polinom-secimi-ve-hamming-mesafesi | 2026-05-20 | yazılım zanaatı/hata tespiti |
-| [#78](https://github.com/mavrikant/mavrikant.github.io/pull/78) | VOR Nasıl Çalışır? 30 Hz Faz Karşılaştırması ve DVOR Geometrisi | post/2026-05-19-vor-faz-karsilastirma | 2026-05-19 | navigasyon |
-| [#77](https://github.com/mavrikant/mavrikant.github.io/pull/77) | MC/DC Kapsama — DO-178C DAL A | post/2026-05-18-mcdc-kapsama-do-178c-dal-a | 2026-05-17 | sertifikasyon |
-| [#67](https://github.com/mavrikant/mavrikant.github.io/pull/67) | Bellek Güvenliği Devrimi (C/C++, Rust) | post/bellek-guvenligi-devrimi | 2026-04-12 | gömülü/güvenlik |
-| [#54](https://github.com/mavrikant/mavrikant.github.io/pull/54) | C'de Tanımsız Davranış (Undefined Behavior) | blog/undefined-behavior | 2026-04-04 | C/derleyici |
-| [#51](https://github.com/mavrikant/mavrikant.github.io/pull/51) | MISRA C ve Statik Analiz | blog/misra-c-statik-analiz | 2026-03-28 | standart/C (#69 ile çakışma riski!) |
-| [#50](https://github.com/mavrikant/mavrikant.github.io/pull/50) | Float Denormalize FTZ/DAZ (eski yazı genişletme) | claude/float-denormalize-ftz-daz | 2026-03-26 | gömülü/sayısal |
+Backlog büyüdü (2026-07-10 itibariyle 15+ açık PR); tümü GitHub'da
+`mavrikant/mavrikant.github.io` üzerinde. Kritik gözlem: **volatile / C bellek modeli /
+_Atomic** konusu için beş ayrı PR birbirine çok yakın açılmış (#155, #156, #157, #159
+ve daha eski #134). İnceleyen kişi için birleştirme veya tercih kararı gerekebilir.
 
-> **Not:** PR #51 "MISRA C ve Statik Analiz", zaten yayında olan #69 "MISRA C:2025 ile Neler Değişti?" ile konu olarak çakışıyor olabilir. İnceleyen kişinin dikkatine.
+Kısa özet (en yeni → en eski):
+
+| PR # | Başlık kısaltması | Alan |
+|------|-------------------|------|
+| #160 | Deterministik Derleme + DO-178C kanıtı | araçlar/derleme |
+| #159 | volatile Yetmez — C bellek modeli ve _Atomic | C/eşzamanlılık |
+| #158 | DO-330 Tool Qualification (TQL matrisi) | sertifikasyon |
+| #157 | volatile Yetmediğinde — Kesme, DMA, Multicore | C/eşzamanlılık |
+| #156 | "volatile" ne değildir — C11 _Atomic + ARM | C/eşzamanlılık |
+| #155 | 'volatile' Her Şeyi Çözmez | C/eşzamanlılık |
+| #154 | (chore) Ledger sync — post içermez | meta |
+| #151 | `setjmp`/`longjmp` DAL A'da yasak | C/sertifikasyon |
+| #150 | Worst-Case Stack Analizi | güvenilirlik |
+| #149 | Gerçek zamanlı sistemler | RT |
+| #147 | GCC -O0 üzerinde derleyici optimizasyonlarını elle | derleyici |
+| #146 | Object Code Coverage — DO-178C DAL A | sertifikasyon |
+| #145 | Cortex-A Boot — Reset vektöründen main()'e | ARM |
+| #135 | MPU vs MMU (ARM bellek koruması) | ARM |
+| #134 | volatile Yetmez: MMIO + _Atomic | C/eşzamanlılık |
+| #129 | Allan Deviation — IMU karakterizasyon | metroloji/navigasyon |
+| #124 | SEU, SECDED ECC ve Scrubbing | güvenilirlik/uzay |
+| #122 | Endianness'in Üç Katmanı | gömülü |
+| #121 | Lockstep CPU — Cortex-R5 DCLS | ARM/güvenilirlik |
+| #120 | Priority Inversion — Mars Pathfinder | RT/işletim |
+| eski | CRC (#79), VOR (#78), MC/DC (#77), Bellek güvenliği (#67), UB (#54), MISRA statik (#51), Float denorm (#50) | çeşitli |
+
+Watchdog konusu bu tablodaki hiçbir açık PR ile çakışmıyor; alan (güvenilirlik/gömülü)
+son 3 yayının hiçbirinden değil (antifragile, coupling, kalman).
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- **Watchdog Tasarım Desenleri: Independent, Windowed, Deadman ve Sağlık İzleme** —
+  dal: `post/2026-07-10-watchdog-tasarim-desenleri`,
+  dosya: `_posts/2026-07-10-watchdog-tasarim-desenleri.md`,
+  durum: PR açıldı bu çalıştırma — alan: güvenilirlik/gömülü.
 
 ## Reddedildi (bu çalıştırma)
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- _(reddedilen aday yok; havuzdan doğrudan seçim yapıldı.)_
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 
-Aşağıdaki adaylar, mevcut yazılar + açık PR'larla çakışmıyor ve Bölüm 6 kriterlerini
-geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
+Havuz, açık PR'lar süzülerek güncellendi. Aşağıdakiler hâlâ hem yayında hem PR'lar ile
+çakışmıyor; hem de son 3 yayının alanından farklı.
 
 ### Yüksek öncelikli (kalıcı değer + Türkçe boşluk)
 
-- [ ] **ARM Cortex-A reset vektöründen `main()`'e: gerçekten ne oluyor?** —
-      alan: gömülü/SoC — Renode yazısının doğal devamı, somut deney imkânı
-- [ ] **MC/DC kapsama: DO-178C DAL A'da neden modified condition/decision şart?** —
-      alan: sertifikasyon — gerçek karar tablosu örneği, decision/condition farkı
-- [ ] **CRC vs checksum: neden CRC-32 değil de CRC-32C / CRC-16-CCITT seçilir?** —
-      alan: yazılım zanaatı — polinom seçimi, hata tespit gücü, bit-hata analizi
 - [ ] **WCET analizi: statik analiz vs ölçüm tabanlı yaklaşımlar, cache etkileri** —
-      alan: gerçek zamanlı — somut örnek (örn. Cortex-R5 üzerinde basit görev)
+      alan: gerçek zamanlı — Cortex-R5/M üzerinde ölçüm örneği
 - [ ] **IQ örnekleme ve karmaşık sinyaller: gerçek SDR'ye giriş** —
       alan: RF/SDR — neden negatif frekans, neden 2 kanal
-- [ ] **GIC (Generic Interrupt Controller): SGI/PPI/SPI farkları ve önceliklendirme** —
-      alan: ARM — kesme yönlendirme, multicore'da CPU affinity
-- [ ] **Cache coherency ve MESI: ARM'da CCI/CMN ne yapar, neden yazılım perde
-      (barrier) gerekir?** — alan: ARM — pratik race condition örneği
-- [ ] **Linker script anatomisi: ARM bare-metal için bir `.ld` dosyası satır satır** —
-      alan: gömülü — kendi linker script'i yazma rehberi
-- [ ] **Watchdog tasarım desenleri: tek vs çoklu görev watchdog, deadman switch,
-      windowed watchdog** — alan: güvenilirlik — gerçek tasarım kararları
-- [ ] **`volatile`'ın doğru kullanımı: nerede yetmez, neden `_Atomic` gerekir?** —
-      alan: C/eşzamanlılık — derleyici çıktı analizi
-- [ ] **VOR'un çalışma prensibi: 30 Hz referans + değişken faz nasıl yön verir?** —
-      alan: navigasyon — faz farkı matematiği + sinyal şeması
+- [ ] **GIC (Generic Interrupt Controller): SGI/PPI/SPI, önceliklendirme, CPU affinity** —
+      alan: ARM — kesme yönlendirme
+- [ ] **Cache coherency ve MESI: ARM CCI/CMN, yazılım perde (barrier) gerekliliği** —
+      alan: ARM — race condition örneği
+- [ ] **Linker script anatomisi: ARM bare-metal `.ld` dosyası satır satır** —
+      alan: gömülü — kendi linker script'i yazma
 - [ ] **ILS anatomisi: localizer 90/150 Hz DDM ve glide slope** —
-      alan: navigasyon — modülasyon derinliği farkı + örnek hesap
-- [ ] **Kalman filtresi tuzakları: numerik stabilite, gözlemlenebilirlik, tuning** —
-      alan: navigasyon/füzyon — basit IMU örneği + Python kodu
-- [ ] **Sabit nokta (Q-format) aritmetik: Cortex-M0'da FPU yokken DSP nasıl yapılır?** —
-      alan: gömülü/DSP — Q15/Q31 örnekleri, overflow yönetimi
+      alan: navigasyon — modülasyon derinliği + örnek hesap
+- [ ] **Sabit nokta (Q-format) aritmetik: FPU yokken DSP** —
+      alan: gömülü/DSP — Q15/Q31, overflow yönetimi
+- [ ] **DO-326A / ED-202A havacılık siber güvenliği** —
+      alan: sertifikasyon/güvenlik — Part-IS, tehdit modelleme, SAL
+- [ ] **ARP4754A sistem geliştirme süreci** —
+      alan: sistem — DO-178C ile bağlantısı, allocation
 
 ### Orta öncelikli (kovaya alındı)
 
-- [ ] DO-330 araç nitelendirme (Tool Qualification) seviyeleri
-- [ ] ARP4754A — sistem geliştirme süreci
-- [ ] DO-326A / ED-202A havacılık siber güvenliği
-- [ ] FMEA pratikte: gerçek bir alt-sistem üzerinden adım adım
-- [ ] Fault Tree Analysis ile minimal cut set hesabı
-- [ ] FPU denormal performansı: Cortex-A vs x86 davranış farkı
-- [ ] Deterministik build: SOURCE_DATE_EPOCH, reproducible toolchain
-- [ ] Endianness: ağ baytı vs host baytı, ARM'ın iki modu, bitfield tuzakları
-- [ ] DMA yarış koşulları: ARM'da cache invalidation/clean stratejileri
-- [ ] Lockstep CPU mimarisi: TI Hercules / NXP MPC57xx örnekleri
-- [ ] MPU vs MMU: hangisi ne zaman, FreeRTOS-MPU örneği
-- [ ] Statik analiz neyi yakalar / kaçırır: somut C kodu üzerinden Coverity/Polyspace
-- [ ] Radyasyona dayanıklı yazılım: SEU, TMR, scrubbing
-- [ ] ADS-B sinyal yapısı: PPM modülasyon, mesaj formatı
-- [ ] FIR vs IIR: faz cevabı, hesaplama maliyeti, stabilite
+- [ ] FMEA pratikte
+- [ ] Fault Tree Analysis + minimal cut set
+- [ ] FPU denormal performansı (Cortex-A vs x86)
+- [ ] Statik analiz neyi yakalar / kaçırır (Polyspace/Coverity)
+- [ ] ADS-B sinyal yapısı (PPM, mesaj formatı)
+- [ ] FIR vs IIR (faz cevabı, maliyet, stabilite)
+- [ ] Kalman filtresi tuzakları (numerik, gözlemlenebilirlik) — #129 Allan yayınlanınca
+      erteleyerek yeniden değerlendir
+- [ ] DMA yarış koşulları — açık PR #157 ile bir miktar örtüşme riski, dikkatli seç
 
 ### Düşük öncelikli / sonraya bırak
 
-- [ ] ECSS uzay yazılım standartları ailesi (geniş, alt-konulara bölünmeli)
-- [ ] DO-254 donanım sertifikasyonu (yazarın uzmanlığı ağırlıklı yazılım tarafında)
+- [ ] ECSS uzay yazılım standartları ailesi (geniş)
+- [ ] DO-254 donanım sertifikasyonu (uzmanlık ağırlıklı yazılım tarafında)
 - [ ] İzlenebilirlik matrisi (klasik konu, derinlik çıkarmak zor)
 
-## Notlar (bu çalıştırma — 2026-05-21)
+## Notlar (bu çalıştırma — 2026-07-10)
 
-- **Bandpass Sampling** seçildi (alan: RF/DSP). Önceki çalıştırmaların ardından
-  açılan PR'lar son üç alt-alanı (sertifikasyon #77, navigasyon #78, yazılım
-  zanaatı/CRC #79) işaretlemişti; bu yazı **bu üç alandan da** son yayınlanan 3
-  posttan da (Renode gömülü/SoC, kalibrasyon ×2) farklı bir alan getiriyor.
-- Yayın kapısı durumu: Bölüm 4 yalnızca "yayın PR ile olmalı" kuralı koyar; backlog
-  büyüklüğüne dair sert bir sınır yoktur. Açık 7 PR olmasına rağmen son yayınlanan
-  yazıdan (Renode, 2026-05-14) bu yana 7 gün geçti — `min_yayin_araligi_gun = 2`
-  şartı fazlasıyla sağlanmış durumda. Bu çalıştırmada yeni PR açıldı.
-- Bandpass sampling konusunun "neden Türkçe içerikte zor bulunuyor" yanıtı:
-  matematik (Vaughan 1991), datasheet okuma (analog input BW), saat phase noise
-  ve filtre tasarımı disiplinlerinin kesişiminde bulunuyor; Türkçe kaynaklar
-  genellikle yalnızca tek bir cepheden ele almış oluyor (genelde Lyons özet
-  çevirisi). Sentez ve somut sayısal örnek boşluğu büyük.
-- Açık PR'lar konusunda inceleme önceliği yorumu (gözlem): #50 ve #51 hâlâ uzun
-  süredir bekliyor; #50 eski yazıyı genişletiyor, #51 ise yayındaki MISRA C:2025
-  ile büyük olasılıkla çakışıyor. İnceleyen kişinin dikkatine.
+- **Watchdog Tasarım Desenleri** seçildi. Havuzdaki eski aday
+  ("Watchdog tasarım desenleri: tek vs çoklu görev...") yeniden değerlendirilerek
+  derinlik yükseltildi: WWDG register matematiği + Toyota Bookout vaka analizi +
+  ARINC 653 HM tabloları katmanlı olarak işlendi.
+- Son yayın 2026-06-24 (antifragile), yani 16 gün önce; `min_yayin_araligi_gun = 2`
+  fazlasıyla sağlanmış.
+- Alan rotasyonu: son üç yayın sistem/felsefe, yazılım tasarımı, navigasyon;
+  bu yazı güvenilirlik/gömülü — kesişim yok.
+- "Neden Türkçe kaynak zor bulunuyor" yanıtı: WWDG register matematiği datasheet
+  içinde, çok seviyeli check-in deseni Barr/Koopman bloglarında, ARINC 653 HM
+  tabloları çoğu Wind River/PikeOS proprietary belgelerinde. Türkçe içerik "watchdog
+  timer nedir" seviyesinde takılmış. Toyota vakasının watchdog perspektifinden
+  okunması özellikle yok.
+- Açık PR yığını konusunda inceleme önceliği gözlem: **volatile/atomic** için beş
+  ayrı PR (#134, #155, #156, #157, #159) birbirine çok yakın — bunlardan birinin
+  seçilip diğerlerinin kapatılması gerekebilir. Ayrıca #158 (DO-330) ve #146
+  (Object Code Coverage) uzun süredir bekliyor.
