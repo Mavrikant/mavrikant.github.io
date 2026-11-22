@@ -22,6 +22,14 @@
 - [x] Ölçüm Belirsizliği (GUM Annex F + NCSLI RP-12) — 2026-05-06 — alan: metroloji
 - [x] Kalibrasyon Zincirinin Tepesi (Birincil Standartlar) — 2026-05-07 — alan: metroloji
 - [x] Renode ile Zynq7000 Simülasyonu — 2026-05-14 — alan: gömülü/SoC
+- [x] Bandpass Sampling: 1 GHz Sinyali 50 MHz Clock ile Örneklemek — 2026-05-21 — alan: RF/DSP
+- [x] Sistem Mühendisliği Nedir? — 2026-05-26 — alan: sistem
+- [x] Kalman Filtresi — 2026-06-02 — alan: navigasyon/füzyon
+- [x] Coupling'i Dengelemek — 2026-06-04 — alan: yazılım tasarımı
+
+> **Not:** Açık PR havuzu çok yoğun (30+ PR). Aşağıdaki tablo eski; gerçek liste için
+> `gh pr list --state open --limit 60`. Faz 2 konu seçimi yapılırken hem `_posts/`
+> hem açık PR başlıkları taranmalı.
 
 ## Açık PR'lar (insan inceleme bekleniyor)
 
@@ -39,14 +47,19 @@
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- **Yığın Taşması Sessiz Bir Katildir — Gömülü Sistemlerde Worst-Case Stack Analizi** —
+  dal: `post/2026-06-23-worst-case-stack-analizi`,
+  dosya: `_posts/2026-06-24-worst-case-stack-analizi.md`,
+  durum: PR açılacak (bu çalıştırma) — alan: gömülü/güvenilirlik.
+  Derinlik öğesi: Bookout v. Toyota vaka analizi (%41 vs %94 yığın doluluğu, Barr
+  tanıklığı) + somut çağrı grafiği üzerinden WCS hesabı + ARMv8-M PSPLIM kurulum kodu.
 
 ## Reddedildi (bu çalıştırma)
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- IQ örnekleme — son 3 yazıda RF/DSP yoğunluğu yüksek (bandpass, ILS PR, VOR PR);
+  alan rotasyonu zorlanmasın diye sonraki çalıştırmaya bırakıldı.
+- Cache coherency / MESI — DMA & Cache PR #119 ile kısmen örtüşüyor; bağımsız
+  açıyı bulduktan sonra ele alınmalı.
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 
