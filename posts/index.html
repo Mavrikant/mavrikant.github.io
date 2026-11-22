@@ -86,8 +86,14 @@
       tracesSampleRate: 1.0,
       replaysSessionSampleRate: 0.1,
       replaysOnErrorSampleRate: 1.0,
-      // A skipped page transition (see head.html) is cosmetic, never a bug.
-      ignoreErrors: [/Transition was (skipped|aborted)/],
+      ignoreErrors: [
+        // A skipped page transition (see head.html) is cosmetic, never a bug.
+        /Transition was (skipped|aborted)/,
+        // Chromium reports this when a ResizeObserver callback changes layout
+        // and the rest is deferred to the next frame. It is a benign notice
+        // (the spec says observers just run again), not an exception.
+        /ResizeObserver loop (completed with undelivered notifications|limit exceeded)/,
+      ],
     });
   });
 </script>
