@@ -1967,6 +1967,35 @@ article {
   overflow: hidden;
 }
 
+// Interactive demo cards inside posts. Bootstrap's .card and .custom-select
+// have fixed light surfaces; .demo-card moves them onto the theme tokens so
+// the controls stay readable in dark mode.
+.post-content .demo-card {
+  background-color: var(--color-surface);
+  border-color: var(--color-border-strong);
+
+  .card-header {
+    background-color: var(--color-bg-alt);
+    border-bottom-color: var(--color-border-strong);
+    color: var(--color-heading);
+  }
+
+  .custom-select {
+    background-color: var(--color-surface);
+    border-color: var(--color-border-strong);
+    color: var(--color-text);
+  }
+
+  .demo-card__status {
+    background-color: var(--color-bg-alt);
+    color: var(--color-text);
+  }
+
+  .text-muted {
+    color: var(--color-text-muted) !important;
+  }
+}
+
 // =============================================================================
 // Floating scroll-to-top button — injected by assets/scripts.js, revealed
 // once the reader has scrolled past the first viewport.
