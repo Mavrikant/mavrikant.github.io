@@ -22,6 +22,11 @@
 - [x] Ölçüm Belirsizliği (GUM Annex F + NCSLI RP-12) — 2026-05-06 — alan: metroloji
 - [x] Kalibrasyon Zincirinin Tepesi (Birincil Standartlar) — 2026-05-07 — alan: metroloji
 - [x] Renode ile Zynq7000 Simülasyonu — 2026-05-14 — alan: gömülü/SoC
+- [x] Bandpass Sampling — 2026-05-21 — alan: RF/DSP
+- [x] Sistem Mühendisliği Nedir? — 2026-05-26 — alan: sistem
+- [x] Kalman Filtresi — 2026-06-02 — alan: navigasyon/füzyon
+- [x] Coupling Dengesi — 2026-06-04 — alan: yazılım tasarımı
+- [x] Antikırılgan: Belirsizlikten Güç Alan Sistemler — 2026-06-24 — alan: sistem/felsefe
 
 ## Açık PR'lar (insan inceleme bekleniyor)
 
@@ -39,14 +44,16 @@
 
 ## Seçildi / Devam Eden
 
-- **Bandpass Sampling: 1 GHz Sinyali 50 MHz Saatle Örneklemek** —
-  dal: `post/2026-05-21-bandpass-sampling`,
-  dosya: `_posts/2026-05-21-bandpass-sampling.md`,
-  durum: PR açılacak (bu çalıştırma) — alan: RF/DSP.
+- **'volatile' Her Şeyi Çözmez: ISR Paylaşımı, C11 _Atomic ve ARM Bellek Modeli** —
+  dal: `post/2026-07-03-volatile-neden-yetmez-c11-atomic`,
+  dosya: `_posts/2026-07-03-volatile-neden-yetmez-c11-atomic.md`,
+  durum: PR açılacak (bu çalıştırma) — alan: gömülü/C eşzamanlılık.
 
 ## Reddedildi (bu çalıştırma)
 
-- _(bu çalıştırmada konu reddedilmedi; bandpass sampling havuzdan seçildi.)_
+- _(bu çalıştırmada konu reddedilmedi; havuzdaki "volatile'ın doğru kullanımı" konusu
+  son 3 yazının alt-alanından (sistem/felsefe, yazılım tasarımı, navigasyon) farklı
+  ve açık PR'lardaki UB/MISRA/bellek güvenliği konularıyla anlamlı çakışma taşımıyor.)_
 
 ## Fikir Havuzu (aday konular — gelecek çalıştırma için)
 
@@ -73,8 +80,8 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
       alan: gömülü — kendi linker script'i yazma rehberi
 - [ ] **Watchdog tasarım desenleri: tek vs çoklu görev watchdog, deadman switch,
       windowed watchdog** — alan: güvenilirlik — gerçek tasarım kararları
-- [ ] **`volatile`'ın doğru kullanımı: nerede yetmez, neden `_Atomic` gerekir?** —
-      alan: C/eşzamanlılık — derleyici çıktı analizi
+- [x] **`volatile`'ın doğru kullanımı: nerede yetmez, neden `_Atomic` gerekir?** —
+      alan: C/eşzamanlılık — derleyici çıktı analizi *(2026-07-03 çalıştırmasında seçildi, PR açıldı)*
 - [ ] **VOR'un çalışma prensibi: 30 Hz referans + değişken faz nasıl yön verir?** —
       alan: navigasyon — faz farkı matematiği + sinyal şeması
 - [ ] **ILS anatomisi: localizer 90/150 Hz DDM ve glide slope** —
@@ -108,21 +115,25 @@ geçici olarak karşılıyor. Faz 2'de tekrar değerlendirilmesi gerekir.
 - [ ] DO-254 donanım sertifikasyonu (yazarın uzmanlığı ağırlıklı yazılım tarafında)
 - [ ] İzlenebilirlik matrisi (klasik konu, derinlik çıkarmak zor)
 
-## Notlar (bu çalıştırma — 2026-05-21)
+## Notlar (bu çalıştırma — 2026-07-03)
 
-- **Bandpass Sampling** seçildi (alan: RF/DSP). Önceki çalıştırmaların ardından
-  açılan PR'lar son üç alt-alanı (sertifikasyon #77, navigasyon #78, yazılım
-  zanaatı/CRC #79) işaretlemişti; bu yazı **bu üç alandan da** son yayınlanan 3
-  posttan da (Renode gömülü/SoC, kalibrasyon ×2) farklı bir alan getiriyor.
-- Yayın kapısı durumu: Bölüm 4 yalnızca "yayın PR ile olmalı" kuralı koyar; backlog
-  büyüklüğüne dair sert bir sınır yoktur. Açık 7 PR olmasına rağmen son yayınlanan
-  yazıdan (Renode, 2026-05-14) bu yana 7 gün geçti — `min_yayin_araligi_gun = 2`
-  şartı fazlasıyla sağlanmış durumda. Bu çalıştırmada yeni PR açıldı.
-- Bandpass sampling konusunun "neden Türkçe içerikte zor bulunuyor" yanıtı:
-  matematik (Vaughan 1991), datasheet okuma (analog input BW), saat phase noise
-  ve filtre tasarımı disiplinlerinin kesişiminde bulunuyor; Türkçe kaynaklar
-  genellikle yalnızca tek bir cepheden ele almış oluyor (genelde Lyons özet
-  çevirisi). Sentez ve somut sayısal örnek boşluğu büyük.
-- Açık PR'lar konusunda inceleme önceliği yorumu (gözlem): #50 ve #51 hâlâ uzun
-  süredir bekliyor; #50 eski yazıyı genişletiyor, #51 ise yayındaki MISRA C:2025
-  ile büyük olasılıkla çakışıyor. İnceleyen kişinin dikkatine.
+- **volatile / _Atomic / ARM bellek modeli** seçildi (alan: gömülü / C eşzamanlılık).
+  Son 3 yayınlanan yazının alt-alanları: sistem/felsefe (antikırılgan), yazılım
+  tasarımı (coupling), navigasyon/füzyon (Kalman). Bu yazı gömülü C eşzamanlılık
+  tarafına düşüyor; alan rotasyon kuralı sağlandı.
+- Açık PR'lar tarandı: #67 (bellek güvenliği C/C++/Rust) daha yüksek seviye
+  memory-safety karşılaştırması; #54 (undefined behavior in C) UB odaklı; #50 (float
+  FTZ/DAZ) sayısal. Bu yazının odağı olan atomiklik / memory ordering / ARM barrier
+  hiçbiriyle anlamlı içerik çakışması taşımıyor. Konu güvenli.
+- "Bu konuyu Türkçe'de bulmak neden zor?" yanıtı: konu üç ayrı disiplinin (C
+  standardı bellek modeli, ARM mimari bellek modeli, RTOS eşzamanlama primitifleri)
+  kesişiminde. Türkçe içerik genellikle yalnızca "volatile ilan et yeter" refleksini
+  tekrarlar; C11 atomik semantiği + ARMv7-M vs ARMv8-A ayrımı + libatomic 64-bit
+  fallback gibi somut altyapıya çok az giren yazı var. Ayrıca yaygın bir yanılgı
+  içerdiği için Bölüm 8 kriterine güçlü uyum sağlıyor.
+- Yayın kapısı durumu: son yayınlanan yazı 2026-06-24 (antikırılgan). 9 gün geçmiş,
+  `min_yayin_araligi_gun = 2` fazlasıyla sağlanıyor. Yeni PR açıldı.
+- Derinlik öğesi (Bölüm 7): **assembly incelemesi + hata modu (torn read) analizi**.
+  Cortex-M4 üzerinde 64-bit `volatile uint64_t` erişiminin iki LDR'ye açılması ve
+  `_Atomic uint64_t` için GCC'nin `__atomic_load_8` libcall'ı üretmesi somut olarak
+  gösterildi.
