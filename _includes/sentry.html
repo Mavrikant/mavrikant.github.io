@@ -38,6 +38,12 @@
         // and the rest is deferred to the next frame. It is a benign notice
         // (the spec says observers just run again), not an exception.
         /ResizeObserver loop (completed with undelivered notifications|limit exceeded)/,
+        // MathJax 4 starts its screen-reader speech worker from a blob: URL that
+        // importScripts() the SRE bundle from jsDelivr. When that fetch fails
+        // (flaky or filtered network on the visitor's side) the worker throws
+        // an uncaught NetworkError that bubbles to window.onerror. The math
+        // still renders; only speech output is lost, and the page can't catch it.
+        /importScripts.*\/mathjax@[^/]+\/sre\//,
       ],
     });
   });
